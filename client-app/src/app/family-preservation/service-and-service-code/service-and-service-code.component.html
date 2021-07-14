@@ -1,0 +1,650 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="ServiceAndServiceForm" class="sf-form">
+      <div class="flex-container header">
+          <div>
+    
+          </div>
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+          <div>
+    
+          </div>
+        </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">FACTS Case Name</div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="fpServiceAndServiceCode.caseName" formControlName="caseName" name="caseName"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">FACTS Case Number</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpServiceAndServiceCode.caseNumber" formControlName="caseNumber" name="caseNumber"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">Facts Case ID #</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpServiceAndServiceCode.caseId" formControlName="caseId" name="caseId"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p class="bold">(CHECK ALL SERVICES WHICH ARE A PART OF THIS SERVICE PLAN TO BE DELIVERED OVER THE NEXT 170 DAYS)</p>
+    <hr>
+    <div>
+      <table>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+        <tr>
+          <td class="bold table-td" colspan="3">HEALTH</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isIPatientTreatment" formControlName="isIPatientTreatment" name="isIPatientTreatment" ></p-checkbox>
+          </td>
+          <td class="table-td">In-Patient Treatment</td>
+          <td class="table-td">MD03N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isPhysicalExamination" formControlName="isPhysicalExamination" name="isPhysicalExamination" ></p-checkbox>
+          </td>
+          <td class="table-td">Physical Examination/Diagnosis </td>
+          <td colspan="4">MD01N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isWellnessMonitoring" formControlName="isWellnessMonitoring" name="isWellnessMonitoring" ></p-checkbox>
+          </td>
+          <td class="table-td">Wellness Monitoring </td>
+          <td class="table-td">MD01N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isSpeechTherapy" formControlName="isSpeechTherapy" name="isSpeechTherapy" ></p-checkbox>
+          </td>
+          <td class="table-td">Speech Therapy</td>
+          <td class="table-td">MD04N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isOutPatientTreatment" formControlName="isOutPatientTreatment" name="isOutPatientTreatment" ></p-checkbox>
+          </td>
+          <td class="table-td">Out-Patient Treatment </td>
+          <td class="table-td">MD02 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isOccupationalTherapy" formControlName="isOccupationalTherapy" name="isOccupationalTherapy" ></p-checkbox>
+          </td>
+          <td class="table-td">Occupational Therapy</td>
+          <td class="table-td">MD05N/P</td>
+        </tr>
+        <tr>
+          <td colspan="6">
+            <hr>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold table-td" colspan="3">EDUCATIONAL/VOCATIONAL</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isVocationalEducation" formControlName="isVocationalEducation" name="isVocationalEducation" ></p-checkbox>
+          </td>
+          <td class="table-td">Vocational Education</td>
+          <td class="table-td">ED05 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isTutoring" formControlName="isTutoring" name="isTutoring" ></p-checkbox>
+          </td>
+          <td class="table-td">Tutoring </td>
+          <td class="table-td">ED01 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isDriverEducation" formControlName="isDriverEducation" name="isDriverEducation" ></p-checkbox>
+          </td>
+          <td class="table-td">Driver's Education </td>
+          <td class="table-td">ED06 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isSpecialEducation" formControlName="isSpecialEducation" name="isSpecialEducation" ></p-checkbox>
+          </td>
+          <td class="table-td">Special Education Program</td>
+          <td class="table-td">ED02 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isCollege" formControlName="isCollege" name="isCollege" ></p-checkbox>
+          </td>
+          <td class="table-td">College </td>
+          <td class="table-td">ED07 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isAdultBasic" formControlName="isAdultBasic" name="isAdultBasic" ></p-checkbox>
+          </td>
+          <td class="table-td">Adult Basic Education </td>
+          <td class="table-td">ED03 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isEducationAdvocate" formControlName="isEducationAdvocate" name="isEducationAdvocate" ></p-checkbox>
+          </td>
+          <td class="table-td">Education Advocate </td>
+          <td class="table-td">ED08 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isGedPreparation" formControlName="isGedPreparation" name="isGedPreparation" ></p-checkbox>
+          </td>
+          <td class="table-td">GED Preparation/High School Grad </td>
+          <td class="table-td">ED04 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isAttendance" formControlName="isAttendance" name="isAttendance" ></p-checkbox>
+          </td>
+          <td class="table-td">Attendance</td>
+          <td class="table-td">ED09 N/P</td>
+        </tr>
+        <tr>
+          <td colspan="6">
+            <hr>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold table-td" colspan="3">MENTAL HEALTH SERVICES/DEVELOPMENTAL SERVICES</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isPartialDaySocial" formControlName="isPartialDaySocial" name="isPartialDaySocial" ></p-checkbox>
+          </td>
+          <td class="table-td">Partial-Day Social or Educational Services*</td>
+          <td class="table-td">ME06 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isPsychologicalTesting" formControlName="isPsychologicalTesting" name="isPsychologicalTesting" ></p-checkbox>
+          </td>
+          <td class="table-td">Psychological Testing*</td>
+          <td class="table-td">ME01 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isMedicineManagement" formControlName="isMedicineManagement" name="isMedicineManagement" ></p-checkbox>
+          </td>
+          <td class="table-td">Medicine Management</td>
+          <td class="table-td">ME07 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isIndividualTherapy" formControlName="isIndividualTherapy" name="isIndividualTherapy" ></p-checkbox>
+          </td>
+          <td class="table-td">Individual Therapy </td>
+          <td class="table-td">ME02 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isYouthMentorship" formControlName="isYouthMentorship" name="isYouthMentorship" ></p-checkbox>
+          </td>
+          <td class="table-td">Child/Youth Mentorship (under 15)*</td>
+          <td class="table-td">FU03 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isGroupTherapy" formControlName="isGroupTherapy" name="isGroupTherapy" ></p-checkbox>
+          </td>
+          <td class="table-td">Group Therapy </td>
+          <td class="table-td">ME03 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isAttendantCare" formControlName="isAttendantCare" name="isAttendantCare" ></p-checkbox>
+          </td>
+          <td class="table-td">Attendant Care</td>
+          <td class="table-td">FU05 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isFamilyTherapy" formControlName="isFamilyTherapy" name="isFamilyTherapy" ></p-checkbox>
+          </td>
+          <td class="table-td">Family Therapy </td>
+          <td class="table-td">ME04 N/P </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isEarlyEd" formControlName="isEarlyEd" name="isEarlyEd" ></p-checkbox>
+          </td>
+          <td class="table-td">Early Ed (ITS/IDEA) </td>
+          <td class="table-td">FU06 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isCounseling" formControlName="isCounseling" name="isCounseling" ></p-checkbox>
+          </td>
+          <td class="table-td">Counseling* </td>
+          <td class="table-td">ME05 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isWaivers" formControlName="isWaivers" name="isWaivers" ></p-checkbox>
+          </td>
+          <td class="table-td">Waivers (HCBS) </td>
+          <td class="table-td">FU08 N/P</td>
+        </tr>
+        <tr>
+          <td colspan="6">
+            <hr>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold table-td" colspan="3">HOUSING SERVICES</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isResidenceAdaptation" formControlName="isResidenceAdaptation" name="isResidenceAdaptation" ></p-checkbox>
+          </td>
+          <td class="table-td">Residence Adaptation</td>
+          <td class="table-td">HO04 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isEmergencyClothing" formControlName="isEmergencyClothing" name="isEmergencyClothing" ></p-checkbox>
+          </td>
+          <td class="table-td">Emergency Clothing</td>
+          <td class="table-td"> HO01 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isEmergencyUtilities" formControlName="isEmergencyUtilities" name="isEmergencyUtilities" ></p-checkbox>
+          </td>
+          <td class="table-td">Emergency Utilities </td>
+          <td class="table-td">HO05 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isEmergencyHouseRepairs" formControlName="isEmergencyHouseRepairs" name="isEmergencyHouseRepairs" ></p-checkbox>
+          </td>
+          <td class="table-td">Emergency House Repairs</td>
+          <td class="table-td">HO02 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isEmergencyShelter" formControlName="isEmergencyShelter" name="isEmergencyShelter" ></p-checkbox>
+          </td>
+          <td class="table-td">Emergency Shelter or Rental Assistance </td>
+          <td class="table-td">HO06 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isHouseholdFurniture" formControlName="isHouseholdFurniture" name="isHouseholdFurniture" ></p-checkbox>
+          </td>
+          <td class="table-td">Household Furniture/Appliances </td>
+          <td class="table-td" colspan="4">HO03 NP</td>
+        </tr>
+        <tr>
+          <td colspan="6">
+            <hr>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold table-td" colspan="3">EMPLOYMENT SERVICES</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isEmploymentPreparation" formControlName="isEmploymentPreparation" name="isEmploymentPreparation" ></p-checkbox>
+          </td>
+          <td class="table-td" colspan="2">Employment Preparation Services</td>
+        </tr>
+        <tr>
+          <td colspan="6">
+            <hr>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold table-td" colspan="3">PROTECTIVE OR FAMILY PRESERVATION SERVICE</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isEmergencyShelterProtective" formControlName="isEmergencyShelterProtective" name="isEmergencyShelterProtective" ></p-checkbox>
+          </td>
+          <td class="table-td">Emergency Shelter* (protective)</td>
+          <td class="table-td">PR08 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isIntakeAndAssessment" formControlName="isIntakeAndAssessment" name="isIntakeAndAssessment" ></p-checkbox>
+          </td>
+          <td class="table-td">Intake and Assessment</td>
+          <td class="table-td"> PR01 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isRespiteCare" formControlName="isRespiteCare" name="isRespiteCare" ></p-checkbox>
+          </td>
+          <td class="table-td">Respite Care*</td>
+          <td class="table-td">PR06 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isHomeFamily" formControlName="isHomeFamily" name="isHomeFamily" ></p-checkbox>
+          </td>
+          <td class="table-td">In-Home Family Treatment*</td>
+          <td class="table-td">PR02 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isSupportServices" formControlName="isSupportServices" name="isSupportServices" ></p-checkbox>
+          </td>
+          <td class="table-td">Program (family) support Services* </td>
+          <td class="table-td">PR07 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isFamilyPreservationReferral" formControlName="isFamilyPreservationReferral" name="isFamilyPreservationReferral" ></p-checkbox>
+          </td>
+          <td class="table-td">Family Preservation Referral</td>
+          <td class="table-td">PR03 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isFamilyServicesReferral" formControlName="isFamilyServicesReferral" name="isFamilyServicesReferral" ></p-checkbox>
+          </td>
+          <td class="table-td">Family Services Referral</td>
+          <td class="table-td">PR10 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isParentingEducation" formControlName="isParentingEducation" name="isParentingEducation" ></p-checkbox>
+          </td>
+          <td class="table-td">Parenting Education* </td>
+          <td class="table-td" colspan="4">PR04 N/P</td>
+        </tr>
+        <tr>
+          <td colspan="6">
+            <hr>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold table-td" colspan="3">INCOME SERVICES</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isBudgeting" formControlName="isBudgeting" name="isBudgeting" ></p-checkbox>
+          </td>
+          <td class="table-td">Budgeting</td>
+          <td class="table-td">IN02 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isChildSupport" formControlName="isChildSupport" name="isChildSupport" ></p-checkbox>
+          </td>
+          <td class="table-td">Child Support </td>
+          <td class="table-td">IN01 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isAssistWithApplication" formControlName="isAssistWithApplication" name="isAssistWithApplication" ></p-checkbox>
+          </td>
+          <td class="table-td">Assist with Applications for Assistance</td>
+          <td class="table-td">IN03 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isFamilyFinancial" formControlName="isFamilyFinancial" name="isFamilyFinancial" ></p-checkbox>
+          </td>
+          <td class="table-td">Family Financial/Reunification Asst * </td>
+          <td class="table-td" colspan="4">IN03 N/P</td>
+        </tr>
+        <tr>
+          <td colspan="6">
+            <hr>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold table-td" colspan="3">SUPPORT FOR FAMILY FUNCTIONING SERVICES</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isSocialServiceCoordination" formControlName="isSocialServiceCoordination" name="isSocialServiceCoordination" ></p-checkbox>
+          </td>
+          <td class="table-td">Social Service Coordination (DCF)</td>
+          <td class="table-td">FU04 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isCaseManagement" formControlName="isCaseManagement" name="isCaseManagement" ></p-checkbox>
+          </td>
+          <td class="table-td">Case Management </td>
+          <td class="table-td">FU01 N/P</td>
+          <td class="table-td" colspan="3">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isVoid" formControlName="isVoid" name="isVoid" ></p-checkbox>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isBasicLivingSkills" formControlName="isBasicLivingSkills" name="isBasicLivingSkills" ></p-checkbox>
+          </td>
+          <td class="table-td">Basic Living Skills </td>
+          <td class="table-td">FU02 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isMediationServices" formControlName="isMediationServices" name="isMediationServices" ></p-checkbox>
+          </td>
+          <td class="table-td">Mediation Services*</td>
+          <td class="table-td">FU07 N/P</td>
+        </tr>
+        <tr>
+          <td colspan="6">
+            <hr>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold table-td" colspan="3">ADOPTION SERVICES</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isAdoptiveFamilyAssessment" formControlName="isAdoptiveFamilyAssessment" name="isAdoptiveFamilyAssessment" ></p-checkbox>
+          </td>
+          <td class="table-td">Adoptive Family Assessment (Home Study*) </td>
+          <td class="table-td">AO03 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isAdoptivePlacement" formControlName="isAdoptivePlacement" name="isAdoptivePlacement" ></p-checkbox>
+          </td>
+          <td class="table-td">Adoptive Placement Services </td>
+          <td class="table-td">AO01 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isAdoptiveFamilyRecruitment" formControlName="isAdoptiveFamilyRecruitment" name="isAdoptiveFamilyRecruitment" ></p-checkbox>
+          </td>
+          <td class="table-td">Adoptive Family Recruitment</td>
+          <td class="table-td">AO04 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isAdoptiveFamilyPreparation" formControlName="isAdoptiveFamilyPreparation" name="isAdoptiveFamilyPreparation" ></p-checkbox>
+          </td>
+          <td class="table-td">Adoptive Family Preparation Services </td>
+          <td class="table-td">AO02 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isAdoptionSubsidy" formControlName="isAdoptionSubsidy" name="isAdoptionSubsidy" ></p-checkbox>
+          </td>
+          <td class="table-td">Adoption Subsidy </td>
+          <td class="table-td">AO05 N/P</td>
+        </tr>
+        <tr>
+          <td colspan="6">
+            <hr>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold table-td" colspan="3">CHILD CARE SERVICES*</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isChildCareCenter" formControlName="isChildCareCenter" name="isChildCareCenter" ></p-checkbox>
+          </td>
+          <td class="table-td">Child Care Center Services </td>
+          <td class="table-td">CH02 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isChildCareInOther" formControlName="isChildCareInOther" name="isChildCareInOther" ></p-checkbox>
+          </td>
+          <td class="table-td">Child Care in Other Home Services</td>
+          <td class="table-td">CH01 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isChildCareInOwn" formControlName="isChildCareInOwn" name="isChildCareInOwn" ></p-checkbox>
+          </td>
+          <td class="table-td">Child Care in Own Home Services </td>
+          <td class="table-td">CH03 N/P</td>
+        </tr>
+        <tr>
+          <td colspan="6">
+            <hr>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold table-td" colspan="3">INDEPENDENT LIVING SERVICES (See PPS 3057A for definitions)</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isHousingEducation" formControlName="isHousingEducation" name="isHousingEducation" ></p-checkbox>
+          </td>
+          <td class="table-td">Housing Education</td>
+          <td class="table-td"> IL08N</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isSpecialEducationVocational" formControlName="isSpecialEducationVocational" name="isSpecialEducationVocational" ></p-checkbox>
+          </td>
+          <td class="table-td">Special Education</td>
+          <td class="table-td">IL01N</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isHealthEducation" formControlName="isHealthEducation" name="isHealthEducation" ></p-checkbox>
+          </td>
+          <td class="table-td">Health Education and Risk Prevention </td>
+          <td class="table-td">IL09N</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isNeedsAssessment" formControlName="isNeedsAssessment" name="isNeedsAssessment" ></p-checkbox>
+          </td>
+          <td class="table-td">Needs Assessment</td>
+          <td class="table-td">IL02N</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isMarriageEducation" formControlName="isMarriageEducation" name="isMarriageEducation" ></p-checkbox>
+          </td>
+          <td class="table-td">Family Support and Marriage Education</td>
+          <td class="table-td">IL10N</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isAcademicSupports" formControlName="isAcademicSupports" name="isAcademicSupports" ></p-checkbox>
+          </td>
+          <td class="table-td">Academic Supports </td>
+          <td class="table-td">IL03N</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isMentoring" formControlName="isMentoring" name="isMentoring" ></p-checkbox>
+          </td>
+          <td class="table-td">Mentoring</td>
+          <td class="table-td">IL11N</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isPostSecondary" formControlName="isPostSecondary" name="isPostSecondary" ></p-checkbox>
+          </td>
+          <td class="table-td">Post Secondary Education Support </td>
+          <td class="table-td">IL04N</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isSuperviseIndependent" formControlName="isSuperviseIndependent" name="isSuperviseIndependent" ></p-checkbox>
+          </td>
+          <td class="table-td">Supervise Independent Living </td>
+          <td class="table-td">IL12N</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isCareerPreparation" formControlName="isCareerPreparation" name="isCareerPreparation" ></p-checkbox>
+          </td>
+          <td class="table-td">Career Preparation </td>
+          <td class="table-td">IL05N</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isRoomAndBoard" formControlName="isRoomAndBoard" name="isRoomAndBoard" ></p-checkbox>
+          </td>
+          <td class="table-td">Room and Board Financial Assistance </td>
+          <td class="table-td">IL13N</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isVocationalPrograms" formControlName="isVocationalPrograms" name="isVocationalPrograms" ></p-checkbox>
+          </td>
+          <td class="table-td">Employment or Vocational Programs</td>
+          <td class="table-td"> IL06N</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isEducationFinancialAssistance" formControlName="isEducationFinancialAssistance" name="isEducationFinancialAssistance" ></p-checkbox>
+          </td>
+          <td class="table-td">Education Financial Assistance </td>
+          <td class="table-td">IL14N</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isBudgetAndFinancial" formControlName="isBudgetAndFinancial" name="isBudgetAndFinancial" ></p-checkbox>
+          </td>
+          <td class="table-td">Budget and Financial Management </td>
+          <td class="table-td"> IL07N</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isOtherFinancial" formControlName="isOtherFinancial" name="isOtherFinancial" ></p-checkbox>
+          </td>
+          <td class="table-td">Other Financial Assistance </td>
+          <td class="table-td">IL15N</td>
+        </tr>
+        <tr>
+          <td colspan="6">
+            <hr>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold table-td" colspan="3">OTHER</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isDrugAndAlcohol" formControlName="isDrugAndAlcohol" name="isDrugAndAlcohol" ></p-checkbox>
+          </td>
+          <td class="table-td">Drug and Alcohol Services </td>
+          <td class="table-td">OT04 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isClothingAllowance" formControlName="isClothingAllowance" name="isClothingAllowance" ></p-checkbox>
+          </td>
+          <td class="table-td">Clothing Allowance* </td>
+          <td class="table-td">OT01 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isInterpreterServices" formControlName="isInterpreterServices" name="isInterpreterServices" ></p-checkbox>
+          </td>
+          <td class="table-td">Interpreter Services </td>
+          <td class="table-td">OT03 N/P</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isNonMedicalTransportation" formControlName="isNonMedicalTransportation" name="isNonMedicalTransportation" ></p-checkbox>
+          </td>
+          <td class="table-td">Non-Medical Transportation* </td>
+          <td class="table-td">OT02 N/P</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isCourtesySupervision" formControlName="isCourtesySupervision" name="isCourtesySupervision" ></p-checkbox>
+          </td>
+          <td class="table-td">Courtesy Supervision</td>
+          <td class="table-td">OT06 N/P</td>
+        </tr>
+        <tr>
+          <td colspan="6">
+            <hr>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold table-td" colspan="6">PARENTS’ INCARCERATION</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isMother" formControlName="isMother" name="isMother" ></p-checkbox>
+          </td>
+          <td class="table-td">Mother</td>
+          <td class="table-td">JA01N</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpServiceAndServiceCode.isFather" formControlName="isFather" name="isFather" ></p-checkbox>
+          </td>
+          <td class="table-td">Father </td>
+          <td class="table-td">JA02N</td>
+        </tr>
+        <tr>
+          <td colspan="6">
+            <hr>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <p>
+      * Indicates the service is described in the Handbook of Services, EP Appendix E,-in the PPS Policy and Procedure
+      Manual. A service is a category of good(s) or service(s) which can be identified within the case plan as an item
+      which is used to address a family's need. The service codes are entered into FACTS to track the goods and
+      services provided to families. The suffix 'N' means the good(s) or service(s) is provided at no direct charge to
+      DCF. The suffix 'P' means DCF is paying the source of the service/good directly.
+    </p>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,fpServiceAndServiceCode)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

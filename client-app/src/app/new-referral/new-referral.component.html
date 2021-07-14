@@ -1,0 +1,259 @@
+<app-form-header
+  [title]="title"
+  [status]="status"
+  [breadcrumbs]="breadcrumbs"
+  [formstatus]="formStatus"
+  [moreActions]="moreActions"
+  [formNavigation]="form_navigation"
+  [subtitle]="subtitle"
+></app-form-header>
+<!-- <div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div> -->
+<div class="new_ref container-background">
+  <div class="container-foreground">
+        <div class="sf-text-center">
+                <p-dropdown [options]="listOfReferral" (onChange)="onChangeReferrel(selectedReferral)" name="typeOfReferral" [(ngModel)]="selectedReferral" optionLabel="display" 
+                [style]="{'width':'360px'}" placeholder="Select one referral"></p-dropdown>
+              </div>
+              <hr>
+    <form class="margin-top-20 sf-form client-form" *ngIf="nc_bh_value">
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <span class="sf-labels">Initial Referral</span>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <p-calendar
+              [showIcon]="true"
+              showTime="true"
+              hourFormat="24"
+              [yearNavigator]="true"
+              [monthNavigator]="true"
+              yearRange="2000:2030"
+            ></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <span class="sf-labels"
+              >Reason for Declining
+            </span>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <p-autoComplete [dropdown]="true"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Tracking #
+                    </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <input type="text" class="input" maxlength="25" pInputText size="27" />
+                    <!-- <div class="alert" *ngIf="!orgForm.controls['lastName'].valid && orgForm.controls['lastName'].touched">Enter
+                            a valid name</div> -->
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">DHS Notified</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                        <p-calendar
+                        [showIcon]="true"
+                        showTime="true"
+                        hourFormat="24"
+                        [yearNavigator]="true"
+                        [monthNavigator]="true"
+                        yearRange="2000:2030"
+                      ></p-calendar>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <span class="sf-labels">Placement Established</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                            <p-calendar
+                            [showIcon]="true"
+                            showTime="true"
+                            hourFormat="24"
+                            [yearNavigator]="true"
+                            [monthNavigator]="true"
+                            yearRange="2000:2030"
+                          ></p-calendar>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span class="sf-labels">Home County
+                            </span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <input type="text" class="input" maxlength="25" pInputText size="27" />
+                            <!-- <div class="alert" *ngIf="!orgForm.controls['lastName'].valid && orgForm.controls['lastName'].touched">Enter
+                                    a valid name</div> -->
+                        </div>
+                    </div>
+            </div>
+            <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span class="sf-labels">Begin Date</span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                                <p-calendar
+                                [showIcon]="true"
+                                showTime="true"
+                                hourFormat="24"
+                                [yearNavigator]="true"
+                                [monthNavigator]="true"
+                                yearRange="2000:2030"
+                              ></p-calendar>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <span class="sf-labels">End Date
+                                </span>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <p-calendar
+                                    [showIcon]="true"
+                                    showTime="true"
+                                    hourFormat="24"
+                                    [yearNavigator]="true"
+                                    [monthNavigator]="true"
+                                    yearRange="2000:2030"
+                                  ></p-calendar>
+                            </div>
+                        </div>
+                </div>
+                <div class="row margin-top-20">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <span class="sf-labels">KK Number</span>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                                    <input type="text" class="input" maxlength="25" pInputText size="27" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <span class="sf-labels">Primary Contractor
+                                    </span>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <p-autoComplete [dropdown]="true"></p-autoComplete>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="row margin-top-20">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <span class="sf-labels">Minutes Spent</span>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                                        <p-spinner [maxlength]="10" [min]="0"></p-spinner>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <span class="sf-labels">Notes
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <textarea class="sf-width-100"  rows="5"></textarea>
+                                    </div>
+                                </div>
+                        </div>
+                        <app-form-footer [attachmentControll]="isAttachmentRequired"></app-form-footer>
+    </form>
+
+    <form class="margin-top-20 sf-form client-form" *ngIf="nc_fch_value">
+                  <div class="row margin-top-20">
+                          <div class="col-lg-6 col-md-6 col-sm-6">
+                              <div class="col-lg-6 col-md-6 col-sm-6">
+                                  <span class="sf-labels">Begin Date</span>
+                              </div>
+                              <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                                      <p-calendar
+                                      [showIcon]="true"
+                                      showTime="true"
+                                      hourFormat="24"
+                                      [yearNavigator]="true"
+                                      [monthNavigator]="true"
+                                      yearRange="2000:2030"
+                                    ></p-calendar>
+                              </div>
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-sm-6">
+                                  <div class="col-lg-6 col-md-6 col-sm-6">
+                                      <span class="sf-labels">End Date
+                                      </span>
+                                  </div>
+                                  <div class="col-lg-6 col-md-6 col-sm-6">
+                                          <p-calendar
+                                          [showIcon]="true"
+                                          showTime="true"
+                                          hourFormat="24"
+                                          [yearNavigator]="true"
+                                          [monthNavigator]="true"
+                                          yearRange="2000:2030"
+                                        ></p-calendar>
+                                  </div>
+                              </div>
+                      </div>
+                      <div class="row margin-top-20">
+                              <div class="col-lg-6 col-md-6 col-sm-6">
+                                  <div class="col-lg-6 col-md-6 col-sm-6">
+                                      <span class="sf-labels">KK Number</span>
+                                  </div>
+                                  <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                                          <input type="text" class="input" maxlength="25" pInputText size="27" />
+                                  </div>
+                              </div>
+                              <div class="col-lg-6 col-md-6 col-sm-6">
+                                      <div class="col-lg-6 col-md-6 col-sm-6">
+                                          <span class="sf-labels">Primary Contractor
+                                          </span>
+                                      </div>
+                                      <div class="col-lg-6 col-md-6 col-sm-6">
+                                              <p-autoComplete [dropdown]="true"></p-autoComplete>
+                                      </div>
+                                  </div>
+                          </div>
+                          <div class="row margin-top-20">
+                                  <div class="col-lg-6 col-md-6 col-sm-6">
+                                      <div class="col-lg-6 col-md-6 col-sm-6">
+                                          <span class="sf-labels">Minutes Spent</span>
+                                      </div>
+                                      <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                                              <p-spinner [maxlength]="10" [min]="0"></p-spinner>
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-6 col-md-6 col-sm-6">
+                                          <div class="col-lg-6 col-md-6 col-sm-6">
+                                              <span class="sf-labels">Notes
+                                              </span>
+                                          </div>
+                                          <div class="col-lg-6 col-md-6 col-sm-6">
+                                                  <textarea class="sf-width-100"  rows="5"></textarea>
+                                          </div>
+                                      </div>
+                              </div>
+                              <app-form-footer [attachmentControll]="isAttachmentRequired " [isAttachmentDisabled]="false" (attachDoc)="navigateTo()" (save)="saveForm(fpRef)"
+                              (discard)="discardForm()" (edit)="editForm()" (sendMail)="showDialog()" [editControll]="edit" [mailBtnControl]="isMail"
+                              [discardTo]="discardTo"></app-form-footer>
+          </form>
+
+  </div>
+</div>

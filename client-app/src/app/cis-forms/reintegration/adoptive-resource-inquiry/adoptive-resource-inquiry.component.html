@@ -1,0 +1,495 @@
+<div id="print-form-content">
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+  <p-toast position="center" [baseZIndex]="99999999"></p-toast>
+  <form id="form-content" [formGroup]="adoptionForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        REINTEGRATION FOSTER
+        <br> CARE ADOPTION
+        <br> ADOPTIVE RESOURCE
+        <br> INQUIRY FORM
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Date:</span>
+          <input readonly formControlName="CompletionDate" name="CompletionDate" [(ngModel)]="cisAdoption.CompletionDate.value" type="text" pInputText size="20" />
+          <!-- <p-calendar [(ngModel)]="cisAdoption.CompletionDate.value" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+          yearRange="2000:2030"> </p-calendar> -->
+        </div>
+      </div>
+    </div>
+    <h2>CHILD INFORMATION:</h2>
+    <div class="flex-container space-between">
+      <div class="flex-container">
+        <div>
+          Name:
+        </div>
+        <div>
+          <input formControlName="ClientName" name="ClientName" [(ngModel)]="cisAdoption.ClientName.value" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          DOB:
+        </div>
+        <div>
+          <input readonly formControlName="DateOfBirth" name="DateOfBirth" [(ngModel)]="cisAdoption.DateOfBirth.value" type="text" pInputText size="20" />
+          <!-- <p-calendar [(ngModel)]="cisAdoption.DateOfBirth.value" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+          yearRange="2000:2030"></p-calendar> -->
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-between">
+      <div class="flex-container">
+        <div>
+          KAESCES #:
+        </div>
+        <div>
+          <input readonly formControlName="Kaecses" name="Kaecses" [(ngModel)]="cisAdoption.Kaecses.value" type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          Phone Number:
+        </div>
+        <div>
+          <input formControlName="ClientPhone1" name="ClientPhone1" [(ngModel)]="cisAdoption.ClientPhone1.value" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-between">
+      <div class="flex-container">
+        <div>
+          Child’s Worker:
+        </div>
+        <div>
+          <input formControlName="childWorker" name="childWorker" [(ngModel)]="cisAdoption.childWorker.value" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          Phone Number:
+        </div>
+        <div>
+          <input formControlName="ClientPhone2" name="ClientPhone2" [(ngModel)]="cisAdoption.ClientPhone2.value" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <!-- <p-checkbox  [(ngModel)]="cisAdoption.Inquiry.fieldOptionIndex" formControlName="Inquiry" name="Inquiry" binary="true"></p-checkbox>Inquiry not for a Specific Child -->
+    </div>
+    <h2>INQUIRING FAMILY INFORMATION</h2>
+    <div class="flex-container">
+      <div>
+        Name:
+      </div>
+      <div>
+        <input formControlName="FamilyName" name="FamilyName" [(ngModel)]="cisAdoption.FamilyName.value" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <div class="flex-container">
+      <div>
+        Address:
+      </div>
+      <div>
+        <input formControlName="FamilyAddress" name="FamilyAddress" [(ngModel)]="cisAdoption.FamilyAddress.value" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-between">
+      <div class="flex-container">
+        <div>
+          Telephone Number:
+        </div>
+        <div>
+          <input formControlName="FamilyPhone" name="FamilyPhone" [(ngModel)]="cisAdoption.FamilyPhone.value" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          Email Address:
+        </div>
+        <div>
+          <input formControlName="FamilyEmail" name="FamilyEmail" [(ngModel)]="cisAdoption.FamilyEmail.value" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+    </div>
+
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td" colspan="2">Children in the Home: </th>
+          <th class="table-td" colspan="2">Other Individuals in the Home:</th>
+        </tr>
+        <tr>
+          <th class="table-td">Name</th>
+          <th class="table-td">Age</th>
+          <th class="table-td">Name</th>
+          <th class="table-td">Age</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="ChildrenInTheHome1" name="ChildrenInTheHome1" [(ngModel)]="cisAdoption.ChildrenInTheHome1.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="ChildrenInTheHomeAge1" name="ChildrenInTheHomeAge1" [(ngModel)]="cisAdoption.ChildrenInTheHomeAge1.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="ChildrenInTheHomeAge1" name="ChildrenInTheHomeAge1" [(ngModel)]="cisAdoption.OtherIndividuals1.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="OtherIndividualsAge1" name="OtherIndividualsAge1" [(ngModel)]="cisAdoption.OtherIndividualsAge1.value"
+              type="text" pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="ChildrenInTheHome2" name="ChildrenInTheHome2" [(ngModel)]="cisAdoption.ChildrenInTheHome2.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="ChildrenInTheHomeAge2" name="ChildrenInTheHomeAge2" [(ngModel)]="cisAdoption.ChildrenInTheHomeAge2.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="OtherIndividuals2" name="OtherIndividuals2" [(ngModel)]="cisAdoption.OtherIndividuals2.value" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="OtherIndividualsAge2" name="OtherIndividualsAge2" [(ngModel)]="cisAdoption.OtherIndividualsAge2.value"
+              type="text" pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="ChildrenInTheHome3" name="ChildrenInTheHome3" [(ngModel)]="cisAdoption.ChildrenInTheHome3.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="ChildrenInTheHomeAGe3" name="ChildrenInTheHomeAGe3" [(ngModel)]="cisAdoption.ChildrenInTheHomeAGe3.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="OtherIndividuals3" name="OtherIndividuals3" [(ngModel)]="cisAdoption.OtherIndividuals3.value" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="OtherIndividualsAge3" name="OtherIndividualsAge3" [(ngModel)]="cisAdoption.OtherIndividualsAge3.value"
+              type="text" pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="ChildrenInTheHome4" name="ChildrenInTheHome4" [(ngModel)]="cisAdoption.ChildrenInTheHome4.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="ChildrenInTheHomeAge4" name="ChildrenInTheHomeAge4" [(ngModel)]="cisAdoption.ChildrenInTheHomeAge4.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="OtherIndividuals4" name="OtherIndividuals4" [(ngModel)]="cisAdoption.OtherIndividuals4.value" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="OtherIndividualsAge4" name="OtherIndividualsAge4" [(ngModel)]="cisAdoption.OtherIndividualsAge4.value"
+              type="text" pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="ChildrenInTheHome5" name="ChildrenInTheHome5" [(ngModel)]="cisAdoption.ChildrenInTheHome5.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="ChildrenInTheHomeAge5" name="ChildrenInTheHomeAge5" [(ngModel)]="cisAdoption.ChildrenInTheHomeAge5.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="OtherIndividuals5" name="OtherIndividuals5" [(ngModel)]="cisAdoption.OtherIndividuals5.value" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="OtherIndividualsAge5" name="OtherIndividualsAge5" [(ngModel)]="cisAdoption.OtherIndividualsAge5.value"
+              type="text" pInputText size="20" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="flex-container">
+      <div>
+        PS-MAPP/DT Completed:
+      </div>
+      <div>
+        Yes
+        <p-radioButton formControlName="ps" name="ps" [(ngModel)]="cisAdoption.ps.fieldOptionIndex" value="0" class="space-right"></p-radioButton>
+      </div>
+      <div>
+        No
+        <p-radioButton formControlName="ps" name="ps" [(ngModel)]="cisAdoption.ps.fieldOptionIndex" value="1" class="space-right"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container">
+      <div>
+        Is this resource the child’s Kinship Placement:
+      </div>
+      <div>
+        Yes
+        <p-radioButton formControlName="KinshipPlacement" name="KinshipPlacement" [(ngModel)]="cisAdoption.KinshipPlacement.fieldOptionIndex"
+          value="0" class="space-right"></p-radioButton>
+      </div>
+      <div>
+        No
+        <p-radioButton formControlName="KinshipPlacement" name="KinshipPlacement" [(ngModel)]="cisAdoption.KinshipPlacement.fieldOptionIndex"
+          value="1" class="space-right"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container">
+      <div>
+        Has a Kinship Assessment been completed on the family:
+      </div>
+      <div>
+        Yes
+        <p-radioButton formControlName="AssessmentCompleted" name="AssessmentCompleted" [(ngModel)]="cisAdoption.AssessmentCompleted.fieldOptionIndex"
+          value="0" class="space-right"></p-radioButton>
+      </div>
+      <div>
+        No
+        <p-radioButton formControlName="AssessmentCompleted" name="AssessmentCompleted" [(ngModel)]="cisAdoption.AssessmentCompleted.fieldOptionIndex"
+          value="1" class="space-right"></p-radioButton>
+      </div>
+    </div>
+    <p>*If yes, please attach a copy of the kinship assessment to this form</p>
+    <div class="flex-container">
+      <div>
+        Is the inquiring family a licensed foster home:
+      </div>
+      <div>
+        Yes
+        <p-radioButton formControlName="licensed" name="licensed" [(ngModel)]="cisAdoption.licensed.fieldOptionIndex" value="0" class="space-right"></p-radioButton>
+      </div>
+      <div>
+        No
+        <p-radioButton formControlName="licensed" name="licensed" [(ngModel)]="cisAdoption.licensed.fieldOptionIndex" value="1" class="space-right"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container">
+      <div>
+        If so, please list the sponsoring agency and foster care worker:
+      </div>
+      <div>
+        <input formControlName="SponsoringAgency" name="SponsoringAgency" [(ngModel)]="cisAdoption.SponsoringAgency.value" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container">
+      <div>
+        Has the family lived in another state within the past 5 years:
+      </div>
+      <div>
+        Yes
+        <p-radioButton formControlName="AnotherState" name="AnotherState" [(ngModel)]="cisAdoption.AnotherState.fieldOptionIndex"
+          value="0" class="space-right"></p-radioButton>
+      </div>
+      <div>
+        No
+        <p-radioButton formControlName="AnotherState" name="AnotherState" [(ngModel)]="cisAdoption.AnotherState.fieldOptionIndex"
+          value="1" class="space-right"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container">
+      <div>
+        If so, what state?
+      </div>
+      <div>
+        <input formControlName="PastState" name="PastState" [(ngModel)]="cisAdoption.PastState.value" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <p>
+      <b>What is the family’s motivation to adopt?</b>
+    </p>
+    <div>
+      <textarea formControlName="Motivation" name="Motivation" [(ngModel)]="cisAdoption.Motivation.value" pInputTextarea autoResize="autoResize"
+      rows={{rowMethod(cisAdoption.Motivation.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p>
+      <b>How did the family become aware of the child?</b>
+    </p>
+    <div>
+      <textarea formControlName="AwareOfChild" name="AwareOfChild" [(ngModel)]="cisAdoption.AwareOfChild.value" pInputTextarea
+        autoResize="autoResize" rows={{rowMethod(cisAdoption.AwareOfChild.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p>
+      <b>What is the family’s relationship with the child?</b>
+    </p>
+    <div>
+      <textarea formControlName="Relationship" name="Relationship" [(ngModel)]="cisAdoption.Relationship.value" pInputTextarea
+        autoResize="autoResize" rows={{rowMethod(cisAdoption.Relationship.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p>
+      <b>Are you aware of any concerns regarding this resource or issues to be explored during the assessment process?
+      </b>
+    </p>
+    <div class="space-down">
+      <textarea formControlName="concerns" name="concerns" [(ngModel)]="cisAdoption.concerns.value" pInputTextarea autoResize="autoResize"
+      rows={{rowMethod(cisAdoption.concerns.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th colspan="3" class="table-td">Siblings in Out of Home Care: </th>
+        </tr>
+        <tr>
+          <th class="table-td">Name</th>
+          <th class="table-td">Age</th>
+          <th class="table-td">Case Plan Goal</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="SiblingsOutOfHomeName1" name="SiblingsOutOfHomeName1" [(ngModel)]="cisAdoption.SiblingsOutOfHomeName1.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="SiblingsOutOfHomeAge1" name="SiblingsOutOfHomeAge1" [(ngModel)]="cisAdoption.SiblingsOutOfHomeAge1.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="SiblingsOutOfHomeCaseplangoal1" name="SiblingsOutOfHomeCaseplangoal1" [(ngModel)]="cisAdoption.SiblingsOutOfHomeCaseplangoal1.value"
+              type="text" pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="SiblingsOutOfHomeName2" name="SiblingsOutOfHomeName2" [(ngModel)]="cisAdoption.SiblingsOutOfHomeName2.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="SiblingsOutOfHomeAge2" name="SiblingsOutOfHomeAge2" [(ngModel)]="cisAdoption.SiblingsOutOfHomeAge2.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="SiblingsOutOfHomeCaseplangoal2" name="SiblingsOutOfHomeCaseplangoal2" [(ngModel)]="cisAdoption.SiblingsOutOfHomeCaseplangoal2.value"
+              type="text" pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="SiblingsOutOfHomeName3" name="SiblingsOutOfHomeName3" [(ngModel)]="cisAdoption.SiblingsOutOfHomeName3.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="SiblingsOutOfHomeAge3" name="SiblingsOutOfHomeAge3" [(ngModel)]="cisAdoption.SiblingsOutOfHomeAge3.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="SiblingsOutOfHomeCaseplangoal3" name="SiblingsOutOfHomeCaseplangoal3" [(ngModel)]="cisAdoption.SiblingsOutOfHomeCaseplangoal3.value"
+              type="text" pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="SiblingsOutOfHomeName4" name="SiblingsOutOfHomeName4" [(ngModel)]="cisAdoption.SiblingsOutOfHomeName4.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="SiblingsOutOfHomeAge4" name="SiblingsOutOfHomeAge4" [(ngModel)]="cisAdoption.SiblingsOutOfHomeAge4.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="SiblingsOutOfHomeCaseplangoal4" name="SiblingsOutOfHomeCaseplangoal4" [(ngModel)]="cisAdoption.SiblingsOutOfHomeCaseplangoal4.value"
+              type="text" pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="SiblingsOutOfHomeName5" name="SiblingsOutOfHomeName5" [(ngModel)]="cisAdoption.SiblingsOutOfHomeName5.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="SiblingsOutOfHomeAge5" name="SiblingsOutOfHomeAge5" [(ngModel)]="cisAdoption.SiblingsOutOfHomeAge5.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="SiblingsOutOfHomeCaseplangoal5" name="SiblingsOutOfHomeCaseplangoal5" [(ngModel)]="cisAdoption.SiblingsOutOfHomeCaseplangoal5.value"
+              type="text" pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="SiblingsOutOfHomeName6" name="SiblingsOutOfHomeName6" [(ngModel)]="cisAdoption.SiblingsOutOfHomeName6.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="SiblingsOutOfHomeAge6" name="SiblingsOutOfHomeAge6" [(ngModel)]="cisAdoption.SiblingsOutOfHomeAge6.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="SiblingsOutOfHomeCaseplangoal6" name="SiblingsOutOfHomeCaseplangoal6" [(ngModel)]="cisAdoption.SiblingsOutOfHomeCaseplangoal6.value"
+              type="text" pInputText size="20" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="flex-container">
+      <div>
+        Is the inquiring family a resource for the siblings:
+      </div>
+      <div>
+        Yes
+        <p-radioButton formControlName="ResourceForSiblings" name="ResourceForSiblings" [(ngModel)]="cisAdoption.ResourceForSiblings.fieldOptionIndex"
+          value="0" class="space-right"></p-radioButton>
+      </div>
+      <div>
+        No
+        <p-radioButton formControlName="ResourceForSiblings" name="ResourceForSiblings" [(ngModel)]="cisAdoption.ResourceForSiblings.fieldOptionIndex"
+          value="1" class="space-right"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container">
+      <div>
+        If so, which siblings:
+      </div>
+      <div>
+        <input formControlName="ResourceForSibling" name="ResourceForSibling" [(ngModel)]="cisAdoption.ResourceForSibling.value"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container">
+      <div>
+        If not, is there an approved sibling split:
+      </div>
+      <div>
+        Yes
+        <p-radioButton formControlName="ApprovedSplit" name="ApprovedSplit" [(ngModel)]="cisAdoption.ApprovedSplit.fieldOptionIndex"
+          value="0" class="space-right"></p-radioButton>
+      </div>
+      <div>
+        No
+        <p-radioButton formControlName="ApprovedSplit" name="ApprovedSplit" [(ngModel)]="cisAdoption.ApprovedSplit.fieldOptionIndex"
+          value="1" class="space-right"></p-radioButton>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<app-form-footer (print)="printForm()" [isPrint]="true" (save)="saveForm(cisAdoption)" (edit)="editForm()" [isDisabled]="isDisable" [editControll]="editControll"
+  (finalize)="finalizeForm(cisAdoption)" [isFinalize]="isFinalize" (discard)="discardForm()" [isDisabled]="isDisable"></app-form-footer>

@@ -1,0 +1,174 @@
+<div class="flex-row mail-border">
+  <div class="row custom-row-50w sf-form" *ngIf="!isNoData">
+    <!--Row 1-->
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <p-checkbox
+        [(ngModel)]="placementEmailCheckBoxes.isstaff"
+        name="isstaff"
+        binary="true"
+        label="Staff"
+      >
+      </p-checkbox>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <p-checkbox
+        [(ngModel)]="placementEmailCheckBoxes.iscaseteam"
+        name="iscaseteam"
+        binary="true"
+        label="Case Team"
+      >
+      </p-checkbox>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <p-checkbox
+        [(ngModel)]="placementEmailCheckBoxes.isdistrictCourt"
+        name="isdistrictCourt"
+        binary="true"
+        label="District Court"
+      >
+      </p-checkbox>
+    </div>
+    <!--Row 2-->
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <p-checkbox
+        [(ngModel)]="placementEmailCheckBoxes.isdcf"
+        name="isdcf"
+        binary="true"
+        label="DCF"
+      ></p-checkbox>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <p-checkbox
+        [(ngModel)]="placementEmailCheckBoxes.isaccountReceivable"
+        name="isaccountReceivable"
+        binary="true"
+        label="Accounts Receivable"
+      ></p-checkbox>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <p-checkbox
+        [(ngModel)]="placementEmailCheckBoxes.iscounty"
+        name="iscounty"
+        binary="true"
+        label="County Attorney"
+      >
+      </p-checkbox>
+    </div>
+    <!--Row 3-->
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <p-checkbox
+        [(ngModel)]="placementEmailCheckBoxes.isfch"
+        name="isfch"
+        binary="true"
+        label="FCH"
+      ></p-checkbox>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <p-checkbox
+        [(ngModel)]="placementEmailCheckBoxes.iskcsl"
+        name="iskcsl"
+        binary="true"
+        label="Adoption (KCSL)"
+      >
+      </p-checkbox>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <p-checkbox
+        [(ngModel)]="placementEmailCheckBoxes.isops"
+        name="isops"
+        binary="true"
+        label="OPS CO"
+      ></p-checkbox>
+    </div>
+    <!--Row 4-->
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <p-checkbox
+        binary="true"
+        label="Other"
+        (onChange)="otherEmailsEnable($event)"
+      ></p-checkbox>
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-8 font-14" *ngIf="isOther">
+      <textarea
+        [(ngModel)]="otherMailAddress"
+        name="otherEmails"
+        pInputText
+      ></textarea>
+    </div>
+  </div>
+  <div class="row margin-5 custom-row-25w sf-form" *ngIf="!isNoData">
+    <div class="col-lg-12 col-md-12 col-sm-12"><span>Message</span></div>
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <textarea
+        [(ngModel)]="mailContentMessage"
+        name="textarea"
+        pInputText
+        style="width: 100%; height: 100%"
+      ></textarea>
+    </div>
+  </div>
+
+  <div class="margin-5 float-right custom-row-25w margin-top-1rem">
+    <div *ngIf="!isNoData">
+      <button
+        class="sf-positive-btn"
+        (click)="sendMail()"
+        [disabled]="isSendEmail"
+      >
+        Send Mails
+      </button>
+      <button class="sf-positive-btn" (click)="print()">Export</button>
+    </div>
+    <div
+      style="
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        width: 18vw;
+      "
+    >
+      <button class="sf-positive-btn margin-top-2rem" (click)="exitPage()">
+        Exit
+      </button>
+      <div class="split-button" *ngIf="!isNoData">
+        <p-splitButton
+          label="Print"
+          pTooltip="Navigates to your main form"
+          [model]="returnMenuItems"
+        >
+          Print
+        </p-splitButton>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="Acknowledgement Options" [(visible)]="isPlacementAckWindow">
+  <app-ack-options
+    [moduleName]="placementAckModule"
+    *ngIf="isPlacementAckWindow"
+  ></app-ack-options>
+</p-dialog>
+
+<p-dialog
+  header="Email Configuration"
+  [(visible)]="isPlacementEmailConfiguration"
+>
+  <p>This is the list of FCH Providers/Staff you are sending this email to:</p>
+  <p>{{ flowChartEmailRecipients }},{{ otherMailAddress }}</p>
+  <p>Do you want to send this email?</p>
+  <div style="display: flex; align-items: center; justify-content: flex-end">
+    <button
+      class="sf-positive-btn"
+      (click)="onClickFlowChartEmailConfirmation()"
+    >
+      Yes
+    </button>
+    <button
+      class="sf-negative-btn"
+      (click)="isPlacementEmailConfiguration = false"
+    >
+      No
+    </button>
+  </div>
+</p-dialog>

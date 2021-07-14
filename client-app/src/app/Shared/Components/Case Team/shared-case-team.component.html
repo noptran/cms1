@@ -1,0 +1,187 @@
+<div *ngIf="isOpenForm">
+    <form class="sf-form" [formGroup]="caseTeamForm">
+        <p-toast position="center"></p-toast>
+        <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Person Type</span> <span class="mandatory">*</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 form">
+                    <p-autoComplete [dropdown]="true" [forceSelection]="true" name="personTypeID" [suggestions]="metadata"
+                        field="personType" (completeMethod)="onFilterPersonTypes($event)"
+                        (onSelect)="onPersonTypeSelect($event)" [disabled]="isPersonType"
+                        [(ngModel)]="caseTeam.personTypeID" formControlName="personTypeID">
+                    </p-autoComplete>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Person Sub Type</span> <span class="mandatory">*</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 form">
+                    <p-autoComplete [dropdown]="true" [suggestions]="metadata" name="personAssignmentTypeID"
+                        [forceSelection]="true" field="personAssignmentTable"
+                        (completeMethod)="onFilterPersonSubType($event)" [disabled]="isPersonSubType"
+                        (onSelect)="onPersonSubTypeSelect($event)" [(ngModel)]="caseTeam.personAssignmentTypeID"
+                        formControlName="personAssignmentTypeID">
+                    </p-autoComplete>
+                </div>
+            </div>
+    
+        </div>
+        <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Contract State</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 form">
+                    <p-autoComplete [dropdown]="true" [forceSelection]="true" name="contract_StateID"
+                        [suggestions]="metadata" [forceSelection]="true" placeholder="Type here to search"
+                        emptyMessage="No results found!" field="state" formControlName="contract_StateID"
+                        (completeMethod)="getMetaData($event,'contractState')" [(ngModel)]="caseTeam.contract_StateID">
+                    </p-autoComplete>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Name</span> <span class="mandatory">*</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 form">
+                    <p-autoComplete [dropdown]="true" [forceSelection]="true" name="personID" [suggestions]="metadata"
+                        [forceSelection]="true" placeholder="Type here to search" emptyMessage="No results found!"
+                        field="fullName" (completeMethod)="getMetaData($event,'name')" formControlName="personID"
+                        [(ngModel)]="caseTeam.personID">
+                    </p-autoComplete>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Begin Date</span> <span class="mandatory">*</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <p-calendar [showTime]="true" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
+                        yearRange="1900:2030" name="beginDate" [(ngModel)]="caseTeam.beginDate" formControlName="beginDate">
+                    </p-calendar>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">End Date</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <p-calendar [showTime]="true" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
+                        yearRange="1900:2030" name="endDate" [(ngModel)]="caseTeam.endDate" formControlName="endDate">
+                    </p-calendar>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Critical</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 form">
+                    <p-checkbox id="mentor" name="mentor" binary="true" [(ngModel)]="caseTeam.criticals"
+                        formControlName="mentor">
+                    </p-checkbox>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Contact list</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <p-checkbox type="checkbox" name="emailAck" binary="true" [(ngModel)]="caseTeam.contactList"
+                        formControlName="contactList">
+                    </p-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Emergency contact</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 form">
+                    <p-checkbox id="mentor" name="emergencyContact" binary="true" [(ngModel)]="caseTeam.emergencyContact"
+                        formControlName="emergencyContact">
+                    </p-checkbox>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Treatment plan</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <p-checkbox type="checkbox" name="treatmentPlan" binary="true" [(ngModel)]="caseTeam.treatmentPlan"
+                        formControlName="treatmentPlan">
+                    </p-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Locked</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 form">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Email Notice of children location</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <p-checkbox type="checkbox" name="emailNotice" binary="true"
+                        [(ngModel)]="caseTeam.emailNoticeOfChildsLocation" formControlName="emailNoticeOfChildsLocation">
+                    </p-checkbox>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="isEdit">
+            <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <span class="sf-labels">Entered by</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 form">
+                        <input type="text" name="enterdByPerson" [(ngModel)]="caseTeam.enteredBy"
+                            [ngModelOptions]="{standalone:true}" readonly pInputText />
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <span class="sf-labels">Changed by</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <input type="text" name="changedByPerson" [(ngModel)]="caseTeam.changedBy"
+                            [ngModelOptions]="{standalone:true}" readonly pInputText />
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <span class="sf-labels">Entered Date</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 form">
+                        <input type="text" name="enterdBy" [(ngModel)]="caseTeam.enteredDate"
+                            [ngModelOptions]="{standalone:true}" readonly pInputText />
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <span class="sf-labels">Changed Date</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <input type="text" name="changedBy" [(ngModel)]="caseTeam.changedDate"
+                            [ngModelOptions]="{standalone:true}" readonly pInputText />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <app-form-footer (save)="onFormAction()" (edit)="edit()" [editControll]="isEdit"></app-form-footer>
+</div>

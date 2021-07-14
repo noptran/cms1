@@ -1,0 +1,182 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="sfcsEmployeeResourceForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        REINTEGRATION FOSTER CARE <br>
+        REHABILITATION SERVICES REFERRAL
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right"> Name of Employee: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reSfcsEmployeeResource.EmployeeName" formControlName="EmployeeName" name="EmployeeName"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Current position & office: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reSfcsEmployeeResource.CurrentPosition" formControlName="CurrentPosition" name="CurrentPosition"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name of Sponsoring Agency: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reSfcsEmployeeResource.SponsoringAgency" formControlName="SponsoringAgency" name="SponsoringAgency"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name and Age of Child(ren): </div>
+      <div class="space-right">
+        <input [(ngModel)]="reSfcsEmployeeResource.ChildName" formControlName="ChildName" name="ChildName"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Child(ren)’s Office: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reSfcsEmployeeResource.ChildOffice" formControlName="ChildOffice" name="ChildOffice"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Proposed Start/End Dates: </div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="reSfcsEmployeeResource.StartEndDates" formControlName="StartEndDates" name="StartEndDates"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+          [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class=" space-right space-down">
+      <div class="space-down">Summary of Need for Placement: </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reSfcsEmployeeResource.SummaryPlacement" formControlName="SummaryPlacement" name="SummaryPlacement"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class=" space-right space-down">
+      <div class="space-down">Potential Boundary/Dual-Relationship Concerns:</div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reSfcsEmployeeResource.DualRelationshipConcerns" formControlName="DualRelationshipConcerns" name="DualRelationshipConcerns"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class=" space-right space-down">
+      <div class="space-down">Steps taken to minimize risk: </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reSfcsEmployeeResource.MinimizeRiskSteps" formControlName="MinimizeRiskSteps" name="MinimizeRiskSteps"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class=" space-right space-down">
+      <div class="space-down">Other Information:</div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reSfcsEmployeeResource.OtherInformation" formControlName="OtherInformation" name="OtherInformation"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reSfcsEmployeeResource.SignatureStaffComplete" formControlName="SignatureStaffComplete" name="SignatureStaffComplete"  type="text" pInputText size="20" />
+        </div>
+        <div class="space-down">Signature of Staff Completing
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="reSfcsEmployeeResource.DateCompleted" formControlName="DateCompleted" name="DateCompleted"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date Completed
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reSfcsEmployeeResource.SignatureSupervisor" formControlName="SignatureSupervisor" name="SignatureSupervisor"  type="text" pInputText size="20" />
+        </div>
+        <div class="space-down">Signature of Supervisor Completing
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="reSfcsEmployeeResource.Date" formControlName="Date" name="Date"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        Decision:
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reSfcsEmployeeResource.IsDecisionApproved" formControlName="IsDecisionApproved" name="IsDecisionApproved"  class="space-right"></p-checkbox>Approved
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reSfcsEmployeeResource.IsDecisionDenied" formControlName="IsDecisionDenied" name="IsDecisionDenied"  class="space-right"></p-checkbox>Denied
+      </div>
+    </div>
+    <div class="space-down">
+      <textarea [(ngModel)]="reSfcsEmployeeResource.Decision" formControlName="Decision" name="Decision"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <p class="bold">SIGNATURE OF PERSONS REVIEWING REQUEST:</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right"> AVP of Child(ren)’s Case: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reSfcsEmployeeResource.ChildCaseAvp" formControlName="ChildCaseAvp" name="ChildCaseAvp"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right"> AVP of Employee Resource Parent:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reSfcsEmployeeResource.EmployeeResourceParentAvp" formControlName="EmployeeResourceParentAvp" name="EmployeeResourceParentAvp"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right"> Clinical Director of RFCA: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reSfcsEmployeeResource.ClinicalDirector" formControlName="ClinicalDirector" name="ClinicalDirector"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right"> VP of Employee Resource Parent: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reSfcsEmployeeResource.EmployeeResourceParentVp" formControlName="EmployeeResourceParentVp" name="EmployeeResourceParentVp"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right"> VP of Child’s Case:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reSfcsEmployeeResource.ChildCaseVp" formControlName="ChildCaseVp" name="ChildCaseVp"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Date Reviewed: </div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="reSfcsEmployeeResource.DateReviewed" formControlName="DateReviewed" name="DateReviewed"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+         [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,reSfcsEmployeeResource)" (edit)="editForm()" [editControll]="editControll" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

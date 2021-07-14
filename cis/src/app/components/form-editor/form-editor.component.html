@@ -1,0 +1,55 @@
+<div *ngIf="showLoader" id="loading-overlay">
+    <p class="loader-text">
+        <span>Loading...</span>
+    </p>
+</div>
+<div class="form-container">
+    <mat-card [ngSwitch]="selectedForm">
+        <worker-child-activity-visit-note-form *ngSwitchCase="'Worker Child Visit Activity Note'"  [model]="formData">
+        </worker-child-activity-visit-note-form>
+        <case-activity *ngSwitchCase="'Case Activity'" [model]="formData" [ispdfStarts]="ispdfStarts">
+        </case-activity>
+        <adoptive-resource-inquiry-form *ngSwitchCase="'Adoptive Resource Inquiry'" [model]="formData">
+        </adoptive-resource-inquiry-form>
+        <parent-child-visitation-log-form *ngSwitchCase="'Parent-Child Visitation Log Form'" [model]="formData">
+        </parent-child-visitation-log-form>
+        <worker-parent-visit-activity-form *ngSwitchCase="'Worker Parent Visit Activity Log'" [model]="formData">
+        </worker-parent-visit-activity-form>
+        <court-apperance-log-form *ngSwitchCase="'Court Appearance Log'" [model]="formData"></court-apperance-log-form>
+        <permanancy-release-or-changeof-visit-form *ngSwitchCase="'Permanency Release or Change of Status'" [model]="formData">
+        </permanancy-release-or-changeof-visit-form>
+        <maternal-paternal-relative-form *ngSwitchCase="'MATERNAL & PATERNAL Kinship'" [model]="formData">
+        </maternal-paternal-relative-form>
+        <initial-family-team-meeting-form *ngSwitchCase="'Initial Family-Team Meeting w Informed Consent'" [model]="formData">
+        </initial-family-team-meeting-form>
+        <!-- Family preservation -->
+        <supervisory-staffing-form *ngSwitchCase="'FP Supervisory Staffing'" [model]="formData"></supervisory-staffing-form>
+        <!-- okhlahoma -->
+        <guide-for-monthly-resource-home-contact-form *ngSwitchCase="'Guide for Monthly Resource Home Contact'" [model]="formData">
+        </guide-for-monthly-resource-home-contact-form>
+        <!-- Behavioral Assessment -->
+        <asq-two-mo-form *ngSwitchCase="'ASQ 2 Months'" [model]="formData"></asq-two-mo-form>
+        <asq-six-mo-form *ngSwitchCase="'ASQ 6 Months'" [model]="formData"></asq-six-mo-form>
+        <asq-twelve-mo-form *ngSwitchCase="'ASQ 12 Months'" [model]="formData"></asq-twelve-mo-form>
+        <asq-eighteen-mo-form *ngSwitchCase="'ASQ 18 Months'" [model]="formData"></asq-eighteen-mo-form>
+        <asq-twentyfour-mo-form *ngSwitchCase="'ASQ 24 Months'" [model]="formData"></asq-twentyfour-mo-form>
+        <asq-thirty-mo-form *ngSwitchCase="'ASQ 30 Months'" [model]="formData"></asq-thirty-mo-form>
+        <asq-thirtysix-mo-form *ngSwitchCase="'ASQ 36 Months'" [model]="formData"></asq-thirtysix-mo-form>
+        <asq-fortyeight-form *ngSwitchCase="'ASQ 48 Months'" [model]="formData"></asq-fortyeight-form>
+        <asq-sixty-form *ngSwitchCase="'ASQ 60 Months'" [model]="formData"></asq-sixty-form>
+        <cafas-form *ngSwitchCase="'CAFAS'" [model]="formData"></cafas-form>
+        <crops-form *ngSwitchCase="'CROPS'" [model]="formData"></crops-form>
+        <ncfas-form *ngSwitchCase="'NCFAS'" [model]="formData"></ncfas-form>
+        <pecfas-form *ngSwitchCase="'PECFAS'" [model]="formData"></pecfas-form>
+        <parent-stress-index-form *ngSwitchCase="'PSI'" [model]="formData"></parent-stress-index-form>
+        <csdc-form *ngSwitchCase="'CSDC'" [model]="formData"></csdc-form>
+        <!-- foster care -->
+        <foster-care-placement-support *ngSwitchCase="'Reintegration Foster Care Placement Support Plan'" [model]="formData"></foster-care-placement-support>
+
+        <div *ngSwitchDefault>
+            <h1>Unknown Form Selection. Please retry.</h1>
+        </div>
+    </mat-card>
+    <!-- <form-footer [formSelected]="selectedForm" *ngIf="finalized === false" (resetAction)='resetForm()' (calculateAction)='calculateForm()'
+        (saveAction)='saveForm()' (finalizeAction)='finalize()' [isFinalize]="isFinalize"></form-footer> -->
+</div>

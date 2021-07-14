@@ -1,0 +1,353 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="epdsForm" class="sf-form">
+      <div class="flex-container header">
+          <div>
+    
+          </div>
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+          <div>
+    
+          </div>
+        </div>
+    <h3 class="bold center space-down">Edinburgh Postnatal Depression Scale 1 (EPDS) </h3>
+    <div class="flex-container space-down space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Name:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpEpds.name" formControlName="name" name="name" type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Address:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpEpds.address" formControlName="address" name="address" type="text" pInputText size="20" /> </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Your Date of Birth:</div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="fpEpds.dob" formControlName="dob" name="dob" [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24"
+          [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Baby’s Date of Birth:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpEpds.babyDob" formControlName="babyDob" name="babyDob" [inputStyle]="{'width':'170px'}" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Phone:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpEpds.phone" formControlName="phone" name="phone" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <hr>
+    <p>As you are pregnant or have recently had a baby, we would like to know how you are feeling. Please check the answer that
+      comes closest to how you have felt
+      <span class="bold">IN THE PAST 7 DAYS</span>, not just how you feel today. </p>
+    <p>Here is an example, already completed</p>
+    <p>I have felt happy: </p>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <div class="space-down">
+          <p-checkbox binary="true" [(ngModel)]="fpEpds.isHappyAllYes" formControlName="isHappyAllYes" name="isHappyAllYes" class="space-right"></p-checkbox>Yes, all the time
+        </div>
+        <div class="space-down">
+          <p-checkbox binary="true" [(ngModel)]="fpEpds.isHappyMostYes" formControlName="isHappyMostYes" name="isHappyMostYes" class="space-right"
+            [(ngModel)]="checked" binary="true"></p-checkbox>Yes, most of the time
+        </div>
+        <div class="space-down">
+          <p-checkbox binary="true" [(ngModel)]="fpEpds.isHappyOftenNo" formControlName="isHappyOftenNo" name="isHappyOftenNo" class="space-right"></p-checkbox>No, not very often
+        </div>
+        <div class="space-down">
+          <p-checkbox binary="true" [(ngModel)]="fpEpds.isHappyNeverNo" formControlName="isHappyNeverNo" name="isHappyNeverNo" class="space-right"></p-checkbox>No, not at all
+        </div>
+      </div>
+      <div class="table-td">
+        <p>This would mean: “I have felt happy most of the time” during the past week.
+          <br> Please complete the other questions in the same way. </p>
+      </div>
+    </div>
+    <p>In the past 7 days: </p>
+    <div class="flex-container space-down space-between space-down">
+      <div>
+        <div class="space-down">
+          <p>1. I have been able to laugh and see the funny side of things</p>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isLaughAlways" formControlName="isLaughAlways" name="isLaughAlways" class="space-right"></p-checkbox>As much as I always could
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isLaughNotQuite" formControlName="isLaughNotQuite" name="isLaughNotQuite" class="space-right"></p-checkbox>Not quite so much now
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isLaughDefinitely" formControlName="isLaughDefinitely" name="isLaughDefinitely"
+              class="space-right"></p-checkbox>Definitely not so much now
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isLaughNever" formControlName="isLaughNever" name="isLaughNever" class="space-right"></p-checkbox>Not at all
+          </div>
+        </div>
+        <div class="space-down">
+          <p>2. I have looked forward with enjoyment to things</p>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isEnjoymentMuch" formControlName="isEnjoymentMuch" name="isEnjoymentMuch" class="space-right"></p-checkbox>As much as I ever did
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isEnjoymentLess" formControlName="isEnjoymentLess" name="isEnjoymentLess" class="space-right"></p-checkbox>Rather less than I used to
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isEnjoymentDefinitelyLess" formControlName="isEnjoymentDefinitelyLess" name="isEnjoymentDefinitelyLess"
+              class="space-right"></p-checkbox>Definitely less than I used to
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isEnjoymentHardly" formControlName="isEnjoymentHardly" name="isEnjoymentHardly"
+              class="space-right"></p-checkbox>Hardly at all
+          </div>
+        </div>
+        <div class="space-down">
+          <p>*3. I have blamed myself unnecessarily when things No, not at all went wrong </p>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isBlamedMostYes" formControlName="isBlamedMostYes" name="isBlamedMostYes" class="space-right"></p-checkbox>Yes, most of the time
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isBlamedSomeYes" formControlName="isBlamedSomeYes" name="isBlamedSomeYes" class="space-right"></p-checkbox>Yes, some of the time
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isBlamedOftenNo" formControlName="isBlamedOftenNo" name="isBlamedOftenNo" class="space-right"></p-checkbox>Not very often
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isBlamedNeverNo" formControlName="isBlamedNeverNo" name="isBlamedNeverNo" class="space-right"></p-checkbox>No, never
+          </div>
+        </div>
+        <div class="space-down">
+          <p>4. I have been anxious or worried for no good reason</p>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isWorriedNever" formControlName="isWorriedNever" name="isWorriedNever" class="space-right"></p-checkbox>No, not at all
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isWorriedHardly" formControlName="isWorriedHardly" name="isWorriedHardly" class="space-right"></p-checkbox>Hardly ever
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isWorriedSometimes" formControlName="isWorriedSometimes" name="isWorriedSometimes"
+              class="space-right"></p-checkbox>Yes, sometimes
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isWorriedOften" formControlName="isWorriedOften" name="isWorriedOften" class="space-right"></p-checkbox>Yes, very often
+          </div>
+        </div>
+        <div class="space-down">
+          <p>*5 I have felt scared or panicky for no very good reason</p>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isScaredLotYes" formControlName="isScaredLotYes" name="isScaredLotYes" class="space-right"></p-checkbox>Yes, quite a lot
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isScaredSometimesYes" formControlName="isScaredSometimesYes" name="isScaredSometimesYes"
+              class="space-right"></p-checkbox>Yes, sometimes
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isScaredNotMuch" formControlName="isScaredNotMuch" name="isScaredNotMuch" class="space-right"></p-checkbox>No, not much
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isScaredNeverNo" formControlName="isScaredNeverNo" name="isScaredNeverNo" class="space-right"></p-checkbox>No, not at all
+          </div>
+        </div>
+      </div>
+      <div class="space-down">
+        <div class="space-down">
+          <p>*6. Things have been getting on top of me </p>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isgettingMostYes" formControlName="isgettingMostYes" name="isgettingMostYes"
+              class="space-right"></p-checkbox>Yes, most of the time I haven’t been able to cope at all
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isgettingSometimesYes" formControlName="isgettingSometimesYes" name="isgettingSometimesYes"
+              class="space-right"></p-checkbox>Yes, sometimes I haven’t been coping as well as usual
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isgettingOftenNo" formControlName="isgettingOftenNo" name="isgettingOftenNo"
+              class="space-right"></p-checkbox>No, most of the time I have coped quite well
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isgettingNeverNo" formControlName="isgettingNeverNo" name="isgettingNeverNo"
+              class="space-right"></p-checkbox>No, I have been coping as well as ever
+          </div>
+        </div>
+        <div class="space-down">
+          <p>*7 I have been so unhappy that I have had difficulty sleeping </p>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isUnhappyMostYes" formControlName="isUnhappyMostYes" name="isUnhappyMostYes"
+              class="space-right"></p-checkbox>Yes, most of the time
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isUnhappySometimesYes" formControlName="isUnhappySometimesYes" name="isUnhappySometimesYes"
+              class="space-right"></p-checkbox>Yes, sometimes
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isUnhappyOftenNo" formControlName="isUnhappyOftenNo" name="isUnhappyOftenNo"
+              class="space-right"></p-checkbox>Not very often
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isUnhappyNeverNo" formControlName="isUnhappyNeverNo" name="isUnhappyNeverNo"
+              class="space-right"></p-checkbox>No, not at all
+          </div>
+        </div>
+        <div class="space-down">
+          <p>*8 I have felt sad or miserable </p>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isMiserableMostYes" formControlName="isMiserableMostYes" name="isMiserableMostYes"
+              class="space-right"></p-checkbox>Yes, most of the time
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isMiserableSometimesYes" formControlName="isMiserableSometimesYes" name="isMiserableSometimesYes"
+              class="space-right"></p-checkbox>Yes, quite often
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isMiserableOftenNo" formControlName="isMiserableOftenNo" name="isMiserableOftenNo"
+              class="space-right"></p-checkbox>Not very often
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isMiserableNeverNo" formControlName="isMiserableNeverNo" name="isMiserableNeverNo"
+              class="space-right"></p-checkbox>No, not at all
+          </div>
+        </div>
+        <div class="space-down">
+          <p>*9 I have been so unhappy that I have been crying</p>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isCryingMostYes" formControlName="isCryingMostYes" name="isCryingMostYes" class="space-right"></p-checkbox>Yes, most of the time
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isCryingSometimesYes" formControlName="isCryingSometimesYes" name="isCryingSometimesYes"
+              class="space-right"></p-checkbox>Yes, quite often
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isCryingOftenNo" formControlName="isCryingOftenNo" name="isCryingOftenNo" class="space-right"></p-checkbox>Only occasionally
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isCryingNeverNo" formControlName="isCryingNeverNo" name="isCryingNeverNo" class="space-right"></p-checkbox>No, never
+          </div>
+        </div>
+        <div class="space-down">
+          <p>*10 The thought of harming myself has occurred to me </p>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isHarmingMostYes" formControlName="isHarmingMostYes" name="isHarmingMostYes"
+              class="space-right"></p-checkbox>Yes, quite often
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isHarmingSometimesYes" formControlName="isHarmingSometimesYes" name="isHarmingSometimesYes"
+              class="space-right"></p-checkbox>Sometimes
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isHarmingHardly" formControlName="isHarmingHardly" name="isHarmingHardly" class="space-right"></p-checkbox>Hardly ever
+          </div>
+          <div class="space-down">
+            <p-checkbox binary="true" [(ngModel)]="fpEpds.isHarmingNeverNo" formControlName="isHarmingNeverNo" name="isHarmingNeverNo"
+              class="space-right"></p-checkbox>Never
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-between space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Administered/Reviewed by:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpEpds.administered" formControlName="administered" name="administered" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpEpds.date" formControlName="date" name="date" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <p>
+      1 Source: Cox, J.L., Holden, J.M., and Sagovsky, R. 1987. Detection of postnatal depression: Development of the 10-item Edinburgh
+      Postnatal Depression Scale. British Journal of Psychiatry 150:782-786
+    </p>
+    <div class="html2pdf__page-break"></div>
+    <p>
+      2 Source: K. L. Wisner, B. L. Parry, C. M. Piontek, Postpartum Depression N Engl J Med vol. 347, No 3, July 18, 2002, 194-199
+    </p>
+    <p>
+      Users may reproduce the scale without further permission providing they respect copyright by quoting the names of the authors,
+      the title and the source of the paper in all reproduced copies.
+    </p>
+    <p>
+      Postpartum depression is the most common complication of childbearing. 2 The 10-question Edinburgh Postnatal Depression Scale
+      (EPDS) is a valuable and efficient way of identifying patients at risk for “perinatal” depression. The EPDS is easy
+      to administer and has proven to be an effective screening tool.
+    </p>
+    <p>
+      Mothers who score above 13 are likely to be suffering from a depressive illness of varying severity. The EPDS score should
+      not override clinical judgment. A careful clinical assessment should be carried out to confirm the diagnosis. The scale
+      indicates how the mother has felt during the previous week. In doubtful cases it may be useful to repeat the tool after
+      2 weeks. The scale will not detect mothers with anxiety neuroses, phobias or personality disorders.
+    </p>
+    <p>
+      Women with postpartum depression need not feel alone. They may find useful information on the web sites of the National Women’s
+      Health Information Center
+      <a href="www.4women.gov">
+        www.4women.gov
+      </a> and from groups such as Postpartum Support International
+      <a href="www.chss.iup.edu/postpartum">
+        www.chss.iup.edu
+      </a> and Depression after Delivery
+      <a href="www.depressionafterdelivery.com">
+        www.depressionafterdelivery.com
+      </a>.
+    </p>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <h3 class="center bold">SCORING</h3>
+        <p class="bold">QUESTIONS 1, 2, & 4 (without an *)</p>
+        <p>Are scored 0, 1, 2 or 3 with top box scored as 0 and the bottom box scored as 3.</p>
+        <p class="bold">QUESTIONS 3, 5-­10 (marked with an *) </p>
+        <p>Are reverse scored, with the top box scored as a 3 and the bottom box scored as 0. </p>
+        <p>Maximum score: 30 </p>
+        <p>Possible Depression: 10 or greater </p>
+        <p>Always look at item 10 (suicidal thoughts)</p>
+        <p>Users may reproduce the scale without further permission, providing they respect copyright by quoting the names of
+          the authors, the title, and the source of the paper in all reproduced copies.</p>
+      </div>
+    </div>
+    <h3 class="center bold">Instructions for using the Edinburgh Postnatal Depression Scale:</h3>
+    <p>1. The mother is asked to check the response that comes closest to how she has been feeling in the previous 7 days. </p>
+    <p>2. All the items must be completed</p>
+    <p>3. Care should be taken to avoid the possibility of the mother discussing her answers with others. (Answers come from
+      the mother or pregnant woman.)</p>
+    <p>4. The mother should complete the scale herself, unless she has limited English or has difficulty with reading.</p>
+    <p>1 Source: Cox, J.L., Holden, J.M., and Sagovsky, R. 1987. Detection of postnatal depression: Development of the 10-item
+      Edinburgh Postnatal Depression Scale. British Journal of Psychiatry 150:782-786.</p>
+    <p>2 Source: K. L. Wisner, B. L. Parry, C. M. Piontek, Postpartum Depression N Engl J Med vol. 347, No 3, July 18, 2002,
+      194-199</p>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,fpEpds)" (print)="printForm()" [editControll]="editControll" (edit)="editForm()" [isPrint]="isPrint"></app-form-footer>

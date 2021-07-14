@@ -1,0 +1,578 @@
+<div id="pdf-content">
+  <div class="header">
+    <div class="title">
+      <h2>REINTEGRATION FOSTER
+        <br> CARE ADOPTION
+        <br> INITIAL FAMILY/ TEAM
+        <br> MEETING
+        <br>
+        <span>(Held within 2 Business Days)</span>
+      </h2>
+    </div>
+    <div class="logo">
+      <img src="assets/images/logo.svg" />
+    </div>
+    <div class="form-info">
+      <div>
+        <client-search [ClientName]='displayClientName()' (setClientAction)="setClient($event)"></client-search>
+      </div>
+      <div>
+        <span>FACTS:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.facts.value">
+        </mat-form-field>
+      </div>
+      <div>
+        <span>SFCS Worker:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.SFCSworker.value" readonly>
+        </mat-form-field>
+      </div>
+      <div>
+        <span>Date/Time:</span>
+        <mat-form-field>
+          <input matInput type="datetime-local" [(ngModel)]="model.dateTime.value">
+        </mat-form-field>
+      </div>
+      <div>
+        <span>Location :</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.Location.value">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <mat-checkbox [(ngModel)]="model.Rolesresponsiblities.fieldOptionIndex">Roles and responsiblities of all team members
+    clarified and defined including foster family and birth family partnerships.</mat-checkbox>
+  <mat-checkbox [(ngModel)]="model.homeplacement.fieldOptionIndex">Safety concerns idetified leading to out of home
+    placement.
+  </mat-checkbox>
+  <p>Safety is the potential for serious maltreatment which is imminent. It determines the need for immediate protective
+    action
+    or controlling interventions to protect the child from imminent danger.</p>
+  <div class="text-section">
+    <span>Desribe the safety concerns, contributing factors, and family’s strengths to mitigate the safety
+      concerns:</span>
+    <mat-form-field *ngIf="!isFinalize">
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.safetyConcerns.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.safetyConcerns.value}}</span>
+    <hr *ngIf="isFinalize">
+  </div>
+  <div>
+    <span>Safety plan needed or updated by case team:</span>
+    <input class="rad" type="radio" value="0" name="SafetyPlan" [(ngModel)]="model.SafetyPlan.fieldOptionIndex">yes
+    <input class="rad" type="radio" value="1" name="SafetyPlan" [(ngModel)]="model.SafetyPlan.fieldOptionIndex">no
+  </div>
+  <mat-checkbox [(ngModel)]="model.Riskconcerns.fieldOptionIndex">Risk concerns identified leading to out of home
+    placement.
+  </mat-checkbox>
+  <p>Risk is potential maltreatment in the future. It determines the need for services to address potential future
+    maltreatment.
+  </p>
+  <div class="text-section">
+    <span>Desribe the risk, family strengths and resources to mitigate the risk, and services needed or taken:</span>
+    <mat-form-field *ngIf="!isFinalize">
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.familyStrengths.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.familyStrengths.value}}</span>
+    <hr *ngIf="isFinalize">
+  </div>
+  <div>
+    <span>Service plan needed or updated by case team:</span>
+    <input class="rad" type="radio" value="0" name="ServicePlan" [(ngModel)]="model.ServicePlan.fieldOptionIndex">yes
+    <input class="rad" type="radio" value="1" name="ServicePlan" [(ngModel)]="model.ServicePlan.fieldOptionIndex">no
+  </div>
+  <div>
+    <mat-checkbox [(ngModel)]="model.AnnualHousehold.fieldOptionIndex">Annual Household Income:</mat-checkbox>
+    <mat-form-field>
+      <input matInput [(ngModel)]="model.AnnualHouseholdInput.value">
+    </mat-form-field>
+    <span>Number living in Household:</span>
+    <mat-form-field>
+      <input matInput [(ngModel)]="model.NumberlivingHousehold.value">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-checkbox [(ngModel)]="model.SingleParent.fieldOptionIndex">Single Parent Household</mat-checkbox>
+  </div>
+  <mat-checkbox [(ngModel)]="model.RelativeKinship.fieldOptionIndex">Relative/Kinship placement discussed and contact
+    information gathered.</mat-checkbox>
+  <mat-checkbox [(ngModel)]="model.Introduction.fieldOptionIndex">Introduction & Parents Guide to Case Planning
+    Conferences (CFS 3049) explained and given to family.</mat-checkbox>
+  <mat-checkbox [(ngModel)]="model.appointments.fieldOptionIndex">Set-up the following appointments</mat-checkbox>
+  <table>
+    <tr>
+      <th>Appointment</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Notes</th>
+    </tr>
+    <tr>
+      <td>Initial Case Plan</td>
+      <td>
+        <mat-form-field  floatLabel="never">
+          <input matInput [matDatepicker]="InitialCasePlanDate" (click)="InitialCasePlanDate.open()" placeholder="Choose a date" class="date" [(ngModel)]="model.InitialCasePlanDate.value">
+          <mat-datepicker #InitialCasePlanDate></mat-datepicker>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.InitialCasePlanTime.value">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.InitialCasePlanNotes.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.InitialCasePlanNotes.value}}</span>
+        <hr *ngIf="isFinalize">
+      </td>
+    </tr>
+    <tr>
+      <td>Next Court Hearing</td>
+      <td>
+        <mat-form-field  floatLabel="never">
+          <input matInput [matDatepicker]="NextCourtHearingDate" (click)="NextCourtHearingDate.open()" placeholder="Choose a date" class="date" [(ngModel)]="model.NextCourtHearingDate.value">
+          <mat-datepicker #NextCourtHearingDate></mat-datepicker>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.NextCourtHearingTime.value">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.NextCourtHearingNotes.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.NextCourtHearingNotes.value}}</span>
+        <hr *ngIf="isFinalize">
+      </td>
+    </tr>
+    <tr>
+      <td>Next Visit</td>
+      <td>
+        <mat-form-field  floatLabel="never">
+          <input matInput [matDatepicker]="NextVisitDate" (click)="NextVisitDate.open()" placeholder="Choose a date" class="date" [(ngModel)]="model.NextVisitDate.value">
+          <mat-datepicker #NextVisitDate></mat-datepicker>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.NextVisitTime.value">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.NextVisitNotes.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.NextVisitNotes.value}}</span>
+        <hr *ngIf="isFinalize">
+      </td>
+    </tr>
+    <tr>
+      <td>Next Meeting with Parents/Caregivers
+      </td>
+      <td>
+        <mat-form-field  floatLabel="never">
+          <input matInput [matDatepicker]="ParentsCaregiversDate" (click)="ParentsCaregiversDate.open()" placeholder="Choose a date" class="date" [(ngModel)]="model.ParentsCaregiversDate.value">
+          <mat-datepicker #ParentsCaregiversDate></mat-datepicker>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.ParentsCaregiversTime.value">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.ParentsCaregiversNotes.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.ParentsCaregiversNotes.value}}</span>
+        <hr *ngIf="isFinalize">
+      </td>
+    </tr>
+  </table>
+  <mat-checkbox [(ngModel)]="model.neededAssessments.fieldOptionIndex">All needed assessments started. (ex. child and
+    family profile, ecomap, genogram, initial screening tool)</mat-checkbox>
+  <mat-checkbox [(ngModel)]="model.releasesSigned.fieldOptionIndex">All releases signed by parents. (ex. insurance,
+    education, confidentiality)</mat-checkbox>
+  <div class="comment">
+    <mat-checkbox [(ngModel)]="model.questionsComments.fieldOptionIndex">Parent(s) questions or comments:</mat-checkbox>
+    <mat-form-field> <input matInput [(ngModel)]="model.ParentquestionsComments.value"></mat-form-field>
+  </div>
+  <div>
+    <p>
+      <span class="acknowledge">ACKNOWLEDGEMENTS:</span> Initialed by client and/or personal representative
+      (parent/legal
+      guardian/placing agency)</p>
+  </div>
+  <div class="initials">
+    <p>Client Initials
+    </p>
+    <p>Guardian Initials
+    </p>
+  </div>
+  <div class="acknowledgement">
+    <div class="initial-input">
+      <mat-form-field>
+        <input matInput class="input-xs" [(ngModel)]="model.clientRightClient.value">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput class="input-xs" [(ngModel)]="model.clientRightGuardian.value">
+      </mat-form-field>
+    </div>
+    <div class="client-rights">
+      <h3>CLIENT RIGHTS AND RESPONSIBILITIES:</h3>
+      <p>Client has received/reviewed “Client’s Rights and Responsibilities” and understands rights as described in the
+        document.
+        Client also understands that at any time during treatment, may request further explanation of these rights.</p>
+    </div>
+  </div>
+  <div class="acknowledgement">
+    <div class="initial-input">
+      <div>
+        <mat-form-field>
+          <input matInput class="input-xs" [(ngModel)]="model.privacyClient.value">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input matInput class="input-xs" [(ngModel)]="model.privacyGuardian.value">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="client-rights">
+      <h3>NOTICE OF PRIVACY PRACTICES:</h3>
+      <p>Client has reviewed/received a copy of the Notice of Privacy Practices. Client understands that they may
+        request another
+        copy at any time.</p>
+    </div>
+  </div>
+  <div class="acknowledgement">
+    <div class="initial-input">
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.mandatedClient.value">
+      </mat-form-field>
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.mandatedGuardian.value">
+      </mat-form-field>
+    </div>
+    <div class="client-rights">
+      <h3>MANDATED REPORTER:</h3>
+      <p>Client understands that SFCS are mandated under the state law to report child or elder abuse when there is a
+        reason
+        to suspect abuse. In addition, client understands that SFCS has a duty to warn others of life threatening
+        concerns,
+        should that be disclosed.</p>
+    </div>
+  </div>
+  <div class="acknowledgement">
+    <div class="initial-input">
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.providerClient.value">
+      </mat-form-field>
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.providerGuardian.value">
+      </mat-form-field>
+    </div>
+    <div class="client-rights">
+      <h3>PROVIDER NON-DISCRIMINATION ACT:</h3>
+      <p>Client understands that this is an equal opportunity institution. There is no discrimination because of race,
+        color,
+        religion, natural origin, age, sex, handicap, or inability to pay for needed items while services are being
+        provided.
+      </p>
+    </div>
+  </div>
+  <div class="acknowledgement">
+    <div class="initial-input">
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.communicationClient.value">
+      </mat-form-field>
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.communicationGuardian.value">
+      </mat-form-field>
+    </div>
+    <div class="client-rights">
+      <h3>COMMUNICATION – SENSORY IMPAIRMENT:</h3>
+      <p>There are times clients may have sensory impairments. Clients are assured that all efforts will be made to
+        facilitate
+        communication through the provision of necessary items specific to the sensory impairment.</p>
+      <div>
+        <span>Client has sensory impairment?</span>
+        <input class="rad" type="radio" value="0" name="sensoryImpairment" [(ngModel)]="model.sensoryImpairment.fieldOptionIndex">yes
+        <input class="rad" type="radio" value="1" name="sensoryImpairment" [(ngModel)]="model.sensoryImpairment.fieldOptionIndex">no
+      </div>
+      <div>
+        <span>If Yes, Sensory Impairment:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.communicationSensoryImpairment.value">
+        </mat-form-field>
+      </div>
+      <div>
+        <span>If Yes, Provision(s) Needed:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.Provision.value">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="acknowledgement">
+    <div class="initial-input">
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.proficiencyClient.value">
+      </mat-form-field>
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.proficiencyGuardian.value">
+      </mat-form-field>
+    </div>
+    <div class="client-rights">
+      <h3>COMMUNICATION – LIMITED ENGLISH PROFICIENCY:</h3>
+      <p>There are times a client may have limited English proficiency, or their parents/guardian may have limited
+        English proficiency.
+        In these cases, the family, in conjunction with SFCS will determine if there is a family member who can be an
+        effective
+        interpreter or if one will need to be hired.</p>
+      <div>
+        <span>Client has sensory impairment?</span>
+        <input class="rad" type="radio" value="0" name="clientSensoryImpairment" [(ngModel)]="model.clientSensoryImpairment.fieldOptionIndex">yes
+        <input class="rad" type="radio" value="1" name="clientSensoryImpairment" [(ngModel)]="model.clientSensoryImpairment.fieldOptionIndex">no
+      </div>
+      <div>
+        <span>If Yes, Communication Needs:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.Communication.value">
+        </mat-form-field>
+      </div>
+      <div>
+        <span>If Yes, Preferred Language:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.PreferredLanguage.value">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="acknowledgement">
+    <div class="initial-input">
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.photographsSFCSstaffClient.value">
+      </mat-form-field>
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.photographsSFCSstaffGuardian.value">
+      </mat-form-field>
+    </div>
+    <div class="client-rights">
+      <h3>PHOTOGRAPHS/AUDIO/VIDEO RECORDING BY SFCS STAFF:</h3>
+      <p>Any photographs/videos/written materials to be used in publications, presentations, and/or advertisements
+        require a
+        separate authorization signed at time of the specific event (Consent and Authorization for Marketing).
+        <span class="bold">Any photographs/videos to be used in conjunction with treatment programs, protocols, and
+          training will require a
+          separate authorization signed at time of the specific event</span> (Consent and Authorization for Treatment
+        Media).
+      </p>
+    </div>
+  </div>
+  <div class="acknowledgement">
+    <div class="initial-input">
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.photographsSFCSNonstaffClient.value">
+      </mat-form-field>
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.photographsSFCSNonstaffGuardian.value">
+      </mat-form-field>
+    </div>
+    <div class="client-rights">
+      <h3>AUDIO/VIDEO RECORDING/PHOTOGRAPHS BY NON-STAFF:</h3>
+      <p>Client/Family understands SFCS requires advance permission to photograph, video or audio record interactions in
+        SFCS
+        offices, SFCS property and/or during delivery of SFCS services.</p>
+    </div>
+  </div>
+  <div class="acknowledgement">
+    <div class="initial-input">
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.customerCareClient.value">
+      </mat-form-field>
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.customerCareGuardian.value">
+      </mat-form-field>
+    </div>
+    <div class="client-rights">
+      <h3>CUSTOMER CARE:</h3>
+      <p>Client is aware of customer care and has received a pamphlet. The client is encouraged to address concerns
+        through
+        their worker, however may contact the Customer Care department at any time: 1-866-671-4735 or
+        <span class="email">www.st-francis.org</span>.</p>
+      <p>In addition to contacting SFCS Customer Care, client can contact The Joint Commission Customer Care:
+        630-792-5800 Email:
+        <span class="email">www.patientsafetyreport@jointcommission.org</span>
+      </p>
+    </div>
+  </div>
+  <div class="acknowledgement">
+    <div class="initial-input">
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.grievanceClient.value">
+      </mat-form-field>
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.grievanceGuardian.value">
+      </mat-form-field>
+    </div>
+    <div class="client-rights">
+      <h3>GRIEVANCE:</h3>
+      <p>Client has received a copy of and understands the grievance procedure. Client also understands at any time
+        during their
+        treatment, may request further explanation of the grievance process.</p>
+    </div>
+  </div>
+  <div class="acknowledgement">
+    <div class="initial-input">
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.emailConsentClient.value">
+      </mat-form-field>
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.emailConsentGuardian.value">
+      </mat-form-field>
+    </div>
+    <div class="client-rights">
+      <h3>EMAIL CONSENT:</h3>
+      <p>Client understands if email communication is requested, that SFCS cannot guarantee the security of the
+        information.
+        Client has
+        <mat-checkbox [(ngModel)]="model.authorized.fieldOptionIndex">authorized</mat-checkbox>
+        <mat-checkbox [(ngModel)]="model.notauthorized.fieldOptionIndex">not authorized</mat-checkbox> to receive
+        confidential information through email communication. Client may withdraw
+        consent to the use of e-mail at any time by contacting your assigned therapist/Licensed Permanency Specialist by
+        e-mail or written communication to. Client releases and holds SFCS harmless from any injury that may occur as a
+        result
+        of email communications.
+      </p>
+    </div>
+  </div>
+  <div class="html2pdf__page-break"></div>
+  <div class="acknowledgement">
+    <div class="initial-input">
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.careServiceClient.value">
+      </mat-form-field>
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.careServiceGuardian.value">
+      </mat-form-field>
+    </div>
+    <div class="client-rights">
+      <h3>CARE SERVICES:</h3>
+      <p>Medical, dental, vision, pharmacy and/or psychiatric care services will be provided by providers in the
+        community selected
+        by the foster parent. If there is a provider preferred by the legal guardian that is different from the one
+        chosen
+        by the foster parent, every effort will be made to utilize the chosen provider.
+      </p>
+    </div>
+  </div>
+  <div class="acknowledgement">
+    <div class="initial-input">
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.immunizationClient.value">
+      </mat-form-field>
+      <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.immunizationGuardian.value">
+      </mat-form-field>
+    </div>
+    <div class="client-rights">
+      <h3>IMMUNIZATION:</h3>
+      <p>One of the best ways to protect children is to make sure they have all of their vaccinations. Schools require a
+        copy
+        of the up to date immunization for children to attend. SFCS will need copies of your child’s vaccinations. If
+        SFCS
+        is unable to obtain verification, or your child is not up to date, your child will receive all required
+        vaccinations
+        during their regularly scheduled Kan-Be-Healthy.</p>
+    </div>
+  </div>
+  <p>Your signature below indicates you participated during the above discussion and understand you are required to
+    maintain
+    confidentiality as to any form of information you obtain during this meeting, unless access to such information is
+    obtained
+    by a separate release of information or other lawful method of access.
+    <span class="bold">(Signature of Referred Family)</span>
+  </p>
+  <div class="signature">
+    <div class="pad-sign">
+      <mat-form-field>
+        <input matInput class="input-md" [(ngModel)]="model.ClientSignature.value">
+      </mat-form-field>
+      <p>Client Signature</p>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput class="input-md" [(ngModel)]="model.CaregiverSignature.value">
+      </mat-form-field>
+      <p>Parent/Caregiver Signature</p>
+    </div>
+  </div>
+  <div class="signature">
+    <div>
+      <mat-form-field>
+        <input matInput [(ngModel)]="model.CaregiverSignature1.value">
+      </mat-form-field>
+      <span>Parent/Caregiver Signature</span>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput [(ngModel)]="model.CaregiverSignature2.value">
+      </mat-form-field>
+      <span>Parent/Caregiver Signature</span>
+    </div>
+    <div>
+      <mat-form-field>
+        <input matInput [(ngModel)]="model.CaregiverSignature3.value">
+      </mat-form-field>
+      <span>Parent/Caregiver Signature</span>
+    </div>
+  </div>
+  <p>Your signature below indicates you participated during the above discussion and you understand you are required to
+    maintain
+    confidentiality as to any form of information you obtain during this meeting, unless access to such information is
+    obtained
+    by a separate release of information or other lawful method of access.
+    <span class="bold">(Signatures of Other Participants)</span>
+  </p>
+  <div class="footer-input">
+    <div>
+      <div>
+        <div>
+          <mat-form-field>
+            <input matInput [(ngModel)]="model.Signature1.value">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput [(ngModel)]="model.Signature2.value">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input matInput [(ngModel)]="model.Signature3.value">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="dcf-section">
+      <div>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.dcfSignature1.value"></mat-form-field>
+      </div>
+      <div>
+        <mat-form-field> <input matInput [(ngModel)]="model.dcfSignature2.value">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field> <input matInput [(ngModel)]="model.dcfSignature3.value">
+        </mat-form-field>
+      </div>
+      <span>DCF Licensed Permanency Specialist/
+        <br>Designee Signature
+      </span>
+    </div>
+    <div>
+      <div>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.SFCSSignature1.value"></mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.SFCSSignature2.value"></mat-form-field>
+      </div>
+      <div>
+        <mat-form-field> <input matInput [(ngModel)]="model.SFCSSignature3.value"></mat-form-field>
+      </div>
+      <span>SFCS Licensed Permanency Specialist/
+        <br>Designee Signature & Date
+      </span>
+    </div>
+  </div>
+</div>
+<form-footer  (resetAction)='resetForm()' (calculateAction)='calculateForm()'
+  (saveAction)='saveForm()' (finalizeAction)='finalize()'>
+</form-footer>

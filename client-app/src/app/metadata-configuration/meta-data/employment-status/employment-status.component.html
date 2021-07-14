@@ -1,0 +1,36 @@
+<div class="container-fluid" style="margin-top:200px">
+    <div id="loading-overlay">
+        <p class="loader-text">
+          <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+        </p>
+      </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <span class="sf-heading-3 sf-black">Empolyment status</span>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 sf-text-right">
+        <div class="sf-table-header sf-black">
+          <!-- <button class="btn sf-primary-btn font-600 add" (click)="addForm()">+ Add Users</button> -->
+          <span (click)="navigation('first')" class="fa fa-angle-double-left nav-icons" pTooltip="First" id="first"></span>
+          <span (click)="navigation('previous')" class="fa fa-angle-left nav-icons" pTooltip="Previous" id="user-pre"></span>
+          <span id="user-initial-count" class="highlights">{{initial | number}}</span>
+          <span class="highlights"> to </span>
+          <span id="user-des-count" class="highlights">{{end | number}}</span>
+          <span class="highlights"> of </span>
+          <span class="highlights"> {{totalCount | number}} </span>
+          <span (click)="navigation('next')" class="fa fa-angle-right nav-icons" pTooltip="Next" id="user-next"></span>
+          <span (click)="navigation('last')" class="fa fa-angle-double-right nav-icons" pTooltip="Last" id="last"></span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <ag-grid-angular style="width: 500px; height: 500px;" class="ag-theme-balham" [rowData]="rowData" [columnDefs]="columnDef"
+          [defaultColDef]="defaultColDef" [rowDragManaged]="true" [suppressDragLeaveHidesColumns]="false" [suppressRowDrag]="true"
+          [enableSorting]="true"  enableColResize="true" #agGrid style="width: 100%; height:359px;" animateRows="true"
+          rowSelection="multiple" (rowSelected)="rowClick()" pagination="true">
+        </ag-grid-angular>
+      </div>
+    </div>
+  </div>
+  

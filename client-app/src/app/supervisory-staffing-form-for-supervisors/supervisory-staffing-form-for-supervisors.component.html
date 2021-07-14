@@ -1,0 +1,1066 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form class="sf-form form-size" [formGroup]="ssfForm">
+      <div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Reason For Referral</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input [disabled]="true" [(ngModel)]="reasonForReferral" [ngModelOptions]="{standalone: true}" type="text"
+                pInputText name="inputText" size="27" />
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-sm-12 col-md-12">
+            <div class="col-lg-12 col-sm-12 col-md-12">
+              <span>Monthly Staffing</span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-sm-12 col-md-12 flex-container">
+            <div class="col-lg-12 col-sm-12 col-md-12 check-box">
+              <p-checkbox name="threeMonths" binary="true" formControlName="threeMonthStaffing"
+                label="3 Months Staffing" [(ngModel)]="ssf.threeMonthStaffing"></p-checkbox>
+              <p-checkbox name="sixMonths" binary="true" formControlName="sixMonthStaffing" label="6 Months Staffing"
+                [(ngModel)]="ssf.sixMonthStaffing"></p-checkbox>
+              <p-checkbox name="nineMonths" binary="true" formControlName="nineMonthStaffing" label="9 Months Staffing"
+                [(ngModel)]="ssf.nineMonthStaffing"></p-checkbox>
+              <p-checkbox name="newWorkerStaffing" binary="true" formControlName="newWorkerStaffing"
+                label="New Worker Staffing" [(ngModel)]="ssf.newWorkerStaffing"></p-checkbox>
+              <p-checkbox name="newSupervisorStaffing" binary="true" formControlName="newSupervisorStaffing"
+                label="New Supervisor Staffing" [(ngModel)]="ssf.newSupervisorStaffing"></p-checkbox>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Client</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete [dropdown]="true" name="clientID" emptyMessage="No results found!" [forceSelection]="true"
+                placeholder="Type here to search" field="clientName" size="23" [(ngModel)]="ssf.clientID"
+                formControlName="clientID" [suggestions]="metaData" (completeMethod)="getMetaData($event,'client')">
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>KAECSES</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientKaecsesId}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Facts</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.Facts}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Staff Performing Activity</span><span
+                class="mandatory">*</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete [dropdown]="true" name="staffID" emptyMessage="No results found!" [forceSelection]="true"
+                placeholder="Type here to search" field="fullName" size="23" [(ngModel)]="ssf.staffID"
+                formControlName="staffID" [suggestions]="metaData" (completeMethod)="getMetaData($event,'staff')">
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Date</span><span class="mandatory">*</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" showTime="true" hourFormat="24" [yearNavigator]="true"
+                [monthNavigator]="true" yearRange="2000:2030" [showIcon]="true" formControlName="date"
+                [(ngModel)]="ssf.date"></p-calendar>
+
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>DOB</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.DOB | date:'MM/dd/yyyy'}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Referral Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.ReferralDate | date:'MM/dd/yyyy'}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Provider</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.ProviderName }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Level of Care</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.LevelOfCare }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Case Manager</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.CaseManager }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Case plan Goals</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.CasePlanGoals }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Address</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.Address}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Phone</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.Phone}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>SFCS Office</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.SFCSOffice}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>ICWA Applies</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.ICWAApply ? 'Yes' : 'No'}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Have Additional safety concerns been identified since last staffing</span>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <p-radioButton name="safetyConcerns" formControlName="additionalSafetyConcerns"
+              [(ngModel)]="ssf.additionalSafetyConcerns" value="true" label="Yes"></p-radioButton>
+            <p-radioButton name="safetyConcerns" formControlName="additionalSafetyConcerns"
+              [(ngModel)]="ssf.additionalSafetyConcerns" value="false" label="No"></p-radioButton>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>What safety concerns have been identified</span></div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="split-text-box">
+            <div class="text-box">
+              <textarea pInputTextarea name="safteyConcernsIdentified" formControlName="safetyConcernsIdentified"
+                [(ngModel)]="ssf.safetyConcernsIdentified" style="width:100%;height:100%"></textarea>
+            </div>
+            <div class="text-box">
+              <textarea pInputTextarea name="safteyConcernsIdentified_old" readonly *ngIf="previousClientInfo"
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="safetyConcernsIdentified"
+                style="width:100%;height:100%;background: #cccccc82"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>What are the family's strengths and resources mitigating
+                safety concerns</span></div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+
+          <div class="split-text-box">
+
+            <div class="text-box">
+              <textarea pInputTextarea name="familyStrengths" formControlName="familyStrengths"
+                [(ngModel)]="ssf.familyStrengthsMitigatingSafetyConcerns" style="width:100%;height:100%"></textarea>
+            </div>
+            <div class="text-box">
+              <textarea pInputTextarea name="familyStrengths_old" readonly *ngIf="previousClientInfo"
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="familyStrengthsMitigatingSafetyConcerns"
+                style="width:100%;height:100%;background: #cccccc82"></textarea>
+            </div>
+          </div>
+
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>What are the contributing factors directly related to the
+                safety concern</span></div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="split-text-box">
+            <div class="text-box">
+              <textarea pInputTextarea name="contributingFactors" formControlName="contributingFactors"
+                [(ngModel)]="ssf.contributingFactorsSafetyConcerns" style="width:100%;height:100%"></textarea>
+            </div>
+            <div class="text-box">
+              <textarea pInputTextarea name="contributingFactors_old" readonly *ngIf="previousClientInfo"
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="contributingFactorsSafetyConcerns"
+                style="width:100%;height:100%;background: #cccccc82"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Has a safety plan been developed or reviewed?</span>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <p-radioButton name="safteyPlanDevelopment" formControlName="safetyPlanDeveloped"
+              [(ngModel)]="ssf.safetyPlanDeveloped" value="true" label="Yes"></p-radioButton>
+            <p-radioButton name="safteyPlanDevelopment" formControlName="safetyPlanDeveloped"
+              [(ngModel)]="ssf.safetyPlanDeveloped" value="false" label="No"></p-radioButton>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Have additional risk concerns been identified since last staffing</span>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <p-radioButton name="additionalRiskConcens" formControlName="additionalRiskConcerns"
+              [(ngModel)]="ssf.additionalRiskConcerns" value="true" label="Yes"></p-radioButton>
+            <p-radioButton name="additionalRiskConcens" formControlName="additionalRiskConcerns"
+              [(ngModel)]="ssf.additionalRiskConcerns" value="false" label="No"></p-radioButton>
+          </div>
+        </div>
+
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>What risk concern have been identified</span></div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+
+          <div class="split-text-box">
+            <div class="text-box">
+              <textarea pInputTextarea name="riskConcernIdentified" formControlName="riskConcernsIdentified"
+                [(ngModel)]="ssf.riskConcernsIdentified" style="width:100%;height:100%"></textarea>
+            </div>
+            <div class="text-box">
+              <textarea pInputTextarea name="riskConcernsIdentified_old" readonly
+                style="width:100%;height:100%;background: #cccccc82" *ngIf="previousClientInfo"
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="riskConcernsIdentified"
+                style="width:100%;height:100%"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>What are the family's strengths and resources mitigating
+                the risks?</span></div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="split-text-box">
+            <div class="text-box">
+              <textarea pInputTextarea name="familyStrengthsRisks" formControlName="familyStrengthsMitigatingRisks"
+                [(ngModel)]="ssf.familyStrengthsMitigatingRisks" style="width:100%;height:100%"></textarea>
+            </div>
+            <div class="text-box">
+              <textarea pInputTextarea name="familyStrengthsRisks_old" readonly *ngIf="previousClientInfo"
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="familyStrengthsMitigatingRisks"
+                style="width:100%;height:100%;background: #cccccc82"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>What services are needed or have taken place to mitigate
+                the concerns?</span></div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+
+          <div class="split-text-box">
+
+            <div class="text-box">
+              <textarea pInputTextarea name="serviceMitigateConcerns" formControlName="servicesNeededMitigateConcerns"
+                [(ngModel)]="ssf.servicesNeededMitigateConcerns" style="width:100%;height:100%"></textarea>
+            </div>
+            <div class="text-box">
+              <textarea pInputTextarea name="servicesNeededMitigateConcerns_old" readonly *ngIf="previousClientInfo"
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="servicesNeededMitigateConcerns"
+                style="width:100%;height:100%;background: #cccccc82"></textarea>
+            </div>
+          </div>
+
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Has a service plan been developed or reviewed?</span>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <p-radioButton name="servicePlanDeveloped" formControlName="servicePlanDeveloped"
+              [(ngModel)]="ssf.servicePlanDeveloped" value="true" label="Yes"></p-radioButton>
+            <p-radioButton name="servicePlanDeveloped" formControlName="servicePlanDeveloped"
+              [(ngModel)]="ssf.servicePlanDeveloped" value="false" label="No"></p-radioButton>
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>Court Update</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="split-text-box">
+
+          <div class="text-box">
+            <textarea pInputTextarea name="courtUpdate" formControlName="courtUpdate" [(ngModel)]="ssf.courtUpdate"
+              style="width:100%;height:100%"></textarea>
+          </div>
+          <div class="text-box">
+            <textarea pInputTextarea name="courtUpdate_old" readonly *ngIf="previousClientInfo"
+              [ngModelOptions]="{standalone: true}" [(ngModel)]="courtUpdate"
+              style="width:100%;height:100%;background: #cccccc82"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>Visitation Update</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="split-text-box">
+
+          <div class="text-box">
+            <textarea pInputTextarea name="visitationUpdate" formControlName="visitationUpdate"
+              [(ngModel)]="ssf.visitationUpdate" style="width:100%;height:100%"></textarea>
+          </div>
+          <div class="text-box">
+            <textarea pInputTextarea name="visitationUpdate_old" readonly *ngIf="previousClientInfo"
+              [ngModelOptions]="{standalone: true}" [(ngModel)]="visitationUpdate"
+              style="width:100%;height:100%;background: #cccccc82"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>Barries and Progress</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="split-text-box">
+
+          <div class="text-box">
+            <textarea pInputTextarea name="progressTowardsAchievingPermanency"
+              formControlName="progressTowardsAchievingPermanency" [(ngModel)]="ssf.progressTowardsAchievingPermanency"
+              style="width:100%;height:100%"></textarea>
+          </div>
+          <div class="text-box">
+            <textarea pInputTextarea name="progressTowardsAchievingPermanency_old" readonly *ngIf="previousClientInfo"
+              [ngModelOptions]="{standalone: true}" [(ngModel)]="progressTowardsAchievingPermanency"
+              style="width:100%;height:100%;background: #cccccc82"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>Kinship</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="split-text-box">
+
+          <div class="text-box">
+            <textarea pInputTextarea name="kinship" style="width:100%;height:100%" formControlName="kinship"
+              [(ngModel)]="ssf.kinship"></textarea>
+          </div>
+          <div class="text-box">
+            <textarea pInputTextarea name="kinship_old" readonly *ngIf="previousClientInfo"
+              style="width:100%;height:100%;background: #cccccc82" [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="kinship"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>Review of Assessments</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="split-text-box">
+
+          <div class="text-box">
+            <textarea pInputTextarea name="reviewOfNCFAS" formControlName="reviewOfNCFAS"
+              [(ngModel)]="ssf.reviewOfNCFAS" style="width:100%;height:100%"></textarea>
+          </div>
+          <div class="text-box">
+            <textarea pInputTextarea name="reviewOfNCFAS_old" readonly *ngIf="previousClientInfo"
+              style="width:100%;height:100%;background: #cccccc82" [(ngModel)]="reviewOfNCFAS"
+              [ngModelOptions]="{standalone: true}"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>Transition Plan for OPPLA Children</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="split-text-box">
+
+          <div class="text-box">
+            <textarea pInputTextarea name="transitionPlan" formControlName="transitionPlan"
+              [(ngModel)]="ssf.transitionPlan" style="width:100%;height:100%"></textarea>
+          </div>
+          <div class="text-box">
+            <textarea pInputTextarea name="transitionPlan_old" readonly [ngModelOptions]="{standalone: true}"
+              *ngIf="previousClientInfo" [(ngModel)]="transitionPlan"
+              style="width:100%;height:100%;background: #cccccc82"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>To Be Completed</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="split-text-box">
+
+          <div class="text-box">
+            <textarea pInputTextarea name="toBeCompleted" formControlName="toBeCompleted"
+              [(ngModel)]="ssf.toBeCompleted" style="width:100%;height:100%"></textarea>
+          </div>
+          <div class="text-box">
+            <textarea pInputTextarea name="toBeCompleted_old" readonly *ngIf="previousClientInfo"
+              [(ngModel)]="toBeCompleted" style="width:100%;height:100%;background: #cccccc82"
+              [ngModelOptions]="{standalone: true}"></textarea>
+          </div>
+        </div>
+
+      </div>
+
+      <app-form-footer (save)="formAction(ssf)" [editControll]="isEdit" [discardTo]="discardTo" (edit)="editForm()"
+        [isPrint]="isPrint" (print)="print()" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+      </app-form-footer>
+
+    </form>
+    <app-quick-menu [module]="quickMenu"></app-quick-menu>
+  </div>
+
+</div>
+
+
+<div *ngIf="isPrintEnabled">
+
+  <div>
+
+    <form [formGroup]="ssfForm">
+      <div id="pdf-supervisor">
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Reason For Referral</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+
+              <input [(ngModel)]="reasonForReferral" [ngModelOptions]="{standalone: true}" class="remove-borders" type="text" pInputText name="inputText" size="27" />
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-sm-12 col-md-12">
+            <div class="col-lg-12 col-sm-12 col-md-12">
+              <span>Monthly Staffing</span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-sm-12 col-md-12">
+            <div class="col-lg-12 col-sm-12 col-md-12 check-box-print flex">
+              <p-checkbox name="threeMonths" binary="true" formControlName="threeMonthStaffing"
+                label="3 Months Staffing" [(ngModel)]="ssf.threeMonthStaffing"></p-checkbox>
+              <p-checkbox name="sixMonths" binary="true" formControlName="sixMonthStaffing" label="6 Months Staffing"
+                [(ngModel)]="ssf.sixMonthStaffing"></p-checkbox>
+              <p-checkbox name="nineMonths" binary="true" formControlName="nineMonthStaffing" label="9 Months Staffing"
+                [(ngModel)]="ssf.nineMonthStaffing"></p-checkbox>
+              <p-checkbox name="newWorkerStaffing" binary="true" formControlName="newWorkerStaffing"
+                label="New Worker Staffing" [(ngModel)]="ssf.newWorkerStaffing"></p-checkbox>
+              <p-checkbox name="newSupervisorStaffing" binary="true" formControlName="newSupervisorStaffing"
+                label="New Supervisor Staffing" [(ngModel)]="ssf.newSupervisorStaffing"></p-checkbox>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Client</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+
+              <p-autoComplete name="clientID" emptyMessage="No results found!" [forceSelection]="true"
+                placeholder="Type here to search" field="clientName" size="23" [(ngModel)]="ssf.clientID"
+                formControlName="clientID" [suggestions]="metaData" (completeMethod)="getMetaData($event,'client')">
+              </p-autoComplete>
+
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>KAECSES</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientKaecsesId}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Facts</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.Facts}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Staff Performing Activity</span><span
+                class="mandatory">*</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+
+              <p-autoComplete name="staffID" emptyMessage="No results found!" [forceSelection]="true"
+                placeholder="Type here to search" field="fullName" size="23" [(ngModel)]="ssf.staffID"
+                formControlName="staffID" [suggestions]="metaData" (completeMethod)="getMetaData($event,'staff')">
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Date</span><span class="mandatory">*</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" showTime="true" hourFormat="24" [yearNavigator]="true"
+                [monthNavigator]="true" yearRange="2000:2030" [showIcon]="true" formControlName="date"
+                [(ngModel)]="ssf.date"></p-calendar>
+
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>DOB</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.DOB | date:'MM/dd/yyyy'}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Referral Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.ReferralDate | date:'MM/dd/yyyy'}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Provider</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.ProviderName }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Level of Care</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.LevelOfCare }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Case Manager</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.CaseManager }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Case plan Goals</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.CasePlanGoals }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Address</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.Address}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Phone</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.Phone}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>SFCS Office</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.SFCSOffice}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>ICWA Applies</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="readonly-fields">
+                <span>{{clientDetails?.ICWAApply ? 'Yes' : 'No'}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>Court Update</span></div>
+          </div>
+        </div>
+        <div *ngIf="courtUpdate" class="margin-top-20 row">
+          <div class="split-text-box">
+
+            <div class="text-box">
+              <pre>{{ssf.courtUpdate}}</pre>
+
+            </div>
+            <div class="text-box">
+
+              <pre *ngIf="courtUpdate">{{courtUpdate}}</pre>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!courtUpdate" class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <pre>{{ssf.courtUpdate}}</pre>
+          </div>
+        </div>
+
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>Visitation Update</span></div>
+          </div>
+        </div>
+        <div *ngIf="visitationUpdate" class="margin-top-20 row">
+          <div class="split-text-box">
+
+            <div class="text-box">
+              <pre>{{ssf.visitationUpdate}}</pre>
+
+            </div>
+            <div class="text-box">
+
+              <pre *ngIf="visitationUpdate">{{visitationUpdate}}</pre>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!visitationUpdate" class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <pre>{{ssf.visitationUpdate}}</pre>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>Barries and Progress</span></div>
+          </div>
+        </div>
+        <div *ngIf="progressTowardsAchievingPermanency" class="margin-top-20 row">
+          <div class="split-text-box">
+
+            <div class="text-box">
+              <pre>{{ssf.progressTowardsAchievingPermanency}}</pre>
+
+            </div>
+            <div class="text-box">
+
+              <pre *ngIf="progressTowardsAchievingPermanency">{{progressTowardsAchievingPermanency}}</pre>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!progressTowardsAchievingPermanency" class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <pre>{{ssf.progressTowardsAchievingPermanency}}</pre>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>Kinship</span></div>
+          </div>
+        </div>
+        <div *ngIf="kinship" class="margin-top-20 row">
+          <div class="split-text-box">
+
+            <div class="text-box">
+              <pre>{{ssf.kinship}}</pre>
+
+            </div>
+            <div class="text-box">
+
+              <pre *ngIf="kinship">{{kinship}}</pre>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!kinship" class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <pre>{{ssf.kinship}}</pre>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>Review of Assessments</span></div>
+          </div>
+        </div>
+        <div *ngIf="reviewOfNCFAS" class="margin-top-20 row">
+          <div class="split-text-box">
+
+            <div class="text-box">
+
+              <pre>{{ssf.reviewOfNCFAS}}</pre>
+            </div>
+            <div class="text-box">
+
+              <pre *ngIf="reviewOfNCFAS">{{reviewOfNCFAS}}</pre>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!reviewOfNCFAS" class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <pre>{{ssf.reviewOfNCFAS}}</pre>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>Transition Plan for OPPLA Children</span></div>
+          </div>
+        </div>
+        <div *ngIf="transitionPlan" class="margin-top-20 row">
+          <div class="split-text-box">
+
+            <div class="text-box">
+              <pre>{{ssf.transitionPlan}}</pre>
+
+            </div>
+            <div class="text-box">
+
+              <pre *ngIf="transitionPlan">{{transitionPlan}}</pre>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!transitionPlan" class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <pre>{{ssf.transitionPlan}}</pre>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>To Be Completed</span></div>
+          </div>
+        </div>
+        <div *ngIf="toBeCompleted" class="margin-top-20 row">
+          <div class="split-text-box">
+
+            <div class="text-box">
+              <pre>{{ssf.toBeCompleted}}</pre>
+
+            </div>
+            <div class="text-box">
+
+              <pre *ngIf="toBeCompleted">{{toBeCompleted}}</pre>
+            </div>
+          </div>
+
+        </div>
+
+        <div *ngIf="!toBeCompleted" class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <pre>{{ssf.toBeCompleted}}</pre>
+          </div>
+        </div>
+
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Have Additional safety concerns been identified since last staffing</span>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <p-radioButton name="safetyConcerns" formControlName="additionalSafetyConcerns"
+              [(ngModel)]="ssf.additionalSafetyConcerns" value="true" label="Yes"></p-radioButton>
+            <p-radioButton name="safetyConcerns" formControlName="additionalSafetyConcerns"
+              [(ngModel)]="ssf.additionalSafetyConcerns" value="false" label="No"></p-radioButton>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>What safety concerns have been identified</span></div>
+          </div>
+        </div>
+        <div *ngIf="safetyConcernsIdentified" class="margin-top-20 row">
+          <div class="split-text-box">
+            <div class="text-box">
+              <pre>{{ssf.safetyConcernsIdentified}}</pre>
+            </div>
+            <div class="text-box">
+              <pre *ngIf="safetyConcernsIdentified">{{safetyConcernsIdentified}}</pre>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!safetyConcernsIdentified" class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <pre>{{ssf.safetyConcernsIdentified}}</pre>
+          </div>
+        </div>
+
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>What are the family's strengths and resources mitigating
+                safety concerns</span></div>
+          </div>
+        </div>
+        <div *ngIf="familyStrengthsMitigatingSafetyConcerns" class="margin-top-20 row">
+
+          <div class="split-text-box">
+
+            <div class="text-box">
+              <pre>{{ssf.familyStrengthsMitigatingSafetyConcerns}}</pre>
+
+            </div>
+            <div class="text-box">
+
+              <pre *ngIf="familyStrengthsMitigatingSafetyConcerns">{{familyStrengthsMitigatingSafetyConcerns}}</pre>
+            </div>
+          </div>
+
+        </div>
+        <div *ngIf="!familyStrengthsMitigatingSafetyConcerns" class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <pre>{{ssf.familyStrengthsMitigatingSafetyConcerns}}</pre>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>What are the contributing factors directly related to the
+                safety concern</span></div>
+          </div>
+        </div>
+        <div *ngIf="contributingFactorsSafetyConcerns" class="margin-top-20 row">
+          <div class="split-text-box">
+            <div class="text-box">
+              <pre>{{ssf.contributingFactorsSafetyConcerns}}</pre>
+
+            </div>
+            <div class="text-box">
+
+              <pre *ngIf="contributingFactorsSafetyConcerns">{{contributingFactorsSafetyConcerns}}</pre>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!contributingFactorsSafetyConcerns" class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <pre>{{ssf.contributingFactorsSafetyConcerns}}</pre>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Has a safety plan been developed or reviewed?</span>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <p-radioButton name="safteyPlanDevelopment" formControlName="safetyPlanDeveloped"
+              [(ngModel)]="ssf.safetyPlanDeveloped" value="true" label="Yes"></p-radioButton>
+            <p-radioButton name="safteyPlanDevelopment" formControlName="safetyPlanDeveloped"
+              [(ngModel)]="ssf.safetyPlanDeveloped" value="false" label="No"></p-radioButton>
+          </div>
+        </div>
+
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Have additional risk concerns been identified since last staffing</span>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <p-radioButton name="additionalRiskConcens" formControlName="additionalRiskConcerns"
+              [(ngModel)]="ssf.additionalRiskConcerns" value="true" label="Yes"></p-radioButton>
+            <p-radioButton name="additionalRiskConcens" formControlName="additionalRiskConcerns"
+              [(ngModel)]="ssf.additionalRiskConcerns" value="false" label="No"></p-radioButton>
+          </div>
+        </div>
+
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>What risk concern have been identified</span></div>
+          </div>
+        </div>
+        <div *ngIf="riskConcernsIdentified" class="margin-top-20 row">
+
+          <div class="split-text-box">
+            <div class="text-box">
+              <pre>{{ssf.riskConcernsIdentified}}</pre>
+
+            </div>
+            <div class="text-box">
+              <pre *ngIf="riskConcernsIdentified">{{riskConcernsIdentified}}</pre>
+
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!riskConcernsIdentified" class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <pre>{{ssf.riskConcernsIdentified}}</pre>
+          </div>
+        </div>
+
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>What are the family's strengths and resources mitigating
+                the risks?</span></div>
+          </div>
+        </div>
+        <div *ngIf="familyStrengthsMitigatingRisks" class="margin-top-20 row">
+          <div class="split-text-box">
+            <div class="text-box">
+              <pre>{{ssf.familyStrengthsMitigatingRisks}}</pre>
+
+            </div>
+            <div class="text-box">
+
+              <pre *ngIf="familyStrengthsMitigatingRisks">{{familyStrengthsMitigatingRisks}}</pre>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!familyStrengthsMitigatingRisks" class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <pre>{{ssf.familyStrengthsMitigatingRisks}}</pre>
+          </div>
+        </div>
+
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>What services are needed or have taken place to mitigate
+                the concerns?</span></div>
+          </div>
+        </div>
+        <div *ngIf="servicesNeededMitigateConcerns" class="margin-top-20 row">
+
+          <div class="split-text-box">
+
+            <div class="text-box">
+              <pre>{{ssf.servicesNeededMitigateConcerns}}</pre>
+
+            </div>
+            <div class="text-box">
+              <pre *ngIf="servicesNeededMitigateConcerns">{{servicesNeededMitigateConcerns}}</pre>
+
+            </div>
+          </div>
+
+        </div>
+
+
+        <div *ngIf="!servicesNeededMitigateConcerns" class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <pre>{{ssf.servicesNeededMitigateConcerns}}</pre>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Has a service plan been developed or reviewed?</span>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <p-radioButton name="servicePlanDeveloped" formControlName="servicePlanDeveloped"
+              [(ngModel)]="ssf.servicePlanDeveloped" value="true" label="Yes"></p-radioButton>
+            <p-radioButton name="servicePlanDeveloped" formControlName="servicePlanDeveloped"
+              [(ngModel)]="ssf.servicePlanDeveloped" value="false" label="No"></p-radioButton>
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </form>
+
+  </div>
+
+</div>

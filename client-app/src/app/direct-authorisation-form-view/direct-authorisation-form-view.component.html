@@ -1,0 +1,239 @@
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loader" width="150px" />
+  </p>
+</div>
+<app-form-header [breadcrumbs]="breadcrumbs" [formstatus]="" [formNavigation]=""></app-form-header>
+<div class="sf-form dh-form">
+  <div>
+    <div *ngIf="directAuth && directAuth.claimID" class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <b>CLAIM ID:({{ directAuth.claimID }})</b>
+        </div>
+      </div>
+      <div *ngIf="!isClaimPayee" class="col-lg-6 col-md-6 col-sm-6 text-right">
+        <button class="sf-positive-btn" style="width: 29%" (click)="viewClientInfo()">
+          View Client Info
+        </button>
+      </div>
+      <div *ngIf="isClaimPayee" class="col-lg-6 col-md-6 col-sm-6 text-right">
+        <button class="sf-positive-btn" style="width: 29%" (click)="currentJumpToTree()">
+          Jump To Tree
+        </button>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin Date:</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-calendar [(ngModel)]="directAuth.beginDate" name="beginDate" [showTime]="true" [disabled]="isClaimStatus"
+            [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"
+            [inputStyle]="{ height: '30px', width: '100% !important' }">
+          </p-calendar>
+          <!-- <input type="text" pInputText size="20" [(ngModel)]="directAuth.beginDate" [disabled]="isClaimStatus" /> -->
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-checkbox [(ngModel)]="directAuth.dateOverride" label="Override Date" [disabled]="true" [binary]="true">
+          </p-checkbox>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3"></div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date:</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-calendar [(ngModel)]="directAuth.endDate" name="beginDate" [showTime]="true" [disabled]="isClaimStatus"
+            [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"
+            [inputStyle]="{ height: '30px', width: '100% !important' }">
+          </p-calendar>
+          <!-- <input type="text" pInputText size="20" [(ngModel)]="directAuth.endDate" [disabled]="isClaimStatus" /> -->
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Units</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-spinner name="units" [step]="0.25" [disabled]="isClaimStatus" (onChange)="getUnitsRate()"
+            [(ngModel)]="directAuth.units">
+          </p-spinner>
+          <!-- <input type="text" pInputText size="20" [(ngModel)]="directAuth.units" [disabled]="isClaimStatus" /> -->
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Unit type</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete [(ngModel)]="directAuth.unitType" name="unitType" [disabled]="claimStatusToRecoupNull"
+            [suggestions]="allunitTypes" [dropdown]="true" [forceSelection]="true" field="unitType"
+            (completeMethod)="getUnitType($event)"></p-autoComplete>
+          <!-- <input type="text" pInputText size="20" [(ngModel)]="directAuth.unitType" [disabled]="isClaimStatus" /> -->
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Payor Rate</span>
+        </div>
+        <!--  -->
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-spinner name="payorRate" [step]="0.25" [disabled]="isClaimStatus" [min]="0"
+            (onChange)="getPayorRate()" [(ngModel)]="directAuth.payorRate">
+          </p-spinner>
+
+          <!-- <input maxlength="75" [(ngModel)]="directAuth.payorRate" pInputText
+            size="27" [disabled]="isClaimStatus" /> -->
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Provider Rate:</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <!-- <input maxlength="75" [(ngModel)]="directAuth.providerRate" pInputText size="27" [disabled]="isClaimStatus" /> -->
+          <p-spinner name="providerRate" [step]="0.25" [disabled]="isClaimStatus" (onChange)="getProviderRate()"
+            [(ngModel)]="directAuth.providerRate">
+          </p-spinner>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Procode</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="!isSave">
+          <p-autoComplete [(ngModel)]="directAuth.procode" name="procode" [disabled]="claimStatusToRecoupNull"
+            [suggestions]="filteredProcodesData" [dropdown]="true" [forceSelection]="true" field="procode"
+            (completeMethod)="searchTerm$.next($event)" (onSelect)="getProcodeInfo($event)"></p-autoComplete>
+
+          <!-- (completeMethod)="getProcodeBasedOnReferralType($event)" -->
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="isSave">
+          <p-autoComplete [(ngModel)]="directAuth.procode" name="procode" [disabled]="claimStatusToRecoupNull"
+            [suggestions]="filteredProcodesData" [dropdown]="true" [forceSelection]="true" field="procode"
+            (completeMethod)="getMetaData($event, 'procode')" (onSelect)="getProcodeInfo($event)">
+          </p-autoComplete>
+
+          <!-- (completeMethod)="getProcodeBasedOnReferralType($event)" -->
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Payment Type</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete [(ngModel)]="directAuth.paymentType" [suggestions]="payLists" [dropdown]="true"
+            [forceSelection]="true" [disabled]="isClaimStatus" field="paymentType"
+            (completeMethod)="getPaymentType($event)"></p-autoComplete>
+          <!-- <input maxlength="75" [(ngModel)]="directAuth.paymentType" pInputText
+            size="27" [disabled]="isClaimStatus" /> -->
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="isPayee">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Payee</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete [(ngModel)]="directAuth.payeeName" [disabled]="claimStatusToRecoupNull"
+            [suggestions]="payeeLists" [dropdown]="true" [forceSelection]="true" field="payeeName"
+            (completeMethod)="getPayeeList($event)"></p-autoComplete>
+          <!-- <input maxlength="75" [(ngModel)]="directAuth.payeeName" pInputText
+            size="27" [disabled]="isClaimStatus" /> -->
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="!isPayee">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Provider</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete [(ngModel)]="directAuth.providerName" [suggestions]="providerLists" [dropdown]="true"
+            [forceSelection]="true" [disabled]="claimStatusToRecoupNull" field="providerName"
+            (completeMethod)="getProviderList($event)"></p-autoComplete>
+          <!-- <input maxlength="75" [(ngModel)]="directAuth.providerName" pInputText
+            size="27" [disabled]="isClaimStatus" /> -->
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Received Date:</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-calendar [(ngModel)]="directAuth.receivedDate" name="receivedDate" [showTime]="true"
+            [disabled]="isClaimStatus" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
+            yearRange="1900:2030" [inputStyle]="{ height: '30px', width: '100% !important' }">
+          </p-calendar>
+          <!-- <input type="text" pInputText size="20" [(ngModel)]="directAuth.receivedDate" [disabled]="isClaimStatus" /> -->
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Payment Notes</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <textarea [(ngModel)]="directAuth.paymentNotes" [disabled]="isClaimStatus" name="paymentNotes" pInputTextArea
+            style="width: 100%; height: 100px"></textarea>
+          <!-- <input type="text" pInputText size="20" [(ngModel)]="directAuth.paymentNotes" [disabled]="isClaimStatus" /> -->
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Notes</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <textarea [(ngModel)]="directAuth.notes" [disabled]="isClaimStatus" name="notes" pInputTextArea
+            style="width: 100%; height: 100px"></textarea>
+          <!-- <input type="text" pInputText size="20" [(ngModel)]="directAuth.notes" [disabled]="isClaimStatus" /> -->
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Claim Status</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <!-- <input type="text" pInputText size="20" [(ngModel)]="directAuth.status" [disabled]="isClaimStatus" /> -->
+          <p-autoComplete class="width-autocomplete" placeholder="Type here to search" emptyMessage="No records found!"
+            [disabled]="claimStatusDisable" [dropdown]="true" [forceSelection]="true" field="claimStatus"
+            (onSelect)="getSelectStatus($event)" (completeMethod)="allClaims()" [suggestions]="metaData"
+            name="claimStatus" [(ngModel)]="claimStatus">
+          </p-autoComplete>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Entered By</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input type="text" pInputText size="20" [(ngModel)]="directAuth.enteredBy" [disabled]="isClaimStatus" />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>GL Key</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input type="text" pInputText size="20" [(ngModel)]="directAuth.glkey" [disabled]="isClaimStatus" />
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Expected Payment Date</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-calendar [(ngModel)]="paymentDueDate" [disabled]="true" name="paymentDueDate" [showIcon]="true"
+            [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"
+            [inputStyle]="{ height: '30px', width: '100% !important' }">
+          </p-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isPayeeView">
+    <app-form-footer [attachmentControll]="isAttachmentRequired" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"
+      [isDisabled]="isDisabled" (attachDoc)="navigateTo()" [editControll]="isEdit" [currentNodeValue]="req"
+      (save)="showValidateClaim()" (edit)="editForm()" (discard)="discard()">
+    </app-form-footer>
+  </div>
+</div>

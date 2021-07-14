@@ -1,0 +1,291 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="kinshipVisitationForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        REINTEGRATION FOSTER
+        <br> CARE ADOPTION KINSHIP
+        <br> VISITATION PLAN
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Child Name(s):</span>
+          <input [(ngModel)]="reKinshipVisitation.ChildName" formControlName="ChildName" name="ChildName" type="text" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>FACTS:</span>
+          <input [(ngModel)]="reKinshipVisitation.Facts" formControlName="Facts" name="Facts" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p>Type of Visitation:</p>
+    <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">*Supervised</div>
+        <div class="space-right">
+          <div class="space-down">
+            <input [(ngModel)]="reKinshipVisitation.Supervised" formControlName="Supervised" name="Supervised" type="text" pInputText
+              size="20" />
+          </div>
+          <p class="center">(SFCS or Kin)</p>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Monitored</div>
+        <div class="space-right">
+          <div class="space-down">
+            <input [(ngModel)]="reKinshipVisitation.Monitored" formControlName="Monitored" name="Monitored" type="text" pInputText size="20"
+            />
+          </div>
+          <p class="center">(SFCS or Kin)</p>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Unsupervised</div>
+        <div class="space-right">
+          <div class="space-down">
+            <input [(ngModel)]="reKinshipVisitation.Unsupervised" formControlName="Unsupervised" name="Unsupervised" type="text" pInputText
+              size="20" />
+          </div>
+          <p class="center">(SFCS or Kin)</p>
+        </div>
+      </div>
+    </div>
+    <p>*If supervised complete Safety Plan </p>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        Phone Contact:
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKinshipVisitation.isPhoneAllowed" formControlName="isPhoneAllowed" name="isPhoneAllowed"
+          class="space-right"></p-checkbox>Allowed
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKinshipVisitation.isPhoneSupervised" formControlName="isPhoneSupervised" name="isPhoneSupervised"
+          class="space-right"></p-checkbox>Supervised
+      </div>
+      <div class="space-right">
+        (
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKinshipVisitation.isPhoneSfcs" formControlName="isPhoneSfcs" name="isPhoneSfcs"
+          class="space-right"></p-checkbox>SFCS
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKinshipVisitation.isPhoneKin" formControlName="isPhoneKin" name="isPhoneKin" class="space-right"></p-checkbox>Kin
+      </div>
+      <div class="space-right">
+        )
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKinshipVisitation.isPhoneMonitored" formControlName="isPhoneMonitored" name="isPhoneMonitored"
+          class="space-right"></p-checkbox>Monitored
+      </div>
+      <div class="space-right">
+        (
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKinshipVisitation.isPhoneSfcs1" formControlName="isPhoneSfcs1" name="isPhoneSfcs1"
+          class="space-right"></p-checkbox>SFCS
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKinshipVisitation.isPhoneKin1" formControlName="isPhoneKin1" name="isPhoneKin1"
+          class="space-right"></p-checkbox>Kin
+      </div>
+      <div class="space-right">
+        )
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKinshipVisitation.isPhoneNotAllowed" formControlName="isPhoneNotAllowed" name="isPhoneNotAllowed"
+          class="space-right"></p-checkbox>Not allowed
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Effective Date: </div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="reKinshipVisitation.EffectiveDate" formControlName="EffectiveDate" name="EffectiveDate" [inputStyle]="{'width':'170px'}"
+          showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Participants included in Visits: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reKinshipVisitation.ParticipantsIncluded" formControlName="ParticipantsIncluded" name="ParticipantsIncluded"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>Visitation Arrangements:</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Who will arrange visits? </div>
+      <div class="space-right">
+        <input [(ngModel)]="reKinshipVisitation.PersonArrangeVisits" formControlName="PersonArrangeVisits" name="PersonArrangeVisits"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Who will transport? </div>
+      <div class="space-right">
+        <input [(ngModel)]="reKinshipVisitation.PersonTransport" formControlName="PersonTransport" name="PersonTransport" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Location of visits</div>
+      <div class="space-right">
+        <input [(ngModel)]="reKinshipVisitation.LocationOfVisits" formControlName="LocationOfVisits" name="LocationOfVisits" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Time of visits</div>
+      <div class="space-right">
+        <input [(ngModel)]="reKinshipVisitation.TimeOfVisits" formControlName="TimeOfVisits" name="TimeOfVisits" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Duration of visits</div>
+      <div class="space-right">
+        <input [(ngModel)]="reKinshipVisitation.DurationOfVisits" formControlName="DurationOfVisits" name="DurationOfVisits" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Frequency of visits</div>
+      <div class="space-right">
+        <input [(ngModel)]="reKinshipVisitation.FrequencyOfVisits" formControlName="FrequencyOfVisits" name="FrequencyOfVisits" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Visitation restrictions</div>
+      <div class="space-right">
+        <input [(ngModel)]="reKinshipVisitation.VisitationRestrictions" formControlName="VisitationRestrictions" name="VisitationRestrictions"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>I have read and understand the above visitation plan. I agree to abide by the plan and to ensure the safety of the child(ren)
+      I am caring for. I also agree to report any concerns about the visits to my SFCS worker.</p>
+    <div class="flex-container space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reKinshipVisitation.KinshipParent" formControlName="KinshipParent" name="KinshipParent" type="text" pInputText
+            size="20" />
+        </div>
+        <div class="space-down">Kinship Parent
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="reKinshipVisitation.Date" formControlName="Date" name="Date" [inputStyle]="{'width':'170px'}" class="date-picker"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date</div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reKinshipVisitation.KinshipParent1" formControlName="KinshipParent1" name="KinshipParent1" type="text"
+            pInputText size="20" />
+        </div>
+        <div class="space-down"> Kinship Parent
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="reKinshipVisitation.Date1" formControlName="Date1" name="Date1" [inputStyle]="{'width':'170px'}"
+            class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date</div>
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reKinshipVisitation.PermanencySpecialis" formControlName="PermanencySpecialis" name="PermanencySpecialis"
+            type="text" pInputText size="20" />
+        </div>
+        <div class="space-down">Licensed Permanency Specialist/
+          <br> Phone #
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="reKinshipVisitation.Date2" formControlName="Date2" name="Date2" [inputStyle]="{'width':'170px'}"
+            class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date</div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reKinshipVisitation.FamilySupportWorker" formControlName="FamilySupportWorker" name="FamilySupportWorker"
+            type="text" pInputText size="20" />
+        </div>
+        <div class="space-down">Family Support Worker/Phone #
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="reKinshipVisitation.Date3" formControlName="Date3" name="Date3" [inputStyle]="{'width':'170px'}"
+            class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date</div>
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reKinshipVisitation.KinshipSupportWorker" formControlName="KinshipSupportWorker" name="KinshipSupportWorker"
+            type="text" pInputText size="20" />
+        </div>
+        <div class="space-down">Kinship Support Worker/Phone #
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="reKinshipVisitation.Date4" formControlName="Date4" name="Date4" [inputStyle]="{'width':'170px'}"
+            class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date</div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reKinshipVisitation.ReintegrationSuperviso" formControlName="ReintegrationSuperviso" name="ReintegrationSuperviso"
+            type="text" pInputText size="20" />
+        </div>
+        <div class="space-down">Reintegration Supervisor/Phone #
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="reKinshipVisitation.Date5" formControlName="Date5" name="Date5" [inputStyle]="{'width':'170px'}"
+            class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date</div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,reKinshipVisitation)"  (edit)="editForm()" [editControll]="editControll" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

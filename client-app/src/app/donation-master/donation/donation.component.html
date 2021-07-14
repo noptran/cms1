@@ -1,0 +1,733 @@
+<div class="Report">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 main" [ngClass]="Sidenav?'main-class':'width-100'" style="padding:0px !important">
+        <div class="container home" style="padding-bottom: 40px;margin-left: 20px !important; padding:0px">
+          <div *ngIf="loaderController" class="overlay-loader">
+            <p class="loader-text">Processing ...</p>
+          </div>
+
+          <div>
+            <div style="margin-right: 35px;">
+              <form (ngSubmit)="onSubmit()">
+
+                <div class="card">
+                  <div class="card-header">
+                    <div>
+                      <h4 class="pull-left">Donation Create</h4>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label> Donor Type</label>
+                          <select [(ngModel)]="donate_formData.donor_type_id" name="title_id" class="form-control">
+                            <option value="" disabled selected>select a Donor Type</option>
+                            <option *ngFor="let title of typeMasters" [value]="title.id">{{title.name}}</option>
+                          </select>
+                          <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData.donor_type_id" name="donor_type_id"> -->
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Donor ID</label>
+
+                          <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData." name="name"> -->
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Title</label>
+                          <select [(ngModel)]="donate_formData.title_id" name="title_id" class="form-control">
+                            <option value="" disabled selected>select a Title</option>
+                            <option *ngFor="let title of titleLists" [value]="title.id">{{title.name}}</option>
+                          </select>
+                          <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData.title_id" name="title_id"> -->
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Business Phone </label>
+                          <input type="text" class="form-control" [(ngModel)]="donate_formData.business_ph" name="business_ph">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>First Name</label>
+                          <input type="text" class="form-control" name="f_name" [(ngModel)]="donate_formData.f_name">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Fax Phone </label>
+                          <input type="text" class="form-control" [(ngModel)]="donate_formData.fax_ph" name="fax_ph">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label> Last Name</label>
+                          <input type="text" class="form-control" name="l_name" [(ngModel)]="donate_formData.l_name">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Mobile Phone </label>
+                          <input type="text" class="form-control" [(ngModel)]="donate_formData.mobile_ph" name="mobile_ph">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Middle Name</label>
+                          <input type="text" class="form-control" name="m_name" [(ngModel)]="donate_formData.m_name">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Email</label>
+                          <input type="text" class="form-control" name="e_mail" [(ngModel)]="donate_formData.e_mail">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Suffix</label>
+                          <input type="text" class="form-control" name="suffix" [(ngModel)]="donate_formData.suffix">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Anonymous Donor </label>
+                          <input type="checkbox" class="form-control" name="anonymous_donor" [(ngModel)]="donate_formData.anonymous_donor">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Salutation</label>
+                          <input type="text" class="form-control" name="salutation" [(ngModel)]="donate_formData.salutation">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Do Not Send Mail </label>
+                          <input type="checkbox" class="form-control" name="email_dnd" [(ngModel)]="donate_formData.email_dnd">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Informal Salutation </label>
+                          <input type="text" class="form-control" name="info_salutation" [(ngModel)]="donate_formData.info_salutation">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>No Mail Reason
+                          </label>
+                          <select [(ngModel)]="donate_formData.address_type_id" name="address_type_id" class="form-control">
+                            <option value="" disabled selected>select a No Mail Reason</option>
+                            <option *ngFor="let title of emailReasonLists" [value]="title.id">{{title.name}}</option>
+                          </select>
+                          <!-- <input type="text" class="form-control"name="no_mail_reason_id" [(ngModel)]="donate_formData.no_mail_reason_id"> -->
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label> Addressee</label>
+                          <input type="text" class="form-control" name="addressee" [(ngModel)]="donate_formData.addressee">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Receipt Delivery </label>
+                          <input type="text" class="form-control" name="recpt_delivery" [(ngModel)]="donate_formData.recpt_delivery">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Professional Title </label>
+                          <input type="text" class="form-control" name="pro_title" [(ngModel)]="donate_formData.pro_title">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Preference Flags</label>
+                          <select [(ngModel)]="donate_formData.flags_id" name="flags_id" class="form-control">
+                            <option value="" disabled selected>select a Flags</option>
+                            <option *ngFor="let title of flagsLists" [value]="title.id">{{title.name}}</option>
+                          </select>
+                          <!-- <input type="text" class="form-control" name="flags_id" [(ngModel)]="donate_formData.flags_id"> -->
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Optional Line </label>
+                          <input type="text" class="form-control" [(ngModel)]="donate_formData.opt_line" name="opt_line">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Record Marked for Deletion</label>
+                          <br>
+                          <label class="radio-inline">
+                            <input type="radio" [(ngModel)]="donate_formData.record_for_del" value="yes" name="record_for_del">Yes
+                          </label>
+                          <label class="radio-inline">
+                            <input type="radio" [(ngModel)]="donate_formData.record_for_del" value="no" name="record_for_del">No
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Address</label>
+                          <input type="text" class="form-control" [(ngModel)]="donate_formData.address" name="address">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Address 2 </label>
+                          <input type="text" class="form-control" [(ngModel)]="donate_formData.address_2" name="address_2">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <!-- <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Address 2 </label>
+                          <input type="text" class="form-control" [(ngModel)]="donate_formData.address_2" name="address_2">
+                        </div>
+                      </div> -->
+                      <!-- <div class="col-md-6"><div class="form-group">
+                        <label>Deletion</label>
+                        <input type="text" class="form-control" [(ngModel)]="donate_formData." name="">
+                      </div></div> -->
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label> City</label>
+                          <input type="text" class="form-control" [(ngModel)]="donate_formData.city" name="city">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Data Management </label>
+                          <input type="text" class="form-control" [(ngModel)]="donate_formData.data_mngt" name="data_mngt">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>State </label>
+                          <select [(ngModel)]="donate_formData.state_id" name="state_id" class="form-control">
+                            <option value="" disabled selected>select a State</option>
+                            <option *ngFor="let title of states" [value]="title.id">{{title.name}}</option>
+                          </select>
+                          <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData.state_id" name="state_id"> -->
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label> Zip</label>
+                          <input type="text" class="form-control" [(ngModel)]="donate_formData.zip_code" name="zip_code">
+                          <!-- <label>Manager</label>
+                        <input type="text" class="form-control" [(ngModel)]="donate_formData." name=""> -->
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>County
+                          </label>
+                          <select [(ngModel)]="donate_formData.country_id" name="country_id" class="form-control">
+                            <option value="" disabled selected>select a Country</option>
+                            <option *ngFor="let title of countrys" [value]="title.id">{{title.name}}</option>
+                          </select>
+                          <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData.country_id" name="country_id"> -->
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <!-- <div class="form-group">
+                          <label>Secondary Manager
+                          </label>
+                          <input type="text" class="form-control" [(ngModel)]="donate_formData." name="">
+                        </div> -->
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label> Address Type
+                          </label>
+                          <select [(ngModel)]="donate_formData.address_type_id" name="address_type_id" class="form-control">
+                            <option value="" disabled selected>select a Address Type</option>
+                            <option *ngFor="let title of addresstypeLists" [value]="title.id">{{title.name}}</option>
+                          </select>
+                          <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData.address_type_id" name="address_type_id"> -->
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label> Narrative</label>
+                          <input type="text" class="form-control" [(ngModel)]="donate_formData.narrative" name="narrative">
+                        </div>
+                      </div>
+                    </div>
+
+
+
+
+                    <h5 data-toggle="collapse" data-target="#demo">Addtional Fields From Raiser's Edge
+                      <span class="pull-right glyphicon glyphicon-plus btn btn-primary btn-xs" data-toggle="collapse" data-target="#demo"></span>
+                    </h5>
+
+                    <div id="demo" class="collapse">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Primary Addressee</label>
+                            <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData." name=""> -->
+                          </div>
+
+                          <div class="form-group">
+                            <label>Import ID (Raiser's Edge)</label>
+                            <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData." name=""> -->
+                          </div>
+
+                          <div class="form-group">
+                            <label>Constituent ID (Raiser's Edge)</label>
+                            <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData." name=""> -->
+                          </div>
+
+                          <div class="form-group">
+                            <label>Address Source</label>
+                            <input type="text" class="form-control" [(ngModel)]="donate_formData.address_source" name="address_source">
+                          </div>
+
+                          <div class="form-group">
+                            <label>Nick Name</label>
+                            <input type="text" class="form-control" [(ngModel)]="donate_formData.nick_name" name="nick_name">
+                          </div>
+                          <div class="form-group">
+                            <label>Maiden Name</label>
+                            <input type="text" class="form-control" [(ngModel)]="donate_formData.maiden_name" name="maiden_name">
+                          </div>
+                          <div class="form-group">
+                            <label>Solicit Codes
+                            </label>
+                            <select [(ngModel)]="donate_formData.solicit_id" name="solicit_id" class="form-control">
+                              <option value="" disabled selected>select a Address Type</option>
+                              <option *ngFor="let title of solicits" [value]="title.id">{{title.name}}</option>
+                            </select>
+                            <!-- <input type="text" class="form-control"  [(ngModel)]="donate_formData.solicit_id" name="solicit_id"> -->
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Gender</label>
+                            <select [(ngModel)]="donate_formData.gender" name="gender" class="form-control">
+                              <option value="" disabled selected>select a Gender</option>
+                              <option value="male">Male</option>
+                              <option value="female">Female</option>
+                            </select>
+                            <!-- <input type="text" class="form-control"  [(ngModel)]="donate_formData.gender" name="gender"> -->
+                          </div>
+
+                          <div class="form-group">
+                            <label>Maritial Status
+                            </label>
+                            <select [(ngModel)]="donate_formData.marital_status_id" name="marital_status_id" class="form-control">
+                              <option value="" disabled selected>select a Maritial Status</option>
+                              <option *ngFor="let title of meritalStats" [value]="title.id">{{title.name}}</option>
+                            </select>
+                            <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData.marital_status_id" name="marital_status_id"> -->
+                          </div>
+
+                          <div class="form-group">
+                            <label> Industry</label>
+                            <select [(ngModel)]="donate_formData.industry_id" name="industry_id" class="form-control">
+                              <option value="" disabled selected>select a Industry</option>
+                              <option *ngFor="let title of industrys" [value]="title.id">{{title.name}}</option>
+                            </select>
+                            <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData.industry_id" name="industry_id"> -->
+                          </div>
+
+                          <div class="form-group">
+                            <label>Region</label>
+                            <select [(ngModel)]="donate_formData.region_id" name="region_id" class="form-control">
+                              <option value="" disabled selected>select a Region</option>
+                              <option *ngFor="let title of regions" [value]="title.id">{{title.name}}</option>
+                            </select>
+                            <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData.region_id" name="region_id"> -->
+                          </div>
+
+                          <div class="form-group">
+                            <label>County
+                            </label>
+                            <select [(ngModel)]="donate_formData.country_id" name="country_id" class="form-control">
+                              <option value="" disabled selected>select a Country</option>
+                              <option *ngFor="let title of countrys" [value]="title.id">{{title.name}}</option>
+                            </select>
+                            <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData.country_id" name="country_id"> -->
+                          </div>
+                          <div class="form-group">
+                            <label>Deceased Date
+                            </label>
+                            <input type="date" class="form-control" [(ngModel)]="donate_formData.deceased_dt" name="deceased_dt">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <h5 data-toggle="collapse" data-target="#demo1">Spouse/Partner Information
+                      <span class="pull-right glyphicon glyphicon-plus btn btn-primary btn-xs" data-toggle="collapse" data-target="#demo1"></span>
+                    </h5>
+
+                    <div id="demo1" class="collapse">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Spouse First Name</label>
+                            <input type="text" class="form-control" [(ngModel)]="donate_formData.sp_f_name" name="sp_f_name">
+                          </div>
+                          <div class="form-group">
+                            <label>Spouse Middle Name</label>
+                            <input type="text" class="form-control" [(ngModel)]="donate_formData.sp_m_name" name="sp_m_name">
+                          </div>
+                          <div class="form-group">
+                            <label>Spouse Last Name</label>
+                            <input type="text" class="form-control" [(ngModel)]="donate_formData.sp_l_name" name="sp_l_name">
+                          </div>
+                          <div class="form-group">
+                            <label>Spouse Maiden Name </label>
+                            <input type="text" class="form-control" [(ngModel)]="donate_formData.sp_md_name" name="sp_md_name">
+                          </div>
+                          <div class="form-group">
+                            <label>Gender</label>
+                            <select [(ngModel)]="donate_formData.spouse_gender" name="spouse_gender" class="form-control">
+                              <option value="" disabled selected>select a Gender</option>
+                              <option value="male">Male</option>
+                              <option value="female">Female</option>
+                            </select>
+                            <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData.spouse_name" name="spouse_name"> -->
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Spouse title </label>
+                            <input type="text" class="form-control" [(ngModel)]="donate_formData.sp_title" name="sp_title">
+                          </div>
+
+                          <div class="form-group">
+                            <label>Spouse Suffix </label>
+                            <input type="text" class="form-control" [(ngModel)]="donate_formData.sp_suffix" name="sp_suffix">
+                          </div>
+
+                          <div class="form-group">
+                            <label>Spouce is Deceased </label>
+                            <input type="text" class="form-control" [(ngModel)]="donate_formData.sp_deceased" name="sp_deceased">
+                          </div>
+
+                          <div class="form-group">
+                            <label>Spouse Deceased Date</label>
+                            <input type="date" class="form-control" [(ngModel)]="donate_formData.sp_deceased_date" name="sp_deceased_date">
+                          </div>
+
+                          <div class="form-group">
+                            <label>Spouse Birthdate</label>
+                            <input type="date" class="form-control" [(ngModel)]="donate_formData.sp_b_date" name="sp_b_date">
+                          </div>
+                          <div class="form-group">
+                            <label>Age</label>
+                            <input type="text" class="form-control" [(ngModel)]="donate_formData.age" name="age">
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <h5 data-toggle="collapse" data-target="#demo2">Alternate Phone Numbers
+                      <span class="pull-right glyphicon glyphicon-plus btn btn-primary btn-xs" data-toggle="collapse" data-target="#demo2"></span>
+                    </h5>
+
+                    <div id="demo2" class="collapse">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Alternative Phone 1</label>
+                            <input type="text" class="form-control" [(ngModel)]="donate_formData.alt_ph1" name="alt_ph1">
+                          </div>
+                          <div class="form-group">
+                            <label>Alternative Phone 2</label>
+                            <input type="text" class="form-control" [(ngModel)]="donate_formData.alt_ph2" name="alt_ph2">
+                          </div>
+                          <div class="form-group">
+                            <label>Alternative Phone 3</label>
+                            <input type="text" class="form-control" [(ngModel)]="donate_formData.alt_ph3" name="alt_ph3">
+                          </div>
+                          <div class="form-group">
+                            <label>Alternative Phone 4</label>
+                            <input type="text" class="form-control" [(ngModel)]="donate_formData.alt_ph4" name="alt_ph4">
+                          </div>
+                          <div class="form-group">
+                            <label>Additional Phones</label>
+                            <input type="text" class="form-control" [(ngModel)]="donate_formData.addtional_ph" name="addtional_ph">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Alternative Phone Type 1
+                            </label>
+                            <select [(ngModel)]="donate_formData.alt_ph_type1_id" name="alt_ph_type1_id" class="form-control">
+                              <option value="" disabled selected>select a Alternative Phone Type 1</option>
+                              <option *ngFor="let title of altPhoneTypeLists" [value]="title.id">{{title.name}}</option>
+                            </select>
+                            <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData.alt_ph_type1_id" name="alt_ph_type1_id"> -->
+                          </div>
+
+                          <div class="form-group">
+                            <label>Alternative Phone Type 2
+                            </label>
+                            <select [(ngModel)]="donate_formData.alt_ph_type2_id" name="alt_ph_type2_id" class="form-control">
+                              <option value="" disabled selected>select a Alternative Phone Type 2</option>
+                              <option *ngFor="let title of altPhoneTypeLists" [value]="title.id">{{title.name}}</option>
+                            </select>
+                            <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData.alt_ph_type2_id" name="alt_ph_type2_id"> -->
+                          </div>
+
+                          <div class="form-group">
+                            <label>Alternative Phone Type 3 </label>
+                            <select [(ngModel)]="donate_formData.alt_ph_type3_id" name="alt_ph_type3_id" class="form-control">
+                              <option value="" disabled selected>select a Alternative Phone Type 3</option>
+                              <option *ngFor="let title of altPhoneTypeLists" [value]="title.id">{{title.name}}</option>
+                            </select>
+                            <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData.alt_ph_type3_id" name="alt_ph_type3_id"> -->
+                          </div>
+
+                          <div class="form-group">
+                            <label>Alternative Phone Type 4 </label>
+                            <select [(ngModel)]="donate_formData.alt_ph_type4_id" name="alt_ph_type4_id" class="form-control">
+                              <option value="" disabled selected>select a Alternative Phone Type 4</option>
+                              <option *ngFor="let title of altPhoneTypeLists" [value]="title.id">{{title.name}}</option>
+                            </select>
+                            <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData.alt_ph_type4_id" name="alt_ph_type4_id"> -->
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <h5 data-toggle="collapse" data-target="#demo3">Membership Information
+                      <span class="pull-right glyphicon glyphicon-plus btn btn-primary btn-xs" data-toggle="collapse" data-target="#demo3"></span>
+                    </h5>
+
+                    <div id="demo3" class="collapse">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Membership Type</label>
+                            <select [(ngModel)]="donate_formData.membership_type_id" name="membership_type_id" class="form-control">
+                              <option value="" disabled selected>select a Membership Type</option>
+                              <option *ngFor="let title of memberShipLists" [value]="title.id">{{title.name}}</option>
+                            </select>
+                            <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData.membership_type_id" name="membership_type_id"> -->
+                          </div>
+                          <div class="form-group">
+                            <label>Up/Down From
+                            </label>
+                            <select [(ngModel)]="donate_formData.up_down_from_id" name="up_down_from_id" class="form-control">
+                              <option value="" disabled selected>select a Up/Down From</option>
+                              <option *ngFor="let title of upDownLists" [value]="title.id">{{title.name}}</option>
+                            </select>
+                            <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData.up_down_from_id" name="up_down_from_id"> -->
+                          </div>
+                          <div class="form-group">
+                            <label>Give By
+                            </label>
+                            <select [(ngModel)]="donate_formData.given_by_id" name="given_by_id" class="form-control">
+                              <option value="" disabled selected>select a Give By</option>
+                              <option *ngFor="let title of givenByLists" [value]="title.id">{{title.name}}</option>
+                            </select>
+                            <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData.given_by_id" name="given_by_id"> -->
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Enroll Date</label>
+                            <input type="date" class="form-control" [(ngModel)]="donate_formData.enroll_date" name="enroll_date">
+                          </div>
+                          <div class="form-group">
+                            <label>Expiration Date</label>
+                            <input type="date" class="form-control" [(ngModel)]="donate_formData.exp_date" name="exp_date">
+                          </div>
+
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <h5 data-toggle="collapse" data-target="#demo4">Social Media Finder
+                      <span class="pull-right glyphicon glyphicon-plus  btn btn-primary btn-xs" data-toggle="collapse" data-target="#demo4"></span>
+                    </h5>
+
+                    <div id="demo4" class="collapse">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Facebook Link</label>
+                            <input type="text" class="form-control" [(ngModel)]="donate_formData.fb_link" name="fb_link">
+                          </div>
+                          <div class="form-group">
+                            <label>LinkedIn</label>
+                            <input type="text" class="form-control" [(ngModel)]="donate_formData.linkedin_link" name="linkedin_link">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Website</label>
+                            <input type="text" class="form-control" [(ngModel)]="donate_formData.website_link" name="website_link">
+                          </div>
+                          <div class="form-group">
+                            <label>Twitter</label>
+                            <input type="text" class="form-control" [(ngModel)]="donate_formData.twt_link" name="twt_link">
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <h5 data-toggle="collapse" data-target="#demo5">Weblink Fields
+                      <span class="pull-right glyphicon glyphicon-plus btn btn-primary btn-xs" data-toggle="collapse" data-target="#demo5"></span>
+                    </h5>
+
+                    <div id="demo5" class="collapse">
+                      <p>Allow Saint Francis to publicly recognize your donation</p>
+                      <label class="radio-inline">
+                        <input type="radio" name="allow_donation" [(ngModel)]="donate_formData.allow_donation" value="yes">Yes
+                      </label>
+                      <label class="radio-inline">
+                        <input type="radio" name="allow_donation" [(ngModel)]="donate_formData.allow_donation" value="no">No
+                      </label>
+                    </div>
+                    <h5 data-toggle="collapse" data-target="#demo6">History
+                      <span class="pull-right glyphicon glyphicon-plus  btn btn-primary btn-xs" data-toggle="collapse" data-target="#demo6"></span>
+                    </h5>
+
+                    <div id="demo6" class="collapse">
+
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Created Date</label>
+                            <input type="date" class="form-control" [(ngModel)]="donate_formData.created_date" name="created_date">
+                          </div>
+                          <div class="form-group">
+                            <label>Created By</label>
+                            <select [(ngModel)]="donate_formData.created_by_id" name="created_by_id" class="form-control">
+                              <option value="" disabled selected>select a Created By</option>
+                              <option *ngFor="let title of userLists" [value]="title.id">{{title.name}}</option>
+                            </select>
+                            <!-- <input type="date" class="form-control" [(ngModel)]="donate_formData.created_by_id" name="created_by_id"> -->
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Modified Date</label>
+                            <input type="date" class="form-control" [(ngModel)]="donate_formData.modified_date" name="modified_date">
+                          </div>
+                          <div class="form-group">
+                            <label>Modified By</label>
+                            <select [(ngModel)]="donate_formData.modified_by_id" name="modified_by_id" class="form-control">
+                              <option value="" disabled selected>select a Modified By</option>
+                              <option *ngFor="let title of userLists" [value]="title.id">{{title.name}}</option>
+                            </select>
+                            <!-- <input type="text" class="form-control" [(ngModel)]="donate_formData.modified_by_id" name="modified_by_id"> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+              </form>
+            </div>
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  h5 {
+    font-size: 14px;
+    background-color: #f1eeee;
+    padding: 9px 30px 9px 14px;
+  }
+
+  .report {
+    padding-top: 65px;
+  }
+
+  .card-body {
+    padding: 1.25rem 0 0 !important;
+  }
+
+  .card-header {
+    background-color: rgb(82, 142, 211) !important;
+    border-bottom: none !important;
+    color: white;
+    font-weight: bold;
+  }
+</style>

@@ -1,0 +1,249 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="changeOfStatusForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        FAMILY PRESERVATION
+        <br> CHANGE OF STATUS
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Case Name:</span>
+          <input readonly [(ngModel)]="fpChangeOfStatus.caseName" formControlName="caseName" name="caseName" type="text" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>Case Number:</span>
+          <input readonly [(ngModel)]="fpChangeOfStatus.caseNumber" formControlName="caseNumber" name="caseNumber" type="text" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>Date of Referral:</span>
+          <p-calendar [(ngModel)]="fpChangeOfStatus.dateOfReferral" formControlName="dateOfReferral" name="dateOfReferral" [inputStyle]="{'width':'170px'}"
+            class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>Date:</span>
+          <p-calendar [(ngModel)]="fpChangeOfStatus.date" formControlName="date" name="date" [inputStyle]="{'width':'170px'}" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <p class="bold center">The following checked item(s) document a change in the above named client’s case:</p>
+    <div class="border-line table-padding">
+      <div class="flex-container space-down">
+        <div class="space-right">
+          <p-checkbox [(ngModel)]="fpChangeOfStatus.isChangeOF" formControlName="isChangeOF" name="isChangeOF" class="space-right"></p-checkbox>Change of:
+        </div>
+        <div class="space-right">
+          <p-checkbox [(ngModel)]="fpChangeOfStatus.isCustodyStatus" formControlName="isCustodyStatus" name="isCustodyStatus" class="space-right"></p-checkbox>custody status of child(ren) OR
+        </div>
+        <div class="space-right">
+          <p-checkbox [(ngModel)]="fpChangeOfStatus.isCINC" formControlName="isCINC" name="isCINC" class="space-right"></p-checkbox>other CINC Court Involvement
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="flex-container space-right">
+          <div class="space-right">Child(ren) Name:</div>
+          <div class="space-right">
+            <input [(ngModel)]="fpChangeOfStatus.childrenName" formControlName="childrenName" name="childrenName" type="text" pInputText
+              size="20" />
+          </div>
+        </div>
+        <div class="flex-container">
+          <div class="space-right">Case Number:</div>
+          <div class="space-right">
+            <input [(ngModel)]="fpChangeOfStatus.caseNumberChecked" formControlName="caseNumberChecked" name="caseNumberChecked" type="text"
+              pInputText size="20" />
+          </div>
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">
+          <p-checkbox [(ngModel)]="fpChangeOfStatus.isPlacedDCF" formControlName="isPlacedDCF" name="isPlacedDCF" class="space-right"></p-checkbox>Placed in/or
+        </div>
+        <div class="space-right">
+          <p-checkbox [(ngModel)]="fpChangeOfStatus.isReleasedDCF" formControlName="isReleasedDCF" name="isReleasedDCF" class="space-right"></p-checkbox>Released from DCF Custody on Date:
+        </div>
+        <div class="space-right">
+          <input [(ngModel)]="fpChangeOfStatus.releasedDCF" formControlName="releasedDCF" name="releasedDCF" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">
+          <p-checkbox [(ngModel)]="fpChangeOfStatus.isPlacedInformal" formControlName="isPlacedInformal" name="isPlacedInformal" class="space-right"></p-checkbox>Placed in/or
+        </div>
+        <div class="space-right">
+          <p-checkbox [(ngModel)]="fpChangeOfStatus.isReleasedInformal" formControlName="isReleasedInformal" name="isReleasedInformal"
+            class="space-right"></p-checkbox>Released from Informal Supervision on Date:
+        </div>
+        <div class="space-right">
+          <input [(ngModel)]="fpChangeOfStatus.releasedInformal" formControlName="releasedInformal" name="releasedInformal" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">
+          <p-checkbox [(ngModel)]="fpChangeOfStatus.isPlacedDcfOOH" formControlName="isPlacedDcfOOH" name="isPlacedDcfOOH" class="space-right"></p-checkbox>Placed in DCF Custody OOH on Date:
+        </div>
+        <div class="space-right">
+          <input [(ngModel)]="fpChangeOfStatus.placedDcfOOH" formControlName="placedDcfOOH" name="placedDcfOOH" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">
+          <p-checkbox [(ngModel)]="fpChangeOfStatus.isPlacedJJA" formControlName="isPlacedJJA" name="isPlacedJJA" class="space-right"></p-checkbox>Placed in JJA Custody on Date:
+        </div>
+        <div class="space-right">
+          <input [(ngModel)]="fpChangeOfStatus.placedJJA" formControlName="placedJJA" name="placedJJA" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">
+          <p-checkbox [(ngModel)]="fpChangeOfStatus.isPlacedJjaOOH" formControlName="isPlacedJjaOOH" name="isPlacedJjaOOH" class="space-right"></p-checkbox>Placed in JJA Custody OOH on Date:
+        </div>
+        <div class="space-right">
+          <input [(ngModel)]="fpChangeOfStatus.placedJjaOOH" formControlName="placedJjaOOH" name="placedJjaOOH" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">
+          <p-checkbox [(ngModel)]="fpChangeOfStatus.isChangeTherapist" formControlName="isChangeTherapist" name="isChangeTherapist"
+            class="space-right"></p-checkbox>Change of Therapist
+        </div>
+        <div class="space-right">
+          <p-checkbox [(ngModel)]="fpChangeOfStatus.isCaseManager" formControlName="isCaseManager" name="isCaseManager" class="space-right"></p-checkbox>/Case Manager
+        </div>
+        <div class="space-right">
+          <p-checkbox [(ngModel)]="fpChangeOfStatus.isFamilySupportWorke" formControlName="isFamilySupportWorke" name="isFamilySupportWorke"
+            class="space-right"></p-checkbox>/ Family Support Worker
+        </div>
+        <div class="space-right">
+          <p-checkbox [(ngModel)]="fpChangeOfStatus.isAssignedToCase" formControlName="isAssignedToCase" name="isAssignedToCase" class="space-right"></p-checkbox>assigned to case (Choose one)
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="flex-container space-right">
+          <div class="space-right">Current:</div>
+          <div class="space-right">
+            <input [(ngModel)]="fpChangeOfStatus.current" formControlName="current" name="current" type="text" pInputText size="20" />
+          </div>
+        </div>
+        <div class="flex-container space-right">
+          <div class="space-right">New:</div>
+          <div class="space-right">
+            <input [(ngModel)]="fpChangeOfStatus.newChange" formControlName="newChange" name="newChange" type="text" pInputText size="20"
+            />
+          </div>
+        </div>
+        <div class="flex-container">
+          <div class="space-right">Cell Number:</div>
+          <div class="space-right">
+            <input [(ngModel)]="fpChangeOfStatus.cellNumber" formControlName="cellNumber" name="cellNumber" type="text" pInputText size="20"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">
+          <p-checkbox [(ngModel)]="fpChangeOfStatus.isChangeOfCaseHead" formControlName="isChangeOfCaseHead" name="isChangeOfCaseHead"
+            class="space-right"></p-checkbox>Change of case heads address:
+        </div>
+        <div class="space-right">
+          <input [(ngModel)]="fpChangeOfStatus.changeOfCaseHead" formControlName="changeOfCaseHead" name="changeOfCaseHead" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="flex-container space-right">
+          <div class="space-right">City:</div>
+          <div class="space-right">
+            <input [(ngModel)]="fpChangeOfStatus.city" formControlName="city" name="city" type="text" pInputText size="20" />
+          </div>
+        </div>
+        <div class="flex-container space-right">
+          <div class="space-right">County:</div>
+          <div class="space-right">
+            <input [(ngModel)]="fpChangeOfStatus.country" formControlName="country" name="country" type="text" pInputText size="20" />
+          </div>
+        </div>
+        <div class="flex-container">
+          <div class="space-right">Zip:</div>
+          <div class="space-right">
+            <input [(ngModel)]="fpChangeOfStatus.zip" formControlName="zip" name="zip" type="text" pInputText size="20" />
+          </div>
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">
+          <p-checkbox [(ngModel)]="fpChangeOfStatus.ischangeCaseHeadPhNo" formControlName="ischangeCaseHeadPhNo" name="ischangeCaseHeadPhNo"
+            class="space-right"></p-checkbox>Change of case heads phone number:
+        </div>
+        <div class="space-right">
+          <input [(ngModel)]="fpChangeOfStatus.changeCaseHeadPhNo" formControlName="changeCaseHeadPhNo" name="changeCaseHeadPhNo" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">
+          <p-checkbox [(ngModel)]="fpChangeOfStatus.isResumption" formControlName="isResumption" name="isResumption" class="space-right"></p-checkbox>Resumption/Reinstatement of Intensive Services
+        </div>
+        <div class="flex-container space-right">
+          <div class="space-right">Date:</div>
+          <p-calendar [(ngModel)]="fpChangeOfStatus.resumptionDate" formControlName="resumptionDate" name="resumptionDate" [inputStyle]="{'width':'170px'}"
+            class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">By:</div>
+        <div>
+          <div class="space-right">
+            <p-checkbox [(ngModel)]="fpChangeOfStatus.isDcfRequest" formControlName="isDcfRequest" name="isDcfRequest" class="space-right"></p-checkbox>DCF Request
+          </div>
+          <div class="space-right">
+            <p-checkbox [(ngModel)]="fpChangeOfStatus.isFamilyRequest" formControlName="isFamilyRequest" name="isFamilyRequest" class="space-right"></p-checkbox>Family Request
+          </div>
+          <div class="flex-container">
+            <div class="space-right">
+              <p-checkbox [(ngModel)]="fpChangeOfStatus.isOther" formControlName="isOther" name="isOther" class="space-right"></p-checkbox>Other (Court, School, SFCS, etc.)
+            </div>
+            <!-- <div class="space-right">
+              <input [(ngModel)]="fpChangeOfStatus.comments" formControlName="comments" name="comments" type="text" pInputText size="20"
+              />
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <div class="space-down">
+        <div class="border-line table-td">
+          <p>Comments:</p>
+          <textarea  [(ngModel)]="fpChangeOfStatus.comments" formControlName="comments" name="comments" pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <p-checkbox [(ngModel)]="fpChangeOfStatus.caseName" formControlName="caseName" name="caseName" class="space-right"></p-checkbox>
+        <div class="border-line table-td">
+          <p class="bold">Other change in status of case</p>
+          <p>Brief Explanation:</p>
+          <textarea [(ngModel)]="fpChangeOfStatus.briefExplanation" formControlName="briefExplanation" name="briefExplanation" pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">
+          Staff Signature:
+        </div>
+        <div class="space-right">
+          <input [(ngModel)]="fpChangeOfStatus.staffSignature" formControlName="staffSignature" name="staffSignature" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm(fpChangeOfStatus)" (print)="printForm()" [editControll]="editControll" (edit)="editForm()" [isPrint]="isPrint"></app-form-footer>

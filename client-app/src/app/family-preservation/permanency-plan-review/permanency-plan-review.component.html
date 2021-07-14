@@ -1,0 +1,168 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="permanencyPlanForm" class="sf-form">
+      <div class="flex-container header">
+          <div>
+    
+          </div>
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+          <div>
+    
+          </div>
+        </div>
+    <h3 class="bold center space-down">Family/Permanency Plan Review</h3>
+    <p>
+      The purpose of this form is to communicate progress in the case to the family and other members of the case
+      planning team between permanency plan reviews. It must be completed at least once during the time frame of the
+      permanency plan, but a formal meeting is not necessary. This form can also be used to update the case plan in
+      cases where the case plan goal is maintain at home and the child has been in a short-term (less than 30 days) out
+      of home stay (ST OOH) in a detention facility or a PRTF. Updated information about a child’s disability can also
+      be noted on this form.
+    </p>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">Case Name: </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="fpPermanencyPlan.caseName" formControlName="caseName" name="caseName"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">Page #</div>
+        <div class="space-right">
+          <input  [(ngModel)]="fpPermanencyPlan.page" formControlName="page" name="page"  type="text" pInputText size="20" />
+        </div>
+        <div class="space-right"> of</div>
+        <div class="space-right">
+          <input  [(ngModel)]="fpPermanencyPlan.of" formControlName="of" name="of"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">FACTS Case #</div>
+        <div class="space-right">
+          <input  [(ngModel)]="fpPermanencyPlan.factsCase" formControlName="factsCase" name="factsCase"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">Case Planning Conference Date:</div>
+        <div class="space-right">
+          <p-calendar  [(ngModel)]="fpPermanencyPlan.conferenceDate" formControlName="conferenceDate" name="conferenceDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">Date of the Permanency Plan Review:</div>
+        <div class="space-right">
+          <p-calendar  [(ngModel)]="fpPermanencyPlan.permanencyDate" formControlName="permanencyDate" name="permanencyDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">Or Date of ST OOH stay CP:</div>
+        <div class="space-right">
+          <p-calendar  [(ngModel)]="fpPermanencyPlan.oohDate" formControlName="oohDate" name="oohDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Narrative: Progress on objectives and activities, feedback on Progress Since
+        Case Plan
+        or Case Management Provider’s report attached:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpPermanencyPlan.narrative" formControlName="narrative" name="narrative"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlan.isMedicalReceived" formControlName="isMedicalReceived" name="isMedicalReceived"></p-checkbox>
+      </div>
+      <div class="space-right">
+        Medical information has been received confirming child’s disability(ies). See attached PPS 3052. </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Case plan review for children with goal of maintain at home who have been in a short
+        term OOH stay:</div>
+      <div class="space-right">
+        <input  [(ngModel)]="fpPermanencyPlan.casePlanReview" formControlName="casePlanReview" name="casePlanReview"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Activities to be added to address reason for ST OOH stay:</div>
+      <div class="space-right">
+        <input  [(ngModel)]="fpPermanencyPlan.activities" formControlName="activities" name="activities"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>(Note: Section 1 and 2 of the PPS 3052 shall also be completed. PPS 3051 shall be used for additional
+      signatures, if necessary.)</p>
+    <div class="space-down">
+      <div class="space-right space-down">Parent’s Comments: </div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpPermanencyPlan.parentComments" formControlName="parentComments" name="parentComments"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Date review report provided/mailed to family, DCF and other members of the case planning
+        team:</div>
+      <div class="space-right">
+        <p-calendar  [(ngModel)]="fpPermanencyPlan.reviewReportDate" formControlName="reviewReportDate" name="reviewReportDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+          [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">Signature of Parent(s):</div>
+        <div class="space-right">
+          <input  [(ngModel)]="fpPermanencyPlan.signatureOfParent" formControlName="signatureOfParent" name="signatureOfParent"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">Date:</div>
+        <div class="space-right">
+          <p-calendar  [(ngModel)]="fpPermanencyPlan.parentDate" formControlName="parentDate" name="parentDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">Signature of person completing this review:</div>
+        <div class="space-right">
+          <input  [(ngModel)]="fpPermanencyPlan.signatureOfPerson" formControlName="signatureOfPerson" name="signatureOfPerson"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">Date:</div>
+        <div class="space-right">
+          <p-calendar  [(ngModel)]="fpPermanencyPlan.personDate" formControlName="personDate" name="personDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,fpPermanencyPlan)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

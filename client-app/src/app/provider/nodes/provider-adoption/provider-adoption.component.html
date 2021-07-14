@@ -1,0 +1,157 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <div class="opencard-menu-container" *ngIf="showOpenCard">
+      <div class="dropdown border-none">
+        <span class="fa fa-th opencard-menu" data-toggle="dropdown" pTooltip="OpenCards"
+          routerLink="/provider/dashboard/adoption/subnode"></span>
+      </div>
+    </div>
+    <form class="sf-form form-container" [formGroup]="providerAdoption">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Packet Sent</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" hourFormat="12" [yearNavigator]="true" formControlName="adoptionPacketSent"
+              [(ngModel)]="adoption.adoptionPacketSent" [monthNavigator]="true" yearRange="2000:2030" [showIcon]="true">
+            </p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Packet Completed</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" hourFormat="12" [yearNavigator]="true"
+              formControlName="adoptionPacketCompleted" [(ngModel)]="adoption.adoptionPacketCompleted"
+              [monthNavigator]="true" yearRange="2000:2030" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Family Assessment</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" hourFormat="12" [yearNavigator]="true" formControlName="assessmentCompleted"
+              [(ngModel)]="adoption.assessmentCompleted" [monthNavigator]="true" yearRange="2000:2030"
+              [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea pInputTextarea name="inputTextarea" [(ngModel)]="adoption.notes" formControlName="notes"
+              autoResize="autoResize" rows="3" cols="150" style="width: 100%;min-height: 5rem;"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span><b>Family Assessment Assigned To</b></span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="faaList.length > 0">
+            <table class="list-table" border="1" cellpadding="10">
+              <tr>
+                <th>Person Table</th>
+                <th>Adoption Specialist</th>
+                <th>Begin Date</th>
+                <th>End Date</th>
+                <th>Notes</th>
+              </tr>
+              <tr *ngFor="let data of faaList; let i = index" (click)="getListDetails(data,'faaList',i)">
+                <td>{{data?.personTable?.personAssignmentType}}</td>
+                <td>{{data?.adoptionSpecialist?.fullName}}</td>
+                <td>{{data?.beginDate | date:'MM/dd/yyyy'}}</td>
+                <td>{{data?.endDate | date:'MM/dd/yyyy'}}</td>
+                <td>{{data?.adoptionSpecialistNotes}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Person Table</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="personAssignmentType" emptyMessage="No results found!"
+              formControlName="personTable" [(ngModel)]="personTable" [forceSelection]="true"
+              placeholder="Type here to search" field="personAssignmentType" size="23"
+              (completeMethod)="personTableDetails()" [suggestions]="metaData" (onSelect)="getPersonID($event)">
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="showStaff">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Adoption Specialist</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="gradeID" emptyMessage="No results found!"
+              formControlName="adoptionSpecialist" [(ngModel)]="adoptionSpecialist" [forceSelection]="true"
+              placeholder="Type here to search" field="fullName" (completeMethod)="getMetaData($event, 'staff')"
+              [suggestions]="metaData" size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="!showStaff">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Adoption Specialist</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="gradeID" emptyMessage="No results found!"
+              formControlName="adoptionSpecialist" [(ngModel)]="adoptionSpecialist" [forceSelection]="true"
+              placeholder="Type here to search" field="fullName"
+              (completeMethod)="getMetaData($event, 'communityMember')" [suggestions]="metaData" size="23">
+            </p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" hourFormat="12" [yearNavigator]="true" formControlName="beginDate"
+              [(ngModel)]="beginDate" [monthNavigator]="true" yearRange="2000:2030" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" hourFormat="12" [yearNavigator]="true" formControlName="endDate"
+              [(ngModel)]="endDate" [monthNavigator]="true" yearRange="2000:2030" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea pInputTextarea name="inputTextarea" formControlName="adoptionSpecialistNotes"
+              [(ngModel)]="adoptionSpecialistNotes" autoResize="autoResize" rows="3" cols="150"
+              style="width: 100%;min-height: 5rem;"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <button (click)="addList(adoptionSpecialistNotes,beginDate, endDate,adoptionSpecialist,personTable, 'faaList')"
+              class="positive-btn">{{btnLabel}}</button>
+            <button (click)="removeList('staff')" class="negative-btn">Remove</button></div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer [discardTo]="discardTo" (save)="formAction(adoption,faAssigned)" (edit)="editForm()"
+      [editControll]="isEdit" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+  </div>
+</div>

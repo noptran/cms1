@@ -1,0 +1,476 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+<div class="form-background">
+  <div class="form-foreground foreground_form">
+    <div class="row" *ngIf="opencards.length != 0 && !isPayeeLocation">
+      <div class="col-lg-2 col-md-2 col-sm-2">
+        <div class="card-header-row">
+          <div class="opencard-menu-container rfcOpencard">
+            <div class="dropdown border-none">
+              <span
+                class="fa fa-th opencard-menu"
+                data-toggle="dropdown"
+                pTooltip="OpenCards"
+              ></span>
+              <div class="dropdown-menu opencard-box">
+                <div class="card-container">
+                  <div
+                    class="opencard"
+                    pTooltip="Click here to open"
+                    (click)="navigateTo(item)"
+                    *ngFor="let item of opencards"
+                  >
+                    <img src="{{ item.icon }}" alt="{{ tip }}" />
+                    <div class="opencard-info">
+                      <span class="title">{{ item.title }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p-dialog
+      header="Service Claims"
+      [contentStyle]="{ 'min-width': '70rem', width: '60vw' }"
+      [responsive]="true"
+      [(visible)]="servisSubNode"
+      (onHide)="close()"
+    >
+      <div>
+        <div class="row">
+          <div
+            class="col-md-4"
+            pTooltip="Click here to open"
+            (click)="navigateTo(item)"
+            *ngFor="let item of serviceAubNodes"
+          >
+            <div
+              style="
+                height: 12vh;
+                box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
+                  0 1px 3px 1px rgba(60, 64, 67, 0.15);
+                border-radius: 4px;
+                color: rgba(0, 0, 0, 0.87);
+                letter-spacing: 0.24px;
+                transition: 0.2s background-color cubic-bezier(0.4, 0, 0.2, 1);
+              "
+            >
+              <img src="{{ item.icon }}" alt="{{ tip }}" />
+              <div style="font-size: 15px">
+                {{ item.title }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </p-dialog>
+    <div class="row margin-top-20" *ngIf="showAuthClaim">
+      <div class="col-md-2"></div>
+      <div class="col-md-4">
+        <div class="card" (click)="showDirectAuthList('Direct Authorization')">
+          <div class="card-body">
+            <h4
+              class="card-text text-center"
+              style="border-bottom: none !important; width: 100%"
+            >
+              <b>Direct Authorization</b>
+            </h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card" (click)="showDirectAuthList('Authorization')">
+          <div class="card-body">
+            <h4
+              class="card-text text-center"
+              style="border-bottom: none !important; width: 100%"
+            >
+              <b>Authorization</b>
+            </h4>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+    <hr *ngIf="showAuthClaim" />
+    <form class="sf-form" [formGroup]="payeeForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Payee Name</span> <span class="mandatory">*</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              type="text"
+              pInputText
+              formControlName="payeeName"
+              name="inputText"
+              [(ngModel)]="payee.payeeName"
+              size="27"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Acronym</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-inputSwitch
+              formControlName="acronym"
+              name="inputtoggle"
+              [(ngModel)]="payee.acronym"
+            ></p-inputSwitch>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>VendorID</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              type="text"
+              pInputText
+              formControlName="venderID"
+              name="inputText"
+              [(ngModel)]="payee.venderID"
+              size="27"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Federal Tax #</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              type="text"
+              pInputText
+              formControlName="fedTaxNo"
+              name="inputText"
+              [(ngModel)]="payee.fedTaxNo"
+              size="27"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Email Address</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              type="text"
+              pInputText
+              formControlName="email"
+              name="email"
+              [(ngModel)]="payee.email"
+              size="27"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Notes</span></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-sm-12 col-md-12">
+          <div class="col-lg-12 col-sm-12 col-md-12">
+            <textarea
+              style="width: 100%; height: 100%"
+              formControlName="notes"
+              [(ngModel)]="payee.notes"
+              name="notes"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <form class="sf-form" [formGroup]="payeeLocaitonForm">
+      <div class="payee-location-container">
+        <div class="list-container">
+          <span><b>Payee Location</b></span>
+          <div>
+            <span *ngIf="payeeLocationList.length == 0">
+              <b>No location created yet!</b></span
+            >
+          </div>
+          <div class="list">
+            <div
+              *ngFor="let item of payeeLocationList; let i = index"
+              class="item"
+              (click)="openLocationCard(item, i)"
+              pTooltip="Click here to open"
+            >
+              <!-- <b>State:</b> -->
+              <span *ngIf="item.stateID">{{ item.stateID.state }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-container">
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Location Header</span>
+                <!-- <span class="mandatory">*</span> -->
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  type="text"
+                  pInputText
+                  formControlName="locationHeader"
+                  name="inputText"
+                  [(ngModel)]="location.locationHeader"
+                  size="27"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3"><span>Address</span></div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  type="text"
+                  pInputText
+                  formControlName="address1"
+                  name="inputText"
+                  [(ngModel)]="location.address1"
+                  size="27"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Address1</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  type="text"
+                  pInputText
+                  formControlName="address2"
+                  name="inputText"
+                  [(ngModel)]="location.address2"
+                  size="27"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>State</span> <span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  formControlName="stateID"
+                  name="stateID"
+                  [(ngModel)]="location.stateID"
+                  [suggestions]="metaData"
+                  (completeMethod)="getMetaData($event, 'state')"
+                  [dropdown]="true"
+                  field="state"
+                  size="23"
+                  (onSelect)="generateCity($event)"
+                ></p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>City</span> <span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  formControlName="cityID"
+                  name="cityID"
+                  [(ngModel)]="location.cityID"
+                  [suggestions]="metaData"
+                  (completeMethod)="filteredCity($event)"
+                  [dropdown]="true"
+                  field="city"
+                  size="23"
+                  (onSelect)="generateZipcodeCounty($event)"
+                ></p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>County</span> <span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  formControlName="countyID"
+                  name="countyID"
+                  [(ngModel)]="location.countyID"
+                  [suggestions]="allCountys"
+                  [dropdown]="true"
+                  (completeMethod)="filteredCounty($event)"
+                  field="countyName"
+                  size="23"
+                ></p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Zipcode</span><span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  name="zipcodeID"
+                  formControlName="zipcodeID"
+                  [(ngModel)]="location.zipcodeID"
+                  [suggestions]="allZipCodes"
+                  [dropdown]="true"
+                  field="zipcode"
+                  (completeMethod)="filteredZipCode($event)"
+                  size="23"
+                ></p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3"><span>Phone</span></div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-inputMask
+                  mask="(999) 999-9999"
+                  name="phone"
+                  formControlName="phone"
+                  [(ngModel)]="location.phone"
+                >
+                </p-inputMask>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3"><span>Fax</span></div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-inputMask
+                  mask="(999) 999-9999"
+                  name="fax"
+                  formControlName="fax"
+                  [(ngModel)]="location.fax"
+                >
+                </p-inputMask>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Begin Date</span> <span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  name="dateInput"
+                  [(ngModel)]="location.beginDate"
+                  formControlName="beginDate"
+                  [showIcon]="true"
+                  showTime="true"
+                  hourFormat="24"
+                  [yearNavigator]="true"
+                  [monthNavigator]="true"
+                  yearRange="2000:2030"
+                ></p-calendar>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>End Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  name="dateInput"
+                  [(ngModel)]="location.endDate"
+                  formControlName="endDate"
+                  [showIcon]="true"
+                  showTime="true"
+                  hourFormat="24"
+                  [yearNavigator]="true"
+                  [monthNavigator]="true"
+                  yearRange="2000:2030"
+                >
+                </p-calendar>
+              </div>
+            </div>
+          </div>
+          <div class="maring-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3"><span>Notes</span></div>
+              <div class="col-lg-3 col-md-3 col-sm-3"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <textarea
+                  style="width: 100%; height: 100%"
+                  formControlName="locationNotes"
+                  [(ngModel)]="location.notes"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="form-footer">
+      <button (click)="isDeleteConfirmation = true" class="alert-text delete">
+        <i class="fa fa-trash-o" aria-hidden="true"></i>
+        <span>Delete</span>
+      </button>
+      <button
+        (click)="removeLocation()"
+        class="sf-negative-btn"
+        *ngIf="location"
+      >
+        Remove
+      </button>
+      <button
+        (click)="locationFormAction(location)"
+        class="sf-positive-btn auto-width"
+      >
+        {{ locationBtnLabel }}
+      </button>
+    </div>
+  </div>
+  <app-form-footer
+    (discard)="discardForm()"
+    (save)="payeeFormAction(payee)"
+    [editControll]="isEdit"
+    (edit)="editPayeeForm()"
+    [isFormLog]="isFormLog"
+    [formLogInfo]="formLogInfo"
+  ></app-form-footer>
+</div>
+
+<p-dialog header="Delete confirmation" [(visible)]="isDeleteConfirmation">
+  <p>Are you sure want to delete this record?</p>
+  <p class="info-text">{{ infoText }}</p>
+  <p-footer>
+    <div class="dialog-footer">
+      <button
+        class="delete"
+        (click)="this.isDeleteConfirmation = false"
+        [disabled]="isDeleteConfirmationDisable"
+      >
+        Cancel
+      </button>
+      <button
+        (click)="onDelete()"
+        [disabled]="isDeleteConfirmationDisable"
+        class="alert-text delete"
+      >
+        {{ deleteConfirmationBtnLabel }}
+      </button>
+    </div>
+  </p-footer>
+</p-dialog>

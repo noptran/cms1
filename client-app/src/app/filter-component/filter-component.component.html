@@ -1,0 +1,137 @@
+<div class="box-filter right-icon margin-right-0" (click)="openFilterOptions()">
+  <span class="fa fa-filter"></span>
+  <span> Filter </span>
+</div>
+<div *ngIf="isOpenMainPanel" class="filter-main-panel">
+  <div (click)="filterDialogBoxAction()">
+    <a class="dropdown-item">Create New Filter</a>
+  </div>
+  <div class="dropdown-divider"></div>
+  <h5 class="dropdown-header">My Favourites</h5>
+  <a class="dropdown-item" *ngFor="let item of favouriteFilters;let index = index" id="apply" (click)="apply(item,$event)">
+    <span class="saved-filter">{{item.favoriteFilterName}}</span>
+    <i class="fa fa-times-circle color-grey remove-icon" data-toggle="modal" data-target="#myModal1" id="remove"
+      (click)="getDetails(item.favoriteFilterId,$event)"></i></a>
+</div>
+<div class="side-bar">
+  <p-sidebar position="right" [(visible)]="openFilterDialogBox">
+    <div class="margin-top-20">
+      <span class="font-size-12">Column</span>
+      <br />
+      <p-dropdown [options]="columnDropdownList"
+        [style]="{'margin':'5px 0px 10px 0px','width':'222px','border': '1px solid #DBDEE4'}"
+        [(ngModel)]="filterColumnSelected" (ngModelChange)=onColumnFilterSelected($event)
+        placeholder="Select column"></p-dropdown>
+    </div>
+    <div>
+      <span class="font-size-12">Condition</span>
+      <br />
+      <p-dropdown [options]="optionFiltered"
+        [style]="{'margin':'5px 0px 10px 0px','width':'222px','border': '1px solid #DBDEE4'}"
+        [(ngModel)]="filterConditionOption" (ngModelChange)=onConditionFilterSelected()
+        placeholder="Select condition"></p-dropdown>
+      <!-- <select class="dropdown width-200 dropdown-margin" [(ngModel)]='filterConditionOption' (ngModelChange)='onConditionFilterSelected($event)'>
+              <option *ngFor="let item of optionFiltered" [ngValue]="item.value">
+                {{item.view}}
+              </option>
+            </select> -->
+    </div>
+    <span class="font-size-12">Keyword</span>
+    <div class="row margin-top-5px" *ngIf="columnData">
+      <div class="col-lg-10 col-md-10 col-sm-10">
+        <div id="textFilter">
+          <angular2-multiselect [data]="columnData" [(ngModel)]="selectedDataToFilter"
+            [settings]="ReportSubSettings">
+          </angular2-multiselect>
+        </div>
+        <div id="dateFilter" class="adv-filter">
+          <div>
+            <p-calendar [(ngModel)]="startingDate" [showIcon]="true" hourFormat="24" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="1930:2030" showTime="true" hourFormat="24"></p-calendar>
+          </div>
+          <div class="adv-filter margin-top-20">
+            <p-calendar [(ngModel)]="endingDate" [showIcon]="true" hourFormat="24" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="1930:2030" showTime="true" hourFormat="24"></p-calendar>
+          </div>
+        </div>
+        <div id="intFilter">
+          <div>
+            <input type="number" [(ngModel)]="startNumber" name="start-range"
+              class="sf-input-size border-color-filter width-100" />
+          </div>
+          <div class="margin-top-20">
+            <input type="number" [(ngModel)]="endNumber" name="end-range"
+              class="sf-input-size border-color-filter width-100" />
+          </div>
+        </div>
+        <div id="singledateFilter" class="adv-filter">
+          <div>
+            <p-calendar [(ngModel)]="DateToFilter" [showIcon]="true" hourFormat="24" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="1930:2030" showTime="true" hourFormat="24"></p-calendar>
+          </div>
+        </div>
+        <div id="singleIntFilter">
+          <div>
+            <input type="number" [(ngModel)]="NumberToFilter" name="start-range-single"
+              class="sf-input-size border-color-filter font-size-12 width-100" />
+          </div>
+        </div>
+        <div id="singleStringFilter">
+          <div>
+            <input type="text" [(ngModel)]="StringToFilter" name="single-filter"
+              class="sf-input-size border-color-filter font-size-12 width-100" />
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-1">
+        <button class="plus-button" (click)="setAdvFilter()">+</button>
+      </div>
+    </div>
+    <div *ngIf="showFilterError" class="filter-error">*Enter data to filter</div>
+    <div *ngIf="fillBothFields" class="filter-error">*Fill both the fields</div>
+    <div *ngIf="fillField" class="filter-error">*Enter data to filter</div>
+    <div class="filter-grouping">
+      <span>AND</span>
+      <p-inputSwitch name="enableGrouping" [(ngModel)]="isGrouping" (onChange)="groupingFilterController($event)">
+      </p-inputSwitch>
+      <span>OR</span>
+    </div>
+    <div class="filter-container">
+      <div class=" advance-filter-btn" *ngFor="let item of advanceFiltersTotal;let i = index"
+        (click)="selectedGroupingItem(item)">
+        <div class="filters">
+          <span>{{item.column}} {{item.condition}} {{item.filter}}</span>
+          <i class="fa fa-times-circle color-grey text-right " pTooltip="Remove"
+            (click)="remove(item,i,this.displayFilter2,this.originalArray)"></i>
+        </div>
+        <div class="group-filter" *ngIf="advanceFiltersTotal.length > 1">
+          <!-- <p-dropdown [options]="groupTypes"  (onChange)="filterGrouping(item, $event, item.condition)"></p-dropdown> -->
+          <!-- <p-selectButton [options]="groupTypes" [(ngModel)]="defaultGroupingCondition" name="name{i}"  (onOptionClick)="filterGrouping(item, $event, item.condition)"></p-selectButton> -->
+          <p-radioButton name="grouping{{i}}" value="and" [ngModel]="defaultGroupingCondition"
+            (onClick)="filterGrouping(item, 'and', item.condition, true, i)" label="AND"></p-radioButton>
+          <p-radioButton name="grouping{{i}}" value="or" [ngModel]="defaultGroupingCondition" label="OR"
+            (onClick)="filterGrouping(item, 'or', item.condition, true, i)"></p-radioButton>
+        </div>
+      </div>
+  
+    </div>
+    <div *ngIf="showSave" class="filter-save-container">
+      <div class="save-filter-name">Save Filter</div>
+      <input type="text" placeholder="Enter a name for the filter" [(ngModel)]="FilterName" maxlength="30"
+        name="filter-name" class="sf-input-size width-200-field font-size-12 margin-top-5px" />
+    </div>
+    <div>
+      <div class="filter-footer">
+        <div>
+          <button class="sf-negative-btn " (click)="reset()">Reset</button>
+        </div>
+        <div *ngIf="!showSave">
+          <button class="sf-positive-btn" (click)="applyGrouping()">Apply Filter</button>
+        </div>
+        <div *ngIf="showSave">
+          <button *ngIf="showSave" class="sf-primary-btn" (click)="save()">Save Filter</button>
+        </div>
+      </div>
+    </div>
+  </p-sidebar>
+</div>

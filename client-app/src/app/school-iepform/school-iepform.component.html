@@ -1,0 +1,185 @@
+<hr style="margin: 0px !important" />
+<h5 class="head_acces">Education Information</h5>
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div class="container-background">
+    <div class="container-foreground">
+        <div id="loading-overlay">
+            <p class="loader-text">
+                <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+            </p>
+        </div>
+        <div class="sf-form client-form" style="height: 75vh !important;
+        overflow-y: scroll !important;
+        overflow-x: hidden !important;
+        margin-top: 0px !important;">
+            <div [ngStyle]="{'pointer-events':isEdit === true ? 'none' : '' }">
+                <div class="row" style="
+        padding-right: 10px;
+        padding-left: 10px;
+    ">
+                    <div class="col-md-6">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Education Information</div>
+                            <div class="panel-body">
+                                <div class="p-field-checkbox">
+                                    <p-checkbox name="group1" binary="true" [(ngModel)]="sclIEPData.isYes" inputId="ny">
+                                    </p-checkbox>
+                                    <label for="ny">Yes</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <p-checkbox name="group1" binary="true" [(ngModel)]="sclIEPData.isNo" inputId="sf">
+                                    </p-checkbox>
+                                    <label for="sf">No</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <p-checkbox name="group1" binary="true" [(ngModel)]="sclIEPData.isUnknown"
+                                        inputId="la">
+                                    </p-checkbox>
+                                    <label for="la">Unknown</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <p-checkbox name="group1" binary="true" [(ngModel)]="sclIEPData.isInProgress"
+                                        inputId="ch">
+                                    </p-checkbox>
+                                    <label for="ch">In Progress</label>
+                                </div>
+                            </div>
+                            <div class="panel-footer text-right" *ngIf="sclIEPData.iEPChangedBy!=null">Updated by :
+                                <b>{{sclIEPData.iEPChangedBy}}</b> on
+                                <b>{{sclIEPData.iEPChangedDate}}</b>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Others</div>
+                            <div class="panel-body">
+                                <div class="p-field-checkbox">
+                                    <p-checkbox name="group1" binary="true" [(ngModel)]="sclIEPData.is504" inputId="ny">
+                                    </p-checkbox>
+                                    <label for="ny">504</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <p-checkbox name="group1" binary="true" [(ngModel)]="sclIEPData.isBehaviorPlan"
+                                        inputId="sf">
+                                    </p-checkbox>
+                                    <label for="sf">Behavior Plan</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <p-checkbox name="group1" binary="true" [(ngModel)]="sclIEPData.isESOL"
+                                        inputId="la">
+                                    </p-checkbox>
+                                    <label for="la">ESOL</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <p-checkbox name="group1" binary="true" [(ngModel)]="sclIEPData.isCreditRecovery"
+                                        inputId="ch">
+                                    </p-checkbox>
+                                    <label for="ch">Credit Recovery</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <p-checkbox name="group1" binary="true"
+                                        [(ngModel)]="sclIEPData.isSchoolMentalHealth" inputId="ch">
+                                    </p-checkbox>
+                                    <label for="ch">School Mental Health</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <p-checkbox name="group1" binary="true" [(ngModel)]="sclIEPData.isGED" inputId="ch">
+                                    </p-checkbox>
+                                    <label for="ch">GED</label>
+                                </div>
+                            </div>
+                            <div class="panel-footer text-right" *ngIf="sclIEPData.othersChangedBy!=null">Updated by :
+                                <b>{{sclIEPData.othersChangedBy}}</b> on
+                                <b>{{sclIEPData.othersChangedDate}}</b>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row" style="
+        padding-right: 10px;
+        padding-left: 10px;
+    ">
+                    <div class="col-md-6">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Discipline</div>
+                            <div class="panel-body" style="height: 70% !important;
+                            overflow-y: scroll !important;">
+                                <div class="p-field-checkbox">
+                                    <p-checkbox name="group1" binary="true" [(ngModel)]="sclIEPData.isSuspended"
+                                        inputId="ny">
+                                    </p-checkbox>
+                                    <label for="ny">Suspended</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <p-checkbox name="group1" binary="true" [(ngModel)]="sclIEPData.isExpelled"
+                                        inputId="sf">
+                                    </p-checkbox>
+                                    <label for="sf">Expelled</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <p-checkbox name="group1" binary="true" [(ngModel)]="sclIEPData.isBehaviors"
+                                        inputId="la">
+                                    </p-checkbox>
+                                    <label for="la">Behaviors</label>
+                                </div>
+                                <div><label>Details</label></div>
+                                <textarea autosize name="details" [(ngModel)]="sclIEPData.details"
+                                    style="width:100% !important;height:50px !important"></textarea>
+                            </div>
+                            <div class="panel-footer text-right" *ngIf="sclIEPData.disciplineChangedBy!=null">Updated by
+                                :
+                                <b>{{sclIEPData.disciplineChangedBy}}</b> on
+                                <b>{{sclIEPData.disciplineChangedDate}}</b>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Notes</div>
+                            <div class="panel-body" style="height: 70% !important;
+                            overflow-y: scroll !important;">
+                                <div><label>Notes</label></div>
+                                <textarea autosize name="notes" [(ngModel)]="sclIEPData.notes"
+                                    style="width:100% !important;height:50px !important"></textarea>
+                            </div>
+                            <div class="panel-footer text-right" *ngIf="sclIEPData.notesChangedBy!=null">Updated by :
+                                <b>{{sclIEPData.notesChangedBy}}</b> on
+                                <b>{{sclIEPData.notesChangedDate}}</b>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+                    <div *ngIf="isUpdate">
+                        <button *ngIf="isEdit" class="sf-negative-btn pull-right" (click)="visibleForm()">
+                            Edit
+                        </button>
+                    </div>
+                    <button class="sf-negative-btn pull-right" (click)="redirectList()">
+                        Cancel
+                    </button>
+                    <button class="sf-positive-btn pull-right" *ngIf="!isEdit" (click)="saveIEP()">
+                        <span *ngIf="!isUpdate">Save</span><span *ngIf="isUpdate">Update</span>
+                    </button><br>
+         <app-form-footer [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+
+
+
+
+            <br>
+            <br>
+        </div>
+    </div>
+
+
+</div>

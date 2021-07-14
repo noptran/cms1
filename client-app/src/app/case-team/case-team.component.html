@@ -1,0 +1,188 @@
+<div *ngIf="isList" class="list-table">
+  <p>Case Team List</p>
+  <div style="display: flex; justify-content: flex-end; margin: 5px;">
+    <button (click)="addForm()" class="sf-positive-btn">Add</button>
+  </div>
+  <table style="width: 100%;" border="1">
+    <th scope="beginDate">Begin Date</th>
+    <th scope="endDate">End Date</th>
+    <th scope="personType">Person Type</th>
+    <th scope="name">Name</th>
+    <th scope="mentor">Emergency Contact</th>
+    <th scope="mailAck">Contact List</th>
+    <th scope="faxAck">Critical</th>
+    <th scope="emailAck">Treatment Plan</th>
+    <th scope="emailAck">Treatment Decisions</th>
+    <th scope="emailAck">Locked</th>
+    <th scope="actions">Actions</th>
+    <tr *ngFor="let caseTeam of caseTeamist">
+      <td>{{caseTeam.beginDate | date:"MM/dd/yyyy"}}</td>
+      <td>{{caseTeam.endDate | date:"MM/dd/yyyy"}}</td>
+      <td>{{caseTeam.personType}}</td>
+      <td>{{caseTeam.name}}</td>
+      <td>{{caseTeam.emergencyContact}}</td>
+      <td>{{caseTeam.contactList}}</td>
+      <td>{{caseTeam.criticals}}</td>
+      <td>{{caseTeam.treatmentPlan}}</td>
+      <td>false</td>
+      <td>{{caseTeam.locked}}</td>
+
+      <td>
+        <div>
+          <span class="fa fa-edit" (click)="onEdit(caseTeam)" style="font-size: 14px;cursor: pointer;"></span>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+</div>
+<p-toast position="center"></p-toast>
+<div *ngIf="isForm">
+  <div *ngIf="isAppHeader">
+    <app-form-header [title]="title" [status]="status" [breadcrumbs]="breadcrumbs" [formstatus]="formStatus"
+      [formNavigation]="" [subtitle]="subtitle"></app-form-header>
+  </div>
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+  <div class="container-background">
+    <div class="container-foreground">
+      <div *ngIf="isAttachmentRequired" class="jump-to-tree-row">
+        <div class="jump-to-tree-container" pTooltip="Click here to open" (click)="onClickJumptoPlacement()">
+          <span><b>Jump to Person</b></span>
+        </div>
+      </div>
+
+      <form class="margin-top-20 sf-form" [formGroup]="orgForm">
+        <div class="margin-left-45">
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <span class="sf-labels">Begin Date</span><span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <p-calendar formControlName="beginDate" [showTime]="true" [showIcon]="true" [monthNavigator]="true"
+                  [yearNavigator]="true" yearRange="1900:2030" name="beginDate" [(ngModel)]="caseTeam.beginDate"
+                  (onSelect)="generatePersonTypes(caseTeam.beginDate)"></p-calendar>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <span class="sf-labels">End Date</span>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <p-calendar formControlName="endDate" [showTime]="true" [showIcon]="true" [monthNavigator]="true"
+                  [yearNavigator]="true" yearRange="1900:2030" name="endDate" [(ngModel)]="caseTeam.endDate">
+                </p-calendar>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <span class="sf-labels">Person Type</span> <span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 form">
+                <p-autoComplete formControlName="personType" [dropdown]="true" [forceSelection]="true"
+                  name="personTypeID" [(ngModel)]="caseTeam.personTypeID" [suggestions]="filteredPersonTypes"
+                  field="personType" (completeMethod)="filterPersonTypes($event)"
+                  (onSelect)="generatePersonSubtype($event)" [disabled]="isPersonType">
+                </p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <span class="sf-labels">Person Sub Type</span> <span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 form">
+                <p-autoComplete formControlName="personSubType" [dropdown]="true" [suggestions]="filteredPersonSubtypes"
+                  name="personAssignmentTypeID" [(ngModel)]="caseTeam.personAssignmentTypeID" [forceSelection]="true"
+                  field="personAssignmentTable" (completeMethod)="filterPersonSubtype($event)"
+                  [disabled]="isPersonSubType">
+                </p-autoComplete>
+              </div>
+            </div>
+
+          </div>
+          <div class="row margin-top-20">
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <span class="sf-labels">Contract State</span>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 form">
+                <p-autoComplete formControlName="contractState" [dropdown]="true" [forceSelection]="true"
+                  name="contract_StateID" [(ngModel)]="caseTeam.contract_StateID" [suggestions]="metadata"
+                  [forceSelection]="true" placeholder="Type here to search" emptyMessage="No results found!"
+                  field="state" (completeMethod)="getMetaData($event,'contractState')">
+                </p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <span class="sf-labels">Name</span> <span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 form">
+                <p-autoComplete formControlName="name" [dropdown]="true" [forceSelection]="true"
+                  [(ngModel)]="caseTeam.personID" name="personID" [suggestions]="metadata" [forceSelection]="true"
+                  placeholder="Type here to search" emptyMessage="No results found!" field="fullName"
+                  (completeMethod)="getMetaData($event,'name')">
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <span *ngIf="isAppHeader" class="sf-labels">Mentor</span>
+                <span *ngIf="!isAppHeader" class="sf-labels">Contact List</span>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 form">
+                <p-checkbox id="mentor" name="mentor" formControlName="mentor" binary="true"
+                  [(ngModel)]="caseTeam.mentor"></p-checkbox>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <span *ngIf="isAppHeader" class="sf-labels">Email Acknowledgement</span>
+                <span *ngIf="!isAppHeader" class="sf-labels">Emergency Contact</span>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <p-checkbox type="checkbox" name="emailAck" formControlName="emailAck" binary="true"
+                  [(ngModel)]="caseTeam.emailAck"></p-checkbox>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <span *ngIf="isAppHeader" class="sf-labels">Fax Acknowledgement</span>
+                <span *ngIf="!isAppHeader" class="sf-labels">Critical</span>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 form">
+                <p-checkbox type="checkbox" name="faxAck" formControlName="faxAck" binary="true"
+                  [(ngModel)]="caseTeam.faxAck"></p-checkbox>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <span *ngIf="isAppHeader" class="sf-labels">Mail Acknowledgement</span>
+                <span *ngIf="!isAppHeader" class="sf-labels">Treatment Plan</span>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <p-checkbox type="checkbox" name="mailAck" formControlName="mailAck" binary="true"
+                  [(ngModel)]="caseTeam.mailAck"></p-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <app-form-footer [isFormLog]="isFormLog" [formLogInfo]="formLogInfo" [attachmentControll]="isAttachmentRequired"
+        [isAttachmentDisabled]="false" (attachDoc)="navigateTo()" (save)="addPost(caseTeam)" (reset)="resetForm()"
+        (discard)="discardForm()" (edit)="editForm()" [editControll]="editControll" [currentNodeValue]="req">
+      </app-form-footer>
+    </div>
+  </div>
+</div>

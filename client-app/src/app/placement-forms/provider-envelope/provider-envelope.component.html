@@ -1,0 +1,35 @@
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+<div class="pdf-content">
+
+  <div id="pdf-content-print" class="sf-form">
+
+    <div class="text-center text-big">
+      PROVIDER ENVELOPE
+    </div>
+
+    <div class="provider-envelope">
+      <div>
+        {{providerName}}
+      </div>
+
+      <div *ngIf="providerAddress.phone">
+        Phone: {{providerAddress.phone}}
+      </div>
+
+      <div>
+        {{providerAddress.address}}
+      </div>
+
+      <div>
+        {{providerAddress.city}}{{providerAddress.zipCode}}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<app-placement-email-footer [currentForm]="'ENVELOPE'"></app-placement-email-footer>

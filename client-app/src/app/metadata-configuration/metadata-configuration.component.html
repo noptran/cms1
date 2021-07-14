@@ -1,0 +1,100 @@
+<div class="margin-top-50">  
+  <p-dataView #dv [value]="configItems" [paginator]="true" [rows]="8" paginatorPosition="both"
+  [sortField]="sortField" [sortOrder]="sortOrder" emptyMessage="No records found.">
+  <p-header>
+      <div class="ui-helper-clearfix">
+          <div class="ui-g">
+              <div class="ui-g-12 ui-md-4">
+                    <p class="sf-black sf-label">CMS Configuration</p>
+                  <!-- <p-dropdown [options]="configItems" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'15em'}"></p-dropdown> -->
+              </div>
+              <div class="ui-g-6 ui-md-4">
+                  <div style="position:relative">
+                      <!-- <input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value)"> -->
+                  </div>
+              </div>
+              <div class="ui-g-6 ui-md-4  sf-text-right">
+                <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                <button class="sf-positive-btn margin-left-20" pTooltip="Create a new configuration" data-toggle="modal" data-target="#modalForm">Create</button>
+            </div>
+          </div>
+      </div>
+  </p-header>
+  <ng-template let-config pTemplate="listItem">
+      <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
+          <div class="ui-g-12 ui-md-5" style="text-align:center">
+              <img src="http://via.placeholder.com/140x100">
+          </div>
+          <div class="ui-g-12 ui-md-6 car-details">
+              <div class="ui-g">
+                  <div class="ui-g-10 ui-sm-6"><b>{{config.componentName}}</b></div>
+
+                  <div class="ui-g-10 ui-sm-6"><b>{{config.componentDescription}}</b></div>
+
+                  <!-- <div class="ui-g-2 ui-sm-6">Brand: </div> -->
+                  <!-- <div class="ui-g-10 ui-sm-6"><b>{{car.brand}}</b></div>
+
+                  <div class="ui-g-2 ui-sm-6">Color: </div>
+                  <div class="ui-g-10 ui-sm-6"><b>{{car.color}}</b></div> -->
+              </div>
+          </div>
+          <div class="ui-g-12 ui-md-1 search-icon">
+              <button pButton type="button"  pTooltip="Click here navigate to list view" icon="pi pi-external-link" (click)="componentNavigation(config.componentURL)"></button>
+          </div>
+      </div>
+  </ng-template>
+  <ng-template let-config pTemplate="gridItem">
+      <div style="padding:.5em" class="ui-g-12 ui-md-3">
+          <p-panel [header]="config.componentName" [style]="{'text-align':'center'}">
+              <!-- <img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60"> -->
+              <img src="http://via.placeholder.com/140x100" width="60">
+
+              <div class="car-detail">{{config.componentDescription}}</div>
+              <hr class="ui-widget-content" style="border-top:0">
+              <button pButton type="button" pTooltip="Click here navigate to list view" icon="pi pi-external-link" (click)="componentNavigation(config.componentURL)" style="margin-top:0"></button>
+          </p-panel>
+      </div>
+  </ng-template>
+</p-dataView>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modalForm" role="dialog">
+        <div class="modal-dialog" >
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Create configuration</h4>
+                    <button type="button" class="close" data-dismiss="modal" id="closeBtn">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                </div>
+                
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <p class="statusMsg"></p>
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="componentName">Component Name</label>
+                            <input type="text" class="form-control sf-labels sf-black" id="componentName" name="componentName" [(ngModel)]="meta.componentName" placeholder="Enter component name" autofocus/>
+                        </div>
+                        <div class="form-group">
+                            <label for="componentPath">Component Path</label>
+                            <input type="email" class="form-control sf-labels sf-black" id="componentPath" name="componentPath" [(ngModel)]="meta.componentURL" placeholder="Enter component URL"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputMessage">Component Description</label>
+                            <textarea class="form-control sf-labels sf-black" id="inputMessage" name="inputMessage" [(ngModel)]="meta.componentDescription" placeholder="Enter description of the component"></textarea>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="sf-negative-btn" data-dismiss="modal">Close</button>
+                    <button type="button" class="sf-positive-btn" (click)="addComponent(meta)">SUBMIT</button>
+                </div>
+            </div>
+        </div>
+    </div>

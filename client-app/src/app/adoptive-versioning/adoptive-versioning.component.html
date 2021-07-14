@@ -1,0 +1,58 @@
+<!--  -->
+
+<app-form-header [breadcrumbs]="breadcrumbs" [formNavigation]=""
+  ></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <!-- ////////////////// -->
+    <!-- <span class="document-link" (click)="cisVersionBasedView(0)">View</span> -->
+    <div *ngIf="isCisDataStored" class="versioning-table">
+
+      <table class="space-down table-hover">
+        <tr>
+          <th class="table-td">
+            Version
+          </th>
+          <th class="table-td">
+            Completed By
+          </th>
+          <th class="table-td">
+            Last Modified
+          </th>
+          <th class="table-td">
+
+          </th>
+        </tr>
+
+        <tr *ngFor="let cisArrayData of formCisArrayValue; let i = index">
+          <td class="table-td">
+            <!-- {{cisArrayData.version}} -->
+            {{generateVersion(cisArrayData.version)}}
+          </td>
+          <td class="table-td">
+            {{cisArrayData.staffID.firstName+" "+cisArrayData.staffID.lastName}}
+          </td>
+          <td class="table-td">
+
+            {{cisArrayData.createdDate |date: dateFormat }}
+
+          </td>
+          <td class="table-td">
+            <span class="document-link" (click)="cisVersionBasedView(cisArrayData.version)">View</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <p-dialog [contentStyle]="{'min-width':'106rem'}" header="Adoptive Resource Inquiry Form" [(visible)]="isAdoptionInquiry"
+    [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="999" (onHide)="getCisJson()">
+    <app-adoptive-resource-inquiry *ngIf="isAdoptionInquiry" (adoptionOut)="getFormData($event)" (cancelOut)="discardCourtAppearance()"></app-adoptive-resource-inquiry>
+  </p-dialog>
+
+</div>
+<!-- ///////////////////// -->

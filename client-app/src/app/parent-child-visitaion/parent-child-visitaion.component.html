@@ -1,0 +1,485 @@
+<div id="pdf-content">
+  <form id="print-form-content" class="sf-form" [formGroup]="parentChildForm">
+    <div class="flex-container header">
+      <div class="heading">
+        REINTEGRATION FOSTER CARE
+        <br> ADOPTION PARENT/CHILD
+        <br> VISITATION LOG FORM
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Client Name(s) </span>
+          <input readonly type="text" pInputText size="20" [(ngModel)]="parentChild.ClientName.value" formControlName="ClientName"
+            name="ClientName" />
+        </div>
+        <div>
+          <span>Case Number:</span>
+          <input readonly type="text" [(ngModel)]="parentChild.Kaecses.value" formControlName="Kaecses" name="Kaecses" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>Date:</span>
+          <p-calendar [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [(ngModel)]="parentChild.CompletionDate.value"
+            formControlName="CompletionDate" name="CompletionDate" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="flex-container">
+          <div>
+            <span>Time</span>
+          </div>
+          <div class="flex-container">
+            <div>
+              <p-calendar [inputStyle]="{'width':'70px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [(ngModel)]="parentChild.FromTime.value"
+                formControlName="FromTime" name="FromTime" [timeOnly]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </div>
+            <div class="space-right">To:</div>
+            <div>
+              <p-calendar [inputStyle]="{'width':'70px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [(ngModel)]="parentChild.ToTime.value"
+                formControlName="ToTime" name="ToTime" [timeOnly]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3 class="bold center space-down">VISIT TYPE </h3>
+    <div class="flex-container space-down">
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="VisitType" value="0" label="Supervised" [(ngModel)]="parentChild.VisitType.fieldOptionIndex"
+          formControlName="VisitType"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="VisitType" value="1" label="Monitored" [(ngModel)]="parentChild.VisitType.fieldOptionIndex"
+          formControlName="VisitType"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="VisitType" value="2" label="Unsupervised" [(ngModel)]="parentChild.VisitType.fieldOptionIndex"
+          formControlName="VisitType"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="VisitType" value="3" label="Phone" [(ngModel)]="parentChild.VisitType.fieldOptionIndex"
+          formControlName="VisitType"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="VisitType" value="CF069.2" label="No Visit (explain on back)" [(ngModel)]="parentChild.VisitType.fieldOptionIndex"
+          formControlName="VisitType"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Location of visit:</div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="Location" value="0" label="SFCS Office" [(ngModel)]="parentChild.Location.fieldOptionIndex"
+          formControlName="Location"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="Location" value="1" label="Parents Home" [(ngModel)]="parentChild.Location.fieldOptionIndex"
+          formControlName="Location"></p-radioButton>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right center">
+          <p-radioButton class="space-right" name="Location" value="2" label="Other, specify place:" [(ngModel)]="parentChild.Location.fieldOptionIndex"
+            formControlName="Location"></p-radioButton>
+        </div>
+        <div class="space-right">
+          <input type="text" pInputText size="20" [(ngModel)]="parentChild.LocationVisit.value" formControlName="LocationVisit" name="LocationVisit"
+          />
+        </div>
+      </div>
+    </div>
+    <!--  -->
+    <div *ngIf="parentChild.multiClient" class="flex-container space-down">
+      <div *ngFor="let cisArrayData of parentChild.multiClient; let i = index" class="space-right">
+        <input [ngModelOptions]="{standalone: true}" class="margin-right-1rem" type="text" pInputText size="20" [(ngModel)]="cisArrayData"
+          readonly />
+      </div>
+    </div>
+    <!--  -->
+    <div class="space-down">
+      <div class="space-right">If visit not in parents’ home, please explain why:</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="parentChild.ParentsHome.value" formControlName="ParentsHome" name="ParentsHome"
+        /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(parentChild.ParentsHome.value)}} cols="150" [(ngModel)]="parentChild.ParentsHome.value"
+          formControlName="ParentsHome" name="ParentsHome" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">If in the parent’s home, describe the environment:</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="parentChild.ParentsEnvironment.value" formControlName="ParentsEnvironment"
+          name="ParentsEnvironment" /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(parentChild.ParentsEnvironment.value)}} cols="150" [(ngModel)]="parentChild.ParentsEnvironment.value"
+          formControlName="ParentsEnvironment" name="ParentsEnvironment" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">Adults present at visit and relationship to child(ren):</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="parentChild.AdultsVisit.value" formControlName="AdultsVisit" name="AdultsVisit"
+        /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(parentChild.AdultsVisit.value)}} cols="150" [(ngModel)]="parentChild.AdultsVisit.value"
+          formControlName="AdultsVisit" name="AdultsVisit" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Was an adjustment made to visit time, length or location?</div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="adjustment" value="0" label="yes" [(ngModel)]="parentChild.adjustment.fieldOptionIndex"
+          formControlName="adjustment"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="adjustment" value="1" label="no" [(ngModel)]="parentChild.adjustment.fieldOptionIndex"
+          formControlName="adjustment"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="parentChild.AdjustmentTime.value" formControlName="AdjustmentTime" name="AdjustmentTime"
+        /> -->
+
+      </div>
+    </div>
+
+    <div class="space-down">
+      <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(parentChild.AdjustmentTime.value)}} cols="150" [(ngModel)]="parentChild.AdjustmentTime.value"
+        formControlName="AdjustmentTime" name="AdjustmentTime" style="width: 100%;height: auto;"></textarea>
+    </div>
+
+    <div class="space-down">
+      <div class="space-down"> If yes, what was the reason:</div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(parentChild.reason.value)}} cols="150" [(ngModel)]="parentChild.reason.value"
+          formControlName="reason" name="reason" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <h3 class="center">SAFETY ASSESSMENT OF VISITS (Supervised/Monitored Visits</h3>
+    <p class="center">*Safety is the potential for serious maltreatment which is imminent. It determines the need for immediate protective
+      action or controlling interventions to protect the child from imminent danger.</p>
+    <div class="space-down">
+      <div class="space-down"> List the safety concerns leading to the decision for supervised or monitored visitation:
+      </div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(parentChild.MonitoredVisitation.value)}} cols="150" [(ngModel)]="parentChild.MonitoredVisitation.value"
+          formControlName="MonitoredVisitation" name="MonitoredVisitation" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-down"> What are the contributing factors for the decision?
+      </div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(parentChild.ContributingFactors.value)}} cols="150" [(ngModel)]="parentChild.ContributingFactors.value"
+          formControlName="ContributingFactors" name="ContributingFactors" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Could a safety plan mitigate the safety concerns?</div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="safetyplan" value="0" label="yes" [(ngModel)]="parentChild.safetyplan.fieldOptionIndex"
+          formControlName="safetyplan"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="safetyplan" value="1" label="no" [(ngModel)]="parentChild.safetyplan.fieldOptionIndex"
+          formControlName="safetyplan"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Is there a safety plan currently in place?</div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="SafetyPlanYesNo" value="0" label="yes" [(ngModel)]="parentChild.SafetyPlanYesNo.fieldOptionIndex"
+          formControlName="SafetyPlanYesNo"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="SafetyPlanYesNo" value="1" label="no" [(ngModel)]="parentChild.SafetyPlanYesNo.fieldOptionIndex"
+          formControlName="SafetyPlanYesNo"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="SafetyPlanYesNo" value="2" label="NA" [(ngModel)]="parentChild.SafetyPlanYesNo.fieldOptionIndex"
+          formControlName="SafetyPlanYesNo"></p-radioButton>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-down"> If yes, what progress has the child(ren) and family made in following the safety plan?
+      </div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(parentChild.SafetyPlan.value)}} cols="150" [(ngModel)]="parentChild.SafetyPlan.value"
+          formControlName="SafetyPlan" name="SafetyPlan" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-down"> What are the family’s strengths and resources to mitigate the safety concerns?
+      </div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(parentChild.SafetyConcerns.value)}} cols="150" [(ngModel)]="parentChild.SafetyConcerns.value"
+          formControlName="SafetyConcerns" name="SafetyConcerns" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Were there any new safety concerns observed during the visit?</div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="SafetyConcernsYesNo" value="0" label="yes" [(ngModel)]="parentChild.SafetyConcernsYesNo.fieldOptionIndex"
+          formControlName="SafetyConcernsYesNo"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="SafetyConcernsYesNo" value="1" label="no" [(ngModel)]="parentChild.SafetyConcernsYesNo.fieldOptionIndex"
+          formControlName="SafetyConcernsYesNo"></p-radioButton>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-down"> What are the family’s strengths and resources to mitigate the safety concerns?
+      </div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(parentChild.AddressedVisit.value)}} cols="150" [(ngModel)]="parentChild.AddressedVisit.value"
+          formControlName="AddressedVisit" name="AddressedVisit" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <h3 class="center space-down">RISK ASSESSMENT OF VISITS (Supervised/Monitored Visits) Explain Both Yes And No Answers </h3>
+    <p class="center">*Risk is potential maltreatment in the future. It determines the need for services to address potential future maltreatment.
+    </p>
+    <div class="space-down">
+      <div class="space-down"> List the risk concerns leading to the decision for supervised or monitored visitation:
+      </div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(parentChild.SupervisedVisitation.value)}} cols="150" [(ngModel)]="parentChild.SupervisedVisitation.value"
+          formControlName="SupervisedVisitation" name="SupervisedVisitation" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Could a service plan mitigate the concerns?</div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="serviceplan" value="0" label="Yes" [(ngModel)]="parentChild.serviceplan.fieldOptionIndex"
+          formControlName="serviceplan"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="serviceplan" value="1" label="No" [(ngModel)]="parentChild.serviceplan.fieldOptionIndex"
+          formControlName="serviceplan"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <input type="text" pInputText size="20" [(ngModel)]="parentChild.mitigate.value" formControlName="mitigate" name="mitigate"
+        />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Is there a service plan currently in place?</div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="ServicePlanYesNo" value="0" label="Yes" [(ngModel)]="parentChild.ServicePlanYesNo.fieldOptionIndex"
+          formControlName="ServicePlanYesNo"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="ServicePlanYesNo" value="1" label="No" [(ngModel)]="parentChild.ServicePlanYesNo.fieldOptionIndex"
+          formControlName="ServicePlanYesNo"></p-radioButton>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-down">If yes, what progress has the child(ren) and family made in following the safety plan
+      </div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(parentChild.SafetyPlans.value)}} cols="150" [(ngModel)]="parentChild.SafetyPlans.value"
+          formControlName="SafetyPlans" name="SafetyPlans" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <h3 class="center space-down">OBSERVATIONS OF INTERACTIONS (Supervised/Monitored Visits) Explain Both Yes And No Answers</h3>
+    <div class="flex-container space-down">
+      <div class="space-right">Child(ren) accepted limits set by the caregiver(s) </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="ChildAcceptedLimits" value="0" label="Yes" [(ngModel)]="parentChild.ChildAcceptedLimits.fieldOptionIndex"
+          formControlName="ChildAcceptedLimits"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="ChildAcceptedLimits" value="1" label="No" [(ngModel)]="parentChild.ChildAcceptedLimits.fieldOptionIndex"
+          formControlName="ChildAcceptedLimits"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Child(ren) positively engaged in interaction (verbal/nonverbal)</div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="InteractionYesNo" value="0" label="Yes" [(ngModel)]="parentChild.InteractionYesNo.fieldOptionIndex"
+          formControlName="InteractionYesNo"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="InteractionYesNo" value="1" label="No" [(ngModel)]="parentChild.InteractionYesNo.fieldOptionIndex"
+          formControlName="InteractionYesNo"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Child(ren) showed positive feelings toward caregiver(s) </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="FeelingsYesNo" value="0" label="Yes" [(ngModel)]="parentChild.FeelingsYesNo.fieldOptionIndex"
+          formControlName="FeelingsYesNo"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="FeelingsYesNo" value="1" label="No" [(ngModel)]="parentChild.FeelingsYesNo.fieldOptionIndex"
+          formControlName="FeelingsYesNo"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">The relationship between child(ren) and caregiver(s) seemed positive </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="RelationshipYesNo" value="0" label="Yes" [(ngModel)]="parentChild.RelationshipYesNo.fieldOptionIndex"
+          formControlName="RelationshipYesNo"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="RelationshipYesNo" value="1" label="No" [(ngModel)]="parentChild.RelationshipYesNo.fieldOptionIndex"
+          formControlName="RelationshipYesNo"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Caregiver(s) encouraged appropriate behavior with social rewards (e.g., praise, smiles, clapping) </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="SocialRewardsYesNo" value="0" label="Yes" [(ngModel)]="parentChild.SocialRewardsYesNo.fieldOptionIndex"
+          formControlName="SocialRewardsYesNo"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="SocialRewardsYesNo" value="1" label="No" [(ngModel)]="parentChild.SocialRewardsYesNo.fieldOptionIndex"
+          formControlName="SocialRewardsYesNo"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Caregiver(s) encouraged appropriate behavior with positive physical contact (e.g., high five, hug)</div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="PhysicalContactYesorNo" value="0" label="Yes" [(ngModel)]="parentChild.PhysicalContactYesorNo.fieldOptionIndex"
+          formControlName="PhysicalContactYesorNo"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="PhysicalContactYesorNo" value="1" label="No" [(ngModel)]="parentChild.PhysicalContactYesorNo.fieldOptionIndex"
+          formControlName="PhysicalContactYesorNo"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Caregiver(s) positively engaged in interaction (verbal/nonverbal) </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="InteractionsYesNo" value="0" label="Yes" [(ngModel)]="parentChild.InteractionsYesNo.fieldOptionIndex"
+          formControlName="InteractionsYesNo"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="InteractionsYesNo" value="1" label="No" [(ngModel)]="parentChild.InteractionsYesNo.fieldOptionIndex"
+          formControlName="InteractionsYesNo"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Caregiver(s) showed empathy, support to child(ren) </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="SupportChildYesNo" value="0" label="Yes" [(ngModel)]="parentChild.SupportChildYesNo.fieldOptionIndex"
+          formControlName="SupportChildYesNo"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="SupportChildYesNo" value="1" label="No" [(ngModel)]="parentChild.SupportChildYesNo.fieldOptionIndex"
+          formControlName="SupportChildYesNo"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Caregiver’s relationship toward child(ren) seemed positive</div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="PositiveYesNo" value="0" label="Yes" [(ngModel)]="parentChild.PositiveYesNo.fieldOptionIndex"
+          formControlName="PositiveYesNo"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="PositiveYesNo" value="1" label="No" [(ngModel)]="parentChild.PositiveYesNo.fieldOptionIndex"
+          formControlName="PositiveYesNo"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Caregiver(s) showed interest in child(ren)’s well-being </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="WellbeingYesNo" value="0" label="Yes" [(ngModel)]="parentChild.WellbeingYesNo.fieldOptionIndex"
+          formControlName="WellbeingYesNo"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="WellbeingYesNo" value="1" label="No" [(ngModel)]="parentChild.WellbeingYesNo.fieldOptionIndex"
+          formControlName="WellbeingYesNo"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Caregiver(s) actively listened to the child(ren)</div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="ListenedYesNo" value="0" label="Yes" [(ngModel)]="parentChild.ListenedYesNo.fieldOptionIndex"
+          formControlName="ListenedYesNo"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="ListenedYesNo" value="1" label="No" [(ngModel)]="parentChild.ListenedYesNo.fieldOptionIndex"
+          formControlName="ListenedYesNo"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Caregiver(s) showed interest in the child(ren)’s activities</div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="InterestYesNo" value="0" label="Yes" [(ngModel)]="parentChild.InterestYesNo.fieldOptionIndex"
+          formControlName="InterestYesNo"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="InterestYesNo" value="1" label="No" [(ngModel)]="parentChild.InterestYesNo.fieldOptionIndex"
+          formControlName="InterestYesNo"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Caregiver(s) showed limits when necessary or appropriate </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="AppropriateYesNo" value="0" label="Yes" [(ngModel)]="parentChild.AppropriateYesNo.fieldOptionIndex"
+          formControlName="AppropriateYesNo"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="AppropriateYesNo" value="1" label="No" [(ngModel)]="parentChild.AppropriateYesNo.fieldOptionIndex"
+          formControlName="AppropriateYesNo"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Caregiver(s) was/were firm but not harsh when limit setting (clearly means business but not angry)</div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="HarshYesNo" value="0" label="Yes" [(ngModel)]="parentChild.HarshYesNo.fieldOptionIndex"
+          formControlName="HarshYesNo"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="HarshYesNo" value="1" label="No" [(ngModel)]="parentChild.HarshYesNo.fieldOptionIndex"
+          formControlName="HarshYesNo"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Caregiver(s) had a plan for activities for visit</div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="ActivityYesNo" value="0" label="Yes" [(ngModel)]="parentChild.ActivityYesNo.fieldOptionIndex"
+          formControlName="ActivityYesNo"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="ActivityYesNo" value="1" label="No" [(ngModel)]="parentChild.ActivityYesNo.fieldOptionIndex"
+          formControlName="ActivityYesNo"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Caregiver(s) brought appropriate supplies for visit</div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="SuppliesVisitYesNo" value="0" label="Yes" [(ngModel)]="parentChild.SuppliesVisitYesNo.fieldOptionIndex"
+          formControlName="SuppliesVisitYesNo"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="SuppliesVisitYesNo" value="1" label="No" [(ngModel)]="parentChild.SuppliesVisitYesNo.fieldOptionIndex"
+          formControlName="SuppliesVisitYesNo"></p-radioButton>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-down">
+        Provide a summary of the visit and describe in detail both yes and no answers:
+      </div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(parentChild.summary1.value)}} cols="150" [(ngModel)]="parentChild.summary1.value"
+          formControlName="summary1" name="summary1" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="flex-container space-down">
+        <div class="space-right">Signature/Title:</div>
+        <div class="space-right">
+          <input readonly type="text" pInputText size="20" [(ngModel)]="parentChild.Signature.value" formControlName="Signature" name="Signature"
+          />
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">Date:</div>
+        <div class="space-right">
+          <p-calendar [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [(ngModel)]="parentChild.Date.value"
+            formControlName="Date" name="Date" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+  </form>
+  <app-form-footer (save)="saveForm(parentChild)" (print)="printForm()" (finalize)="finalizeForm(parentChild)" [isPrint]="isPrint"
+    [isFinalize]="isFinalize" (discard)="discardForm()" [isDisabled]="isDisable" (edit)="editForm()" [editControll]="editControll"></app-form-footer>
+
+</div>

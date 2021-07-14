@@ -1,0 +1,51 @@
+export class AsqSixty {
+    valueArr: any[] = [
+        { CompletionDate: 'Date ASQ-SE-2 Completed' },
+        { CaregiverName: 'Respondent' },
+        { Question39Description: 'What do you enjoy about your baby please explain' }
+    ]
+
+    optionIndex = [
+        { Relationship: 'Relationship to Baby' },
+        { Question1: 'Does your child look at you when you talk to him' },
+        { Question2: 'Does your child cling to you more than you expected' },
+        { Question3: 'Does your child like to be hugged or cuddled' },
+        { Question4: 'Does your child talk or play with adults she knows well' },
+        { Question5: 'When upset, can your child calm down within 15 minutes' },
+        { Question6: 'Does your child seem too friendly with strangers' },
+        { Question7: 'Does your child settle herself down after exciting activities' },
+        { Question8: 'Does your child seem happy' },
+        { Question9: 'Does your child cry, scream, or have tantrums for long periods of time' },
+        { Question10: 'Is your child interested in things around him, such as people, toys, and foods' },
+        { Question11: 'Does your child go to the bathroom by herself? (Reminders and help with wiping are okay)' },
+        { Question12: 'Does your child have eating problems? For example, does he stuff food, vomit, eat things that are not food' },
+        { Question13: 'Does your child stay with activities she enjoys for at least 15 minutes (other than watching shows or videos, or playing with electronics)' },
+        { Question14: 'Do you and your child enjoy mealtimes together' },
+        { Question15: 'Does your child do what you ask him to do? For example, does he wash his hands or wait to take a turn when asked' },
+        { Question16: 'Does your child seem more active than other children his age' },
+        { Question17: 'Does your child sleep at least 8 hours in a 24- hour period' },
+        { Question18: 'Does your child use words to tell you what he wants or needs' },
+        { Question19: 'Does your child use words to describe her feelings and the feelings of others? For example, does she say, “I’m happy,” “I don’t like that,” or “She’s sad”' },
+        { Question20: 'Does your child move from one activity to the next with little difficulty for example, from playtime to mealtime)' },
+        { Question21: 'Does your child explore new places, such as a park or a friend’s home' },
+        { Question22: 'Does your child do things over and over and get upset when you try to stop him? For example, does he rock, flap his hands, spin' },
+        { Question23: 'Does your child hurt himself on purpose' },
+        { Question24: 'Does your child follow rules at home or at child care' },
+        { Question25: 'Does your child destroy or damage things on purpose' },
+        { Question26: 'Does your child stay away from dangerous things, such as fire and moving cars' },
+        { Question27: 'Does your child show concern for other people’s feelings? For example, does he look sad when someone is hurt' },
+        { Question28: 'Do other children like to play with your child' },
+        { Question29: 'Does your child like to play with other children' },
+        { Question30: 'Does your child try to hurt other children, adults, or animals (for example, by kicking or biting)' },
+        { Question31: 'Does your child take turns and share when playing with other children' },
+        { Question32: 'Does your child show an unusual interest in or knowledge of sexual language and activity' },
+        { Question33: 'Does your child wake three or more times during the night' },
+        { Question34: 'Is your child too worried or fearful? If “sometimes” or “often or always,”' },
+        { Question35: 'Does your child have simple back-and-forth conversations with you' },
+        { Question36: 'Has anyone shared concerns about your child’s behaviors? If “sometimes” or “often or always”' },
+        { ConcernsSleep: 'Do you have concerns about your baby’s eating or sleeping behaviors' },
+        { Worry: 'Does anything about your baby worry you' },
+        { Enjoy: 'What do you enjoy about your baby' },
+        { Concerns1_16: '1-36. Any concerns marked on scored items' }
+    ]
+}

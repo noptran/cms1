@@ -1,0 +1,1997 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<!--  -->
+
+<!--  -->
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+
+    <form class="sf-form form-container" [formGroup]="incidentForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="!isProvider">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Referral</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" [(ngModel)]="incident.referralID" name="referralID"
+              [forceSelection]="true" placeholder="Please select referral" field="Referral" size="23"
+              [suggestions]="filteredReferrals" formControlName="referralID"
+              (completeMethod)="filteredAvailableReferrals($event)" (onSelect)="selectedReferrals($event)">
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Report ID</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText formControlName="reportID" name="reportID" [(ngModel)]="incident.reportID"
+              size="27" maxlength="25" readonly />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Incident/Allegation</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" [(ngModel)]="incident.incidentDate" showTime="true" hourFormat="24"
+              [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" formControlName="incidentDate">
+            </p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Date Of Discovery</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" [(ngModel)]="incident.discoveryDate" hourFormat="24" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030" showTime="true" formControlName="discoveryDate">
+            </p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Contractor/Referral Source</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" [(ngModel)]="incident.payorID" name="payorName" [forceSelection]="true"
+              placeholder="Type here to search" field="payorName" size="23" formControlName="payorID"
+              (completeMethod)="getContractorReferralService($event)" [suggestions]="metaData" [disabled]="isProvider"
+              emptyMessage="No records found!">
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Clients SFM Office</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+
+            <p-autoComplete [dropdown]="true" name="clientSFMOffice" [(ngModel)]="incident.client_SFAOfficeID"
+              (completeMethod)="getClientProviderSfcsOffice($event)" [suggestions]="metaData" [forceSelection]="true"
+              placeholder="Type here to search" field="officeName" size="23" formControlName="client_SFAOfficeID"
+              [disabled]="isProvider" emptyMessage="No records found!">
+              <ng-template let-clientSFMOffice pTemplate="item">
+                <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                  <table width="100%">
+                    <tr>
+                      <th>Name</th>
+                      <th>Address</th>
+                      <th>City</th>
+                      <th>State</th>
+                    </tr>
+                    <tr>
+                      <td>{{clientSFMOffice.OfficeName}}</td>
+                      <td>{{clientSFMOffice.Address}}</td>
+                      <td>{{clientSFMOffice.GPSCity}}</td>
+                      <td>{{clientSFMOffice.GPSState}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Name Of Placement/Resource Home</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="providerID" [(ngModel)]="incident.providerID"
+              [forceSelection]="true" placeholder="Type here to search" field="providerName" size="23"
+              formControlName="providerID" (completeMethod)="getPlacementResourceHome($event)" [suggestions]="metaData"
+              [disabled]="isProvider" emptyMessage="No records found!">
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Provider SFM Office</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="providerSFMOffice" [(ngModel)]="incident.provider_SFAOfficeID"
+              field="officeName" [suggestions]="metaData" (completeMethod)="getMetaData($event,'provider_SFAOfficeID')"
+              [forceSelection]="true" placeholder="Type here to search" size="23" formControlName="provider_SFAOfficeID"
+              [disabled]="isProvider" emptyMessage="No records found!">
+              <ng-template let-providerSFMOffice pTemplate="item">
+                <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                  <table width="100%">
+                    <tr>
+                      <th>Name</th>
+                      <th>Address</th>
+                      <th>City</th>
+                      <th>State</th>
+                    </tr>
+                    <tr>
+                      <td>{{providerSFMOffice.officeName}}</td>
+                      <td>{{providerSFMOffice.address}}</td>
+                      <td>{{providerSFMOffice.gpscity}}</td>
+                      <td>{{providerSFMOffice.gpsstate}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Provider Sponsor</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="gradeID" [(ngModel)]="incident.sponsorID" field="sponsorName"
+              [suggestions]="metaData" (completeMethod)="getMetaData($event,'sponsorID')" [forceSelection]="true"
+              placeholder="Type here to search" size="23" formControlName="sponsorID" [disabled]="isProvider">
+            </p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span>
+              <b>Critical Incident Type (Check all that apply)</b>
+              <span> All incident marked with a * require verbal notification to Risk Management</span>
+            </span>
+          </div>
+          <div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="table-responsive table-pad-15">
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th>Select</th>
+                <th>Incident Type</th>
+                <th *ngIf="rmOnly">Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of critical_incident;let i = index">
+                <td>
+                  <p-checkbox value="{{criticalIncidentValue[i]}}" [(ngModel)]="criticalIncidentValue[i]"
+                    [ngModelOptions]="{standalone: true}" binary="true"
+                    (onChange)="getIncidentTypeValues($event, item, 'critial_incident', i, item.unusualIncident_IncidentTypeID)"
+                    [disabled]="isEdit">
+                  </p-checkbox>
+                </td>
+                <td>{{item.incidentType}}</td>
+                <td *ngIf="rmOnly">
+                  <input type="text" (input)="getRating($event.target.value, i,'criticalIncidentValue')"
+                    value="{{criticalIncidentOption[i]?.rating}}" [disabled]="isEdit" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <hr>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span>
+              <span>
+                <b>
+                  Significant Incident Type (check all that apply): RFCA - Complete for children in state custody FP-
+                  Complete for all household
+                  members
+                </b>
+              </span>
+            </span>
+          </div>
+          <div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="table-pad-15">
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th>Select</th>
+                <th>Incident Type</th>
+                <th>Option</th>
+                <th *ngIf="rmOnly">Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--Apart from this 'Law Enforcement contact' others all disable -->
+              <tr *ngFor="let item of significant_incident;let i = index">
+                <td *ngIf="rmOnly">
+                  <p-checkbox value="{{SignificantIncidentValue[i]}}" [(ngModel)]="SignificantIncidentValue[i]"
+                    [ngModelOptions]="{standalone: true}" binary="true"
+                    (onChange)="getIncidentTypeValues($event, item, 'siginifact_incident', i, item.unusualIncident_IncidentTypeID)"
+                    [disabled]="significant_incident[i].unusualIncidentTypeID !== 27">
+                  </p-checkbox>
+                </td>
+                <td *ngIf="!rmOnly">
+                  <p-checkbox value="{{SignificantIncidentValue[i]}}" [(ngModel)]="SignificantIncidentValue[i]"
+                    [ngModelOptions]="{standalone: true}" binary="true"
+                    (onChange)="getIncidentTypeValues($event, item, 'siginifact_incident', i, item.unusualIncident_IncidentTypeID)"
+                    [disabled]="isEdit">
+                  </p-checkbox>
+                </td>
+                <td>{{item.incidentType}}</td>
+                <td *ngIf="rmOnly">
+                  <p-autoComplete [dropdown]="true" name="unusualIncidentTypeOptionID"
+                    [(ngModel)]="significantIncidentOption[i]" [forceSelection]="true" placeholder="Type here to search"
+                    field="unusualIncidentTypeOption" size="23" [ngModelOptions]="{standalone: true}"
+                    [suggestions]="metaData" (completeMethod)="getMetaData($event,'unusualIncidentTypeOption',item)"
+                    (onSelect)="getOption($event,i,'getSignificantIncidentOption')"
+                    [disabled]="significant_incident[i].unusualIncidentTypeID !== 27">
+                  </p-autoComplete>
+                </td>
+                <td *ngIf="!rmOnly">
+                  <p-autoComplete [dropdown]="true" name="unusualIncidentTypeOptionID"
+                    [(ngModel)]="significantIncidentOption[i]" [forceSelection]="true" placeholder="Type here to search"
+                    field="unusualIncidentTypeOption" size="23" [ngModelOptions]="{standalone: true}"
+                    [suggestions]="metaData" (completeMethod)="getMetaData($event,'unusualIncidentTypeOption',item)"
+                    (onSelect)="getOption($event,i,'getSignificantIncidentOption')" [disabled]="isEdit">
+                  </p-autoComplete>
+                </td>
+                <td *ngIf="rmOnly">
+                  <input type="text" (input)="getRating($event.target.value, i,'SignificantIncidentValue')"
+                    value="{{significantIncidentOption[i]?.rating}}" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <hr>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span>
+              <span>
+                <b>Unusual Incident Type (check all that apply)</b>
+              </span>
+            </span>
+          </div>
+          <div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="table-pad-15">
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th>Select</th>
+                <th>Incident Type</th>
+                <th>Option</th>
+                <th *ngIf="rmOnly">Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--
+                Apart form this 'Medication/Pharmacy error/Concern'
+                'Psychiatric emergency/screened for acute care' others all disable
+              -->
+              <tr *ngFor="let item of unusual_incident;let i = index">
+                <td *ngIf="!rmOnly">
+                  <p-checkbox value="{{UnusualIncidentValue[i]}}" [(ngModel)]="UnusualIncidentValue[i]"
+                    [ngModelOptions]="{standalone: true}" binary="true"
+                    (onChange)="getIncidentTypeValues($event, item, 'unusual_incident', i, item.unusualIncident_IncidentTypeID)"
+                    [disabled]="isEdit">
+                  </p-checkbox>
+                </td>
+                <td *ngIf="rmOnly">
+                  <p-checkbox value="{{UnusualIncidentValue[i]}}" [(ngModel)]="UnusualIncidentValue[i]"
+                    [ngModelOptions]="{standalone: true}" binary="true"
+                    (onChange)="getIncidentTypeValues($event, item, 'unusual_incident', i, item.unusualIncident_IncidentTypeID)"
+                    [disabled]="(unusual_incident[i].unusualIncidentTypeID !== 64 && unusual_incident[i].unusualIncidentTypeID !== 29)">
+                  </p-checkbox>
+                </td>
+                <td>{{item.incidentType}}</td>
+                <td *ngIf="!rmOnly">
+                  <p-autoComplete [dropdown]="true" name="UnusualIncidentValue" [(ngModel)]="unusualIncidentOption[i]"
+                    [forceSelection]="true" placeholder="Type here to search" field="unusualIncidentTypeOption"
+                    size="23" [ngModelOptions]="{standalone: true}" [suggestions]="metaData"
+                    (completeMethod)="getMetaData($event,'unusualIncidentTypeOption',item)"
+                    (onSelect)="getOption($event,i,'getUnusualIncidentOption')" [disabled]="isEdit">
+                  </p-autoComplete>
+                </td>
+                <td *ngIf="rmOnly">
+                  <p-autoComplete [dropdown]="true" name="UnusualIncidentValue" [(ngModel)]="unusualIncidentOption[i]"
+                    [forceSelection]="true" placeholder="Type here to search" field="unusualIncidentTypeOption"
+                    size="23" [ngModelOptions]="{standalone: true}" [suggestions]="metaData"
+                    (completeMethod)="getMetaData($event,'unusualIncidentTypeOption',item)"
+                    (onSelect)="getOption($event,i,'getUnusualIncidentOption')"
+                    [disabled]="(unusual_incident[i].unusualIncidentTypeID !== 64 && unusual_incident[i].unusualIncidentTypeID !== 29)">
+                  </p-autoComplete>
+                </td>
+                <td *ngIf="rmOnly">
+                  <input type="text" (input)="getRating($event.target.value, i,'unusualIncidentValue')"
+                    value="{{unusualIncidentOption[i]?.rating}}" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Staff Injuriy</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="gradeID" [(ngModel)]="incident.staff_InjuryTypeID"
+              (completeMethod)="getMetaData($event,'staff_InjuryTypeID')" [suggestions]="metaData"
+              [forceSelection]="true" placeholder="Type here to search" field="injuryType" size="23"
+              formControlName="staff_InjuryTypeID"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Client Injuriy</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="gradeID" [(ngModel)]="incident.client_InjuryTypeID"
+              [forceSelection]="true" placeholder="Type here to search" field="injuryType" size="23"
+              formControlName="client_InjuryTypeID" (completeMethod)="getMetaData($event,'client_InjuryTypeID')"
+              [suggestions]="metaData"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-2 col-md-2 col-sm-2">
+            <span>Person Sub Type</span>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-2">
+            <p-autoComplete [dropdown]="true" name="gradeID" formControlName="personSubType"
+              (completeMethod)="getMetaData($event,'personSubType')" field="personAssignmentType"
+              [suggestions]="metaData" [forceSelection]="true" [(ngModel)]="personSubType"
+              (onSelect)="getSubTypeName($event)" placeholder="Type here to search" size="23">
+            </p-autoComplete>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-2 center">
+            <span>Name</span>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-2">
+            <p-autoComplete [dropdown]="true" name="gradeID" formControlName="personName" [(ngModel)]="personName"
+              (onSelect)="getPersonId($event)" (completeMethod)="getPersonSubTypeName($event)" [forceSelection]="true"
+              [suggestions]="metaData" placeholder="Type here to search" field="staffFullName" size="23"
+              [disabled]="isDisableClientName">
+            </p-autoComplete>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-2 center">
+            <button (click)="notifierAddList(personSubType,personName, 'person')"
+              class="positive-btn">{{personBtnLabel}}</button>
+          </div>
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <button (click)="removeList('person')" class="negative-btn">Remove</button>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row" *ngIf="personInvolvedList.length > 0">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <p>Note: Click edit icon to update the person sub type details</p>
+            <table class="list-table" border="1" cellpadding="10">
+              <tr>
+                <th class="table-td">Select</th>
+                <th class="table-td">Person Sub Type</th>
+                <th class="table-td">Name</th>
+              </tr>
+              <tr *ngFor="let person of personInvolvedList; let i = index;" (click)="getListDetails(person,'person',i)">
+                <td class="table-td">
+                  <i class="pi pi-pencil"></i>
+                </td>
+                <td class="table-td">{{person?.personAssignmentTypeID?.personAssignmentType}}</td>
+                <td class="table-td">{{person?.personName?.staffFullName}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span>Discribe Incident (Include Location)</span>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea name="incidentDescription" pInputTextArea [(ngModel)]="incident.incidentDescription"
+              style="width:100%;height:100%" formControlName="incidentDescription"></textarea>
+          </div>
+
+        </div>
+      </div>
+      <!-- <hr> -->
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span>
+              <span>
+                <b>For SFM use</b>
+              </span>
+            </span>
+          </div>
+          <div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="sfcs-office-table">
+          <table border="1" cellpadding="10">
+            <tr>
+              <th class="table-td">Contact</th>
+              <th class="table-td">Contact Name</th>
+              <th class="table-td">Sent Date</th>
+              <th class="table-td">Fax</th>
+              <th class="table-td">Verbal</th>
+              <th class="table-td">Email</th>
+              <th class="table-td">Sent By Staff</th>
+              <th class="table-td">Received From</th>
+              <th class="table-td">NA</th>
+
+            </tr>
+            <tr *ngFor="let item of sfcsUse_incident">
+              <td class="table-td">{{item.Contact}}</td>
+              <td class="table-td">
+                <input type="text" [(ngModel)]="item.contactName" [ngModelOptions]="{standalone: true}" pInputText
+                  size="27" maxlength="25" [disabled]="isEdit" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="item.sentDate" [ngModelOptions]="{standalone: true}" hourFormat="24"
+                  [inputStyle]="{'width':'170px'}" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+                  [disabled]="isEdit">
+                </p-calendar>
+              </td>
+              <td class="table-td">
+                <p-checkbox binary="true" [(ngModel)]="item.byFax" [ngModelOptions]="{standalone: true}"
+                  (onChange)="sfcsOfficeTableAction($event, item, 'byFax')" [disabled]="isEdit"></p-checkbox>
+              </td>
+              <td class="table-td">
+                <p-checkbox binary="true" [(ngModel)]="item.byVerbal" [ngModelOptions]="{standalone: true}"
+                  (onChange)="sfcsOfficeTableAction($event, item, 'byVerbal')" [disabled]="isEdit"></p-checkbox>
+              </td>
+              <td class="table-td">
+                <p-checkbox binary="true" [(ngModel)]="item.byEmail" [ngModelOptions]="{standalone: true}"
+                  (onChange)="sfcsOfficeTableAction($event, item, 'byEmail')" [disabled]="isEdit"></p-checkbox>
+              </td>
+              <td class="table-td">
+                <p-autoComplete [dropdown]="true" [(ngModel)]="item.staffFullName" [ngModelOptions]="{standalone: true}"
+                  (completeMethod)="getStaff($event)" [forceSelection]="true" [suggestions]="metaData"
+                  placeholder="Type here to search" field="staffFullName" size="23" [disabled]="isEdit">
+                </p-autoComplete>
+              </td>
+              <td class="table-td">
+                <input type="text" [(ngModel)]="item.receivedFrom" [ngModelOptions]="{standalone: true}" pInputText
+                  size="27" maxlength="25" [disabled]="isEdit" />
+              </td>
+              <td class="table-td">
+                <p-checkbox binary="true" [(ngModel)]="item.isNA" [ngModelOptions]="{standalone: true}"
+                  (onChange)="sfcsOfficeTableAction($event, item, 'isNA')" [disabled]="isEdit"></p-checkbox>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <p>Children living in the home (FP only):</p>
+            <table class="list-table" border="1" cellpadding="10">
+              <tr>
+                <th class="table-td">Last Name</th>
+                <th class="table-td">First Name</th>
+                <th class="table-td">Kaecses</th>
+                <th class="table-td">Facts</th>
+                <th class="table-td">DOB</th>
+                <th class="table-td">Person Type ID</th>
+              </tr>
+              <tr *ngFor="let item of incident.unusualIncidentChildrenLivingInTheHomeID">
+                <td> {{item?.lastName}}
+                </td>
+                <td> {{item?.firstName}}
+                </td>
+                <td> {{item?.kaecses}}
+                </td>
+                <td> {{item?.facts}}
+                </td>
+                <td> {{item?.dob| date:"MM/dd/yyyy"}}
+                </td>
+                <td> {{item?.personTypeID}} </td>
+              </tr>
+            </table>
+          </div>
+
+        </div>
+      </div>
+      <!-- <hr> -->
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Follow-up Needed?</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3 checkbox">
+            <p-radioButton label="Yes" formControlName="followUpNeeded" name="followUpNeeded" groupName="followUpNeeded"
+              [(ngModel)]="incident.followUpNeeded" value='true'></p-radioButton>
+            <p-radioButton label="No" formControlName="followUpNeeded" name="followUpNeeded" groupName="followUpNeeded"
+              value='false' [(ngModel)]="incident.followUpNeeded"></p-radioButton>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Follow-up Completed By</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" [(ngModel)]="incident.followUpCompletedDate" showTime="true" hourFormat="24"
+              [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+              formControlName="followUpCompletedDate"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span>Recommandation</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+
+            <textarea autoResize="autoResize" name="recommendations" [(ngModel)]="incident.recommendations"
+              pInputTextArea style="width:100%;height:auto" formControlName="recommendations"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Person Reporting</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="staffID" [forceSelection]="true" placeholder="Type here to search"
+              [(ngModel)]="incident.reporting_StaffID" field="fullName" size="23" formControlName="reporting_StaffID"
+              (completeMethod)="getMetaData($event,'reporting_StaffID')" [suggestions]="metaData"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Date Completed</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030" formControlName="completedDate" [(ngModel)]="incident.completedDate"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>SFM Report Anonymity</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="anonymityTypeID" [forceSelection]="true"
+              placeholder="Type here to search" field="anonymityType" size="23"
+              formControlName="unusualIncidentAnonymityTypeID" [(ngModel)]="incident.unusualIncidentAnonymityTypeID"
+              (completeMethod)="getMetaData($event,'unusualIncidentAnonymityTypeID')"
+              [suggestions]="filteredReportAnonymities"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="flex-td" *ngIf="!isDisableAdditionalClients">
+        <div>Additional Clients (Type and enter the client name to add)</div>
+        <div class="table-td">
+          <p-autoComplete [(ngModel)]="incident.additonalClients" [dropdown]="true" name="addtionalClients"
+            [forceSelection]="true" placeholder="Type here to search" field="view" size="23"
+            formControlName="additonalClients" [suggestions]="additonalClients"
+            (completeMethod)="addtionalClientList($event)" (onSelect)="getAdditonalClients($event)"
+            [disabled]="isDisableAdditionalClients"></p-autoComplete>
+        </div>
+      </div>
+      <div class="margin-top-20 row" style="display: flex;justify-content: center;">
+        <div *ngIf="additional_clients.length == 0 && !isProvider">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span style="text-align: center; font-weight:600">No records found, Please select any other options</span>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 tab" *ngIf="additional_clients.length > 0">
+          <table *ngIf="showAdditionalClients">
+            <tr>
+              <th class="table-td">Actions</th>
+              <th class="table-td">Last Name</th>
+              <th class="table-td">First Name</th>
+              <th class="table-td">Kaecses</th>
+              <th class="table-td">Facts</th>
+              <th class="table-td">DOB</th>
+              <th class="table-td">Person Type ID</th>
+            </tr>
+            <tr *ngFor="let data of additional_clients">
+              <td class="table-td">
+                <p-checkbox binary="true"></p-checkbox>
+              </td>
+              <td class="table-td">{{data?.LastName}}</td>
+              <td class="table-td">{{data?.FirstName}}</td>
+              <td class="table-td">{{data?.Kaecses}}</td>
+              <td class="table-td">{{data?.Facts}}</td>
+              <td class="table-td">{{data?.DOB | date:"MM/dd/yyyy"}}</td>
+              <td class="table-td">{{data?.PersonTypeID}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div *ngIf="rmOnly">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>
+                <b>Risk Management Section</b>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Allow Staff To Edit ?</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-checkbox binary="true" name="checkbox" formControlName="allowStaffToEdit"
+                [(ngModel)]="incident.allowStaffToEdit"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Field Available Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030" [showIcon]="true" formControlName="fieldAvailableDate"
+                [(ngModel)]="incident.fieldAvailableDate"></p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Board Review Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030" [showIcon]="true" formControlName="boardReviewDate"
+                [(ngModel)]="incident.boardReviewDate"></p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Substantiated Abuse/Neglect</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030" [showIcon]="true" formControlName="substantiatedAbuseNeglect"
+                [(ngModel)]="incident.substantiatedAbuseNeglect">
+              </p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>RM - Follow Up Completed Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030" [showIcon]="true" formControlName="rmFollowUpCompletedDate"
+                [(ngModel)]="incident.rmFollowUpCompletedDate"></p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Response</span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea pInputTextarea name="textArea" [(ngModel)]="incident.response" formControlName="response"
+                style="width:100%;height:100%"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-info-container" *ngIf="isEdit">
+        <table>
+          <tr>
+            <td><b>Entered By</b></td>
+            <td>{{formTracker?.enteredBy}}</td>
+            <td><b>Entered Date</b></td>
+            <td>{{formTracker?.enteredDate | StringDateFormater}}</td>
+          </tr>
+          <tr>
+            <td><b>Changed By</b></td>
+            <td>{{formTracker?.changedBy}}</td>
+            <td><b>Changed Date</b></td>
+            <td>{{formTracker?.changedDate | StringDateFormater}}</td>
+          </tr>
+        </table>
+      </div>
+    </form>
+    <app-form-footer *ngIf="isFooterVisible" (preview)="printPreview()" [isPrintPreview]="isPrint"
+      [attachmentControll]="isAttachmentRequired" [isAttachmentDisabled]="false" (attachDoc)="navigateTo()"
+      (save)="formAction(incident)" [editControll]="isEdit" (edit)="editForm()" [discardTo]="discardTo"
+      [isDisabled]="isDisableSave" [currentNodeValue]="req">
+    </app-form-footer>
+
+
+    <!-- Model Dialog -->
+
+    <p-dialog [contentStyle]="{'min-width':'106rem'}" header="Unusual Incident Preview"
+      [(visible)]="isUnusualAttachmentOpen" [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="999"
+      [closable]="true">
+      <div id="pdf-content">
+        <form id="form-content" class="sf-form" [formGroup]="printIncidentForm">
+          <div class="flex-container header">
+            <div class="heading">
+              CRITICAL/SIGNIFICANT/
+              <br>UNUSUAL INCIDENT
+              <br>REPORT
+            </div>
+            <div class="logo">
+              <img src="assets/logo color.svg" alt="">
+            </div>
+            <div class="case-info">
+              <div>
+                <span class="text-bold">Incident Report # (RM Only)</span>
+                <input [(ngModel)]="printValue.reportID" formControlName="incidentReport" class="remove-borders"
+                  name="incidentReport" type="text" pInputText size="20" />
+              </div>
+              <div>
+                <span class="text-bold">Client Last Name:</span>
+                <input [(ngModel)]="clientLastName" formControlName="clientLastName" name="clientLastName"
+                  class="remove-borders" type="text" pInputText size="20" />
+              </div>
+              <div>
+                <span class="text-bold">Client First Name</span>
+                <input [(ngModel)]="clientFirstName" formControlName="clientFirstName" name="clientFirstName"
+                  class="remove-borders" type="text" pInputText size="20" />
+              </div>
+              <div>
+                <span class="text-bold">ID Number</span>
+                <input [(ngModel)]="idNumber" formControlName="idNumber" name="idNumber" class="remove-borders"
+                  type="text" pInputText size="20" />
+              </div>
+              <div>
+                <span class="text-bold">Date of Birth</span>
+                <input [(ngModel)]="dobDate" formControlName="ptintDOB" class="remove-borders" type="text" pInputText
+                  size="20" />
+              </div>
+              <div>
+                <span class="text-bold">Court Case #</span>
+                <input [(ngModel)]="courtCase" formControlName="courtCase" name="courtCase" class="remove-borders"
+                  type="text" pInputText size="20" />
+              </div>
+              <div>
+                <span class="text-bold">In DCF Custody?</span>
+                <span>Yes</span>
+                <span>
+                  <p-checkbox binary="true" [disabled]="true">
+                  </p-checkbox>
+                </span>
+                <span>No</span>
+                <span>
+                  <p-checkbox binary="true" [disabled]="true">
+                  </p-checkbox>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="border-black">
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span class="text-bold">Date of Incident</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input class="remove-borders" type="text" pInputText size="20" [(ngModel)]="printValue.incidentDate"
+                    formControlName="incidentDate" name="incidentDate" />
+                </div>
+              </div>
+              <div class=" col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span class="text-bold">Time</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input [(ngModel)]="incidentTime" formControlName="printTime" class="remove-borders" type="text"
+                    pInputText size="20" name="printTime" />
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span class="text-bold">Date of Discovery:</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input [(ngModel)]="disDate" formControlName="disDate" name="disDate" class="remove-borders"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span class="text-bold">Time</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input [(ngModel)]="discoveryTime" formControlName="disTime" class="remove-borders" type="text"
+                    pInputText size="20" name="discoveryTime" />
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span class="text-bold">Name of Placement/Resource Home:</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input class="remove-borders" type="text" pInputText size="20" [(ngModel)]="printValue.providerID"
+                    formControlName="providerID" name="providerID" />
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span class="text-bold">SFM Case Management Office/Referral Source:</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input class="remove-borders" type="text" formControlName="sfmCaseManagement" pInputText size="20"
+                    name="sfmCaseManagement" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-black">
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span class="text-bold">CRITICAL INCIDENT (check all that apply)</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span class="text-bold">All Critical Incidents require verbal notification to Risk
+                    Management.</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+
+                  <p-checkbox [(ngModel)]="isAdultDeath" name="isAdultDeath" formControlName="isAdultDeath"
+                    binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span class="text-bold">
+                    Any child in the custody of the secretary who spend the night in a Child Welfare Case Management
+                    Provider's (CWCMP) office (Complete sections I & II Only)</span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isChildSevere" name="isChildSevere" formControlName="isChildSevere"
+                    binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span class="text-bold">Child in the custody of the Secretary who attempted suicide
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isAdultDeath" name="isAdultDeath" formControlName="isAdultDeath"
+                    binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span class="text-bold">Child in the custody of the Secretary with severe injuries</span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isIncidentDrawPublic" name="isIncidentDrawPublic"
+                    [ngModelOptions]="{standalone: true}" binary="true" [disabled]="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span class="text-bold">Client death</span>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isIncidentDrawPublic" name="isIncidentDrawPublic"
+                    [ngModelOptions]="{standalone: true}" binary="true" [disabled]="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span class="text-bold">Client near death</span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isFosterParentCriminal" name="isFosterParentCriminal"
+                    [ngModelOptions]="{standalone: true}" binary="true" [disabled]="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span class="text-bold">Death of a parent/caregiver involving a child with any open service case or
+                    investigation</span>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isChildWithSevereInjuries" name="isChildWithSevereInjuries"
+                    [ngModelOptions]="{standalone: true}" binary="true" [disabled]="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span class="text-bold">Foster Parent with Criminal Proceedings Related to Abuse or neglect</span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isMediaIncident" name="isMediaIncident" [ngModelOptions]="{standalone: true}"
+                    binary="true" [disabled]="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span class="text-bold">Media- incident which may draw public or legislative concern</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--  -->
+          <div class="border-black">
+            <div class="margin-top-20 row">
+              <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span class="text-bold">SIGNIFICANT INCIDENT (check all that apply) </span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span class="text-bold">RFCA – Complete for children in state custody </span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span class="text-bold">FP – Complete for all household members</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isDeathOfParent" name="isDeathOfParent" formControlName="isDeathOfParent"
+                    binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Death of a parent/primary caregiver (provide date of death) </span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isPregnancy" name="isPregnancy" formControlName="isPregnancy" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Pregnancy
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isRunAway" name="isRunAway" formControlName="isRunAway" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Runaway or missing from placement </span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isBirth" name="birth" formControlName="isBirth" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Birth
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isArrestedJuvenile" name="isArrestedJuvenile"
+                    formControlName="isArrestedJuvenile" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Arrested for a juvenile offense </span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isEmergencyChange" name="isEmergencyChange"
+                    formControlName="isEmergencyChange" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Emergency change in placement
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isAllegedAbuseOrNeglect" name="isAllegedAbuseOrNeglect"
+                    formControlName="isAllegedAbuseOrNeglect" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Alleged abuse or neglect </span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isUseOfIllegalDrugs" name="isUseOfIllegalDrugs"
+                    formControlName="isUseOfIllegalDrugs" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Use of illegal drugs
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isClientAllegedPerperator" name="isClientAllegedPerperator"
+                    formControlName="isClientAllegedPerperator" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Client is an alleged perpetrator or victim of a criminal assault of any kind </span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isAllegedVictimHuman" name="isAllegedVictimHuman"
+                    formControlName="isAllegedVictimHuman" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Alleged victim of human trafficking
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isAttemptedSuicide" name="isAttemptedSuicide"
+                    formControlName="isAttemptedSuicide" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Attempted suicide </span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isAllegedAnimalAbuse" name="isAllegedAnimalAbuse"
+                    formControlName="isAllegedAnimalAbuse" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Alleged perpetrator of animal abuse
+
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isSeriousPhysicalIllness" name="isSeriousPhysicalIllness"
+                    formControlName="isSeriousPhysicalIllness" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Serious physical illness </span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isWorkRelatedInjury" name="isWorkRelatedInjury"
+                    formControlName="isWorkRelatedInjury" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Work related serious staff injury or death
+
+
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isUnanticipatedMedicalAttention"
+                    formControlName="isUnanticipatedMedicalAttention" name="isUnanticipatedMedicalAttention"
+                    binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Unanticipated medical attention that requires treatment beyond first aid</span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isProviderStaffIncidents" formControlName="isProviderStaffIncidents"
+                    name="isProviderStaffIncidents" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Provider staff or incidents in which staff safety was seriously compromised
+
+
+
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isPsychiatricEmergency" name="isPsychiatricEmergency"
+                    formControlName="isPsychiatricEmergency" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Psychiatric emergency/screened for acute care </span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isSafetyOfEnvironment" name="isSafetyOfEnvironment"
+                    formControlName="isSafetyOfEnvironment" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Safety of the environment
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isPsychiatricChronic" formControlName="isPsychiatricChronic"
+                    name="isPsychiatricChronic" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Psychiatric chronic/screened PRTF </span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isOtherListInDes" name="isOtherListInDes" formControlName="isOtherListInDes"
+                    binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Other (list in description)
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--  -->
+          <div class="border-black">
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span class="text-bold">UNUSUAL INCIDENT (check all that apply) </span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox binary="true" [disabled]="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Child(ren) placed Out of Home (Family Preservation Only)</span>
+                </div>
+              </div>
+
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isAnySexualContact" name="isAnySexualContact"
+                    formControlName="isAnySexualContact" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Any sexual contact between youth </span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isMedicationPharmacy" name="isMedicationPharmacy"
+                    formControlName="isMedicationPharmacy" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Medication/Pharmacy concern (list medications involved in description)
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isAggressive" name="isAggressive" formControlName="isAggressive"
+                    binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Aggressive or assaulting behavior </span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isBreach" name="isBreach" formControlName="isBreach" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Breach of privacy or confidentiality
+
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isRestrain" formControlName="isRestrain" name="isRestrain" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Restraint </span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isUnauthorizedTreatment" formControlName="isUnauthorizedTreatment"
+                    name="isUnauthorizedTreatment" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Unauthorized treatment
+
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isSeclusion" name="isSeclusion" formControlName="isSeclusion" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Seclusion </span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isDischargeMedical" name="isDischargeMedical"
+                    formControlName="isDischargeMedical" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Discharge against medical advice
+
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isPrnInjection" name="isPrnInjection" formControlName="isPrnInjection"
+                    binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>PRN Injection </span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isUnprofessionalConduct" name="isUnprofessionalConduct"
+                    formControlName="isUnprofessionalConduct" binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Unprofessional conduct by staff or contract staff
+
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isMinorInjury" name="isMinorInjury" formControlName="isMinorInjury"
+                    binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Minor injury of client</span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <p-checkbox [(ngModel)]="isLawEnforcement" name="isLawEnforcement" formControlName="isLawEnforcement"
+                    binary="true">
+                  </p-checkbox>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                  <span>Law enforcement contacted
+
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--  -->
+          <div class="border-black">
+            <div class="margin-top-20 row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <p class="text-bold">DESCRIBE INCIDENT:(include location)</p>
+
+
+                  <textarea rows={{rowMethod(printValue.incidentDescription)}} cols="150"
+                    [(ngModel)]="printValue.incidentDescription" name="incidentDescription"
+                    formControlName="incidentDescription" style="width: 100%;height: auto;"></textarea>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-4 col-md-4 col-sm-4">
+                <span class="text-bold">Extent of Client Injury:</span>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-2">
+                <p-checkbox binary="true" formControlName="clientInjury_none" name="clientInjury_none"
+                  [(ngModel)]="clientInjury_none">
+                </p-checkbox>
+                <span>None</span>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-2">
+                <p-checkbox binary="true" formControlName="clientInjury_low" name="clientInjury_low"
+                  [(ngModel)]="clientInjury_low">
+                </p-checkbox>
+                <span>Low</span>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-2">
+                <p-checkbox binary="true" formControlName="clientInjury_moderate" name="clientInjury_moderate"
+                  [(ngModel)]="clientInjury_moderate">
+                </p-checkbox>
+                <span>Moderate</span>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-2">
+                <p-checkbox binary="true" formControlName="clientInjury_severe" name="clientInjury_severe"
+                  [(ngModel)]="clientInjury_severe">
+                </p-checkbox>
+                <span>Severe</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!--  -->
+          <div class="margin-top-20 row">
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-4 col-md-4 col-sm-4">
+                <span class="text-bold">Staff Injury:</span>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-2">
+                <p-checkbox formControlName="staffInjury_none" binary="true" name="staffInjury_none"
+                  [(ngModel)]="staffInjury_none">
+                </p-checkbox>
+                <span>None</span>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-2">
+                <p-checkbox formControlName="staffInjury_low" binary="true" name="staffInjury_low"
+                  [(ngModel)]="staffInjury_low">
+                </p-checkbox>
+                <span>Low</span>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-2">
+                <p-checkbox formControlName="staffInjury_moderate" name="staffInjury_moderate"
+                  [(ngModel)]="staffInjury_moderate" binary="true">
+                </p-checkbox>
+                <span>Moderate</span>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-2">
+                <p-checkbox formControlName="staffInjury_severe" name="staffInjury_severe"
+                  [(ngModel)]="staffInjury_severe" binary="true">
+                </p-checkbox>
+                <span>Severe</span>
+              </div>
+            </div>
+          </div>
+          <!--  -->
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <span class="text-bold">All adults present or responsible for the client during the incident:</span>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!--  -->
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <table class="list-table" border="1" cellpadding="10">
+                  <tr>
+                    <th class="table-td">Person Sub Type</th>
+                    <th class="table-td">Name</th>
+                  </tr>
+                  <tr *ngFor="let person of personInvolvedList; let i = index;"
+                    (click)="getListDetails(person,'person',i)">
+                    <td class="table-td">{{person?.personAssignmentTypeID?.personAssignmentType}}</td>
+                    <td class="table-td">{{person?.personName?.staffFullName}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+          </div>
+          <!--  -->
+
+          <!--  -->
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="text-bold">FP ONLY: Children living in the home:</span>
+              </div>
+
+            </div>
+
+          </div>
+          <!--  -->
+
+          <!--  -->
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <table class="list-table" border="1" cellpadding="10">
+                  <tr>
+                    <th class="table-td">Last Name</th>
+                    <th class="table-td">First Name</th>
+                    <th class="table-td">Kaecses</th>
+                    <th class="table-td">Facts</th>
+                    <th class="table-td">DOB</th>
+                    <th class="table-td">Person Type ID</th>
+                  </tr>
+                  <tr *ngFor="let item of incident.unusualIncidentChildrenLivingInTheHomeID">
+                    <td> {{item?.lastName}}
+                    </td>
+                    <td> {{item?.firstName}}
+                    </td>
+                    <td> {{item?.kaecses}}
+                    </td>
+                    <td> {{item?.facts}}
+                    </td>
+                    <td> {{item?.dob| date:"MM/dd/yyyy"}}
+                    </td>
+                    <td> {{item?.personTypeID}} </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+          </div>
+          <!--  -->
+
+          <!--  -->
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="text-bold">Person Reporting (print):</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input [(ngModel)]="printValue.reporting_StaffID" formControlName="reporting_StaffID"
+                  name="reporting_StaffID" class="remove-borders" type="text" pInputText size="20" />
+              </div>
+            </div>
+          </div>
+          <!--  -->
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="text-bold">Date Completed:</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input [(ngModel)]="completedDate" formControlName="completedDate" name="completedDate"
+                  class="remove-borders" type="text" pInputText size="20" />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="text-bold">SFM in-house report anonymity</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-checkbox binary="true">
+                </p-checkbox>
+              </div>
+            </div>
+          </div>
+          <div class="border-black">
+            <div class="margin-top-20 row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-11 col-md-11 col-sm-11">
+                  <span class="text-bold">Fax or email to Risk Management or enter report into CMS. Original placed in
+                    client’s file. If report
+                    is anonymous, mail original to: Risk Management 509 E. Elm, Salina, KS See Back for Program
+                    Instructions
+                  </span>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <span>
+                  <span class="text-center">
+                    <b>For SFM use</b>
+                  </span>
+                </span>
+              </div>
+              <div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="sfcs-office-table">
+              <table border="1" cellpadding="10">
+                <tr>
+                  <th class="table-td">Contact</th>
+                  <th class="table-td">Contact Name</th>
+                  <th class="table-td">Sent Date</th>
+                  <th class="table-td">Fax</th>
+                  <th class="table-td">Verbal</th>
+                  <th class="table-td">Email</th>
+                  <th class="table-td">Sent By Staff</th>
+                  <th class="table-td">Received From</th>
+                  <th class="table-td">NA</th>
+
+                </tr>
+                <tr *ngFor="let item of sfcsUse_incident">
+                  <td class="table-td">{{item.Contact}}</td>
+                  <td class="table-td">
+                    {{item.contactName}}
+                  </td>
+                  <td class="table-td">
+                    <p-calendar [(ngModel)]="item.sentDate" [disabled]="true" hourFormat="24"
+                      [inputStyle]="{'width':'170px'}" [yearNavigator]="true" [monthNavigator]="true"
+                      yearRange="2000:2030">
+                    </p-calendar>
+                  </td>
+                  <td class="table-td">
+                    <p-checkbox binary="true" [(ngModel)]="item.byFax" [ngModelOptions]="{standalone: true}"
+                      [disabled]="true" (onChange)="sfcsOfficeTableAction($event, item, 'byFax')"></p-checkbox>
+                  </td>
+                  <td class="table-td">
+                    <p-checkbox binary="true" [(ngModel)]="item.byVerbal" [ngModelOptions]="{standalone: true}"
+                      [disabled]="true" (onChange)="sfcsOfficeTableAction($event, item, 'byVerbal')"></p-checkbox>
+                  </td>
+                  <td class="table-td">
+                    <p-checkbox binary="true" [(ngModel)]="item.byEmail" [ngModelOptions]="{standalone: true}"
+                      [disabled]="true" (onChange)="sfcsOfficeTableAction($event, item, 'byEmail')"></p-checkbox>
+                  </td>
+                  <td class="table-td">
+                    {{item.staffFullName?item.staffFullName.staffFullName:''}}
+                  </td>
+                  <td class="table-td">
+                    <input type="text" [(ngModel)]="item.receivedFrom" [ngModelOptions]="{standalone: true}"
+                      [disabled]="true" pInputText size="27" maxlength="25" />
+                  </td>
+                  <td class="table-td">
+                    <p-checkbox binary="true" [(ngModel)]="item.isNA" [ngModelOptions]="{standalone: true}"
+                      [disabled]="true" (onChange)="sfcsOfficeTableAction($event, item, 'isNA')"></p-checkbox>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="text-bold">Follow-up Needed?</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3 checkbox">
+                <p-radioButton label="Yes" formControlName="followUpNeeded" name="followUpNeeded"
+                  groupName="followUpNeeded" [(ngModel)]="printValue.followUpNeeded" value="true"></p-radioButton>
+                <p-radioButton label="No" formControlName="followUpNeeded" name="followUpNeeded"
+                  groupName="followUpNeeded" [(ngModel)]="printValue.followUpNeeded" value="false"></p-radioButton>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="text-bold">Follow-up Completed By</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input name="followUpDate" formControlName="followUpDate" [(ngModel)]="followUpDate"
+                  class="remove-borders" type="text" pInputText size="20" />
+              </div>
+            </div>
+          </div>
+          <div class="html2pdf__page-break"></div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <span class="text-bold">Recommandation</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+
+                <textarea rows={{rowMethod(printValue.recommendations)}} cols="150"
+                  [(ngModel)]="printValue.recommendations" formControlName="Printrecommendations"
+                  name="Printrecommendations" style="width: 100%;height: auto;"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div>
+                <p class="text-bold text-center">STEPS OF ACTION</p>
+              </div>
+              <div>
+                <p>
+                  When you observe or are part of a Critical/ Significant/Unusual Incident, proceed through the
+                  following steps:
+                </p>
+                <p>
+                  1. Take immediate action as needed (i.e. safety, emergency procedures, first aid)
+                </p>
+
+                <p>
+                  2. Decide if emergent assistance from anyone is needed
+
+                </p>
+                <p>
+                  3. Contact Appropriate People (Parents, Administration, Police, Fire Department, Director of
+                  Clinical,
+                  On-Call Staff, Nurse)
+                </p>
+                <p>
+                  4. Complete the Critical/Significant/Unusual Incident report in CMS within 24 hours
+                </p>
+                <p>
+                  5. If not entered into CMS, send Critical/Significant/Unusual Incident Form to SFM Risk Management
+                  by fax to 785-825-0685,
+                  email zzRiskManagement@st-francis.org, or mail directly to SFM Risk Management at 509 E Elm, Salina,
+                  KS
+                  67401
+
+                </p>
+                <p>
+                  6. Notify administration if not already informed
+                </p>
+                <p>
+                  7. Allegations of abuse and neglect must be reported immediately
+                </p>
+                <p>
+                  8. Follow instructions below per Program
+                </p>
+                <p class="text-bold">DEFINITIONS: CI = Critical Incident SI=Significant Incident</p>
+
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <span class="text-bold text-center">INSTRUCTIONS FOR SENDING CRITICAL/SIGNIFICANT/UNUSUAL INCIDENT
+                  REPORT
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="margin-top-20 margin-left-1rem row">
+            <div class="col-lg-6 col-md-6 col-sm-6 border-black-only">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <p class="text-bold text-center">KS REINTEGRATION FOSTER CARE ADOPTION ONLY:</p>
+                <p>SFM Risk Management 785-825-0685 or zzRiskManagement@stfrancis.org within 24 hours</p>
+                <p>SFM Care Center zzCCadmissions@st-francis.org</p>
+                <p>DCF (Verbal – 12 hours, Written – 24 hours) - CI&SI Wichita – WROOOH@dcf.ks.gov or West –
+                  WERFC@dcf.ks.gov
+                </p>
+                <p>Missing/Runaway Children – DCF and Law Enforcement (Verbal – 2 hours, Written – 24 hours)</p>
+                <p>Court- CI&SI</p>
+                <p>Kansas Protection Reporting Center (KPRC), verbal only for allegations of abuse/neglect
+                  1-800-922-5330 or
+                  https://prcform.dcf.ks.gov/kipslive/
+                </p>
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 border-black-only">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <p class="text-bold text-center">KS FAMILY PRESERVATION ONLY:</p>
+                <p>SFM Risk Management 785-825-0685 or zzRiskManagement@stfrancis.org within 24 hours</p>
+                <p>West Region - SFM Hays FP 785-628-3113 or zzFP-CUIAdmin@stfrancis.org</p>
+                <p>Wichita Region – zzFP-CUIAdmin@st-francis.org</p>
+                <p>DCF (Verbal – 12 hours, Written – 24 hours) - CI&S</p>
+                <p>Court- CI&SI</p>
+                <p>Kansas Protection Reporting Center (KPRC), verbal only for allegations of abuse/neglect
+                  1-800-922-5330 or
+                  https://prcform.dcf.ks.gov/kipslive/
+                </p>
+              </div>
+
+            </div>
+          </div>
+          <div class="html2pdf__page-break"></div>
+          <div class="margin-top-20 margin-left-1rem row">
+            <div class="col-lg-6 col-md-6 col-sm-6 border-black-only">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <p class="text-bold text-center">PERMANENCY CLINIC/KIPP STAFF ONLY:</p>
+                <p>SFM Risk Management 785-825-0685 or zzRiskManagement@stfrancis.org within 24 hours</p>
+                <p>Local Law Enforcement if imminent danger/threat – immediate</p>
+                <p>Direct Clinical Supervisor – immediate</p>
+                <p>Direct Administrative Supervisor – immediate
+                </p>
+                <p>RFCA Case Manager– immediate
+                </p>
+                <p>Kansas Protection Reporting Center (KPRC), verbal only for allegations of abuse/neglect
+                  1-800-922-5330 or
+                  https://prcform.dcf.ks.gov/kipslive/
+                </p>
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 border-black-only">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <p class="text-bold text-center">KS RESIDENTIAL & ADDITIONAL PROGRAMS ONLY:</p>
+                <p>SFM Risk Management 785-825-0685 or zzRiskManagement@stfrancis.org within 24 hours</p>
+                <p>Contracting Agency within 12 hours
+                </p>
+                <p>PRTF Administration reference KDADS AIR (Adverse Incident Report) Tool</p>
+                <p>Kansas Protection Reporting Center (KPRC), verbal only for allegations of abuse/neglect
+                  1-800-922-5330 or
+                  https://prcform.dcf.ks.gov/kipslive/
+                </p>
+
+              </div>
+
+            </div>
+          </div>
+
+          <div class="margin-top-20 margin-left-1rem row">
+            <div class="col-lg-6 col-md-6 col-sm-6 border-black-only">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <p class="text-bold text-center">KS FOSTER CARE HOMES ONLY:</p>
+                <p>SFM Risk Management 785-825-0685 or zzRiskManagement@stfrancis.org within 24 hours</p>
+                <p>Contracting Agency</p>
+                <p>Foster Care Homes Director Email: zzFCHAdmin@st-francis.org or Fax: 785-825-7984</p>
+                <p>Kansas Protection Reporting Center (KPRC), verbal only for allegations of abuse/neglect
+                  1-800-922-5330 or
+                  https://prcform.dcf.ks.gov/kipslive/
+                </p>
+
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 border-black-only">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <p class="text-bold text-center">OK FOSTER CARE HOMES ONLY:</p>
+                <p>SFM Risk Management 785-825-0685 or zzRiskManagement@stfrancis.org within 24 hours</p>
+                <p>Legal Guardian/DHS</p>
+                <p>Program Director</p>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="margin-top-20 margin-left-1rem row">
+            <div class="col-lg-6 col-md-6 col-sm-6 border-black-only">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <p class="text-bold text-center">BRIDGEWAY APARTMENTS:</p>
+                <p>SFM Risk Management 785-825-0685 or zzRiskManagement@stfrancis.org completed by the end of the
+                  shift
+                </p>
+                <p>DMH Serious Incident Report Form 601-359-9570 within 24 hours</p>
+
+              </div>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 border-black-only">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <p class="text-bold text-center">NE INTENSIVE FAMILY PRESERVATION/FOSTER CARE HOMES:</p>
+                <p>SFM Risk Management 785-825-0685 or zzRiskManagement@stfrancis.org within 24 hours</p>
+                <p>Administration contacted</p>
+                <p>Nebraska DHHS Designee</p>
+              </div>
+            </div>
+          </div>
+          <!-- test -->
+
+        </form>
+      </div>
+      <button class="sf-primary-btn" style="float: right;" (click)="printForm()">Print</button>
+    </p-dialog>
+
+    <!-- Model Dialog Close -->
+
+    <!-- Model Dialog Kansas  -->
+    <p-dialog [contentStyle]="{'min-width':'106rem'}" header="Form Selection" [(visible)]="isKansasAttachmentOpen"
+      [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="999" [closable]="false">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-radioButton label="DCF and Court Form" [(ngModel)]="isDcfCourtTrue" value="true"></p-radioButton>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-radioButton label="SFM use only" [(ngModel)]="isDcfCourtTrue" value="false"></p-radioButton>
+          </div>
+        </div>
+      </div>
+
+      <!--  -->
+      <div class="footer">
+
+        <div class="footer-right-well">
+
+          <button class="sf-negative-btn" pTooltip="Print" (click)="printBtn()">
+            <span>Print</span>
+          </button>
+
+          <button class="sf-negative-btn" pTooltip="Cancel" (click)="discardBtn()">
+            <span>
+              Cancel
+            </span>
+            <!--  -->
+          </button>
+
+        </div>
+      </div>
+      <!--  -->
+    </p-dialog>
+    <!-- Model Dialog Close -->
+
+    <!-- Model Dialog Kansas Form -->
+    <p-dialog (onHide)="onModalClose()" [contentStyle]="{'min-width':'106rem'}" header="KANSAS Preview"
+      [(visible)]="isKansasFormOpen" [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="999"
+      [closable]="true">
+      <app-kansas-form-unusual-incident (kansasDiscardOut)="cloaseKansas()" [isDcfCourtForm]="isDcfCourtTrue"
+        [unusualIncidentInfo]="kansasInfo" *ngIf="isKansasFormOpen" (kansasOut)="kansasFormEmitted($event)">
+      </app-kansas-form-unusual-incident>
+    </p-dialog>
+
+    <!-- To be removed -->
+    <p-dialog [contentStyle]="{'min-width':'106rem'}" header="PPS0550 Preview" [(visible)]="isPPSDataFetched"
+      [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="999" [closable]="true">
+      <unusual-pp0550 *ngIf="isPPSDataFetched"></unusual-pp0550>
+      <p-footer>
+        <button (click)="printDCFForm()">Save & Print</button>
+      </p-footer>
+    </p-dialog>
+
+
+    <!--  -->
+  </div>
+</div>

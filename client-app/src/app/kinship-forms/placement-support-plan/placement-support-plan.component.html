@@ -1,0 +1,283 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="placementSupportPlanForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        REINTEGRATION
+        <br> FOSTER CARE
+        <br> ADOPTION
+        <br> PLACEMENT
+        <br>SUPPORT PLAN
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Client Name:</span>
+          <input [(ngModel)]="kinPlacementSupportPlan.ClientName" formControlName="ClientName" name="ClientName" type="text" pInputText
+            size="20" />
+        </div>
+        <div>
+          <span>DOB:</span>
+          <p-calendar [(ngModel)]="kinPlacementSupportPlan.Dob" formControlName="Dob" name="Dob" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>FACTS #:</span>
+          <input [(ngModel)]="kinPlacementSupportPlan.Facts" formControlName="Facts" name="Facts" type="text" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>Date of Placement:</span>
+          <p-calendar [(ngModel)]="kinPlacementSupportPlan.DateOfPlacement" formControlName="DateOfPlacement" name="DateOfPlacement"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-5">
+        Foster/Kinship Family:
+        <input [(ngModel)]="kinPlacementSupportPlan.KinshipFamily" formControlName="KinshipFamily" name="KinshipFamily" type="text"
+          pInputText size="20" />
+      </div>
+      <div class="col-xs-4">
+        Phone #:
+        <input [(ngModel)]="kinPlacementSupportPlan.Phone" formControlName="Phone" name="Phone" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <div>
+      <h3>
+        <b>TEAM CONTACT INFORMATION:</b>
+      </h3>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-5">
+        Foster Care/Kinship Worker:
+        <input [(ngModel)]="kinPlacementSupportPlan.KinshipWorker" formControlName="KinshipWorker" name="KinshipWorker" type="text"
+          pInputText size="20" />
+      </div>
+      <div class="col-xs-4">
+        Phone #:
+        <input [(ngModel)]="kinPlacementSupportPlan.Phone1" formControlName="Phone1" name="Phone1" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-5">
+        Foster Care/Kinship Supervisor:
+        <input [(ngModel)]="kinPlacementSupportPlan.KinshipSupervisor" formControlName="KinshipSupervisor" name="KinshipSupervisor"
+          type="text" pInputText size="20" />
+      </div>
+      <div class="col-xs-4">
+        Phone #:
+        <input [(ngModel)]="kinPlacementSupportPlan.Phone2" formControlName="Phone2" name="Phone2" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-5">
+        Permanency Staff:
+        <input [(ngModel)]="kinPlacementSupportPlan.PermanencyStaff" formControlName="PermanencyStaff" name="PermanencyStaff" type="text"
+          pInputText size="20" />
+      </div>
+      <div class="col-xs-4">
+        Phone #:
+        <input [(ngModel)]="kinPlacementSupportPlan.Phone3" formControlName="Phone3" name="Phone3" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-5">
+        Family Support Worker:
+        <input [(ngModel)]="kinPlacementSupportPlan.FamilySupportWorker" formControlName="FamilySupportWorker" name="FamilySupportWorker"
+          type="text" pInputText size="20" />
+      </div>
+      <div class="col-xs-4">
+        Phone #:
+        <input [(ngModel)]="kinPlacementSupportPlan.Phone4" formControlName="Phone4" name="Phone4" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-5">
+        Supervisor:
+        <input [(ngModel)]="kinPlacementSupportPlan.Supervisor" formControlName="Supervisor" name="Supervisor" type="text" pInputText
+          size="20" />
+      </div>
+      <div class="col-xs-4">
+        Phone #:
+        <input [(ngModel)]="kinPlacementSupportPlan.Phone5" formControlName="Phone5" name="Phone5" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <div>
+      <h3>
+        <b>SEVEN-DAY SUCCESS NEEDS</b>
+      </h3>
+    </div>
+    <p>1. What medications does the child have that need to be refilled?</p>
+    <textarea [(ngModel)]="kinPlacementSupportPlan.Medications" formControlName="Medications" name="Medications" pInputTextarea
+      autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    <p>2. Child’s daily routines, likes, dislikes or other information that would increase comfort level and promote consistency
+      for child:</p>
+    <textarea [(ngModel)]="kinPlacementSupportPlan.DailyRoutines" formControlName="DailyRoutines" name="DailyRoutines" pInputTextarea
+      autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    <p>3. What needs does foster/kinship parent have that Saint Francis can assist with in the first 7 days of placement? (ex.
+      Blue Book/Medical Card, etc.)</p>
+    <textarea [(ngModel)]="kinPlacementSupportPlan.Assist" formControlName="Assist" name="Assist" pInputTextarea autoResize="autoResize"
+      rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    <p>4. Has the child had their Immediate Assessment, KBH, Vision, and Dental appointments scheduled? (Remember to schedule
+      in the first 7 days)</p>
+    <textarea [(ngModel)]="kinPlacementSupportPlan.ImmediateAssessment" formControlName="ImmediateAssessment" name="ImmediateAssessment"
+      class="margin-bottom-2rem" pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    <div>
+      <h3>
+        <b>CRISIS SUPPORT PLAN</b>
+      </h3>
+    </div>
+    <p>1. Emergency After Hours Contacts</p>
+    <div>
+      <p>a. Sponsoring Agency On-Call, CMHC, etc
+        <p-checkbox [(ngModel)]="kinPlacementSupportPlan.IsSponsoringAgency" formControlName="IsSponsoringAgency" name="IsSponsoringAgency"
+          binary="true"></p-checkbox>
+      </p>
+      <p>b. Saint Francis On-Call Phone Number: 1-(888) SFA - HOPE</p>
+    </div>
+    <p>2. What are specific de-escalation tactics and/or positive reinforcers that work for each child?</p>
+    <textarea [(ngModel)]="kinPlacementSupportPlan.PositiveReinforcers" formControlName="PositiveReinforcers" name="PositiveReinforcers"
+      pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    <p>3. What natural resources are available for the Foster/Kinship Home to utilize in times of crisis?</p>
+    <textarea [(ngModel)]="kinPlacementSupportPlan.NaturalResources" formControlName="NaturalResources" name="NaturalResources"
+      class="margin-bottom-2rem" pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    <div>
+      <h3>
+        <b>APPOINTMENT PLAN </b>
+      </h3>may include Mental/Physical Health, Education, Visits, etc. When is foster/kinship family available to assist with
+      transportation? What natural supports are available to the family? *
+    </div>
+    <div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Appointment Type(Location)</th>
+            <th>Child</th>
+            <th>Day of the Week/Time(Tuesdays, 2pm-3pm)</th>
+            <th>Location(Wichita Park)</th>
+          </tr>
+
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <input [(ngModel)]="kinPlacementSupportPlan.AppointmentType" formControlName="AppointmentType" name="AppointmentType" type="text"
+                pInputText size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="kinPlacementSupportPlan.Child" formControlName="Child" name="Child" type="text" pInputText size="20"
+              />
+            </td>
+            <td>
+              <p-calendar [(ngModel)]="kinPlacementSupportPlan.Day" formControlName="Day" name="Day" showTime="true" hourFormat="24" [yearNavigator]="true"
+                [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </td>
+            <td>
+              <input [(ngModel)]="kinPlacementSupportPlan.Location" formControlName="Location" name="Location" type="text" pInputText size="20"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input [(ngModel)]="kinPlacementSupportPlan.AppointmentType1" formControlName="AppointmentType1" name="AppointmentType1"
+                type="text" pInputText size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="kinPlacementSupportPlan.Child1" formControlName="Child1" name="Child1" type="text" pInputText size="20"
+              />
+            </td>
+            <td>
+              <p-calendar [(ngModel)]="kinPlacementSupportPlan.Day1" formControlName="Day1" name="Day1" showTime="true" hourFormat="24"
+                [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </td>
+            <td>
+              <input [(ngModel)]="kinPlacementSupportPlan.Location1" formControlName="Location1" name="Location1" type="text" pInputText
+                size="20" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input [(ngModel)]="kinPlacementSupportPlan.AppointmentType2" formControlName="AppointmentType2" name="AppointmentType2"
+                type="text" pInputText size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="kinPlacementSupportPlan.Child2" formControlName="Child2" name="Child2" type="text" pInputText size="20"
+              />
+            </td>
+            <td>
+              <p-calendar [(ngModel)]="kinPlacementSupportPlan.Day2" formControlName="Day2" name="Day2" showTime="true" hourFormat="24"
+                [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </td>
+            <td>
+              <input [(ngModel)]="kinPlacementSupportPlan.Location2" formControlName="Location2" name="Location2" type="text" pInputText
+                size="20" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input [(ngModel)]="kinPlacementSupportPlan.AppointmentType3" formControlName="AppointmentType3" name="AppointmentType3"
+                type="text" pInputText size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="kinPlacementSupportPlan.Child3" formControlName="Child3" name="Child3" type="text" pInputText size="20"
+              />
+            </td>
+            <td>
+              <p-calendar [(ngModel)]="kinPlacementSupportPlan.Day3" formControlName="Day3" name="Day3" showTime="true" hourFormat="24"
+                [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </td>
+            <td>
+              <input [(ngModel)]="kinPlacementSupportPlan.Location3" formControlName="Location3" name="Location3" type="text" pInputText
+                size="20" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      1. If your children are school aged, what are the days school is not in session due to in-services, vacations, etc.? What
+      are the child care plans for those days?
+    </p>
+    <textarea [(ngModel)]="kinPlacementSupportPlan.ChildCarePlans" formControlName="ChildCarePlans" name="ChildCarePlans" pInputTextarea
+      autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    <p>2. If your child attends daycare, when does the child have daycare outings, if any?</p>
+    <textarea [(ngModel)]="kinPlacementSupportPlan.DaycareOutings" formControlName="DaycareOutings" name="DaycareOutings" pInputTextarea
+      autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    <p>* Reference from Provider and Placement Agreement: Foster Care Provider agrees to act as substitute parent by transporting
+      child in care to and from case planning conferences, visits with family, court, respite, school, mental health and
+      medical appointments, job, other related case planning activities and extracurricular activities as needed</p>
+    <div>
+      <h3>
+        <b>COMMUNICATION AND MISCELLANEOUS INFORMATION</b>
+      </h3>
+    </div>
+    <p>Saint Francis Ministries is committed to communicate changes to visits, appointments, and court hearings as soon as possible.
+      When there is a cancellation, Saint Francis will reschedule these within 24 hours and inform you of the changes. In
+      order to do this successfully, we request your preferred method of communication (phone call, text, etc.) and phone
+      number.
+    </p>
+    <p>1. Preferred Method of Communication:</p>
+    <textarea [(ngModel)]="kinPlacementSupportPlan.MethodOfCommunication" formControlName="MethodOfCommunication" name="MethodOfCommunication"
+      pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    <p>2. Preferred Contact Phone Number:</p>
+    <textarea [(ngModel)]="kinPlacementSupportPlan.ContactPhoneNumber" formControlName="ContactPhoneNumber" name="ContactPhoneNumber"
+      pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    <p>As Foster Parents/Kinship Parents, you have a right to attend court hearings, case plans, and are encouraged to submit
+      letters to the court. Please contact your worker if you have any questions regarding this process.</p>
+    <p>3. Any other information that is relevant and pertinent to the success of the placement?</p>
+    <textarea [(ngModel)]="kinPlacementSupportPlan.RelevantInformation" formControlName="RelevantInformation" name="RelevantInformation"
+      pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    <p>Provide copy to: Foster/Kinship Family; Foster Care Homes/Kinship Staff; Case Management Staff</p>
+  </form>
+</div>
+
+<app-form-footer (save)="saveForm(kinPlacementSupportPlan)" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

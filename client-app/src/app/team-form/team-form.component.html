@@ -1,0 +1,63 @@
+<div class="Report">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 main" [ngClass]="Sidenav?'main-class':'width-100'">
+        <div class="container home" style="padding-bottom: 40px;margin:15px;">
+          <div class="team-loading-overlay" *ngIf="loaderController">
+            <p class="loader-text">Processing...</p>
+          </div>
+          <div>
+            <div class="row pagination-container">
+              <div class="col-lg-6">
+                <h2 class="margin-top-20 sf-heading-2 sf-black">Teams
+                </h2>
+              </div>
+              <div class="margin-top-20 col-lg-6 text-align-right">
+                <button class="btn sf-primary-btn font-600 add" (click)="addForm()">+ Add Team</button>
+                <div class="dropdow" *ngIf="hideLoader">
+                  <button class="sf-dropdown-btn">
+                    <span class="sf-labels">Export</span> 
+                  </button>
+                  <div class="dropdow-content sf-dropcontent-margin">
+                    <a (click)="exportToExcel()" class="sf-labels">Export as Excel</a>
+                    <a (click)="exportAsCsv()" class="sf-labels">Export as CSV</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div [hidden]="hideLoader" class="loader"></div>
+            <div class="margin-top-20" *ngIf="showTable">
+              <div class="margin-top-20 row-cursor">
+                <ag-grid-angular style="width: 500px; height: 500px;" class="ag-theme-balham" [rowData]="rowData" [columnDefs]="columnDefs"
+                  [enableSorting]="true"  [rowDragManaged]="true" [suppressDragLeaveHidesColumns]="true"
+                  pagination="true" enableColResize="true" #agGrid style="width: 100%; height:359px;" animateRows="true" rowSelection="single"
+                  (rowSelected)="onRowSelected($event)">
+                </ag-grid-angular>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="myModal0" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="row sect">
+        <div class="col-lg-3">
+          <img class="width-100" src='../../assets/image/delete-button.svg'>
+        </div>
+        <div class="col-lg-8">
+          <h2>Are you sure?</h2>
+          <h5>The team will be deleted</h5>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default cancel-btn" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-default ok-btn" (click)="delete()" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,140 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="noticeOfPlannedMoveWaiverForm" class="sf-form">
+    <div class="logo text-center">
+      <img src="assets/logo color.svg" alt="">
+    </div>
+    <div class="text-center">
+      <h3>
+        <b>WAIVER OF 30-DAY NOTICE OF PLANNED MOVE GUIDE</b>
+      </h3>
+    </div>
+    <p>
+      <b>Purpose</b>
+    </p>
+    <p>As provided for in KSA 38-2258, a letter is to be completed to formally give 30 days notice of a planned move to the
+      child(ren)’s Current Placement, Parents for whom an address is known, the Child if age 12 and over, the GAL, the County
+      Attorney, the Parents’ Attorney(s), the SRS Worker and anyone recognized by the court as an interested party. The notice
+      must be given if the child has been residing in their current placement for six (6) months or longer or the child has
+      been residing in the home of their parent or relative regardless of the length of time. The
+      <b>Waiver of 30-Day Notice of Planned Move</b> form is to be included with the letter. The move may take place prior to
+      the expiration of the 30 days if all parties notified agree in writing to the move.
+    </p>
+    <p>
+      <b>Requirements</b>
+    </p>
+    <p>This form should be included with the
+      <b>30-Day Notice of Planned Move Letter </b>for the following recipients:
+    </p>
+    <p>
+      <span class="glyphicon glyphicon-ok padding-1rem"></span>Resource Family/Facility
+    </p>
+    <p>
+      <span class="glyphicon glyphicon-ok padding-1rem"></span>Mother/Father
+    </p>
+    <p>
+      <span class="glyphicon glyphicon-ok padding-1rem"></span>Child, 12 years of age and over
+    </p>
+    <p>
+      <span class="glyphicon glyphicon-ok padding-1rem"></span>GAL
+    </p>
+    <p>
+      <span class="glyphicon glyphicon-ok padding-1rem"></span>County Attorney
+    </p>
+    <p>
+      <span class="glyphicon glyphicon-ok padding-1rem"></span>Parents Attorney(s)
+    </p>
+    <p>
+      <span class="glyphicon glyphicon-ok padding-1rem"></span>SRS Worker
+    </p>
+    <p>
+      <span class="glyphicon glyphicon-ok padding-1rem"></span>Other Interested Parties
+    </p>
+    <p>This form is used to waive the right to a 30-day notice of such a move. If all parties notified agree in writing to the
+      move, the move may take place prior to the expiration of the 30 days.
+    </p>
+    <p>
+      <span class="glyphicon glyphicon-ok padding-1rem"></span>Email a copy of the waiver signed by the Current Placement to the Care Center (zzCCAdmissions).
+    </p>
+    <p>
+      <span class="glyphicon glyphicon-ok padding-1rem"></span>File the
+      <b>30-Day Notice of Planned Move Letter and Waiver of 30-Day Notice of Planned Move </b>form in the child(ren)’s file.
+    </p>
+    <p>
+      <span class="glyphicon glyphicon-ok padding-1rem"></span>See form and notes below for specifics in filling out the form.
+    </p>
+    <p>
+      I/We,
+      <b>
+        <u>{{recipientName}}</u>
+      </b> acknowledge receipt of the written 30-Day Notice of Planned Move for
+      <b>
+        <u>{{childrenNames}}</u>
+      </b> and do here by waive said notice of move. I consent to the placement change. I agree that the child(ren) may be moved
+      at St. Francis Community Services discretion, therefore, staff may arrange for an earlier move date as appropriate.
+    </p>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Signature:
+        </div>
+        <div>
+          <input [(ngModel)]="reintNoticeOfPlannedMoveWaiver.Signature" formControlName="Signature" name="Signature" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Date:
+        </div>
+        <div>
+          <p-calendar [(ngModel)]="reintNoticeOfPlannedMoveWaiver.Date" formControlName="Date" name="Date" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Relationship to Child :
+        </div>
+        <div>
+          <b>
+            <u>{{relationshipToChild}}</u>
+          </b>
+        </div>
+      </div>
+    </div>
+    <div>
+      Please return the signed waiver to (SFCS local office name and address):
+      <b>
+        <u>{{localSfcsOffice}}</u>
+      </b>
+    </div>
+    <p>
+      <b>Sent to:</b>
+    </p>
+    <p>
+      {{listOfReceipents}}
+    </p>
+    <div class="flex-container space-right space-down margin-top-2rem">
+        <div class="space-right space-down">
+          <div class="space-right">
+            <b>Printed Date:</b>
+          </div>
+          <div class="space-right">
+            <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="space-right space-down margin-left-66rem">
+          <div class="space-right">
+            <b>Printed By:</b>
+          </div>
+          <div class="space-right">
+            <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+          </div>
+        </div>
+  
+      </div>
+  </form>
+</div>
+
+<app-form-footer (discard)="discardForm()" (save)="saveForm(reintNoticeOfPlannedMoveWaiver)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

@@ -1,0 +1,215 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="assessmentCheckForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        FAMILY PRESERVATION
+        <br> ASSESSMENT CHECKLIST
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Case Name:</span>
+          <input readonly [(ngModel)]="fpAssessmentCheck.caseName" formControlName="caseName" name="caseName" type="text" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>Case Number:</span>
+          <input readonly [(ngModel)]="fpAssessmentCheck.caseNumber" formControlName="caseNumber" name="caseNumber" type="text" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>Date of Referral:</span>
+          <p-calendar [(ngModel)]="fpAssessmentCheck.dateOfReferral" formControlName="dateOfReferral" name="dateOfReferral" class="date-picker"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>Date:</span>
+          <p-calendar [(ngModel)]="fpAssessmentCheck.date" formControlName="date" name="date" [inputStyle]="{'width':'170px'}" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div>
+      <table>
+        <tr>
+          <th class="table-td" width="80%"></th>
+          <th class="table-td center">DATE COMPLETED</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p class="bold">Genogram </p>
+            <p> Located in the Initial Family Assessment</p>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpAssessmentCheck.genogramDate" formControlName="genogramDate" name="genogramDate" class="date-picker"
+              [inputStyle]="{'width':'250px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p class="bold">Eco map</p>
+            <p>Located in the Initial Family Assessment</p>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpAssessmentCheck.ecoMapDate" formControlName="ecoMapDate" name="ecoMapDate" class="date-picker"
+              [inputStyle]="{'width':'250px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p class="bold">Mental Health Screening Tool </p>
+            <p>(located in the Initial Family Assessment)</p>
+            <p>Due within 20 days of referral on all children </p>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpAssessmentCheck.mentalHealthDate" formControlName="mentalHealthDate" name="mentalHealthDate" class="date-picker"
+              [inputStyle]="{'width':'250px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p class="bold">I/DD screening Tool</p>
+            <p>(located in the Initial Family Assessment)</p>
+            <p>Due within 20 days of referral on all children any age</p>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpAssessmentCheck.screeningToolDate" formControlName="screeningToolDate" name="screeningToolDate"
+              class="date-picker" [inputStyle]="{'width':'250px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p class="bold">UNCOPE</p>
+            <p>(located in the Initial Family Assessment)</p>
+            <p>Identify substance abuse/addiction issues. </p>
+            <p>Due within 20 days of referral or prior to CP on all family members 8 yrs old and older.</p>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpAssessmentCheck.uncopeDate" formControlName="uncopeDate" name="uncopeDate" class="date-picker"
+              [inputStyle]="{'width':'250px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p class="bold">NCFAS</p>
+            <p>Initiated at initial family meeting</p>
+            <p>Due within 20 days of referral or prior to Case Plan.</p>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpAssessmentCheck.ncfasDate" formControlName="ncfasDate" name="ncfasDate" class="date-picker" [inputStyle]="{'width':'250px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p class="bold">ASQ-SE</p>
+            <p>For all children 3 mos to 65 mos</p>
+            <p>Due within 20 days of referral or prior to Case Plan</p>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpAssessmentCheck.asqSeDate" formControlName="asqSeDate" name="asqSeDate" class="date-picker" [inputStyle]="{'width':'250px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p class="bold">Kinship Supports</p>
+            <p>Located in the Initial Family Assessment</p>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpAssessmentCheck.kinshipSupportsDate" formControlName="kinshipSupportsDate" name="kinshipSupportsDate"
+              class="date-picker" [inputStyle]="{'width':'250px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p class="bold">Non-Custodial Parent ICED Worksheet</p>
+            <p>Completed on each non-custodial parent</p>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpAssessmentCheck.nonCustodiaDate" formControlName="nonCustodiaDate" name="nonCustodiaDate" class="date-picker"
+              [inputStyle]="{'width':'250px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p class="bold">Mental Health Assessment</p>
+            <p>Due 10 calendar days from date of Case Plan</p>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpAssessmentCheck.mentalHealthAssessmentDate" formControlName="mentalHealthAssessmentDate" name="mentalHealthAssessmentDate"
+              class="date-picker" [inputStyle]="{'width':'250px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+
+
+
+  <!-- Customize Print Options -->
+  <p-dialog header="Customize Print Options" [(visible)]="display" [modal]="true" [responsive]="true" [style]="{width: '1000px', minWidth: '200px'}"
+    [minY]="70" [baseZIndex]="10000">
+    <div>
+      <span class="width-9rem">File Name</span>
+      <input [(ngModel)]="fileName" placeholder="Specify File Name" class="swal2-input">
+    </div>
+    <div class="margin-top-1rem">
+      <span class="width-9rem">Format Type</span>
+      <p-autoComplete [(ngModel)]="format" [suggestions]="formatData" field="name" [size]="30" [minLength]="1" placeholder="Specify Format: a3/a4"
+        [dropdown]="true" (completeMethod)="getMetaData()">
+      </p-autoComplete>
+    </div>
+    <div class="margin-top-1rem">
+      <span class="width-9rem">Orientation</span>
+      <p-autoComplete [(ngModel)]="orientation" [suggestions]="orientationData" field="name" [size]="30" [minLength]="1" placeholder="Specify Orientation"
+        [dropdown]="true" (completeMethod)="getMetaData()">
+      </p-autoComplete>
+    </div>
+    <div class="margin-top-1rem">
+      <span class="width-9rem">Margin Set</span>
+      <p-spinner size="30" [(ngModel)]="margin" [min]="0" [max]="10" placeholder="Specify Margin: 0-10"></p-spinner>
+    </div>
+    <p-footer>
+      <button type="button" pButton icon="pi pi-check" (click)="printForm()" label="Print"></button>
+      <button type="button" pButton icon="pi pi-close" (click)="reset()" label="Cancel" class="ui-button-secondary"></button>
+    </p-footer>
+  </p-dialog>
+  <!--  -->
+</div>
+<!-- (print)="display=true" -->
+<!-- printPreviewForm() -->
+<!-- <button printSectionId="form-content" ngxPrint>print preview</button>  -->
+<app-form-footer (discard)="discardForm()" (save)="saveForm(fpAssessmentCheck)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

@@ -1,0 +1,709 @@
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+
+<div class="pdf-content">
+  <div class="water-mark" *ngIf="isWatermarkerEnable">
+    <p>{{ waterMarkContent }}</p>
+  </div>
+  <div id="pdf-content-print" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">Placement Event Status</div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="" />
+      </div>
+    </div>
+    <div class="border-black">
+      <strong>
+        <u>Child</u>
+      </strong>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Name</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.ClientName"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">DOB</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.DOB"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">SSN:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.SSN"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Court:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.Court"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">FACTS:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.Facts"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">KAECSES:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.Kaecses"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Gender:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.Gender"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-black">
+      <strong>
+        <u>Placing Agency</u>
+      </strong>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Name:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.PayorName"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Address:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.PayorAddress"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">City:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.PayorCity"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">State:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.PayorState"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Zipcode:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.PayorZipcode"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Phone:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.PayorPhone"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Fax:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.PayorFax"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Agency Rate:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              class="remove-borders"
+              type="text"
+              name="PayorRate"
+              [(ngModel)]="printPreviewData.PayorRate"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-black">
+      <strong>
+        <u>Foster Care Homes Worker</u>
+      </strong>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Name:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.FCHStaffName"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Address:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.FCHStaffAddress"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">City:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.FCHStaffCity"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">State:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.FCHStaffState"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Zipcode:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.FCHStaffZipcode"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Worker Phone: </span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.FCHStaffPhone"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-black">
+      <strong>
+        <u>Current Placement Event</u>
+      </strong>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Placement Event Name:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.ProviderName"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Placement Event Date:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.CurrentPlacementBeginDate"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Address:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.ProviderAddress"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">City/State/Zipcode:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.ProviderCityStateZip"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Phone: </span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.ProviderPhone"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Level of Care: </span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.Procode"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Pay Rate: </span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.printPreviewData"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.SponsorName"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <p class="p-label">Other Information:</p>
+        <input
+          class="remove-borders"
+          [(ngModel)]="printPreviewData.AddInfo"
+          type="text"
+          pInputText
+          size="20"
+        />
+      </div>
+      <div class="margin-top-20 row">
+        <p class="p-label">Reason for Move:</p>
+        <input
+          [(ngModel)]="printPreviewData.ReasonForMove"
+          class="remove-borders"
+          type="text"
+          pInputText
+          size="20"
+        />
+      </div>
+    </div>
+
+    <div class="border-black">
+      <strong>
+        <u>Previous Placement Event</u>
+      </strong>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Previous Placement Event: </span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.PrevProviderName"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Placed From:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.PrevPlacementBeginDate"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Placed To:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.PrevPlacementEndDate"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Address:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.PrevProviderAddress"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">City/State/Zipcode:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.PrevProviderCityStateZip"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Phone: </span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.PrevProviderPhone"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Level of Care: </span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.PrevProcode"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Pay Rate: </span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.PrevProviderRate"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Payor Name: </span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.PrevPayorName"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Sponsor Name: </span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              [(ngModel)]="printPreviewData.PrevSponsorName"
+              class="remove-borders"
+              type="text"
+              pInputText
+              size="20"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin-top-4rem">
+      <div class="col-md-4">
+        <div class="row">
+          <span class="col-md-5 margin-top-10">Discharge Date:</span>
+          <div class="col-md-7">
+            <input
+              [(ngModel)]="printPreviewData.DischargeDate"
+              type="text"
+              class="remove-borders"
+              pInputText
+              size="17"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <span class="col-md-5 margin-top-10">PB:</span>
+          <div class="col-md-5">
+            <!-- <input
+              [(ngModel)]="placementData.staffName"
+              type="text"
+              class="remove-borders"
+              pInputText
+              size="17"
+            /> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <span class="col-md-5 margin-top-10">Date:</span>
+          <div class="col-md-5">
+            <input
+              [(ngModel)]="currentDateTime"
+              type="text"
+              class="remove-borders"
+              pInputText
+              size="17"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-placement-email-footer
+  [currentForm]="'EVENT_STATUS'"
+  [placementEventStatusFormData]="formData"
+  deleteForm="placementEventStatus"
+>
+</app-placement-email-footer>

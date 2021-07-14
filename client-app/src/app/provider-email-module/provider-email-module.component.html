@@ -1,0 +1,132 @@
+<div>
+    <p-toast position="center"></p-toast>
+    <div class="margin-5px">
+        <span><b>Search Options:</b></span>
+        <div class="search-options-panel">
+            <div class="search-option-block">
+                <p><b>Options</b></p>
+                <div *ngFor="let options of providerEmailOptionsValue ">
+                    <p-checkbox [label]="options.label" (onChange)="onProviderEmailOptionsClick($event,options.value)">
+                    </p-checkbox>
+                </div>
+            </div>
+            <div class="search-option-block">
+                <div *ngIf="tableLoader">
+                    <p style="text-align: center;">Gathering data from database, Please wait...</p>
+                </div>
+                <div *ngIf="!tableLoader">
+                    <p-table [value]="searchOptionsRowData" [autoLayout]="autoLayout"
+                        [(selection)]="selectedSearchOption" [scrollable]="true" scrollHeight="150px" frozenWidth="0px"
+                        *ngIf="isSearchOptions">
+                        <ng-template pTemplate="frozenheader">
+                            <tr>
+                                <th>Limit To</th>
+                                <th *ngFor="let col of searchOptionsTableHeader">
+                                    {{col}}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Limit To</th>
+                                <th *ngFor="let col of searchOptionsTableHeader">
+                                    {{col}}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData>
+                            <tr (onRowSelect)="rowSelected($event)">
+                                <td>
+                                    <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                                </td>
+                                <td *ngFor="let col of searchOptionsTableHeader">
+                                    {{rowData[col]}}
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+        <div class="search-option-action">
+            <div class="block">
+                <button class="bg-color-green" (click)="onSearchEmailOptions()"
+                    pTooltip="Search the categories">Search</button>
+                <!-- <button class="bg-color-red" (click)="onResetEmailOptions()"
+                    pTooltip="Reset the selection">Reset</button> -->
+            </div>
+            <div class="block">
+                <button class="bg-color-green" (click)="onSubmitEamilOptions()"
+                    pTooltip="Search the email ids">Search</button>
+                <!-- <button class="bg-color-red" pTooltip="Reset the selection" (click)="onResetSearchResults()">Reset</button> -->
+                <button class="bg-color-white" (click)="onSearchOptionsExport()"
+                    pTooltip="Export the search option result">{{isSearchOptionExportBtnLabel}}</button>
+            </div>
+        </div>
+        <div class="provider-result-filters">
+            <div>
+                <button class="bg-color-green" (click)="onCheckAll()"
+                    pTooltip="Check the records contains email ids">Check
+                    All</button>
+                <button class="bg-color-red" (click)="onUncheckAll()"
+                    pTooltip="Uncheck the records contains email ids">Uncheck All</button>
+                <button class="bg-color-blue" (click)="onCopyEmailAddress()" pTooltip="Copy email addresses">Copy Email
+                    Address</button>
+                <button class="bg-color-white" (click)="onProviderResultsExport()"
+                    pTooltip="Export the provider search result">{{isProviderResultExportBtnLabel}}</button>
+            </div>
+            <div>
+                <span><b>Matches Found: </b></span>
+                <span>{{totalCount}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="margin-5px">
+        <div>
+            <span><b>Provider Results:</b></span>
+            <div class="provider-result-block">
+                <div *ngIf="tableLoader">
+                    <p style="text-align: center;">Gathering data from database, Please wait...</p>
+                </div>
+                <div *ngIf="!tableLoader">
+                    <p-table [value]="providerResultRowData" [autoLayout]="autoLayout"
+                        [(selection)]="selectedProviderResults" *ngIf="isProviderResult" [scrollable]="true"
+                        scrollHeight="150px" frozenWidth="0px">
+                        <ng-template pTemplate="frozenheader">
+                            <tr>
+                                <th style="width:100px">Limit To</th>
+                                <th *ngFor="let col of providerOptionsTableHeader" style="width:200px;">
+                                    {{col}}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width:200px;">Limit To</th>
+                                <th *ngFor=" let col of providerOptionsTableHeader" style="width:200px;">
+                                    {{col}}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                            <tr>
+                                <td style="width:200px;">
+                                    <p-tableCheckbox [value]="rowData" [disabled]="rowData.Email === null"
+                                        [index]="rowIndex"></p-tableCheckbox>
+                                </td>
+                                <td *ngFor="let col of providerOptionsTableHeader" class="ui-resizable-column"
+                                    style="width:200px;">
+                                    {{rowData[col]}}
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+        <div class="provider-result-actions">
+            <button class="bg-color-green" (click)="onProviderResultEmail()" pTooltip="Compose emails">Email</button>
+            <button class="bg-color-red">Cancel</button>
+        </div>
+    </div>
+</div>

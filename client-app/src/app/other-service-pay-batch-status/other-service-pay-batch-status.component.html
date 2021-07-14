@@ -1,0 +1,484 @@
+<hr style="margin: 0px !important;">
+<h5 class="head_acces">Other Service Payment Batch Status</h5>
+<hr style="margin: 0px !important;">
+<!-- <div class="container-background">
+  <div class="container-foreground">
+    <div id="loading-overlay">
+      <p class="loader-text">
+        <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+      </p>
+    </div>
+    <div style="padding:5px;" class="client-form">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">Add Other Services to Batch</div>
+        <div class="panel-body" style="padding:10px;">
+          <div class="pull-right">
+          </div>
+          <div class="table-responsive" style="height: 450px;overflow-y: scroll;">
+
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Batch</th>
+                  <th>Status</th>
+                  <th>Expected Payment Date</th>
+                  <th>Posted By</th>
+                  <th>Posted Date</th>
+                  <th>Recouped By</th>
+                  <th>Recouped Date</th>
+                  <th>Claim Payment BatchID</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let provide_data of allBatchNameList let i1 = index">
+                  <td>{{provide_data.Batch}}</td>
+                  <td><p-dropdown [options]="limitation" [(ngModel)]="provide_data.ClaimStatus" 
+                    [style]="{'width':'100%','border': '1px solid #737374'}"
+                    (onChange)="selectClaimStatus(i1,provide_data)" optionLabel="ClaimBatchStatus" [showClear]="false">
+                  </p-dropdown></td>
+                  <td>{{provide_data.ExpectedPaymentDate}}</td>
+                  <td>{{provide_data.PostedBy}}</td>
+                  <td>{{provide_data.PostedDate}}</td>
+                  <td>{{provide_data.RecoupedBy}}</td>
+                  <td>{{provide_data.RecoupedDate}}</td>
+                  <td>{{provide_data.ClaimPaymentBatchID}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-3">
+                <span>Limit Selection</span>
+
+                <p-dropdown [options]="limitation" [(ngModel)]="limitselect" 
+                    [style]="{'width':'100%','border': '1px solid #737374'}"
+                    (onChange)="selectLimitation(limitselect)" optionLabel="ClaimBatchStatus" [showClear]="false">
+                  </p-dropdown>
+
+            </div>
+            <div class="col-md-7">
+                <button class="sf-positive-btn" (click)="saveBatchStatus(save)">Save</button>
+                <button (click)="saveBatchStatus('save_Create')" class="sf-negative-btn">Save/Create</button>
+                <button class="sf-negative-btn"(click)="create_Report()">Create Report</button>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="container-background">
+  <div class="container-foreground">
+    <div id="loading-overlay">
+      <p class="loader-text">
+        <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+      </p>
+    </div>
+    <div class="status-list">
+      <ag-grid-angular style="width: 500px; height: 70vh;" class="ag-theme-balham"
+        (firstDataRendered)="onFirstDataRendered($event)" [rowData]="paymentStatus" [columnDefs]="columnDefs"
+        [enableSorting]="true" [rowDragManaged]="true" [suppressDragLeaveHidesColumns]="true" enableColResize="true"
+        [singleClickEdit]="true" #agGrid style="width: 100%;height: 70vh;" animateRows="true"
+        (selectionChanged)="onSelectionChanged()" rowSelection="single"
+        (cellDoubleClicked)='onRowSelected($event)' (cellValueChangedEvent)="getSpecificData($event)"
+        (cellValueChanged)="onCellValueChanged($event)">
+      </ag-grid-angular>
+    </div>
+    <div class="status-btn-panel">
+      <div class="box">
+        <span>Limit Selection</span>
+        <p-autoComplete [dropdown]="true" name="gradeID" [(ngModel)]="limitselect" emptyMessage="No results found!"
+          [suggestions]="filteredLimitation" (completeMethod)="filterLimitation($event)"
+          (onSelect)="selectLimitation($event)" [forceSelection]="true" placeholder="Type here to search"
+          field="ClaimBatchStatus" size="23"></p-autoComplete>
+      </div>
+      <div class="box">
+        <button class="sf-positive-btn" (click)="saveBatchStatus('save')">Save</button>
+        <button (click)="saveBatchStatus('save_Create')" class="sf-negative-btn">Save/Create</button>
+        <!-- <button (click)="cancel()">Cancel</button> -->
+        <button class="sf-negative-btn" (click)="create_Report()">Create Report</button>
+      </div>
+    </div>
+  </div>
+</div>
+<p-dialog header="Payment Batch Breakdown" [(visible)]="display" [modal]="true" [contentStyle]="{'min-width':'1200px'}"
+  [responsive]="true" [maximizable]="true" [minY]="100" [baseZIndex]="10000">
+  <div id="loading-overlay-auth">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+  <ag-grid-angular style="width: 500px; height: 70vh;" class="ag-theme-balham" [rowData]="paymentBreakStatus"
+    [columnDefs]="columnBreahDefs" [enableSorting]="true" [rowDragManaged]="true" [suppressDragLeaveHidesColumns]="true"
+    enableColResize="true" style="width: 100%;height: 70vh;" animateRows="true" rowSelection="multiple"
+    (cellDoubleClicked)='onRowAuthSelected($event)'>
+  </ag-grid-angular>
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <button class="sf-positive-btn" (click)="batchBreak()">
+        <span>Save</span>
+      </button>
+      <button class="sf-positive-btn" (click)="export_batchBreak()">
+        <span>Export</span>
+      </button>
+    </div>
+    <div class="col-md-6">
+      <p>Total Provider Rate:<b>(${{total_ProviderRate}})</b>&nbsp;&nbsp;Total Payor Rate:<b>(${{total_PayorRate}})</b>
+      </p>
+    </div>
+  </div>
+
+
+</p-dialog>
+<p-dialog *ngIf="showAuth" header="Claim - {{claimDetail.clientID.clientNameFirstLast}}" [(visible)]="display_auth"
+  [modal]="true" [contentStyle]="{'min-width':'1100px'}" [responsive]="true" [maximizable]="true" [minY]="100"
+  [baseZIndex]="10000">
+
+  <div class="card" *ngIf="isShowAuth">
+    <h5 class="card-header">Authorization Information</h5>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">
+              <label>Begin Date</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{authDetail.beginDate}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>{{labelPay}}</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{payName}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Payer Rate</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{authDetail.payorRate.toFixed(2)}}</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <label>Unit Type</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{authDetail.unitTypeID.unitType}}</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <label>Units</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{authDetail.unitsAuth}}</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <p-checkbox [(ngModel)]="authDetail.payPlacement" label="Pay Placement" binary="true" disabled>
+              </p-checkbox>
+            </div>
+            <div class="col-md-6">
+              <p-checkbox [(ngModel)]="authDetail.paySponser" label="Pay Sponser" binary="true" disabled></p-checkbox>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">
+              <label>End Date</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{authDetail.endDate}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Procode</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{authDetail.procodeID.procode}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Provider Rate</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{authDetail.providerRate.toFixed(2)}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Units Remaining</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{authDetail.unitsRemaining}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Payer Authorization</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{authDetail.payorAuthorizationID}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="card">
+    <h5 class="card-header">Claim Information</h5>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">
+              <label>Begin Date</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{claimDetail.beginDate}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <p-checkbox [(ngModel)]="claimDetail.dateOverride" label="Overeide Date" binary="true" disabled>
+              </p-checkbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Payer Rate</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{claimDetail.payorRate.toFixed(2)}}</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <label>Unit Type</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{claimDetail.unitTypeID.unitType}}</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <label>Units</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{claimDetail.units}}</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">
+              <label>End Date</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{claimDetail.endDate}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Procode</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{claimDetail.procodeID.procode}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Provider Rate</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{claimDetail.providerRate.toFixed(2)}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Total Hours</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{claimDetail.hourlyUnits}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <h5 class="paye-head">Payee</h5>
+      <hr>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">
+              <label>Payment Type</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{claimDetail.paymentTypeID.paymentType}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>{{claimLabelPay}}</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{payClaimName}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Received Date</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{claimDetail.receivedDate}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Address</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;{{claimDetail.clientID.address}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">
+              <label>Who To Pay</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Provider Sponser</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Resource</label>
+            </div>
+            <div class="col-md-6">
+              <p><b>:</b>&nbsp;</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>City, State, Zip</label>
+            </div>
+            <div class="col-md-6">
+              <p>
+                <b>:</b>&nbsp;<span
+                  *ngIf="claimDetail.clientID.cityID">{{claimDetail.clientID.cityID.city}}</span>,<span
+                  *ngIf="claimDetail.clientID.stateID">{{claimDetail.clientID.stateID.state}}</span>,<span
+                  *ngIf="claimDetail.clientID.zipcodeID">{{claimDetail.clientID.zipcodeID.zipcodeID}}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">
+              <label>Notes</label>
+            </div>
+            <div class="col-md-6">
+              <textarea [(ngModel)]="claimDetail.notes" [disabled]="isNotes" name="notes" pInputTextarea
+                autoResize="autoResize" rows="3" cols="150" style="width: 90%;height: 80px"></textarea>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Expected Payment Date</label>
+            </div>
+            <div class="col-md-6">
+              <p-calendar [(ngModel)]="claimDetail.paymentDueDate" [disabled]="isExpactPaymentDate" name="TargetDate"
+                class="date-picker" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-12">
+              <p-checkbox [(ngModel)]="claimDetail.isNotFCHWeb" [disabled]="isfchWeb" label="Not On FCH web"
+                binary="true" disabled>
+              </p-checkbox>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">
+              <label>Payment Notes(Shows on RA)</label>
+            </div>
+            <div class="col-md-6">
+              <textarea [(ngModel)]="claimDetail.paymentNotes" [disabled]="paymentNotes_dis" name="paymentNotes"
+                pInputTextarea autoResize="autoResize" rows="3" cols="150"
+                style="width: 90%;height: 80px !important;"></textarea>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Status</label>
+            </div>
+            <div class="col-md-6">
+              <p-autoComplete [dropdown]="true" name="status" [disabled]="clmStatus" [(ngModel)]="claimStatusSelect"
+                emptyMessage="No results found!" [suggestions]="allClaimStatus" (completeMethod)="filterClaim($event)"
+                (onSelect)="selectClaim($event)" [forceSelection]="true" placeholder="Type here to search"
+                field="claimStatus" size="23"></p-autoComplete>
+              <!-- <p><b>:</b>&nbsp;{{claimDetail.claimStatusID.claimStatus}}</p> -->
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-12">
+              <button class="sf-positive-btn" [disabled]="saveDis" (click)="updateClaim()">
+                <span>Save</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="card">
+    <h5 class="card-header">Claims</h5>
+    <div class="card-body">
+      <ag-grid-angular style="width: 500px; height: 70vh;" class="ag-theme-balham" [rowData]="claimAllDetail"
+        [columnDefs]="columnClaimDefs" [enableSorting]="true" [rowDragManaged]="true"
+        [suppressDragLeaveHidesColumns]="true" enableColResize="true" style="width: 100%;height: 70vh;"
+        animateRows="true" rowSelection="multiple">
+      </ag-grid-angular>
+    </div>
+  </div>
+</p-dialog>

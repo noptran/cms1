@@ -1,0 +1,345 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="KinshipAssessmenForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        REINTEGRATION FOSTER <br>
+        CARE ADOPTION - KINSHIP <br>
+        REQUEST FOR KINSHIP <br>
+        ASSESSMENT SERVICES
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKinshipAssessmen.isInitial" formControlName="isInitial" name="isInitial"  class="space-right"></p-checkbox>INITIAL
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKinshipAssessmen.isExpedited" formControlName="isExpedited" name="isExpedited"  class="space-right"></p-checkbox>EXPEDITED
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKinshipAssessmen.isPlanned" formControlName="isPlanned" name="isPlanned"  class="space-right"></p-checkbox>PLANNED
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        IS THIS CHILD PLACED IN THIS KINSHIP HOME?
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKinshipAssessmen.isChildPlacedNo" formControlName="isChildPlacedNo" name="isChildPlacedNo"  class="space-right"></p-checkbox>NO
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKinshipAssessmen.isChildPlacedYes" formControlName="isChildPlacedYes" name="isChildPlacedYes"  class="space-right"></p-checkbox>YES
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">DATE PLACED:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reKinshipAssessmen.DatePlaced" formControlName="DatePlaced" name="DatePlaced"  [inputStyle]="{'width':'200px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down ">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">FACTS #:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKinshipAssessmen.Facts" formControlName="Facts" name="Facts"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">SS#: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reKinshipAssessmen.Ss" formControlName="Ss" name="Ss"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">COURT CASE #:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKinshipAssessmen.CourtCase" formControlName="CourtCase" name="CourtCase"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down ">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">KAECSES #:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKinshipAssessmen.Kaecses" formControlName="Kaecses" name="Kaecses"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">HOME COUNTY:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKinshipAssessmen.HomeCounty" formControlName="HomeCounty" name="HomeCounty"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down ">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">CHILD’S NAME:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKinshipAssessmen.ChildSName" formControlName="ChildSName" name="ChildSName"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div class="space-right">
+          GENDER:
+        </div>
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="reKinshipAssessmen.IsMale" formControlName="IsMale" name="IsMale"  class="space-right"></p-checkbox>M
+        </div>
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="reKinshipAssessmen.IsFemale" formControlName="IsFemale" name="IsFemale"  class="space-right"></p-checkbox>F
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">DOB:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reKinshipAssessmen.DobChild" formControlName="DobChild" name="DobChild"  [inputStyle]="{'width':'200px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">SIBLINGS to be Placed in THIS Kinship Home</th>
+          <th class="table-td">DOB</th>
+          <th class="table-td">SSN</th>
+          <th class="table-td">GENDER</th>
+          <th class="table-td">COURT #</th>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reKinshipAssessmen.Siblings" formControlName="Siblings" name="Siblings"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reKinshipAssessmen.Dob" formControlName="Dob" name="Dob"  [inputStyle]="{'width':'200px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td"> <input [(ngModel)]="reKinshipAssessmen.Ssn" formControlName="Ssn" name="Ssn"  type="text" pInputText size="20" /></td>
+          <td class="table-td"> <input [(ngModel)]="reKinshipAssessmen.Gender" formControlName="Gender" name="Gender"  type="text" pInputText size="20" /></td>
+          <td class="table-td"> <input [(ngModel)]="reKinshipAssessmen.Court" formControlName="Court" name="Court"  type="text" pInputText size="20" /></td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reKinshipAssessmen.Siblings1" formControlName="Siblings1" name="Siblings1"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reKinshipAssessmen.Dob1" formControlName="Dob1" name="Dob1"  [inputStyle]="{'width':'200px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td"> <input [(ngModel)]="reKinshipAssessmen.Ssn1" formControlName="Ssn1" name="Ssn1"  type="text" pInputText size="20" /></td>
+          <td class="table-td"> <input [(ngModel)]="reKinshipAssessmen.Gender1" formControlName="Gender1" name="Gender1"  type="text" pInputText size="20" /></td>
+          <td class="table-td"> <input [(ngModel)]="reKinshipAssessmen.Court1" formControlName="Court1" name="Court1"  type="text" pInputText size="20" /></td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reKinshipAssessmen.Siblings2" formControlName="Siblings2" name="Siblings2"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reKinshipAssessmen.Dob2" formControlName="Dob2" name="Dob2"  [inputStyle]="{'width':'200px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td"> <input [(ngModel)]="reKinshipAssessmen.Ssn2" formControlName="Ssn2" name="Ssn2"  type="text" pInputText size="20" /></td>
+          <td class="table-td"> <input [(ngModel)]="reKinshipAssessmen.Gender2" formControlName="Gender2" name="Gender2"  type="text" pInputText size="20" /></td>
+          <td class="table-td"> <input [(ngModel)]="reKinshipAssessmen.Court2" formControlName="Court2" name="Court2"  type="text" pInputText size="20" /></td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reKinshipAssessmen.Siblings3" formControlName="Siblings3" name="Siblings3"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reKinshipAssessmen.Dob3" formControlName="Dob3" name="Dob3"  [inputStyle]="{'width':'200px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td"> <input [(ngModel)]="reKinshipAssessmen.Ssn3" formControlName="Ssn3" name="Ssn3"  type="text" pInputText size="20" /></td>
+          <td class="table-td"> <input [(ngModel)]="reKinshipAssessmen.Gender3" formControlName="Gender3" name="Gender3"  type="text" pInputText size="20" /></td>
+          <td class="table-td"> <input [(ngModel)]="reKinshipAssessmen.Court3" formControlName="Court3" name="Court3"  type="text" pInputText size="20" /></td>
+        </tr>
+      </table>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">REASON CHILD WAS REMOVED: (FROM DCF 5110 – or forward 5110 with request)
+      </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reKinshipAssessmen.ChildRemoved" formControlName="ChildRemoved" name="ChildRemoved"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">CHILD’S BEHAVIORAL & EMOTIONAL STRENGTHS AND NEEDS:
+      </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reKinshipAssessmen.EmotionalStrengths" formControlName="EmotionalStrengths" name="EmotionalStrengths"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">CURRENT VISITATION SCHEDULE:
+      </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reKinshipAssessmen.VisitationSchedule" formControlName="VisitationSchedule" name="VisitationSchedule"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down ">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">KINSHIP NAME:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKinshipAssessmen.KinshipName" formControlName="KinshipName" name="KinshipName"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">RELATIONSHIP:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKinshipAssessmen.Relationship" formControlName="Relationship" name="Relationship"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down ">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">ADDRESS:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKinshipAssessmen.Address" formControlName="Address" name="Address"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">City:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKinshipAssessmen.City" formControlName="City" name="City"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">ST:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKinshipAssessmen.St" formControlName="St" name="St"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Zip:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKinshipAssessmen.zip" formControlName="zip" name="zip"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down ">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">DIRECTIONS IF RURAL:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKinshipAssessmen.Directions" formControlName="Directions" name="Directions"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">E-MAIL:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKinshipAssessmen.Mail" formControlName="Mail" name="Mail"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down ">
+      <div class="space-right">PHONE NUMBERS:</div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">HOME:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKinshipAssessmen.Home" formControlName="Home" name="Home"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">WORK:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKinshipAssessmen.Work" formControlName="Work" name="Work"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">CELL:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKinshipAssessmen.Cell" formControlName="Cell" name="Cell"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down ">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">BEST TIME TO CALL THIS KIN:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKinshipAssessmen.BestTime" formControlName="BestTime" name="BestTime"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">PRIMARY LANGUAGE:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKinshipAssessmen.Language" formControlName="Language" name="Language"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <div class="space-right space-down">
+      <div class="space-down">STRENGTHS/CONCERNS ABOUT HOME (BOUNDARIES, SLEEPING ARRANGEMENTS, ABILITY TO DISCIPLINE,
+        ETC.)
+      </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reKinshipAssessmen.Strengths" formControlName="Strengths" name="Strengths"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reKinshipAssessmen.PermanencySpecialist" formControlName="PermanencySpecialist" name="PermanencySpecialist"  type="text" pInputText size="20" />
+        </div>
+        <div class="space-down">LICENSED PERMANENCY SPECIALIST Printed Name
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reKinshipAssessmen.SpecialistSignature" formControlName="SpecialistSignature" name="SpecialistSignature"  type="text" pInputText size="20" />
+        </div>
+        <div class="space-down">LICENSED PERMANENCY SPECIALIST Signature
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="reKinshipAssessmen.SpecialistSignatureDate" formControlName="SpecialistSignatureDate" name="SpecialistSignatureDate"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date</div>
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reKinshipAssessmen.Supervisor" formControlName="Supervisor" name="Supervisor"  type="text" pInputText size="20" />
+        </div>
+        <div class="space-down">SUPERVISOR Printed Name
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reKinshipAssessmen.SupervisorSignature" formControlName="SupervisorSignature" name="SupervisorSignature"  type="text" pInputText size="20" />
+        </div>
+        <div class="space-down">SUPERVISOR Signature
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="reKinshipAssessmen.SupervisorSignatureDate" formControlName="SupervisorSignatureDate" name="SupervisorSignatureDate"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date</div>
+      </div>
+    </div>
+    <p class="bold center">IF YOU HAVE ANY QUESTIONS REGARDING KINSHIP, PLEASE EMAIL:
+      Wichita Region - <a href="zzkinshipct@st-francis.org">zzkinshipct@st-francis.org</a> ; West Region – <a href="zzwestkinshipct@st-francis.org">zzwestkinshipct@st-francis.org</a>
+
+    </p>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,reKinshipAssessmen)" (edit)="editForm()" [editControll]="editControll" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

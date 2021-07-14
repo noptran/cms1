@@ -1,0 +1,1097 @@
+<div id="print-form-content">
+  <p-toast position="center" [baseZIndex]="99999999"></p-toast>
+ 
+    <div class="text-center">
+      <h3>
+        <b>ASQ-SE-2</b>
+      </h3>
+      <h3>
+        <b>Ages & Stages Questionnaires – 6 Month Questionnaire</b>
+      </h3>
+      <h3>
+        3 months 0 days through 8 months 30 days
+      </h3>
+    </div>
+
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+
+      </div>
+      <div class="col-xs-4">
+
+      </div>
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Date ASQ-SE-2 Completed:
+        </div>
+        <div>
+            <input readonly  [(ngModel)]="cisAsqSixMo.CompletionDate.value"  type="text" pInputText size="20"
+            />
+          <!-- <p-calendar readonly [(ngModel)]="cisAsqSixMo.CompletionDate.value" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar> -->
+        </div>
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+
+      </div>
+      <div class="col-xs-4">
+
+      </div>
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Entered By:
+        </div>
+        <div>
+          <input readonly [(ngModel)]="cisAsqSixMo.staffName"  type="text" pInputText size="20"
+             />
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Baby’s Name:
+        </div>
+        <div>
+          <input readonly [(ngModel)]="cisAsqSixMo.ClientName.value"  type="text"
+            pInputText size="20"  />
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Baby’s Date of birth:
+        </div>
+        <div>
+            <input readonly  [(ngModel)]="cisAsqSixMo.DateOfBirth.value"  type="text" pInputText size="20"
+            />
+          <!-- <p-calendar readonly [(ngModel)]="cisAsqSixMo.DateOfBirth.value"  showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" readonly></p-calendar> -->
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="col-xs-12">
+          If born premature, # of weeks early:
+        </div>
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Baby’s ID #::
+        </div>
+        <div>
+          <input readonly  [(ngModel)]="cisAsqSixMo.clientId"  type="text" pInputText size="20"
+            />
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="col-xs-12">
+          Baby’s Gender:
+          <p-radioButton [disabled]="true" readonly [(ngModel)]="cisAsqSixMo.Gender.fieldOptionIndex"  value="0"></p-radioButton>Male
+          <p-radioButton [disabled]="true" readonly [(ngModel)]="cisAsqSixMo.Gender.fieldOptionIndex"  value="1"></p-radioButton>Female
+        </div>
+      </div>
+    </div>
+    <!-- <p-checkbox (onChange)="handleDataField(cisAsqSixMo.disableValidate)" formControlName="disableValidate" binary="true" name="disableValidate"
+      [(ngModel)]="cisAsqSixMo.disableValidate"></p-checkbox>Unable to Access
+
+    <div *ngIf="cisAsqSixMo.disableValidate">
+      <p>Remarks:</p>
+      <textarea [(ngModel)]="cisAsqSixMo.remarks.value" formControlName="remarks" name="remarks" pInputTextarea autoResize="autoResize"
+        rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div> -->
+
+    <!--  -->
+    
+    <!-- <form id="form-content" [formGroup]="asqSixMoForm" class="sf-form">
+      <p-checkbox *ngIf="!cisAsqSixMo.disableValidate" (onChange)="handleDataField(true)" formControlName="disableValidate" name="disableValidate"
+        [(ngModel)]="cisAsqSixMo.disableValidate"></p-checkbox>
+      <p-checkbox binary="true" *ngIf="cisAsqSixMo.disableValidate" (onChange)="handleDataField(false)"></p-checkbox>Unable to Access
+    </form> -->
+    
+  <form id="form-content" [formGroup]="unableToAccesForm" class="sf-form">
+    <p-checkbox (onChange)="handleDataField(cisAsqSixMo.disableValidate)" formControlName="disableValidate" binary="true" name="disableValidate"
+      [(ngModel)]="cisAsqSixMo.disableValidate"></p-checkbox>Unable to Access
+  </form>
+    <div *ngIf="cisAsqSixMo.disableValidate">
+      <p>Remarks:</p>
+      <textarea [(ngModel)]="cisAsqSixMo.remarks.value" (ngModelChange)="saveRemarks($event)" pInputTextarea autoResize="autoResize"
+      rows={{rowMethod(cisAsqSixMo.remarks.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <form id="form-content" [formGroup]="asqSixMoForm" class="sf-form">
+
+    <!--  -->
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-12">
+
+        <div class="flex">
+          <div class="child-list">
+            <span>
+              <b>Child List: </b>
+            </span>
+          </div>
+          <div *ngFor="let client of multiClientArr; let i = index;" class="multiClient">
+            <span>Child{{i + 1}}:</span>
+            <input class="margin-left-1rem" type="text" pInputText size="20" value={{client}} readonly/>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!--  -->
+
+    <p>
+      <b>Person Completing Questionnaire:</b>
+    </p>
+    <div class="row">
+      <div class="col-xs-5">
+        <div class="col-xs-2">
+
+        </div>
+        <div>
+          <!-- <input readonly type="text" pInputText size="20" /> -->
+          <span class="margin-left-1rem">
+            Relationship to Baby:
+          </span>
+        </div>
+      </div>
+      <div class="col-xs-7">
+        <div class="col-xs-3">
+          <p-radioButton [(ngModel)]="cisAsqSixMo.Relationship.fieldOptionIndex" formControlName="Relationship" name="Relationship"
+            value="0"></p-radioButton>Bio-parent
+        </div>
+        <div class="col-xs-3">
+          <p-radioButton [(ngModel)]="cisAsqSixMo.Relationship.fieldOptionIndex" formControlName="Relationship" name="Relationship"
+            value="1"></p-radioButton>Guardian
+        </div>
+        <div class="col-xs-3">
+          <p-radioButton [(ngModel)]="cisAsqSixMo.Relationship.fieldOptionIndex" formControlName="Relationship" name="Relationship"
+            value="2"></p-radioButton>Teacher
+        </div>
+        <div class="col-xs-3">
+          <p-radioButton [(ngModel)]="cisAsqSixMo.Relationship.fieldOptionIndex" formControlName="Relationship" name="Relationship"
+            value="3"></p-radioButton>Grand Parent
+        </div>
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-5">
+
+      </div>
+      <div class="col-xs-7">
+        <div class="col-xs-3">
+          <p-radioButton [(ngModel)]="cisAsqSixMo.Relationship.fieldOptionIndex" formControlName="Relationship" name="Relationship"
+            value="4"></p-radioButton>Step-parent
+        </div>
+        <div class="col-xs-3">
+          <p-radioButton [(ngModel)]="cisAsqSixMo.Relationship.fieldOptionIndex" formControlName="Relationship" name="Relationship"
+            value="5"></p-radioButton>Other Relative
+        </div>
+        <div class="col-xs-3">
+          <p-radioButton [(ngModel)]="cisAsqSixMo.Relationship.fieldOptionIndex" formControlName="Relationship" name="Relationship"
+            value="6"></p-radioButton>Foster Parent
+        </div>
+        <div class="col-xs-3">
+          <p-radioButton [(ngModel)]="cisAsqSixMo.Relationship.fieldOptionIndex" formControlName="Relationship" name="Relationship"
+            value="7"></p-radioButton>Child Care Provider
+        </div>
+      </div>
+    </div>
+    <div class="margin-bottom-2rem">
+      <table>
+        <tr class="table-questionaire">
+          <td>
+            <p>
+              <b>6 Month Questionnaire:</b>3 months 0 days through 8 months 30 days
+            </p>
+          </td>
+        </tr>
+        <tr class="table-questionaire">
+          <td>
+            <p>Questions about behaviors babies may have are listed on the following pages. Please read each question carefully
+              and check the box [√] that best describes your baby’s behavior. Also, check the circle [√] if the behavior
+              is a concern.
+            </p>
+            <p>
+              <b>Important Point to Remember:</b>
+            </p>
+            <p>
+              <span class="glyphicon glyphicon-ok margin-right-1rem"></span>Answer questions based on what you know about your baby’s behavior.
+            </p>
+            <p>
+              <span class="glyphicon glyphicon-ok margin-right-1rem"></span>Answer questions based on your baby’s usual behavior, not behavior when your baby is sick, very tired,
+              or hungry.
+            </p>
+            <p>
+              <span class="glyphicon glyphicon-ok margin-right-1rem"></span>Caregivers who know the baby well and sped more than 15-20 hours per week with the baby should complete
+              ASQ-SE-2
+            </p>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div>
+      <table class="table table-bordered">
+        <tr class="text-center">
+          <th colspan="2">
+
+          </th>
+          <th>
+            Often or Always
+          </th>
+          <th>
+            Sometimes
+          </th>
+          <th>
+            Rarely or Never
+          </th>
+          <th>
+            Check if this is a concern
+          </th>
+          <th>
+
+          </th>
+        </tr>
+        <tr class="text-center">
+          <td>
+            1.
+          </td>
+          <td class="table-data-description">
+            When upset, can your baby calm down within a half hour?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question1.fieldOptionIndex" formControlName="Question1" name="Question1" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question1.fieldOptionIndex" formControlName="Question1" name="Question1" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question1.fieldOptionIndex" formControlName="Question1" name="Question1" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question1Concern.fieldOptionIndex" formControlName="Question1Concern" name="Question1Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question1Sum.value" formControlName="Question1Sum" name="Question1Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr class="text-center">
+          <td>
+            2.
+          </td>
+          <td class="table-data-description">
+            Does your baby smile at you and other family members?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question2.fieldOptionIndex" formControlName="Question2" name="Question2" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question2.fieldOptionIndex" formControlName="Question2" name="Question2" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question2.fieldOptionIndex" formControlName="Question2" name="Question2" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question2Concern.fieldOptionIndex" formControlName="Question2Concern" name="Question2Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question2Sum.value" formControlName="Question2Sum" name="Question2Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+        <tr class="text-center">
+          <td>
+            3.
+          </td>
+          <td class="table-data-description">
+            Does your baby like to be picked up and held?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question3.fieldOptionIndex" formControlName="Question3" name="Question3" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question3.fieldOptionIndex" formControlName="Question3" name="Question3" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question3.fieldOptionIndex" formControlName="Question3" name="Question3" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question3Concern.fieldOptionIndex" formControlName="Question3Concern" name="Question3Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question3Sum.value" formControlName="Question3Sum" name="Question3Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+        <tr class="text-center">
+          <td>
+            4.
+          </td>
+          <td class="table-data-description">
+            Does your baby stiffen and arch her back when picked up?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question4.fieldOptionIndex" formControlName="Question4" name="Question4" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question4.fieldOptionIndex" formControlName="Question4" name="Question4" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question4.fieldOptionIndex" formControlName="Question4" name="Question4" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question4Concern.fieldOptionIndex" formControlName="Question4Concern" name="Question4Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question4Sum.value" formControlName="Question4Sum" name="Question4Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr class="text-center">
+          <td>
+            5.
+          </td>
+          <td class="table-data-description">
+            When you talk to your baby, does he look at you and seem to listen?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question5.fieldOptionIndex" formControlName="Question5" name="Question5" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question5.fieldOptionIndex" formControlName="Question5" name="Question5" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question5.fieldOptionIndex" formControlName="Question5" name="Question5" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question5Concern.fieldOptionIndex" formControlName="Question5Concern" name="Question5Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question5Sum.value" formControlName="Question5Sum" name="Question5Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr class="text-center">
+          <td>
+            6.
+          </td>
+          <td class="table-data-description">
+            Does your baby let you know when she is hungry or sick?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question6.fieldOptionIndex" formControlName="Question6" name="Question6" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question6.fieldOptionIndex" formControlName="Question6" name="Question6" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question6.fieldOptionIndex" formControlName="Question6" name="Question6" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question6Concern.fieldOptionIndex" formControlName="Question6Concern" name="Question6Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question6Sum.value" formControlName="Question6Sum" name="Question6Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr class="text-center">
+          <td>
+            7.
+          </td>
+          <td class="table-data-description">
+            Does your baby seem to enjoy watching or listening to people? For example, does he turn his head to look at someone talking?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question7.fieldOptionIndex" formControlName="Question7" name="Question7" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question7.fieldOptionIndex" formControlName="Question7" name="Question7" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question7.fieldOptionIndex" formControlName="Question7" name="Question7" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question7Concern.fieldOptionIndex" formControlName="Question7Concern" name="Question7Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question7Sum.value" formControlName="Question7Sum" name="Question7Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr class="text-center">
+          <td>
+            8.
+          </td>
+          <td class="table-data-description">
+            Is your baby able to calm herself down (for example, by sucking her hand or pacifier)?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question8.fieldOptionIndex" formControlName="Question8" name="Question8" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question8.fieldOptionIndex" formControlName="Question8" name="Question8" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question8.fieldOptionIndex" formControlName="Question8" name="Question8" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question8Concern.fieldOptionIndex" formControlName="Question8Concern" name="Question8Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question8Sum.value" formControlName="Question8Sum" name="Question8Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr class="text-center">
+          <td>
+            9.
+          </td>
+          <td class="table-data-description">
+            Does your baby cry for long periods of time?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question9.fieldOptionIndex" formControlName="Question9" name="Question9" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question9.fieldOptionIndex" formControlName="Question9" name="Question9" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question9.fieldOptionIndex" formControlName="Question9" name="Question9" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question9Concern.fieldOptionIndex" formControlName="Question9Concern" name="Question9Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question9Sum.value" formControlName="Question9Sum" name="Question9Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr class="text-center">
+          <td>
+            10.
+          </td>
+          <td class="table-data-description">
+            Is your baby’s body relaxed?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question10.fieldOptionIndex" formControlName="Question10" name="Question10" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question10.fieldOptionIndex" formControlName="Question10" name="Question10" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question10.fieldOptionIndex" formControlName="Question10" name="Question10" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question10Concern.fieldOptionIndex" formControlName="Question10Concern" name="Question10Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question10Sum.value" formControlName="Question10Sum" name="Question10Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr class="text-center">
+          <td>
+            11.
+          </td>
+          <td class="table-data-description">
+            Does your baby have trouble sucking from a breast or bottle?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question11.fieldOptionIndex" formControlName="Question11" name="Question11" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question11.fieldOptionIndex" formControlName="Question11" name="Question11" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question11.fieldOptionIndex" formControlName="Question11" name="Question11" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question11Concern.fieldOptionIndex" formControlName="Question11Concern" name="Question11Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question11Sum.value" formControlName="Question11Sum" name="Question11Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr class="text-center">
+          <td>
+            12.
+          </td>
+          <td class="table-data-description">
+            Does it take longer than 30 minutes to feed your baby?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question12.fieldOptionIndex" formControlName="Question12" name="Question12" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question12.fieldOptionIndex" formControlName="Question12" name="Question12" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question12.fieldOptionIndex" formControlName="Question12" name="Question12" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question12Concern.fieldOptionIndex" formControlName="Question12Concern" name="Question12Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question12Sum.value" formControlName="Question12Sum" name="Question12Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+        <!-- <tr class="text-center">
+          <td>
+            13.
+          </td>
+          <td class="table-data-description">
+            Does your baby have any eating problems, such as gagging, vomiting, or
+            <input readonly [(ngModel)]="cisAsqSixMo.QuestionSum.value" formControlName="QuestionSum" name="QuestionSum" type="text" pInputText  size="20" /> ? (Please describe.)
+          </td>
+          <td>
+           <p-radioButton [(ngModel)]="cisAsqSixMo.Question.fieldOptionIndex" formControlName="Question" name="Question" value=""></p-radioButton>x
+          </td>
+          <td>
+           <p-radioButton [(ngModel)]="cisAsqSixMo.Question.fieldOptionIndex" formControlName="Question" name="Question" value=""></p-radioButton>v
+          </td>
+          <td>
+           <p-radioButton [(ngModel)]="cisAsqSixMo.Question.fieldOptionIndex" formControlName="Question" name="Question" value=""></p-radioButton>z
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.QuestionConcern.fieldOptionIndex" formControlName="QuestionConcern" name="QuestionConcern"  binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.QuestionSum.value" formControlName="QuestionSum" name="QuestionSum" type="text" pInputText  size="20" />
+          </td>
+        </tr> -->
+        <!-- <tr>
+          <td colspan="2">
+            <textarea pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+          <td colspan="5">
+
+          </td>
+        </tr> -->
+        <tr class="text-center">
+          <td>
+            13.
+          </td>
+          <td class="table-data-description">
+            Do you and your baby enjoy feeding times together?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question13.fieldOptionIndex" formControlName="Question13" name="Question13" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question13.fieldOptionIndex" formControlName="Question13" name="Question13" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question13.fieldOptionIndex" formControlName="Question13" name="Question13" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question13Concern.fieldOptionIndex" formControlName="Question13Concern" name="Question13Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question13Sum.value" formControlName="Question13Sum" name="Question13Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr class="text-center">
+          <td>
+            14.
+          </td>
+          <td class="table-data-description">
+            Does your baby have any eating problems, such as gagging, vomiting, or
+            <input readonly [(ngModel)]="cisAsqSixMo.Question14Sum.value" formControlName="Question14Sum" name="Question14Sum" type="text"
+              pInputText size="20" /> ? (Please describe.)
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question14.fieldOptionIndex" formControlName="Question14" name="Question14" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question14.fieldOptionIndex" formControlName="Question14" name="Question14" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question14.fieldOptionIndex" formControlName="Question14" name="Question14" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question14Concern.fieldOptionIndex" formControlName="Question14Concern" name="Question14Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question14Sum.value" formControlName="Question14Sum" name="Question14Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <textarea [(ngModel)]="cisAsqSixMo.Question14Description.value" formControlName="Question14Description" name="Question14Description"
+              pInputTextarea autoResize="autoResize" rows={{rowMethod(cisAsqSixMo.Question14Description.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+          <td colspan="5">
+
+          </td>
+        </tr>
+        <tr class="text-center">
+          <td>
+            15.
+          </td>
+          <td class="table-data-description">
+            During the day, does your baby stay awake for an hour or longer at one time?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question15.fieldOptionIndex" formControlName="Question15" name="Question15" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question15.fieldOptionIndex" formControlName="Question15" name="Question15" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question15.fieldOptionIndex" formControlName="Question15" name="Question15" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question15Concern.fieldOptionIndex" formControlName="Question15Concern" name="Question15Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question15Sum.value" formControlName="Question15Sum" name="Question15Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+        <!-- <tr>
+          <td colspan="2">
+            <textarea pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+          <td colspan="5">
+
+          </td>
+        </tr> -->
+        <tr class="text-center">
+          <td>
+            16.
+          </td>
+          <td class="table-data-description">
+            Does your baby have trouble falling asleep at naptime or at night?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question16.fieldOptionIndex" formControlName="Question16" name="Question16" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question16.fieldOptionIndex" formControlName="Question16" name="Question16" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question16.fieldOptionIndex" formControlName="Question16" name="Question16" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question16Concern.fieldOptionIndex" formControlName="Question16Concern" name="Question16Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question16Sum.value" formControlName="Question16Sum" name="Question16Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+        <!-- <tr>
+          <td colspan="2">
+            <textarea pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+          <td colspan="5">
+
+          </td>
+        </tr> -->
+        <tr class="text-center">
+          <td>
+            17.
+          </td>
+          <td class="table-data-description">
+            Does your baby sleep at least 10 hours in a 24- hour period?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question17.fieldOptionIndex" formControlName="Question17" name="Question17" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question17.fieldOptionIndex" formControlName="Question17" name="Question17" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question17.fieldOptionIndex" formControlName="Question17" name="Question17" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question17Concern.fieldOptionIndex" formControlName="Question17Concern" name="Question17Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question17Sum.value" formControlName="Question17Sum" name="Question17Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr class="text-center">
+          <td>
+            18.
+          </td>
+          <td class="table-data-description">
+            Does your baby get constipated or have diarrhea?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question18.fieldOptionIndex" formControlName="Question18" name="Question18" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question18.fieldOptionIndex" formControlName="Question18" name="Question18" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question18.fieldOptionIndex" formControlName="Question18" name="Question18" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question18Concern.fieldOptionIndex" formControlName="Question18Concern" name="Question18Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question18Sum.value" formControlName="Question18Sum" name="Question18Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr class="text-center">
+          <td>
+            19.
+          </td>
+          <td class="table-data-description">
+            Does your baby make sounds and look at you while playing with you?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question19.fieldOptionIndex" formControlName="Question19" name="Question19" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question19.fieldOptionIndex" formControlName="Question19" name="Question19" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question19.fieldOptionIndex" formControlName="Question19" name="Question19" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question19Concern.fieldOptionIndex" formControlName="Question19Concern" name="Question19Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question19Sum.value" formControlName="Question19Sum" name="Question19Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr class="text-center">
+          <td>
+            20.
+          </td>
+          <td class="table-data-description">
+            Does your baby make sounds or use gestures to get your attention?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question20.fieldOptionIndex" formControlName="Question20" name="Question20" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question20.fieldOptionIndex" formControlName="Question20" name="Question20" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question20.fieldOptionIndex" formControlName="Question20" name="Question20" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question20Concern.fieldOptionIndex" formControlName="Question20Concern" name="Question20Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question20Sum.value" formControlName="Question20Sum" name="Question20Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr class="text-center">
+          <td>
+            21.
+          </td>
+          <td class="table-data-description">
+            When you smile at your baby, does he smile back at you?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question21.fieldOptionIndex" formControlName="Question21" name="Question21" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question21.fieldOptionIndex" formControlName="Question21" name="Question21" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question21.fieldOptionIndex" formControlName="Question21" name="Question21" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question21Concern.fieldOptionIndex" formControlName="Question21Concern" name="Question21Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question21Sum.value" formControlName="Question21Sum" name="Question21Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr class="text-center">
+          <td>
+            22.
+          </td>
+          <td class="table-data-description">
+            When you talk or make sounds to your baby, does she make sounds back?
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question22.fieldOptionIndex" formControlName="Question22" name="Question22" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question22.fieldOptionIndex" formControlName="Question22" name="Question22" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question22.fieldOptionIndex" formControlName="Question22" name="Question22" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question22Concern.fieldOptionIndex" formControlName="Question22Concern" name="Question22Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question22Sum.value" formControlName="Question22Sum" name="Question22Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr class="text-center">
+          <td>
+            23.
+          </td>
+          <td class="table-data-description">
+            Has anyone shared concerns about your baby’s behaviors? If “sometimes” or “often or always”, please explain:
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question23.fieldOptionIndex" formControlName="Question23" name="Question23" value="2"></p-radioButton>x
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question23.fieldOptionIndex" formControlName="Question23" name="Question23" value="1"></p-radioButton>v
+          </td>
+          <td>
+            <p-radioButton [(ngModel)]="cisAsqSixMo.Question23.fieldOptionIndex" formControlName="Question23" name="Question23" value="0"></p-radioButton>z
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="cisAsqSixMo.Question23Concern.fieldOptionIndex" formControlName="Question23Concern" name="Question23Concern"
+              binary="true"></p-checkbox>
+          </td>
+          <td>
+            <input readonly [(ngModel)]="cisAsqSixMo.Question23Sum.value" formControlName="Question23Sum" name="Question23Sum" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <textarea [(ngModel)]="cisAsqSixMo.Question23Description.value" formControlName="Question23Description" name="Question23Description"
+              pInputTextarea autoResize="autoResize" rows={{rowMethod(cisAsqSixMo.Question23Description.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+          <td colspan="5">
+
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div>
+      <p>
+        <b>
+          OVERALL
+        </b>Use the space below for additional comments.
+      </p>
+    </div>
+    <div>
+      24. Do you have concerns about your baby’s eating or sleeping behaviors? If yes please explain:
+      <p-radioButton [(ngModel)]="cisAsqSixMo.ConcernsSleep.fieldOptionIndex" formControlName="ConcernsSleep" name="ConcernsSleep"
+        value="0"></p-radioButton>Yes
+      <p-radioButton [(ngModel)]="cisAsqSixMo.ConcernsSleep.fieldOptionIndex" formControlName="ConcernsSleep" name="ConcernsSleep"
+        value="1"></p-radioButton>No
+    </div>
+    <div class="margin-top-2rem">
+      <textarea [(ngModel)]="cisAsqSixMo.Question24Description.value" formControlName="Question24Description" name="Question24Description"
+        pInputTextarea autoResize="autoResize" rows={{rowMethod(cisAsqSixMo.Question24Description.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div>
+      25. Does anything about your baby worry you? If yes, please explain.
+      <p-radioButton [(ngModel)]="cisAsqSixMo.Worry.fieldOptionIndex" formControlName="Worry" name="Worry" value="0"></p-radioButton>Yes
+      <p-radioButton [(ngModel)]="cisAsqSixMo.Worry.fieldOptionIndex" formControlName="Worry" name="Worry" value="1"></p-radioButton>No
+    </div>
+    <div class="margin-top-2rem">
+      <textarea [(ngModel)]="cisAsqSixMo.Question25Description.value" formControlName="Question25Description" name="Question25Description"
+        pInputTextarea autoResize="autoResize" rows={{rowMethod(cisAsqSixMo.Question25Description.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div>
+      26. What do you enjoy about your baby?
+      <p-radioButton [(ngModel)]="cisAsqSixMo.Enjoy.fieldOptionIndex" formControlName="Enjoy" name="Enjoy" value="0"></p-radioButton>Yes
+      <p-radioButton [(ngModel)]="cisAsqSixMo.Enjoy.fieldOptionIndex" formControlName="Enjoy" name="Enjoy" value="1"></p-radioButton>No
+    </div>
+    <div class="margin-top-2rem">
+      <textarea [(ngModel)]="cisAsqSixMo.Question26Description.value" formControlName="Question26Description" name="Question26Description"
+        pInputTextarea autoResize="autoResize" rows={{rowMethod(cisAsqSixMo.Question26Description.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <p>
+          <b>1. ASQ: SE-2 Scoring Chart:</b>
+        </p>
+        <p>
+          <span class="glyphicon glyphicon-ok margin-right-1rem"></span>Score items (Z=0, V=5, X=10, Concern=5)
+        </p>
+        <p>
+          <span class="glyphicon glyphicon-ok margin-right-1rem"></span>Total the score
+        </p>
+        <p>
+          <span class="glyphicon glyphicon-ok margin-right-1rem"></span>Record the baby’s total score next to the cutoff.
+        </p>
+      </div>
+      <div class="col-xs-7 table-scoring-chart">
+
+        <table class="table-scoring-chart">
+          <tr class="table-scoring-chart">
+            <td>
+              Cutoff
+            </td>
+            <th>
+              Total score
+            </th>
+          </tr>
+          <tr class="table-scoring-chart">
+            <th>
+              45
+            </th>
+            <td>
+              <input readonly [(ngModel)]="cisAsqSixMo.TotalScore.value" formControlName="TotalScore" name="TotalScore" type="text" pInputText
+                size="20" readonly />
+            </td>
+          </tr>
+        </table>
+
+      </div>
+    </div>
+    <p>
+      Review the approximate location of the baby’s total score on the scoring graphic: Then, check off the
+    </p>
+    <div class="row">
+      <div class="col-xs-12">
+        <p>
+          <b>2. ASQ: SE-2 Score Interpretation:</b> Review the approximate location of the baby’s total score on the scoring
+          graphic: Then, check off the area for the score results below.
+        </p>
+      </div>
+    </div>
+
+
+    <div>
+      <img class="bar" src="assets/icons/bar.png">
+      <div class="bar-numbers">
+        <p class="bar-low-number">30</p>
+        <p class="monitor-number">45</p>
+        <p class="refer-number">55+</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="row margin-bottom-2rem">
+        <div class="col-xs-12">
+          <p-radioButton [(ngModel)]="cisAsqSixMo.babyTotalScore.fieldOptionIndex" formControlName="babyTotalScore" name="babyTotalScore"
+            value="0" readonly></p-radioButton>The baby’s total score is in the
+          <img class="fill-icon" src="assets/icons/empty.svg"> area. It is below the cutoff. Social-emotional development appears to be on schedule.
+        </div>
+      </div>
+      <div class="row margin-bottom-2rem">
+        <div class="col-xs-12">
+          <p-radioButton [(ngModel)]="cisAsqSixMo.babyTotalScore.fieldOptionIndex" formControlName="babyTotalScore" name="babyTotalScore"
+            value="1" readonly></p-radioButton>The baby’s total score is in the
+          <img class="fill-icon" src="assets/icons/grey filled.svg"> area. It is close to the cutoff. Review behaviors of concern and monitor.
+        </div>
+      </div>
+      <div class="row margin-bottom-2rem">
+        <div class="col-xs-12">
+          <p-radioButton [(ngModel)]="cisAsqSixMo.babyTotalScore.fieldOptionIndex" formControlName="babyTotalScore" name="babyTotalScore"
+            value="2" readonly></p-radioButton>The baby’s total score is in the
+          <img class="fill-icon" src="assets/icons/filled.svg"> area. It is above the cutoff. Further assessment with a professional may be needed.
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <p>
+          <b>3. Overall Responses and Concerns:</b> Record responses and transfer parent/caregiver comments. YES responses require
+          follow-up.
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 margin-bottom-2rem">
+        1-23. Any concerns marked on scored items?
+        <p-radioButton [(ngModel)]="cisAsqSixMo.Concerns1_16.fieldOptionIndex" formControlName="Concerns1_16" name="Concerns1_16"
+          value="0"></p-radioButton>Yes
+        <p-radioButton [(ngModel)]="cisAsqSixMo.Concerns1_16.fieldOptionIndex" formControlName="Concerns1_16" name="Concerns1_16"
+          value="1"></p-radioButton>No Comments:
+      </div>
+    </div>
+    <div class="margin-bottom-2rem">
+      <textarea [(ngModel)]="cisAsqSixMo.ConcernsComments.value" formControlName="ConcernsComments" name="ConcernsComments" pInputTextarea
+        autoResize="autoResize" rows={{rowMethod(cisAsqSixMo.ConcernsComments.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 margin-bottom-2rem">
+        24. Eating/sleeping concerns?
+        <p-radioButton [(ngModel)]="cisAsqSixMo.EatingSleepingConcerns.fieldOptionIndex" formControlName="EatingSleepingConcerns"
+          name="EatingSleepingConcerns" value="0"></p-radioButton>Yes
+        <p-radioButton [(ngModel)]="cisAsqSixMo.EatingSleepingConcerns.fieldOptionIndex" formControlName="EatingSleepingConcerns"
+          name="EatingSleepingConcerns" value="1"></p-radioButton>No Comments:
+      </div>
+    </div>
+    <div class="margin-bottom-2rem">
+      <textarea [(ngModel)]="cisAsqSixMo.EatingSleepingComments.value" formControlName="EatingSleepingComments" name="EatingSleepingComments"
+        pInputTextarea autoResize="autoResize" rows={{rowMethod(cisAsqSixMo.EatingSleepingComments.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 margin-bottom-2rem">
+        25. Other worries?
+        <p-radioButton [(ngModel)]="cisAsqSixMo.OtherWorriesConcerns.fieldOptionIndex" formControlName="OtherWorriesConcerns" name="OtherWorriesConcerns"
+          value="0"></p-radioButton>Yes
+        <p-radioButton [(ngModel)]="cisAsqSixMo.OtherWorriesConcerns.fieldOptionIndex" formControlName="OtherWorriesConcerns" name="OtherWorriesConcerns"
+          value="1"></p-radioButton>No Comments:
+      </div>
+    </div>
+    <div>
+      <textarea [(ngModel)]="cisAsqSixMo.WorriesComments.value" formControlName="WorriesComments" name="WorriesComments" pInputTextarea
+        autoResize="autoResize" rows={{rowMethod(cisAsqSixMo.WorriesComments.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <button (click)="calculate()" type="button" class="btn btn-block btn-add">Calculate</button>
+  </form>
+</div>
+
+<app-form-footer (print)="printForm()" [isPrint]="true" (save)="saveForm(cisAsqSixMo)" (edit)="editForm()" [isDisabled]="isDisable" [editControll]="editControll"
+  (finalize)="finalizeForm(cisAsqSixMo)" [isFinalize]="isFinalize" (discard)="discardForm()"></app-form-footer>

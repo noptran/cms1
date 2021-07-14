@@ -1,0 +1,88 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form class="sf-form" [formGroup]="kanBeHealthyForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>KBH Type</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete formControlName="kanBeHealthyTypeID" [(ngModel)]="kanBeHealthy.kanBeHealthyTypeID" [suggestions]="filteredHelthTypes"
+              (completeMethod)="filteredHealthTypes($event)" name="kanBeHealthyTypeID" [dropdown]="true" field="kanBeHealthyType"
+              size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>KBH Date</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" [(ngModel)]="kanBeHealthy.kbhDate" formControlName="KBHDate" [showIcon]="true" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Height</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner formControlName="height" name="numericInput" [(ngModel)]="kanBeHealthy.height" [step]="1"></p-spinner>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Weight</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner formControlName="weight" name="numericInput" [(ngModel)]="kanBeHealthy.weight" [step]="1"></p-spinner>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Next KBH Due</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" [(ngModel)]="kanBeHealthy.nextKBHDue" formControlName="nextKBHDue" [showIcon]="true" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Followup</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-inputSwitch formControlName="followUpRequired" name="inputtoggle" [(ngModel)]="kanBeHealthy.followUpRequired"></p-inputSwitch>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Notes</span>
+          </div>
+        </div>
+      </div>'
+      <div class="row">
+        <div class="col-lg-12 col-sm-12 col-md-12">
+          <div class="col-lg-12 col-sm-12 col-md-12">
+            <textarea name="notes" formControlName="notes" pInputTextarea [(ngModel)]="kanBeHealthy.notes" style="width:100%;height:100%"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer (save)="formAction(kanBeHealthy)" [editControll]="isEdit" [discardTo]="discardTo"
+     (edit)="editForm()" [attachmentControll]="isAttachmentRequired " [isAttachmentDisabled]="false" (attachDoc)="navigateToCMS()"
+     [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+    <app-quick-menu [module]="quickMenu"></app-quick-menu>
+  </div>
+</div>

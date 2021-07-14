@@ -1,0 +1,45 @@
+<div class="outer-section">
+    <div id="loading-overlay">
+        <p class="loader-text">
+            <!-- <img src="/dist/sfcs-mobile-forms-app/assets/loader/loader_new_3.gif" alt="loader" width="150px"> -->
+            <span>Loading...</span>
+        </p>
+    </div>
+    <div class="login">
+        <div class="logo padding-2">
+            <img src="assets/images/logo-sidenav.svg" />
+        </div>
+        <div class="signin">
+            <img class="back" (click)="back()" src="assets/icons/left-arrow.svg">
+            <h1 class="signin-heading">OTP VERIFICATION</h1>
+            <p class="padding-1 margin-0">Please enter the OTP sent to your Email address <span class="domain">
+                    {{userEmail}}</span></p>
+            <div class="padding-1">
+                <input class="right" type="tel" #auth1 [(ngModel)]="otp.first" (keydown.backspace)="delete('', 'first', '')"
+                    (keyup)="next($event,auth2,'first')" maxLength="1" autofocus>
+
+                <input class="right" type="tel" #auth2 [(ngModel)]="otp.second"
+                    (keydown.backspace)="delete(auth1, 'second', 'first')" (keyup)="next($event,auth3, 'second')"
+                    maxLength="1">
+
+                <input class="right" type="tel" #auth3 [(ngModel)]="otp.third"
+                    (keydown.backspace)="delete(auth2, 'third', 'second')" (keyup)="next($event,auth4, 'third')"
+                    maxLength="1">
+
+                <input class="right" type="tel" #auth4 [(ngModel)]="otp.fourth"
+                    (keydown.backspace)="delete(auth3, 'fourth', 'third')" (keyup)="next($event,auth5, 'fourth')"
+                    maxLength="1">
+
+                <input class="right" type="tel" #auth5 [(ngModel)]="otp.fifth"
+                    (keydown.backspace)="delete(auth4, 'fifth', 'fourth')" (keyup)="next($event,auth6,'fifth')"
+                    maxLength="1">
+
+                <input class="right" type="tel" #auth6 [(ngModel)]="otp.sixth"
+                    (keydown.backspace)="delete(auth5, 'sixth', 'fifth')" (keyup)="authenticate($event)" maxLength="1">
+            </div>
+            <div class="button">
+                <button mat-raised-button color="primary" (click)="verify()" id="new">Click to verify</button>
+            </div>
+        </div>
+    </div>
+</div>

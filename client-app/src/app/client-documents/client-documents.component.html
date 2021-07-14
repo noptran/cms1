@@ -1,0 +1,88 @@
+<div class="list-card-view">
+    <div id="loading-overlay">
+        <p class="loader-text">
+            <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+        </p>
+    </div>
+
+    <p-dataView #dv [value]="documents" [paginator]="true" [rows]="10" paginatorPosition="both" [sortField]="sortField" [sortOrder]="sortOrder"
+        emptyMessage="No records found.">
+        <p-header>
+            <div class="ui-helper-clearfix">
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-md-3">
+                        <p class="list-grid-title">Attached Documents</p>
+                        <p class="list-grid-subtitle">{{clientName}}</p>
+
+                        <!-- <p-dropdown [options]="configItems" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'15em'}"></p-dropdown> -->
+                    </div>
+                    <div class="ui-g-6 ui-md-3">
+                        <div style="position:relative">
+                            <!-- <input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value)"> -->
+                        </div>
+                    </div>
+                    <div class="ui-g-6 ui-md-3">
+                        <!-- <span>Category</span> -->
+                        <!-- <p-dropdown [options]="listOfReferral" [(ngModel)]="selectedReferral"  *ngIf="selectedReferral" ></p-dropdown> -->
+                    </div>
+                    <div class="ui-g-6 ui-md-3  sf-text-right">
+                        <button class="sf-negative-btn sf-filter-padding" (click)="back()" pTooltip="Back to client list">Back</button>
+                        <button class="sf-positive-btn sf-filter-padding" pTooltip="Add new record">Add</button>
+                        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                        <!-- <button class="sf-positive-btn margin-left-20"  data-toggle="modal" pTooltip="create new referral" data-target="#modalForm">+ Add Referral</button> -->
+                    </div>
+                </div>
+            </div>
+        </p-header>
+        <ng-template let-medication pTemplate="listItem">
+            <!--*ngIf="selectedReferral == ref.referralName"-->
+            <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
+                <div class="ui-g-12 ui-md-5" style="text-align:center">
+                    <img src="{{generateIconURL(medication.medication)}}" alt="{{medication.medication}}">
+                </div>
+                <div class="ui-g-12 ui-md-6 car-details">
+                    <div class="ui-g">
+                        <div class="ui-g-2 ui-sm-6">
+                            <b>Medication</b>
+                        </div>
+                        <div class="ui-g-10 ui-sm-6">{{medication.medication}}</div>
+                        <div class="ui-g-2 ui-sm-6">
+                            <b>Dosage Type</b>
+                        </div>
+                        <div class="ui-g-10 ui-sm-6">{{medication.dosageTypeID?.dosageType}}</div>
+                        <div class="ui-g-2 ui-sm-6">
+                            <b>Begin Date</b>
+                        </div>
+                        <div class="ui-g-10 ui-sm-6">{{medication.beginDate| date:"MM/dd/yyyy"}}</div>
+                        <div class="ui-g-2 ui-sm-6">
+                            <b>End Date</b>
+                        </div>
+                        <div class="ui-g-10 ui-sm-6">{{medication.endDate| date:"MM/dd/yyyy"}}</div>
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-md-1 search-icon">
+                    <button pButton type="button" icon="pi pi-external-link" pTooltip="click here navigate to detail view" (click)="componentNavigation(medication.clientMedicationID)"></button>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template let-medication pTemplate="gridItem">
+            <!--*ngIf="selectedReferral == ref.referralName"-->
+            <div style="padding:.5em" class="ui-g-12 ui-md-3">
+                <p-panel [header]="medication.medication" [style]="{'text-align':'center'}">
+                    <!-- <img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60"> -->
+                    <img src="{{generateIconURL(medication.medication)}}" alt="{{medication.medication}}">
+
+                    <div>{{medication.dosageTypeID?.dosageType}}</div>
+                    <hr class="ui-widget-content" style="border-top:0">
+                    <button pButton type="button" icon="pi pi-external-link" pTooltip="click here navigate to detail view" (click)="componentNavigation(medication.clientMedicationID)"
+                        style="margin-top:0"></button>
+                </p-panel>
+            </div>
+            <!-- <div *ngIf="selectedReferral != ref.referralName">
+  <span>No referral found!</span>
+</div> -->
+        </ng-template>
+    </p-dataView>
+    <app-quick-menu [module]="quickMenu"></app-quick-menu>
+</div>

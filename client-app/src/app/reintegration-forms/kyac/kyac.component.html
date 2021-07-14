@@ -1,0 +1,609 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="KYACForm" class="sf-form">
+      <div class="flex-container header">
+          <div>
+    
+          </div>
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+          <div>
+    
+          </div>
+        </div>
+    <p class="bold center">To be completed by the young person and their worker</p>
+    <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">My Name </div>
+        <div class="space-right">
+          <input [(ngModel)]="reKYAC.MyName" formControlName="MyName" name="MyName"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Agency Name </div>
+        <div class="space-right">
+          <input [(ngModel)]="reKYAC.AgencyName" formControlName="AgencyName" name="AgencyName"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Visit Date: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reKYAC.VisitDate" formControlName="VisitDate" name="VisitDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        I knew about this visit beforehand:
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.IsVisitKnowYes" formControlName="IsVisitKnowYes" name="IsVisitKnowYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.IsVisitKnowNo" formControlName="IsVisitKnowNo" name="IsVisitKnowNo"  class="space-right"></p-checkbox>No
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right"> It started:</div>
+        <div>
+          <p-calendar [(ngModel)]="reKYAC.StartedTime" formControlName="StartedTime" name="StartedTime"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [timeOnly]="true"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">It ended:</div>
+        <div>
+          <p-calendar [(ngModel)]="reKYAC.EndedTime" formControlName="EndedTime" name="EndedTime"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [timeOnly]="true"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        Is there anything from the last visit that’s still a problem?
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.IsLastVisitProblemYes" formControlName="IsLastVisitProblemYes" name="IsLastVisitProblemYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.IsLastVisitProblemNo" formControlName="IsLastVisitProblemNo" name="IsLastVisitProblemNo"  class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">What is it?
+      </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reKYAC.LastVisitProblem" formControlName="LastVisitProblem" name="LastVisitProblem"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        Is there anything about which I want my worker to know and/or help
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.IsWorkerHelpYes" formControlName="IsWorkerHelpYes" name="IsWorkerHelpYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.IsWorkerHelpNo" formControlName="IsWorkerHelpNo" name="IsWorkerHelpNo"  class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">What is it?
+      </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reKYAC.WorkerHelp" formControlName="WorkerHelp" name="WorkerHelp"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <p>I don’t have the following in my possession or know where it is: (check or circle)</p>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.isBirthCertificate" formControlName="isBirthCertificate" name="isBirthCertificate"  class="space-right"></p-checkbox>Birth Certificate
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.isSocialSecurityCard" formControlName="isSocialSecurityCard" name="isSocialSecurityCard"  class="space-right"></p-checkbox>Social Security Card
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.isHealthInsuranceCard" formControlName="isHealthInsuranceCard" name="isHealthInsuranceCard"  class="space-right"></p-checkbox>Health Insurance Card
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.isImmunizationRecord" formControlName="isImmunizationRecord" name="isImmunizationRecord"  class="space-right"></p-checkbox>Immunization Record
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.isSchoolGradeCard" formControlName="isSchoolGradeCard" name="isSchoolGradeCard"  class="space-right"></p-checkbox>School Grade Card
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.isDiploma" formControlName="isDiploma" name="isDiploma"  class="space-right"></p-checkbox>Diploma/GED
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.isDriversLicense" formControlName="isDriversLicense" name="isDriversLicense"  class="space-right"></p-checkbox>Drivers License
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.isStateIdCaryd" formControlName="isStateIdCaryd" name="isStateIdCaryd"  class="space-right"></p-checkbox>State ID Card
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.isMedicalRecords" formControlName="isMedicalRecords" name="isMedicalRecords"  class="space-right"></p-checkbox>Medical Records/Info
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.isDentalRecords" formControlName="isDentalRecords" name="isDentalRecords"  class="space-right"></p-checkbox>Dental Records/Info
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.isMentalHealthInfo" formControlName="isMentalHealthInfo" name="isMentalHealthInfo"  class="space-right"></p-checkbox>Mental Health info
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.isServiceCard" formControlName="isServiceCard" name="isServiceCard"  class="space-right"></p-checkbox>Selective Service Card
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.isHistoryOfAddresses" formControlName="isHistoryOfAddresses" name="isHistoryOfAddresses"  class="space-right"></p-checkbox>History of addresses
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.isBankAccountInfo" formControlName="isBankAccountInfo" name="isBankAccountInfo"  class="space-right"></p-checkbox>Bank Account info
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.isContactInformation" formControlName="isContactInformation" name="isContactInformation"  class="space-right"></p-checkbox>Contact Information
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.isSchoolHistory" formControlName="isSchoolHistory" name="isSchoolHistory"  class="space-right"></p-checkbox>School History
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.isOther" formControlName="isOther" name="isOther"  class="space-right"></p-checkbox>Other
+      </div>
+      <div class="space-right"> <input [(ngModel)]="reKYAC.other" formControlName="other" name="other"  type="text" pInputText size="20" /></div>
+    </div>
+    <p>Check all that apply below and circle anything of concern right now that needs immediate attention.</p>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">Safety and Supervision</th>
+          <th class="table-td">Relationships in the home</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isFeelSafe" formControlName="isFeelSafe" name="isFeelSafe"  class="space-right"></p-checkbox>I feel safe in the home.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isGetAlong" formControlName="isGetAlong" name="isGetAlong"  class="space-right"></p-checkbox>People in the home get along.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isOwnBed" formControlName="isOwnBed" name="isOwnBed"  class="space-right"></p-checkbox>Everyone sleeps in their own bed.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isSpeakNicely" formControlName="isSpeakNicely" name="isSpeakNicely"  class="space-right"></p-checkbox>People speak nicely to others.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isRespectsPrivacy" formControlName="isRespectsPrivacy" name="isRespectsPrivacy"  class="space-right"></p-checkbox>Everyone respects privacy and appropriate boundaries.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isAttitudeGood" formControlName="isAttitudeGood" name="isAttitudeGood"  class="space-right"></p-checkbox>The general attitude is good.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isSupervisionGood" formControlName="isSupervisionGood" name="isSupervisionGood"  class="space-right"></p-checkbox>Supervision is good and fair.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isConflicts" formControlName="isConflicts" name="isConflicts"  class="space-right"></p-checkbox>There are conflicts in the home.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isDisciplineFair" formControlName="isDisciplineFair" name="isDisciplineFair"  class="space-right"></p-checkbox>Discipline is fair.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isIssuesResolved" formControlName="isIssuesResolved" name="isIssuesResolved"  class="space-right"></p-checkbox>Issues are resolved fairly.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isVoiceConsequences" formControlName="isVoiceConsequences" name="isVoiceConsequences"  class="space-right"></p-checkbox>I have a voice in consequences
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isTreatedFairly" formControlName="isTreatedFairly" name="isTreatedFairly"  class="space-right"></p-checkbox>Everyone is treated fairly.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isLikeLiving" formControlName="isLikeLiving" name="isLikeLiving"  class="space-right"></p-checkbox>I like where I am living.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isMailUnopened" formControlName="isMailUnopened" name="isMailUnopened"  class="space-right"></p-checkbox>I receive my mail unopened.
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">Social support</th>
+          <th class="table-td">Transportation</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isHelpAndAdvice" formControlName="isHelpAndAdvice" name="isHelpAndAdvice"  class="space-right"></p-checkbox>I have someone to turn to for help and advice.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isSchool" formControlName="isSchool" name="isSchool"  class="space-right"></p-checkbox>I have rides to/from school.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isEmotionalSupport" formControlName="isEmotionalSupport" name="isEmotionalSupport"  class="space-right"></p-checkbox>I have social/emotional support and connections outside the
+            home.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isWork" formControlName="isWork" name="isWork"  class="space-right"></p-checkbox>I have rides to/from work.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isRespite" formControlName="isRespite" name="isRespite"  class="space-right"></p-checkbox>There is a need for respite.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isVisits" formControlName="isVisits" name="isVisits"  class="space-right"></p-checkbox>I have rides to/from visits.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isFeelings" formControlName="isFeelings" name="isFeelings"  class="space-right"></p-checkbox>My feelings about going to respite during this time or event
+            are… (discuss feelings and record comments here/below if needed.)
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isCourt" formControlName="isCourt" name="isCourt"  class="space-right"></p-checkbox>I have rides to/from court.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isTransportation" formControlName="isTransportation" name="isTransportation"  class="space-right"></p-checkbox>I need transportation to…(where/what?)
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isCar" formControlName="isCar" name="isCar"  class="space-right"></p-checkbox>I have my own car.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isCarIssues" formControlName="isCarIssues" name="isCarIssues"  class="space-right"></p-checkbox>I have issues with my car.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isCarInsurance" formControlName="isCarInsurance" name="isCarInsurance"  class="space-right"></p-checkbox>I have insurance for my car.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isInsuranceIssues" formControlName="isInsuranceIssues" name="isInsuranceIssues"  class="space-right"></p-checkbox>I have issues with my car insurance.
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">School concerns</th>
+          <th class="table-td">Physical and Mental Health</th>
+          <th class="table-td">Interactions with Relatives</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isConcernsSchool" formControlName="isConcernsSchool" name="isConcernsSchool"  class="space-right"></p-checkbox>I have concerns with school.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isHealthConcern" formControlName="isHealthConcern" name="isHealthConcern"  class="space-right"></p-checkbox>I have a health concern.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isFamilyConcern" formControlName="isFamilyConcern" name="isFamilyConcern"  class="space-right"></p-checkbox>I have concern about related family visits.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isAffectSuccess" formControlName="isAffectSuccess" name="isAffectSuccess"  class="space-right"></p-checkbox>I feel I have needs that may affect my success in school.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isTakingMedication" formControlName="isTakingMedication" name="isTakingMedication"  class="space-right"></p-checkbox>I am taking medication.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isCareGiversHelp" formControlName="isCareGiversHelp" name="isCareGiversHelp"  class="space-right"></p-checkbox>Care givers help maintain my connections with my parents,
+            siblings, extended family, and past connections.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isTutoringNeeds" formControlName="isTutoringNeeds" name="isTutoringNeeds"  class="space-right"></p-checkbox>I have tutoring needs.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isOkayWithMedication" formControlName="isOkayWithMedication" name="isOkayWithMedication"  class="space-right"></p-checkbox>I am okay with the medication and the way it makes me feel.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isVisitsRestricted" formControlName="isVisitsRestricted" name="isVisitsRestricted"  class="space-right"></p-checkbox>My visits are restricted or taken away as
+            discipline/punishment.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isIssuesAfterSchool" formControlName="isIssuesAfterSchool" name="isIssuesAfterSchool"  class="space-right"></p-checkbox>I have issues with afterschool, childcare, parent-teacher
+            conferences.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isDentalConcerns" formControlName="isDentalConcerns" name="isDentalConcerns"  class="space-right"></p-checkbox>I have dental concerns.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isImportantDates" formControlName="isImportantDates" name="isImportantDates"  class="space-right"></p-checkbox>I know important dates & events about my family.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isHappyWithSchool" formControlName="isHappyWithSchool" name="isHappyWithSchool"  class="space-right"></p-checkbox>I am happy with the school I am currently attending.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isTherapyConcerns" formControlName="isTherapyConcerns" name="isTherapyConcerns"  class="space-right"></p-checkbox>I have therapy concerns.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isMissingSchool" formControlName="isMissingSchool" name="isMissingSchool"  class="space-right"></p-checkbox>I am missing school often.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isAttendTherapy" formControlName="isAttendTherapy" name="isAttendTherapy"  class="space-right"></p-checkbox>I am okay with how often I attend therapy.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isNextAppointments" formControlName="isNextAppointments" name="isNextAppointments"  class="space-right"></p-checkbox>I know when my next appointments are scheduled.
+          </td>
+        </tr>
+      </table>
+    </div>
+  
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">Court Involvement</th>
+          <th class="table-td">Case Plan</th>
+          <th class="table-td">Communication</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isNextCourtDate" formControlName="isNextCourtDate" name="isNextCourtDate"  class="space-right"></p-checkbox>I know when my next court date is.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isTransitionPlan" formControlName="isTransitionPlan" name="isTransitionPlan"  class="space-right"></p-checkbox>I know what’s in my transition plan.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isContactWorker" formControlName="isContactWorker" name="isContactWorker"  class="space-right"></p-checkbox>I have access to contact my
+            worker.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isAttorney" formControlName="isAttorney" name="isAttorney"  class="space-right"></p-checkbox>I have had contact with my GAL/attorney since last court.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isCopyCasePlan" formControlName="isCopyCasePlan" name="isCopyCasePlan"  class="space-right"></p-checkbox>I either have a copy of my case plan or my transition plan or
+            know how to get it.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isPhoneAndEmail" formControlName="isPhoneAndEmail" name="isPhoneAndEmail"  class="space-right"></p-checkbox>I have my workers phone and email information.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isLetterToJudge" formControlName="isLetterToJudge" name="isLetterToJudge"  class="space-right"></p-checkbox>I would like to write a letter to the judge.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isCurrentlyWorking" formControlName="isCurrentlyWorking" name="isCurrentlyWorking"  class="space-right"></p-checkbox>I am currently working on...
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isContactWorkers" formControlName="isContactWorkers" name="isContactWorkers"  class="space-right"></p-checkbox>I know how to contact my
+            workers supervisor.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isMissSchool" formControlName="isMissSchool" name="isMissSchool"  class="space-right"></p-checkbox>Arrangement has been made for me to miss school.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isConcernsWithTasks" formControlName="isConcernsWithTasks" name="isConcernsWithTasks"  class="space-right"></p-checkbox>I have concerns with tasks on my case plan or my transition
+            plan.
+          </td>
+          <td class="table-td">
+            <div class="space-down">
+              <p-checkbox binary="true" [(ngModel)]="reKYAC.isPreferContacted" formControlName="isPreferContacted" name="isPreferContacted"  class="space-right space-down"></p-checkbox>I prefer to be contacted by
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <input [(ngModel)]="reKYAC.phone1" formControlName="phone1" name="phone1"  type="text" pInputText size="20" />
+              </div>
+              <div class="space-right">phone </div>
+              <div class="space-right">
+                <input [(ngModel)]="reKYAC.phone2" formControlName="phone2" name="phone2"  type="text" pInputText size="20" />
+              </div>
+            </div>
+            <div class="flex-container space-down ">
+              <div class="space-right">
+                <input [(ngModel)]="reKYAC.email1" formControlName="email1" name="email1"  type="text" pInputText size="20" />
+              </div>
+              <div class="space-right">email </div>
+              <div class="space-right">
+                <input [(ngModel)]="reKYAC.email2" formControlName="email2" name="email2"  type="text" pInputText size="20" />
+              </div>
+            </div>
+            <div class="flex-container space-down ">
+              <div class="space-right">
+                <input [(ngModel)]="reKYAC.cell1" formControlName="cell1" name="cell1"  type="text" pInputText size="20" />
+              </div>
+              <div class="space-right">cell </div>
+              <div class="space-right">
+                <input [(ngModel)]="reKYAC.cell2" formControlName="cell2" name="cell2"  type="text" pInputText size="20" />
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isConcernsAboutCourt" formControlName="isConcernsAboutCourt" name="isConcernsAboutCourt"  class="space-right"></p-checkbox>I have concerns about court.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isNextCasePlan" formControlName="isNextCasePlan" name="isNextCasePlan"  class="space-right"></p-checkbox>I know when my next case plan will be scheduled.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isListenedJudge" formControlName="isListenedJudge" name="isListenedJudge"  class="space-right"></p-checkbox>I feel listened to by the judge.
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isNeedTransportation" formControlName="isNeedTransportation" name="isNeedTransportation"  class="space-right"></p-checkbox>I have or need transportation to my next case plan so I can
+            attend in person.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isVoiceHeard" formControlName="isVoiceHeard" name="isVoiceHeard"  class="space-right"></p-checkbox>I feel that my voice has been heard.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reKYAC.isLifeSkills" formControlName="isLifeSkills" name="isLifeSkills"  class="space-right"></p-checkbox>I need info on life skills.
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        My worker spent time speaking with me in private:
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.IsSpeakingPrivateYes" formControlName="IsSpeakingPrivateYes" name="IsSpeakingPrivateYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.IsSpeakingPrivateNo" formControlName="IsSpeakingPrivateNo" name="IsSpeakingPrivateNo"  class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        I’m satisfied with my care: (check one)
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.IsCareSatisfiedYes" formControlName="IsCareSatisfiedYes" name="IsCareSatisfiedYes"  class="space-right"></p-checkbox>definitely yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.IsCareSatisfiedMostly" formControlName="IsCareSatisfiedMostly" name="IsCareSatisfiedMostly"  class="space-right"></p-checkbox>yes most of the time
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reKYAC.IsCareSatisfiedNo" formControlName="IsCareSatisfiedNo" name="IsCareSatisfiedNo"  class="space-right"></p-checkbox>definitely not(explain below)
+      </div>
+    </div>
+    <div class="space-down">
+      <textarea [(ngModel)]="reKYAC.SatisfiedCare" formControlName="SatisfiedCare" name="SatisfiedCare"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="flex-container space-down ">
+      <div class="space-right">Signature </div>
+      <div class="space-right">
+        <input [(ngModel)]="reKYAC.Signature" formControlName="Signature" name="Signature"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down ">
+      <div class="space-right">Worker </div>
+      <div class="space-right">
+        <input [(ngModel)]="reKYAC.Worker" formControlName="Worker" name="Worker"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down ">
+      <div class="space-right">Youth declined to sign </div>
+      <div class="space-right">
+        <input [(ngModel)]="reKYAC.DeclinedSign" formControlName="DeclinedSign" name="DeclinedSign"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down ">
+      <div class="space-right">I want a copy of this form to go to: </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Me</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKYAC.CopyForm" formControlName="CopyForm" name="CopyForm"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">My Case Worker</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKYAC.CaseWorker" formControlName="CaseWorker" name="CaseWorker"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="html2pdf__page-break"></div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">My Case Worker’s Supervisor</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKYAC.CaseWorkerSupervisor" formControlName="CaseWorkerSupervisor" name="CaseWorkerSupervisor"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down ">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">My IL Worker </div>
+        <div class="space-right">
+          <input [(ngModel)]="reKYAC.IlWorker" formControlName="IlWorker" name="IlWorker"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">GAL</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKYAC.Gal" formControlName="Gal" name="Gal"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">CASA</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKYAC.Casa" formControlName="Casa" name="Casa"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Resource Home Worker </div>
+        <div class="space-right">
+          <input [(ngModel)]="reKYAC.ResourceHomeWorker" formControlName="ResourceHomeWorker" name="ResourceHomeWorker"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Foster Parents</div>
+        <div class="space-right">
+          <input [(ngModel)]="reKYAC.FosterParents" formControlName="FosterParents" name="FosterParents"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Other</div>
+      <div class="space-right">
+        <input [(ngModel)]="reKYAC.Other1" formControlName="Other1" name="Other1"  type="text" pInputText size="20" />
+      </div>
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,reKYAC)"  (edit)="editForm()" [editControll]="editControll"  (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

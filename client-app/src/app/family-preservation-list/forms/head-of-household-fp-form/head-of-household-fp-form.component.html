@@ -1,0 +1,18 @@
+<div class="selection-container">
+    <p class="title-1">How would you like continue?</p>
+    <p-checkbox name="bySearch" [(ngModel)]="bySearch" binary="true" label="Select the person by search"></p-checkbox>
+    <p-checkbox name="byNew" [(ngModel)]="byNew" binary="true" label="I wish to create them" (onChange)="navigate()"></p-checkbox>
+
+</div>
+
+<div *ngIf="bySearch" class="dropdwon-container">
+    <p-autoComplete (completeMethod)="getClientData($event)" [suggestions]="metaData" name="client" [(ngModel)]="selectedClient"
+    (click)="addClient(selectedClient)" [dropdown]="true"></p-autoComplete>
+</div>
+
+<div *ngIf="clientList.length > 0">
+    <div *ngFor="let data of clientList">
+        <span>{{data}}</span>
+    </div>
+</div>
+

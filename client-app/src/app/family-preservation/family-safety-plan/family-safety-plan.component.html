@@ -1,0 +1,304 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="familySafetyForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        FAMILY PRESERVATION
+        <br> FAMILY SAFETY PLAN
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Case Name:</span>
+          <input readonly [(ngModel)]="fpFamilySafety.caseName" formControlName="caseName" name="caseName" type="text" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>Case Number:</span>
+          <input readonly [(ngModel)]="fpFamilySafety.caseNumber" formControlName="caseNumber" name="caseNumber" type="text" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>Date of Referral:</span>
+          <p-calendar [(ngModel)]="fpFamilySafety.dateOfReferral" formControlName="dateOfReferral" name="dateOfReferral" [inputStyle]="{'width':'170px'}"
+            class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>Date:</span>
+          <p-calendar [(ngModel)]="fpFamilySafety.date" formControlName="date" name="date" [inputStyle]="{'width':'170px'}" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <p>
+        Safety Factors to Consider: Harm to child caused by removal from home, severity of danger, child’s or others’ ability to
+        protect child, Perpetrator’s access to child, Child’s behaviors, Family isolation, Family’s ability to participate
+        in plan, and Medical needs of child.
+      </p>
+    </div>
+    <div class="table-td">
+      <div class="space-down border-line">
+        <div class="table-td">SFCS Assessed Safety Concerns:</div>
+        <div class="table-td">
+          <textarea [(ngModel)]="fpFamilySafety.safetyConcerns" formControlName="safetyConcerns" name="safetyConcerns" pInputTextarea
+            autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+        <hr>
+        <div class="table-td">Objective:</div>
+        <div class="table-td">
+          <textarea [(ngModel)]="fpFamilySafety.objective" formControlName="objective" name="objective" pInputTextarea autoResize="autoResize"
+            rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="table-td">
+      <table class="center table-td">
+        <tr>
+          <th class="table-td">Immediate Action Steps Needed:</th>
+          <th class="table-td">Person Responsible:</th>
+          <th class="table-td">Date Initiated:</th>
+          <th class="table-td">Target Date:</th>
+          <th class="table-td">Date Completed:</th>
+          <th class="table-td">Expected Change:</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.immediateAction" formControlName="immediateAction" name="immediateAction" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.personResponsible" formControlName="personResponsible" name="personResponsible"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpFamilySafety.dateInitiated" formControlName="dateInitiated" name="dateInitiated" [inputStyle]="{'width':'170px'}"
+              class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpFamilySafety.targetDate" formControlName="targetDate" name="targetDate" [inputStyle]="{'width':'170px'}"
+              class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpFamilySafety.dateCompleted" formControlName="dateCompleted" name="dateCompleted" [inputStyle]="{'width':'170px'}"
+              class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.expectedChange" formControlName="expectedChange" name="expectedChange" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.immediateAction1" formControlName="immediateAction1" name="immediateAction1"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.personResponsible1" formControlName="personResponsible1" name="personResponsible1"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpFamilySafety.dateInitiated1" formControlName="dateInitiated1" name="dateInitiated1" [inputStyle]="{'width':'170px'}"
+              class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpFamilySafety.targetDate1" formControlName="targetDate1" name="targetDate1" [inputStyle]="{'width':'170px'}"
+              class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpFamilySafety.dateCompleted1" formControlName="dateCompleted1" name="dateCompleted1" [inputStyle]="{'width':'170px'}"
+              class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.expectedChange1" formControlName="expectedChange1" name="expectedChange1" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.immediateAction2" formControlName="immediateAction2" name="immediateAction2"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.personResponsible2" formControlName="personResponsible2" name="personResponsible2"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpFamilySafety.dateInitiated2" formControlName="dateInitiated2" name="dateInitiated2" [inputStyle]="{'width':'170px'}"
+              class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpFamilySafety.targetDate2" formControlName="targetDate2" name="targetDate2" [inputStyle]="{'width':'170px'}"
+              class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpFamilySafety.dateCompleted2" formControlName="dateCompleted2" name="dateCompleted2" [inputStyle]="{'width':'170px'}"
+              class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.expectedChange2" formControlName="expectedChange2" name="expectedChange2" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.immediateAction3" formControlName="immediateAction3" name="immediateAction3"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.personResponsible3" formControlName="personResponsible3" name="personResponsible3"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpFamilySafety.dateInitiated3" formControlName="dateInitiated3" name="dateInitiated3" [inputStyle]="{'width':'170px'}"
+              class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpFamilySafety.targetDate3" formControlName="targetDate3" name="targetDate3" [inputStyle]="{'width':'170px'}"
+              class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpFamilySafety.dateCompleted3" formControlName="dateCompleted3" name="dateCompleted3" [inputStyle]="{'width':'170px'}"
+              class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.expectedChange3" formControlName="expectedChange3" name="expectedChange3" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.immediateAction4" formControlName="immediateAction4" name="immediateAction4"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.personResponsible4" formControlName="personResponsible4" name="personResponsible4"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpFamilySafety.dateInitiated4" formControlName="dateInitiated4" name="dateInitiated4" [inputStyle]="{'width':'170px'}"
+              class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpFamilySafety.targetDate4" formControlName="targetDate4" name="targetDate4" [inputStyle]="{'width':'170px'}"
+              class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpFamilySafety.dateCompleted4" formControlName="dateCompleted4" name="dateCompleted4" [inputStyle]="{'width':'170px'}"
+              class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.expectedChange4" formControlName="expectedChange4" name="expectedChange4" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+      </table>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <div class="table-td">
+      <div class="space-down border-line">
+        <div class="table-td">Consequences if Plan of Action is not followed:</div>
+        <div class="table-td">
+          <textarea [(ngModel)]="fpFamilySafety.consequences" formControlName="consequences" name="consequences" pInputTextarea autoResize="autoResize"
+            rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="table-td">
+      <table id="input" class="center table-td">
+        <tr>
+          <th class="table-td">Type</th>
+          <th class="table-td">Contact Person</th>
+          <th class="table-td">Phone Number</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.type" formControlName="type" name="type" type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.contactPerson" formControlName="contactPerson" name="contactPerson" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.phoneNumber" formControlName="phoneNumber" name="phoneNumber" type="text" pInputText
+              size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.type1" formControlName="type1" name="type1" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.contactPerson1" formControlName="contactPerson1" name="contactPerson1" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpFamilySafety.phoneNumber1" formControlName="phoneNumber1" name="phoneNumber1" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+      </table>
+    </div>
+    <div class="table-td">
+      All those present and participating in this Family Safety Plan; sign below. The family will receive a copy.
+    </div>
+    <div class="table-td">
+      <p>Signatures: </p>
+    </div>
+    <div class="flex-container" id="input">
+      <div class="space-right">
+        <div class="space-right space-down">
+          <input [(ngModel)]="fpFamilySafety.signatures" formControlName="signatures" name="signatures" type="text" pInputText
+            size="20" />
+        </div>
+        <div class="space-right space-down">
+          <input [(ngModel)]="fpFamilySafety.signatures1" formControlName="signatures1" name="signatures1" type="text" pInputText
+            size="20" />
+        </div>
+        <div class="space-right space-down">
+          <input [(ngModel)]="fpFamilySafety.signatures2" formControlName="signatures2" name="signatures2" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+      <div>
+        <div class="space-down">
+          <input [(ngModel)]="fpFamilySafety.signatures3" formControlName="signatures3" name="signatures3" type="text" pInputText
+            size="20" />
+        </div>
+        <div class="space-down">
+          <input [(ngModel)]="fpFamilySafety.signatures4" formControlName="signatures4" name="signatures4" type="text" pInputText
+            size="20" />
+        </div>
+        <div class="space-down">
+          <input [(ngModel)]="fpFamilySafety.signatures5" formControlName="signatures5" name="nonCustodiaDate5" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,fpFamilySafety)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

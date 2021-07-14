@@ -1,0 +1,3809 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="MentalHealthAssessmentForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        FAMILY PRESERVATION
+        <br> MENTAL HEALTH ENCOUNTER
+        <br> FORM/ ASSESSMENT/
+        <br> TREATMENT PLAN
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Case Head Name:</span>
+          <input readonly [(ngModel)]="fpMentalHealth.caseHeadName" formControlName="caseHeadName" name="caseHeadName" type="text" pInputText
+            size="20" />
+        </div>
+        <div>
+          <span>Client Name:</span>
+          <input [(ngModel)]="fpMentalHealth.clientName" formControlName="clientName" name="clientName" type="text" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>FACTS Number:</span>
+          <input [(ngModel)]="fpMentalHealth.factsNumber" formControlName="factsNumber" name="factsNumber" type="text" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>DOB:</span>
+          <p-calendar [(ngModel)]="fpMentalHealth.dob" formControlName="dob" name="dob" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>Case Plan Date:</span>
+          <p-calendar [(ngModel)]="fpMentalHealth.casePlanDate" formControlName="casePlanDate" name="casePlanDate" class="date-picker"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>MHA Date:</span>
+          <p-calendar [(ngModel)]="fpMentalHealth.mhaDate" formControlName="mhaDate" name="mhaDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>Location of Assessment: </span>
+          <input [(ngModel)]="fpMentalHealth.locationOfAssessment" formControlName="locationOfAssessment" name="locationOfAssessment"
+            type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.faceToFace" formControlName="faceToFace" name="faceToFace" class="space-right"></p-checkbox>
+        <span>Face To Face</span>
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.telemedicine" formControlName="telemedicine" name="telemedicine" class="space-right"></p-checkbox>
+        <span>Telemedicine (add GT Modifier)</span>
+      </div>
+      <div>
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.interactiveComplexity" formControlName="interactiveComplexity" name="interactiveComplexity"
+          class="space-right"></p-checkbox>
+        <span>Interactive Complexity(+90785) Used</span>
+      </div>
+    </div>
+    <p class="center">Outpatient Therapy</p>
+    <table class="space-down">
+      <tr>
+        <th class="table-td">CPT</th>
+        <th class="table-td">DESCRIPTION</th>
+        <th class="table-td">Unit Value</th>
+        <th class="table-td">Time</th>
+        <th class="table-td">Units</th>
+        <th class="table-td">Charge</th>
+      </tr>
+      <tr>
+        <td class="table-td">90791*</td>
+        <td class="table-td">Initial Psychiatric Interview (no medical)</td>
+        <td class="table-td">Per Eval</td>
+        <td class="table-td">
+          <p-calendar [(ngModel)]="fpMentalHealth.noMedical" formControlName="noMedical" name="noMedical" [inputStyle]="{'width':'170px'}"
+          [timeOnly]="true"></p-calendar>
+        </td>
+        <td class="table-td">
+          <p-spinner size="30" [(ngModel)]="fpMentalHealth.noMedicalUnits" formControlName="noMedicalUnits" name="noMedicalUnits"></p-spinner>
+        </td>
+        <td class="table-td">$150.00</td>
+      </tr>
+      <tr>
+        <td class="table-td">90792*</td>
+        <td class="table-td">Initial Psychiatric Interview (with medical)</td>
+        <td class="table-td">Per Eval</td>
+        <td class="table-td">
+          <p-calendar [(ngModel)]="fpMentalHealth.withMedical" formControlName="withMedical" name="withMedical" [inputStyle]="{'width':'170px'}"
+            [timeOnly]="true"></p-calendar>
+        </td>
+        <td class="table-td">
+          <p-spinner size="30" [(ngModel)]="fpMentalHealth.withMedicalUnits" formControlName="withMedicalUnits" name="withMedicalUnits" ></p-spinner>
+        </td>
+        <td class="table-td">$150.00</td>
+      </tr>
+      <tr>
+        <td class="table-td">90832*</td>
+        <td class="table-td">Psychotherapy with patient and/or family member</td>
+        <td class="table-td">16-37 min</td>
+        <td class="table-td">
+          <p-calendar [(ngModel)]="fpMentalHealth.psychotherapy16Min" formControlName="psychotherapy16Min" name="psychotherapy16Min"
+          [timeOnly]="true"></p-calendar>
+        </td>
+        <td class="table-td">
+          <p-spinner size="30" [(ngModel)]="fpMentalHealth.psychotherapy16MinUnits" formControlName="psychotherapy16MinUnits" name="psychotherapy16MinUnits"
+            ></p-spinner>
+        </td>
+        <td class="table-td">$75.00</td>
+      </tr>
+      <tr>
+        <td class="table-td">90834*</td>
+        <td class="table-td">Psychotherapy with patient and/or family member</td>
+        <td class="table-td">38-52 min</td>
+        <td class="table-td">
+          <p-calendar [(ngModel)]="fpMentalHealth.psychotherapy38Min" formControlName="psychotherapy38Min" name="psychotherapy38Min"
+          [timeOnly]="true"></p-calendar>
+        </td>
+        <td class="table-td">
+          <p-spinner size="30" [(ngModel)]="fpMentalHealth.psychotherapy38MinUnits" formControlName="psychotherapy38MinUnits" name="psychotherapy38MinUnits"
+            ></p-spinner>
+        </td>
+        <td class="table-td">$150.00</td>
+      </tr>
+      <tr>
+        <td class="table-td">90837*</td>
+        <td class="table-td">Psychotherapy with patient and/or family member</td>
+        <td class="table-td">53+ min</td>
+        <td class="table-td">
+          <p-calendar [(ngModel)]="fpMentalHealth.psychotherapy53Min" formControlName="psychotherapy53Min" name="psychotherapy53Min"
+            [inputStyle]="{'width':'170px'}"  [timeOnly]="true"></p-calendar>
+        </td>
+        <td class="table-td">
+          <p-spinner size="30" [(ngModel)]="fpMentalHealth.psychotherapy53MinUnits" formControlName="psychotherapy53MinUnits" name="psychotherapy53MinUnits"
+            ></p-spinner>
+        </td>
+        <td class="table-td">$225.00</td>
+      </tr>
+      <tr>
+        <td class="table-td">90846</td>
+        <td class="table-td">Family psychotherapy WITHOUT patient (only billable with 3rd party insurance)</td>
+        <td class="table-td">Per Session</td>
+        <td class="table-td">
+          <p-calendar [(ngModel)]="fpMentalHealth.psychotherapyNoPatient" formControlName="psychotherapyNoPatient" name="psychotherapyNoPatient"
+            [inputStyle]="{'width':'170px'}"  [timeOnly]="true"></p-calendar>
+        </td>
+        <td class="table-td">
+          <p-spinner size="30" [(ngModel)]="fpMentalHealth.psychotherapyNoPatientUnits" formControlName="psychotherapyNoPatientUnits" name="psychotherapyNoPatientUnits"
+            ></p-spinner>
+        </td>
+        <td class="table-td">$150.00</td>
+      </tr>
+      <tr>
+        <td class="table-td">90847</td>
+        <td class="table-td">Family psychotherapy with patient present</td>
+        <td class="table-td">Per Session</td>
+        <td class="table-td">
+          <p-calendar [(ngModel)]="fpMentalHealth.familyPsychotherapy" formControlName="familyPsychotherapy" name="familyPsychotherapy"
+            [inputStyle]="{'width':'170px'}"  [timeOnly]="true"></p-calendar>
+        </td>
+        <td class="table-td">
+          <p-spinner size="30" [(ngModel)]="fpMentalHealth.familyPsychotherapyUnits" formControlName="familyPsychotherapyUnits" name="familyPsychotherapyUnits"
+            ></p-spinner>
+        </td>
+        <td class="table-td">$150.00</td>
+      </tr>
+      <tr>
+        <td class="table-td">90847-HK</td>
+        <td class="table-td">Family psychotherapy with patient present provided in the home or community</td>
+        <td class="table-td">Per Session</td>
+        <td class="table-td">
+          <p-calendar [(ngModel)]="fpMentalHealth.familyPsychotherapyHome" formControlName="familyPsychotherapyHome" name="familyPsychotherapyHome"
+            [inputStyle]="{'width':'170px'}"  [timeOnly]="true"></p-calendar>
+        </td>
+        <td class="table-td">
+          <p-spinner size="30" [(ngModel)]="fpMentalHealth.familyPsychotherapyHomeUnits" formControlName="familyPsychotherapyHomeUnits" name="familyPsychotherapyHomeUnits"
+            ></p-spinner>
+        </td>
+        <td class="table-td">$150.00</td>
+      </tr>
+      <tr>
+        <td class="table-td">90853*</td>
+        <td class="table-td">Group psychotherapy (other than of a multiple-family group)</td>
+        <td class="table-td">Per Session</td>
+        <td class="table-td">
+          <p-calendar [(ngModel)]="fpMentalHealth.groupPsychotherapy" formControlName="groupPsychotherapy" name="groupPsychotherapy"
+            [inputStyle]="{'width':'170px'}"  [timeOnly]="true"></p-calendar>
+        </td>
+        <td class="table-td">
+          <p-spinner size="30" [(ngModel)]="fpMentalHealth.groupPsychotherapyUnits" formControlName="groupPsychotherapyUnits" name="groupPsychotherapyUnits"
+            ></p-spinner>
+        </td>
+        <td class="table-td">$80.00</td>
+      </tr>
+      <tr>
+        <td class="table-td">96101</td>
+        <td class="table-td">Psychological testing, interpretation and report by psychologist</td>
+        <td class="table-td">Per hour</td>
+        <td class="table-td">
+          <p-calendar [(ngModel)]="fpMentalHealth.testingByPsychologist" formControlName="testingByPsychologist" name="testingByPsychologist"
+            [inputStyle]="{'width':'170px'}"  [timeOnly]="true"></p-calendar>
+        </td>
+        <td class="table-td">
+          <p-spinner size="30" [(ngModel)]="fpMentalHealth.testingByPsychologistUnits" formControlName="testingByPsychologistUnits" name="testingByPsychologistUnits"
+            ></p-spinner>
+        </td>
+        <td class="table-td">$150.00</td>
+      </tr>
+      <tr>
+        <td class="table-td">96102</td>
+        <td class="table-td">Psychological testing by technician</td>
+        <td class="table-td">Per hour</td>
+        <td class="table-td">
+          <p-calendar [(ngModel)]="fpMentalHealth.testingByTechnician" formControlName="testingByTechnician" name="testingByTechnician"
+            [inputStyle]="{'width':'170px'}"  [timeOnly]="true"></p-calendar>
+        </td>
+        <td class="table-td">
+          <p-spinner size="30" [(ngModel)]="fpMentalHealth.testingByTechnicianUnits" formControlName="testingByTechnicianUnits" name="testingByTechnicianUnits"
+            ></p-spinner>
+        </td>
+        <td class="table-td">$150.00</td>
+      </tr>
+      <tr>
+        <td class="table-td">96103</td>
+        <td class="table-td">Psychological testing by computer</td>
+        <td class="table-td">Per Session</td>
+        <td class="table-td">
+          <p-calendar [(ngModel)]="fpMentalHealth.testingByComputer" formControlName="testingByComputer" name="testingByComputer" [inputStyle]="{'width':'170px'}"
+          [timeOnly]="true"></p-calendar>
+        </td>
+        <td class="table-td">
+          <p-spinner size="30" [(ngModel)]="fpMentalHealth.testingByComputerUnits" formControlName="testingByComputerUnits" name="testingByComputerUnits"
+            ></p-spinner>
+        </td>
+        <td class="table-td">$150.00</td>
+      </tr>
+
+      <tr>
+        <td class="table-td">99366</td>
+        <td class="table-td">Medical team conference Face to Face with Patient/family with non-physician</td>
+        <td class="table-td">Per 15 min</td>
+        <td class="table-td">
+          <p-calendar [(ngModel)]="fpMentalHealth.conferenceNonPhysician" formControlName="conferenceNonPhysician" name="conferenceNonPhysician"
+            [inputStyle]="{'width':'170px'}"  [timeOnly]="true"></p-calendar>
+        </td>
+        <td class="table-td">
+          <p-spinner size="30" [(ngModel)]="fpMentalHealth.conferenceNonPhysicianUnits" formControlName="conferenceNonPhysicianUnits" name="conferenceNonPhysicianUnits"
+            ></p-spinner>
+        </td>
+        <td class="table-td">$20.00</td>
+      </tr>
+      <tr>
+        <td class="table-td">99367</td>
+        <td class="table-td">Medical team conference with Patient/family not present with physician</td>
+        <td class="table-td">Per 15 min</td>
+        <td class="table-td">
+          <p-calendar [(ngModel)]="fpMentalHealth.conferenceAbsencePhysician" formControlName="conferenceAbsencePhysician" name="conferenceAbsencePhysician"
+            [inputStyle]="{'width':'170px'}"  [timeOnly]="true"></p-calendar>
+        </td>
+        <td class="table-td">
+          <p-spinner size="30" [(ngModel)]="fpMentalHealth.conferenceAbsencePhysicianUnits" formControlName="conferenceAbsencePhysicianUnits"
+            name="conferenceAbsencePhysicianUnits" ></p-spinner>
+        </td>
+        <td class="table-td">$20.00</td>
+      </tr>
+      <tr>
+        <td class="table-td">99368</td>
+        <td class="table-td">Medical team conference with patient/family not present with non-physician</td>
+        <td class="table-td">Per 15 min</td>
+        <td class="table-td">
+          <p-calendar [(ngModel)]="fpMentalHealth.conferenceAbsenceNonPhysician" formControlName="conferenceAbsenceNonPhysician" name="conferenceAbsenceNonPhysician"
+            [inputStyle]="{'width':'170px'}"  [timeOnly]="true"></p-calendar>
+        </td>
+        <td class="table-td">
+          <p-spinner size="30" [(ngModel)]="fpMentalHealth.conferenceAbsenceNonPhysicianUnits" formControlName="conferenceAbsenceNonPhysicianUnits"
+            name="conferenceAbsenceNonPhysicianUnits" ></p-spinner>
+        </td>
+        <td class="table-td">$20.00</td>
+      </tr>
+      <tr>
+        <td class="table-td">
+          <input [(ngModel)]="fpMentalHealth.cpt" formControlName="cpt" name="cpt" type="text" pInputText size="20" />
+        </td>
+        <td class="table-td">Other:
+          <input [(ngModel)]="fpMentalHealth.description" formControlName="description" name="description" type="text"
+            pInputText size="20" />
+        </td>
+        <td class="table-td">
+          <input [(ngModel)]="fpMentalHealth.unitValue" formControlName="unitValue" name="unitValue" type="text" pInputText
+            size="20" />
+        </td>
+        <td class="table-td">
+          <p-calendar [(ngModel)]="fpMentalHealth.outpatientTherapytime" formControlName="outpatientTherapytime" name="outpatientTherapytime"
+            [inputStyle]="{'width':'170px'}"  [timeOnly]="true"></p-calendar>
+        </td>
+        <td class="table-td">
+          <p-spinner size="30" [(ngModel)]="fpMentalHealth.units" formControlName="units" name="units" ></p-spinner>
+        </td>
+        <td class="table-td">
+          <input [(ngModel)]="fpMentalHealth.charge" formControlName="charge" name="charge" type="text" pInputText size="20"
+          />
+        </td>
+      </tr>
+    </table>
+    <p class="space-down">*Interactive Complexity (Interactive, using play equipment, physical devices, language interpreter, or other mechanisms
+      of non-verbal communication, in an inpatient hospital, partial hospital or residential cure setting)
+    </p>
+    <div class="space-down">
+      <table class="space-down">
+        <tr>
+          <th class="table-td">DIAGNOSIS Code </th>
+          <th class="table-td">
+            <div class="flex-container description">
+              <div>(Principal First)</div>
+              <div>Description</div>
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.diagnosisCode" formControlName="diagnosisCode" name="diagnosisCode" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="fpMentalHealth.complexityDescription" formControlName="complexityDescription" name="complexityDescription"
+              pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.diagnosisCode1" formControlName="diagnosisCode1" name="diagnosisCode1" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="fpMentalHealth.complexityDescription1" formControlName="complexityDescription1" name="complexityDescription1"
+              pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.diagnosisCode2" formControlName="diagnosisCode2" name="diagnosisCode2" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="fpMentalHealth.complexityDescription2" formControlName="complexityDescription2" name="complexityDescription2"
+              pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.diagnosisCode3" formControlName="diagnosisCode3" name="diagnosisCode3" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="fpMentalHealth.complexityDescription3" formControlName="complexityDescription3" name="complexityDescription3"
+              pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.diagnosisCode4" formControlName="diagnosisCode4" name="diagnosisCode4" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="fpMentalHealth.complexityDescription4" formControlName="complexityDescription4" name="complexityDescription4"
+              pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="flex-container flex-end space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">Name of Provider: </div>
+        <div class="space-right">
+          <input [(ngModel)]="fpMentalHealth.nameOfProvider" formControlName="nameOfProvider" name="nameOfProvider" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">Charge Amount: </div>
+        <div class="space-right">
+          <input [(ngModel)]="fpMentalHealth.chargeAmount" formControlName="chargeAmount" name="chargeAmount" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <p>INSTRUCTIONS: To be completed by LMHP within 10 calendar days of Case Plan. </p>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">Start Time: </div>
+        <div class="space-right">
+          <input [(ngModel)]="fpMentalHealth.startTime" formControlName="startTime" name="startTime" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">Stop Time: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpMentalHealth.stopTime" formControlName="stopTime" name="stopTime" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">Total Time:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpMentalHealth.totalTime" formControlName="totalTime" name="totalTime" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td space-down">
+        <p>Identify those present and/or provided information and relationship to client(client must be preset)</p>
+        <textarea [(ngModel)]="fpMentalHealth.relationshipToClient" formControlName="relationshipToClient" name="relationshipToClient"
+          pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td space-down">
+        <p>Presenting Problems (Client statement of problems, symptoms/duration, functional impairment, precipitating factors,
+          and services sought)</p>
+        <textarea [(ngModel)]="fpMentalHealth.presentingProblems" formControlName="presentingProblems" name="presentingProblems"
+          pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td space-down">
+        <p>Pertinent History (Psychiatric, social, medical, history of abuse/neglect, substance usage, etc.)</p>
+        <textarea [(ngModel)]="fpMentalHealth.pertinentHistory" formControlName="pertinentHistory" name="pertinentHistory" pInputTextarea
+          autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td space-down">
+        <p>Developmental History (As appropriate, per presenting problem)</p>
+        <div class="flex-container space-down met">
+          <div class="space-right">Developmental milestones </div>
+          <div class="space-right">
+            <div class="flex-container">
+              <div>
+                <p-inputSwitch [(ngModel)]="fpMentalHealth.milestonesMet" formControlName="milestonesMet" name="milestonesMet" class="space-right"></p-inputSwitch>
+              </div>
+              <div>
+                <span>Met </span>
+              </div>
+            </div>
+          </div>
+          <div class="space-right">
+            <div class="flex-container">
+              <div>
+                <p-inputSwitch [(ngModel)]="fpMentalHealth.milestonesNotMet" formControlName="milestonesNotMet" name="milestonesNotMet" class="space-right"></p-inputSwitch>
+              </div>
+              <div>
+                <span>Not met (If not met, explain)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <textarea [(ngModel)]="fpMentalHealth.milestonesDescription" formControlName="milestonesDescription" name="milestonesDescription"
+          pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <p class="space-down">MENTAL HEALTH AND SUBSTANCE ABUSE TREATMENT HISTORY</p>
+    <div class="flex-container space-down description">
+      <div>OUTPATIENT</div>
+      <div>
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isOutpatient" formControlName="isOutpatient" name="isOutpatient" class="space-right"></p-checkbox>
+        <span>No outpatient mental health/substance abuse treatment history reported</span>
+      </div>
+    </div>
+    <div class="space-down">
+      <table class="space-down center">
+        <tr>
+          <th class="table-td">Agency/Provider</th>
+          <th class="table-td">Date of Service</th>
+          <th class="table-td">Reason</th>
+          <th class="table-td">Intervention</th>
+          <th class="table-td">Response</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.agencyOutpatient" formControlName="agencyOutpatient" name="agencyOutpatient"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.dateOfServiceOutpatient" formControlName="dateOfServiceOutpatient" name="dateOfServiceOutpatient"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.reasonOutpatient" formControlName="reasonOutpatient" name="reasonOutpatient"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.interventionOutpatient" formControlName="interventionOutpatient" name="interventionOutpatient"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.responseOutpatient" formControlName="responseOutpatient" name="responseOutpatient"
+              type="text" pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.agencyOutpatient1" formControlName="agencyOutpatient1" name="agencyOutpatient1"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.dateOfServiceOutpatient1" formControlName="dateOfServiceOutpatient1" name="dateOfServiceOutpatient1"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.reasonOutpatient1" formControlName="reasonOutpatient1" name="reasonOutpatient1"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.interventionOutpatient1" formControlName="interventionOutpatient1" name="interventionOutpatient1"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.responseOutpatient1" formControlName="responseOutpatient1" name="responseOutpatient1"
+              type="text" pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.agencyOutpatient2" formControlName="agencyOutpatient2" name="agencyOutpatient2"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.dateOfServiceOutpatient2" formControlName="dateOfServiceOutpatient2" name="dateOfServiceOutpatient2"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.reasonOutpatient2" formControlName="reasonOutpatient2" name="reasonOutpatient2"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.interventionOutpatient2" formControlName="interventionOutpatient2" name="interventionOutpatient2"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.responseOutpatient2" formControlName="responseOutpatient2" name="responseOutpatient2"
+              type="text" pInputText size="20" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="flex-container space-down description">
+      <div>INPATIENT </div>
+      <div>
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isInpatient" formControlName="isInpatient" name="isInpatient" class="space-right"></p-checkbox>
+        <span>No inpatient mental health/substance abuse treatment history reported</span>
+      </div>
+    </div>
+    <div class="space-down">
+      <table class="space-down center">
+        <tr>
+          <th class="table-td">Agency/Provider</th>
+          <th class="table-td">Date of Service</th>
+          <th class="table-td">Reason</th>
+          <th class="table-td">Intervention</th>
+          <th class="table-td">Response</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.agencyInpatient" formControlName="agencyInpatient" name="agencyInpatient" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.dateOfServiceInpatient" formControlName="dateOfServiceInpatient" name="dateOfServiceInpatient"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.reasonInpatient" formControlName="reasonInpatient" name="reasonInpatient" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.interventionInpatient" formControlName="interventionInpatient" name="interventionInpatient"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.responseInpatient" formControlName="responseInpatient" name="responseInpatient"
+              type="text" pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.agencyInpatient1" formControlName="agencyInpatient1" name="agencyInpatient1" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.dateOfServiceInpatient1" formControlName="dateOfServiceInpatient1" name="dateOfServiceInpatient1"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.reasonInpatient1" formControlName="reasonInpatient1" name="reasonInpatient1" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.interventionInpatient1" formControlName="interventionInpatient1" name="interventionInpatient1"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.responseInpatient1" formControlName="responseInpatient1" name="responseInpatient1"
+              type="text" pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.agencyInpatient2" formControlName="agencyInpatient2" name="agencyInpatient2" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.dateOfServiceInpatient2" formControlName="dateOfServiceInpatient2" name="dateOfServiceInpatient2"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.reasonInpatient2" formControlName="reasonInpatient2" name="reasonInpatient2" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.interventionInpatient2" formControlName="interventionInpatient2" name="interventionInpatient2"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.responseInpatient2" formControlName="responseInpatient2" name="responseInpatient2"
+              type="text" pInputText size="20" />
+          </td>
+        </tr>
+        
+      </table>
+    </div>
+    <div class="border-line space-down">
+      <div class="flex-container table-td space-down diagnoses">
+        <div class="space-right">PREVIOUS DIAGNOSES </div>
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isNotByClient" formControlName="isNotByClient" name="isNotByClient"
+            class="space-right"></p-checkbox>
+          <span>Not known by client </span>
+        </div>
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isPerClient" formControlName="isPerClient" name="isPerClient" class="space-right"></p-checkbox>
+          <span>Per client </span>
+        </div>
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isPerMedical" formControlName="isPerMedical" name="isPerMedical" class="space-right"></p-checkbox>
+          <span>Per medical record </span>
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="flex-container table-td">
+          <div class="space-right">If known, document diagnosis here: </div>
+          <div>
+            <input [(ngModel)]="fpMentalHealth.documentDiagnosis" formControlName="documentDiagnosis" name="documentDiagnosis" type="text"
+              pInputText size="20" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down table-td diagnoses">
+      <div class="space-right">PAST PSYCHOTROPIC MEDICATIONS </div>
+      <div>
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isNoneReported" formControlName="isNoneReported" name="isNoneReported"
+          class="space-right"></p-checkbox>
+        <span>None reported</span>
+      </div>
+    </div>
+    <div class="space-down">
+      <table class="space-down table-td input-lg">
+        <tr>
+          <th class="table-td">PSYCHOTROPIC MEDICATIONS</th>
+          <th class="table-td">EFFECTIVENESS (Per client report)</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.psychotropicMedications" formControlName="psychotropicMedications" name="psychotropicMedications"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.perClientReport" formControlName="perClientReport" name="perClientReport" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.psychotropicMedications1" formControlName="psychotropicMedications1" name="psychotropicMedications1"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.perClientReport1" formControlName="perClientReport1" name="perClientReport1" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.psychotropicMedications2" formControlName="psychotropicMedications2" name="psychotropicMedications2"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.perClientReport2" formControlName="perClientReport2" name="perClientReport2" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.psychotropicMedications3" formControlName="psychotropicMedications3" name="psychotropicMedications3"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.perClientReport3" formControlName="perClientReport3" name="perClientReport3" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="flex-container space-down description">
+      <div>CURRENT MEDICATIONS (Prescription/Over the Counter/Herbal) </div>
+      <div>
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.iscurrentMedication" formControlName="iscurrentMedication" name="iscurrentMedication"
+          class="space-right"></p-checkbox>
+        <span>None reported</span>
+      </div>
+    </div>
+    <div class="space-down">
+      <table class="space-down">
+        <tr>
+          <th class="table-td">Current Medication</th>
+          <th class="table-td">Prescribed By</th>
+          <th class="table-td">Start Date</th>
+          <th class="table-td">Dosage & Frequency</th>
+          <th class="table-td">Reason</th>
+          <th class="table-td">
+            <div class="center">Compliance</div>
+            <div class="flex-container">
+              <div>Yes</div>
+              <div>No</div>
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.currentMedication" formControlName="currentMedication" name="currentMedication"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.prescribedBy" formControlName="prescribedBy" name="prescribedBy" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.startDate" formControlName="startDate" name="startDate" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.dosageFrequency" formControlName="dosageFrequency" name="dosageFrequency" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.reason" formControlName="reason" name="reason" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="flex-container">
+                <div>
+                  <p-inputSwitch [(ngModel)]="fpMentalHealth.isComplianceYes" formControlName="isComplianceYes" name="isComplianceYes" class="space-right"></p-inputSwitch>
+                </div>
+                <div>
+                  <span>Yes </span>
+                </div>
+              </div>
+              <div class="flex-container">
+                <div>
+                  <p-inputSwitch [(ngModel)]="fpMentalHealth.isComplianceNo" formControlName="isComplianceNo" name="isComplianceNo" class="space-right"></p-inputSwitch>
+                </div>
+                <div>
+                  <span>No </span>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.currentMedication1" formControlName="currentMedication1" name="currentMedication1"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.prescribedBy1" formControlName="prescribedBy1" name="prescribedBy1" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.startDate1" formControlName="startDate1" name="startDate1" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.dosageFrequency1" formControlName="dosageFrequency1" name="dosageFrequency1" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.reason1" formControlName="reason1" name="reason1" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="flex-container">
+                <div>
+                  <p-inputSwitch [(ngModel)]="fpMentalHealth.isComplianceYes1" formControlName="isComplianceYes1" name="isComplianceYes1" class="space-right"></p-inputSwitch>
+                </div>
+                <div>
+                  <span>Yes </span>
+                </div>
+              </div>
+              <div class="flex-container">
+                <div>
+                  <p-inputSwitch [(ngModel)]="fpMentalHealth.isComplianceNo1" formControlName="isComplianceNo1" name="isComplianceNo1" class="space-right"></p-inputSwitch>
+                </div>
+                <div>
+                  <span>No </span>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.currentMedication2" formControlName="currentMedication2" name="currentMedication2"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.prescribedBy2" formControlName="prescribedBy2" name="prescribedBy2" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.startDate2" formControlName="startDate2" name="startDate2" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.dosageFrequency2" formControlName="dosageFrequency2" name="dosageFrequency2" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.reason2" formControlName="reason2" name="reason2" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="flex-container">
+                <div>
+                  <p-inputSwitch [(ngModel)]="fpMentalHealth.isComplianceYes2" formControlName="isComplianceYes2" name="isComplianceYes2" class="space-right"></p-inputSwitch>
+                </div>
+                <div>
+                  <span>Yes </span>
+                </div>
+              </div>
+              <div class="flex-container">
+                <div>
+                  <p-inputSwitch [(ngModel)]="fpMentalHealth.isComplianceNo2" formControlName="isComplianceNo2" name="isComplianceNo2" class="space-right"></p-inputSwitch>
+                </div>
+                <div>
+                  <span>No </span>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.currentMedication3" formControlName="currentMedication3" name="currentMedication3"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.prescribedBy3" formControlName="prescribedBy3" name="prescribedBy3" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.startDate3" formControlName="startDate3" name="startDate3" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.dosageFrequency3" formControlName="dosageFrequency3" name="dosageFrequency3" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.reason3" formControlName="reason3" name="reason3" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="flex-container">
+                <div>
+                  <p-inputSwitch [(ngModel)]="fpMentalHealth.isComplianceYes3" formControlName="isComplianceYes3" name="isComplianceYes3" class="space-right"></p-inputSwitch>
+                </div>
+                <div>
+                  <span>Yes </span>
+                </div>
+              </div>
+              <div class="flex-container">
+                <div>
+                  <p-inputSwitch [(ngModel)]="fpMentalHealth.isComplianceNo3" formControlName="isComplianceNo3" name="isComplianceNo3" class="space-right"></p-inputSwitch>
+                </div>
+                <div>
+                  <span>No </span>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.currentMedication4" formControlName="currentMedication4" name="currentMedication4"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.prescribedBy4" formControlName="prescribedBy4" name="prescribedBy4" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.startDate4" formControlName="startDate4" name="startDate4" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.dosageFrequency4" formControlName="dosageFrequency4" name="dosageFrequency4" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.reason4" formControlName="reason4" name="reason4" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="flex-container">
+                <div>
+                  <p-inputSwitch [(ngModel)]="fpMentalHealth.isComplianceYes4" formControlName="isComplianceYes4" name="isComplianceYes4" class="space-right"></p-inputSwitch>
+                </div>
+                <div>
+                  <span>Yes </span>
+                </div>
+              </div>
+              <div class="flex-container">
+                <div>
+                  <p-inputSwitch [(ngModel)]="fpMentalHealth.isComplianceNo4" formControlName="isComplianceNo4" name="isComplianceNo4" class="space-right"></p-inputSwitch>
+                </div>
+                <div>
+                  <span>No </span>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+      </table>
+    </div>
+    <div class="border-line table-td">
+      <div class="flex-container space-down table-td">
+        <div>Allergies/Adverse Reactions: (Include drug, environment, food, etc</div>
+        <div>
+          <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isAdverseReaction" formControlName="isAdverseReaction" name="isAdverseReaction"
+            class="space-right"></p-checkbox>
+          <span>No known allergies/adverse reactions</span>
+        </div>
+        <div>
+          <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isPerClientReport" formControlName="isPerClientReport" name="isPerClientReport"
+            class="space-right"></p-checkbox>
+          <span>Per client report </span>
+        </div>
+        <div>
+          <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isPerMedicalRecord" formControlName="isPerMedicalRecord" name="isPerMedicalRecord"
+            class="space-right"></p-checkbox>
+          <span>Per medical record</span>
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="flex-container">
+          <div class="space-right">Explain any allergies/adverse reactions:</div>
+          <div>
+            <input [(ngModel)]="fpMentalHealth.adverseReactions" formControlName="adverseReactions" name="adverseReactions" type="text"
+              pInputText size="20" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <p class="table-td">RISK ASSESSMENT</p>
+    <div class="flex-container diagnoses space-down">
+      <div class="space-right">Current Danger to Self:
+      </div>
+      <div>
+        <div>
+          <div class="flex-container">
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isDangerNone" formControlName="isDangerNone" name="isDangerNone" class="space-right"></p-checkbox>
+              <span>None</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isDangerThreat" formControlName="isDangerThreat" name="isDangerThreat"
+                class="space-right"></p-checkbox>
+              <span>Threat</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isDangerIntent" formControlName="isDangerIntent" name="isDangerIntent"
+                class="space-right"></p-checkbox>
+              <span>Intent with means</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isDangerSuicidePrecaution" formControlName="isDangerSuicidePrecaution"
+                name="isDangerSuicidePrecaution" class="space-right"></p-checkbox>
+              <span>Completed Suicide Precaution Intervention</span>
+            </div>
+          </div>
+          <div class="flex-container">
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isDangerIdeation" formControlName="isDangerIdeation" name="isDangerIdeation"
+                class="space-right"></p-checkbox>
+              <span>Ideation</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isDangerRunaway" formControlName="isDangerRunaway" name="isDangerRunaway"
+                class="space-right"></p-checkbox>
+              <span>Runaway</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isDangerIntentWithout" formControlName="isDangerIntentWithout" name="isDangerIntentWithout"
+                class="space-right"></p-checkbox>
+              <span>Intent without means</span>
+            </div>
+          </div>
+          <div class="flex-container">
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isDangerPlan" formControlName="isDangerPlan" name="isDangerPlan" class="space-right"></p-checkbox>
+              <span>Plan</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isDangerSelfCare" formControlName="isDangerSelfCare" name="isDangerSelfCare"
+                class="space-right"></p-checkbox>
+              <span>Self care failure</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isDangerGestures" formControlName="isDangerGestures" name="isDangerGestures"
+                class="space-right"></p-checkbox>
+              <span>Gestures/attempts</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isDangerRisk" formControlName="isDangerRisk" name="isDangerRisk" class="space-right"></p-checkbox>
+              <span>Risk aggravated by substance abuse</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="border-line table-td">
+      <div class="table-td space-down">
+        <div class="space-down">Explain:</div>
+        <div>
+          <textarea [(ngModel)]="fpMentalHealth.dangerExplain" formControlName="dangerExplain" name="dangerExplain" pInputTextarea
+            autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    
+    <div class="flex-container diagnoses space-down">
+      <div class="table-td">History of Danger to Self:
+      </div>
+      <div class="table-td">
+        <div>
+          <div class="flex-container">
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistoryNone" formControlName="isHistoryNone" name="isHistoryNone"
+                class="space-right"></p-checkbox>
+              <span>None</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistoryThreat" formControlName="isHistoryThreat" name="isHistoryThreat"
+                class="space-right"></p-checkbox>
+              <span>Threat</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistoryIntent" formControlName="isHistoryIntent" name="isHistoryIntent"
+                class="space-right"></p-checkbox>
+              <span>Intent with means</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistorySuicidePrecaution" formControlName="isHistorySuicidePrecaution"
+                name="isHistorySuicidePrecaution" class="space-right"></p-checkbox>
+              <span>Completed Suicide Precaution Intervention</span>
+            </div>
+          </div>
+          <div class="flex-container">
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistoryIdeation" formControlName="isHistoryIdeation" name="isHistoryIdeation"
+                class="space-right"></p-checkbox>
+              <span>Ideation</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistoryRunaway" formControlName="isHistoryRunaway" name="isHistoryRunaway"
+                class="space-right"></p-checkbox>
+              <span>Runaway</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistoryIntentWithout" formControlName="isHistoryIntentWithout" name="isHistoryIntentWithout"
+                class="space-right"></p-checkbox>
+              <span>Intent without means</span>
+            </div>
+          </div>
+          <div class="flex-container">
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistoryPlan" formControlName="isHistoryPlan" name="isHistoryPlan"
+                class="space-right"></p-checkbox>
+              <span>Plan</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistorySelfCare" formControlName="isHistorySelfCare" name="isHistorySelfCare"
+                class="space-right"></p-checkbox>
+              <span>Self care failure</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistoryGestures" formControlName="isHistoryGestures" name="isHistoryGestures"
+                class="space-right"></p-checkbox>
+              <span>Gestures/attempts</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistoryRisk" formControlName="isHistoryRisk" name="isHistoryRisk"
+                class="space-right"></p-checkbox>
+              <span>Risk aggravated by substance abuse</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="border-line space-down">
+      <div class="table-td">
+        <div class="space-down">Explain:</div>
+        <div>
+          <textarea [(ngModel)]="fpMentalHealth.historyExplain" formControlName="historyExplain" name="historyExplain" pInputTextarea
+            autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container diagnoses space-down">
+      <div class="table-td">Current Danger to Others:
+      </div>
+      <div class="table-td">
+        <div>
+          <div class="flex-container">
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isCurrentDangerNone" formControlName="isCurrentDangerNone" name="isCurrentDangerNone"
+                class="space-right"></p-checkbox>
+              <span>None</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isCurrentDangerThreat" formControlName="isCurrentDangerThreat" name="isCurrentDangerThreat"
+                class="space-right"></p-checkbox>
+              <span>Threat</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isCurrentDangerIntent" formControlName="isCurrentDangerIntent" name="isCurrentDangerIntent"
+                class="space-right"></p-checkbox>
+              <span>Intent with means</span>
+            </div>
+          </div>
+          <div class="flex-container">
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isCurrentDangerIdeation" formControlName="isCurrentDangerIdeation"
+                name="isCurrentDangerIdeation" class="space-right"></p-checkbox>
+              <span>Ideation</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isCurrentDangerRunaway" formControlName="isCurrentDangerRunaway" name="isCurrentDangerRunaway"
+                class="space-right"></p-checkbox>
+              <span>Runaway</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isCurrentDangerIntentWithout" formControlName="isCurrentDangerIntentWithout"
+                name="isCurrentDangerIntentWithout" class="space-right"></p-checkbox>
+              <span>Intent without means</span>
+            </div>
+          </div>
+          <div class="flex-container">
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isCurrentDangerPlan" formControlName="isCurrentDangerPlan" name="isCurrentDangerPlan"
+                class="space-right"></p-checkbox>
+              <span>Plan</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isCurrentDangerSuicidePrecaution" formControlName="isCurrentDangerSuicidePrecaution"
+                name="isCurrentDangerSuicidePrecaution" class="space-right"></p-checkbox>
+              <span>Completed safety planning</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isCurrentDangerRisk" formControlName="isCurrentDangerRisk" name="isCurrentDangerRisk"
+                class="space-right"></p-checkbox>
+              <span>Risk aggravated by substance abuse</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="border-line space-down">
+      <div class="table-td">
+        <div class="space-down">Explain:</div>
+        <div>
+          <textarea [(ngModel)]="fpMentalHealth.currentDangerExplain" formControlName="currentDangerExplain" name="currentDangerExplain"
+            pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <div class="flex-container diagnoses space-down">
+      <div class="table-td">History of Danger to Others:
+      </div>
+      <div class="table-td">
+        <div>
+          <div class="flex-container">
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistoryOthersNone" formControlName="isHistoryOthersNone" name="isHistoryOthersNone"
+                class="space-right"></p-checkbox>
+              <span>None</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistoryOthersThreat" formControlName="isHistoryOthersThreat" name="isHistoryOthersThreat"
+                class="space-right"></p-checkbox>
+              <span>Threat</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistoryOthersIntent" formControlName="isHistoryOthersIntent" name="isHistoryOthersIntent"
+                class="space-right"></p-checkbox>
+              <span>Intent with means</span>
+            </div>
+          </div>
+          <div class="flex-container">
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistoryOthersIdeation" formControlName="isHistoryOthersIdeation"
+                name="isHistoryOthersIdeation" class="space-right"></p-checkbox>
+              <span>Ideation</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistoryOthersRunaway" formControlName="isHistoryOthersRunaway" name="isHistoryOthersRunaway"
+                class="space-right"></p-checkbox>
+              <span>Runaway</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistoryOthersIntentWithout" formControlName="isHistoryOthersIntentWithout"
+                name="isHistoryOthersIntentWithout" class="space-right"></p-checkbox>
+              <span>Intent without means</span>
+            </div>
+          </div>
+          <div class="flex-container">
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistoryOthersPlan" formControlName="isHistoryOthersPlan" name="isHistoryOthersPlan"
+                class="space-right"></p-checkbox>
+              <span>Plan</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistoryOthersSuicidePrecaution" formControlName="isHistoryOthersSuicidePrecaution"
+                name="isHistoryOthersSuicidePrecaution" class="space-right"></p-checkbox>
+              <span>Completed safety planning</span>
+            </div>
+            <div class="space-down space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistoryOthersRisk" formControlName="isHistoryOthersRisk" name="isHistoryOthersRisk"
+                class="space-right"></p-checkbox>
+              <span>Risk aggravated by substance abuse</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="border-line space-down">
+      <div class="table-td">
+        <div class="space-down">Explain:</div>
+        <div>
+          <textarea [(ngModel)]="fpMentalHealth.historyOthersExplain" formControlName="historyOthersExplain" name="historyOthersExplain"
+            pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container diagnoses space-down">
+      <div class="table-td">Current Destruction of Property: </div>
+      <div class="table-td">
+        <div class="flex-container">
+          <div class="space-down space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isCurrentPropertyYes" formControlName="isCurrentPropertyYes" name="isCurrentPropertyYes"
+              class="space-right"></p-checkbox>
+            <span>No</span>
+          </div>
+          <div class="space-down space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isCurrentPropertyNo" formControlName="isCurrentPropertyNo" name="isCurrentPropertyNo"
+              class="space-right"></p-checkbox>
+            <span>Yes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="border-line space-down">
+      <div class="table-td">
+        <div class="space-down">If YES, explain:</div>
+        <div>
+          <textarea [(ngModel)]="fpMentalHealth.explainCurrentPropertyIfYes" formControlName="explainCurrentPropertyIfYes" name="explainCurrentPropertyIfYes"
+            pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container diagnoses space-down">
+      <div class="table-td">History of Destruction of Property:</div>
+      <div class="table-td">
+        <div class="flex-container">
+          <div class="space-down space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistoryPropertyYes" formControlName="isHistoryPropertyYes" name="isHistoryPropertyYes"
+              class="space-right"></p-checkbox>
+            <span>Yes</span>
+          </div>
+          <div class="space-down space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isHistoryPropertyNo" formControlName="isHistoryPropertyNo" name="isHistoryPropertyNo"
+              class="space-right"></p-checkbox>
+            <span>No</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="border-line space-down">
+      <div class="table-td">
+        <div class="space-down">If YES, explain:</div>
+        <div>
+          <textarea [(ngModel)]="fpMentalHealth.explainDestructionPropertyIfYes" formControlName="explainDestructionPropertyIfYes"
+            name="explainDestructionPropertyIfYes" pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <p class="center table-td">MENTAL STATUS EXAM</p>
+    <p>GLOBAL RATING – DEGREE OF DISTURBANCE </p>
+    <div class="flex-container space-down">
+      <div>
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isNoDisorder" formControlName="isNoDisorder" name="isNoDisorder"></p-checkbox>
+        <span>No Disorder</span>
+      </div>
+      <div>
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isBorderline" formControlName="isBorderline" name="isBorderline"></p-checkbox>
+        <span>Borderline</span>
+      </div>
+      <div>
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isMild" formControlName="isMild" name="isMild"></p-checkbox>
+        <span>Mild</span>
+      </div>
+      <div>
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isModerate" formControlName="isModerate" name="isModerate"></p-checkbox>
+        <span>Moderate</span>
+      </div>
+      <div>
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isPronounced" formControlName="isPronounced" name="isPronounced"></p-checkbox>
+        <span>Pronounced</span>
+      </div>
+      <div>
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isSevere" formControlName="isSevere" name="isSevere"></p-checkbox>
+        <span>Severe</span>
+      </div>
+      <div>
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isExtreme" formControlName="isExtreme" name="isExtreme"></p-checkbox>
+        <span>Extreme</span>
+      </div>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <div class="flex-container space-down">
+      <div>Place the number for the most appropriate answer</div>
+      <div>1=Mild </div>
+      <div>2=Moderate</div>
+      <div>3=Severe</div>
+    </div>
+    <div class="space-down">
+      <div class="border-line mental-status">
+        <div class="flex-container table-td">
+          <div>
+            <div class="table-td">GENERAL APPEARANCE</div>
+            <div class="table-td">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isappearanceNormal" formControlName="isappearanceNormal" name="isappearanceNormal"
+                class="space-right"></p-checkbox>
+              <span>Normal</span>
+            </div>
+            <p>Facial Expression:</p>
+            <div class="table-td">
+              <div class="flex-container table-td">
+                <div>Sad</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.sad" formControlName="sad" name="sad" type="text" pInputText size="20"
+                  />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Expressionless</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.expressionless" formControlName="expressionless" name="expressionless"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Hostile</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.hostileFacialExpression" formControlName="hostileFacialExpression" name="hostileFacialExpression"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Worried</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.worried" formControlName="worried" name="worried" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Avoids Gaze</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.avoidsGaze" formControlName="avoidsGaze" name="avoidsGaze" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Inappropriate</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.inappropriateGeneralAppearance" formControlName="inappropriateGeneralAppearance"
+                    name="inappropriateGeneralAppearance" type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="table-td">
+                <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isPhysicalAbnormality" formControlName="isPhysicalAbnormality" name="isPhysicalAbnormality"
+                  class="space-right"></p-checkbox>
+                <span>Physical Abnormality</span>
+              </div>
+              <div class="flex-container">
+                <div class="table-td">Weight </div>
+                <div>
+                  <div class="flex-container table-td">
+                    <div class="space-right">Over</div>
+                    <div>
+                      <input [(ngModel)]="fpMentalHealth.weightOver" formControlName="weightOver" name="weightOver" type="text"
+                        pInputText size="20" />
+                    </div>
+                  </div>
+                  <div class="flex-container table-td">
+                    <div class="space-right">Under </div>
+                    <div>
+                      <input [(ngModel)]="fpMentalHealth.weightUnder" formControlName="weightUnder" name="weightUnder" type="text"
+                        pInputText size="20" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex-container">
+                <div class="table-td">Height </div>
+                <div>
+                  <div class="flex-container table-td">
+                    <div class="space-right">Tall</div>
+                    <div>
+                      <input [(ngModel)]="fpMentalHealth.heightTall" formControlName="heightTall" name="heightTall" type="text"
+                        pInputText size="20" />
+                    </div>
+                  </div>
+                  <div class="flex-container table-td">
+                    <div class="space-right">Short </div>
+                    <div>
+                      <input [(ngModel)]="fpMentalHealth.heightShort" formControlName="heightShort" name="heightShort" type="text"
+                        pInputText size="20" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Blemishes</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.blemishes" formControlName="blemishes" name="blemishes" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <p>Clothing-Hygiene:</p>
+              <div class="flex-container table-td">
+                <div>Poor</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.poor" formControlName="poor" name="poor" type="text" pInputText size="20"
+                  />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Disorganized</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.disorganized" formControlName="disorganized" name="disorganized" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Seductive</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.seductiveClothingHygiene" formControlName="seductiveClothingHygiene" name="seductiveClothingHygiene"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Eccentric</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.eccentric" formControlName="eccentric" name="eccentric" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <p>INTERVIEW BEHAVIOR</p>
+              <div class="table-td">
+                <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isInterviewNormal" formControlName="isInterviewNormal" name="isInterviewNormal"
+                  class="space-right"></p-checkbox>
+                <span>Normal</span>
+              </div>
+              <div class="flex-container table-td">
+                <div>Angry Outbursts</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.angryOutbursts" formControlName="angryOutbursts" name="angryOutbursts"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Irritable</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.irritable" formControlName="irritable" name="irritable" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Impulsive</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.impulsive" formControlName="impulsive" name="impulsive" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Hostile</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.hostileInterviewBehaviour" formControlName="hostileInterviewBehaviour"
+                    name="hostileInterviewBehaviour" type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Silly</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.silly" formControlName="silly" name="silly" type="text" pInputText size="20"
+                  />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Sensitive</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.sensitive" formControlName="sensitive" name="sensitive" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Apathetic</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.apathetic" formControlName="apathetic" name="apathetic" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Withdrawn</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.withdrawn" formControlName="withdrawn" name="withdrawn" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Evasive</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.evasive" formControlName="evasive" name="evasive" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Passive</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.passive" formControlName="passive" name="passive" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Aggressive</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.aggressive" formControlName="aggressive" name="aggressive" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Naïve</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.naive" formControlName="naive" name="naive" type="text" pInputText size="20"
+                  />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Overly Dramatic</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.overlyDramatic" formControlName="overlyDramatic" name="overlyDramatic"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Manipulative</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.manipulative" formControlName="manipulative" name="manipulative" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Dependent</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.dependent" formControlName="dependent" name="dependent" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Uncooperative</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.uncooperative" formControlName="uncooperative" name="uncooperative" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Demanding</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.demanding" formControlName="demanding" name="demanding" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Denial</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.denial" formControlName="denial" name="denial" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Negativistic</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.negativistic" formControlName="negativistic" name="negativistic" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Callous</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.callous" formControlName="callous" name="callous" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Infantile</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.infantileInterviewBehaviour" formControlName="infantileInterviewBehaviour"
+                    name="infantileInterviewBehaviour" type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Seductive</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.seductiveInterviewBehaviour" formControlName="seductiveInterviewBehaviour"
+                    name="seductiveInterviewBehaviour" type="text" pInputText size="20" />
+                </div>
+              </div>
+              <p>INTELLECT</p>
+              <div class="table-td">
+                <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isIntellectNormal" formControlName="isIntellectNormal" name="isIntellectNormal"
+                  class="space-right"></p-checkbox>
+                <span>Normal</span>
+              </div>
+              <div class="flex-container table-td">
+                <div>Above Normal</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.intellectAboveNormal" formControlName="intellectAboveNormal" name="intellectAboveNormal"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Below Normal</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.intellectBelowNormal" formControlName="intellectBelowNormal" name="intellectBelowNormal"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="table-td">
+                <div>Additional Comments: </div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.additionalComments" formControlName="additionalComments" name="additionalComments"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="table-td">CONTENT OF THOUGHT</div>
+            <div class="table-td">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isContentThoughtNormal" formControlName="isContentThoughtNormal" name="isContentThoughtNormal"
+                class="space-right"></p-checkbox>
+              <span>Normal</span>
+            </div>
+            <div class="table-td">
+              <div class="flex-container table-td">
+                <div>Suicidal Thoughts</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.suicidalThoughts" formControlName="suicidalThoughts" name="suicidalThoughts"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Suicidal Plans</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.suicidalPlans" formControlName="suicidalPlans" name="suicidalPlans" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Suicide Attempts</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.suicideAttempts" formControlName="suicideAttempts" name="suicideAttempts"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Assaultive Ideas</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.assaultiveIdeas" formControlName="assaultiveIdeas" name="assaultiveIdeas"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Homicidal Ideas</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.homicidalIdeas" formControlName="homicidalIdeas" name="homicidalIdeas"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Homicidal Plans</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.homicidalPlans" formControlName="homicidalPlans" name="homicidalPlans"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Antisocial Attitude</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.antisocialAttitude" formControlName="antisocialAttitude" name="antisocialAttitude"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Suspiciousness</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.suspiciousness" formControlName="suspiciousness" name="suspiciousness"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Unsocial Attitude</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.unsocialAttitude" formControlName="unsocialAttitude" name="unsocialAttitude"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div> Family Concerns</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.familyConcerns" formControlName="familyConcerns" name="familyConcerns"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div> Poverty of Content</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.povertyOfContent" formControlName="povertyOfContent" name="povertyOfContent"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Phobias</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.phobias" formControlName="phobias" name="phobias" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Obsessions</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.obsessions" formControlName="obsessions" name="obsessions" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Compulsions</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.compulsions" formControlName="compulsions" name="compulsions" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Drug Preoccupation</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.drugPreoccupation" formControlName="drugPreoccupation" name="drugPreoccupation"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Feelings of Unreality</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.feelingsOfUnreality" formControlName="feelingsOfUnreality" name="feelingsOfUnreality"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Hallucinations</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.hallucinations" formControlName="hallucinations" name="hallucinations"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Delusions</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.delusions" formControlName="delusions" name="delusions" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <p>Feelings of Persecution:</p>
+              <div class="flex-container table-td">
+                <div>Parents</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.parents" formControlName="parents" name="parents" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Teachers</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.teachers" formControlName="teachers" name="teachers" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Peers</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.peers" formControlName="peers" name="peers" type="text" pInputText size="20"
+                  />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Others</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.others" formControlName="others" name="others" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Running Away</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.runningAway" formControlName="runningAway" name="runningAway" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Somatic Complaints</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.somaticComplaints" formControlName="somaticComplaints" name="somaticComplaints"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Guilt</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.guilt" formControlName="guilt" name="guilt" type="text" pInputText size="20"
+                  />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Hopelessness</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.hopelessness" formControlName="hopelessness" name="hopelessness" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Worthlessness</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.worthlessness" formControlName="worthlessness" name="worthlessness" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Religiosity</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.religiosity" formControlName="religiosity" name="religiosity" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Sexual Preoccupation</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.sexualPreoccupation" formControlName="sexualPreoccupation" name="sexualPreoccupation"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Sexual Problems</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.sexualProblems" formControlName="sexualProblems" name="sexualProblems"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <p>FLOW OF THOUGHT</p>
+              <div class="table-td">
+                <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isFlowThoughtNormal" formControlName="isFlowThoughtNormal" name="isFlowThoughtNormal"
+                  class="space-right"></p-checkbox>
+                <span>Normal</span>
+              </div>
+              <div class="flex-container table-td">
+                <div>Blocking</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.blocking" formControlName="blocking" name="blocking" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Circumstantial</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.circumstantial" formControlName="circumstantial" name="circumstantial"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Tangential</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.tangential" formControlName="tangential" name="tangential" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Confabulation</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.confabulation" formControlName="confabulation" name="confabulation" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Perseveration</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.perseveration" formControlName="perseveration" name="perseveration" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Flight of Ideas</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.flightOfIdeas" formControlName="flightOfIdeas" name="flightOfIdeas" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Loose Association</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.looseAssociation" formControlName="looseAssociation" name="looseAssociation"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Indecisive</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.indecisive" formControlName="indecisive" name="indecisive" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <p>MOOD & AFFECT</p>
+              <div class="table-td">
+                <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isMoodAffectNormal" formControlName="isMoodAffectNormal" name="isMoodAffectNormal"
+                  class="space-right"></p-checkbox>
+                <span>Normal</span>
+              </div>
+              <div class="flex-container table-td">
+                <div>Anxious</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.anxious" formControlName="anxious" name="anxious" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Inappropriate</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.inappropriateMoodAffect" formControlName="inappropriateMoodAffect" name="inappropriateMoodAffect"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Flat Affect</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.flatAffect" formControlName="flatAffect" name="flatAffect" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Elevated Mood</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.elevatedMood" formControlName="elevatedMood" name="elevatedMood" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Depression</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.depression" formControlName="depression" name="depression" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Labile Mood</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.labileMood" formControlName="labileMood" name="labileMood" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="table-td">SENSORIUM</div>
+            <div class="table-td">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isSensoriumNormal" formControlName="isSensoriumNormal" name="isSensoriumNormal"
+                class="space-right"></p-checkbox>
+              <span>Normal</span>
+            </div>
+            <p>Orientation Impaired:</p>
+            <div class="table-td">
+              <div class="flex-container table-td">
+                <div>Time</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.orientationImpairedtime" formControlName="orientationImpairedtime" name="orientationImpairedtime"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Place</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.place" formControlName="place" name="place" type="text" pInputText size="20"
+                  />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Person</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.person" formControlName="person" name="person" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div> Poor Recent Memory</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.poorRecent" formControlName="poorRecent" name="poorRecent" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Poor Remote Memory</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.poorRemote" formControlName="poorRemote" name="poorRemote" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Amnesia</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.amnesia" formControlName="amnesia" name="amnesia" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Trouble Concentrating</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.troubleConcentrating" formControlName="troubleConcentrating" name="troubleConcentrating"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div>SPEECH</div>
+              <div class="table-td">
+                <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isSpeechNormal" formControlName="isSpeechNormal" name="isSpeechNormal"
+                  class="space-right"></p-checkbox>
+                <span>Normal</span>
+              </div>
+              <div class="flex-container table-td">
+                <div>Excessive Amount</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.excessiveAmount" formControlName="excessiveAmount" name="excessiveAmount"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Reduced Amount</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.reducedAmount" formControlName="reducedAmount" name="reducedAmount" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Mute</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.mute" formControlName="mute" name="mute" type="text" pInputText size="20"
+                  />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Pressure of Speech</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.pressureOfSpeech" formControlName="pressureOfSpeech" name="pressureOfSpeech"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Slowed</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.slowed" formControlName="slowed" name="slowed" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Loud</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.loud" formControlName="loud" name="loud" type="text" pInputText size="20"
+                  />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Soft</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.soft" formControlName="soft" name="soft" type="text" pInputText size="20"
+                  />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Slurred</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.slurred" formControlName="slurred" name="slurred" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Articulation Problem</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.articulationProblem" formControlName="articulationProblem" name="articulationProblem"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Infantile</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.infantileSpeech" formControlName="infantileSpeech" name="infantileSpeech"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Echolalia</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.echolalia" formControlName="echolalia" name="echolalia" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Neologisms</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.neologisms" formControlName="neologisms" name="neologisms" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Delayed Dev’t</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.delayedDevT" formControlName="delayedDevT" name="delayedDevT" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div>MOTOR ACTIVITY</div>
+              <div class="table-td">
+                <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isMotorActivityNormal" formControlName="isMotorActivityNormal" name="isMotorActivityNormal"
+                  class="space-right"></p-checkbox>
+                <span>Normal</span>
+              </div>
+              <div class="flex-container table-td">
+                <div>Increased Amount</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.increasedAmount" formControlName="increasedAmount" name="increasedAmount"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Decreased Amount</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.decreasedAmount" formControlName="decreasedAmount" name="decreasedAmount"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Agitation</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.agitation" formControlName="agitation" name="agitation" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Tics</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.tics" formControlName="tics" name="tics" type="text" pInputText size="20"
+                  />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Tremor</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.tremor" formControlName="tremor" name="tremor" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Peculiar Posturing</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.peculiarPosturing" formControlName="peculiarPosturing" name="peculiarPosturing"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Repetitive Acts</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.repetitiveActs" formControlName="repetitiveActs" name="repetitiveActs"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Poor Gr. Mtr. Cood.</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.poorGrMtrCood" formControlName="poorGrMtrCood" name="poorGrMtrCood" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Poor Fine Mtr. Cood</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.poorFineMtrCood" formControlName="poorFineMtrCood" name="poorFineMtrCood"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Dominance: (R.L. Mixed)</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.dominance" formControlName="dominance" name="dominance" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="table-td">INSIGHT & JUDGEMENT</div>
+              <div class="table-td">
+                <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isInsightNormal" formControlName="isInsightNormal" name="isInsightNormal"
+                  class="space-right"></p-checkbox>
+                <span>Normal</span>
+              </div>
+              <div class="flex-container table-td">
+                <div>Poor Insight</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.poorInsight" formControlName="poorInsight" name="poorInsight" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Poor Judgment</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.poorJudgment" formControlName="poorJudgment" name="poorJudgment" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Unrealistic Regarding Problems</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.unrealisticRegarding" formControlName="unrealisticRegarding" name="unrealisticRegarding"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <!-- <div class="flex-container table-td">
+                <div>Problems</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.problems" formControlName="problems" name="problems" type="text" pInputText
+                    size="20" />
+                </div>
+              </div> -->
+              <div class="flex-container table-td">
+                <div>Doesn’t Understand Why He/She is there</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.doesnTUnderstand" formControlName="doesnTUnderstand" name="doesnTUnderstand"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <!-- <div class="flex-container table-td">
+                <div>Why He/She is there</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.whyHeSheIsThere" formControlName="whyHeSheIsThere" name="whyHeSheIsThere"
+                    type="text" pInputText size="20" />
+                </div>
+              </div> -->
+              <div class="flex-container table-td">
+                <div>Unmotivated for Treatment</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.unmotivatedFor" formControlName="unmotivatedFor" name="unmotivatedFor"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <!-- <div class="flex-container table-td">
+                <div>Treatment</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.treatment" formControlName="treatment" name="treatment" type="text" pInputText
+                    size="20" />
+                </div>
+              </div> -->
+            </div>
+          </div>
+          <div>
+            <div>BEHAVIOR REPORTED BY OTHERS</div>
+            <div>
+              <div class="flex-container table-td">
+                <div>Hx of Running Away</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.hxOfRunningAway" formControlName="hxOfRunningAway" name="hxOfRunningAway"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <p>Problems Relating To:</p>
+              <div class="flex-container table-td">
+                <div>Peers</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.peersProblems" formControlName="peersProblems" name="peersProblems" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Parents</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.parentsProblems" formControlName="parentsProblems" name="parentsProblems"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Teachers</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.peachersProblems" formControlName="peachersProblems" name="peachersProblems"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Siblings</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.siblingsProblems" formControlName="siblingsProblems" name="siblingsProblems"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Others </div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.othersProblems" formControlName="othersProblems" name="othersProblems"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Disruptive in School</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.disruptiveInSchool" formControlName="disruptiveInSchool" name="disruptiveInSchool"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Withdrawn in School</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.withdrawnInSchool" formControlName="withdrawnInSchool" name="withdrawnInSchool"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Poor School Achieve</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.poorSchoolAchieve" formControlName="poorSchoolAchieve" name="poorSchoolAchieve"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Learning disability</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.learningDisability" formControlName="learningDisability" name="learningDisability"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Lying</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.lying" formControlName="lying" name="lying" type="text" pInputText size="20"
+                  />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Stealing</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.stealing" formControlName="stealing" name="stealing" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Aggression</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.aggression" formControlName="aggression" name="aggression" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Irresponsible</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.irresponsible" formControlName="irresponsible" name="irresponsible" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Promiscuous </div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.promiscuous" formControlName="promiscuous" name="promiscuous" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Other Sexual Deviation</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.sexualDeviation" formControlName="sexualDeviation" name="sexualDeviation"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Oppositional Attitude</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.oppositionalAttitude" formControlName="oppositionalAttitude" name="oppositionalAttitude"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <p>Oppositional Behaviors:</p>
+              <div class="flex-container table-td">
+                <div>Home</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.homeProblems" formControlName="homeProblems" name="homeProblems" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>School</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.schoolProblems" formControlName="schoolProblems" name="schoolProblems"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Other</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.otherProblems" formControlName="otherProblems" name="otherProblems" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Unrealistic Fears</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.unrealisticFears" formControlName="unrealisticFears" name="unrealisticFears"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Anxiety</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.anxietyProblems" formControlName="anxietyProblems" name="anxietyProblems"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Tantrums</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.tantrums" formControlName="tantrums" name="tantrums" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Enuresis</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.enuresis" formControlName="enuresis" name="enuresis" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Encopresis</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.encopresis" formControlName="encopresis" name="encopresis" type="text"
+                    pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Moody</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.moody" formControlName="moody" name="moody" type="text" pInputText size="20"
+                  />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Cries Frequently</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.criesFrequently" formControlName="criesFrequently" name="criesFrequently"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <p>ENVIRONMENTAL STRESSORS</p>
+              <div class="table-td">
+                <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isEnvironmentalStressors" formControlName="isEnvironmentalStressors"
+                  name="isEnvironmentalStressors" class="space-right"></p-checkbox>
+                <span>Normal</span>
+              </div>
+              <div class="flex-container table-td">
+                <div>Divorce/Separation</div>
+                <div>
+                  <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isDivorceSeparation" formControlName="isDivorceSeparation" name="isDivorceSeparation"
+                    class="space-right"></p-checkbox>
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div> Marital Discord</div>
+                <div>
+                  <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isMaritalDiscord" formControlName="isMaritalDiscord" name="isMaritalDiscord"
+                    class="space-right "></p-checkbox>
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Family Financial Problems</div>
+                <div>
+                  <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isFamilyFinancialProblems" formControlName="isFamilyFinancialProblems"
+                    name="isFamilyFinancialProblems" class="space-right"></p-checkbox>
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Physical Illness</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.physicalIllness" formControlName="physicalIllness" name="physicalIllness"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Physical Disability</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.physicalDisability" formControlName="physicalDisability" name="physicalDisability"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Physically Abused</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.physicallyAbused" formControlName="physicallyAbused" name="physicallyAbused"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Sexually Abused</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.sexuallyAbused" formControlName="sexuallyAbused" name="sexuallyAbused"
+                    type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Physical Illness in Family Member</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.physicalIllnessInFamilyMember" formControlName="physicalIllnessInFamilyMember"
+                    name="physicalIllnessInFamilyMember" type="text" pInputText size="20" />
+                </div>
+              </div>
+              <div class="flex-container table-td">
+                <div>Mental Illness in Family Member</div>
+                <div>
+                  <input [(ngModel)]="fpMentalHealth.mentalIllnessInFamilyMember" formControlName="mentalIllnessInFamilyMember"
+                    name="mentalIllnessInFamilyMember" type="text" pInputText size="20" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <table class="space-down">
+        <tr>
+          <th colspan="2" class="table-td center">DSM Diagnosis (Current)</th>
+        </tr>
+        <tr>
+          <th class="table-td">Code</th>
+          <th class="table-td">
+            <div class="flex-container description">
+              <div>(Principal First)</div>
+              <div>Description</div>
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.code1" formControlName="code1" name="code1" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="fpMentalHealth.dsmCode1" formControlName="dsmCode1" name="dsmCode1" pInputTextarea autoResize="autoResize"
+              rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.code2" formControlName="code2" name="code2" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="fpMentalHealth.dsmCode2" formControlName="dsmCode2" name="dsmCode2" pInputTextarea autoResize="autoResize"
+              rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.code" formControlName="code" name="code" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="fpMentalHealth.dsmCode" formControlName="dsmCode" name="dsmCode" pInputTextarea autoResize="autoResize"
+              rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.code3" formControlName="code3" name="code3" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="fpMentalHealth.dsmCode3" formControlName="dsmCode3" name="dsmCode3" pInputTextarea autoResize="autoResize"
+              rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.code4" formControlName="code4" name="code4" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="fpMentalHealth.dsmCode4" formControlName="dsmCode4" name="dsmCode4" pInputTextarea autoResize="autoResize"
+              rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.code5" formControlName="code5" name="code5" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="fpMentalHealth.dsmCode5" formControlName="dsmCode5" name="dsmCode5" pInputTextarea autoResize="autoResize"
+              rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.code6" formControlName="code6" name="code6" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="fpMentalHealth.dsmCode6" formControlName="dsmCode6" name="dsmCode6" pInputTextarea autoResize="autoResize"
+              rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.code7" formControlName="code7" name="code7" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="fpMentalHealth.dsmCode7" formControlName="dsmCode7" name="dsmCode7" pInputTextarea autoResize="autoResize"
+              rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpMentalHealth.dsmGaf" formControlName="dsmGaf" name="dsmGaf" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>GAF</div>
+              <div>
+                <textarea [(ngModel)]="fpMentalHealth.dsmDescription" formControlName="dsmDescription" name="dsmDescription"
+                  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <div class="space-down">DIAGNOSTIC JUSTIFICATION (Include symptoms, duration and timeframes per the most recent DSM, as applicable)</div>
+        <div>
+          <textarea [(ngModel)]="fpMentalHealth.diagnosticJustification" formControlName="diagnosticJustification" name="diagnosticJustification"
+            pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <div class="flex-container space-down">
+          <div class="space-down">Special Health Care Needs Status (SHCN): </div>
+          <div class="flex-container space-down">
+            <div class="space-down">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isNoShcn" formControlName="isNoShcn" name="isNoShcn" class="space-right"></p-checkbox>
+              <span>No SHCN </span>
+            </div>
+            <div class="space-down">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isSpmi" formControlName="isSpmi" name="isSpmi" class="space-right"></p-checkbox>
+              <span>SPMI </span>
+            </div>
+            <div class="space-down">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isMentalIllness" formControlName="isMentalIllness" name="isMentalIllness"
+                class="space-right"></p-checkbox>
+              <span>Mental Illness/Substance Abuse </span>
+            </div>
+            <div class="space-down">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isIdd" formControlName="isIdd" name="isIdd" class="space-right"></p-checkbox>
+              <span>Mental Illness/IDD </span>
+            </div>
+            <div class="space-down">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isPregnant" formControlName="isPregnant" name="isPregnant" class="space-right"></p-checkbox>
+              <span>Pregnant and using Substances </span>
+            </div>
+            <div class="space-down">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isIntravenousDrugs" formControlName="isIntravenousDrugs" name="isIntravenousDrugs"
+                class="space-right"></p-checkbox>
+              <span>Using Intravenous Drugs </span>
+            </div>
+            <div class="space-down">
+              <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isSed" formControlName="isSed" name="isSed" class="space-right"></p-checkbox>
+              <span>SED (must answer yes to all 3 of the criteria below):</span>
+            </div>
+          </div>
+        </div>
+        <div class="space-down">
+          <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isAgeYouth" formControlName="isAgeYouth" name="isAgeYouth" class="space-right"></p-checkbox>
+          <span>Age: Youth is under 18, or under the age of 22 and has been receiving community based mental health services prior
+            to the age of 18 that must be continued for optimal benefit.</span>
+        </div>
+        <div class="space-down">
+          <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isDurationAndDiagnosis" formControlName="isDurationAndDiagnosis" name="isDurationAndDiagnosis"
+            class="space-right"></p-checkbox>
+          <span>Duration and Diagnosis: Youth currently has a diagnosable mental, behavioral, or emotional disorder of sufficient
+            duration to meet the diagnostic criteria specified within the most current DSM with the exception of V Codes,
+            Substance Abuse/Dependence, and/or Developmental Disorders.</span>
+        </div>
+        <div class="space-down">
+          <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isFunctionalImpairment" formControlName="isFunctionalImpairment" name="isFunctionalImpairment"
+            class="space-right"></p-checkbox>
+          <span>Functional Impairment: The disorder/diagnosis has resulted in functional impairment which substantially interferes
+            with or limits the youth’s role in family, school, or community activities. Which of the following functional
+            impairment areas has been disrupted as a direct result of the child’s mental health condition? (Examples are
+            not all inclusive and more than one can be marked)</span>
+        </div>
+        <div class="space-down">
+          <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isInattentiveInClass" formControlName="isInattentiveInClass" name="isInattentiveInClass"
+            class="space-right"></p-checkbox>
+          <span>School (for example, inattentive in class, inability to sit still, unable to concentrate, withdrawn to the point
+            that function at school is impacted, accumulating sick days as a result of being overwhelmed/depressed which
+            places child at risk for truancy, in-school suspension, out of school suspension) SEE Diagnostic Justification
+            above for Description</span>
+        </div>
+        <div class="space-down">
+          <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isRiskHomePlacement" formControlName="isRiskHomePlacement" name="isRiskHomePlacement"
+            class="space-right"></p-checkbox>
+          <span>Family (for example, at risk of out of home placement, physical aggression at home, suicidal and withdrawn to the
+            point of not engaging in family activities) SEE Diagnostic Justification above for Description
+          </span>
+        </div>
+        <div class="space-down">
+          <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isCommunity" formControlName="isCommunity" name="isCommunity" class="space-right"></p-checkbox>
+          <span>Community (for example, impairment necessitates law enforcement contact such as youth is running away due to delusional
+            symptoms, unable to or serious difficulty participating in regular community and/or peer activities due to behavior,
+            isolating from peers) SEE Diagnostic Justification above for Description</span>
+        </div>
+      </div>
+    </div>
+    <p>Primary Care Provider:</p>
+    <div class="flex-container space-down">
+      <div class="space-down">
+        <span>Coordination with PCP? </span>
+      </div>
+      <div class="space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isCoordinationPcpYes" formControlName="isCoordinationPcpYes" name="isCoordinationPcpYes"
+          class="space-right"></p-checkbox>
+        <span>Yes* </span>
+      </div>
+      <div class="space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isCoordinationPcpNo" formControlName="isCoordinationPcpNo" name="isCoordinationPcpNo"
+          class="space-right"></p-checkbox>
+        <span>No </span>
+      </div>
+      <div class="space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isDeclinedToReport" formControlName="isDeclinedToReport" name="isDeclinedToReport"
+          class="space-right"></p-checkbox>
+        <span>Member/parent/guardian declined to report </span>
+      </div>
+      <div class="space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isCoordinationPcpNotApplicable" formControlName="isCoordinationPcpNotApplicable"
+          name="isCoordinationPcpNotApplicable" class="space-right"></p-checkbox>
+        <span>Not Applicable</span>
+      </div>
+    </div>
+    <p>*If Yes, name and address of PCP:</p>
+    <div class="flex-container space-down diagnoses">
+      <div class="flex-container space-right">
+        <div class="space-right">Last Name:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpMentalHealth.lastName" formControlName="lastName" name="lastName" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div class="space-right">First Name:</div>
+        <div>
+          <input [(ngModel)]="fpMentalHealth.firstName" formControlName="firstName" name="firstName" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container textarea-section space-down diagnoses">
+      <div class="space-right">Address</div>
+      <div>
+        <textarea [(ngModel)]="fpMentalHealth.address" formControlName="address" name="address" pInputTextarea autoResize="autoResize"
+          rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container address space-down description">
+      <div> Street Address </div>
+      <div>City/State </div>
+      <div>Zip</div>
+    </div>
+    <p>*If Yes, answer the following question:</p>
+    <div class="flex-container space-down diagnoses">
+      <div class="space-down space-right">
+        <span>Has the Initial Treatment Plan been sent to PCP? </span>
+      </div>
+      <div class="flex-container diagnoses">
+        <div class="space-down space-right">
+          <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isInitialTreatmentSentYes" formControlName="isInitialTreatmentSentYes"
+            name="isInitialTreatmentSentYes" class="space-right"></p-checkbox>
+          <span>Yes* </span>
+        </div>
+        <div class="space-down space-right">
+          <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isInitialTreatmentSentNo" formControlName="isInitialTreatmentSentNo"
+            name="isInitialTreatmentSentNo" class="space-right"></p-checkbox>
+          <span>No </span>
+        </div>
+      </div>
+    </div>
+    <p>Other Treatment Providers</p>
+    <div class="flex-container space-down">
+      <div class="space-down">
+        <span>Coordination with Substance Use Providers </span>
+      </div>
+      <div class="space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isUseProvidersYes" formControlName="isUseProvidersYes" name="isUseProvidersYes"
+          class="space-right"></p-checkbox>
+        <span>Yes* </span>
+      </div>
+      <div class="space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isUseProvidersNo" formControlName="isUseProvidersNo" name="isUseProvidersNo"
+          class="space-right"></p-checkbox>
+        <span>No </span>
+      </div>
+      <div class="space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isUseProvidersDeclinedReport" formControlName="isUseProvidersDeclinedReport"
+          name="isUseProvidersDeclinedReport" class="space-right"></p-checkbox>
+        <span>Member/parent/guardian declined to report </span>
+      </div>
+      <div class="space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isUseProvidersNotApplicable" formControlName="isUseProvidersNotApplicable"
+          name="isUseProvidersNotApplicable" class="space-right"></p-checkbox>
+        <span>Not Applicable</span>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-down">
+        <span>Coordination with Other Treaters </span>
+      </div>
+      <div class="space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isOtherTreatersyes" formControlName="isOtherTreatersyes" name="isOtherTreatersyes"
+          class="space-right"></p-checkbox>
+        <span>Yes* </span>
+      </div>
+      <div class="space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isOtherTreatersNo" formControlName="isOtherTreatersNo" name="isOtherTreatersNo"
+          class="space-right"></p-checkbox>
+        <span>No </span>
+      </div>
+      <div class="space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isOtherTreatersDeclinedReport" formControlName="isOtherTreatersDeclinedReport"
+          name="isOtherTreatersDeclinedReport" class="space-right"></p-checkbox>
+        <span>Member/parent/guardian declined to report </span>
+      </div>
+      <div class="space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isOtherTreatersNotApplicable" formControlName="isOtherTreatersNotApplicable"
+          name="isOtherTreatersNotApplicable" class="space-right"></p-checkbox>
+        <span>Not Applicable</span>
+      </div>
+    </div>
+    <div class="flex-container textarea-section space-down">
+      <div class="space-right">If yes, list:</div>
+      <div>
+        <textarea [(ngModel)]="fpMentalHealth.otherTreatersIfYesReason" formControlName="otherTreatersIfYesReason" name="otherTreatersIfYesReason"
+          pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <p>Court:</p>
+    <div class="flex-container space-down diagnoses">
+      <div class="space-down space-right">
+        <span>Are any therapy services to be provided court ordered? </span>
+      </div>
+      <div class="flex-container diagnoses">
+        <div class="space-down">
+          <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isCourtOrderedYes" formControlName="isCourtOrderedYes" name="isCourtOrderedYes"
+            class="space-right"></p-checkbox>
+          <span>Yes* </span>
+        </div>
+        <div class="space-down">
+          <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isCourtOrderedNo" formControlName="isCourtOrderedNo" name="isCourtOrderedNo"
+            class="space-right"></p-checkbox>
+          <span>No </span>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container textarea-section space-down">
+      <div class="space-right">If yes, specify the therapy service(s) which are court ordered: </div>
+      <div>
+        <textarea [(ngModel)]="fpMentalHealth.courtOrderedIfYesReason" formControlName="courtOrderedIfYesReason" name="courtOrderedIfYesReason"
+          pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <p>Client meets medical necessity criteria can benefit from services: </p>
+    <div class="flex-container space-down diagnoses">
+      <div class="space-down space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isCompleteRestYes" formControlName="isCompleteRestYes" name="isCompleteRestYes"
+          class="space-right"></p-checkbox>
+        <span>Yes (Complete Rest of Profile) </span>
+      </div>
+      <div class="space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isRestOfTheProfileNo" formControlName="isRestOfTheProfileNo" name="isRestOfTheProfileNo"
+          class="space-right"></p-checkbox>
+        <span>No (Indicate the rest of the profile as N/A until signature) </span>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <div class="space-down">
+          <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isServicesFollowingNo" formControlName="isServicesFollowingNo" name="isServicesFollowingNo"
+            class="space-right"></p-checkbox>
+          <span>No Services following Mental Health Assessment/Treatment Plan. (Indicate N/A on rest of profile until signature)
+            </span>
+        </div>
+        <div class="space-down">Explain: (Include any recommendations or referrals to be made if not providing ongoing treatment)
+        </div>
+        <div class="space-down">
+          <textarea [(ngModel)]="fpMentalHealth.explainServicesFollowingIfYes" formControlName="explainServicesFollowingIfYes" name="explainServicesFollowingIfYes"
+            pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <p>Treatment Plan (covers MHA date to Case Plan expiration date)</p>
+        <div class="flex-container space-down">
+          <div class="flex-container">
+            <div class="space-right">From:</div>
+            <div>
+              <input [(ngModel)]="fpMentalHealth.treatmentPlanFrom" formControlName="treatmentPlanFrom" name="treatmentPlanFrom"
+                type="text" pInputText size="20" />
+            </div>
+          </div>
+          <div class="flex-container">
+            <div class="space-right">To/Next Plan Due:</div>
+            <div class="space-right">
+              <input [(ngModel)]="fpMentalHealth.treatmentPlanTo" formControlName="treatmentPlanTo" name="treatmentPlanTo"
+                type="text" pInputText size="20" />
+            </div>
+            <div>If Tx continues after this date complete a tx plan update</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="table-td border-line">
+        <div class="space-down">Client Identified Barriers to Treatment:</div>
+        <div>
+          <textarea [(ngModel)]="fpMentalHealth.barriersToTreatment" formControlName="barriersToTreatment" name="barriersToTreatment"
+            pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="table-td border-line">
+        <div class="space-down">Client Identified Strengths/Assets:</div>
+        <div>
+          <textarea [(ngModel)]="fpMentalHealth.strengthsAssets" formControlName="strengthsAssets" name="strengthsAssets" pInputTextarea
+            autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="table-td border-line">
+        <div class="space-down">Client Identified Treatment Preferences:</div>
+        <div>
+          <textarea [(ngModel)]="fpMentalHealth.treatmentPreferences" formControlName="treatmentPreferences" name="treatmentPreferences"
+            pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="table-td border-line">
+        <div class="space-down">Discharge Criteria (What will client “look” like if complete goals. Must be measurable)</div>
+        <div>
+          <textarea [(ngModel)]="fpMentalHealth.dischargeCriteri" formControlName="dischargeCriteri" name="dischargeCriteri" pInputTextarea
+            autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <p>Service Modality Codes</p>
+    <div class="space-down">
+      <div class="flex-container">
+        <div>1. Individual Therapy</div>
+        <div>2. Med Review/Management</div>
+      </div>
+      <div class="flex-container">
+        <div>3. Family Therapy (In home/community)</div>
+        <div>4. Consultations (school, family, physician, etc)</div>
+      </div>
+      <div class="flex-container">
+        <div>5. Family Therapy (In clinic)</div>
+        <div>6. Close Case</div>
+      </div>
+      <div class="flex-container">
+        <div>7. A/D Therapy</div>
+        <div class="flex-container">
+          <div class="space-right">8. Other:</div>
+          <div>
+            <span>
+              <input [(ngModel)]="fpMentalHealth.closeCase" formControlName="closeCase" name="closeCase" type="text" pInputText
+                size="20" />
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table-td">
+      <div class="border-line">
+        <div class="flex-container diagnoses table-td">
+          <div class="space-right">Goal I. </div>
+          <span>
+            <input [(ngModel)]="fpMentalHealth.goalI" formControlName="goalI" name="goalI" type="text" pInputText size="20"
+            />
+          </span>
+        </div>
+        <div class="table-td">
+          <table id="input" class="center table-td">
+            <tr>
+              <th class="table-td">Obj #</th>
+              <th class="table-td">Objectives (must be measurable, observable, behavioral)</th>
+              <th class="table-td">Service Modality</th>
+              <th class="table-td">Frequency</th>
+              <th class="table-td">Duration</th>
+              <th class="table-td">Start Date</th>
+              <th class="table-td">Target Date</th>
+              <th class="table-td">Review Score or Completed Date</th>
+            </tr>
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIObj" formControlName="goalIObj" name="goalIObj" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIObjectives" formControlName="goalIObjectives" name="goalIObjectives"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIServiceModality" formControlName="goalIServiceModality" name="goalIServiceModality"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIFrequency" formControlName="goalIFrequency" name="goalIFrequency" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIDuration" formControlName="goalIDuration" name="goalIDuration" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIStartDate" formControlName="goalIStartDate" name="goalIStartDate" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalITargetDate" formControlName="goalITargetDate" name="goalITargetDate" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIReviewScore" formControlName="goalIReviewScore" name="goalIReviewScore" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIObj1" formControlName="goalIObj1" name="goalIObj1" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIObjectives1" formControlName="goalIObjectives1" name="goalIObjectives1"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIServiceModality1" formControlName="goalIServiceModality1" name="goalIServiceModality1"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIFrequency1" formControlName="goalIFrequency1" name="goalIFrequency1" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIDuration1" formControlName="goalIDuration1" name="goalIDuration1" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIStartDate1" formControlName="goalIStartDate1" name="goalIStartDate1" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalITargetDate1" formControlName="goalITargetDate1" name="goalITargetDate1" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIReviewScore1" formControlName="goalIReviewScore1" name="goalIReviewScore1" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIObj2" formControlName="goalIObj2" name="goalIObj2" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIObjectives2" formControlName="goalIObjectives2" name="goalIObjectives2"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIServiceModality2" formControlName="goalIServiceModality2" name="goalIServiceModality2"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIFrequency2" formControlName="goalIFrequency2" name="goalIFrequency2" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIDuration2" formControlName="goalIDuration2" name="goalIDuration2" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIStartDate2" formControlName="goalIStartDate2" name="goalIStartDate2" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalITargetDate2" formControlName="goalITargetDate2" name="goalITargetDate2" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIReviewScore2" formControlName="goalIReviewScore2" name="goalIReviewScore2" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIObj3" formControlName="goalIObj3" name="goalIObj3" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIObjectives3" formControlName="goalIObjectives3" name="goalIObjectives3"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIServiceModality3" formControlName="goalIServiceModality3" name="goalIServiceModality3"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIFrequency3" formControlName="goalIFrequency3" name="goalIFrequency3" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIDuration3" formControlName="goalIDuration3" name="goalIDuration3" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIStartDate3" formControlName="goalIStartDate3" name="goalIStartDate3" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalITargetDate3" formControlName="goalITargetDate3" name="goalITargetDate3" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIReviewScore3" formControlName="goalIReviewScore3" name="goalIReviewScore3" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIObj4" formControlName="goalIObj4" name="goalIObj4" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIObjectives4" formControlName="goalIObjectives4" name="goalIObjectives4"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIServiceModality4" formControlName="goalIServiceModality4" name="goalIServiceModality4"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIFrequency4" formControlName="goalIFrequency4" name="goalIFrequency4" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIDuration4" formControlName="goalIDuration4" name="goalIDuration4" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIStartDate4" formControlName="goalIStartDate4" name="goalIStartDate4" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalITargetDate4" formControlName="goalITargetDate4" name="goalITargetDate4" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIReviewScore4" formControlName="goalIReviewScore4" name="goalIReviewScore4" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="table-td">
+      <div class="border-line">
+        <div class="flex-container diagnoses table-td">
+          <div class="space-right">Goal II. </div>
+          <span>
+            <input [(ngModel)]="fpMentalHealth.goalIi" formControlName="goalIi" name="goalIi" type="text" pInputText size="20"
+            />
+          </span>
+        </div>
+        <div class="table-td">
+          <table id="input" class="center table-td">
+            <tr>
+              <th class="table-td">Obj #</th>
+              <th class="table-td">Objectives (must be measurable, observable, behavioral)</th>
+              <th class="table-td">Service Modality</th>
+              <th class="table-td">Frequency</th>
+              <th class="table-td">Duration</th>
+              <th class="table-td">Start Date</th>
+              <th class="table-td">Target Date</th>
+              <th class="table-td">Review Score or Completed Date</th>
+            </tr>
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiObj" formControlName="goalIiObj" name="goalIiObj" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiObjectives" formControlName="goalIiObjectives" name="goalIiObjectives"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiServiceModality" formControlName="goalIiServiceModality" name="goalIiServiceModality"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiFrequency" formControlName="goalIiFrequency" name="goalIiFrequency"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiDuration" formControlName="goalIiDuration" name="goalIiDuration" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIiStartDate" formControlName="goalIiStartDate" name="goalIiStartDate" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIiTargetDate" formControlName="goalIiTargetDate" name="goalIiTargetDate" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIiReviewScore" formControlName="goalIiReviewScore" name="goalIiReviewScore" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiObj1" formControlName="goalIiObj1" name="goalIiObj1" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiObjectives1" formControlName="goalIiObjectives1" name="goalIiObjectives1"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiServiceModality1" formControlName="goalIiServiceModality1" name="goalIiServiceModality1"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiFrequency1" formControlName="goalIiFrequency1" name="goalIiFrequency1" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiDuration1" formControlName="goalIiDuration1" name="goalIiDuration1" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIiStartDate1" formControlName="goalIiStartDate1" name="goalIiStartDate1" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIiTargetDate1" formControlName="goalIiTargetDate1" name="goalIiTargetDate1" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIiReviewScore1" formControlName="goalIiReviewScore1" name="goalIiReviewScore1" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiObj2" formControlName="goalIiObj2" name="goalIiObj2" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiObjectives2" formControlName="goalIiObjectives2" name="goalIiObjectives2"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiServiceModality2" formControlName="goalIiServiceModality2" name="goalIiServiceModality2"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiFrequency2" formControlName="goalIiFrequency2" name="goalIiFrequency2" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiDuration2" formControlName="goalIiDuration2" name="goalIiDuration2" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIiStartDate2" formControlName="goalIiStartDate2" name="goalIiStartDate2" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIiTargetDate2" formControlName="goalIiTargetDate2" name="goalIiTargetDate2" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIiReviewScore2" formControlName="goalIiReviewScore2" name="goalIiReviewScore2" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiObj3" formControlName="goalIiObj3" name="goalIiObj3" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiObjectives3" formControlName="goalIiObjectives3" name="goalIiObjectives3"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiServiceModality3" formControlName="goalIiServiceModality3" name="goalIiServiceModality3"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiFrequency3" formControlName="goalIiFrequency3" name="goalIiFrequency3" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiDuration3" formControlName="goalIiDuration3" name="goalIiDuration3" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIiStartDate3" formControlName="goalIiStartDate3" name="goalIiStartDate3" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIiTargetDate3" formControlName="goalIiTargetDate3" name="goalIiTargetDate3" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIiReviewScore3" formControlName="goalIiReviewScore3" name="goalIiReviewScore3" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiObj4" formControlName="goalIiObj4" name="goalIiObj4" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiObjectives4" formControlName="goalIiObjectives4" name="goalIiObjectives4"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiServiceModality4" formControlName="goalIiServiceModality4" name="goalIiServiceModality4"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiFrequency4" formControlName="goalIiFrequency4" name="goalIiFrequency4" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.goalIiDuration4" formControlName="goalIiDuration4" name="goalIiDuration4" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIiStartDate4" formControlName="goalIiStartDate4" name="goalIiStartDate4" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIiTargetDate4" formControlName="goalIiTargetDate4" name="goalIiTargetDate4" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.goalIiReviewScore4" formControlName="goalIiReviewScore4" name="goalIiReviewScore4" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <div class="table-td">
+      <div class="border-line">
+        <div class="flex-container diagnoses table-td">
+          <div class="space-right">Long Term Goal :</div>
+          <span>
+            <input [(ngModel)]="fpMentalHealth.longGoal" formControlName="longGoal" name="longGoal" type="text" pInputText
+              size="20" />
+          </span>
+        </div>
+        <p>(Goal Cl would like to meet 6 mos or longer)(ONLY completed if providing Substance Tx.)</p>
+        <div class="table-td">
+          <table id="input" class="center table-td">
+            <tr>
+              <th class="table-td">Obj #</th>
+              <th class="table-td">Objectives (must be measurable, observable, behavioral)</th>
+              <th class="table-td">Service Modality</th>
+              <th class="table-td">Frequency</th>
+              <th class="table-td">Duration</th>
+              <th class="table-td">Start Date</th>
+              <th class="table-td">Target Date</th>
+              <th class="table-td">Review Score or Completed Date</th>
+            </tr>
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalObj" formControlName="longGoalObj" name="longGoalObj" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalObjectives" formControlName="longGoalObjectives" name="longGoalObjectives"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalServiceModality" formControlName="longGoalServiceModality" name="longGoalServiceModality"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalFrequency" formControlName="longGoalFrequency" name="longGoalFrequency"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalDuration" formControlName="longGoalDuration" name="longGoalDuration"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.longGoalStartDate" formControlName="longGoalStartDate" name="longGoalStartDate" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.longGoalTargetDate" formControlName="longGoalTargetDate" name="longGoalTargetDate"
+                  [inputStyle]="{'width':'130px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true"
+                  [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.longGoalReviewScore" formControlName="longGoalReviewScore" name="longGoalReviewScore"
+                  [inputStyle]="{'width':'130px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true"
+                  [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalObj1" formControlName="longGoalObj1" name="longGoalObj1" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalObjectives1" formControlName="longGoalObjectives1" name="longGoalObjectives1"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalServiceModality1" formControlName="longGoalServiceModality1" name="longGoalServiceModality1"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalFrequency1" formControlName="longGoalFrequency1" name="longGoalFrequency1"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalDuration1" formControlName="longGoalDuration1" name="longGoalDuration1"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.longGoalStartDate1" formControlName="longGoalStartDate1" name="longGoalStartDate1" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.longGoalTargetDate1" formControlName="longGoalTargetDate1" name="longGoalTargetDate1"
+                  [inputStyle]="{'width':'130px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true"
+                  [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.longGoalReviewScore1" formControlName="longGoalReviewScore1" name="longGoalReviewScore1"
+                  [inputStyle]="{'width':'130px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true"
+                  [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalObj2" formControlName="longGoalObj2" name="longGoalObj2" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalObjectives2" formControlName="longGoalObjectives2" name="longGoalObjectives2"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalServiceModality2" formControlName="longGoalServiceModality2" name="longGoalServiceModality2"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalFrequency2" formControlName="longGoalFrequency2" name="longGoalFrequency2"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalDuration2" formControlName="longGoalDuration2" name="longGoalDuration2"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.longGoalStartDate2" formControlName="longGoalStartDate2" name="longGoalStartDate2" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.longGoalTargetDate2" formControlName="longGoalTargetDate2" name="longGoalTargetDate2"
+                  [inputStyle]="{'width':'130px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true"
+                  [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.longGoalReviewScore2" formControlName="longGoalReviewScore2" name="longGoalReviewScore2"
+                  [inputStyle]="{'width':'130px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true"
+                  [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalObj3" formControlName="longGoalObj3" name="longGoalObj3" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalObjectives3" formControlName="longGoalObjectives3" name="longGoalObjectives3"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalServiceModality3" formControlName="longGoalServiceModality3" name="longGoalServiceModality3"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalFrequency3" formControlName="longGoalFrequency3" name="longGoalFrequency3"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalDuration3" formControlName="longGoalDuration3" name="longGoalDuration3"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.longGoalStartDate3" formControlName="longGoalStartDate3" name="longGoalStartDate3" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.longGoalTargetDate3" formControlName="longGoalTargetDate3" name="longGoalTargetDate3"
+                  [inputStyle]="{'width':'130px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true"
+                  [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.longGoalReviewScore3" formControlName="longGoalReviewScore3" name="longGoalReviewScore3"
+                  [inputStyle]="{'width':'130px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true"
+                  [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalObj4" formControlName="longGoalObj4" name="longGoalObj4" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalObjectives4" formControlName="longGoalObjectives4" name="longGoalObjectives4"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalServiceModality4" formControlName="longGoalServiceModality4" name="longGoalServiceModality4"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalFrequency4" formControlName="longGoalFrequency4" name="longGoalFrequency4"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpMentalHealth.longGoalDuration4" formControlName="longGoalDuration4" name="longGoalDuration4"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.longGoalStartDate4" formControlName="longGoalStartDate4" name="longGoalStartDate4" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.longGoalTargetDate4" formControlName="longGoalTargetDate4" name="longGoalTargetDate4"
+                  [inputStyle]="{'width':'130px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true"
+                  [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpMentalHealth.longGoalReviewScore4" formControlName="longGoalReviewScore4" name="longGoalReviewScore4"
+                  [inputStyle]="{'width':'130px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true"
+                  [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-down">
+        <span>PROGNOSIS (Relative to treatment goals/objectives) </span>
+      </div>
+      <div class="space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isPrognosisGood" formControlName="isPrognosisGood" name="isPrognosisGood"
+          class="space-right"></p-checkbox>
+        <span>Good </span>
+      </div>
+      <div class="space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isPrognosisFair" formControlName="isPrognosisFair" name="isPrognosisFair"
+          class="space-right"></p-checkbox>
+        <span>Fair </span>
+      </div>
+      <div class="space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpMentalHealth.isPrognosisGuarded" formControlName="isPrognosisGuarded" name="isPrognosisGuarded"
+          class="space-right"></p-checkbox>
+        <span>Guarded</span>
+      </div>
+    </div>
+    <div class="table-td">
+      <div class="space-down border-line">
+        <div class="space-down">Justification:</div>
+        <div class="table-td">
+          <textarea [(ngModel)]="fpMentalHealth.justification" formControlName="justification" name="justification" pInputTextarea
+            autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <h3 class="center">TREATMENT PLAN SIGNATURE PAGE</h3>
+    <div class="flex-container space-down">
+      <div>
+        <input [(ngModel)]="fpMentalHealth.planSignatureConsumer" formControlName="planSignatureConsumer" name="planSignatureConsumer"
+          type="text" pInputText size="20" />
+        <p>Consumer (Client)</p>
+      </div>
+      <div>
+        <p-calendar [(ngModel)]="fpMentalHealth.planSignatureParent" formControlName="planSignatureParent" name="planSignatureParent"
+          showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        <p>Date</p>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div>
+        <input [(ngModel)]="fpMentalHealth.planSignatureTherapist" formControlName="planSignatureTherapist" name="planSignatureTherapist"
+          type="text" pInputText size="20" />
+        <p>Parent/Guardian/Legal Representative</p>
+      </div>
+      <div>
+        <p-calendar [(ngModel)]="fpMentalHealth.consumerDate" formControlName="consumerDate" name="consumerDate" showTime="true"
+          hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        <p>Date</p>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div>
+        <input [(ngModel)]="fpMentalHealth.parentDate" formControlName="parentDate" name="parentDate" type="text" pInputText size="20"
+        />
+        <p>Therapist/Counselor Signature</p>
+      </div>
+      <div>
+        <p-calendar [(ngModel)]="fpMentalHealth.therapistDate" formControlName="therapistDate" name="therapistDate" showTime="true"
+          hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        <p>Date</p>
+      </div>
+    </div>
+    <div class="flex-container space-down diagnoses">
+      <div class="space-right">Participant’s Signatures:</div>
+      <div>
+        <div class="flex-container">
+          <div class="space-down">
+            <div class="space-right space-down">
+              <input [(ngModel)]="fpMentalHealth.participantSignatures1" formControlName="participantSignatures1" name="participantSignatures1"
+                type="text" pInputText size="20" />
+            </div>
+            <div class="space-right space-down">
+              <input [(ngModel)]="fpMentalHealth.participantSignatures2" formControlName="participantSignatures2" name="participantSignatures2"
+                type="text" pInputText size="20" />
+            </div>
+          </div>
+          <div class="space-down">
+            <div class="space-right space-down">
+              <input [(ngModel)]="fpMentalHealth.participantSignatures3" formControlName="participantSignatures3" name="participantSignatures3"
+                type="text" pInputText size="20" />
+            </div>
+            <div class="space-right space-down">
+              <input [(ngModel)]="fpMentalHealth.participantSignatures4" formControlName="participantSignatures4" name="participantSignatures4"
+                type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+        <div class="space-right space-down">
+          <div class="space-right">
+            <b>Printed Date:</b>
+          </div>
+          <div class="space-right">
+            <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="space-right space-down margin-left-66rem">
+          <div class="space-right">
+            <b>Printed By:</b>
+          </div>
+          <div class="space-right">
+            <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+          </div>
+        </div>
+  
+      </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm(fpMentalHealth)" [editControll]="isEdit" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

@@ -1,0 +1,556 @@
+<div *ngIf="showData">
+  <div style="background-color: #ffffff;
+overflow-x: hidden;
+height: 435px;
+margin: 2.8rem;
+border: 1px solid #9e9595;
+padding: 1rem;">
+    <div class="sf-form">
+      <div class="flex-container header">
+        <div class="heading">
+          REINTEGRATION FOSTER CARE
+          <br> CHILD MOVE FORM
+        </div>
+        <div class="logo">
+          <img src="assets/logo color.svg" alt="">
+        </div>
+        <div class="case-info">
+          <div>
+            <span>Child’s Full Name:</span>
+            <input [(ngModel)]="moveAutoFillData.clientname" type="text" class="remove-borders" pInputText size="17" />
+          </div>
+          <div>
+            <span>KAECSES:</span>
+            <input [(ngModel)]="moveAutoFillData.kaecses" type="text" class="remove-borders" pInputText size="17" />
+          </div>
+          <div>
+            <span>Office:</span>
+            <!-- <input [(ngModel)]="moveData.moveOffice " type="text" class="remove-borders" pInputText size="17" /> -->
+            <input [(ngModel)]="moveOffice " type="text" class="remove-borders" pInputText size="17" />
+          </div>
+          <div>
+            <span>Court Case #:</span>
+            <input [(ngModel)]="moveAutoFillData.CourtCaseNo" type="text" class="remove-borders" pInputText size="17" />
+          </div>
+        </div>
+
+      </div>
+      <div class="border-black">
+        <p class="bold">Child Left:</p>
+        <div class="space-down flex-container space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Name of Home/Facility:</div>
+            <div class="space-right">
+              <input [(ngModel)]="moveAutoFillData.ProviderName" type="text" class="remove-borders" pInputText
+                size="17" />
+            </div>
+          </div>
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Departure Date:</div>
+            <div class="space-right">
+              <input [ngModel]="moveForm.departureDate" type="text" class="remove-borders" pInputText size="17" />
+            </div>
+          </div>
+        </div>
+        <div class="space-down flex-container space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Address incl City, State, Zip</div>
+            <div class="space-right">
+              <input [(ngModel)]="moveAutoFillData.FullAddress" type="text" class="remove-borders width-25-rem"
+                pInputText size="17" />
+            </div>
+          </div>
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Departure Time:</div>
+            <div class="space-right">
+              <input [ngModel]="moveForm.departureTime" type="text" class="remove-borders" pInputText size="17" />
+            </div>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">Phone Number:</div>
+          <div class="space-right">
+            <input [(ngModel)]="moveAutoFillData.Phone" type="text" class="remove-borders" pInputText size="17" />
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">Resource Family/Relative/ Facility Staff Signature:</div>
+          <div class="space-right">
+            <input type="text" class="remove-borders" [(ngModel)]="childLefResFam" pInputText size="17" />
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">Transporter/Driver Signature:</div>
+          <div class="space-right">
+            <input type="text" class="remove-borders" [(ngModel)]="childTransfortSign" pInputText size="17" />
+          </div>
+        </div>
+        <div class="space-down flex-container space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Name of School:</div>
+            <div class="space-right">
+              <input type="text" [(ngModel)]="moveAutoFillData.SchoolName" class="remove-borders" pInputText
+                size="17" />
+            </div>
+          </div>
+          <div class="flex-container space-right space-down">
+            <div class="space-right">School District:</div>
+            <div class="space-right">
+              <input type="text" [(ngModel)]="moveAutoFillData.USD" class="remove-borders" pInputText size="17" />
+            </div>
+          </div>
+        </div>
+        <div class="space-down flex-container space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Reason for leaving:</div>
+          </div>
+        </div>
+        <div>
+          <div>
+            <div>
+              <textarea class="pdf-borders" [(ngModel)]="moveForm.reasonForMove_Notes" pInputTextarea
+                style=" width: 100%;height: 100%;" cols="30" rows="5"></textarea>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!--  -->
+        <div class="space-down flex-container space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Scheduled Appointments (Date & Location):</div>
+          </div>
+        </div>
+        <div>
+          <div>
+            <div>
+              <textarea class="pdf-borders" [(ngModel)]="moveForm.schoolAppointments_Notes" pInputTextarea
+                style=" width: 100%;height: 100%;" cols="30" rows="5"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-down flex-container space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Medications: (Include Type and Frequency)</div>
+          </div>
+        </div>
+        <div>
+          <div>
+            <div>
+              <textarea class="pdf-borders" [(ngModel)]="moveForm.medications_Notes" pInputTextarea
+                style=" width: 100%;height: 100%;" cols="30" rows="5"></textarea>
+            </div>
+          </div>
+        </div>
+        <!--  -->
+        <!-- <div class="flex-container space-right space-down">
+        <div class="space-right">Medications: (Include Type and Frequency)
+        </div>
+        <div class="space-right">
+          <input type="text" [(ngModel)]="moveForm.medications_Notes" class="remove-borders" pInputText size="17" />
+        </div>
+      </div> -->
+
+      </div>
+      <!-- *ngIf="childEnteredInfo" -->
+      <div class="border-black">
+        <p class="bold">Child Entered:</p>
+        <div class="space-down flex-container space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Name of Home/Facility:</div>
+            <div class="space-right">
+              <input type="text" class="remove-borders" [(ngModel)]="moveAutoFillData.FacilityName" pInputText
+                size="17" />
+            </div>
+          </div>
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Phone Number:</div>
+            <div class="space-right">
+              <input [(ngModel)]="moveAutoFillData.MoveToPhone" type="text" class="remove-borders" pInputText
+                size="17" />
+            </div>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">Address incl City, State, Zip:</div>
+          <div class="space-right">
+            <input type="text" class="remove-borders" [(ngModel)]="moveAutoFillData.FacilityAddress" pInputText
+              size="17" />
+          </div>
+        </div>
+        <div class="space-down flex-container space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Resource Family Sponsor:</div>
+            <div class="space-right">
+              <input type="text" [(ngModel)]="moveAutoFillData.Sponsor" class="remove-borders" pInputText size="17" />
+            </div>
+          </div>
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Type of Relative:</div>
+            <div class="space-right">
+              <input type="text" class="remove-borders" [(ngModel)]="moveAutoFillData.RelativeType" pInputText
+                size="17" />
+            </div>
+          </div>
+        </div>
+        <div class="space-down flex-container space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Name of School:</div>
+            <div class="space-right">
+              <input type="text" class="remove-borders" [(ngModel)]="moveAutoFillData.NameOfSchool" pInputText
+                size="17" />
+            </div>
+          </div>
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Arrival Date:</div>
+            <div class="space-right">
+              <input [(ngModel)]="moveAutoFillData.ArrivalDate" type="text" class="remove-borders" pInputText
+                size="17" />
+            </div>
+          </div>
+        </div>
+        <div class="space-down flex-container space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right"> School District:</div>
+            <div class="space-right">
+              <input [(ngModel)]="moveAutoFillData.SchoolDistrict" type="text" class="remove-borders" pInputText
+                size="17" />
+            </div>
+          </div>
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Arrival Time:</div>
+            <div class="space-right">
+              <input [(ngModel)]="moveAutoFillData.ArrivalTime" type="text" class="remove-borders" pInputText
+                size="17" />
+            </div>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">
+            <p-checkbox binary="true" class="space-right"></p-checkbox>
+            Resource Family has possession of medications, medical card, medical consent and blue book for child
+            in placement.
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">Resource Family/Relative/ Facility Staff Signature:</div>
+          <div class="space-right">
+            <input type="text" class="remove-borders" [(ngModel)]="facStaff" pInputText size="17" />
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">Transporter/Driver Signature:</div>
+          <div class="space-right">
+            <input type="text" class="remove-borders" [(ngModel)]="driveSig" pInputText size="17" />
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">Form finalized By: _______________ on________________ </div>
+          <div class="space-right">
+            <input type="text" class="remove-borders" pInputText size="17" />
+          </div>
+        </div>
+        <p>Signature of this form constitutes acceptance of placement, that you have received Medical/Mental
+          Health/Education information
+          for named child on the form and serves as a temporary placement agreement which becomes effective as of the
+          date
+          of
+          signature between the signed party and Saint Francis Ministries. </p>
+      </div>
+
+
+
+      <p>In order to INITIATE and ASSURE ACCURATE PAYMENT – ALL blanks must be completed and sent to the Care Center by
+        10am following
+        working day after move of child.
+      </p>
+      <p>E-mail:
+        <a href="REDataManagement@saintfrancisministries.org">REDataManagement@saintfrancisministries.org</a>
+      </p>
+      <p>Mail: Saint Francis Ministries, Care Center, P.O. Box 1520, Salina, KS 67402-1520</p>
+      <p>Fax: (785) 825-5584</p>
+      <p>NOTE: If placement child entering is non-related kinship/kinship/agency approved, each provider members DOB,
+        Race, and
+        SS# must be provided to the care Center by 3pm the following working day.</p>
+
+
+    </div>
+
+  </div>
+  <!-- <button class="sf-negative-btn" pTooltip="Print" (click)="printForm()">
+  <span>Print</span>
+</button> -->
+
+
+  <div class="pdf-content" style="display: none;">
+    <div id="pdf-content-print" class="sf-form">
+      <div class="flex-container header">
+        <div class="heading">
+          REINTEGRATION FOSTER CARE
+          <br> CHILD MOVE FORM
+        </div>
+        <div class="logo">
+          <img src="assets/logo color.svg" alt="">
+        </div>
+        <div class="case-info">
+          <div>
+            <span>Child’s Full Name:</span>
+            <span class="pdf-borders">{{moveAutoFillData.clientname}}</span>
+
+          </div>
+          <div>
+            <span>KAECSES:</span>
+            <span class="pdf-borders">{{moveAutoFillData.kaecses}}</span>
+
+          </div>
+          <div>
+            <span>Office:</span>
+            <span class="pdf-borders">{{moveOffice}}</span>
+
+          </div>
+          <div>
+            <span>Court Case #:</span>
+            <span class="pdf-borders">{{moveAutoFillData.CourtCaseNo}}</span>
+
+          </div>
+        </div>
+
+      </div>
+      <div class="border-black">
+        <p class="bold">Child Left:</p>
+        <div class="space-down flex-container space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Name of Home/Facility:</div>
+            <div class="space-right">
+              <div class="pdf-borders">{{moveAutoFillData.ProviderName}}</div>
+
+            </div>
+          </div>
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Departure Date:</div>
+            <div class="space-right">
+              <div class="pdf-borders">{{moveForm.departureDate}}</div>
+
+            </div>
+          </div>
+        </div>
+        <div class="space-down flex-container space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Address incl City, State, Zip</div>
+            <div class="space-right">
+              <div class="pdf-borders">{{moveAutoFillData.FullAddress}}</div>
+
+            </div>
+          </div>
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Departure Time:</div>
+            <div class="space-right">
+              <div class="pdf-borders">{{moveForm.departureTime}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">Phone Number:</div>
+          <div class="space-right">
+            <div class="pdf-borders">{{moveAutoFillData.Phone}}</div>
+
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">Resource Family/Relative/ Facility Staff Signature:</div>
+          <div class="space-right">
+            <div class="pdf-borders">{{childLefResFam}}</div>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">Transporter/Driver Signature:</div>
+          <div class="space-right">
+            <div class="pdf-borders">{{childTransfortSign}}</div>
+          </div>
+        </div>
+        <div class="space-down flex-container space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Name of School:</div>
+            <div class="space-right">
+              <div class="pdf-borders">{{moveAutoFillData.SchoolName}}</div>
+            </div>
+          </div>
+          <div class="flex-container space-right space-down">
+            <div class="space-right">School District:</div>
+            <div class="space-right">
+              <div class="pdf-borders">{{moveAutoFillData.USD}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="space-down flex-container space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Reason for leaving:</div>
+          </div>
+        </div>
+        <div>
+          <div>
+            <div>
+              <div class="pdf-borders">{{moveForm.reasonForMove_Notes}}</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!--  -->
+        <div class="space-down flex-container space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Scheduled Appointments (Date & Location):</div>
+          </div>
+        </div>
+        <div>
+          <div>
+            <div>
+              <div class="pdf-borders">{{moveForm.schoolAppointments_Notes}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-down flex-container space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Medications: (Include Type and Frequency)</div>
+          </div>
+        </div>
+        <div>
+          <div>
+            <div>
+              <div class="pdf-borders">{{moveForm.medications_Notes}}</div>
+            </div>
+          </div>
+        </div>
+        <!--  -->
+        <!-- <div class="flex-container space-right space-down">
+            <div class="space-right">Medications: (Include Type and Frequency)
+            </div>
+            <div class="space-right">
+              <input type="text" [(ngModel)]="moveForm.medications_Notes" class="remove-borders" pInputText size="17" />
+            </div>
+          </div> -->
+
+      </div>
+      <!-- *ngIf="childEnteredInfo" -->
+      <div class="border-black">
+        <p class="bold">Child Entered:</p>
+        <div class="space-down flex-container space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Name of Home/Facility:</div>
+            <div class="space-right">
+              <div class="pdf-borders">{{moveAutoFillData.FacilityName}}</div>
+            </div>
+          </div>
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Phone Number:</div>
+            <div class="space-right">
+              <div class="pdf-borders">{{moveAutoFillData.MoveToPhone}}</div>
+
+            </div>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">Address incl City, State, Zip:</div>
+          <div class="space-right">
+            <div class="pdf-borders">{{moveAutoFillData.FacilityAddress}}</div>
+          </div>
+        </div>
+        <div class="space-down flex-container space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Resource Family Sponsor:</div>
+            <div class="space-right">
+              <div class="pdf-borders">{{moveAutoFillData.Sponsor}}</div>
+            </div>
+          </div>
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Type of Relative:</div>
+            <div class="space-right">
+              <div class="pdf-borders">{{moveAutoFillData.RelativeType}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="space-down flex-container space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Name of School:</div>
+            <div class="space-right">
+              <div class="pdf-borders">{{moveAutoFillData.NameOfSchool}}</div>
+            </div>
+          </div>
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Arrival Date:</div>
+            <div class="space-right">
+              <div class="pdf-borders">{{moveAutoFillData.ArrivalDate}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="space-down flex-container space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right"> School District:</div>
+            <div class="space-right">
+              <div class="pdf-borders">{{moveAutoFillData.SchoolDistrict}}</div>
+            </div>
+          </div>
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Arrival Time:</div>
+            <div class="space-right">
+              <div class="pdf-borders">{{moveAutoFillData.ArrivalTime}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">
+            <p-checkbox binary="true" class="space-right"></p-checkbox>
+            Resource Family has possession of medications, medical card, medical consent and blue book for child
+            in placement.
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">Resource Family/Relative/ Facility Staff Signature:</div>
+          <div class="space-right">
+            <div class="pdf-borders">{{facStaff}}</div>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">Transporter/Driver Signature:</div>
+          <div class="space-right">
+            <div class="pdf-borders">{{driveSig}}</div>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">Form finalized By: _______________ on________________ </div>
+          <div class="space-right">
+            <div class="pdf-borders"></div>
+          </div>
+        </div>
+        <p>Signature of this form constitutes acceptance of placement, that you have received Medical/Mental
+          Health/Education information
+          for named child on the form and serves as a temporary placement agreement which becomes effective as of the
+          date
+          of
+          signature between the signed party and Saint Francis Ministries. </p>
+      </div>
+
+
+
+      <p>In order to INITIATE and ASSURE ACCURATE PAYMENT – ALL blanks must be completed and sent to the Care Center by
+        10am following
+        working day after move of child.
+      </p>
+      <p>E-mail:
+        <a href="REDataManagement@saintfrancisministries.org">REDataManagement@saintfrancisministries.org</a>
+      </p>
+      <p>Mail: Saint Francis Ministries, Care Center, P.O. Box 1520, Salina, KS 67402-1520</p>
+      <p>Fax: (785) 825-5584</p>
+      <p>NOTE: If placement child entering is non-related kinship/kinship/agency approved, each provider members DOB,
+        Race, and
+        SS# must be provided to the care Center by 3pm the following working day.</p>
+    </div>
+  </div>
+
+
+  <app-placement-email-footer [isMoveForm]="true" (isPdfDown)="pdfForm($event)"></app-placement-email-footer>
+</div>

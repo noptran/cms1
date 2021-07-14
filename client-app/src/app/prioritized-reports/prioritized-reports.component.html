@@ -1,0 +1,998 @@
+<div class="container-fluid reports-container">
+  <!-- loader layer -->
+  <div id="loading-overlay-predefined">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+  <!-- Main selection layer -->
+  <div style="display:flex" class="nav-box">
+    <div class="margin-left-10 reports-autoComplete-container">
+      <p-autoComplete [(ngModel)]="optionSelected" placeholder="Please select a report" (onSelect)="getLayer()"
+        [suggestions]="filtered" field="label" [dropdown]="true" [forceSelection]="true"
+        (completeMethod)="getReport($event)"></p-autoComplete>
+      <span *ngIf="showOpenFilter && optionSelected" class="open-filter" (click)="openFilter()">Open Filter</span>
+      <!-- <p-autoComplete [(ngModel)]="optionSelected" [suggestions]="dropdownList" (completeMethod)="onOptionSelected($event)" [dropdown]="true" [forceSelection]="true"></p-autoComplete> -->
+      <!-- <select class="dropdown sf-click-cursor" [(ngModel)]='optionSelected' (ngModelChange)='onOptionSelected($event)'>
+        <option [ngValue]="null" [selected]="true">Please select a report</option>
+        <option *ngFor="let item of dropdownList" [ngValue]="item.label">
+          <span  class="sf-click-cursor">{{item.label}}</span>
+        </option>
+      </select> -->
+
+    </div>
+
+    <div class="push" style="display:flex" [hidden]="hideTable">
+      <!-- <div class="box-share right-icon" pTooltip="Coming soon" tooltipPosition="top">
+        <span class="fa fa-share-alt"></span>
+        <span>Share</span>
+      </div> -->
+      <div class="box-dashboard right-icon" pTooltip="To view dashboard of report" tooltipPosition="top"
+        (click)="getDashBoardLink()">
+        <span class="fa fa-line-chart"></span>
+        <span>View Dashboard</span>
+      </div>
+      <div class="dropdown box-export right-icon" pTooltip="To export report" tooltipPosition="top">
+        <button class="box-export right-icon" type="button" data-toggle="dropdown">
+          <span class="fa fa-download"></span>
+          <span>Export</span></button>
+        <ul class="dropdown-menu export-submenu">
+          <li class="export-menu-item"><span (click)="exportAll('excel')">Download as Excel</span></li>
+          <li class="export-menu-item"><span (click)="exportAll('csv')">Download as CSV</span></li>
+        </ul>
+      </div>
+
+
+      <div class="dropdown box-export right-icon">
+        <button class="box-export right-icon margin-right-0" type="button" data-toggle="dropdown">
+          <span class="fa fa-filter"></span>
+          <span>Filter</span></button>
+        <div class="dropdown-menu export-submenu float-dropdown-right">
+          <div>
+            <a class="dropdown-item" (click)="displaying = true">Create new filter</a>
+          </div>
+          <div class="dropdown-divider"></div>
+          <h5 *ngIf="favouriteFilters.length > 0" class="dropdown-header">My Favourites</h5>
+          <h5 *ngIf="favouriteFilters.length == 0" class="dropdown-header">No favourites found!</h5>
+          <a class="dropdown-item" *ngFor="let item of favouriteFilters;let index = index" id="apply"
+            (click)="apply(item,$event)">
+            <span class="saved-filter">{{item.favoriteFilterName}}</span>
+            <i class="fa fa-times-circle color-grey text-right remove-icon" data-toggle="modal" data-target="#myModal1"
+              id="remove" (click)="getDetails(item.favoriteFilterId,$event)"></i></a>
+        </div>
+      </div>
+
+      <!-- <div class="box-filter right-icon">
+        <span class="fa fa-filter"></span>
+        <span>Filter</span>
+      </div> -->
+
+      <!-- <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="fa fa-filter"></span>Dropdown button
+          </button> -->
+      <!-- <div class="box-filter right-icon margin-right-0" pTooltip = "To filter records" tooltipPosition="top" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="fa fa-filter"></span>
+            <span>Filter</span>
+      </div> -->
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <div>
+          <a class="dropdown-item" (click)="displaying = true">Create new filter</a>
+        </div>
+        <div class="dropdown-divider"></div>
+        <h5 class="dropdown-header">My Favourites</h5>
+        <a class="dropdown-item" *ngFor="let item of favouriteFilters;let index = index" id="apply"
+          (click)="apply(item,$event)">
+          <span class="saved-filter">{{item.favoriteFilterName}}</span>
+          <i class="fa fa-times-circle color-grey text-right remove-icon" data-toggle="modal" data-target="#myModal1"
+            id="remove" (click)="getDetails(item.favoriteFilterId,$event)"></i></a>
+      </div>
+    </div>
+  </div>
+  <!-- Empty card-->
+  <div *ngIf="!optionSelected">
+    <img src="/assets/icons/report icon with text.svg" alt="reports_icon" class="empty-card" />
+  </div>
+  <!-- Pagination layer -->
+  <div class="row margin-top-20" [hidden]="hideTable">
+    <div class="col-lg-6 col-md-6 col-sm-6 sorting-layer">
+      <span class="sort-title">Sort by Column</span>
+      <!-- <p-dropdown [options]="sortcolumnDropdownList" [(ngModel)]="sortColumn" placeholder="{{sortColumn?sortColumn:'Select column'}}" (ngModelChange)=SortChanged(this.sortOrder)></p-dropdown> -->
+      <p-autoComplete [(ngModel)]="sortColumn" [suggestions]="filtered" [dropdown]="true" [forceSelection]="true"
+        placeholder="Select a column" (completeMethod)="getSortColumns($event)"
+        (onSelect)="SortChanged(this.sortOrder)"></p-autoComplete>
+      <!-- <p-selectButton [options]="sortList" [(ngModel)]="sortOrder" (ngModelChange)=SortChanged() optionLabel="name"></p-selectButton>  -->
+      <div class="asc-container" [ngClass]="sortOrder == 'asc'?'sort-active':''" pTooltip="Ascending">
+        <span class="fa fa-sort-amount-asc" (click)="SortChanged('asc')"></span>
+      </div>
+      <div class="desc-container" [ngClass]="sortOrder == 'desc'?'sort-active':''" pTooltip="Decending">
+        <span class="fa fa-sort-amount-desc" (click)="SortChanged('desc')"></span>
+      </div>
+      <div class="sort-clear" *ngIf="sortingEnable">
+        <span (click)="SortChanged('no sort')">Clear</span>
+      </div>
+    </div>
+    <!-- <div class="col-lg-3 col-md-3 col-sm-3 sf-text-right">
+            <app-pagesize *ngIf="totalCount"  [totalCount]="totalCount" [initial]="initial" [end]="end"  (keyup)="pagesizeNav($event)" (click)="pagesize($event)"></app-pagesize>
+          </div> -->
+    <div class="col-lg-6 col-md-6 col-sm-6 sf-text-right sf-table-header sf-black" *ngIf="totalCount > 0">
+      <app-pagesize *ngIf="totalCount" [totalCount]="totalCount" [initial]="initial" [end]="end"
+        (keyup)="pagesizeNav($event)" (click)="pagesize($event)"></app-pagesize>
+    </div>
+  </div>
+  <!-- sub filter layer-->
+  <div>
+    <!-- <div class="row margin-top-20" [hidden]="hideFilters">
+
+
+    
+  </div> -->
+
+    <!-- <div class="row margin-top-20" *ngIf="!hideToggle" [hidden]="hideTable">
+    <div class="col-lg-12 col-sm-12 col-md-12 text-center">
+      <button class="sf-secondary-btn" (click)="HideFilter();hideToggle=!hideToggle;" pTooltip="View less for concise filtering">
+        <i class="glyphicon glyphicon-chevron-up"></i>
+        Show less
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="emptyStateController && hideLoader" class="sf-pr-emptystate">
+      <p class="sf-heading-2 sf-black">Contact admin to gain access to application</p>
+   </div>
+
+  <!-- Filter layer -->
+    <!-- <div class="row margin-top-20" [hidden]="hideTable">
+      <div *ngIf="reportGenerated" class="col-lg-9 col-md-9 col-sm-9 sf-filter-padding">
+        <span class="col-lg-2 pad-0" >
+          <span class="sf-heading-3 sf-black">My Favorites :</span>
+        </span>
+        <span class="col-lg-10 pad-0 margin-left-30 fav-scroll">
+          <button *ngFor="let item of favouriteFilters;let index = index" type="submit" class="sf-secondary-btn sf-filter-padding font-600 margin-top-0"
+          id="apply" (click)="apply(item,$event)">
+            {{item.favoriteFilterName}}
+            <i class="fa fa-times-circle color-grey text-right" data-toggle="modal" data-target="#myModal1" id="remove" (click)="getDetails(item.favoriteFilterId,$event)"></i>
+          </button>
+        </span>
+      </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 sf-text-right" *ngIf="reportGenerated && rowData.length > 0">
+      <span class="sf-heading-3 sf-black glyphicon glyphicon-filter sf-click-cursor" pTooltip="Filter" id="filter-controller" (click)="displaying = true"></span>
+    </div>
+  </div> -->
+
+
+
+
+
+    <!-- Report layer -->
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12" [hidden]="hideTable"
+        *ngIf="optionSelected && !showGroupByTable && hideLoader">
+        <ag-grid-angular style="width: 500px; height: 500px;" class="ag-theme-balham" [rowData]="rowData"
+          [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [rowDragManaged]="true"
+          [suppressDragLeaveHidesColumns]="false" [suppressRowDrag]="true" [enableFilter]="true" [enableSorting]="true"
+          enableColResize="true" #agGrid style="width: 100%; height:79vh;" animateRows="true" rowSelection="multiple"
+          (rowSelected)="rowClick($event)" pagination="true">
+        </ag-grid-angular>
+
+      </div>
+    </div>
+
+    <!-- <p-sidebar [(visible)]="neb_displayingFilter" position="left">
+        <div class="col-lg-12 col-md-12 col-sm-12 row layer-box" >
+            <div *ngFor="let filter of filterList">
+            <button type="button"  class="layer-button  sf-filter-padding font-600 change-color">
+                
+                  {{filter.data.includes(',')
+                  ? filter.data.split(',')[0] : filter.data.split('&')[0]}}
+              </button>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 row layer-box" >
+            <div *ngFor="let filter1 of filterList2">
+            <button type="button" class="layer-button  sf-filter-padding font-600 change-color">
+                {{filter1.data.includes(',')
+                ? filter1.data.split(',')[0] : filter1.data.split('&')[0]}}
+            </button>
+          </div>
+        </div>
+
+<div class="col-lg-12 col-md-12 col-sm-12 row layer-box" >
+    <div *ngFor="let filter2 of filterList3">
+    <button type="button" class="layer-button  sf-filter-padding font-600 change-color">
+        {{filter2.data.includes(',')
+        ? filter2.data.split(',')[0] : filter2.data.split('&')[0]}}
+    </button> 
+  </div>
+</div>
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 row layer-box">
+  <div *ngFor="let filter3 of filterList4">
+    <button type="button" class="layer-button  sf-filter-padding font-600 change-color" (click)="showFilters1(filter3)">
+        {{filter3.data.includes(',')
+        ? filter3.data.split(',')[0] : filter3.data.split('&')[0]}}
+    </button> 
+  </div>
+</div>
+
+    </p-sidebar> -->
+    <p-sidebar [(visible)]="displayingFilter" position="left">
+      <div>
+        <!-- level 1-->
+        <div class="row col-lg-12 col-md-12 col-sm-12 layer-box">
+          <ng-container *ngIf="!hideLayer">
+            <div [hidden]="firstLayer" *ngFor="let filter1 of filterList;let i = index">
+              <div>
+                <button type="button" *ngIf="optionSelected.label !== 'Trend Line Processing'"
+                  (click)="showFilters1(filter1);filterData(filter1.data)"
+                  class="layer-button  sf-filter-padding font-600 change-color"
+                  [ngClass]="filter1 == filter1List?'filters-background':''">{{filter1.data.includes(',')
+                    ? filter1.data.split(',')[0] : filter1.data.split('&')[0]}}</button>
+                <button type="button" *ngIf="optionSelected.label === 'Trend Line Processing'"
+                  (click)="showFilters1(filter1);filterData(filter1.data)"
+                  class="layer-button sf-filter-padding font-600 change-color"
+                  [ngClass]="filter1 == filter1List?'filters-background':''">{{filter1.data.split('$')[0]
+                    || filter1.data.split(',')[0]}}</button>
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="hideLayer">
+            <div class="row " style="width:100%;margin:0px">
+              <button type="button"
+                class="layer-button sf-filter-padding font-600 change-color filters-background col-xs">
+                <span *ngIf="optionSelected.label !== 'Trend Line Processing'">{{filter1List.data.split('$')[0]}}</span>
+                <span *ngIf="optionSelected.label === 'Trend Line Processing'">{{filter1List.data.split('$')[0]}}</span>
+              </button>
+              <div (click)="hideLayer=!hideLayer" style="position:relative;top:30px"
+                *ngIf="optionSelected.label === 'Trend Line Processing'" class="col-xs">
+                <i class="fa fa-ellipsis-h"></i>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <!-- level 2 -->
+        <div [hidden]="hideFilter1" class="col-lg-12 col-md-12 col-sm-12 row layer-box">
+          <div *ngFor="let filter2 of filterList2Temp;let i = index">
+            <button type="button" *ngIf="optionSelected.label !== 'Trend Line Processing'"
+              (click)="showFilters2(filter2,objectKeys(filter2)[0]);filterData(filter2.data)"
+              class="layer-button sf-filter-padding font-600 change-color"
+              [ngClass]="filter2 == filter2List?'filters-background':''">{{filter2?.data?.split(',')[0]}}</button>
+            <button type="button" *ngIf="optionSelected.label === 'Trend Line Processing'"
+              (click)="showFilters2(filter2,objectKeys(filter2)[0]);filterData(filter2.data)"
+              class="layer-button sf-filter-padding font-600 change-color"
+              [ngClass]="filter2 == filter2List?'filters-background':''">{{filter2.data.includes(',')
+                ? filter2.data.split(',')[0] : filter2.data.split('&')[0]}}</button>
+          </div>
+        </div>
+        <!-- level 3 -->
+        <div *ngIf="!hideFilter2 " class="row col-lg-12 col-md-12 col-sm-12 layer-box">
+          <div *ngFor="let filter3 of filterList3[0];let i = index">
+            <button *ngIf="optionSelected.label !== 'Trend Line Processing'" type="button"
+              class="layer-button sf-filter-padding font-600 change-color" (click)="showFilters3(filter3,filter2List)"
+              [ngClass]="filter3List + parentReport === filter3 + filter2List.data?'filters-background': ' '">{{filter3.split(',')[0]}}</button>
+            <button *ngIf="optionSelected.label === 'Trend Line Processing'" type="button"
+              class="layer-button sf-filter-padding font-600 change-color" (click)="showFilters3(filter3,filter2List)"
+              [ngClass]="filter3List + parentReport === filter3 + filter2List.data?'filters-background': ' '">{{filter3.split('&')[0]}}</button>
+          </div>
+        </div>
+
+        <!-- level 4 -->
+        <div *ngIf="hideFilter4 && !showContract && !showNonContract" class="row col-lg-12 col-md-12 col-sm-12 layer-box">
+          <div *ngFor="let filter4 of filterList4">
+            <button type="button" class="layer-button  sf-filter-padding font-600 change-color"
+              (click)="showFilters6(filter4)">
+              {{filter4.data.includes(',')
+              ? filter4.data.split(',')[0] : filter4.data.split('&')[0]}}
+            </button>
+          </div>
+          <!-- <div *ngFor="let filter3 of filterList3[0];let i = index">
+        <button *ngIf="optionSelected.label !== 'Trend Line Processing'" type="button"
+          class="layer-button sf-filter-padding font-600 change-color" (click)="showFilters3(filter3,filter2List)">{{filter3.split(',')[0]}}</button>
+        <button *ngIf="optionSelected.label === 'Trend Line Processing'" type="button"
+          class="layer-button sf-filter-padding font-600 change-color" (click)="showFilters3(filter3,filter2List)">{{filter3.split('&')[0]}}</button>
+      </div> -->
+        </div>
+        <div *ngIf="hideFilter4 && showContract" class="row col-lg-12 col-md-12 col-sm-12 layer-box">
+          <div *ngFor="let filter4 of filtersListContract">
+            <button type="button" class="layer-button  sf-filter-padding font-600 change-color"
+              (click)="showFilters6(filter4)">
+              {{filter4.data.includes(',')
+              ? filter4.data.split(',')[0] : filter4.data.split('&')[0]}}
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="hideFilter4 && showNonContract" class="row col-lg-12 col-md-12 col-sm-12 layer-box">
+          <div *ngFor="let filter4 of filtersListNonContract">
+            <button type="button" class="layer-button  sf-filter-padding font-600 change-color"
+              (click)="showFilters6(filter4)">
+              {{filter4.data.includes(',')
+              ? filter4.data.split(',')[0] : filter4.data.split('&')[0]}}
+            </button>
+          </div>
+        </div>
+
+
+        <div *ngIf="showContrct" class="row col-lg-12 col-md-12 col-sm-12 layer-box">
+
+          <button type="button" class="layer-button sf-filter-padding font-600 change-color" (click)="showFilters5()"
+            [ngClass]="filters-background">RFC Open Cases (Today) - West</button>
+
+
+        </div>
+        <!-- <div style="padding-left:30px" class="row">
+            <div> -->
+        <!-- <div style="padding-left:30px" *ngIf="!hideFilter3 && filter3List[objectKeys(filter3List)[0]] && filter3List[objectKeys(filter3List)[0]].length > 0"
+            class="row">
+            <div *ngFor="let filter4 of filter3List[objectKeys(filter3List)[0]] ;let i = index">
+              <button type="submit" (click)="filterData(filter4)" class="layer-button sf-filter-padding font-600 change-color"
+                [ngClass]="filter4 === filterList4?'filters-background':''">
+                {{filter4.split(',')[0]}}{{filter4 === filterList4}}</button>
+            </div>
+          </div> -->
+        <!-- level 4 -->
+        <div class="row col-lg-12 col-md-12 col-sm-12  layer-box"
+          *ngIf="hideFilterLayer4 && filter4List && filter4List.length > 0">
+          <div *ngFor="let filter4 of filter4List;let i = index">
+            <button class="layer-button sf-filter-padding font-600 change-color"
+              (click)="reportGenerationlevel4(filter4)"
+              [ngClass]="filter4 === filterList4 ? 'filters-background': '' ">{{filter4.split(',')[0]}}</button>
+          </div>
+        </div>
+      </div>
+    </p-sidebar>
+
+    <div class="side-bar">
+      <p-sidebar [(visible)]="displaying" position="right">
+        <div class="margin-top-20">
+          <span class="font-size-12">Column</span>
+          <br />
+          <p-dropdown [options]="columnDropdownList"
+            [style]="{'margin':'5px 0px 10px 0px','width':'222px','border': '1px solid #DBDEE4'}"
+            [(ngModel)]="filterColumnSelected" (ngModelChange)=onColumnFilterSelected($event)
+            placeholder="Select column"></p-dropdown>
+        </div>
+        <div>
+          <span class="font-size-12">Condition</span>
+          <br />
+          <p-dropdown [options]="optionFiltered"
+            [style]="{'margin':'5px 0px 10px 0px','width':'222px','border': '1px solid #DBDEE4'}"
+            [(ngModel)]="filterConditionOption" (ngModelChange)=onConditionFilterSelected()
+            placeholder="Select condition"></p-dropdown>
+          <!-- <select class="dropdown width-200 dropdown-margin" [(ngModel)]='filterConditionOption' (ngModelChange)='onConditionFilterSelected($event)'>
+                  <option *ngFor="let item of optionFiltered" [ngValue]="item.value">
+                    {{item.view}}
+                  </option>
+                </select> -->
+        </div>
+        <span class="font-size-12">Keyword</span>
+        <div class="row margin-top-5px" *ngIf="columnData">
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <div id="textFilter">
+              <angular2-multiselect [data]="columnData" [(ngModel)]="selectedDataToFilter"
+                [settings]="ReportSubSettings">
+              </angular2-multiselect>
+            </div>
+            <div id="dateFilter" class="adv-filter">
+              <div>
+                <p-calendar appendTo="body" [(ngModel)]="startingDate" [showIcon]="true" [yearNavigator]="true"
+                  [monthNavigator]="true" yearRange="1930:2030"></p-calendar>
+              </div>
+              <div class="adv-filter margin-top-20">
+                <p-calendar appendTo="body" [(ngModel)]="endingDate" [showIcon]="true" [yearNavigator]="true"
+                  [monthNavigator]="true" yearRange="1930:2030"></p-calendar>
+              </div>
+            </div>
+            <div id="intFilter">
+              <div>
+                <input type="number" [(ngModel)]="startNumber" name="start-range"
+                  class="sf-input-size border-color-filter width-100" />
+              </div>
+              <div class="margin-top-20">
+                <input type="number" [(ngModel)]="endNumber" name="end-range"
+                  class="sf-input-size border-color-filter width-100" />
+              </div>
+            </div>
+            <div id="singledateFilter" class="adv-filter">
+              <div>
+                <p-calendar appendTo="body" [(ngModel)]="DateToFilter" [showIcon]="true" [yearNavigator]="true"
+                  [monthNavigator]="true" yearRange="1930:2030"></p-calendar>
+              </div>
+            </div>
+            <div id="singleIntFilter">
+              <div>
+                <input type="number" [(ngModel)]="NumberToFilter" name="start-range-single"
+                  class="sf-input-size border-color-filter font-size-12 width-100" />
+              </div>
+            </div>
+            <div id="singleStringFilter">
+              <div>
+                <input type="text" [(ngModel)]="StringToFilter" name="single-filter"
+                  class="sf-input-size border-color-filter font-size-12 width-100" />
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <button class="plus-button" (click)="setAdvFilter()">+</button>
+          </div>
+        </div>
+        <div *ngIf="showFilterError" class="filter-error">*Enter data to filter</div>
+        <div *ngIf="fillBothFields" class="filter-error">*Fill both the fields</div>
+        <div *ngIf="fillField" class="filter-error">*Enter data to filter</div>
+        <div class="filter-grouping">
+          <span>AND</span>
+          <p-inputSwitch name="enableGrouping" [(ngModel)]="isGrouping" (onChange)="groupingFilterController($event)">
+          </p-inputSwitch>
+          <span>OR</span>
+        </div>
+        <div class="filter-container">
+          <div class=" advance-filter-btn" *ngFor="let item of advanceFiltersTotal;let i = index"
+            (click)="selectedGroupingItem(item)">
+            <div class="filters">
+              <span>{{item.column}} {{item.condition}} {{item.filter}}</span>
+              <i class="fa fa-times-circle color-grey text-right " pTooltip="Remove"
+                (click)="remove(item,i,this.displayFilter2,this.originalArray)"></i>
+            </div>
+            <div class="group-filter" *ngIf="advanceFiltersTotal.length > 1">
+              <!-- <p-dropdown [options]="groupTypes"  (onChange)="filterGrouping(item, $event, item.condition)"></p-dropdown> -->
+              <!-- <p-selectButton [options]="groupTypes" [(ngModel)]="defaultGroupingCondition" name="name{i}"  (onOptionClick)="filterGrouping(item, $event, item.condition)"></p-selectButton> -->
+              <p-radioButton name="grouping{{i}}" value="and" [ngModel]="defaultGroupingCondition"
+                (onClick)="filterGrouping(item, 'and', item.condition, true, i)" label="AND"></p-radioButton>
+              <p-radioButton name="grouping{{i}}" value="or" [ngModel]="defaultGroupingCondition" label="OR"
+                (onClick)="filterGrouping(item, 'or', item.condition, true, i)"></p-radioButton>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="showSave" class="filter-save-container">
+          <div class="save-filter-name">Save Filter</div>
+          <input type="text" placeholder="Enter a name for the filter" [(ngModel)]="FilterName" maxlength="30"
+            name="filter-name" class="sf-input-size width-200-field font-size-12 margin-top-5px" />
+        </div>
+        <div>
+          <div class="filter-footer">
+            <div>
+              <button class="sf-negative-btn " (click)="reset()">Reset</button>
+            </div>
+            <div *ngIf="!showSave">
+              <button class="sf-positive-btn" (click)="applyGrouping()">Apply Filter</button>
+            </div>
+            <div *ngIf="showSave">
+              <button *ngIf="showSave" class="sf-primary-btn" (click)="save()">Save Filter</button>
+            </div>
+          </div>
+        </div>
+      </p-sidebar>
+    </div>
+
+
+    <div class="modal fade" id="myModal0" role="dialog">
+      <div class="modal-dialog margin-top-5">
+        <div class="modal-content pad-10">
+          <div class="sect">
+            <div class="">
+              <h5 class="font-weight-600">Filters</h5>
+              <div class="modal-filter-div">
+                <button *ngFor="let item of displayFilter2;let index = index" type="submit"
+                  class="sf-secondary-btn margin-5 font-600">
+                  {{item.column}} = {{item.value}}
+
+                </button>
+                <button *ngFor="let item of displayFilter2NonString;let index = index" type="submit"
+                  class="sf-secondary-btn margin-5 font-600">
+                  {{item.column}} between {{item.value}}
+
+                </button>
+                <button *ngFor="let item of displayGreaterThan;let index = index" type="submit"
+                  class="sf-secondary-btn margin-5 font-600">
+                  {{item.column}} > {{item.value}}
+
+                </button>
+                <button *ngFor="let item of displayLesserThan;let index = index" type="submit"
+                  class="sf-secondary-btn margin-5 font-600">
+                  {{item.column}} < {{item.value}} </button> <button
+                    *ngFor="let item of displayContains;let index = index" type="submit"
+                    class="sf-secondary-btn margin-5 font-600">
+                    {{item.column}} contains {{item.value}}
+
+                </button>
+                <button *ngFor="let item of displaygreaterThanOrEqualsArray;let index = index" type="submit"
+                  class="sf-secondary-btn margin-5 font-600">
+                  {{item.column}} >= {{item.value}}
+
+                </button>
+                <button *ngFor="let item of displaylessThanOrEqualsArray;let index = index" type="submit"
+                  class="sf-secondary-btn margin-5 font-600">
+                  {{item.column}} <= {{item.value}} </button> <button
+                    *ngFor="let item of displayNotBetweenArray;let index = index" type="submit"
+                    class="sf-secondary-btn margin-5 font-600">
+                    {{item.column}} not between {{item.value}}
+
+                </button>
+                <button *ngFor="let item of displayIsEmptyArray ;let index = index" type="submit"
+                  class="sf-secondary-btn margin-5 font-600 advance-filter-btn">
+                  {{item.column}} is empty
+
+                </button>
+                <button *ngFor="let item of displayIsNotEmptyArray ;let index = index" type="submit"
+                  class="sf-secondary-btn margin-5 font-600 advance-filter-btn">
+                  {{item.column}} is not empty
+
+                </button>
+
+              </div>
+            </div>
+            <div class="margin-top-10">
+              <h5 class="font-weight-600">Filter Name</h5>
+              <input type="text" [(ngModel)]="FilterName" maxlength="30" name="filter-name"
+                class="sf-input-size filter-name" />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default cancel-btn sf-negative-btn"
+              data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-default ok-btn sf-positive-btn" (click)="save()"
+              data-dismiss="modal">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="myModal1" role="dialog">
+      <div class="modal-dialog margin-top-5">
+        <div class="modal-content">
+          <div class="row sect">
+            <div class="col-lg-3 padding-15">
+              <img class="sf-width-100" src='../../assets/image/delete-button.svg'>
+            </div>
+            <div class="col-lg-8 padding-15">
+              <h2>Are you sure?</h2>
+              <h5>This filter will be deleted and you cannot undo it</h5>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default cancel-btn sf-negative-btn" data-dismiss="modal">No</button>
+            <button type="button" class="btn btn-default ok-btn sf-positive-btn" (click)="removeFavourites()"
+              data-dismiss="modal">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p-dialog header="{{pre_report_name}}" [(visible)]="show_pre_define_filter" [modal]="true"
+    [contentStyle]="{width: '600px', minWidth: '300px'}" [responsive]="true" [maximizable]="true" [minY]="100"
+    [baseZIndex]="10000">
+    <div class="form-al">
+      <div class="row">
+        <div class="col-md-6" *ngIf="!isRFCPlacements" style="margin: auto;border-right: 1px solid #b3adad;">
+          <p>{{pre_report_content}}</p>
+        </div>
+        <div class="col-md-6" style="margin: auto;">
+          <div *ngIf="showBeginDate">
+            <div>Begin Date</div>
+            <p-calendar name="beginDate" appendTo="body" [disabled]="beginDate_disable" [(ngModel)]="beginDate"
+              [showIcon]="true" [maxDate]="date" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+              placeholder="Begin Date" tooltipPosition="top">
+            </p-calendar>
+          </div>
+          <div *ngIf="showEndDate">
+            <div>End Date</div>
+            <p-calendar name="dateInput" appendTo="body" [showIcon]="true" [(ngModel)]="endDate" [maxDate]="date"
+              [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" placeholder="End Date"
+              tooltipPosition="top" (ngModelChange)="dropRegion(endDate);thirteenmonthBeginDate(endDate)">
+            </p-calendar>
+          </div>
+          <div *ngIf="showAllFamilyMember">
+            <p-checkbox binary="true" label="All Family Members" [(ngModel)]="allFamilyMembers"></p-checkbox>
+          </div>
+          <div *ngIf="showProcessDate">
+            <div>Process Date</div>
+            <p-calendar name="dateInput" appendTo="body" [showIcon]="true" [(ngModel)]="endDate" [maxDate]="date"
+              [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" placeholder="Process Date"
+              tooltipPosition="top" (ngModelChange)="dropRegion(endDate)">
+            </p-calendar>
+          </div>
+          <div *ngIf="showProcessDateTime">
+            <div>Process Date</div>
+            <p-calendar name="dateInput" appendTo="body" [showIcon]="true" [(ngModel)]="endDate" [maxDate]="date"
+              [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" placeholder="Process Date"
+              tooltipPosition="top" (ngModelChange)="dropRegion(endDate)">
+            </p-calendar>
+          </div>
+          <div *ngIf="showReferralType">
+            <div>Referral Type(s)</div>
+            <p-dropdown [options]="allreferrals" [(ngModel)]="referralID"
+              [style]="{'width':'100%','border': '1px solid #737374'}" optionLabel="ReferralGroup"></p-dropdown>
+          </div>
+          <div *ngIf="showFisYear">
+            <div>Fiscal Year End</div>
+            <p-dropdown [options]="fiscalYearList" [(ngModel)]="fisData"
+              [style]="{'width':'100%','border': '1px solid #737374'}" optionLabel="FYE"></p-dropdown>
+          </div>
+          <div *ngIf="showRegion">
+            <div>Region(s)</div>
+            <p-dropdown [options]="regions" [(ngModel)]="region"
+              [style]="{'width':'210px','border': '1px solid #737374'}" optionLabel="DCFRegionGroup"></p-dropdown>
+          </div>
+          <div *ngIf="DHSshowRegion">
+            <div>Region(s)</div>
+            <p-dropdown [options]="DHS_regions" [(ngModel)]="DHS_region"
+              [style]="{'width':'210px','border': '1px solid #737374'}" optionLabel="dhsRegionGroup"></p-dropdown>
+          </div>
+          <div *ngIf="showProcodes">
+            <div>Procodes</div>
+            <div class="procodes-dropdown">
+            <p-dropdown [options]="allprocodes" [(ngModel)]="procodes" filter="true"
+              [style]="{'width':'210px','border': '1px solid #737374'}" optionLabel="Procode"></p-dropdown>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="sf-negative-btn pull-right" (click)="closeWizard()">
+      <span>Exit</span>
+    </button>
+    <button class="sf-positive-btn pull-right" (click)="get_prioritrized_Reports(1,100)">
+      <span>Process</span>
+    </button>
+    <br>
+  </p-dialog>
+  <p-dialog header="{{pre_report_name}}" [(visible)]="show_currentFoster_filter" [modal]="true"
+    [contentStyle]="{width: '600px', minWidth: '300px'}" [responsive]="true" [maximizable]="true" [minY]="100"
+    [baseZIndex]="10000">
+    <div>
+      <div>
+        <div><b>Foster Care Homes - Current Foster Homes Report</b></div>
+        <div class="row margin-top-10">
+          <div class="col-md-4">
+            <p-radioButton name="group1" value="Show All" label="Show All" [(ngModel)]="showAll" inputId="opt1"
+              (click)="workerDisable('Show All')"></p-radioButton>
+          </div>
+          <div class="col-md-4">
+            <p-radioButton name="group1" value="Filter Result" label="Filter Result" [(ngModel)]="showAll"
+              (click)="workerDisable('filterResult')" inputId="opt2"></p-radioButton>
+          </div>
+        </div>
+        <div class="row margin-top-10">
+          <div class="col-md-6 margin-top-10">
+            <div class="margin-top-10"><b>FCH Office</b></div>
+            <p-autoComplete [(ngModel)]="sfaOFc" [suggestions]="sfaOfficesAll" field="OfficeName" [dropdown]="true"
+              [forceSelection]="true" (completeMethod)="getSearchSFAofficeAll($event)" [disabled]='workDis'>
+            </p-autoComplete>
+            <div class="margin-top-10"><b>County</b></div>
+            <p-autoComplete [(ngModel)]="countyData" [suggestions]="countysAll" field="countyName" [dropdown]="true"
+              [forceSelection]="true" (completeMethod)="getCountysAll($event)" [disabled]='workDis'>
+            </p-autoComplete>
+            <div class="margin-top-10"><b>Resource Worker</b></div>
+            <p-autoComplete [(ngModel)]="resWorker" [suggestions]="allResourceWorkers" field="ResourceWorker"
+              [dropdown]="true" [forceSelection]="true" (completeMethod)="getSearchWorker($event)" [disabled]='workDis'>
+            </p-autoComplete>
+            <div class="margin-top-10"><b>Resource Supervisor</b></div>
+            <p-autoComplete [(ngModel)]="resourceSupervisor" [suggestions]="allResourceSuperVisors"
+              field="ResourceSupervisor" [dropdown]="true" [forceSelection]="true"
+              (completeMethod)="getSearchSuperVisor($event)" [disabled]='workDis'></p-autoComplete>
+
+          </div>
+          <div class="col-md-6 margin-top-10">
+            <div class="margin-top-10"><b>Level Of Care</b></div>
+            <div style="height: 234px;
+         overflow-y: scroll;">
+              <div class="row panel-menu" *ngFor="let fch_data of fchLevels">
+                <div class="col-md-2">
+                  <p-checkbox name="groupname" value="{{fch_data.FCHLevelOfCareID}}" [disabled]='workDis'
+                    [(ngModel)]="selectFCH_ID[fch_data.FCHLevelOfCareID]"
+                    (onChange)="all_Fch_change($event,fch_data.FCHLevelOfCareID)" binary="true"></p-checkbox>
+                </div>
+                <div class="col-md-10">
+                  <span>{{fch_data.FCHLevelOfCare}}</span>
+                </div>
+              </div>
+            </div>
+            <button class="sf-negative-btn pull-right" (click)="unCheckAllFCH()">UnCheck All</button>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    <hr>
+    <button class="sf-negative-btn pull-right" (click)="closeWizard()">
+      <span>Exit</span>
+    </button>
+    <button class="sf-positive-btn pull-right" (click)="get_currefosterCareHome(1,100)">
+      <span>Process</span>
+    </button>
+    <br>
+  </p-dialog>
+
+  <p-dialog header="{{pre_report_name}}" [(visible)]="show_FosterRoster_filter" [modal]="true"
+    [contentStyle]="{width: '600px', minWidth: '300px'}" [responsive]="true" [maximizable]="true" [minY]="100">
+    <div *ngIf="pre_report_name=='FCH - Foster Roster'">
+      <div class="form-al">
+        <div class="row">
+          <div class="col-md-6">
+            <div>Begin Date</div>
+            <p-calendar name="beginDate" appendTo="body" [disabled]="beginDate_disable" [(ngModel)]="beginDate"
+              [showIcon]="true" [maxDate]="date" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+              placeholder="Begin Date" tooltipPosition="top">
+            </p-calendar>
+          </div>
+          <div class="col-md-6">
+            <div>End Date</div>
+            <p-calendar name="dateInput" appendTo="body" [showIcon]="true" [(ngModel)]="endDate" [maxDate]="date"
+              [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" placeholder="End Date"
+              tooltipPosition="top" (ngModelChange)="dropRegion(endDate);thirteenmonthBeginDate(endDate)">
+            </p-calendar>
+          </div>
+        </div>
+
+
+      </div>
+      <div>
+        <div class="row margin-top-10">
+          <div class="col-md-6  reports-autoComplete-container">
+            <p-radioButton name="group1" value="Show All" label="Show All" [(ngModel)]="showAll" inputId="opt1"
+              (click)="workerDisable('Show All')"></p-radioButton>
+            <div>Resource Worker</div>
+
+            <p-autoComplete [(ngModel)]="resWorker" [suggestions]="allResourceWorkers" field="ResourceWorker"
+              [dropdown]="true" [forceSelection]="true" (completeMethod)="getSearchWorker($event)" [disabled]='workDis'>
+            </p-autoComplete>
+          </div>
+          <div class="col-md-6 reports-autoComplete-container">
+            <p-radioButton name="group1" value="Filter Result" label="Filter Result" [(ngModel)]="showAll"
+              (click)="workerDisable('filterResult')" inputId="opt2"></p-radioButton>
+            <div>Resource Supervisor</div>
+
+            <p-autoComplete [(ngModel)]="resourceSupervisor" [suggestions]="allResourceSuperVisors"
+              field="ResourceSupervisor" [dropdown]="true" [forceSelection]="true"
+              (completeMethod)="getSearchSuperVisor($event)" [disabled]='workDis'></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="reports-autoComplete-container">
+        <div class="margin-top-10">Catchment Area</div>
+        <p-autoComplete [(ngModel)]="CatchmentAreaID" [suggestions]="allCatchmentAreas" field="CatchDesc"
+          [dropdown]="true" [forceSelection]="true" (completeMethod)="getSearchCatchMentArea($event)"
+          [disabled]='workDis'></p-autoComplete>
+      </div>
+    </div>
+    <hr>
+    <button class="sf-negative-btn pull-right" (click)="closeWizard()">
+      <span>Exit</span>
+    </button>
+    <button class="sf-positive-btn pull-right" (click)="get_fosterRoster_Reports(1,100)">
+      <span>Process</span>
+    </button>
+    <br>
+  </p-dialog>
+  <p-dialog header="{{pre_report_name}}" [(visible)]="showUnusual_rating" [modal]="true"
+    [contentStyle]="{width: '1000px', minWidth: '500px'}" [responsive]="true" [maximizable]="true" [minY]="100"
+    [baseZIndex]="10000">
+    <div class="form-al">
+      <div class="row">
+        <div class="col-md-6">
+          <h4 style="border-bottom: none;
+width: 100%;">For</h4>
+          <p-dropdown [options]="rm_referl_mnmt" [(ngModel)]="referral_mnmt" placeholder="For..."
+            optionLabel="Description" [showClear]="true"></p-dropdown>
+        </div>
+        <div class="col-md-6">
+          <h4 style="border-bottom: none;
+      width: 100%;">Regions</h4>
+          <p-dropdown [options]="rm_region_group" [(ngModel)]="region_group" placeholder="Regions..."
+            optionLabel="DCFRegionGroup" [showClear]="true"></p-dropdown>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-6">
+          <p-checkbox name="group1" value="all_sponcers" label="All Sponsers" [(ngModel)]="selectSponcer" binary="true"
+            (onChange)="sponcer_change($event)" inputId="ny">
+          </p-checkbox>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Sponsers</div>
+            <div class="panel-body"
+              style="padding-left: 25px;padding-right: 25px;padding-left: 25px;padding-right: 25px;height: 200px;overflow-y: scroll;">
+
+              <div>
+                <div class="row panel-menu" *ngFor="let spon_data of allSponcers">
+                  <div class="col-md-1">
+                    <p-checkbox name="groupname" value="{{spon_data.SponsorID}}"
+                      [(ngModel)]="selectSponcerID[spon_data.SponsorID]"
+                      (onChange)="all_sponcer_change($event,spon_data.SponsorID)" [disabled]="sponcer_all_disable"
+                      binary="true"></p-checkbox>
+                  </div>
+                  <div class="col-md-11" (click)="getSecondLevelMenu('fourthLevelMenu',thirdMenus)">
+                    <span>{{spon_data.Sponsors}}</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+
+        </div>
+        <div class="col-md-6">
+          <p-checkbox name="group1" label="All Providers" [(ngModel)]="selectProvider" binary="true"
+            (onChange)="provider_change($event)" inputId="sf"></p-checkbox>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Providers</div>
+            <div class="panel-body"
+              style="padding-left: 25px;padding-right: 25px;padding-left: 25px;padding-right: 25px;height: 200px;overflow-y: scroll;">
+              <div class="pull-right">
+                <app-pagesize [totalCount]="provide_totalCount" [initial]="provide_initial" [end]="provide_end"
+                  (keyup)="provide_pagesizeNav($event)" (click)="provide_pagesize($event)"></app-pagesize>
+              </div>
+              <br> <br>
+              <div>
+                <div class="row panel-menu" *ngFor="let provide_data of allProviders">
+                  <div class="col-md-1">
+                    <p-checkbox name="groupname" value="{{provide_data.ProviderID}}"
+                      [(ngModel)]="selectProviderID[provide_data.ProviderID]"
+                      (onChange)="all_provider_change($event,provide_data.ProviderID)" [disabled]="provide_all_disable">
+                    </p-checkbox>
+                  </div>
+                  <div class="col-md-11">
+                    <span>{{provide_data.Providers}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="panel panel-default p-3">
+            <fieldset>
+              <legend>Date</legend>
+
+
+              <div class="row">
+                <div class='col-md-6'>
+                  <div>Begin Date</div>
+                  <p-calendar name="beginDate" appendTo="body" [disabled]="all_Date_disable" [(ngModel)]="beginDate"
+                    [showIcon]="true" [maxDate]="date" [yearNavigator]="true" [monthNavigator]="true"
+                    yearRange="2000:2030" placeholder="Begin Date" tooltipPosition="top">
+                  </p-calendar>
+                  <div class="pt-3">
+                    <p-radioButton name="IncidentDate" value="IncidentDate" label="Incident Date"
+                      [(ngModel)]="date_select" inputId="opt1"></p-radioButton>
+                  </div>
+                  <div>
+                    <p-radioButton name="EntryDate" value="UI.EnteredDate" label="Entry Date" [(ngModel)]="date_select"
+                      inputId="opt1"></p-radioButton>
+                  </div>
+                  <div>
+                    <p-radioButton name="AllDates" value="AllDates" label="All Dates" (click)="dateDisable()"
+                      [(ngModel)]="date_select" inputId="opt1"></p-radioButton>
+                  </div>
+                </div>
+                <div class='col-md-6'>
+                  <div>End Date</div>
+                  <p-calendar name="beginDate" appendTo="body" [disabled]="all_Date_disable" [(ngModel)]="endDate"
+                    [showIcon]="true" [maxDate]="date" [yearNavigator]="true" [monthNavigator]="true"
+                    yearRange="2000:2030" placeholder="Begin Date" tooltipPosition="top">
+                  </p-calendar>
+                  <div class="pt-3">
+                    <p-radioButton name="RM_Follow-upCompletedDate" value="UI.RMFollowupCompletedDate"
+                      label="RM Follow-up Completed Date" [(ngModel)]="date_select" inputId="opt1"></p-radioButton>
+                  </div>
+                  <div>
+                    <p-radioButton name="Board_Review_Date" value="UI.BoardReviewDate" label="Board Review Date"
+                      [(ngModel)]="date_select" inputId="date_select"></p-radioButton>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </fieldset>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="panel panel-default p-3">
+            <div class="row">
+              <fieldset class="col-md-6">
+                <legend>Compare</legend>
+
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <div>
+                      <p-radioButton name="group1" value=">=" label=">=" [disabled]="greaterEqual_dis"
+                        [(ngModel)]="compareValue" inputId="opt1">
+                      </p-radioButton>
+                    </div>
+                    <div>
+                      <p-radioButton name="group1" value=">" label=">" [disabled]="greater_dis"
+                        [(ngModel)]="compareValue" inputId="opt1">
+                      </p-radioButton>
+                    </div>
+                    <div>
+                      <p-radioButton name="group1" value="=" label="=" [disabled]="equal_dis" [(ngModel)]="compareValue"
+                        inputId="opt1">
+                      </p-radioButton>
+                    </div>
+                    <div>
+                      <p-radioButton name="group1" value="<=" label="<=" [disabled]="lessOrEqual_dis"
+                        [(ngModel)]="compareValue" inputId="opt1">
+                      </p-radioButton>
+                    </div>
+                    <div>
+                      <p-radioButton name="group1" value="<" label="<" [disabled]="lessThen_dis"
+                        [(ngModel)]="compareValue" inputId="opt1">
+                      </p-radioButton>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <p-checkbox name="group1" binary="true" label="Include IDs Only" [(ngModel)]="isIDsOnly"
+                    (onChange)="level_rating_change(0)" inputId="ny">
+                  </p-checkbox>
+                </div>
+              </fieldset>
+              <fieldset class="col-md-6">
+                <legend>Level</legend>
+
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <div>
+                      <p-checkbox name="group1" value="0" label="Level0" [(ngModel)]="level_rat"
+                        (onChange)="level_rating_change(0)" inputId="ny">
+                      </p-checkbox>
+                    </div>
+                    <div>
+                      <p-checkbox name="group1" value="1" label="Level1" [(ngModel)]="level_rat"
+                        (onChange)="level_rating_change(1)" inputId="ny">
+                      </p-checkbox>
+                    </div>
+                    <div>
+                      <p-checkbox name="group1" value="2" label="Level2" [(ngModel)]="level_rat"
+                        (onChange)="level_rating_change(2)" inputId="ny">
+                      </p-checkbox>
+                    </div>
+                    <div>
+                      <p-checkbox name="group1" value="3" label="Level3" [(ngModel)]="level_rat"
+                        (onChange)="level_rating_change(3)" inputId="ny">
+                      </p-checkbox>
+                    </div>
+                    <div>
+                      <p-checkbox name="group1" value="4" label="Level4" [(ngModel)]="level_rat"
+                        (onChange)="level_rating_change(4)" inputId="ny">
+                      </p-checkbox>
+                    </div>
+                    <div>
+                      <p-checkbox name="group1" value="5" label="Level5" [(ngModel)]="level_rat"
+                        (onChange)="level_rating_change(5)" inputId="ny">
+                      </p-checkbox>
+                    </div>
+                    <div>
+                      <p-checkbox name="group1" value="6" label="Level6" [(ngModel)]="level_rat"
+                        (onChange)="level_rating_change(6)" inputId="ny">
+                      </p-checkbox>
+                    </div>
+                  </div>
+                </div>
+
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <button class="sf-negative-btn pull-right" (click)="closeWizard()">
+      <span>Exit</span>
+    </button>
+    <button class="sf-positive-btn pull-right" (click)="rm_unusual_ration()">
+      <span>Process</span>
+    </button>
+    <br>
+  </p-dialog>

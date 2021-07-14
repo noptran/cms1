@@ -1,0 +1,45 @@
+<div class="main-container">
+    <div class="width-90">
+        <div class="primary-info">
+            <span class="sub-title"><b>School Name:</b> {{ schoolDatas.schoolName}}</span>
+            <span class="sub-title"> <b>USD:</b> {{ schoolDatas.usd.usd }} </span>
+            <span class="sub-title"> <b>Address:</b> {{ schoolDatas.address  }} </span>
+            <span class="sub-title"> <b>Phone:</b> {{ schoolDatas.phone }} </span>
+        </div>
+    </div>
+    <div class="component-btn-container">
+        <button (click)="onShowMoreClick()" [disabled]="componentBtnDisable">{{componentBtnLabel}}</button>
+    </div>
+</div>
+<p-dialog header="More details" [(visible)]="isMoreDetails" [contentStyle]="{'width': '80vw','height': '50vh'}">
+    <div class="more-info">
+        <div class="profile-info-container">
+            <table>
+                <tr>
+                    <td><span>School Name</span></td>
+                    <td>{{schoolDatas.schoolName}}</td>
+                    <td><span>USD</span></td>
+                    <td>{{schoolDatas?.usd.usd}}</td>
+                    <td><span>Address</span></td>
+                    <td>{{schoolDatas?.address}}</td>
+                </tr>
+                <tr>
+                    <td><span>Phone</span></td>
+                    <td>{{schoolDatas?.phone}}</td>
+                    <td><span>City</span></td>
+                    <td>{{schoolDatas?.cityID.city}}</td>
+                    <td><span>State</span></td>
+                    <td>{{schoolDatas?.stateID.state}}</td>
+                </tr>
+                <tr>
+                    <td><span>Zip</span></td>
+                    <td>{{schoolDatas?.zipcodeID.zipcode}}</td>
+                    <td><span>County</span></td>
+                    <td>{{schoolDatas?.countyID.countyName}}</td>
+                    <td><span>Fax No</span></td>
+                    <td>{{schoolDatas?.fax}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</p-dialog>

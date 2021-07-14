@@ -1,0 +1,280 @@
+<hr style="margin: 0px !important" />
+<h5 class="head_acces">{{ report_name_head }}</h5>
+<hr style="margin: 0px !important" />
+<div class="container-background">
+  <div class="container-foreground">
+    <div id="loading-overlay">
+      <p class="loader-text">
+        <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+      </p>
+    </div>
+    <div class="sf-form client-form">
+      <div style="padding: 5px">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div>
+              <div class="row">
+                <div class="col-md-6">
+                  <h4 style="border-bottom: none; width: 100%">
+                    Primary Filter
+                  </h4>
+                </div>
+                <div class="col-md-6">
+                  <button
+                    class="sf-negative-btn pull-right"
+                    (click)="clearDate()"
+                  >
+                    <span>Back</span>
+                  </button>
+                  <button
+                    class="sf-positive-btn pull-right"
+                    (click)="getFinanceReports(1, 100)"
+                  >
+                    <span>Generate</span>
+                  </button>
+                </div>
+              </div>
+              <hr style="margin-top: 2rem !important" />
+
+              <p>
+                <b>{{ discription }}</b>
+              </p>
+
+              <div class="row margin-top-20" *ngIf="!showSrsRoster">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div><span>Begin Date</span></div>
+                  <p-calendar
+                    name="dateInput"
+                    [(ngModel)]="beginDate"
+                    [showIcon]="true"
+                    [maxDate]="date"
+                    [yearNavigator]="true"
+                    [monthNavigator]="true"
+                    yearRange="2000:2030"
+                    placeholder="Begin Date"
+                    [disabled]="beginDate_disable"
+                    tooltipPosition="top"
+                  >
+                  </p-calendar>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div><span>End Date</span></div>
+                  <p-calendar
+                    name="dateInput"
+                    [showIcon]="true"
+                    [(ngModel)]="endDate"
+                    [maxDate]="date"
+                    [yearNavigator]="true"
+                    [monthNavigator]="true"
+                    yearRange="2000:2030"
+                    placeholder="End Date"
+                    tooltipPosition="top"
+                    (ngModelChange)="dropRegion(endDate)"
+                  >
+                  </p-calendar>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="showRegion">
+                  <div><span>Region</span></div>
+                  <p-dropdown
+                    [options]="regions"
+                    [(ngModel)]="region"
+                    [style]="{ width: '210px', border: '1px solid #737374' }"
+                    optionLabel="DCFRegionGroup"
+                  ></p-dropdown>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="showProcode">
+                  <div><span>Procode</span></div>
+                  <p-autoComplete
+                    [(ngModel)]="procodeID"
+                    name="procodeType"
+                    [suggestions]="procodesList"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    field="procode"
+                    (completeMethod)="fillterPaymentTypes($event)"
+                  ></p-autoComplete>
+                </div>
+                <div
+                  class="col-lg-3 col-md-3 col-sm-3"
+                  *ngIf="showReferralType"
+                >
+                  <div><span>Referral Type(s)</span></div>
+                  <p-dropdown
+                    [options]="referralList"
+                    name="typeOfReferral"
+                    [(ngModel)]="referralGroupID"
+                    optionLabel="referral"
+                    placeholder="Select one referral"
+                    [style]="{ width: '360px' }"
+                  >
+                  </p-dropdown>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="showClaimStatus">
+                  <div><span>Claim Status</span></div>
+                  <p-autoComplete
+                    [(ngModel)]="claimStatusID"
+                    name="claimStatusType"
+                    [suggestions]="claimList"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    field="claimStatus"
+                    (completeMethod)="filterClaimStatus($event)"
+                  ></p-autoComplete>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="showReferralType">
+                  <div><span>Referral Type(s)</span> </div>                
+                  <p-dropdown [options]="referralList" (onChange)="onChangeReferrel(selectedReferral)" name="typeOfReferral"
+                  [(ngModel)]="referralGroupID" optionLabel="referral" placeholder="Select one referral" [style]="{'width':'360px'}">
+                </p-dropdown>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="showClaimStatus">
+                  <div><span>Claim Status</span> </div>
+                  <p-autoComplete [(ngModel)]="claimStatusID" name="claimStatusType" [suggestions]="claimList"
+                  [dropdown]="true" [forceSelection]="true" field="claimStatus" (completeMethod)="filterClaimStatus($event)"></p-autoComplete>
+                </div>
+              </div>
+
+              <div class="row margin-top-20" *ngIf="showSrsRoster">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div><span>Process Date</span></div>
+                  <p-calendar
+                    name="dateInput"
+                    [showIcon]="true"
+                    [(ngModel)]="endDate"
+                    [maxDate]="date"
+                    [yearNavigator]="true"
+                    [monthNavigator]="true"
+                    yearRange="2000:2030"
+                    placeholder="End Date"
+                    tooltipPosition="top"
+                    (ngModelChange)="dropRegion(endDate)"
+                  >
+                  </p-calendar>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div><span>Region(s)</span></div>
+                  <p-dropdown
+                    [options]="regions"
+                    [(ngModel)]="region"
+                    [style]="{ width: '210px', border: '1px solid #737374' }"
+                    optionLabel="DCFRegionGroup"
+                  ></p-dropdown>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div><span>For</span></div>
+                  <input
+                    type="text"
+                    disabled
+                    size="27"
+                    pInputText
+                    value="Reintegration Foster Care"
+                    maxlength="10"
+                  />
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-checkbox
+                    binary="true"
+                    label="Resubmission"
+                    [(ngModel)]="isResubmission"
+                  ></p-checkbox>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr *ngIf="showForm" />
+          <div *ngIf="showForm" style="padding: 10px">
+            <div class="row">
+              <div class="col-md-6">
+                <div
+                  class="dropdown"
+                  style="border: 1px solid #ffffff !important"
+                >
+                  <button
+                    type="button"
+                    class="sf-positive-btn dropdown-toggle"
+                    data-toggle="dropdown"
+                  >
+                    <span class="fa fa-download"></span>
+                    <span>Export</span>
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" (click)="exportAll('excel')">
+                      Excel</a
+                    >
+                    <a class="dropdown-item" (click)="exportAll('csv')">CSV </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div
+                  class="sf-text-right sf-table-header sf-black"
+                  *ngIf="totalCount > 0"
+                >
+                  <app-pagesize
+                    *ngIf="totalCount"
+                    [totalCount]="totalCount"
+                    [initial]="initial"
+                    [end]="end"
+                    (keyup)="pagesizeNav($event)"
+                    (click)="pagesize($event)"
+                  ></app-pagesize>
+                </div>
+              </div>
+            </div>
+            <br />
+            <ag-grid-angular
+              style="width: 500px; height: 50vh; overflow: scroll"
+              class="ag-theme-balham"
+              [rowData]="rowData"
+              [columnDefs]="columnDefs"
+              [defaultColDef]="defaultColDef"
+              [enableSorting]="true"
+              [rowDragManaged]="true"
+              [suppressDragLeaveHidesColumns]="true"
+              enableColResize="true"
+              #agGrid
+              style="width: 100%; height: 75vh"
+              [frameworkComponents]="frameworkComponents"
+              animateRows="true"
+              rowSelection="multiple"
+              (rowSelected)="onRowSelected($event)"
+              (cellClicked)="onCellClicked($event)"
+            >
+            </ag-grid-angular>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div
+    class="modal"
+    tabindex="-1"
+    role="dialog"
+    [ngStyle]="{ display: displayPop }"
+  >
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" (click)="onCloseHandled()">
+            &times;
+          </button>
+          <h4 class="modal-title">SRS Roster</h4>
+        </div>
+        <div class="modal-body">Have to save report?</div>
+        <div class="modal-footer">
+          <button class="sf-negative-btn pull-right" (click)="onCloseHandled()">
+            <span>Cancel</span>
+          </button>
+          <button class="sf-positive-btn pull-right" (click)="saveSrsRoster()">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

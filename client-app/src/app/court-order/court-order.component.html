@@ -1,0 +1,251 @@
+<div *ngIf="isList" class="list-table">
+  <p>Case Team List</p>
+  <div style="display: flex; justify-content: flex-end; margin: 5px">
+    <button (click)="addForm()" class="sf-positive-btn">Add</button>
+  </div>
+  <table style="width: 100%" border="1">
+    <th scope="beginDate">Order Date</th>
+    <th scope="personType">Court Order</th>
+    <th scope="endDate">Je Date</th>
+    <th scope="personType">Judge</th>
+    <th scope="name">Court Ordered Id</th>
+    <th scope="actions">Actions</th>
+    <tr *ngFor="let courtOrder of courtOrderList">
+      <td>{{ courtOrder.orderDate }}</td>
+      <td>{{ courtOrder.courtOrder }}</td>
+      <td>{{ courtOrder.jeDate }}</td>
+      <td>{{ courtOrder.judge }}</td>
+      <td>{{ courtOrder.courtOrderedID }}</td>
+      <td>
+        <div>
+          <span
+            class="fa fa-edit"
+            (click)="onEdit(courtOrder)"
+            style="font-size: 14px; cursor: pointer"
+          ></span>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div *ngIf="isForm">
+  <div *ngIf="isAppHeader">
+    <app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+  </div>
+
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+    </p>
+  </div>
+  <div class="container-background">
+    <div class="container-foreground">
+      <div class="card-header-row">
+        <div class="opencard-menu-container rfcOpencard">
+          <div class="dropdown border-none">
+            <span
+              class="fa fa-th opencard-menu"
+              data-toggle="dropdown"
+              pTooltip="OpenCards"
+            ></span>
+            <div class="dropdown-menu opencard-box">
+              <div class="card-container">
+                <div
+                  class="opencard"
+                  pTooltip="Click here to open"
+                  (click)="navigateTo(item.title)"
+                  *ngFor="let item of attachmentOpencards"
+                >
+                  <img src="{{ item.icon }}" alt="{{ tip }}" />
+                  <div class="opencard-info">
+                    <span class="count">{{ item.count }}</span>
+                    <span class="title">{{ item.title }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form [formGroup]="courtOrderForm" class="sf-form">
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-md-3">
+              <span>Court Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-md-3">
+              <p-calendar
+                name="dateInput"
+                [(ngModel)]="courtOrder.jedate"
+                formControlName="jedate"
+                [showIcon]="true"
+                showTime="true"
+                hourFormat="24"
+                [yearNavigator]="true"
+                [monthNavigator]="true"
+                yearRange="2000:2030"
+              >
+              </p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-md-3">
+              <span>Hearing Type</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-md-3">
+              <p-autoComplete
+                name="hearingType"
+                formControlName="hearingTypeID"
+                [(ngModel)]="courtOrder.hearingTypeID"
+                [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'hearing_type')"
+                [dropdown]="true"
+                placeholder="Type here to search"
+                emptyMessage="No records found!"
+                field="hearingType"
+                size="23"
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-md-3">
+              <span>Court Outcome</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-md-3">
+              <p-autoComplete
+                name="courtOutcome"
+                formControlName="courtOutcomeID"
+                [(ngModel)]="courtOrder.courtOutcomeID"
+                [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'court_outcome')"
+                [dropdown]="true"
+                placeholder="Type here to search"
+                emptyMessage="No records found!"
+                field="courtOutcome"
+                size="23"
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-md-3">
+              <span>Order Date</span>
+              <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-md-3">
+              <p-calendar
+                name="dateInput"
+                [(ngModel)]="courtOrder.orderDate"
+                formControlName="orderDate"
+                [showIcon]="true"
+                showTime="true"
+                hourFormat="24"
+                [yearNavigator]="true"
+                [monthNavigator]="true"
+                yearRange="2000:2030"
+              ></p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-md-3">
+              <span>JE Received Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-md-3">
+              <p-calendar
+                name="dateInput"
+                [(ngModel)]="courtOrder.jeReceivedDate"
+                formControlName="jeReceivedDate"
+                [showIcon]="true"
+                showTime="true"
+                hourFormat="24"
+                [yearNavigator]="true"
+                [monthNavigator]="true"
+                yearRange="2000:2030"
+              ></p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-md-3">
+              <span>Court Order</span>
+              <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-md-3">
+              <textarea
+                pInputTextArea
+                style="width: 89%; height: 100%"
+                name="courtOrder"
+                formControlName="courtOrder"
+                [(ngModel)]="courtOrder.courtOrder"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-md-3">
+              <span>Judge</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-md-3">
+              <p-autoComplete
+                name="judge"
+                formControlName="judgeID"
+                [(ngModel)]="courtOrder.judgeID"
+                [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'judge')"
+                [dropdown]="true"
+                placeholder="Type here to search"
+                emptyMessage="No records found!"
+                field="fullName"
+                size="23"
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-md-3">
+              <span>Notes</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-6 col-sm-6">
+            <div class="col-lg-12 col-md-12 col-md-12">
+              <div class="col-lg-12 col-md-12 col-md-12"></div>
+              <textarea
+                pInputTextArea
+                style="width: 100%; height: 100%"
+                formControlName="notes"
+                name="notes"
+                [(ngModel)]="courtOrder.notes"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </form>
+      <app-form-footer
+        [isFormLog]="isFormLog"
+        [formLogInfo]="formLogInfo"
+        [attachmentControll]="isAttachmentRequired"
+        [currentNodeValue]="req"
+        [isAttachmentDisabled]="false"
+        (attachDoc)="navigateToCMS()"
+        (save)="formActions(courtOrder)"
+        [editControll]="isEdit"
+        (edit)="editForm()"
+        (discard)="onDiscard()"
+        [isPopUp]="isPopup"
+        (deleted)="onDelete($event)"
+      ></app-form-footer>
+      <!-- <app-quick-menu [module]="quickMenu"></app-quick-menu> -->
+    </div>
+  </div>
+</div>

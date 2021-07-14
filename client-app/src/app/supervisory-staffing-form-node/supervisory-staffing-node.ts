@@ -1,0 +1,34 @@
+export class SupervisoryStaffingNode {
+    supervisoryStaffingID: number;
+    clientID: any;
+    additionalRiskConcerns : any;
+    additionalSafetyConcerns : any;
+    contributingFactorsSafetyConcerns: String;
+    copiedFlag: String;
+    courtUpdate: any;
+    date: any;
+    familyStrengthsMitigatingRisks: String;
+    familyStrengthsMitigatingSafetyConcerns: String;
+    inProgress = false;
+    isConcatenated = false;
+    kinship: String;
+    newSupervisorStaffing = false;
+    newWorkerStaffing = false;
+    nineMonthStaffing = false;
+    progressTowardsAchievingPermanency: String;
+    referralID: number;
+    referralTypeID: number;
+    reviewOfNCFAS: String;
+    riskConcernsIdentified: String;
+    safetyConcernsIdentified: String;
+    safetyPlanDeveloped : any;
+    servicePlanDeveloped : any;
+    servicesNeededMitigateConcerns: String;
+    sixMonthStaffing = false;
+    staffID: any;
+    supervisoryStaffingLinkedID: number;
+    threeMonthStaffing = false;
+    toBeCompleted: String;
+    transitionPlan: String;
+    visitationUpdate: any;
+}

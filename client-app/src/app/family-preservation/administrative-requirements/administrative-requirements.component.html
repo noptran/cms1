@@ -1,0 +1,368 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="administrativeRequirementsForm" class="sf-form">
+      <div class="flex-container header">
+          <div>
+    
+          </div>
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+          <div>
+    
+          </div>
+        </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">Child’s Name:</div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="fpAdministrativeRequirements.childName" formControlName="childName" name="childName"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">FACTS Case</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpAdministrativeRequirements.factsCase" formControlName="factsCase" name="factsCase"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p class="bold">Section 1</p>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">Previous Case Planning Conference Dates From: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpAdministrativeRequirements.conferenceDatesFro" formControlName="conferenceDatesFro" name="conferenceDatesFro"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">To:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpAdministrativeRequirements.conferenceDatesTo" formControlName="conferenceDatesTo" name="conferenceDatesTo"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">This Case Plan Effective Dates: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpAdministrativeRequirements.effectiveDatesFrom" formControlName="effectiveDatesFrom" name="effectiveDatesFrom"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">To:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpAdministrativeRequirements.effectiveDatesTo" formControlName="effectiveDatesTo" name="effectiveDatesTo"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right">
+      <div class="space-right">If the Permanency Goal Changed, State Reason: </div>
+      <div class="space-right">
+        <input [(ngModel)]="fpAdministrativeRequirements.stateReason" formControlName="stateReason" name="stateReason"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right">
+      <div class="space-right">List siblings: </div>
+      <div class="space-right">
+        <input [(ngModel)]="fpAdministrativeRequirements.listSiblings" formControlName="listSiblings" name="listSiblings"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p class="bold">Section 2 For DCF Use Only</p>
+    <p>Candidacy of Care Determination: (For children in DCF custody placed at home.)</p>
+    <p>Absent the provision of services listed in the case plan to assure the safety and well-being of the child, the
+      child will be determined to be at imminent risk of removal from the home and therefore, a Candidate for Care. </p>
+    <div class="flex-container space-down space-between">
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isCandidate" formControlName="isCandidate" name="isCandidate"  class="space-right"></p-checkbox>Candidate for Care
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">Reason for Imminent Risk of Removal</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpAdministrativeRequirements.imminentRisk" formControlName="imminentRisk" name="imminentRisk"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isNonCandidate" formControlName="isNonCandidate" name="isNonCandidate"  class="space-right"></p-checkbox>Non-Candidate for Care
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="space-right">
+        <div class="space-right">DCF CPS Specialist Signature</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpAdministrativeRequirements.specialistSignature" formControlName="specialistSignature" name="specialistSignature"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="space-right">
+        <div class="space-right"> Date</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpAdministrativeRequirements.date" formControlName="date" name="date"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <p class="bold">Section 3</p>
+    <p>Information will be shared with case plan participant at each case planning conference and any changes noted.</p>
+    <p>Child’s Information:</p>
+    <div class="flex-container space-down">
+      <div class="space-right">SSI Referral to KLS </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isReferralYes" formControlName="isReferralYes" name="isReferralYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isReferralNo" formControlName="isReferralNo" name="isReferralNo"  class="space-right"></p-checkbox>No
+      </div>
+      <div class="space-right">If no, documented reason:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpAdministrativeRequirements.documentedReason" formControlName="documentedReason" name="documentedReason"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Primary Health Provider: </div>
+      <div class="space-right">
+        <input [(ngModel)]="fpAdministrativeRequirements.primaryHealth" formControlName="primaryHealth" name="primaryHealth"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Address: </div>
+      <div class="space-right">
+        <textarea  [(ngModel)]="fpAdministrativeRequirements.healthProviderAddress" formControlName="healthProviderAddress" name="healthProviderAddress"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Dentist: </div>
+      <div class="space-right">
+        <input [(ngModel)]="fpAdministrativeRequirements.dentist" formControlName="dentist" name="dentist"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Address: </div>
+      <div class="space-right">
+        <textarea  [(ngModel)]="fpAdministrativeRequirements.dentistAddress" formControlName="dentistAddress" name="dentistAddress"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Optometrist: </div>
+      <div class="space-right">
+        <input [(ngModel)]="fpAdministrativeRequirements.optometrist" formControlName="optometrist" name="optometrist"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Address: </div>
+      <div class="space-right">
+        <textarea  [(ngModel)]="fpAdministrativeRequirements.optometristAddress" formControlName="optometristAddress" name="optometristAddress"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Mental Health Provider:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpAdministrativeRequirements.mentalHealth" formControlName="mentalHealth" name="mentalHealth"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Address: </div>
+      <div class="space-right">
+        <textarea  [(ngModel)]="fpAdministrativeRequirements.mentalHealthAddress" formControlName="mentalHealthAddress" name="mentalHealthAddress"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Other Health Provider</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpAdministrativeRequirements.otherHealthProvider" formControlName="otherHealthProvider" name="otherHealthProvider"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Address: </div>
+      <div class="space-right">
+        <textarea  [(ngModel)]="fpAdministrativeRequirements.otherHealthProviderAddress" formControlName="otherHealthProviderAddress" name="otherHealthProviderAddress"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Educational Advocate: </div>
+      <div class="space-right">
+        <input [(ngModel)]="fpAdministrativeRequirements.educationalAdvocate" formControlName="educationalAdvocate" name="educationalAdvocate"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <div class="flex-container space-down">
+      <div class="space-right">Address: </div>
+      <div class="space-right">
+        <textarea  [(ngModel)]="fpAdministrativeRequirements.educationalAdvocateAddress" formControlName="educationalAdvocateAddress" name="educationalAdvocateAddress"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Connection for Success:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpAdministrativeRequirements.connectionForSuccess" formControlName="connectionForSuccess" name="connectionForSuccess"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Address:</div>
+      <div class="space-right">
+        <textarea  [(ngModel)]="fpAdministrativeRequirements.connectionAddress" formControlName="connectionAddress" name="connectionAddress"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">KBH Screening is Current </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isCurrentYes" formControlName="isCurrentYes" name="isCurrentYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isCurrentNo" formControlName="isCurrentNo" name="isCurrentNo"  class="space-right"></p-checkbox>No
+      </div>
+      <div class="space-right">Date of Last KBH: </div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="fpAdministrativeRequirements.dateLastKbh" formControlName="dateLastKbh" name="dateLastKbh"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+          [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Diagnosis/Disabilities (See Appendix 1J) </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isDiagnosisYes" formControlName="isDiagnosisYes" name="isDiagnosisYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isDiagnosisNo" formControlName="isDiagnosisNo" name="isDiagnosisNo"  class="space-right"></p-checkbox>No
+      </div>
+      <div class="space-right">Date Diagnosed: </div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="fpAdministrativeRequirements.dateDiagnosed" formControlName="dateDiagnosed" name="dateDiagnosed"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+          [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container">
+      <div class="space-right">Types: </div>
+      <div class="space-right">
+        <textarea  [(ngModel)]="fpAdministrativeRequirements.types" formControlName="types" name="types"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Is child on an HCBS Waiver? </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isHcbsYes" formControlName="isHcbsYes" name="isHcbsYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isHcbsNo" formControlName="isHcbsNo" name="isHcbsNo"  class="space-right"></p-checkbox>No
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isHcbsNa" formControlName="isHcbsNa" name="isHcbsNa"  class="space-right"></p-checkbox>NA
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Type of HCBS Waiver Service: </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isDd" formControlName="isDd" name="isDd"  class="space-right"></p-checkbox>I/DD
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isSed" formControlName="isSed" name="isSed"  class="space-right"></p-checkbox>SED
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isTbi" formControlName="isTbi" name="isTbi"  class="space-right"></p-checkbox>TBI
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isTa" formControlName="isTa" name="isTa"  class="space-right"></p-checkbox>TA
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isAutism" formControlName="isAutism" name="isAutism"  class="space-right"></p-checkbox>Autism
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Has child been seen by a medical/mental health professional related to the diagnosis/disability? </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isDisabilityYes" formControlName="isDisabilityYes" name="isDisabilityYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isDisabilityNo" formControlName="isDisabilityNo" name="isDisabilityNo"  class="space-right"></p-checkbox>No
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isDisabilityNa" formControlName="isDisabilityNa" name="isDisabilityNa"  class="space-right"></p-checkbox>NA
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Is a written health/mental health report related to the diagnosis/disability in the case file? </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isWrittenHealthYes" formControlName="isWrittenHealthYes" name="isWrittenHealthYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isWrittenHealthNo" formControlName="isWrittenHealthNo" name="isWrittenHealthNo"  class="space-right"></p-checkbox>No
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isWrittenHealthNa" formControlName="isWrittenHealthNa" name="isWrittenHealthNa"  class="space-right"></p-checkbox>NA
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">If the answer to the above question is no, has the report been requested? </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isReportRequestedYes" formControlName="isReportRequestedYes" name="isReportRequestedYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isReportRequestedNo" formControlName="isReportRequestedNo" name="isReportRequestedNo"  class="space-right"></p-checkbox>No
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isReportRequestedNa" formControlName="isReportRequestedNa" name="isReportRequestedNa"  class="space-right"></p-checkbox>NA
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">At the time of the case plan, is the father incarcerated? </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isFatherIncarceratedYes" formControlName="isFatherIncarceratedYes" name="isFatherIncarceratedYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isFatherIncarceratedNo" formControlName="isFatherIncarceratedNo" name="isFatherIncarceratedNo"  class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">At the time of the case plan, is the mother incarcerated? </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isMotherIncarceratedYes" formControlName="isMotherIncarceratedYes" name="isMotherIncarceratedYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isMotherIncarceratedNo" formControlName="isMotherIncarceratedNo" name="isMotherIncarceratedNo"  class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Is the child adjudicated a Juvenile Offender? </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isChildAdjudicatedYes" formControlName="isChildAdjudicatedYes" name="isChildAdjudicatedYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true"  [(ngModel)]="fpAdministrativeRequirements.isChildAdjudicatedNo" formControlName="isChildAdjudicatedNo" name="isChildAdjudicatedNo"  class="space-right"></p-checkbox>No
+      </div>
+      <div class="space-right">If yes, date: </div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="fpAdministrativeRequirements.childAdjudicatedDate" formControlName="childAdjudicatedDate" name="childAdjudicatedDate"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+          [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Highest grade child has completed:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpAdministrativeRequirements.highestGrade" formControlName="highestGrade" name="highestGrade"  type="text" pInputText size="20" />
+      </div>
+      <div class="space-right">(K-12, post secondary, college)</div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm(fpAdministrativeRequirements)"  (print)="printForm()" [editControll]="editControll" (edit)="editForm()" [isPrint]="isPrint"></app-form-footer>

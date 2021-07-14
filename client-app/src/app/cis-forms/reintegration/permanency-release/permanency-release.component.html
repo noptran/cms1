@@ -1,0 +1,335 @@
+<div>
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+  <p-toast position="center" [baseZIndex]="99999999"></p-toast>
+  <div id="print-form-content">
+    <div class="flex-container header">
+      <div class="heading heading-width">
+        REINTEGRATION FOSTER CARE <br> PERMANENCY, RELEASE, <br> OR CHANGE OF STATUS FORM
+
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Child's Name:</span>
+          <input readonly [(ngModel)]="cisPermanency.ClientName.value" type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>FACTS #:</span>
+          <input readonly [(ngModel)]="cisPermanency.Facts.value" type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>KAECSES #:</span>
+          <input readonly [(ngModel)]="cisPermanency.Kaecses.value" type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Office:</span>
+          <input [(ngModel)]="cisPermanency.Office.value" type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Social Worker:</span>
+          <input [(ngModel)]="cisPermanency.SocialWorker.value" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <form id="form-content" [formGroup]="permanencyForm" class="sf-form">
+      <p>
+        INSTRUCTIONS: order to assure accurate information is sent to DCF, ALL BLANKS must be completed and sent to Care Center by
+        10am the following working day after permanency occurs.
+      </p>
+      <div class="flex-container">
+        <div>
+          Email form to:
+        </div>
+        <div>
+          <!-- <input formControlName="email" name="email" [(ngModel)]="cisPermanency.email.value" type="text" pInputText size="20" /> -->
+          <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(cisPermanency.email.value)}} cols="150" [(ngModel)]="cisPermanency.email.value"
+            formControlName="email" name="email" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          Date of Permanency or Release:
+        </div>
+        <div>
+          <p-calendar formControlName="DateOfRelease" name="DateOfRelease" [(ngModel)]="cisPermanency.DateOfRelease.value" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <p>Previous Placement:</p>
+      <div>
+        <div>
+          Name:
+        </div>
+        <div>
+          <!-- <input formControlName="PreviousPlacementName" name="PreviousPlacementName" [(ngModel)]="cisPermanency.PreviousPlacementName.value"
+          type="text" pInputText size="20" /> -->
+          <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(cisPermanency.PreviousPlacementName.value)}} cols="150"
+            [(ngModel)]="cisPermanency.PreviousPlacementName.value" formControlName="PreviousPlacementName" name="PreviousPlacementName"
+            style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+      <div>
+        <div>
+          Address, City, County, State, Zip:
+        </div>
+        <div>
+          <!-- <input formControlName="PreviousPlacementAddress" name="PreviousPlacementAddress" [(ngModel)]="cisPermanency.PreviousPlacementAddress.value"
+          type="text" pInputText size="20" /> -->
+          <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(cisPermanency.PreviousPlacementAddress.value)}} cols="150"
+            [(ngModel)]="cisPermanency.PreviousPlacementAddress.value" formControlName="PreviousPlacementAddress" name="PreviousPlacementAddress"
+            style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+      <div>
+        <div>
+          District & School Leaving:
+        </div>
+        <div>
+          <!-- <input formControlName="PreviousPlacementSchool" name="PreviousPlacementSchool" [(ngModel)]="cisPermanency.PreviousPlacementSchool.value"
+          type="text" pInputText size="20" /> -->
+          <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(cisPermanency.PreviousPlacementSchool.value)}} cols="150"
+            [(ngModel)]="cisPermanency.PreviousPlacementSchool.value" formControlName="PreviousPlacementSchool" name="PreviousPlacementSchool"
+            style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+      <div>
+        <div>
+          Level of Care:
+        </div>
+        <div>
+          <!-- <input formControlName="PreviousPlacementLevelOfCare" name="PreviousPlacementLevelOfCare" [(ngModel)]="cisPermanency.PreviousPlacementLevelOfCare.value"
+          type="text" pInputText size="20" /> -->
+          <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(cisPermanency.PreviousPlacementLevelOfCare.value)}} cols="150"
+            [(ngModel)]="cisPermanency.PreviousPlacementLevelOfCare.value" formControlName="PreviousPlacementLevelOfCare" name="PreviousPlacementLevelOfCare"
+            style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+      <p>Permanency Placement</p>
+      <div>
+        <div>
+          Name:
+        </div>
+        <div>
+          <!-- <input formControlName="PermanencyPlacementName" name="PermanencyPlacementName" [(ngModel)]="cisPermanency.PermanencyPlacementName.value"
+          type="text" pInputText size="20" /> -->
+          <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(cisPermanency.PermanencyPlacementName.value)}} cols="150"
+            [(ngModel)]="cisPermanency.PermanencyPlacementName.value" formControlName="PermanencyPlacementName" name="PermanencyPlacementName"
+            style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+      <div>
+        <div>
+          Address, City, County, State, Zip:
+        </div>
+        <div>
+          <!-- <input formControlName="PermanencyPlacementAddress" name="PermanencyPlacementAddress" [(ngModel)]="cisPermanency.PermanencyPlacementAddress.value"
+          type="text" pInputText size="20" /> -->
+          <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(cisPermanency.PermanencyPlacementAddress.value)}} cols="150"
+            [(ngModel)]="cisPermanency.PermanencyPlacementAddress.value" formControlName="PermanencyPlacementAddress" name="PermanencyPlacementAddress"
+            style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+      <div>
+        <div>
+          Phone:
+        </div>
+        <div>
+          <!-- <input formControlName="PermanencyPlacementPhone" name="PermanencyPlacementPhone" [(ngModel)]="cisPermanency.PermanencyPlacementPhone.value"
+          type="text" pInputText size="20" /> -->
+          <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(cisPermanency.PermanencyPlacementPhone.value)}} cols="150"
+            [(ngModel)]="cisPermanency.PermanencyPlacementPhone.value" formControlName="PermanencyPlacementPhone" name="PermanencyPlacementPhone"
+            style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+      <div>
+        <div>
+          District & School Entering:
+        </div>
+        <div>
+          <!-- <input formControlName="PermanencyPlacementSchool" name="PermanencyPlacementSchool" [(ngModel)]="cisPermanency.PermanencyPlacementSchool.value"
+          type="text" pInputText size="20" /> -->
+          <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(cisPermanency.PermanencyPlacementSchool.value)}} cols="150"
+            [(ngModel)]="cisPermanency.PermanencyPlacementSchool.value" formControlName="PermanencyPlacementSchool" name="PermanencyPlacementSchool"
+            style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+      <p>Reason for Permanency, Release or Change of Status</p>
+      <div class="flex-container">
+        <div class="space-right">
+          <p-checkbox formControlName="REUNI" name="REUNI" [(ngModel)]="cisPermanency.REUNI.fieldOptionIndex" binary="true"></p-checkbox>Returned Home (REUNI)
+        </div>
+        <div class="space-right">
+          <p-checkbox formControlName="CustodialParent" name="CustodialParent" [(ngModel)]="cisPermanency.CustodialParent.fieldOptionIndex"
+            binary="true"></p-checkbox>Custodial Parent
+        </div>
+        <div class="space-right">
+          <p-checkbox formControlName="NonCustodialParent" name="NonCustodialParent" [(ngModel)]="cisPermanency.NonCustodialParent.fieldOptionIndex"
+            binary="true"></p-checkbox>Non-Custodial Parent
+        </div>
+        <div class="space-right">
+          <p-checkbox formControlName="APASigned" name="APASigned" [(ngModel)]="cisPermanency.APASigned.fieldOptionIndex" binary="true"></p-checkbox>APA Signed
+        </div>
+        <div class="space-right">
+          <p-checkbox formControlName="Released" name="Released" [(ngModel)]="cisPermanency.Released.fieldOptionIndex" binary="true"></p-checkbox>DCF Released of Custody
+        </div>
+        <div class="space-right">
+          <p-checkbox formControlName="AdoptivePlacement" name="AdoptivePlacement" [(ngModel)]="cisPermanency.AdoptivePlacement.fieldOptionIndex"
+            binary="true"></p-checkbox>Adoptive Placement Finalized (ADOPT)
+        </div>
+        <div class="space-right">
+          <p-checkbox formControlName="DirectPlacement" name="DirectPlacement" [(ngModel)]="cisPermanency.DirectPlacement.fieldOptionIndex"
+            binary="true"></p-checkbox>Direct Placement:
+        </div>
+        <div class="space-right">
+          <p-checkbox formControlName="Relative" name="Relative" [(ngModel)]="cisPermanency.Relative.fieldOptionIndex" binary="true"></p-checkbox>Relative
+        </div>
+        <div class="space-right">
+          <p-checkbox formControlName="NonRelatives" name="NonRelatives" [(ngModel)]="cisPermanency.NonRelatives.fieldOptionIndex"
+            binary="true"></p-checkbox>Non-Relatives
+        </div>
+        <div class="space-right">
+          <p-checkbox formControlName="AgedOut" name="AgedOut" [(ngModel)]="cisPermanency.AgedOut.fieldOptionIndex" binary="true"></p-checkbox>Youth Aged Out
+        </div>
+        <div class="space-right">
+          <p-checkbox formControlName="ReturnedHome" name="ReturnedHome" [(ngModel)]="cisPermanency.ReturnedHome.fieldOptionIndex"
+            binary="true"></p-checkbox>Returned Home and DCF Released of Custody (REUNI)
+        </div>
+      </div>
+      <div>
+        <div>
+          Highest Grade Completed:
+        </div>
+        <div>
+          <!-- <input formControlName="HighestGradeCompleted" name="HighestGradeCompleted" [(ngModel)]="cisPermanency.HighestGradeCompleted.value"
+          type="text" pInputText size="20" /> -->
+          <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(cisPermanency.HighestGradeCompleted.value)}} cols="150"
+            [(ngModel)]="cisPermanency.HighestGradeCompleted.value" formControlName="HighestGradeCompleted" name="HighestGradeCompleted"
+            style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+      <div class="flex-container">
+        <div class="space-right">
+          <p-checkbox formControlName="custodial_Parent" name="custodial_Parent" [(ngModel)]="cisPermanency.custodial_Parent.fieldOptionIndex"
+            binary="true"></p-checkbox>Custodial Parent
+        </div>
+        <div class="space-right">
+          <p-checkbox formControlName="nonCustodial_Parent" name="nonCustodial_Parent" [(ngModel)]="cisPermanency.nonCustodial_Parent.fieldOptionIndex"
+            binary="true"></p-checkbox>Non-Custodial Parent
+        </div>
+        <div class="space-right">
+          <p-checkbox formControlName="KDOC" name="KDOC" [(ngModel)]="cisPermanency.KDOC.fieldOptionIndex" binary="true"></p-checkbox>KDOC (Unless dually adjudicated)
+        </div>
+        <div class="space-right">
+          <p-checkbox formControlName="Custodianship" name="Custodianship" [(ngModel)]="cisPermanency.Custodianship.fieldOptionIndex"
+            binary="true"></p-checkbox>Custodianship/Guardianship & DCF Releases of Custody
+        </div>
+        <div class="space-right">
+          <p-checkbox formControlName="ChildDeath" name="ChildDeath" [(ngModel)]="cisPermanency.ChildDeath.fieldOptionIndex" binary="true"></p-checkbox>Child Death
+        </div>
+        <div class="space-right">
+          <p-checkbox formControlName="AfterCareLivingOutOfState" name="AfterCareLivingOutOfState" [(ngModel)]="cisPermanency.AfterCareLivingOutOfState.fieldOptionIndex"
+            binary="true"></p-checkbox>After Care Completed (Living out of State -No ICPC)
+        </div>
+        <div class="space-right">
+          <p-checkbox formControlName="DCFRetraction" name="DCFRetraction" [(ngModel)]="cisPermanency.DCFRetraction.fieldOptionIndex"
+            binary="true"></p-checkbox>DCF Retraction
+        </div>
+        <div class="space-right">
+          <p-checkbox formControlName="AfterCareCompleted" name="AfterCareCompleted" [(ngModel)]="cisPermanency.AfterCareCompleted.fieldOptionIndex"
+            binary="true"></p-checkbox>After Care Completed (365 Days)
+        </div>
+        <div class="flex-container">
+          <div class="space-right">
+            <p-checkbox formControlName="ChangeOfVenu" name="ChangeOfVenu" [(ngModel)]="cisPermanency.ChangeOfVenu.fieldOptionIndex"
+              binary="true"></p-checkbox> Change of Venue To:
+          </div>
+          <div>
+            <input formControlName="ChangeOfVenueTo" name="ChangeOfVenueTo" [(ngModel)]="cisPermanency.ChangeOfVenueTo.value" type="text"
+              pInputText size="20" />
+          </div>
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          Date County Accepted Venue:
+        </div>
+        <div>
+          <input formControlName="DateCountAcceptedVenue" name="DateCountAcceptedVenue" [(ngModel)]="cisPermanency.DateCountAcceptedVenue.value"
+            type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          New Court Case#: </div>
+        <div>
+          <input formControlName="NewCourtCaseNo" name="NewCourtCaseNo" [(ngModel)]="cisPermanency.NewCourtCaseNo.value" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          New DCF Worker:
+        </div>
+        <div>
+          <input formControlName="NewDCFWorker" name="NewDCFWorker" [(ngModel)]="cisPermanency.NewDCFWorker.value" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+      <p>Who initiated the permanency or release?</p>
+      <div>
+        <div class="space-down">
+          <p-checkbox formControlName="InitiatedDCF" name="InitiatedDCF" [(ngModel)]="cisPermanency.InitiatedDCF.fieldOptionIndex"
+            binary="true"></p-checkbox>DCF
+        </div>
+        <div class="space-down">
+          <p-checkbox formControlName="InitiatedSFCS" name="InitiatedSFCS" [(ngModel)]="cisPermanency.InitiatedSFCS.fieldOptionIndex"
+            binary="true"></p-checkbox>SFCS
+        </div>
+        <div class="flex">
+          <div class="sp-right">
+            <p-checkbox formControlName="InitiatedCourt" name="InitiatedCourt" [(ngModel)]="cisPermanency.InitiatedCourt.fieldOptionIndex"
+              binary="true"></p-checkbox>Court
+          </div>
+          <div class="flex">
+            <div class="space-right">Judge: </div>
+            <div>
+              <input formControlName="Judge" name="Judge" [(ngModel)]="cisPermanency.Judge.value" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-container space-between">
+        <div class="flex-container">
+          <div>
+            Person filling out form:
+          </div>
+          <div>
+            <input formControlName="StaffName" name="StaffName" [(ngModel)]="cisPermanency.StaffName.value" type="text" pInputText size="20"
+            />
+          </div>
+        </div>
+        <div class="flex-container">
+          <div>
+            Date:
+          </div>
+          <div>
+            <p-calendar formControlName="CompletionDate" name="CompletionDate" [(ngModel)]="cisPermanency.CompletionDate.value" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+
+<app-form-footer (print)="printForm()" [isPrint]="true" (save)="saveForm(cisPermanency)" (edit)="editForm()" [isDisabled]="isDisable"
+  [editControll]="editControll" (finalize)="finalizeForm(cisPermanency)" [isFinalize]="isFinalize" (discard)="discardForm()"
+  [isDisabled]="isDisable"></app-form-footer>

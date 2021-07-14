@@ -1,0 +1,799 @@
+<div id="pdf-content">
+  <div class="activity-header">
+    <div class="activity-title">
+      <h3>WORKER PARENT VISIT ACTIVITY LOG</h3>
+    </div>
+    <div class="logo">
+      <img src="assets/images/logo.svg" />
+    </div>
+    <div class="form">
+      <div class="person-data">
+        <div class="field-name">Children’s Name(s):</div>
+        <div>
+          <client-search [ClientName]='displayClientName()' (setClientAction)="setClient($event)"></client-search>
+        </div>
+      </div>
+      <div class="person-data">
+        <div class="field-name">Parent’s Name(s):</div>
+        <div>
+          <mat-form-field>
+            <input matInput [(ngModel)]="model.parentName.value">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="person-data">
+        <div class="field-name">FACTS:</div>
+        <div>
+          <mat-form-field>
+            <input matInput [(ngModel)]="model.fact.value" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="person-data">
+        <div class="field-name">Date:</div>
+        <div class="date-field">
+          <mat-form-field floatLabel="never">
+            <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose a date" class="date"
+              [(ngModel)]="model.CompletionDate.value" value="{{date}}">
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="person-data per-data hideOnPdf">
+        <p class="pad-right">Time/Length:</p>
+        <p class="pad-right">From:</p>
+        <mat-form-field>
+          <input matInput class="input-s" type="time" [(ngModel)]="model.FromTime.value">
+        </mat-form-field>
+        <p class="pad-right">To:</p>
+        <mat-form-field>
+          <input matInput class="input-s" type="time" (ngModelChange)="timeValidate($event)"
+            [(ngModel)]="model.ToTime.value">
+        </mat-form-field>
+      </div>
+      <div style="color:red" *ngIf="showTimeValidate">From time and To Time should not be same</div>
+      <div style="color:red" *ngIf="showTimeValidate_greater">The To Time should be greater than
+        From Time</div>
+      <!-- NOTE: this is to only show on PDF -->
+      <div class="person-data per-data">
+        <p class="pad-right showOnPdf">Time/Length:</p>
+        <p class="pad-right showOnPdf">From:</p>
+        <p class="pad-right showOnPdf font-weight-normal">{{getFormatedTime(model.FromTime.value)}}</p>
+        <p class="pad-right showOnPdf">To:</p>
+        <p class="pad-right showOnPdf font-weight-normal">{{getFormatedTime(model.ToTime.value)}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="visitTypeInput">
+    <input type="radio" value="CF069.1" (click)="getValue($event)" name="proCode" [(ngModel)]="model.proCode">Visit in
+    residence <br> CF069.1
+    <input type="radio" value="CF069.2" (click)="getValue($event)" name="proCode" [(ngModel)]="model.proCode">Visit not
+    in residence <br> CF069.2
+    <input type="radio" value="CF069.3" (click)="getValue($event)" name="proCode" [(ngModel)]="model.proCode">CF069.3
+    Worker Parent Attempt
+  </div>
+  <div class="hideOnPdf" *ngIf="procodeBasedContact.length > 0">
+    <span class="spanMulticlient">Type of contact</span>
+    <mat-form-field>
+      <mat-select placeholder="Type of contact" [(ngModel)]="model.contactType">
+        <mat-option *ngFor="let option of procodeBasedContact" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <!-- multi client -->
+  <div *ngIf='model.showMultiClient === true' class="hideOnPdf">
+    <span class="spanMulticlient">Select the option for multi client</span>
+    <mat-form-field>
+      <mat-select placeholder="Select the option for multi client" [(ngModel)]="model.multiClientValue">
+        <mat-option (click)="client()" value="By Facts">By Facts</mat-option>
+        <mat-option (click)="allClient()" value="By All clients">By All clients</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div *ngIf='showClient === true' class="hideOnPdf">
+    <mat-form-field floatLabel="never">
+      <input matInput [(ngModel)]="search" placeholder="Enter the last name" name="search" class="date">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="client()" class="search">Select Client</button>
+  </div>
+  <div class="column">
+    <div *ngFor="let clients of model.multiClient; let i = index;" class="multiClient">
+      <span class="pad-right">Child{{i + 1}}</span>
+      <mat-form-field>
+        <input matInput [(ngModel)]="model.multiClient[i]" [ngModelOptions]="{standalone: true}" readonly />
+      </mat-form-field>
+    </div>
+  </div>
+  <br>
+  <div>
+    <div class="text-section">
+      <div>Location of visit:</div>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.LocationOfVisit.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.LocationOfVisit.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="text-section">
+      <div>List those present at visit:</div>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.ListThosePresentAtVisit.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;"
+        *ngIf="isFinalize">{{model.ListThosePresentAtVisit.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="text-section">
+      <div>Children Living in the Removal Home:</div>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.ChildrenLivingInTheRemovalHome.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;"
+        *ngIf="isFinalize">{{model.ChildrenLivingInTheRemovalHome.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="text-section">
+      <div>Others Living in Home:</div>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.OthersLivingInHome.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.OthersLivingInHome.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div>
+      <span>Permanency Plan Goal:</span>
+      <div class="visitTypeInput margin-top-1rem">
+        <input type="radio" value="0" name="CasePlanGoals"
+          [(ngModel)]="model.CasePlanGoals.fieldOptionIndex">Reintegration
+        <input type="radio" value="1" name="CasePlanGoals" [(ngModel)]="model.CasePlanGoals.fieldOptionIndex">Adoption
+        <input type="radio" value="2" name="CasePlanGoals" [(ngModel)]="model.CasePlanGoals.fieldOptionIndex">APPLA
+        <input type="radio" value="3" name="CasePlanGoals"
+          [(ngModel)]="model.CasePlanGoals.fieldOptionIndex">Custodianship
+      </div>
+    </div>
+    <div class="text-section">
+      <p>Services and/or Additional Concerns and barriers to success addressed at this Visit</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.casePlanLimit.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.casePlanLimit.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="text-section">
+      <div>Court Orders and Permanency Plan Progress since last W/P Visit:</div>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.progress.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.progress.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="duedate-section">
+      <div class="text-section">
+        <p>Tasks for the parent before the next visit including ROI needed:</p>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.Tasksparentnextvisit.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;font-weight: 400;"
+          *ngIf="isFinalize">{{model.Tasksparentnextvisit.value}}</span>
+        <hr *ngIf="isFinalize">
+      </div>
+    </div>
+    <div>
+      <span>Due Date:</span>
+      <mat-form-field floatLabel="never">
+        <input matInput [matDatepicker]="duedate1" (click)="duedate1.open()" placeholder="Choose a date" class="date"
+          [(ngModel)]="model.duedate1.value">
+        <mat-datepicker #duedate1></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="duedate-section">
+      <div class="text-section">
+        <p>Tasks for the worker before the next visit including referrals needed:</p>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.Tasksworker.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.Tasksworker.value}}</span>
+        <hr *ngIf="isFinalize">
+      </div>
+    </div>
+    <div>
+      <span>Due Date:</span>
+      <mat-form-field floatLabel="never">
+        <input matInput [matDatepicker]="duedate2" (click)="duedate2.open()" placeholder="Choose a date" class="date"
+          [(ngModel)]="model.duedate2.value">
+        <mat-datepicker #duedate2></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="visitTypeInput">
+      <span>Is mother participating in mental health services</span>
+      <input class="rad" type="radio" value="0" name="MotherMentalHealthService"
+        [(ngModel)]="model.MotherMentalHealthService.fieldOptionIndex">Yes
+      <input class="rad" type="radio" value="1" name="MotherMentalHealthService"
+        [(ngModel)]="model.MotherMentalHealthService.fieldOptionIndex">No
+    </div>
+    <div class="text-section">
+      <p>Explanation:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.MotherMentalHealthServiceExplanation.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;"
+        *ngIf="isFinalize">{{model.MotherMentalHealthServiceExplanation.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+
+    <div class="visitTypeInput">
+      <span>Is father participating in mental health services</span>
+      <input class="rad" type="radio" value="0" name="FatherMentalHealthService"
+        [(ngModel)]="model.FatherMentalHealthService.fieldOptionIndex">Yes
+      <input class="rad" type="radio" value="1" name="FatherMentalHealthService"
+        [(ngModel)]="model.FatherMentalHealthService.fieldOptionIndex">No
+    </div>
+    <div class="text-section">
+      <p>Explanation:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.FatherMentalHealthServiceExplanation.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;"
+        *ngIf="isFinalize">{{model.FatherMentalHealthServiceExplanation.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+
+    <div class="visitTypeInput">
+      <span>Is significant other participating in mental health services</span>
+      <input class="rad" type="radio" value="0" name="SignificantMentalHealthService"
+        [(ngModel)]="model.SignificantMentalHealthService.fieldOptionIndex">Yes
+      <input class="rad" type="radio" value="1" name="SignificantMentalHealthService"
+        [(ngModel)]="model.SignificantMentalHealthService.fieldOptionIndex">No
+    </div>
+    <div class="text-section">
+      <p>Explanation:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.SignificantMentalHealthServiceExplanation.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;"
+        *ngIf="isFinalize">{{model.SignificantMentalHealthServiceExplanation.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+
+    <div class="visitTypeInput">
+      <span>
+        Is mother participating in substance abuse services
+      </span>
+      <input class="rad" type="radio" value="0" name="MotherSubstanceAbuse"
+        [(ngModel)]="model.MotherSubstanceAbuse.fieldOptionIndex">Yes
+      <input class="rad" type="radio" value="1" name="MotherSubstanceAbuse"
+        [(ngModel)]="model.MotherSubstanceAbuse.fieldOptionIndex">No
+    </div>
+    <div class="text-section">
+      <p>Explanation:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.MotherSubstanceAbuseExplanation.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;"
+        *ngIf="isFinalize">{{model.MotherSubstanceAbuseExplanation.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+
+    <div class="visitTypeInput">
+      <span>Is father participating in substance abuse services</span>
+      <input class="rad" type="radio" value="0" name="FatherSubstanceAbuse"
+        [(ngModel)]="model.FatherSubstanceAbuse.fieldOptionIndex">Yes
+      <input class="rad" type="radio" value="1" name="FatherSubstanceAbuse"
+        [(ngModel)]="model.FatherSubstanceAbuse.fieldOptionIndex">No
+    </div>
+    <div class="text-section">
+      <p>Explanation:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.FatherSubstanceAbuseExplanation.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;"
+        *ngIf="isFinalize">{{model.FatherSubstanceAbuseExplanation.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+
+    <div class="visitTypeInput">
+      <span>Is significant other participating in substance abuse services</span>
+      <input class="rad" type="radio" value="0" name="SignificantSubstanceAbuse"
+        [(ngModel)]="model.SignificantSubstanceAbuse.fieldOptionIndex">Yes
+      <input class="rad" type="radio" value="1" name="SignificantSubstanceAbuse"
+        [(ngModel)]="model.SignificantSubstanceAbuse.fieldOptionIndex">No
+    </div>
+    <div class="text-section">
+      <p>Explanation:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.SignificantSubstanceAbuseExplanation.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;"
+        *ngIf="isFinalize">{{model.SignificantSubstanceAbuseExplanation.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+
+    <div class="visitTypeInput">
+      <span>Is mother participating in any other formal services </span>
+      <input class="rad" type="radio" value="0" name="MotherFormalService"
+        [(ngModel)]="model.MotherFormalService.fieldOptionIndex">Yes
+      <input class="rad" type="radio" value="1" name="MotherFormalService"
+        [(ngModel)]="model.MotherFormalService.fieldOptionIndex">No
+    </div>
+    <div class="text-section">
+      <p>Explanation:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.MotherFormalServiceExplanation.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;"
+        *ngIf="isFinalize">{{model.MotherFormalServiceExplanation.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+
+    <div class="visitTypeInput">
+      <span>Is father participating in any other formal services</span>
+      <input class="rad" type="radio" value="0" name="FatherFormalService"
+        [(ngModel)]="model.FatherFormalService.fieldOptionIndex">Yes
+      <input class="rad" type="radio" value="1" name="FatherFormalService"
+        [(ngModel)]="model.FatherFormalService.fieldOptionIndex">No
+    </div>
+    <div class="text-section">
+      <p>Explanation:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.FatherFormalServiceExplanation.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;"
+        *ngIf="isFinalize">{{model.FatherFormalServiceExplanation.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+
+    <div class="visitTypeInput">
+      <span>Is significant other participating in any other formal services </span>
+      <input class="rad" type="radio" value="0" name="SignificantOtherFormalServices"
+        [(ngModel)]="model.SignificantOtherFormalServices.fieldOptionIndex">Yes
+      <input class="rad" type="radio" value="1" name="SignificantOtherFormalServices"
+        [(ngModel)]="model.SignificantOtherFormalServices.fieldOptionIndex">No
+    </div>
+    <div class="text-section">
+      <p>Explanation:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.SignificantOtherFormalServicesExplanation.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;"
+        *ngIf="isFinalize">{{model.SignificantOtherFormalServicesExplanation.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div>
+      <span>Next Permanency Plan is Due:</span>
+      <mat-form-field floatLabel="never">
+        <input matInput [matDatepicker]="PermanencyDue" (click)="PermanencyDue.open()" placeholder="Choose a date"
+          class="date" [(ngModel)]="model.PermanencyDue.value">
+        <mat-datepicker #PermanencyDue></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div>
+      <span>Next Court Hearing:</span>
+      <mat-form-field floatLabel="never">
+        <input matInput [matDatepicker]="CourtHearing" (click)="CourtHearing.open()" placeholder="Choose a date"
+          class="date" [(ngModel)]="model.CourtHearing.value">
+        <mat-datepicker #CourtHearing></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="visitTypeInput">
+      <div class="space-right">Are the following assessments current? </div>
+      <div class="space-right">
+        PSI
+      </div>
+      <div class="space-right">
+        <input class="rad" type="radio" value="0" name="AssessmentsCurrentPSI"
+          [(ngModel)]="model.AssessmentsCurrentPSI.fieldOptionIndex">Yes
+        <input class="rad" type="radio" value="1" name="AssessmentsCurrentPSI"
+          [(ngModel)]="model.AssessmentsCurrentPSI.fieldOptionIndex">No
+      </div>
+      <div class="space-right">
+        NCFAS G+R
+      </div>
+      <div class="space-right">
+        <input class="rad" type="radio" value="0" name="AssessmentsCurrentNCFAS"
+          [(ngModel)]="model.AssessmentsCurrentNCFAS.fieldOptionIndex">Yes
+        <input class="rad" type="radio" value="1" name="AssessmentsCurrentNCFAS"
+          [(ngModel)]="model.AssessmentsCurrentNCFAS.fieldOptionIndex">No
+      </div>
+    </div>
+    <div class="text-section">
+      <p>What family members/kin have a connection to the child?</p>
+      <!-- <p>Name:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize
+          [(ngModel)]="model.WhatFamilyMembersKinHaveaConnectionToTheChildAndProvideSupportToTheFamily.value"></textarea>
+      </mat-form-field> -->
+      <!-- <span style="white-space: pre-wrap; font-weight: normal;"
+        *ngIf="isFinalize">{{model.WhatFamilyMembersKinHaveaConnectionToTheChildAndProvideSupportToTheFamily.value}}</span> -->
+      <!-- <hr *ngIf="isFinalize"> -->
+      <table width="600" border="1" cellpadding="1" cellspacing="1">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type of Ongoing Contact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><textarea matInput autosize *ngIf="!isFinalize"
+                [(ngModel)]="model.WhatFamilyMembersKinHaveaConnectionToTheChildAndProvideSupportToTheFamily.value"></textarea>
+
+              <span style="white-space: pre-wrap; font-weight: normal;"
+                *ngIf="isFinalize">{{model.WhatFamilyMembersKinHaveaConnectionToTheChildAndProvideSupportToTheFamily.value}}</span>
+
+            </td>
+            <td>
+              <span style="white-space: pre-wrap; font-weight: normal;"
+                *ngIf="isFinalize">{{model.WhatFamilyMembersKinHaveaConnectionOngoingContact.value}}</span>
+
+              <textarea matInput autosize *ngIf="!isFinalize"
+                [(ngModel)]="model.WhatFamilyMembersKinHaveaConnectionOngoingContact.value"></textarea>
+            </td>
+
+          </tr>
+          <tr>
+            <td>
+
+              <span style="white-space: pre-wrap; font-weight: normal;"
+                *ngIf="isFinalize">{{model.WhatFamilyMembersKinHaveaConnectionToTheChildAndProvideSupportToTheFamily1.value}}</span>
+
+              <textarea matInput autosize *ngIf="!isFinalize"
+                [(ngModel)]="model.WhatFamilyMembersKinHaveaConnectionToTheChildAndProvideSupportToTheFamily1.value"></textarea>
+            </td>
+            <td>
+
+              <span style="white-space: pre-wrap; font-weight: normal;"
+                *ngIf="isFinalize">{{model.WhatFamilyMembersKinHaveaConnectionOngoingContact1.value}}</span>
+
+              <textarea matInput autosize *ngIf="!isFinalize"
+                [(ngModel)]="model.WhatFamilyMembersKinHaveaConnectionOngoingContact1.value"></textarea>
+            </td>
+
+          </tr>
+          <tr>
+            <td>
+
+              <span style="white-space: pre-wrap; font-weight: normal;"
+                *ngIf="isFinalize">{{model.WhatFamilyMembersKinHaveaConnectionToTheChildAndProvideSupportToTheFamily2.value}}</span>
+
+
+              <textarea matInput autosize *ngIf="!isFinalize"
+                [(ngModel)]="model.WhatFamilyMembersKinHaveaConnectionToTheChildAndProvideSupportToTheFamily2.value"></textarea>
+            </td>
+            <td>
+
+              <span style="white-space: pre-wrap; font-weight: normal;"
+                *ngIf="isFinalize">{{model.WhatFamilyMembersKinHaveaConnectionOngoingContact2.value}}</span>
+
+              <textarea matInput autosize *ngIf="!isFinalize"
+                [(ngModel)]="model.WhatFamilyMembersKinHaveaConnectionOngoingContact2.value"></textarea>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+    <div>
+      If parent location is unknown, have you: (Efforts are to be made monthly until found. Write what was done and the
+      outcome for each effort) This is to be completed at the end of each month to summarize efforts throughout the
+      month to locate and engage parent.
+    </div>
+    <div class="visitTypeInput margin-top-1rem between">
+      <div class="inherit">Asked family for possible location of parent of his/her family members</div>
+      <div class="input-date-picker">
+        <div class="inherit"> <input class="rad" type="radio" value="0" name="FamilyPossibleLocation"
+            [(ngModel)]="model.FamilyPossibleLocation.fieldOptionIndex">Yes
+          <input class="rad" type="radio" value="1" name="FamilyPossibleLocation"
+            [(ngModel)]="model.FamilyPossibleLocation.fieldOptionIndex">No
+        </div>
+        <div>
+          <span>Date:</span>
+          <mat-form-field floatLabel="never">
+            <input matInput [matDatepicker]="date4" (click)="date4.open()" placeholder="Choose a date" class="date"
+              [(ngModel)]="model.date4.value">
+            <mat-datepicker #date4></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="visitTypeInput margin-top-1rem between">
+      <div class="inherit">Sent certified letter to last known address</div>
+      <div class="input-date-picker">
+        <div class="inherit"> <input class="rad" type="radio" value="0" name="CertifiedLetter"
+            [(ngModel)]="model.CertifiedLetter.fieldOptionIndex">Yes
+          <input class="rad" type="radio" value="1" name="CertifiedLetter"
+            [(ngModel)]="model.CertifiedLetter.fieldOptionIndex">No
+        </div>
+        <div>
+          <span>Date:</span>
+          <mat-form-field floatLabel="never">
+            <input matInput [matDatepicker]="date5" (click)="date5.open()" placeholder="Choose a date" class="date"
+              [(ngModel)]="model.date5.value">
+            <mat-datepicker #date5></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="visitTypeInput margin-top-1rem between">
+      <div class="inherit">Contacted Child Support Enforcement</div>
+      <div class="input-date-picker">
+        <div class="inherit"> <input class="rad" type="radio" value="0" name="ContactedChild"
+            [(ngModel)]="model.ContactedChild.fieldOptionIndex">Yes
+          <input class="rad" type="radio" value="1" name="ContactedChild"
+            [(ngModel)]="model.ContactedChild.fieldOptionIndex">No
+        </div>
+        <div>
+          <span>Date:</span>
+          <mat-form-field floatLabel="never">
+            <input matInput [matDatepicker]="date6" (click)="date6.open()" placeholder="Choose a date" class="date"
+              [(ngModel)]="model.date6.value">
+            <mat-datepicker #date6></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="visitTypeInput margin-top-1rem between">
+      <div class="inherit">Searched online for the parent (List types of searches completed)</div>
+      <div class="input-date-picker">
+        <div class="inherit"> <input class="rad" type="radio" value="0" name="SearchedOnlineParent"
+            [(ngModel)]="model.SearchedOnlineParent.fieldOptionIndex">Yes
+          <input class="rad" type="radio" value="1" name="SearchedOnlineParent"
+            [(ngModel)]="model.SearchedOnlineParent.fieldOptionIndex">No
+        </div>
+        <div>
+          <span>Date:</span>
+          <mat-form-field floatLabel="never">
+            <input matInput [matDatepicker]="date7" (click)="date7.open()" placeholder="Choose a date" class="date"
+              [(ngModel)]="model.date7.value">
+            <mat-datepicker #date7></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="text-section">
+      <div>Details:</div>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.safety_concern.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.safety_concern.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="visitTypeInput margin-top-1rem between">
+      <div class="inherit">If located, notified court of parent location</div>
+      <div class="input-date-picker">
+        <div class="inherit"> <input class="rad" type="radio" value="0" name="NotifiedCourt"
+            [(ngModel)]="model.NotifiedCourt.fieldOptionIndex">Yes
+          <input class="rad" type="radio" value="1" name="NotifiedCourt"
+            [(ngModel)]="model.NotifiedCourt.fieldOptionIndex">No
+        </div>
+        <div>
+          <span>Date:</span>
+          <mat-form-field floatLabel="never">
+            <input matInput [matDatepicker]="date8" (click)="date8.open()" placeholder="Choose a date" class="date"
+              [(ngModel)]="model.date8.value">
+            <mat-datepicker #date8></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="visitTypeInput margin-top-1rem between">
+      <div class="inherit">Other attempts made: </div>
+      <div class="input-date-picker">
+        <div class="inherit"> <input class="rad" type="radio" value="0" name="OtherAttempt"
+            [(ngModel)]="model.OtherAttempt.fieldOptionIndex">Yes
+          <input class="rad" type="radio" value="1" name="OtherAttempt"
+            [(ngModel)]="model.OtherAttempt.fieldOptionIndex">No
+        </div>
+        <div>
+          <span>Date:</span>
+          <mat-form-field floatLabel="never">
+            <input matInput [matDatepicker]="date9" (click)="date9.open()" placeholder="Choose a date" class="date"
+              [(ngModel)]="model.date9.value">
+            <mat-datepicker #date9></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="text-section">
+      <div>Details:</div>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.OtherAttemptDetails.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;"
+        *ngIf="isFinalize">{{model.OtherAttemptDetails.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="safety-assessment">
+      <h4>Safety Assessment (for all family members living in the home) What are the safety concerns?</h4>
+
+      <p>
+        Safety is the potential for serious maltreatment which is imminent. It determines the need for immediate
+        protection action or controlling interventions to protect the child from imminent danger. Safety is related to
+        the safety concerns that led to the removal from the home or that have been identified since the removal, that
+        would prevent the child(ren) from returning home. Safety also includes the physical safety of the home and
+        environment.</p>
+      <div class="text-section">
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.SafetyAssessmentsafety_concern.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;font-weight: 400;"
+          *ngIf="isFinalize">{{model.SafetyAssessmentsafety_concern.value}}</span>
+        <hr *ngIf="isFinalize">
+      </div>
+      <div>
+        <span>Have there been any new/additional safety concerns been identified since last visit?</span>
+        <div class="visitTypeInput">
+          <input type="radio" value="0" name="WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeeting"
+            [(ngModel)]="model.WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeeting.fieldOptionIndex">Yes
+          <input type="radio" value="1" name="WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeeting"
+            [(ngModel)]="model.WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeeting.fieldOptionIndex">No
+        </div>
+      </div>
+      <h4>If yes, please answer the following:</h4>
+      <div class="text-section">
+        <div>What safety concerns have been identified?</div>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize
+            [(ngModel)]="model.WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeetingDescription.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap; font-weight: normal;"
+          *ngIf="isFinalize">{{model.WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeetingDescription.value}}</span>
+        <hr *ngIf="isFinalize">
+      </div>
+      <div class="text-section">
+        <div>
+          What are the family’s strengths and resources mitigating (steps taken to address) safety concerns? </div>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.HowWereSafetyRiskConcernsAddressed.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap; font-weight: normal;"
+          *ngIf="isFinalize">{{model.HowWereSafetyRiskConcernsAddressed.value}}</span>
+        <hr *ngIf="isFinalize">
+      </div>
+      <div class="text-section">
+        <div>What are the contributing factors directly related to the safety concern?</div>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.contributingfactors.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;font-weight: 400;"
+          *ngIf="isFinalize">{{model.contributingfactors.value}}</span>
+        <hr *ngIf="isFinalize">
+      </div>
+      <div>
+        <span>Has a safety plan been developed or reviewed?</span>
+        <div class="visitTypeInput">
+          <input type="radio" value="0" name="safetyplandevelopedorreviewed"
+            [(ngModel)]="model.safetyplandevelopedorreviewed.fieldOptionIndex">Yes
+          <input type="radio" value="1" name="safetyplandevelopedorreviewed"
+            [(ngModel)]="model.safetyplandevelopedorreviewed.fieldOptionIndex">No
+        </div>
+      </div>
+      <div class="text-section">
+        <div>If reviewed, what progress has been made to follow the safety plan?</div>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.reviewprogressfollow.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;font-weight: 400;"
+          *ngIf="isFinalize">{{model.reviewprogressfollow.value}}</span>
+        <hr *ngIf="isFinalize">
+      </div>
+    </div>
+
+    <div class="safety-assessment">
+      <h4>Risk Assessment (for all family members living in the home): What are the risk concerns:</h4>
+
+      <i>Risk is potential maltreatment in the future. It determines the need for services to address potential future
+        maltreatment. Risk also looks at the potential for something to create a situation that could put the
+        child(ren)safety in jeopardy.</i>
+      <div class="text-section">
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.risk_concern.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.risk_concern.value}}</span>
+        <hr *ngIf="isFinalize">
+      </div>
+      <div>
+        <span>Have there been any new/additional risk concerns been identified since last visit?</span>
+      </div>
+      <div class="visitTypeInput">
+        <input type="radio" value="0" name="additionalriskconcernidentified"
+          [(ngModel)]="model.additionalriskconcernidentified.fieldOptionIndex">Yes
+        <input type="radio" value="1" name="additionalriskconcernidentified"
+          [(ngModel)]="model.additionalriskconcernidentified.fieldOptionIndex">No
+      </div>
+      <h4>If yes, please answer the following:</h4>
+      <div class="text-section">
+        <div>What risk concerns have been identified?</div>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.risk_concern_identified.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;font-weight: 400;"
+          *ngIf="isFinalize">{{model.risk_concern_identified.value}}</span>
+        <hr *ngIf="isFinalize">
+      </div>
+      <div class="text-section">
+        <div>What are the family’s strengths and resources mitigating (steps taken to address) safety concerns? </div>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.family_mitigate_risk.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;font-weight: 400;"
+          *ngIf="isFinalize">{{model.family_mitigate_risk.value}}</span>
+        <hr *ngIf="isFinalize">
+      </div>
+      <div class="text-section">
+        <div>What services are needed or have taken place to mitigate (steps taken to address) the concerns?</div>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.service_mitigate_concern.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;font-weight: 400;"
+          *ngIf="isFinalize">{{model.service_mitigate_concern.value}}</span>
+        <hr *ngIf="isFinalize">
+      </div>
+      <div>
+        <span>Has a service plan and/or Safety Plan been developed or reviewed?</span>
+        <div class="visitTypeInput">
+          <input type="radio" value="0" name="service_plan_reviewed"
+            [(ngModel)]="model.service_plan_reviewed.fieldOptionIndex">Yes
+          <input type="radio" value="1" name="service_plan_reviewed"
+            [(ngModel)]="model.service_plan_reviewed.fieldOptionIndex">No
+        </div>
+      </div>
+      <div class="text-section">
+        <div>If yes, include date:</div>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.RiskAssesmentDate.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;font-weight: 400;"
+          *ngIf="isFinalize">{{model.RiskAssesmentDate.value}}</span>
+        <hr *ngIf="isFinalize">
+      </div>
+      <div class="text-section">
+        <div>If reviewed, what progress has been made to follow the service plan?</div>
+        <div>Include date service/safety plan complete:</div>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.CasePlanTasks.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.CasePlanTasks.value}}</span>
+        <hr *ngIf="isFinalize">
+      </div>
+    </div>
+    <div class="safety-assessment text-section">
+      <div>Additional Remarks, Positives, and/or Concerns:</div>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.NarrativeSummary.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.NarrativeSummary.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="text-section">
+      <p>Next W/P Visit Scheduled For:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.TasksForSFCSBeforeNextVisit.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;"
+        *ngIf="isFinalize">{{model.TasksForSFCSBeforeNextVisit.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+  </div>
+  <div class="signature-section">
+    <div>
+      <span>Worker Signature/Title</span>
+      <mat-form-field>
+        <input matInput class="input-sm" [(ngModel)]="model.Worker_Signature.value">
+      </mat-form-field>
+    </div>
+    <div>
+      <span>Date</span>
+      <mat-form-field floatLabel="never">
+        <input matInput [matDatepicker]="date3" (click)="date3.open()" placeholder="Choose a date" class="date"
+          [(ngModel)]="model.date3.value" value="{{date}}">
+        <mat-datepicker #date3></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<form-footer (resetAction)='resetForm()' (calculateAction)='calculateForm()' (saveAction)='saveForm()'
+  (finalizeAction)='finalize()'>
+</form-footer>

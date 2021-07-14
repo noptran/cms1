@@ -1,0 +1,198 @@
+<app-form-header [title]="title" [status]="status" [subtitle]="subtitle" [breadcrumbs]="breadcrumbs"
+  [formstatus]="formStatus"></app-form-header>
+
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+
+<div class="container-background">
+  <p-toast position="center"></p-toast>
+  <div class="container-foreground">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card-header-row">
+          <div class="opencard-menu-container rfcOpencard">
+            <div class="dropdown border-none">
+              <span class="fa fa-th opencard-menu" data-toggle="dropdown" pTooltip="OpenCards"></span>
+              <div class="dropdown-menu opencard-box">
+                <div class="card-container">
+                  <div class="opencard" pTooltip="Click here to open" (click)=navigateTo(item.title)
+                    *ngFor="let item of opencards">
+                    <img src={{item.icon}} alt="{{tip}}">
+                    <div class="opencard-info">
+                      <span class="title">{{item.title}}</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <nav class="nav-fill">
+      <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link" *ngFor="let main of mainTabs;let i = index" [class.active]="sIndex  === i"
+          (click)="setIndex(i,$event)" data-toggle="tab" href="{{main.href}}" role="tab">{{main.label}}</a>
+      </div>
+    </nav>
+    <form [formGroup]="dcfForm" disable="formDisableCntrl" class="sf-form">
+      <div class="tab-content padding-15" id="nav-tabContent">
+        <div class="tab-pane margin-left-45 active in" id="nav-sec1" role="tabpanel" aria-labelledby="nav-general-tab">
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>First Name </span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText formControlName="firstName" name="inputText" [(ngModel)]="dcf.firstName"
+                size="27" maxlength="25" />
+              <p-message severity="error"
+                [text]="dcfForm.controls['firstName'].errors['required'] ? 'Field is required' : dcfForm.controls['firstName'].errors['maxlength'] ? 'Must be longer than 6 characters' : ''"
+                *ngIf="!dcfForm.controls['firstName'].valid&&dcfForm.controls['firstName'].dirty"></p-message>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Last Name</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText formControlName="lastName" name="inputText" [(ngModel)]="dcf.lastName"
+                size="27" maxlength="25" />
+              <p-message severity="error"
+                [text]="dcfForm.controls['lastName'].errors['required'] ? 'Field is required' : dcfForm.controls['lastName'].errors['maxlength'] ? 'Must be longer than 6 characters' : ''"
+                *ngIf="!dcfForm.controls['lastName'].valid&&dcfForm.controls['lastName'].dirty"></p-message>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Acronym</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputSwitch></p-inputSwitch>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>MI</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText formControlName="mi" name="inputText" [(ngModel)]="dcf.mi" size="27"
+                maxlength="2" />
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Con.ST</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="contract_StateID" [(ngModel)]="dcf.contract_StateID"
+                [suggestions]="metaData" (completeMethod)="getMetaData($event,'state')" [dropdown]="true"
+                [forceSelection]="true" field="state" size="23"></p-autoComplete>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Gender</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="genderID" name="genderID" [(ngModel)]="dcf.genderID"
+                [suggestions]="metaData" (completeMethod)="getMetaData($event,'gender')" [dropdown]="true"
+                [forceSelection]="true" class="low-option-autos" field="gender" size="23"></p-autoComplete>
+            </div>
+
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Deceased</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Ethinicity</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete name="ethnicity" formControlName="ethnicityID" [(ngModel)]="dcf.ethnicityID"
+                [suggestions]="metaData" (completeMethod)="getMetaData($event,'ethnicity')" [dropdown]="true"
+                [forceSelection]="true" field="ethnicity" size="23"></p-autoComplete>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Tribe</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete name="tribeID" formControlName="tribeID" [(ngModel)]="dcf.tribeID"
+                [suggestions]="metaData" (completeMethod)="getMetaData($event,'tribe')" [dropdown]="true"
+                [forceSelection]="true" field="tribe" size="23"></p-autoComplete>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Email address</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText formControlName="email" name="email" [(ngModel)]="dcf.email" size="27"
+                maxlength="75" />
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Home Phone</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputMask mask="(999) 999-9999" formControlName="homePh" name="homePh" [(ngModel)]="dcf.homePh">
+              </p-inputMask>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Cell phone</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputMask mask="(999) 999-9999" formControlName="cellPh" name="cellPh" [(ngModel)]="dcf.cellPh">
+              </p-inputMask>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane margin-left-45" id="nav-sec2" role="tabpanel" aria-labelledby="nav-general-tab">
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Pager</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputMask mask="(999) 999-9999" formControlName="pager" name="pager" [(ngModel)]="dcf.pager">
+              </p-inputMask>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Fax</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputMask mask="(999) 999-9999" formControlName="fax" name="fax" [(ngModel)]="dcf.fax"></p-inputMask>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Work Phone</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputMask mask="(999) 999-9999" formControlName="workPh" name="workPh" [(ngModel)]="dcf.workPh">
+              </p-inputMask>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Ext</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText name="ext" [(ngModel)]="dcf.ext" formControlName="ext" maxlength="5" />
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-sm-12 col-md-12">
+              <span>Notes</span>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-sm-12 col-md-12">
+              <textarea formControlName="notes" pInputTextarea style=" width: 100%;     height: 100%;" name="notes"
+                [(ngModel)]="dcf.notes" rows="5" cols="80"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="tab-footer">
+      <div>
+        <button class="sf-positive-btn margin-left-0" *ngIf="sIndex !== 0" (click)="goPrevious()"><i
+            class="fa fa-angle-double-left"></i> Previous</button>
+      </div>
+      <div class="push">
+        <button class="sf-positive-btn margin-left-0" *ngIf="sIndex !== mainTabs.length - 1" (click)="goNext()">Next <i
+            class="fa fa-angle-double-right"></i></button>
+      </div>
+    </div>
+    <app-form-footer *ngIf="sIndex == mainTabs.length - 1" (save)="save(dcf)" (discard)="discard()" (edit)="update()"
+      [editControll]="editBtnCntrl"></app-form-footer>
+  </div>
+</div>

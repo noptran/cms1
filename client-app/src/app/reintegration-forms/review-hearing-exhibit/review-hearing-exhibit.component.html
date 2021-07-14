@@ -1,0 +1,86 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="reviewHearingForm" class="sf-form">
+    <div class="logo center space-down">
+      <img src="assets/logo color.svg" alt="">
+    </div>
+    <h3 class="center bold space-down">REVIEW HEARING EXHIBIT LIST</h3>
+    <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Case Name: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reReviewHearing.CaseName" formControlName="CaseName" name="CaseName"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right"> Case Number: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reReviewHearing.CaseNumber" formControlName="CaseNumber" name="CaseNumber"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Hearing Date: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reReviewHearing.HearingDate" formControlName="HearingDate" name="HearingDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right"> Judge: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reReviewHearing.Judge" formControlName="Judge" name="Judge"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p>Children Involved in Court Action</p>
+    <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Child: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reReviewHearing.Child" formControlName="Child" name="Child"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">DOB: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reReviewHearing.Dob" formControlName="Dob" name="ChildDobName"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right"> AGE: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reReviewHearing.Age" formControlName="Age" name="ChildNAgeame"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right"> Case Number: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reReviewHearing.CaseNumber1" formControlName="CaseNumber1" name="CaseNumber1"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,reReviewHearing)" (edit)="editForm()" [editControll]="editControll" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

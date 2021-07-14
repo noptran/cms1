@@ -1,0 +1,389 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <div class="opencard-menu-container" *ngIf="adoption.adoptionID">
+      <div class="dropdown border-none">
+        <span class="fa fa-th opencard-menu" data-toggle="dropdown" pTooltip="OpenCards"
+          routerLink="/reintegration/referral/opencard/adoption/dashboard"></span>
+      </div>
+    </div>
+
+    <form class="sf-form form-container" [formGroup]="adptionForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Permanency Staffing</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="permanencyStaffing" [showIcon]="true" showTime="true" hourFormat="24"
+              [(ngModel)]="adoption.permanencyStaffing" formControlName="permanencyStaffing" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Case Plan Goal</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <!-- {{casePlanGoalDate | date:'MM/dd/yyyy HH:mm:ss' }} -->
+            <input [disabled]="true" value="{{casePlanGoalDate | date:'MM/dd/yyyy HH:mm:ss' }}" type="text" pInputText
+              size="20" />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span>
+              <b>Reunification No Longer Viable</b>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>SFCS Recommended</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="reunificationNoLogerViable_SFCSRecommended" [showIcon]="true" showTime="true"
+              hourFormat="24" [(ngModel)]="adoption.reunificationNoLogerViable_SFCSRecommended"
+              formControlName="reunificationNoLogerViable_SFCSRecommended" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Court Approved</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="reunificationNoLogerViable_CourtApproved" [showIcon]="true" showTime="true"
+              hourFormat="24" [(ngModel)]="adoption.reunificationNoLogerViable_CourtApproved"
+              formControlName="reunificationNoLogerViable_CourtApproved" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row separator">
+        <div class="col-lg-6 col-md-6 col-sm-6 ">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Points to Court</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="pointsToCourtDate" [showIcon]="true" showTime="true" hourFormat="24"
+              [(ngModel)]="adoption.pointsToCourtDate" formControlName="pointsToCourtDate" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Motion Field</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="motionFiled" [showIcon]="true" showTime="true" hourFormat="24"
+              [(ngModel)]="adoption.motionFiled" formControlName="motionFiled" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">Legally Available</div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="legallyAvailable" [showIcon]="true" showTime="true" hourFormat="24"
+              [(ngModel)]="adoption.legallyAvailable" formControlName="legallyAvailable" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Legal Review</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="legalReview" [showIcon]="true" showTime="true" hourFormat="24"
+              [(ngModel)]="adoption.legalReview" formControlName="legalReview" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Transfer To Adopt</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="transferToAdoption" [showIcon]="true" showTime="true" hourFormat="24"
+              [(ngModel)]="adoption.transferToAdoption" formControlName="transferToAdoption" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Inquiry Form</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="inquiryForm" [showIcon]="true" showTime="true" hourFormat="24"
+              [(ngModel)]="adoption.inquiryForm" formControlName="inquiryForm" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Social History</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="socialHistory" [showIcon]="true" showTime="true" hourFormat="24"
+              [(ngModel)]="adoption.socialHistory" formControlName="socialHistory" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Birth Rec Request</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="birthRecordsRequested" [showIcon]="true" showTime="true" hourFormat="24"
+              [(ngModel)]="adoption.birthRecordsRequested" formControlName="birthRecordsRequested"
+              [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Birth Rec Received</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="birthRecordsReceived" [showIcon]="true" showTime="true" hourFormat="24"
+              [(ngModel)]="adoption.birthRecordsReceived" formControlName="birthRecordsReceived" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row separator">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span>
+              <b>Father</b>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Parental Status</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="gradeID" emptyMessage="No results found!"
+              formControlName="parentalStatusID_Father" [suggestions]="metaData"
+              (completeMethod)="getMetaData($event, 'parentalStatus')" [(ngModel)]="adoption.parentalStatusID_Father"
+              [forceSelection]="true" placeholder="Type here to search" field="parentalStatus" size="23">
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Date</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="statusDate_Father" [showIcon]="true" showTime="true" hourFormat="24"
+              [(ngModel)]="adoption.statusDate_Father" formControlName="statusDate_Father" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>DCF Approved</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="statusApprovedDate_Father" [showIcon]="true" showTime="true" hourFormat="24"
+              [(ngModel)]="adoption.statusApprovedDate_Father" formControlName="statusApprovedDate_Father"
+              [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row separator">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span>
+              <b>Mother</b>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Parental Status</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="gradeID" emptyMessage="No results found!"
+              [(ngModel)]="adoption.parentalStatusID_Mother" formControlName="parentalStatusID_Mother"
+              [suggestions]="metaData" (completeMethod)="getMetaData($event, 'parentalStatus')" [forceSelection]="true"
+              placeholder="Type here to search" field="parentalStatus" size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Date</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="statusDate_Mother" [showIcon]="true" showTime="true" hourFormat="24"
+              [(ngModel)]="adoption.statusDate_Mother" formControlName="statusDate_Mother" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>DCF Approved</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="statusApprovedDate_Mother" [showIcon]="true" showTime="true" hourFormat="24"
+              [(ngModel)]="adoption.statusApprovedDate_Mother" formControlName="statusApprovedDate_Mother"
+              [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row separator">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span>
+              <b>Father Other</b>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Parental Status</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="gradeID" emptyMessage="No results found!"
+              [(ngModel)]="adoption.parentalStatusID_Father_Other" formControlName="parentalStatusID_Father_Other"
+              [suggestions]="metaData" (completeMethod)="getMetaData($event, 'parentalStatus')" [forceSelection]="true"
+              placeholder="Type here to search" field="parentalStatus" size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Date</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="statusDate_Father_Other" [showIcon]="true" showTime="true" hourFormat="24"
+              [(ngModel)]="adoption.statusDate_Father_Other" formControlName="statusDate_Father_Other"
+              [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>DCF Approved</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="statusApprovedDate_Father_Other" [showIcon]="true" showTime="true" hourFormat="24"
+              [(ngModel)]="adoption.statusApprovedDate_Father_Other" formControlName="statusApprovedDate_Father_Other"
+              [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row separator">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span>
+              <b>Mother Other</b>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Parental Status</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="gradeID" emptyMessage="No results found!"
+              [(ngModel)]="adoption.parentalStatusID_Mother_Other" formControlName="parentalStatusID_Mother_Other"
+              [suggestions]="metaData" (completeMethod)="getMetaData($event, 'parentalStatus')" [forceSelection]="true"
+              placeholder="Type here to search" field="parentalStatus" size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Date</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="statusDate_Mother_Other" [showIcon]="true" showTime="true" hourFormat="24"
+              [(ngModel)]="adoption.statusDate_Mother_Other" formControlName="statusDate_Mother_Other"
+              [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>DCF Approved</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="statusApprovedDate_Mother_Other" [showIcon]="true" showTime="true" hourFormat="24"
+              [(ngModel)]="adoption.statusApprovedDate_Mother_Other" formControlName="statusApprovedDate_Mother_Other"
+              [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span>Notes</span>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea formControlName="notes" pInputTextArea style="width:100%;height:100%" name="notes"
+              [(ngModel)]="adoption.notes"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-md-3">
+
+            <button class="document-link" routerLink="/reintegration/referral/opencard/adoption/attachment"
+              class="btn btn-primary">View Attachment Catagories</button>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <button (click)=navigateTo() class="opencard-attachment btn btn-primary">Attachment Document</button>
+          </div>
+        </div>
+      </div> -->
+    </form>
+
+    <app-form-footer (attachDoc)="navigateTo()" [attachmentControll]="isAttachmentRequired"
+      (save)="formAction(adoption)" [editControll]="isEdit" (edit)="editForm()" [discardTo]="discardTo"
+      [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+    </app-form-footer>
+    <!-- <app-quick-menu [module]="quickMenu"></app-quick-menu> -->
+  </div>
+</div>

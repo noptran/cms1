@@ -1,0 +1,456 @@
+<div id="pdf-content">
+  <div class="reintegration-header">
+    <div class="reintegration-title">
+      <h3>REINTEGRATION FOSTER
+        <br> CARE ADOPTION
+        <br> ADOPTIVE RESOURCE
+        <br> INQUIRY FORM</h3>
+    </div>
+    <div class="logo">
+      <img src="assets/images/logo.svg" />
+    </div>
+    <div>
+      <!-- <div> -->
+        <span>Date:</span>
+        <mat-form-field floatLabel="never">
+          <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose a date" class="date"
+            [(ngModel)]="model.CompletionDate.value" value="{{date}}">
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      <!-- </div> -->
+    </div>
+  </div>
+  <h3 class="child-information-head">CHILD INFORMATION:</h3>
+  <div class="child-information-section">
+    <div>
+      <div>
+        <client-search [ClientName]='displayClientName()' (setClientAction)="setClient($event)"></client-search>
+      </div>
+      <div>
+        <span>KAESCES #:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.Kaecses.value" readonly>
+        </mat-form-field>
+      </div>
+      <div>
+        <span>Child’s Worker:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.childWorker.value">
+        </mat-form-field>
+      </div>
+    </div>
+    <div>
+      <div>
+        <span>DOB:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.DateOfBirth.value" readonly>
+        </mat-form-field>
+      </div>
+      <div>
+        <span>Phone Number:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.ClientPhone1.value">
+        </mat-form-field>
+      </div>
+      <div>
+        <span>Phone Number:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.ClientPhone2.value">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <mat-checkbox [(ngModel)]="model.Inquiry.fieldOptionIndex" class="inquiry-check">Inquiry not for a Specific Child
+  </mat-checkbox>
+  <h3 class="family-information-head">INQUIRING FAMILY INFORMATION</h3>
+  <div class="family-information-section">
+    <div>
+      <div>
+        <span>Name:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.FamilyName.value">
+        </mat-form-field>
+      </div>
+      <div>
+        <span>Address:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.FamilyAddress.value">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="email-section">
+      <div>
+        <span>Telephone Number:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.FamilyPhone.value">
+        </mat-form-field>
+      </div>
+      <div>
+        <span>Email Address:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.FamilyEmail.value">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="childrenData">
+    <table>
+      <tr>
+        <th colspan="2">Children in the Home:</th>
+        <th colspan="2">Other Individuals in the Home:</th>
+      </tr>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Name</th>
+        <th>Age</th>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.ChildrenInTheHome1.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.ChildrenInTheHomeAge1.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.OtherIndividuals1.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.OtherIndividualsAge1.value">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.ChildrenInTheHome2.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.ChildrenInTheHomeAge2.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.OtherIndividuals2.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.OtherIndividualsAge2.value">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.ChildrenInTheHome3.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.ChildrenInTheHomeAGe3.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.OtherIndividuals3.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.OtherIndividualsAge3.value">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.ChildrenInTheHome4.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.ChildrenInTheHomeAge4.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.OtherIndividuals4.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.OtherIndividualsAge4.value">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.ChildrenInTheHome5.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.ChildrenInTheHomeAge5.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.OtherIndividuals5.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.OtherIndividualsAge5.value">
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <br>
+  <div class="pad-left pad-bot">
+    <span>PS-MAPP/DT Completed:</span>
+    <input class="rad" type="radio" value="0" name="ps" [(ngModel)]="model.ps.fieldOptionIndex">Yes
+    <input class="rad" type="radio" value="1" name="ps" [(ngModel)]="model.ps.fieldOptionIndex">No
+  </div>
+  <div class="pad-left pad-bot">
+    <span>Is this resource the child’s Kinship Placement:</span>
+    <input class="rad" type="radio" value="0" name="KinshipPlacement"
+      [(ngModel)]="model.KinshipPlacement.fieldOptionIndex">Yes
+    <input class="rad" type="radio" value="1" name="KinshipPlacement"
+      [(ngModel)]="model.KinshipPlacement.fieldOptionIndex">No
+  </div>
+  <div class="pad-left pad-bot">
+    <span>Has a Kinship Assessment been completed on the family:</span>
+    <input class="rad" type="radio" value="0" name="AssessmentCompleted"
+      [(ngModel)]="model.AssessmentCompleted.fieldOptionIndex">Yes
+    <input class="rad" type="radio" value="1" name="AssessmentCompleted"
+      [(ngModel)]="model.AssessmentCompleted.fieldOptionIndex">No
+  </div>
+  <p class="pad-left">*If yes, please attach a copy of the kinship assessment to this form</p>
+  <div class="pad-left pad-bot">
+    <span>Is the inquiring family a licensed foster home:</span>
+    <input class="rad" type="radio" value="0" name="licensed" [(ngModel)]="model.licensed.fieldOptionIndex">Yes
+    <input class="rad" type="radio" value="1" name="licensed" [(ngModel)]="model.licensed.fieldOptionIndex">No
+  </div>
+  <div class="adoptive-section">
+    <div class="textarea-container">
+      <div class="textarea-section">
+        <p>If so, please list the sponsoring agency and foster care worker:</p>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.SponsoringAgency.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.SponsoringAgency.value}}</span>
+      </div>
+    </div>
+  </div>
+  <hr *ngIf="isFinalize">
+  <div class="pad-left pad-bot">
+    <span>Has the family lived in another state within the past 5 years:</span>
+    <input class="rad" type="radio" value="0" name="AnotherState" [(ngModel)]="model.AnotherState.fieldOptionIndex">Yes
+    <input class="rad" type="radio" value="1" name="AnotherState" [(ngModel)]="model.AnotherState.fieldOptionIndex">No
+  </div>
+  <div class="adoptive-section">
+    <div class="textarea-container">
+      <div class="textarea-section">
+        <p>If so, what state?</p>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.PastState.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.PastState.value}}</span>
+      </div>
+    </div>
+  </div>
+  <hr *ngIf="isFinalize">
+  <div class="adoptive-section">
+    <div class="textarea-container">
+      <div class="textarea-section">
+        <p>What is the family’s motivation to adopt?</p>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.Motivation.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.Motivation.value}}</span>
+      </div>
+      <hr *ngIf="isFinalize">
+      <div class="textarea-section">
+        <p>How did the family become aware of the child?</p>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.AwareOfChild.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.AwareOfChild.value}}</span>
+      </div>
+      <hr *ngIf="isFinalize">
+      <div class="textarea-section">
+        <p>What is the family’s relationship with the child?</p>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.Relationship.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.Relationship.value}}</span>
+      </div>
+      <hr *ngIf="isFinalize">
+      <div class="html2pdf__page-break"></div>
+      <div class="textarea-section">
+        <p>Are you aware of any concerns regarding this resource or issues to be explored during the assessment
+          process?</p>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.concerns.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.concerns.value}}</span>
+      </div>
+      <hr *ngIf="isFinalize">
+    </div>
+  </div>
+  <div class="siblings pad-bot">
+    <table>
+      <tr>
+        <th colspan="3">Siblings in Out of Home Care:</th>
+      </tr>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Case Plan Goal</th>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.SiblingsOutOfHomeName1.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.SiblingsOutOfHomeAge1.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.SiblingsOutOfHomeCaseplangoal1.value">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.SiblingsOutOfHomeName2.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.SiblingsOutOfHomeAge2.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.SiblingsOutOfHomeCaseplangoal2.value">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.SiblingsOutOfHomeName3.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.SiblingsOutOfHomeAge3.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.SiblingsOutOfHomeCaseplangoal3.value">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.SiblingsOutOfHomeName4.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.SiblingsOutOfHomeAge4.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.SiblingsOutOfHomeCaseplangoal4.value">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.SiblingsOutOfHomeName5.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.SiblingsOutOfHomeAge5.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.SiblingsOutOfHomeCaseplangoal5.value">
+          </mat-form-field>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.SiblingsOutOfHomeName6.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.SiblingsOutOfHomeAge6.value">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.SiblingsOutOfHomeCaseplangoal6.value">
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="pad-left pad-bot">
+    <span>Is the inquiring family a resource for the siblings:</span>
+    <input class="rad" type="radio" value="0" name="ResourceForSiblings"
+      [(ngModel)]="model.ResourceForSiblings.fieldOptionIndex">Yes
+    <input class="rad" type="radio" value="1" name="ResourceForSiblings"
+      [(ngModel)]="model.ResourceForSiblings.fieldOptionIndex">No
+  </div>
+  <div class="inquire-section">
+    <div class="textarea-container">
+      <div class="textarea-section">
+        <p>If so, which siblings:</p>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.ResourceForSibling.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.ResourceForSibling.value}}</span>
+      </div>
+    </div>
+  </div>
+  <hr *ngIf="isFinalize">
+  <div class="pad-left">
+    <span class="input-span">If not, is there an approved sibling split:</span>
+    <input class="rad" class="rad" type="radio" value="0" name="ApprovedSplit"
+      [(ngModel)]="model.ApprovedSplit.fieldOptionIndex">Yes
+    <input class="rad" class="rad" type="radio" value="1" name="ApprovedSplit"
+      [(ngModel)]="model.ApprovedSplit.fieldOptionIndex">No
+  </div>
+</div>
+<form-footer (resetAction)='resetForm()'
+  (saveAction)='saveForm()' (finalizeAction)='finalize()'>
+</form-footer>

@@ -1,0 +1,86 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form class="sf-form" [formGroup]="statusForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Status</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="statusID" emptyMessage="No results found!" [suggestions]="metaData"
+              (completeMethod)="getStatusData($event,'status')" [forceSelection]="true"
+              placeholder="Type here to search" [(ngModel)]="status.providerStatusTypeID" field="providerStatusType"
+              size="23" formControlName="providerStatusTypeID"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin Date</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="beginDate" showTime="true" hourFormat="12" [yearNavigator]="true"
+              [(ngModel)]="status.beginDate" showButtonBar="true" [monthNavigator]="true" yearRange="2000:2030"
+              [showIcon]="true" formControlName="beginDate"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isEditForm" class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input *ngIf="isNonActive" type="text" name="endDate" [(ngModel)]="status.endDate" 
+              formControlName="endDate" disabled="true" size="27"  readonly />
+            <p-calendar *ngIf="!isNonActive" name="endDate" showTime="true" hourFormat="12" [yearNavigator]="true"
+              [(ngModel)]="status.endDate" showButtonBar="true" [monthNavigator]="true" yearRange="2000:2030"
+              [showIcon]="true" formControlName="endDate"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Reason On Hold</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="reasonOnHoldID" emptyMessage="No results found!"
+              [suggestions]="metaData" (completeMethod)="getMetaData($event,'reasonOnHold')" [forceSelection]="true"
+              placeholder="Type here to search" [(ngModel)]="status.reasonOnHoldID" field="reasonOnHold" size="23"
+              formControlName="reasonOnHoldID"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="newForm" class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" name="endDate" [(ngModel)]="status.endDate" 
+              formControlName="endDate" disabled="true" size="27"  readonly />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Reason On Hold</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="reasonOnHoldID" emptyMessage="No results found!"
+              [suggestions]="metaData" (completeMethod)="getMetaData($event,'reasonOnHold')" [forceSelection]="true"
+              placeholder="Type here to search" [(ngModel)]="status.reasonOnHoldID" field="reasonOnHold" size="23"
+              formControlName="reasonOnHoldID"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea pInputTextarea name="notes" [(ngModel)]="status.notes" style="width:100%;height:100%"
+              formControlName="notes"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer *ngIf="isFooterVisible" [attachmentControll]="isAttachmentRequired" (attachDoc)="navigateTo()"
+      (save)="formAction(status)" [discardTo]="discardTo" [editControll]="isEdit" (edit)="editForm()"
+      [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+  </div>
+</div>

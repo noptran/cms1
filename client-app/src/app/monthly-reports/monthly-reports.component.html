@@ -1,0 +1,136 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form class="sf-form" [formGroup]="monthlyReportsForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Monthly Report Type</span><span class="mandatory">*</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete formControlName="monthlyReportTypeID" [(ngModel)]="reports.monthlyReportTypeID"
+              [suggestions]="metaData" (completeMethod)="getMetaData($event,'monthlyReportType')"
+              name="monthlyReportTypeID" [dropdown]="true" field="monthlyReportType" size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Agency</span><span class="mandatory">*</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete formControlName="sponsorID" [(ngModel)]="reports.sponsorID" [suggestions]="metaData"
+              (completeMethod)="getMetaData($event,'agency')" name="sponsorID" [dropdown]="true" field="sponsorName"
+              size="23"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>SFCS Staff</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete formControlName="staffID" [(ngModel)]="reports.staffID" [suggestions]="metaData"
+              name="staffID" (completeMethod)="getMetaData($event,'staff')" name="staffID" [dropdown]="true"
+              field="fullName" size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Month Reported</span><span class="mandatory">*</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" [(ngModel)]="reports.monthReported" formControlName="monthReported"
+              [showIcon]="true" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Med Side effects</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-inputSwitch formControlName="isMedicationSideEffects" name="inputtoggle"
+              [(ngModel)]="reports.isMedicationSideEffects"></p-inputSwitch>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Education Progress</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-inputSwitch formControlName="isEducationProgress" name="inputtoggle"
+              [(ngModel)]="reports.isEducationProgress"></p-inputSwitch>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Emailed</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox binary="true" name="checkbox" formControlName="isEmailed" name="isEmailed"
+              [(ngModel)]="reports.isEmailed"></p-checkbox>
+          </div>
+        </div>
+      </div> -->
+      <!-- <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <p-checkbox binary="true" name="checkbox" label="Emailed" formControlName="isEmailed" name="isEmailed" [(ngModel)]="reports.isEmailed"></p-checkbox>
+        </div>
+      </div> -->
+      <!-- <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Emailed Notes</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-inputSwitch formControlName="emailedNotes" name="inputtoggle" [(ngModel)]="reports.emailedNotes"></p-inputSwitch><span>Emailed</span>
+          </div>
+        </div>
+      </div> -->
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Emailed Notes</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea name="notes" [(ngModel)]="reports.emailedNotes" formControlName="emailedNotes" pInputTextArea
+              style="width:100%;height:100%"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Notes</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea name="notes" [(ngModel)]="reports.notes" formControlName="notes" pInputTextArea
+              style="width:100%;height:100%"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer *ngIf="isShowFooter" [attachmentControll]="isAttachmentRequired " [isAttachmentDisabled]="false"
+      (attachDoc)="navigateTo()" (save)="formAction(reports)" [editControll]="isEdit" [discardTo]="discardTo"
+      (edit)="editForm()" [emailSubjectContent]="emailSubjectContent" [isEmail]="isEmail" [currentNodeValue]="request"
+      [nodeStaffEmail]="staffEmail" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+    </app-form-footer>
+    <app-quick-menu [module]="quickMenu"></app-quick-menu>
+  </div>
+</div>

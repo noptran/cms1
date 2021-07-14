@@ -1,0 +1,201 @@
+<app-form-header [title]="title" [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <div class="opencard-menu-container" *ngIf="phase.phaseID">
+      <div class="dropdown border-none">
+        <span
+          class="fa fa-th opencard-menu"
+          data-toggle="dropdown"
+          pTooltip="OpenCards"
+        ></span>
+        <div class="dropdown-menu opencard-box">
+          <div class="card-container">
+            <div
+              class="opencard"
+              pTooltip="Medication and allergie"
+              (click)="goToPhaseActivites()"
+            >
+              <span class="opencard-title">Phase Activity</span>
+              <div>
+                <span class="fa fa-exclamation-triangle allergies"></span>
+              </div>
+              <!-- <span class="opencard-footer">{{opencard.ClientAllergies}}</span> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form
+      class="sf-form"
+      [formGroup]="orgForm"
+      (ngSubmit)="addPost(orgForm.value)"
+      id="you"
+      autocomplete="off"
+    >
+      <div class="margin-left-45">
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span class="sf-labels">Begin Date</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <p-calendar
+                name="beginDate"
+                formControlName="beginDate"
+                [showTime]="true"
+                [showIcon]="true"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                yearRange="1900:2030"
+                name="beginDate"
+                [(ngModel)]="phase.beginDate"
+              ></p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span class="sf-labels">End Date</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <p-calendar
+                name="endDate"
+                formControlName="endDate"
+                [showTime]="true"
+                [showIcon]="true"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                yearRange="1900:2030"
+                name="endDate"
+                [(ngModel)]="phase.endDate"
+              ></p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span class="sf-labels">Phase Type</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 form">
+              <p-autoComplete
+                [dropdown]="true"
+                [forceSelection]="true"
+                formControlName="phaseTypeID"
+                name="phaseType"
+                [(ngModel)]="phase.phaseTypeID"
+                (completeMethod)="getMetaData($event, 'phaseType')"
+                [suggestions]="metadata"
+                field="phaseType"
+                (onSelect)="formDefinition($event)"
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span class="sf-labels">Open By</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 form">
+              <p-autoComplete
+                [dropdown]="true"
+                [forceSelection]="true"
+                formControlName="openByID"
+                name="openBy"
+                [(ngModel)]="phase.openByID"
+                (completeMethod)="getMetaData($event, 'openBy')"
+                [suggestions]="metadata"
+                field="openBy"
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20 margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span class="sf-labels">Phase Closure Reason</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 form">
+              <p-autoComplete
+                [dropdown]="true"
+                [forceSelection]="true"
+                formControlName="phaseClosureReasonID"
+                name="openBy"
+                [(ngModel)]="phase.phaseClosureReasonID"
+                (completeMethod)="getMetaData($event, 'closureReason')"
+                [suggestions]="metadata"
+                field="phaseClosureReason"
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <button (click)=navigateTo() class="opencard-attachment btn btn-primary">Attachment Document</button>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </form>
+
+    <p-dialog
+      maximizable="false"
+      *ngIf="display"
+      header="Acknowledgement options"
+      [(visible)]="display"
+      [modal]="true"
+      [responsive]="true"
+      [width]="1200"
+      [minWidth]="200"
+      [minY]="80"
+      [baseZIndex]="10000"
+    >
+      <app-ack-options
+        [caseTeamList]="caseTeamList"
+        *ngIf="display"
+        (showAck)="showAck($event)"
+        (disableAck)="disableAck()"
+      >
+      </app-ack-options>
+    </p-dialog>
+    <p-dialog
+      maximizable="false"
+      header="Acknowledgement"
+      *ngIf="isShowAck"
+      [(visible)]="isShowAck"
+      [modal]="true"
+      [responsive]="true"
+      [width]="1200"
+      [minWidth]="200"
+      [minY]="80"
+      [baseZIndex]="10000"
+    >
+      <app-ack-pdf [ackForm]="ackForm" (hideAck)="hideAck()"> </app-ack-pdf>
+    </p-dialog>
+    <app-form-footer
+      [attachmentControll]="isAttachmentRequired"
+      [isAttachmentDisabled]="false"
+      (attachDoc)="navigateTo()"
+      (save)="addPost(phase)"
+      (reset)="resetForm()"
+      (sendMail)="showDialog()"
+      (discard)="discardForm()"
+      (edit)="editForm()"
+      [editControll]="editControll"
+      [discardTo]="discardTo"
+      [mailBtnControl]="isMail"
+      [isFormLog]="isFormLog"
+      [formLogInfo]="formLogInfo"
+    >
+    </app-form-footer>
+    <app-quick-menu [module]="quickMenu"></app-quick-menu>
+  </div>
+</div>

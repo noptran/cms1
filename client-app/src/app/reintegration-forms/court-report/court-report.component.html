@@ -1,0 +1,1038 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="courtReportForm" class="sf-form">
+    <div class="logo center space-down">
+      <img src="assets/logo color.svg" alt="">
+    </div>
+    <h3 class="bold center space-down">COURT REPORT</h3>
+    <div class="flex-container space-right space-down jus-cent">
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.Hearing" formControlName="Hearing" name="Hearing" type="text" pInputText size="20" />
+      </div>
+      <h3 class="bold">HEARING</h3>
+    </div>
+    <p class="center">Saint Francis Ministries Reintegration Program
+    </p>
+    <div class="flex-container space-right space-down jus-cent">
+      <div class="space-right">
+        <b>FOR:</b> Juvenile Department of District Court
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.For" formControlName="For" name="For" type="text" pInputText size="20" />
+      </div>
+      <div class="space-right">
+        County, Kansas
+      </div>
+    </div>
+    <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">COURT DATE and TIME: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reCourtReport.CourtDate" formControlName="CourtDate" name="CourtDate" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">DOB/AGE: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reCourtReport.DatePrepared" formControlName="DatePrepared" name="DatePrepared" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">CASE NAME: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reCourtReport.CaseName" formControlName="CaseName" name="CaseName" type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">When will youth be 14? </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reCourtReport.youthAge" formControlName="youthAge" name="youthAge" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+
+          <!-- <input [(ngModel)]="reCourtReport.CaseNumber" formControlName="CaseNumber" name="CaseNumber" type="text" pInputText size="20"
+          /> -->
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">COURT CASE #: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.HearingDate" formControlName="HearingDate" name="HearingDate" type="text" pInputText size="20"
+        />
+        <!-- <p-calendar [(ngModel)]="reCourtReport.HearingDate" formControlName="HearingDate" name="HearingDate" [inputStyle]="{'width':'170px'}"
+          showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar> -->
+      </div>
+    </div>
+    <p>
+      <b>PERMANENCY PLAN GOAL:</b>
+    </p>
+    <p class="bold">I. FAMILY INFORMATION:</p>
+    <!-- ////////////////// -->
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">PARENT OR CARETAKER</th>
+          <th class="table-td">RELATIONSHIP</th>
+          <th class="table-td">DATE OF PRT/REL:</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.parent" formControlName="parent" name="parent" type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.relationship" formControlName="relationship" name="relationship" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.prtDate" formControlName="prtDate" name="prtDate" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.parent1" formControlName="parent1" name="parent1" type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.relationship1" formControlName="relationship1" name="relationship1" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.prtDate1" formControlName="prtDate1" name="prtDate1" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.parent2" formControlName="parent2" name="parent2" type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.relationship2" formControlName="relationship2" name="relationship2" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.prtDate2" formControlName="prtDate2" name="prtDate2" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <p>Parental rights to any known or unknown father of
+      <span>
+        <input [(ngModel)]="reCourtReport.parentalRights" formControlName="parentalRights" name="parentalRights" type="text" pInputText
+          size="20" />
+      </span> were terminated on
+      <span>
+        <p-calendar [(ngModel)]="reCourtReport.parentRightDate" formControlName="parentRightDate" name="parentRightDate" [inputStyle]="{'width':'170px'}"
+          showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </span>
+    </p>
+    <p>
+      <b>CHILD/CHILDREN INVOLVED IN COURT ACTION</b>
+    </p>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">NAME</th>
+          <th class="table-td">DOB/AGE</th>
+          <th class="table-td">COURT CASE #</th>
+          <th class="table-td">LOCATION</th>
+          <th class="table-td">DATE PLACED</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.childInvolveName" formControlName="childInvolveName" name="childInvolveName" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.childInvolveDate" formControlName="childInvolveDate" name="childInvolveDate" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.childInvolveCase" formControlName="childInvolveCase" name="childInvolveCase" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.childInvolveLocation" formControlName="childInvolveLocation" name="childInvolveLocation"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.childInvolveDatePlaced" formControlName="childInvolveDatePlaced" name="childInvolveDatePlaced"
+              [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.childInvolveName1" formControlName="childInvolveName1" name="childInvolveName1" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.childInvolveDate1" formControlName="childInvolveDate1" name="childInvolveDate1" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.childInvolveCase1" formControlName="childInvolveCase1" name="childInvolveCase1" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.childInvolveLocation1" formControlName="childInvolveLocation1" name="childInvolveLocation1"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.childInvolveDatePlaced1" formControlName="childInvolveDatePlaced1" name="childInvolveDatePlaced1"
+              [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.childInvolveName2" formControlName="childInvolveName2" name="childInvolveName2" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.childInvolveDate2" formControlName="childInvolveDate2" name="childInvolveDate2" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.childInvolveCase2" formControlName="childInvolveCase2" name="childInvolveCase2" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.childInvolveLocation2" formControlName="childInvolveLocation2" name="childInvolveLocation2"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.childInvolveDatePlaced2" formControlName="childInvolveDatePlaced2" name="childInvolveDatePlaced2"
+              [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.childInvolveName3" formControlName="childInvolveName3" name="childInvolveName3" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.childInvolveDate3" formControlName="childInvolveDate3" name="childInvolveDate3" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.childInvolveCase3" formControlName="childInvolveCase3" name="childInvolveCase3" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.childInvolveLocation3" formControlName="childInvolveLocation3" name="childInvolveLocation3"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.childInvolveDatePlaced3" formControlName="childInvolveDatePlaced3" name="childInvolveDatePlaced3"
+              [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.childInvolveName4" formControlName="childInvolveName4" name="childInvolveName4" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.childInvolveDate4" formControlName="childInvolveDate4" name="childInvolveDate4" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.childInvolveCase4" formControlName="childInvolveCase4" name="childInvolveCase4" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.childInvolveLocation4" formControlName="childInvolveLocation4" name="childInvolveLocation4"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.childInvolveDatePlaced4" formControlName="childInvolveDatePlaced4" name="childInvolveDatePlaced4"
+              [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!--  -->
+    <!-- <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right"> PARENT OR CARETAKER </div>
+        <div class="space-right">
+          <input [(ngModel)]="reCourtReport.Parent" formControlName="Parent" name="Parent" type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">RELATIONSHIP</div>
+        <div class="space-right">
+          <input [(ngModel)]="reCourtReport.Relationship" formControlName="Relationship" name="Relationship" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+    </div> -->
+    <!-- <p>CHILD/CHILDREN INVOLVED IN COURT ACTION</p> -->
+    <!-- <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">NAME </div>
+        <div class="space-right">
+          <input [(ngModel)]="reCourtReport.ChildName" formControlName="ChildName" name="ChildName" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">DOB </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reCourtReport.ChildDob" formControlName="ChildDob" name="ChildDob" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div> -->
+    <!-- <p>OTHER CHILDREN IN FAMILY </p> -->
+    <!-- <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">NAME </div>
+        <div class="space-right">
+          <input [(ngModel)]="reCourtReport.OtherChildName" formControlName="OtherChildName" name="OtherChildName" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">DOB </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reCourtReport.OtherChildDob" formControlName="OtherChildDob" name="OtherChildDob" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div> -->
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <b>INDIAN HERITAGE</b>
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reCourtReport.IsIndianHeritageYes" formControlName="IsIndianHeritageYes" name="IsIndianHeritageYes"
+          class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reCourtReport.IsIndianHeritageNo" formControlName="IsIndianHeritageNo" name="IsIndianHeritageNo"
+          class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <b>ELIGIBILITY STATUS:</b>
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.eligibilityStatus" formControlName="eligibilityStatus" name="eligibilityStatus" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <p class="bold">II. PROFESSIONALS INVOLVED:</p>
+    <!-- <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Name </div>
+        <div class="space-right">
+          <input [(ngModel)]="reCourtReport.ProfessionalsName" formControlName="ProfessionalsName" name="ProfessionalsName" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Agency </div>
+        <div class="space-right">
+          <input [(ngModel)]="reCourtReport.ProfessionalsAgency" formControlName="ProfessionalsAgency" name="ProfessionalsAgency" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Title/Service</div>
+        <div class="space-right">
+          <input [(ngModel)]="reCourtReport.ProfessionalsService" formControlName="ProfessionalsService" name="ProfessionalsService"
+            type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div> -->
+
+    <!--  -->
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">NAME</th>
+          <th class="table-td">AGENCY</th>
+          <th class="table-td">TITLE</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.professionalName" formControlName="professionalName" name="professionalName" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <span>Court</span>
+          </td>
+          <td class="table-td">
+            <span>Judge</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.professionalName1" formControlName="professionalName1" name="professionalName1" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <span>Court</span>
+          </td>
+          <td class="table-td">
+            <span>District Attorney</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.professionalName2" formControlName="professionalName2" name="professionalName2" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <span>Court</span>
+          </td>
+          <td class="table-td">
+            <span>GAL</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.professionalName3" formControlName="professionalName3" name="professionalName3" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <span>Court</span>
+          </td>
+          <td class="table-td">
+            <span>Mother’s Attorney</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.professionalName4" formControlName="professionalName4" name="professionalName4" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <span>Court</span>
+          </td>
+          <td class="table-td">
+            <span>Father’s Attorney</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.professionalName5" formControlName="professionalName5" name="professionalName5" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <span>Court</span>
+          </td>
+          <td class="table-td">
+            <span>CSO</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.professionalName6" formControlName="professionalName6" name="professionalName6" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <span>DCF</span>
+          </td>
+          <td class="table-td">
+            <span>Liaison</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.professionalName7" formControlName="professionalName7" name="professionalName7" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <span>Saint Francis</span>
+          </td>
+          <td class="table-td">
+            <span>Social Worker</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.professionalName8" formControlName="professionalName8" name="professionalName8" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <span>Saint Francis</span>
+          </td>
+          <td class="table-td">
+            <span>Family Support Worker</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.professionalName9" formControlName="professionalName9" name="professionalName9" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <span>Saint Francis</span>
+          </td>
+          <td class="table-td">
+            <span>Adoption Liaison</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.professionalName10" formControlName="professionalName10" name="professionalName10" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <span>Saint Francis</span>
+          </td>
+          <td class="table-td">
+            <span>Supervisor</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!--  -->
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <b>III. REASON FOR REFERRAL </b>
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.ReasonForReferral" formControlName="ReasonForReferral" name="ReasonForReferral" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <p class="bold">IV. ATTENTION SHOULD BE GIVEN TO THE DIAGNOSIS OF THE FOLLOWING PARTY/PARTIES</p>
+    <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Name </div>
+        <div class="space-right">
+          <input [(ngModel)]="reCourtReport.AttentionName" formControlName="AttentionName" name="AttentionName" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Diagnosis </div>
+        <div class="space-right">
+          <input [(ngModel)]="reCourtReport.AttentionDiagnosis" formControlName="AttentionDiagnosis" name="AttentionDiagnosis" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <b>V. MENTAL HEALTH</b>
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.MentalHealth" formControlName="MentalHealth" name="MentalHealth" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <p>
+      <b>VI. PLACEMENT SINCE LAST COURT HEARING (Placements for the last 12 months)</b>
+    </p>
+    <p>Total number of Placements since DCF Custody:
+      <span>
+        <input [(ngModel)]="reCourtReport.totalNumber" formControlName="totalNumber" name="totalNumber" type="text" pInputText size="20"
+        />
+      </span>
+    </p>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">Dates</th>
+          <th class="table-td">Placement</th>
+          <th class="table-td">City</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.Dates" formControlName="Dates" name="Dates" [inputStyle]="{'width':'170px'}" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.Placement" formControlName="Placement" name="Placement" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.City" formControlName="City" name="City" type="text" pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.Dates1" formControlName="Dates1" name="Dates1" [inputStyle]="{'width':'170px'}" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.Placement1" formControlName="Placement1" name="Placement1" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.City1" formControlName="City1" name="City1" type="text" pInputText size="20" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!-- <div class="flex-container space-right space-down">
+      <div class="space-right">VII. ATTEMPTS TO IDENTIFY AND PLACE CHILD WITH RELATIVES </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.AttemptsToIdentify" formControlName="AttemptsToIdentify" name="AttemptsToIdentify" type="text"
+          pInputText size="20" />
+      </div>
+    </div> -->
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <b>VII. STATUS OF CHILD</b>
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.StatusOfChild" formControlName="StatusOfChild" name="StatusOfChild" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <b>VIII. SSI APPLICATION INITIATE: </b>
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reCourtReport.IsIndianHeritageYes" formControlName="IsIndianHeritageYes" name="IsIndianHeritageYes"
+          class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reCourtReport.IsIndianHeritageNo" formControlName="IsIndianHeritageNo" name="IsIndianHeritageNo"
+          class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <b>STATUS:</b>
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.ssiStatus" formControlName="ssiStatus" name="ssiStatus" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <b>IX. REASONABLE AND PRUDENT PARENTING STANDARD</b>
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.ReasonableAndPrudent" formControlName="ReasonableAndPrudent" name="ReasonableAndPrudent"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <b>X. SCHOOL PROGRESS</b>
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.SchoolProgress" formControlName="SchoolProgress" name="SchoolProgress" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <b>XI. STATUS OF PARENTS</b>
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.StatusOfParents" formControlName="StatusOfParents" name="StatusOfParents" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <b>a. Mother </b>
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.statusMother" formControlName="statusMother" name="statusMother" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <b>b. Father </b>
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.statusFather" formControlName="statusFather" name="statusFather" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <b>XII. SUMMARY OF VISITATION</b>
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.SummaryOfVisitation" formControlName="SummaryOfVisitation" name="SummaryOfVisitation" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <!--  -->
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <b>XIII. DUE DILIGENCE/ATTEMPTS TO PLACE CHILD WITH RELATIVES</b>
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.placeRelatives" formControlName="placeRelatives" name="placeRelatives" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <b>a. Maternal Grandmother: </b>
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.maternalGrandmother" formControlName="maternalGrandmother" name="maternalGrandmother" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <b>b. Maternal Grandfather: </b>
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.maternalGrandfather" formControlName="maternalGrandfather" name="maternalGrandfather" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <b>c. Paternal Grandmother: </b>
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.paternalGrandmother" formControlName="paternalGrandmother" name="paternalGrandmother" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <b>d. Paternal Grandfather: </b>
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.paternalGrandfather" formControlName="paternalGrandfather" name="paternalGrandfather" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <b>e. Other Relatives: </b>
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.otherRelatives" formControlName="otherRelatives" name="otherRelatives" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <!--  -->
+    <p>
+      <b>XIV. PERMANENCY PLAN/COURT ORDERS</b>
+    </p>
+    <div class="tab-uitext space-down">
+      <table>
+        <tr>
+          <th class="table-td">Initiated Date</th>
+          <th class="table-td">Task</th>
+          <th class="table-td">Court Ordered by Judge
+          </th>
+          <th class="table-td">Responsible Person</th>
+          <th class="table-td">Target Date</th>
+          <th class="table-td">Achieved Date</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.InitiatedDate" formControlName="InitiatedDate" name="InitiatedDate" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.Activity" formControlName="Activity" name="Activity" type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.CourtOrdered" formControlName="CourtOrdered" name="CourtOrdered" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.ResponsiblePerson" formControlName="ResponsiblePerson" name="ResponsiblePerson" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.TargetDate" formControlName="TargetDate" name="TargetDate" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.AchievedDate" formControlName="AchievedDate" name="AchievedDate" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.InitiatedDate1" formControlName="InitiatedDate1" name="InitiatedDate1" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.Activity1" formControlName="Activity1" name="Activity1" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.CourtOrdered1" formControlName="CourtOrdered1" name="CourtOrdered1" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.ResponsiblePerson1" formControlName="ResponsiblePerson1" name="ResponsiblePerson1" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.TargetDate1" formControlName="TargetDate1" name="TargetDate1" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.AchievedDate1" formControlName="AchievedDate1" name="AchievedDate1" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.InitiatedDate2" formControlName="InitiatedDate2" name="InitiatedDate2" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.Activity2" formControlName="Activity2" name="Activity2" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.CourtOrdered2" formControlName="CourtOrdered2" name="CourtOrdered2" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.ResponsiblePerson2" formControlName="ResponsiblePerson2" name="ResponsiblePerson2" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.TargetDate2" formControlName="TargetDate2" name="TargetDate2" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.AchievedDate2" formControlName="AchievedDate2" name="AchievedDate2" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.InitiatedDate3" formControlName="InitiatedDate3" name="InitiatedDate3" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.Activity3" formControlName="Activity3" name="Activity3" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.CourtOrdered3" formControlName="CourtOrdered3" name="CourtOrdered3" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.ResponsiblePerson3" formControlName="ResponsiblePerson3" name="ResponsiblePerson3" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.TargetDate3" formControlName="TargetDate3" name="TargetDate3" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.AchievedDate3" formControlName="AchievedDate3" name="AchievedDate3" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.InitiatedDate4" formControlName="InitiatedDate4" name="InitiatedDate4" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.Activity4" formControlName="Activity4" name="Activity4" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.CourtOrdered4" formControlName="CourtOrdered4" name="CourtOrdered4" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.ResponsiblePerson4" formControlName="ResponsiblePerson4" name="ResponsiblePerson4" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.TargetDate4" formControlName="TargetDate4" name="TargetDate4" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.AchievedDate4" formControlName="AchievedDate4" name="AchievedDate4" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.InitiatedDate5" formControlName="InitiatedDate5" name="InitiatedDate5" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.Activity5" formControlName="Activity5" name="Activity5" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.CourtOrdered5" formControlName="CourtOrdered5" name="CourtOrdered5" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.ResponsiblePerson5" formControlName="ResponsiblePerson5" name="ResponsiblePerson5" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.TargetDate5" formControlName="TargetDate5" name="TargetDate5" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.AchievedDate5" formControlName="AchievedDate5" name="AchievedDate5" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.InitiatedDate6" formControlName="InitiatedDate6" name="InitiatedDate6" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.Activity6" formControlName="Activity6" name="Activity6" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.CourtOrdered6" formControlName="CourtOrdered6" name="CourtOrdered6" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="reCourtReport.ResponsiblePerson6" formControlName="ResponsiblePerson6" name="ResponsiblePerson6" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.TargetDate6" formControlName="TargetDate6" name="TargetDate6" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="reCourtReport.AchievedDate6" formControlName="AchievedDate6" name="AchievedDate6" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <b>XV. SUMMARY OF PROGRESS TOWARDS ALL CASE PLAN/COURT ORDERS:</b>
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.SummaryOfProgress" formControlName="SummaryOfProgress" name="SummaryOfProgress" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <b>XVI. STATUS OF ADOPTION LIAISON TASKS:</b>
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.adoptionLiasion" formControlName="adoptionLiasion" name="adoptionLiasion" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <b>XVII. CONCLUSION:</b>
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reCourtReport.Conclusion" formControlName="Conclusion" name="Conclusion" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <p>
+      <b>XVIII. RECOMMENDATIONS:</b>
+    </p>
+    <div class="flex-container space-right space-down space-between">
+      <div class="space-right space-down">
+        <p>
+          <b>Respectfully submitted,</b>
+        </p>
+        <div class="space-down">
+          <input [(ngModel)]="reCourtReport.PermanencySpecialist" formControlName="PermanencySpecialist" name="PermanencySpecialist"
+            type="text" pInputText size="20" />
+        </div>
+
+      </div>
+      <div class="space-right space-down">
+        <p>
+          <b>Approved by,</b>
+        </p>
+        <div class="space-down">
+          <input [(ngModel)]="reCourtReport.SfcsSupervisor" formControlName="SfcsSupervisor" name="SfcsSupervisor" type="text" pInputText
+            size="20" />
+        </div>
+
+      </div>
+    </div>
+    <!--  -->
+
+
+    <div class="flex-container space-right space-down space-between">
+      <div class="space-right space-down">
+        <p>
+          <b>Saint Francis Supervisor</b>
+        </p>
+        <div class="space-down">
+          <input [(ngModel)]="reCourtReport.sfSupervisor" formControlName="sfSupervisor" name="sfSupervisor" type="text" pInputText size="20" />
+        </div>
+
+      </div>
+      <div class="space-right space-down">
+        <p>
+          <b>Saint Francis Director</b>
+        </p>
+        <div class="space-down">
+          <input [(ngModel)]="reCourtReport.sfDirector" formControlName="sfDirector" name="sfDirector" type="text" pInputText size="20" />
+        </div>
+
+      </div>
+    </div>
+    <div class="flex-container space-right space-down space-between">
+      <div class="space-right space-down">
+        <p>
+          <b>Date Approved:</b>
+        </p>
+        <div class="space-down">
+          <p-calendar [(ngModel)]="reCourtReport.dateApproved" formControlName="dateApproved" name="dateApproved" class="date-picker" [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+
+      </div>
+
+    </div>
+    <!--  -->
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,reCourtReport)" (edit)="editForm()" [editControll]="editControll"
+  (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

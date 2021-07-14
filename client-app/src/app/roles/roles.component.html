@@ -1,0 +1,118 @@
+<div class="Report">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 main" [ngClass]="Sidenav?'main-class':'width-100'">
+        <div class="container home" style="padding-bottom: 40px;margin:15px;">
+          <div *ngIf="!showForm">
+            <div class="row">
+              <div class="col-lg-5">
+                <h2 class="margin-top-20">Roles
+                </h2>
+              </div>
+              <div class="margin-top-20 col-lg-6 text-align-right">
+                <button class="btn sf-primary-btn font-600 add" (click)="addForm()">+ Add Roles</button>
+                <div class="dropdow" *ngIf="hideLoader">
+                  <button class="sf-dropdown-btn">
+                    <span class="sf-lables">Export</span> 
+                  </button>
+                  <div class="dropdow-content sf-dropcontent-margin" >
+                    <a (click)="exportToExcel()" class="sf-labels">Export as Excel</a>
+                    <a (click)="exportAsCsv()" class="sf-labels">Export as CSV</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div [hidden]="hideLoader" class="loader"></div>
+            <div class="margin-top-20" *ngIf="showTable">
+              <div class="margin-top-20 row-cursor">
+                  <ag-grid-angular 
+                  style="width: 500px; height: 500px;" 
+                  class="ag-theme-balham"
+                  [rowData]="rowData" 
+                  [columnDefs]="columnDefs"
+                  [enableSorting]="true"
+                  
+                  [rowDragManaged]="true"
+                  [suppressDragLeaveHidesColumns]="true"
+                  pagination="true"
+                  enableColResize="true"
+                  #agGrid style="width: 100%; height:359px;"
+                  animateRows = "true"
+                  rowSelection="single" 
+                  (rowSelected)="onRowSelected($event)"      
+                  >
+              </ag-grid-angular>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="showForm">
+            <h2 class="margin-top-20">Roles</h2>
+            <div class="card">
+              <div class="row">
+                <div class="col-lg-2">
+                  <h5 class="Role">Role Name:</h5>
+                </div>
+                <div class="col-lg-4">
+                  <input class="text-field" type="text" [(ngModel)]="roleName">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-2">
+                  <h5 class="Role">Role Description:</h5>
+                </div>
+                <div class="col-lg-4">
+                  <input class="text-field" type="text">
+                </div>
+              </div>
+
+              <h4 class="margin-top-20">Acces Priviliges</h4>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Modules</th>
+                    <th>Accessible to</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th> Predefined Reports</th>
+                    <th>
+                      <!-- <div class="checkbox">
+                        <label>
+                          <input type="checkbox" name="" [(ngModel)]="predefinedReports" >
+                        </label>
+                      </div> -->
+                      <angular2-multiselect [data]="predefinedReportsList" [(ngModel)]="predefinedReports" [settings]="ReportSettings" (onSelect)="onItemSelect($event)"
+                        (onDeSelect)="OnItemDeSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                      </angular2-multiselect>
+                    </th>
+                  </tr>
+                  <tr>
+
+                    <th>Dynamic Reports</th>
+                    <th>
+                      <angular2-multiselect [data]="customizedReportsList" [(ngModel)]="customizedReports" [settings]="ReportSettings" (onSelect)="onItemSelect($event)"
+                        (onDeSelect)="OnItemDeSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                      </angular2-multiselect>
+                    </th>
+                  </tr>
+
+                  <tr>
+                    <th>Admin Settings</th>
+                    <th>
+                      <angular2-multiselect [data]="adminSettingsList" [(ngModel)]="adminSettings" [settings]="ReportSettings" (onSelect)="onItemSelect($event)"
+                        (onDeSelect)="OnItemDeSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                      </angular2-multiselect>
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
+              <button class="btn sf-primary-btn font-600 add" (click)="save()">Save</button>
+            </div>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

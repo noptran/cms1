@@ -1,0 +1,62 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div class="container-background">
+  <div class="container-foreground">
+    <form class="sf-form">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Provider Member</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete   [dropdown]="true" name="gradeID"   emptyMessage="No results found!" [(ngModel)]="member.providerMemberID"
+              [forceSelection]="true" placeholder="Type here to search" field="grade" size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Person Type</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete   [dropdown]="true" name="gradeID"   emptyMessage="No results found!" [(ngModel)]="member.personTypeID"
+            [forceSelection]="true" placeholder="Type here to search" field="grade" size="23"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Primary Contact</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox binary="true" name="checkbox" [(ngModel)]="member.isPrimaryContact"></p-checkbox>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" showTime="true" hourFormat="12"  [yearNavigator]="true"  [(ngModel)]="member.beginDate"
+            [monthNavigator]="true" yearRange="2000:2030" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" showTime="true" hourFormat="12"  [yearNavigator]="true"  [(ngModel)]="member.endDate"
+            [monthNavigator]="true" yearRange="2000:2030" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea pInputTextarea  name="inputTextarea" [(ngModel)]="member.notes" style="width:100%;height:100%"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </form>
+    <app-form-footer (saveandcountinue)="continueToPreferences(member)" [isSaveandCountinue]="isContinueForm" [subActions]="subActions"	[isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+  </div>
+</div>

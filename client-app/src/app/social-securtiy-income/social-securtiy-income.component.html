@@ -1,0 +1,66 @@
+<app-form-header [breadcrumbs]="breadcurmbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-backgorund">
+  <div class="container-foreground">
+    <form class="sf-form" [formGroup]="clientSSIForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>SSI Type</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete formControlName="ssiTypeID" [(ngModel)]="ssi.ssiTypeID" [suggestions]="metaData"
+              placeholder="Type here to search" emptyMessage="No results found!" [forceSelection]="true"
+              (completeMethod)="getMetaData($event,'ssiType')" name="ssiTypeID" [dropdown]="true" field="ssiType"
+              size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Date Of Application Submitted</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" [(ngModel)]="ssi.dateApplicationSubmitted"
+              formControlName="dateApplicationSubmitted" [showIcon]="true" showTime="true" hourFormat="24"
+              [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Date Of Determination</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" [(ngModel)]="ssi.dateOfDetermination" formControlName="dateOfDetermination"
+              [showIcon]="true" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Determination Type</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete formControlName="determinationTypeID" [(ngModel)]="ssi.determinationTypeID"
+              [suggestions]="metaData" (completeMethod)="getMetaData($event,'ssiDeterminationType')"
+              name="determinationTypeID" [dropdown]="true" placeholder="Type here to search"
+              emptyMessage="No results found!" [forceSelection]="true" field="determinationType" size="23">
+            </p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Notes</span></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea pInputTextarea formControlName="notes" name="inputTextarea" [(ngModel)]="ssi.notes"
+              style="width:100%;height:100%"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <app-form-footer [attachmentControll]="isAttachmentRequired" [isAttachmentDisabled]="false" (attachDoc)="navigateTo()"
+    (save)="formAction(ssi)" [editControll]="isEdit" (edit)="editForm()" [discardTo]="discardTo" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+</div>

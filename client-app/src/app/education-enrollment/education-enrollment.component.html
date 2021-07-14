@@ -1,0 +1,2458 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+    <p class="loader-text">
+        <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+    </p>
+</div>
+<div id="pdf-contentNew">
+    <div id="pdf">
+        <form [formGroup]="educationEnrollForm" class="sf-form form-al">
+            <div class="row">
+                <div class="col-md-3">
+
+                </div>
+                <div class="col-md-6">
+                    <div class="text-center">
+                        <h3>Educational Enrollment Information for School Placement Form</h3>
+                    </div>
+                    <div class="text-center">
+                        <h3>
+                            <b>Part A: Education Best Interest Determination Staffing</b>
+                        </h3>
+                    </div>
+                </div>
+                <div class="col-md-3" style="font-size: 12px;
+        color: #ff5959;
+        font-weight: 600;" [hidden]="isPdf">
+                    <input type="checkbox" [hidden]="isPdf" [(ngModel)]="checked" [ngModelOptions]="{standalone: true}"
+                        disabled />
+                    Please select the checkbox if the required information is not in the dropdown list
+                </div>
+            </div>
+
+            <div class="vertical-bar">
+                <div class="margin-bottom-2rem form-fonts">
+                    <div class="row">
+                        <div class="col-md-2">
+                            Date Staffed :
+                        </div>
+
+                        <div class="col-md-3">
+                            <!-- <div [ngStyle]="getIsDtaThere(eeispf.dateStaffed)" [hidden]="!isPdf">
+                {{eeispf.dateStaffed | date:'M/d/yyyy'}}</div> -->
+                            <p-calendar showButtonBar="true" formControlName="dateStaffed" hourFormat="24"
+                                name="dateStaffed" [(ngModel)]="eeispf.dateStaffed" [yearNavigator]="true"
+                                [monthNavigator]="true" yearRange="2000:2030">
+                            </p-calendar>
+                        </div>
+                        <div class="col-md-3">
+                            <!-- <div [ngStyle]="getIsDtaThere(eeispf.dateStaffed1)" [hidden]="!isPdf">
+                {{eeispf.dateStaffed1 | date:'M/d/yyyy'}}</div> -->
+                            <p-calendar showButtonBar="true" [ngModelOptions]="{standalone: true}" hourFormat="24"
+                                name="dateStaffed1" [(ngModel)]="eeispf.dateStaffed1" [yearNavigator]="true"
+                                [monthNavigator]="true" yearRange="2000:2030">
+                            </p-calendar>
+                        </div>
+                        <div class="col-md-3">
+                            <!-- <div [ngStyle]="getIsDtaThere(eeispf.dateStaffed2)" [hidden]="!isPdf">
+                {{eeispf.dateStaffed2 | date:'M/d/yyyy'}}</div> -->
+                            <p-calendar showButtonBar="true" [ngModelOptions]="{standalone: true}" hourFormat="24"
+                                name="dateStaffed2" [(ngModel)]="eeispf.dateStaffed2" [yearNavigator]="true"
+                                [monthNavigator]="true" yearRange="2000:2030">
+                            </p-calendar>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row form-fonts">
+
+                    <div class="col-xs-12"><b>Participants in Staffing :</b></div>
+
+                </div>
+
+                <div class="row margin-bottom-2rem form-fonts">
+                    <div class="col-md-5">
+                        <p-checkbox formControlName="isCwcbip" binary="true" name="isCwcbip"
+                            [(ngModel)]="eeispf.isCwcbip">
+                        </p-checkbox>
+                        Child Welfare Case Management Provider(CWCMP)
+                    </div>
+                    <div class="col-md-4">
+                        <p-checkbox formControlName="isDCF1" binary="true" name="isDCF1" [(ngModel)]="eeispf.isDCF1">
+                        </p-checkbox>
+                        Department for Children and Families (DCF)
+
+
+                    </div>
+                    <div class="col-md-3">
+                        <p-checkbox formControlName="islea" binary="true" name="islea" [(ngModel)]="eeispf.islea">
+                        </p-checkbox>
+                        Local Education Authority (LEA)
+
+
+                    </div>
+                </div>
+                <p>
+                    <b>Names of Attendees:</b>
+                </p>
+                <div>
+                    <div [ngStyle]="getIsDtaThere(eeispf.attendees)" [hidden]="!isPdf" [innerHTML]="print_attendees">
+                    </div>
+                    <textarea autosize formControlName="attendees" [hidden]="isPdf" pInputTextarea id="attendees"
+                        (resized)="textAreaAdjust('attendees',$event)" name="attendees" [(ngModel)]="eeispf.attendees"
+                        (ngModelChange)="textAreaPrintChangeEvent('print_attendees',$event)"></textarea>
+                </div>
+                <p>
+                    <b>Decision Considerations:</b>
+                </p>
+
+                <div class="row margin-bottom-2rem form-fonts">
+                    <div class="col-md-4">
+                        <p-checkbox formControlName="isLengthOfTime" binary="true" name="isLengthOfTime"
+                            [(ngModel)]="eeispf.isLengthOfTime"></p-checkbox>
+                        Length of Time Enrolled in School of Origin
+                    </div>
+                    <div class="col-md-4">
+                        <p-checkbox formControlName="isChildPreference" binary="true"
+                            [(ngModel)]="eeispf.isChildPreference" name="isChildPreference"></p-checkbox>
+                        Child Preference
+                    </div>
+                    <div class="col-md-4">
+                        <p-checkbox formControlName="isLearningBehaviors" binary="true"
+                            [(ngModel)]="eeispf.isLearningBehaviors" name="isLearningBehaviors"></p-checkbox>
+                        Learning Behaviors/Disabilities
+                    </div>
+                </div>
+                <div class="row margin-bottom-2rem form-fonts">
+                    <div class="col-md-4">
+                        <p-checkbox formControlName="isParentPreference" binary="true" name="isParentPreference"
+                            [(ngModel)]="eeispf.isParentPreference"></p-checkbox>
+                        Parent Preference, if parental rights are intact
+                    </div>
+                    <div class="col-md-4">
+                        <p-checkbox formControlName="isSafteyFactors" binary="true" name="isSafteyFactors"
+                            [(ngModel)]="eeispf.isSafteyFactors"></p-checkbox>
+                        Safety Factors
+                    </div>
+                    <div class="col-md-4">
+                        <p-checkbox formControlName="isChildAttachment" binary="true" name="isChildAttachment"
+                            [(ngModel)]="eeispf.isChildAttachment"></p-checkbox>
+                        Child‘s Attachment to the School of Origin
+                    </div>
+                </div>
+                <div class="row margin-bottom-2rem form-fonts">
+                    <div class="col-md-4">
+                        <p-checkbox formControlName="isParticipation" binary="true" name="isParticipation"
+                            [(ngModel)]="eeispf.isParticipation"></p-checkbox>
+                        Participation in Extra—Curricular Activities
+                    </div>
+                    <div class="col-md-4">
+                        <p-checkbox formControlName="isPlacementOfSiblings" binary="true" name="isPlacementOfSiblings"
+                            [(ngModel)]="eeispf.isPlacementOfSiblings"></p-checkbox>
+                        Placement of Siblings
+                    </div>
+                    <div class="col-md-4">
+                        <p-checkbox formControlName="isDistanceFormSchool" binary="true" name="isDistanceFormSchool"
+                            [(ngModel)]="eeispf.isDistanceFormSchool"></p-checkbox>
+                        Distance from School of Origin
+                    </div>
+                </div>
+                <div class="row margin-bottom-2rem form-fonts">
+                    <div class="col-md-4">
+                        <p-checkbox formControlName="isInfluenceOfSchoolClimate" binary="true"
+                            name="isInfluenceOfSchoolClimate" [(ngModel)]="eeispf.isInfluenceOfSchoolClimate">
+                        </p-checkbox>
+                        Influence of School Climate
+                    </div>
+                    <div class="col-md-4">
+                        <p-checkbox formControlName="isIFPAnd504" binary="true" name="isIFPAnd504"
+                            [(ngModel)]="eeispf.isIFPAnd504">
+                        </p-checkbox>
+                        IEP and 504 Plan Services
+                    </div>
+                    <div class="col-md-4">
+                        <p-checkbox formControlName="isAvailability" binary="true" name="isAvailability"
+                            [(ngModel)]="eeispf.isAvailability"></p-checkbox>
+                        Availability and Quality of Services
+                    </div>
+                </div>
+                <div class="row margin-bottom-2rem form-fonts">
+                    <div class="col-md-4">
+                        <p-checkbox formControlName="isWrittenInput" binary="true" name="isWrittenInput"
+                            [(ngModel)]="eeispf.isWrittenInput"></p-checkbox>
+                        Written Input from Case Participant
+                    </div>
+                    <div class="col-md-4">
+                        <p-checkbox formControlName="isCaregiverRequires" binary="true" name="isCaregiverRequires"
+                            [(ngModel)]="eeispf.isCaregiverRequires"></p-checkbox>
+                        Caregiver Requires School Move to Maintain Placement
+                    </div>
+                </div>
+                <div *ngIf="showOtherText">
+                    <p>
+                        Decision Considerations<b>(Others):</b>
+                    </p>
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.otherExp)" [hidden]="!isPdf">{{eeispf.otherExp}}</div>
+                        <textarea autosize id="otherExp" (resized)="textAreaAdjust('otherExp',$event)" [hidden]="isPdf"
+                            formControlName="other" pInputTextarea name="other"
+                            [(ngModel)]="eeispf.otherExp"></textarea>
+                    </div>
+                </div>
+
+                <p>
+                    <b>Decision Summary:</b>
+                </p>
+                <div>
+                    <div [ngStyle]="getIsDtaThere(eeispf.decisionSummary)" [hidden]="!isPdf"
+                        [innerHTML]="print_decisionSummary">
+                    </div>
+                    <textarea autosize (resized)="textAreaAdjust('decisionSummary',$event)" [hidden]="isPdf"
+                        (ngModelChange)="textAreaPrintChangeEvent('print_decisionSummary',$event)"
+                        formControlName="decisionSummary" id="decisionSummary" pInputTextarea name="decisionSummary"
+                        [(ngModel)]="eeispf.decisionSummary"></textarea>
+                </div>
+
+                <div class="text-center">
+                    <h3>
+                        <b>Part B: Immediate Enrollment of a Child Placed in Foster Care</b>
+                    </h3>
+                </div>
+                <div class="row margin-bottom-2rem form-fonts">
+
+                    <div class="col-md-1">Date of Placement:</div>
+                    <div class="col-md-3">
+                        <div [ngStyle]="getIsDtaThere(eeispf.date)" [hidden]="!isPdf">
+                            {{eeispf.date | date:'M/d/yyyy'}}</div>
+                        <p-calendar showButtonBar="true" [hidden]="isPdf" formControlName="date" hourFormat="24"
+                            name="date" [(ngModel)]="eeispf.date" [yearNavigator]="true" [monthNavigator]="true"
+                            yearRange="2000:2030">
+                        </p-calendar>
+                    </div>
+
+                </div>
+                <div class="row margin-bottom-2rem form-fonts">
+                    <div class="col-md-2">
+                        Responsible State Agency:
+                    </div>
+                    <div class="col-md-4">
+                        <p-checkbox formControlName="isDCF" binary="true" name="isDCF" [(ngModel)]="eeispf.isDCF">
+                        </p-checkbox>
+                        Department for Children and Families(DCF)
+                    </div>
+                    <div class="col-md-6">
+                        <p-checkbox formControlName="isKDOCJS" binary="true" name="isKDOCJS"
+                            [(ngModel)]="eeispf.isKDOCJS">
+                        </p-checkbox>
+                        Kansas Department for Corrections—Juvenile Services(KDOC—JS)
+                    </div>
+                </div>
+                <p>
+                    <b>As authorized by grantee of DCF:</b>
+                </p>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p-checkbox formControlName="isSFM" binary="true" name="isSFM" [(ngModel)]="eeispf.isSFM">
+                        </p-checkbox>
+                        Saint Francis Ministries
+                    </div>
+                    <div class="col-md-3">
+                        <p-checkbox formControlName="isKVC" binary="true" name="isKVC" [(ngModel)]="eeispf.isKVC">
+                        </p-checkbox>
+                        KVC
+                    </div>
+                    <div class="col-md-3">
+                        <p-checkbox formControlName="isTFI" binary="true" name="isTFI" [(ngModel)]="eeispf.isTFI">
+                        </p-checkbox>
+                        TFI
+                    </div>
+                    <div class="col-md-3">
+                        <p-checkbox formControlName="isCustomerCare" binary="true" name="isCustomerCare"
+                            [(ngModel)]="eeispf.isCustomerCare">
+                        </p-checkbox>
+                        Cornerstones of Care
+                    </div>
+                </div>
+                <div>
+                    <b> Special Instructions:</b>
+                </div>
+
+                <p>
+                    Students in foster care after their 14th birthday shall be awarded a high school diploma if they are
+                    at least 17 years of age and have achieved at least the minimum high school graduation requirement
+                    adopted by the state board of education. Prusuant to Kansas State Statute #38-2285 for more
+                    information.
+                </p>
+                <p>Education related documents can be
+                    transferred electronically using the Kansas Department of Education
+                    (KSDE) Student Record Exchange (SRE) securely.</p>
+                <div class="html2pdf__page-break"></div>
+                <h3>
+                    <b>Section I: Student and Current Placement Information</b>
+                </h3>
+
+                <div class="row margin-bottom-2rem">
+
+                    <div class="col-xs-2">Student Name:(First,Middle,Last)</div>
+                    <div class="col-xs-3">
+                        <!-- <div [ngStyle]="getIsDtaThere(eeispf.studentName)" [hidden]="!isPdf">{{eeispf.studentName}}</div> -->
+                        <div [ngStyle]="getIsDtaThere(eeispf.studentName)" [hidden]="!isPdf"
+                            [innerHTML]="print_studentName">
+                        </div>
+                        <textarea autosize (resized)="textAreaAdjust('attendees',$event)" id="textarea"
+                            [(ngModel)]="eeispf.studentName" [hidden]="isPdf"
+                            (ngModelChange)="textAreaPrintChangeEvent('print_studentName',$event)" name="studentName"
+                            style="width: 100%;" formControlName="studentName"></textarea>
+
+                    </div>
+
+
+                    <div class="col-xs-1">DOB:</div>
+                    <div class="col-xs-2">
+                        <div [ngStyle]="getIsDtaThere(eeispf.dob)" [hidden]="!isPdf">{{eeispf.dob  | date:'M/d/yyyy'}}
+                        </div>
+                        <p-calendar showButtonBar="true" [hidden]="isPdf" formControlName="dob" [(ngModel)]="eeispf.dob"
+                            name="dob" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+
+                    </div>
+
+
+                    <div class="col-xs-2">SSN: (last four digits ONLY)</div>
+                    <div class="col-xs-2">
+                        <div [ngStyle]="getIsDtaThere(eeispf.ssn)" [hidden]="!isPdf">{{eeispf.ssn}}</div>
+                        <input [hidden]="isPdf" formControlName="ssn" type="text" pInputText [(ngModel)]="eeispf.ssn"
+                            name="ssn" size="20" />
+                    </div>
+
+                </div>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-2">
+                        Phone:
+                        <p-checkbox formControlName="isPhoneEnable" class="margin-left-1rem" binary="true"
+                            [(ngModel)]="eeispf.isPhoneEnable" name="isPhoneEnable"></p-checkbox>
+                        NA
+                    </div>
+                    <div *ngIf="!eeispf.isPhoneEnable" class="col-xs-2">
+                        <div [ngStyle]="getIsDtaThere(eeispf.phone)" [hidden]="!isPdf">{{eeispf.phone}}</div>
+                        <input [hidden]="isPdf" formControlName="phone" type="text" pInputText size="20" name="phone"
+                            [(ngModel)]="eeispf.phone" />
+                    </div>
+                    <div class="col-xs-2">
+                        Email:
+                        <p-checkbox formControlName="isemailEnable" class="margin-left-1rem" binary="true"
+                            [(ngModel)]="eeispf.isemailEnable" name="isemailEnable"></p-checkbox>
+                        NA
+                    </div>
+                    <div class="col-xs-5" *ngIf="!eeispf.isemailEnable">
+                        <div [ngStyle]="getIsDtaThere(eeispf.email)" [hidden]="!isPdf">{{eeispf.email}}</div>
+                        <input [hidden]="isPdf" formControlName="email" type="text" pInputText size="20"
+                            [(ngModel)]="eeispf.email" name="email" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">Placement Name(s):
+
+                        <input type="checkbox" [hidden]="isPdf" (change)="changeTextField('PlacementName',$event)"
+                            [(ngModel)]="eeispf.isPlacementNamesText" [ngModelOptions]="{standalone: true}" />
+
+
+                    </div>
+                </div>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-12">
+                        <div [ngStyle]="getIsDtaThere(eeispf.placementNames)" [hidden]="!isPdf">{{placementNames}}</div>
+
+                        <input [hidden]="isPdf" *ngIf="eeispf.isPlacementNamesText"
+                            (ngModelChange)="textBoxValueChange('PlacementName',$event)"
+                            formControlName="placementNames" type="text" pInputText size="20" name="placementNames"
+                            [(ngModel)]="eeispf.placementNames" />
+
+                        <p-autoComplete [hidden]="isPdf" *ngIf="!eeispf.isPlacementNamesText"
+                            formControlName="placementNames" emptyMessage="No results found!"
+                            placeholder="Type here to search" [forceSelection]="true" [dropdown]="true"
+                            [(ngModel)]="eeispf.placementNames" size="23" name="placementNames"
+                            (onSelect)="fetchingPlacementDetails($event)" (completeMethod)="allPlacelists()"
+                            [suggestions]="all_plaementList" field="placementName">
+                        </p-autoComplete>
+
+                    </div>
+                </div>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-12">
+                        Placement Address: (Street, City, State, Zip)
+                    </div>
+                </div>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-12">
+                        <div [ngStyle]="getIsDtaThere(eeispf.placementAddress)" [hidden]="!isPdf"
+                            [innerHTML]="print_placementAddress"></div>
+                        <textarea autosize id="placementAddress" (resized)="textAreaAdjust('placementAddress',$event)"
+                            (ngModelChange)="textAreaPrintChangeEvent('print_placementAddress',$event)" [hidden]="isPdf"
+                            formControlName="placementAddress" pInputTextarea name="placementAddress"
+                            [(ngModel)]="eeispf.placementAddress"></textarea>
+                    </div>
+                </div>
+                <div class="row margin-bottom-2rem">
+
+                    <div class="col-xs-2">Placement Telephone Number(s):</div>
+                    <div class="col-xs-3">
+
+                        <div [ngStyle]="getIsDtaThere(eeispf.placementTelephoneNumbers)"
+                            [innerHTML]="print_placementTelephoneNumbers" [hidden]="!isPdf"></div>
+                        <textarea autosize (resized)="textAreaAdjust('attendees',$event)"
+                            (ngModelChange)="textAreaPrintChangeEvent('print_placementTelephoneNumbers',$event)"
+                            [hidden]="isPdf" name="placementTelephoneNumbers"
+                            [(ngModel)]="eeispf.placementTelephoneNumbers" style="width: 100%;"
+                            formControlName="placementTelephoneNumbers"></textarea>
+                    </div>
+
+
+                    <div class="col-xs-2">Placement Email:</div>
+                    <div class="col-xs-5">
+                        <div [ngStyle]="getIsDtaThere(eeispf.placementEmailAddress)" [hidden]="!isPdf">
+                            {{eeispf.placementEmailAddress}}</div>
+                        <input [hidden]="isPdf" formControlName="placementEmailAddress" type="text" pInputText size="20"
+                            [(ngModel)]="eeispf.placementEmailAddress" name="placementEmailAddress" />
+                    </div>
+
+                </div>
+
+                <h3>
+                    <b>Section II: School in which child is being enrolled or maintained</b>
+                </h3>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-md-3">
+                        Unified School District (USD) Name:
+
+                        <input type="checkbox" [hidden]="isPdf" (change)="changeTextField('USD',$event)"
+                            [(ngModel)]="isUSD_Text" [ngModelOptions]="{standalone: true}" />
+
+                        <div [ngStyle]="getIsDtaThere(eeispf.usdName)" [hidden]="!isPdf">{{UsdName}}</div>
+                        <input [hidden]="isPdf" *ngIf="isUSD_Text" (ngModelChange)="textBoxValueChange('USD',$event)"
+                            formControlName="usdName" type="text" pInputText size="20" name="usdName"
+                            [(ngModel)]="eeispf.usdName" />
+                        <p-autoComplete [hidden]="isPdf" *ngIf="!isUSD_Text" (onClear)="clearUsdName($event)"
+                            formControlName="usdName" emptyMessage="No results found!" placeholder="Type here to search"
+                            [forceSelection]="true" [dropdown]="true" [(ngModel)]="eeispf.usdName"
+                            (onSelect)="USD_id_Change($event)" size="23" name="usdName"
+                            (completeMethod)="getScholls_Name($event)" [suggestions]="usdNames" field="usdName">
+                        </p-autoComplete>
+                    </div>
+
+                    <div class="col-md-3">
+                        USD Number:
+                        <input type="checkbox" [hidden]="isPdf" (change)="changeTextField('USD_number',$event)"
+                            [(ngModel)]="isUSD_number_Text" [ngModelOptions]="{standalone: true}" />
+                        <div [ngStyle]="getIsDtaThere(eeispf.usdNumber)" [hidden]="!isPdf">{{UsdNumber}}</div>
+                        <!-- <div [ngStyle]="getIsDtaThere(eeispf.usdName)" [hidden]="!isPdf">{{UsdName}}</div> -->
+                        <input [hidden]="isPdf" *ngIf="isUSD_number_Text" formControlName="usdNumber" type="text"
+                            pInputText size="20" name="usdNumber"
+                            (ngModelChange)="textBoxValueChange('USD_number',$event)" [(ngModel)]="eeispf.usdNumber" />
+                        <p-autoComplete [hidden]="isPdf" *ngIf="!isUSD_number_Text" (onClear)="clearUsdNumber($event)"
+                            formControlName="usdNumber" emptyMessage="No results found!"
+                            placeholder="Type here to search" [forceSelection]="true" [dropdown]="true"
+                            [(ngModel)]="eeispf.usdNumber" (onSelect)="USD_name_Change($event)" size="23"
+                            name="usdNumber" (completeMethod)="getSchollsUIDs($event,'usdNum')" [suggestions]="usdLists"
+                            field="usd">
+                        </p-autoComplete>
+                    </div>
+                </div>
+
+                <div class="row margin-bottom-2rem">
+                    <div class="col-md-3">
+                        <div>School Name:
+                            <input type="checkbox" [hidden]="isPdf" (change)="changeTextField('school_name',$event)"
+                                [(ngModel)]="eeispf.isSchoolName_Text" [ngModelOptions]="{standalone: true}" />
+                        </div>
+                        <div [ngStyle]="getIsDtaThere(schoolName)" [hidden]="!isPdf">{{schoolName}}</div>
+                        <input [hidden]="isPdf" *ngIf="eeispf.isSchoolName_Text"
+                            (ngModelChange)="textBoxValueChange('school_name',$event)" formControlName="schoolName"
+                            type="text" pInputText size="20" name="schoolName" [(ngModel)]="eeispf.schoolName" />
+                        <p-autoComplete [hidden]="isPdf" *ngIf="!eeispf.isSchoolName_Text" [dropdown]="true"
+                            name="schoolName" emptyMessage="No results found!" formControlName="schoolName"
+                            (onSelect)="getSchoolInfo($event)" [suggestions]="schollsList"
+                            (completeMethod)="getSchollsName($event)" [forceSelection]="true"
+                            placeholder="Type here to search" field="SchoolName" [(ngModel)]="eeispf.schoolName"
+                            size="23">
+                        </p-autoComplete>
+                    </div>
+                    <div class="col-md-3">
+                        <div>School Address: (Street, City, State, Zip)</div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.schoolAddress)" [hidden]="!isPdf">{{eeispf.schoolAddress}}
+                        </div>
+                        <input [hidden]="isPdf" formControlName="schoolAddress" type="text" pInputText size="20"
+                            [(ngModel)]="eeispf.schoolAddress" name="schoolAddress" />
+
+                    </div>
+                </div>
+
+
+
+                <div class="row margin-bottom-2rem">
+
+                    <div class="col-xs-3">School Phone Number:
+                        <div [ngStyle]="getIsDtaThere(eeispf.schoolPhone)" [hidden]="!isPdf">{{eeispf.schoolPhone}}
+                        </div>
+                        <input [hidden]="isPdf" formControlName="schoolPhone" type="text" pInputText size="20"
+                            [(ngModel)]="eeispf.schoolPhone" name="schoolPhone" />
+                    </div>
+
+
+                    <div class="col-xs-3">Fax:
+                        <div [ngStyle]="getIsDtaThere(eeispf.schoolFax)" [hidden]="!isPdf">{{eeispf.schoolFax}}</div>
+                        <input [hidden]="isPdf" formControlName="schoolFax" type="text" pInputText size="20"
+                            [(ngModel)]="eeispf.schoolFax" name="schoolFax" />
+                    </div>
+                    <div class="col-xs-3">Administrator Email:
+                        <div [ngStyle]="getIsDtaThere(eeispf.schoolMailORFax)" [hidden]="!isPdf">
+                            {{eeispf.schoolMailORFax}}</div>
+                        <input [hidden]="isPdf" formControlName="schoolMailORFax" type="text" pInputText size="20"
+                            [(ngModel)]="eeispf.schoolMailORFax" name="schoolMailORFax" />
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div>School Building contact name:</div>
+                        <input [hidden]="isPdf" formControlName="schoolbuildName" type="text" pInputText size="20"
+                            [(ngModel)]="eeispf.schoolbuildName" name="schoolbuildName" />
+                    </div>
+                    <div class="col-md-3">
+                        <div>School Building contact Email:</div>
+                        <input [hidden]="isPdf" formControlName="schoolBuildEmail" type="text" pInputText size="20"
+                            [(ngModel)]="eeispf.schoolBuildEmail" name="schoolBuildEmail" />
+                    </div>
+                </div>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-md-4">
+                        Every Student Succeeds Act (ESSA) -School District Point of Contact Name:
+                        <div>
+                            <div [ngStyle]="getIsDtaThere(eeispf.essa)" [hidden]="!isPdf">{{eeispf.essa}}</div>
+                            <input [hidden]="isPdf" formControlName="essa" type="text" pInputText size="20"
+                                [(ngModel)]="eeispf.essa" name="essa" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        ESSA School District Point of Contact Phone Number:
+                        <div>
+                            <div [ngStyle]="getIsDtaThere(eeispf.essa1_phoneNumber)" [hidden]="!isPdf">
+                                {{eeispf.essa1_phoneNumber}}
+                            </div>
+                            <input [hidden]="isPdf" formControlName="essa1_phoneNumber" type="text" pInputText size="20"
+                                [(ngModel)]="eeispf.essa1_phoneNumber" name="essa1_phoneNumber" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        ESSA School District Point of Contact Email:
+                        <div>
+                            <div [ngStyle]="getIsDtaThere(eeispf.essa1_email)" [hidden]="!isPdf">{{eeispf.essa1_email}}
+                            </div>
+                            <input [hidden]="isPdf" formControlName="essa1_email" type="text" pInputText size="20"
+                                [(ngModel)]="eeispf.essa1_email" name="essa1_email" />
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row margin-bottom-2rem">
+
+                    <div class="col-xs-4">
+
+                        <b>Enrollment Date:</b>
+
+                        <div>
+                            <div [ngStyle]="getIsDtaThere(eeispf.enrollmentDate)" [hidden]="!isPdf">
+                                {{eeispf.enrollmentDate  | date:'M/d/yyyy'}}</div>
+                            <p-calendar showButtonBar="true" [hidden]="isPdf" formControlName="enrollmentDate"
+                                hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                                [(ngModel)]="eeispf.enrollmentDate" name="enrollmentDate" yearRange="2000:2030">
+                            </p-calendar>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div> Grade: <input type="checkbox" [hidden]="isPdf" (change)="changeTextField('Grade',$event)"
+                                [(ngModel)]="isGradeText" [ngModelOptions]="{standalone: true}" /></div>
+                        <div [ngStyle]="getIsDtaThere(gradeName)" [hidden]="!isPdf">{{gradeName}}</div>
+
+                        <input [hidden]="isPdf" *ngIf="isGradeText" formControlName="grade"
+                            (ngModelChange)="textBoxValueChange('Grade',$event)" type="text" pInputText size="20"
+                            name="grade" [(ngModel)]="eeispf.grade" />
+
+                        <p-autoComplete [hidden]="isPdf" *ngIf="!isGradeText" formControlName="grade"
+                            emptyMessage="No results found!" placeholder="Type here to search" [forceSelection]="true"
+                            [dropdown]="true" [(ngModel)]="eeispf.grade" size="23" name="grade"
+                            (onSelect)="getGradeName($event)" (completeMethod)="getMetaData($event, 'grade')"
+                            [suggestions]="metaData" field="grade"></p-autoComplete>
+                    </div>
+                </div>
+
+                <p>
+                    <b> Check all that apply: </b>
+                </p>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-3">
+
+                        <p-checkbox formControlName="regularEducation" class="margin-right-1rem" binary="true"
+                            name="regularEducation" [(ngModel)]="eeispf.regularEducation"></p-checkbox>
+                        Regular Education
+
+                    </div>
+                    <div class="col-xs-3">
+
+                        <p-checkbox formControlName="isSpecialEducation" class="margin-right-1rem" binary="true"
+                            [(ngModel)]="eeispf.isSpecialEducation" name="isSpecialEducation"></p-checkbox>
+                        Special Education
+
+                    </div>
+                    <div class="col-xs-3">
+
+                        <p-checkbox formControlName="alternativeSchool" class="margin-right-1rem" binary="true"
+                            [(ngModel)]="eeispf.alternativeSchool" name="alternativeSchool"></p-checkbox>
+                        Alternative School
+                    </div>
+
+                    <div class="col-xs-3">
+
+                        <p-checkbox formControlName="onlineLearning" class="margin-right-1rem" binary="true"
+                            [(ngModel)]="eeispf.onlineLearning" name="onlineLearning"></p-checkbox>
+                        Online Learning
+
+                    </div>
+                </div>
+
+                <h3>
+                    <b>Section III: Last two (2) schools attended and placement.</b>
+                </h3>
+
+                <p>
+                    <b>Instructions</b> The school of origin is the school that the child
+                    was enrolled at the time of the initial placement. If the child's
+                    foster care placement changes, the school of origin would then be the
+                    school in which the child is enrolled at the time of the placement
+                    change.
+                </p>
+
+
+                <div class="row margin-bottom-2rem">
+                    <div class="col-md-3">
+                        Unified School District (USD) Name: <input type="checkbox" [hidden]="isPdf"
+                            (change)="changeTextField('USD_origin_name',$event)" [(ngModel)]="isOriginUSD_Text"
+                            [ngModelOptions]="{standalone: true}" />
+                        <div [ngStyle]="getIsDtaThere(eeispf.usdName)" [hidden]="!isPdf">{{orgin_usdName}}</div>
+
+                        <input [hidden]="isPdf" *ngIf="isOriginUSD_Text" formControlName="orgin_usdName" type="text"
+                            pInputText size="20" (ngModelChange)="textBoxValueChange('USD_origin_name',$event)"
+                            name="grade" [(ngModel)]="eeispf.orgin_usdName" />
+
+                        <p-autoComplete [hidden]="isPdf" *ngIf="!isOriginUSD_Text" formControlName="orgin_usdName"
+                            (onClear)="clearUsd_orginName($event)" emptyMessage="No results found!"
+                            placeholder="Type here to search" [forceSelection]="true" [dropdown]="true"
+                            [(ngModel)]="eeispf.orgin_usdName" (onSelect)="USD_orgin_id_Change($event)" size="23"
+                            name="orgin_usdName" (completeMethod)="getScholls_Name($event)" [suggestions]="usdNames"
+                            field="usdName">
+                        </p-autoComplete>
+
+
+                    </div>
+
+                    <div class="col-md-3">
+                        USD Number:
+                        <input type="checkbox" [hidden]="isPdf" (change)="changeTextField('USD_origin_number',$event)"
+                            [(ngModel)]="isUSD_orgin_number_Text" [ngModelOptions]="{standalone: true}" />
+
+                        <div [ngStyle]="getIsDtaThere(UsdName)" [hidden]="!isPdf">{{Usd_Orgin_Number}}</div>
+                        <input [hidden]="isPdf" *ngIf="isUSD_orgin_number_Text"
+                            (ngModelChange)="textBoxValueChange('USD_origin_number',$event)"
+                            formControlName="Usd_Orgin_Number" type="text" pInputText size="20" name="Usd_Orgin_Number"
+                            [(ngModel)]="eeispf.usd_orgin_Number" />
+
+                        <p-autoComplete [hidden]="isPdf" *ngIf="!isUSD_orgin_number_Text"
+                            (onClear)="clearUsd_orginNumber($event)" formControlName="Usd_Orgin_Number"
+                            emptyMessage="No results found!" placeholder="Type here to search" [forceSelection]="true"
+                            [dropdown]="true" [(ngModel)]="eeispf.usd_orgin_Number"
+                            (onSelect)="USD_name_orgin_Change($event)" size="23" name="Usd_Orgin_Number"
+                            (completeMethod)="getSchollsUIDs($event,'usdNum')" [suggestions]="usdLists" field="usd">
+                        </p-autoComplete>
+                    </div>
+                </div>
+
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-3">
+                        1. School of <b>Origin</b> Name
+                        <b>(most recent school of attendance):</b>
+
+                        <input type="checkbox" [hidden]="isPdf" (change)="changeTextField('origin_schoolName',$event)"
+                            [(ngModel)]="eeispf.isOrgin_schoolnameText" [ngModelOptions]="{standalone: true}" />
+
+                        <p-checkbox formControlName="isSchoolOfOriginNameEnable" class="margin-left-1rem" binary="true"
+                            [(ngModel)]="eeispf.isSchoolOfOriginNameEnable"></p-checkbox>
+                        NA
+                    </div>
+                    <div class="col-xs-9" *ngIf="!eeispf.isSchoolOfOriginNameEnable">
+
+                        <div [ngStyle]="getIsDtaThere(eeispf.schoolOriginName)" [hidden]="!isPdf">{{schoolOriginName}}
+                        </div>
+                        <input [hidden]="isPdf" *ngIf="eeispf.isOrgin_schoolnameText" formControlName="schoolOriginName"
+                            type="text" pInputText size="20"
+                            (ngModelChange)="textBoxValueChange('origin_schoolName',$event)" name="schoolOriginName"
+                            [(ngModel)]="eeispf.schoolOriginName" />
+                        <p-autoComplete [hidden]="isPdf" *ngIf="!eeispf.isOrgin_schoolnameText" [dropdown]="true"
+                            name="schoolName" emptyMessage="No results found!" formControlName="schoolOriginName"
+                            (onSelect)="getSchoolOriginInfo($event)" [suggestions]="scholls_origin_List"
+                            (completeMethod)="getScholls_origin_Name($event)" [forceSelection]="true"
+                            placeholder="Type here to search" field="SchoolName" [(ngModel)]="eeispf.schoolOriginName"
+                            size="23">
+                        </p-autoComplete>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">School Address:(Street, City, State, Zip)</div>
+                </div>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-12">
+                        <div [ngStyle]="getIsDtaThere(eeispf.schoolOriginAddress)" [hidden]="!isPdf"
+                            [innerHTML]="print_schoolOriginAddress">
+                        </div>
+                        <textarea autosize id="schoolOriginAddress"
+                            (resized)="textAreaAdjust('schoolOriginAddress',$event)"
+                            (ngModelChange)="textAreaPrintChangeEvent('print_schoolOriginAddress',$event)"
+                            [hidden]="isPdf" formControlName="schoolOriginAddress" pInputTextarea
+                            name="schoolOriginAddress" [(ngModel)]="eeispf.schoolOriginAddress"></textarea>
+                    </div>
+                </div>
+                <div class="row margin-bottom-2rem">
+
+                    <div class="col-xs-3">Phone Number:
+                        <div [ngStyle]="getIsDtaThere(eeispf.schoolOriginPhone)" [hidden]="!isPdf">
+                            {{eeispf.schoolOriginPhone}}
+                        </div>
+                        <input [hidden]="isPdf" formControlName="schoolOriginPhone" type="text" pInputText size="20"
+                            name="schoolOriginPhone" [(ngModel)]="eeispf.schoolOriginPhone" />
+                    </div>
+
+
+                    <div class="col-xs-3">Email:
+                        <div [ngStyle]="getIsDtaThere(eeispf.schoolFaxEmail)" [hidden]="!isPdf">
+                            {{eeispf.schoolFaxEmail}}</div>
+                        <input [hidden]="isPdf" formControlName="schoolFaxEmail" type="text" pInputText size="20"
+                            name="schoolFaxEmail" [(ngModel)]="eeispf.schoolFaxEmail" />
+                    </div>
+                    <div class="col-xs-3">Fax:
+                        <div [ngStyle]="getIsDtaThere(eeispf.school1Fax)" [hidden]="!isPdf">{{eeispf.school1Fax}}</div>
+                        <input [hidden]="isPdf" formControlName="school1Fax" type="text" pInputText size="20"
+                            name="school1Fax" [(ngModel)]="eeispf.school1Fax" />
+                    </div>
+                </div>
+
+
+
+                <div class="row margin-bottom-2rem">
+                    <div class="col-md-4">
+                        Every Student Succeeds Act (ESSA) -School District Point of Contact Name:
+                        <div>
+                            <div [ngStyle]="getIsDtaThere(eeispf.schoolOriginESSA)" [hidden]="!isPdf">
+                                {{eeispf.schoolOriginESSA}}
+                            </div>
+                            <input [hidden]="isPdf" formControlName="schoolOriginESSA" type="text" pInputText size="20"
+                                name="schoolOriginESSA" [(ngModel)]="eeispf.schoolOriginESSA" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        ESSA School District Point of Contact Phone Number:
+                        <div>
+                            <div [ngStyle]="getIsDtaThere(eeispf.schoolOriginPhoneOREmail)" [hidden]="!isPdf">
+                                {{eeispf.schoolOriginPhoneOREmail}}</div>
+                            <input [hidden]="isPdf" formControlName="schoolOriginPhoneOREmail" type="text" pInputText
+                                size="20" name="schoolOriginPhoneOREmail"
+                                [(ngModel)]="eeispf.schoolOriginPhoneOREmail" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        ESSA School District Point of Contact Email:
+                        <div>
+                            <div [ngStyle]="getIsDtaThere(eeispf.essa2_email)" [hidden]="!isPdf">{{eeispf.essa2_email}}
+                            </div>
+                            <input [hidden]="isPdf" formControlName="essa2_email" type="text" pInputText size="20"
+                                [(ngModel)]="eeispf.essa2_email" name="essa2_email" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div>School Building contact name:</div>
+                        <input [hidden]="isPdf" formControlName="school2buildName" type="text" pInputText size="20"
+                            [(ngModel)]="eeispf.school2buildName" name="school2buildName" />
+                    </div>
+                    <div class="col-md-4">
+                        <div>School Building contact Email:</div>
+                        <input [hidden]="isPdf" formControlName="school2BuildEmail" type="text" pInputText size="20"
+                            [(ngModel)]="eeispf.school2BuildEmail" name="school2BuildEmail" />
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="row margin-bottom-2rem">
+
+                    <div class="col-xs-5">
+
+                        <b>Dates Attended:</b>
+
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div [ngStyle]="getIsDtaThere(eeispf.schoolOriginDatesAttendedFrom)" [hidden]="!isPdf">
+                                    {{eeispf.schoolOriginDatesAttendedFrom | date:'M/d/yyyy'}}</div>
+                                <p-calendar showButtonBar="true" [hidden]="isPdf"
+                                    formControlName="schoolOriginDatesAttendedFrom"
+                                    [(ngModel)]="eeispf.schoolOriginDatesAttendedFrom"
+                                    name="schoolOriginDatesAttendedFrom" [monthNavigator]="true" yearRange="2000:2030">
+                                </p-calendar>
+
+                            </div>
+                            <div class="col-md-1">
+                                To:
+                            </div>
+                            <div class="col-md-5">
+                                <div [ngStyle]="getIsDtaThere(eeispf.schoolOriginDatesAttendedTo)" [hidden]="!isPdf">
+                                    {{eeispf.schoolOriginDatesAttendedTo | date:'M/d/yyyy'}}</div>
+                                <p-calendar showButtonBar="true" [hidden]="isPdf"
+                                    formControlName="schoolOriginDatesAttendedTo"
+                                    [(ngModel)]="eeispf.schoolOriginDatesAttendedTo" name="schoolOriginDatesAttendedTo"
+                                    [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <p>
+                    <b> Check all that apply: </b>
+                </p>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-3">
+
+                        <p-checkbox formControlName="isSchoolOrigin" class="margin-right-1rem" binary="true"
+                            name="isSchoolOrigin" [(ngModel)]="eeispf.isSchoolOrigin"></p-checkbox>
+                        Regular Education
+
+                    </div>
+                    <div class="col-xs-3">
+
+                        <p-checkbox formControlName="isSpecialEducation1" class="margin-right-1rem" binary="true"
+                            name="isSpecialEducation1" [(ngModel)]="eeispf.isSpecialEducation1"></p-checkbox>
+                        Special Education
+
+                    </div>
+                    <div class="col-xs-3">
+
+                        <p-checkbox formControlName="isSchoolOriginAlternativeSchool" class="margin-right-1rem"
+                            binary="true" name="isSchoolOriginAlternativeSchool"
+                            [(ngModel)]="eeispf.isSchoolOriginAlternativeSchool">
+                        </p-checkbox>
+                        Alternative School
+
+                    </div>
+                    <div class="col-xs-3">
+
+                        <p-checkbox formControlName="isSchoolOrginOnlineLearning" class="margin-right-1rem"
+                            binary="true" name="isSchoolOrginOnlineLearning"
+                            [(ngModel)]="eeispf.isSchoolOrginOnlineLearning"></p-checkbox>
+                        Online Learning
+
+                    </div>
+                </div>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-4">
+                        <div class="form-fonts">Previous Placement's Name:
+
+                            <input type="checkbox" [hidden]="isPdf"
+                                (change)="changeTextField('previousPlacementName',$event)"
+                                [(ngModel)]="eeispf.isPreviousPlacemengText" [ngModelOptions]="{standalone: true}" />
+
+                        </div>
+                        <div>
+                            <div [ngStyle]="getIsDtaThere(eeispf.placementName)" [hidden]="!isPdf">
+                                {{previous_placementName}}</div>
+
+                            <input [hidden]="isPdf" *ngIf="eeispf.isPreviousPlacemengText"
+                                formControlName="placementName" type="text" pInputText size="20" name="placementName"
+                                [(ngModel)]="eeispf.placementName"
+                                (ngModelChange)="textBoxValueChange('previousPlacementName',$event)" />
+                            <p-autoComplete [hidden]="isPdf" *ngIf="!eeispf.isPreviousPlacemengText"
+                                formControlName="placementName" emptyMessage="No results found!"
+                                placeholder="Type here to search" [forceSelection]="true" [dropdown]="true"
+                                [(ngModel)]="eeispf.placementName" size="23" name="placementName"
+                                (onSelect)="fetching_pre_PlacementDetails($event)" (completeMethod)="allPlacelists()"
+                                [suggestions]="all_plaementList" field="placementName">
+                            </p-autoComplete>
+
+                        </div>
+                    </div>
+                    <div class="col-xs-5">
+                        <div>
+                            <b>Dates of placement:</b>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>Begin Date:</p>
+                                <div [ngStyle]="getIsDtaThere(eeispf.DOPBeginDate)" [hidden]="!isPdf">
+                                    {{eeispf.DOPBeginDate  | date:'M/d/yyyy'}}</div>
+                                <p-calendar showButtonBar="true" formControlName="DOPBeginDate" [hidden]="isPdf"
+                                    hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                                    [(ngModel)]="eeispf.DOPBeginDate" name="DOPBeginDate" yearRange="2000:2030">
+                                </p-calendar>
+                            </div>
+                            <div class="col-md-6">
+                                <p>End Date:</p>
+                                <div [ngStyle]="getIsDtaThere(eeispf.DOPEndDate)" [hidden]="!isPdf">
+                                    {{eeispf.DOPEndDate  | date:'M/d/yyyy'}}</div>
+                                <p-calendar showButtonBar="true" formControlName="DOPEndDate" [hidden]="isPdf"
+                                    hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                                    [(ngModel)]="eeispf.DOPEndDate" name="DOPEndDate" yearRange="2000:2030">
+                                </p-calendar>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">Address: (Street, City, State, Zip Code)</div>
+                </div>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-12">
+                        <div [ngStyle]="getIsDtaThere(eeispf.placementAddress1)" [hidden]="!isPdf"
+                            [innerHTML]="print_placementAddress1">
+                        </div>
+                        <textarea autosize id="placementAddress1" (resized)="textAreaAdjust('placementAddress1',$event)"
+                            (ngModelChange)="textAreaPrintChangeEvent('print_placementAddress1',$event)"
+                            [hidden]="isPdf" formControlName="placementAddress1" pInputTextarea name="placementAddress1"
+                            [(ngModel)]="eeispf.placementAddress1"></textarea>
+                    </div>
+                </div>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-4">
+                        <div>Phone Number:</div>
+                        <div>
+                            <div [ngStyle]="getIsDtaThere(eeispf.placementAddress1)" [hidden]="!isPdf">
+                                {{eeispf.placementPhone}}
+                            </div>
+                            <input [hidden]="isPdf" formControlName="placementPhone" type="text" pInputText size="20"
+                                [(ngModel)]="eeispf.placementPhone" name="placementPhone" />
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div>Email:</div>
+                        <div>
+                            <div [ngStyle]="getIsDtaThere(eeispf.placementEmail)" [hidden]="!isPdf">
+                                {{eeispf.placementEmail}}</div>
+                            <input [hidden]="isPdf" formControlName="placementEmail" type="text" pInputText size="20"
+                                [(ngModel)]="eeispf.placementEmail" name="placementEmail" />
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div>Alternate / Back up contact:</div>
+                        <div>
+                            <div [ngStyle]="getIsDtaThere(eeispf.placementAlternative)" [hidden]="!isPdf">
+                                {{eeispf.placementAlternative}}</div>
+                            <input [hidden]="isPdf" formControlName="placementAlternate" type="text" pInputText
+                                size="20" name="placementAlternate" [(ngModel)]="eeispf.placementAlternative" />
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row margin-bottom-2rem">
+                    <div class="col-md-3">
+                        Unified School District (USD) Name:
+
+                        <input type="checkbox" [hidden]="isPdf" (change)="changeTextField('preUsdName',$event)"
+                            [(ngModel)]="isPreUsdNameText" [ngModelOptions]="{standalone: true}" />
+
+                        <div [ngStyle]="getIsDtaThere(eeispf.usdName)" [hidden]="!isPdf">{{pre_usdName}}</div>
+                        <input [hidden]="isPdf" *ngIf="isPreUsdNameText"
+                            (ngModelChange)="textBoxValueChange('preUsdName',$event)" formControlName="pre_usdName"
+                            type="text" pInputText size="20" name="pre_usdName" [(ngModel)]="eeispf.pre_usdName" />
+                        <p-autoComplete [hidden]="isPdf" *ngIf="!isPreUsdNameText" (onClear)="clearUsd_preName($event)"
+                            formControlName="pre_usdName" emptyMessage="No results found!"
+                            placeholder="Type here to search" [forceSelection]="true" [dropdown]="true"
+                            [(ngModel)]="eeispf.pre_usdName" (onSelect)="USD_pre_id_Change($event)" size="23"
+                            name="pre_usdName" (completeMethod)="getScholls_Name($event)" [suggestions]="usdNames"
+                            field="usdName">
+                        </p-autoComplete>
+
+                    </div>
+
+                    <div class="col-md-3">
+                        USD Number:
+                        <input type="checkbox" [hidden]="isPdf" (change)="changeTextField('pre_usd_number',$event)"
+                            [(ngModel)]="isUsdNumberText" [ngModelOptions]="{standalone: true}" />
+
+                        <div [ngStyle]="getIsDtaThere(UsdName)" [hidden]="!isPdf">{{usd_pre_Number}}</div>
+                        <input [hidden]="isPdf" *ngIf="isUsdNumberText"
+                            (ngModelChange)="textBoxValueChange('pre_usd_number',$event)"
+                            formControlName="usd_pre_Number" type="text" pInputText size="20" name="usd_pre_Number"
+                            [(ngModel)]="eeispf.usd_pre_Number" />
+                        <p-autoComplete [hidden]="isPdf" *ngIf="!isUsdNumberText" (onClear)="clearUsd_preNumber($event)"
+                            formControlName="usd_pre_Number" emptyMessage="No results found!"
+                            placeholder="Type here to search" [forceSelection]="true" [dropdown]="true"
+                            [(ngModel)]="eeispf.usd_pre_Number" (onSelect)="USD_pre_name_Change($event)" size="23"
+                            name="usd_pre_Number" (completeMethod)="getSchollsUIDs($event,'usdNum')"
+                            [suggestions]="usdLists" field="usd"></p-autoComplete>
+
+                    </div>
+                </div>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-3">
+                        2. Previous School Name:
+
+                        <input type="checkbox" [hidden]="isPdf" (change)="changeTextField('PreviosSchoolName',$event)"
+                            [(ngModel)]="eeispf.isPreviousSchoolNameText" [ngModelOptions]="{standalone: true}" />
+
+                        <p-checkbox formControlName="isPreviousSchoolNameEnable" class="margin-left-1rem" binary="true"
+                            [(ngModel)]="eeispf.isPreviousSchoolNameEnable" name="isPreviousSchoolNameEnable">
+                        </p-checkbox>
+                        NA
+                    </div>
+                    <div class="col-xs-9" *ngIf="!eeispf.isPreviousSchoolNameEnable">
+                        <div [ngStyle]="getIsDtaThere(eeispf.previousSchoolName)" [hidden]="!isPdf">
+                            {{previousSchoolName}}
+                        </div>
+                        <input [hidden]="isPdf" *ngIf="eeispf.isPreviousSchoolNameText"
+                            (ngModelChange)="textBoxValueChange('PreviosSchoolName',$event)"
+                            formControlName="previousSchoolName" type="text" pInputText size="20"
+                            name="previousSchoolName" [(ngModel)]="eeispf.previousSchoolName" />
+                        <p-autoComplete [hidden]="isPdf" *ngIf="!eeispf.isPreviousSchoolNameText" [dropdown]="true"
+                            name="previousSchoolName" emptyMessage="No results found!"
+                            formControlName="previousSchoolName" (onSelect)="getSchoolPreviousInfo($event)"
+                            [suggestions]="scholls_previous_List" (completeMethod)="getScholls_previos_Name($event)"
+                            [forceSelection]="true" placeholder="Type here to search" field="SchoolName"
+                            [(ngModel)]="eeispf.previousSchoolName" size="23">
+                        </p-autoComplete>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">School Address: (Street, City, State, Zip)</div>
+                </div>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-12">
+                        <div [ngStyle]="getIsDtaThere(eeispf.previousSchoolAddress)" [hidden]="!isPdf"
+                            [innerHTML]="print_previousSchoolAddress">
+                        </div>
+                        <textarea autosize id="previousSchoolAddress"
+                            (resized)="textAreaAdjust('previousSchoolAddress',$event)"
+                            (ngModelChange)="textAreaPrintChangeEvent('print_previousSchoolAddress',$event)"
+                            [hidden]="isPdf" formControlName="previousSchoolAddress" pInputTextarea
+                            name="previousSchoolAddress" [(ngModel)]="eeispf.previousSchoolAddress"></textarea>
+                    </div>
+                </div>
+                <div class="row margin-bottom-2rem">
+
+
+                    <div class="col-xs-3">
+                        <div>Phone Number:</div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.previousSchoolPhoneNumber)" [hidden]="!isPdf">
+                            {{eeispf.previousSchoolPhoneNumber}}</div>
+                        <input [hidden]="isPdf" formControlName="previousSchoolPhoneNumber" type="text" pInputText
+                            size="20" name="previousSchoolPhoneNumber" [(ngModel)]="eeispf.previousSchoolPhoneNumber" />
+                    </div>
+
+
+                    <div class="col-xs-3">
+                        <div>Fax:</div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.previousSchoolFax)" [hidden]="!isPdf">
+                            {{eeispf.previousSchoolFax}}</div>
+                        <input [hidden]="isPdf" formControlName="previousSchoolFax" type="text" pInputText size="20"
+                            name="previousSchoolFax" [(ngModel)]="eeispf.previousSchoolFax" />
+
+                    </div>
+
+                    <div class="col-xs-3">
+                        <div>Email:</div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.previousSchoolEmail)" [hidden]="!isPdf">
+                            {{eeispf.previousSchoolEmail}}</div>
+                        <input [hidden]="isPdf" formControlName="previousSchoolEmail" type="text" pInputText size="20"
+                            name="previousSchoolEmail" [(ngModel)]="eeispf.previousSchoolEmail" />
+
+                    </div>
+
+
+                </div>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-4">
+                        <div>Every Student Succeeds Act (ESSA) -School District Point of Contact Name:</div>
+                        <div>
+                            <div [ngStyle]="getIsDtaThere(eeispf.previousSchoolESSA)" [hidden]="!isPdf">
+                                {{eeispf.previousSchoolESSA}}
+                            </div>
+                            <input [hidden]="isPdf" formControlName="previousSchoolESSA" type="text" pInputText
+                                size="20" [(ngModel)]="eeispf.previousSchoolESSA" name="previousSchoolESSA" />
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div>ESSA School District Point of Contact Phone Number:</div>
+                        <div>
+                            <div [ngStyle]="getIsDtaThere(eeispf.previousSchoolESSAPhoneNumber)" [hidden]="!isPdf">
+                                {{eeispf.previousSchoolESSAPhoneNumber}}</div>
+                            <input [hidden]="isPdf" formControlName="previousSchoolESSAPhoneNumber" type="text"
+                                pInputText size="20" [(ngModel)]="eeispf.previousSchoolESSAPhoneNumber"
+                                name="previousSchoolESSAPhoneNumber" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        ESSA School District Point of Contact Email:
+                        <div>
+                            <div [ngStyle]="getIsDtaThere(eeispf.previousSchoolESSAEmail)" [hidden]="!isPdf">
+                                {{eeispf.previousSchoolESSAEmail}}
+                            </div>
+                            <input [hidden]="isPdf" formControlName="previousSchoolESSAEmail" type="text" pInputText
+                                size="20" [(ngModel)]="eeispf.previousSchoolESSAEmail" name="previousSchoolESSAEmail" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div>School Building contact name:</div>
+                        <input [hidden]="isPdf" formControlName="school3buildName" type="text" pInputText size="20"
+                            [(ngModel)]="eeispf.school3buildName" name="school3buildName" />
+                    </div>
+                    <div class="col-md-4">
+                        <div>School Building contact Email:</div>
+                        <input [hidden]="isPdf" formControlName="school2BuildEmail" type="text" pInputText size="20"
+                            [(ngModel)]="eeispf.school3BuildEmail" name="school3BuildEmail" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5">
+                        <div>
+                            <b>Dates Attended:</b>
+                        </div>
+                        <div>
+
+
+
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div [ngStyle]="getIsDtaThere(eeispf.pre_schoolOriginDatesAttendedFrom)"
+                                        [hidden]="!isPdf">
+                                        {{eeispf.pre_schoolOriginDatesAttendedFrom | date:'M/d/yyyy'}}</div>
+                                    <p-calendar showButtonBar="true" [hidden]="isPdf"
+                                        formControlName="pre_schoolOriginDatesAttendedFrom"
+                                        [(ngModel)]="eeispf.pre_schoolOriginDatesAttendedFrom"
+                                        name="pre_schoolOriginDatesAttendedFrom" [monthNavigator]="true"
+                                        yearRange="2000:2030"></p-calendar>
+
+                                </div>
+                                <div class="col-md-1">
+                                    To
+                                </div>
+                                <div class="col-md-5">
+                                    <div [ngStyle]="getIsDtaThere(eeispf.pre_schoolOriginDatesAttendedTo)"
+                                        [hidden]="!isPdf">
+                                        {{eeispf.pre_schoolOriginDatesAttendedTo | date:'M/d/yyyy'}}</div>
+                                    <p-calendar showButtonBar="true" [hidden]="isPdf"
+                                        formControlName="pre_schoolOriginDatesAttendedTo"
+                                        [(ngModel)]="eeispf.pre_schoolOriginDatesAttendedTo"
+                                        name="pre_schoolOriginDatesAttendedTo" [monthNavigator]="true"
+                                        yearRange="2000:2030"></p-calendar>
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <p>
+                    <b> Check all that apply: </b>
+                </p>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-3">
+                        <div>
+                            <p-checkbox formControlName="isPreviousSchoolRegularEducation" class="margin-right-1rem"
+                                binary="true" [(ngModel)]="eeispf.isPreviousSchoolRegularEducation"
+                                name="isPreviousSchoolRegularEducation">
+                            </p-checkbox>
+                            Regular Education
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div>
+                            <p-checkbox formControlName="isPreviousSchoolSpecialEducation" class="margin-right-1rem"
+                                binary="true" [(ngModel)]="eeispf.isPreviousSchoolSpecialEducation"
+                                name="isPreviousSchoolSpecialEducation">
+                            </p-checkbox>
+                            Special Education
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div>
+                            <p-checkbox formControlName="isPreviousSchoolAlternativeSchool" class="margin-right-1rem"
+                                binary="true" [(ngModel)]="eeispf.isPreviousSchoolAlternativeSchool"
+                                name="isPreviousSchoolAlternativeSchool">
+                            </p-checkbox>
+                            Alternative School
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div>
+                            <p-checkbox formControlName="isPreviousSchoolOnlineLearning" class="margin-right-1rem"
+                                binary="true" [(ngModel)]="eeispf.isPreviousSchoolOnlineLearning"
+                                name="isPreviousSchoolOnlineLearning"></p-checkbox>
+                            Online Learning
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-4">
+                        <div class="form-fonts">Previous Placement's Name:
+                            <input type="checkbox" [hidden]="isPdf"
+                                (change)="changeTextField('eduPlacementName',$event)"
+                                [(ngModel)]="eeispf.isEDuPlacementNametext" [ngModelOptions]="{standalone: true}" />
+                        </div>
+                        <div>
+                            <div [ngStyle]="getIsDtaThere(eeispf.educationPlacementName)" [hidden]="!isPdf">
+                                {{pre_previous_placementName}}</div>
+                            <input [hidden]="isPdf" *ngIf="eeispf.isEDuPlacementNametext"
+                                (ngModelChange)="textBoxValueChange('eduPlacementName',$event)"
+                                formControlName="educationPlacementName" type="text" pInputText size="20"
+                                name="educationPlacementName" [(ngModel)]="eeispf.educationPlacementName" />
+                            <p-autoComplete [hidden]="isPdf" *ngIf="!eeispf.isEDuPlacementNametext"
+                                formControlName="educationPlacementName" emptyMessage="No results found!"
+                                placeholder="Type here to search" [forceSelection]="true" [dropdown]="true"
+                                [(ngModel)]="eeispf.educationPlacementName" size="23" name="educationPlacementName"
+                                (onSelect)="fetching_pre2_PlacementDetails($event)" (completeMethod)="allPlacelists()"
+                                [suggestions]="all_plaementList" field="placementName">
+                            </p-autoComplete>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="">
+                            <b>Dates of placement:</b>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>Begin Date:</p>
+                                <div [ngStyle]="getIsDtaThere(eeispf.p_DOPBeginDate)" [hidden]="!isPdf">
+                                    {{eeispf.p_DOPBeginDate  | date:'M/d/yyyy'}}</div>
+                                <p-calendar showButtonBar="true" formControlName="p_DOPBeginDate" [hidden]="isPdf"
+                                    hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                                    [(ngModel)]="eeispf.p_DOPBeginDate" name="p_DOPBeginDate" yearRange="2000:2030">
+                                </p-calendar>
+                            </div>
+                            <div class="col-md-6">
+                                <p>End Date:</p>
+                                <div [ngStyle]="getIsDtaThere(eeispf.p_DOPEndDate)" [hidden]="!isPdf">
+                                    {{eeispf.p_DOPEndDate  | date:'M/d/yyyy'}}</div>
+                                <p-calendar showButtonBar="true" formControlName="p_DOPEndDate" [hidden]="isPdf"
+                                    hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                                    [(ngModel)]="eeispf.p_DOPEndDate" name="p_DOPEndDate" yearRange="2000:2030">
+                                </p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">Address: (Street, City, State, Zip)</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div [ngStyle]="getIsDtaThere(eeispf.educationPlacementAddress)" [hidden]="!isPdf"
+                            [innerHTML]="print_educationPlacementAddress">
+                        </div>
+                        <textarea autosize id="educationPlacementAddress"
+                            (resized)="textAreaAdjust('educationPlacementAddress',$event)"
+                            (ngModelChange)="textAreaPrintChangeEvent('print_educationPlacementAddress',$event)"
+                            [hidden]="isPdf" formControlName="educationPlacementAddress" pInputTextarea
+                            name="educationPlacementAddress" [(ngModel)]="eeispf.educationPlacementAddress"></textarea>
+                    </div>
+                </div>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-4">
+                        <div>Phone Number:</div>
+                        <div>
+                            <div [ngStyle]="getIsDtaThere(eeispf.edcautionPlacementPhone)" [hidden]="!isPdf">
+                                {{eeispf.edcautionPlacementPhone}}</div>
+                            <input [hidden]="isPdf" formControlName="edcautionPlacementPhone" type="text" pInputText
+                                size="20" name="edcautionPlacementPhone" [(ngModel)]="eeispf.edcautionPlacementPhone" />
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div>Email:</div>
+                        <div>
+                            <div [ngStyle]="getIsDtaThere(eeispf.educationEmail)" [hidden]="!isPdf">
+                                {{eeispf.educationEmail}}</div>
+                            <input [hidden]="isPdf" formControlName="educationEmail" type="text" pInputText size="20"
+                                name="educationEmail" [(ngModel)]="eeispf.educationEmail" />
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div>Alternate Backup / Contact:</div>
+                        <div>
+                            <div [ngStyle]="getIsDtaThere(eeispf.educationAlternativeContact)" [hidden]="!isPdf">
+                                {{eeispf.educationAlternativeContact}}</div>
+                            <input [hidden]="isPdf" formControlName="educationAlternativeContact" type="text" pInputText
+                                size="20" [(ngModel)]="eeispf.educationAlternativeContact" />
+                        </div>
+                    </div>
+                </div>
+
+                <h3>
+                    <b>Section IV: Student Educational Information</b>
+                </h3>
+
+                <p>
+                    Does the student have any of the following? (Check all that apply)
+                </p>
+                <p>1. Individual Education Plan (IEP):</p>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-3">
+                        <div class="col-xs-12">
+                            <p-checkbox formControlName="isIEPYES" class="margin-right-1rem" binary="true"
+                                name="isIEPYES" [(ngModel)]="eeispf.isIEPYES" (onChange)="onCheck($event, 'IEP')">
+                            </p-checkbox>
+                            Yes
+                        </div>
+                    </div>
+
+                    <div class="col-xs-3">
+                        <div class="col-xs-12">
+                            <p-checkbox formControlName="isIEPNO" class="margin-right-1rem" binary="true" name="isIEPNO"
+                                [(ngModel)]="eeispf.isIEPNO"></p-checkbox>
+                            No
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="col-xs-12">
+                            <p-checkbox formControlName="isEvaluationInProgress" class="margin-right-1rem" binary="true"
+                                name="isEvaluationInProgress" [(ngModel)]="eeispf.isEvaluationInProgress"></p-checkbox>
+                            Evaluation in Progress
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="col-xs-12">
+                            <p-checkbox formControlName="isIEPUnkown" class="margin-right-1rem" binary="true"
+                                name="isIEPUnkown" [(ngModel)]="eeispf.isIEPUnkown"></p-checkbox>
+                            Unknown
+                        </div>
+                    </div>
+                </div>
+                <p>
+                    <b>IEP provide individualized special education and related services
+                        to meet the unique needs of the child.
+                    </b>
+                </p>
+                <p>2. 504 Plan:</p>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-4">
+                        <div class="col-xs-12">
+                            <p-checkbox formControlName="isIEP504YES" class="margin-right-1rem" binary="true"
+                                name="isIEP504YES" [(ngModel)]="eeispf.isIEP504YES" (onChange)="onCheck($event, '504')">
+                            </p-checkbox>
+                            Yes
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="col-xs-12">
+                            <p-checkbox formControlName="isIEP504NO" class="margin-right-1rem" binary="true"
+                                name="isIEP504NO" [(ngModel)]="eeispf.isIEP504NO"></p-checkbox>
+                            No
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="col-xs-12">
+                            <p-checkbox formControlName="isIEPUnkown1" class="margin-right-1rem" binary="true"
+                                name="isIEPUnkown1" [(ngModel)]="eeispf.isIEPUnkown1"></p-checkbox>
+                            Unknown
+                        </div>
+                    </div>
+                </div>
+                <p>
+                    <b>504 plans provide services and changes to the learning environment
+                        to meet the needs of the child as adequately as other students.
+                    </b>
+                </p>
+                <p>3. School Behavior Contract / Management Plan:</p>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-4">
+                        <div class="col-xs-12">
+                            <p-checkbox formControlName="isIEPschoolYES" class="margin-right-1rem" binary="true"
+                                name="isIEPschoolYES" [(ngModel)]="eeispf.isIEPschoolYES"></p-checkbox>
+                            Yes
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="col-xs-12">
+                            <p-checkbox formControlName="isIEPschoolNo" class="margin-right-1rem" binary="true"
+                                name="isIEPschoolNo" [(ngModel)]="eeispf.isIEPschoolNo"></p-checkbox>
+                            No
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="col-xs-12">
+                            <p-checkbox formControlName="isIEPschoolUnknown" class="margin-right-1rem" binary="true"
+                                name="isIEPschoolUnknown" [(ngModel)]="eeispf.isIEPschoolUnknown"></p-checkbox>
+                            Unknown
+                        </div>
+                    </div>
+                </div>
+                <p>4. Is the student currently suspended:?</p>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-2">
+                        <div class="col-xs-12">
+                            <p-checkbox formControlName="isIEPsuspendYES" class="margin-right-1rem" binary="true"
+                                name="isIEPsuspendYES" [(ngModel)]="eeispf.isIEPsuspendYES"></p-checkbox>
+                            Yes
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="col-xs-12">
+                            <p-checkbox formControlName="isIEPsuspendNo" class="margin-right-1rem" binary="true"
+                                name="isIEPsuspendNo" [(ngModel)]="eeispf.isIEPsuspendNo"></p-checkbox>
+                            No
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="col-xs-4">Dates:</div>
+                        <div class="col-xs-8">
+                            <div [ngStyle]="getIsDtaThere(eeispf.suspendedDate)" [hidden]="!isPdf">
+                                {{eeispf.suspendedDate  | date:'M/d/yyyy'}}</div>
+                            <p-calendar showButtonBar="true" [hidden]="isPdf" formControlName="suspendedDate"
+                                hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+                                name="suspendedDate" [(ngModel)]="eeispf.suspendedDate">
+                            </p-calendar>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="col-xs-4">Length:</div>
+                        <div class="col-xs-8">
+                            <div [ngStyle]="getIsDtaThere(eeispf.suspendedLength)" [hidden]="!isPdf">
+                                {{eeispf.suspendedLength}}</div>
+                            <input [hidden]="isPdf" formControlName="suspendedLength" type="text" pInputText size="20"
+                                name="suspendedLength" [(ngModel)]="eeispf.suspendedLength" />
+                        </div>
+                    </div>
+                </div>
+                <p>5. Is the student currently expelled:?</p>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-2">
+                        <div class="col-xs-12">
+                            <p-checkbox formControlName="isStudentExpelledYes" class="margin-right-1rem" binary="true"
+                                name="isStudentExpelledYes" [(ngModel)]="eeispf.isStudentExpelledYes"></p-checkbox>
+                            Yes
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="col-xs-12">
+                            <p-checkbox formControlName="isStudentExpelledNo" class="margin-right-1rem" binary="true"
+                                name="isStudentExpelledNo" [(ngModel)]="eeispf.isStudentExpelledNo"></p-checkbox>
+                            No
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="col-xs-4">Dates:</div>
+                        <div class="col-xs-8">
+                            <div [ngStyle]="getIsDtaThere(eeispf.suspendedLength)" [hidden]="!isPdf">
+                                {{eeispf.suspendedLength | date:'M/d/yyyy'}}</div>
+                            <p-calendar showButtonBar="true" [hidden]="isPdf" formControlName="studentExpelledDate"
+                                hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+                                name="studentExpelledDate" [(ngModel)]="eeispf.studentExpelledDate"></p-calendar>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="col-xs-4">Length:</div>
+                        <div class="col-xs-8">
+                            <div [ngStyle]="getIsDtaThere(eeispf.studentExpelledLength)" [hidden]="!isPdf">
+                                {{eeispf.studentExpelledLength}}</div>
+                            <input [hidden]="isPdf" formControlName="studentExpelledLength" type="text" pInputText
+                                size="20" name="studentExpelledLength" [(ngModel)]="eeispf.studentExpelledLength" />
+                        </div>
+                    </div>
+                </div>
+                <p>
+                    6. If yes to questions 4 and 5. please explain below (fighting.
+                    truancy, drugs / alcohol. etc.)
+                </p>
+                <div>
+                    <div [ngStyle]="getIsDtaThere(eeispf.explainIfYes)" [hidden]="!isPdf"
+                        [innerHTML]="print_explainIfYes"></div>
+                    <textarea autosize id="explainIfYes" (resized)="textAreaAdjust('explainIfYes',$event)"
+                        (ngModelChange)="textAreaPrintChangeEvent('print_explainIfYes',$event)" [hidden]="isPdf"
+                        formControlName="explainIfYes" pInputTextarea name="explainIfYes"
+                        [(ngModel)]="eeispf.explainIfYes"></textarea>
+                </div>
+                <p>
+                    7. Describe in detail below any special staffing needs or safety
+                    precautions.
+                </p>
+                <div class="html2pdf__page-break"></div>
+                <div>
+                    <div [ngStyle]="getIsDtaThere(eeispf.safetyPrecautions)" [hidden]="!isPdf"
+                        [innerHTML]="print_safetyPrecautions"></div>
+                    <textarea autosize id="safetyPrecautions" (resized)="textAreaAdjust('safetyPrecautions',$event)"
+                        (ngModelChange)="textAreaPrintChangeEvent('print_safetyPrecautions',$event)" [hidden]="isPdf"
+                        formControlName="safetyPrecautions" pInputTextarea name="safetyPrecautions"
+                        [(ngModel)]="eeispf.safetyPrecautions"></textarea>
+                </div>
+                <p>
+                    8. Brief description of reasons for out of home care as relevant to
+                    the learning process.
+                </p>
+                <div>
+                    <div [ngStyle]="getIsDtaThere(eeispf.homeCareReasons)" [hidden]="!isPdf"
+                        [innerHTML]="print_homeCareReasons">
+                    </div>
+                    <textarea autosize id="homeCareReasons" (resized)="textAreaAdjust('homeCareReasons',$event)"
+                        (ngModelChange)="textAreaPrintChangeEvent('print_homeCareReasons',$event)" [hidden]="isPdf"
+                        formControlName="homeCareReasons" pInputTextarea name="homeCareReasons"
+                        [(ngModel)]="eeispf.homeCareReasons"></textarea>
+                </div>
+                <p>9. List current medications below.</p>
+                <div>
+                    <div [ngStyle]="getIsDtaThere(eeispf.currentMedications)" [hidden]="!isPdf"
+                        [innerHTML]="print_currentMedications">
+                    </div>
+                    <textarea autosize id="currentMedications" (resized)="textAreaAdjust('currentMedications',$event)"
+                        (ngModelChange)="textAreaPrintChangeEvent('print_currentMedications',$event)" [hidden]="isPdf"
+                        formControlName="currentMedications" pInputTextarea name="currentMedications"
+                        [(ngModel)]="eeispf.currentMedications"></textarea>
+                </div>
+                <p>
+                    10. Physical or mental health conditions as relevant to the learning
+                    process
+                </p>
+                <div>
+                    <div [ngStyle]="getIsDtaThere(eeispf.healthConditions)" [hidden]="!isPdf"
+                        [innerHTML]="print_healthConditions"></div>
+                    <textarea autosize id="healthConditions" (resized)="textAreaAdjust('healthConditions',$event)"
+                        (ngModelChange)="textAreaPrintChangeEvent('print_healthConditions',$event)" [hidden]="isPdf"
+                        formControlName="healthConditions" pInputTextarea name="healthConditions"
+                        [(ngModel)]="eeispf.healthConditions"></textarea>
+                </div>
+                <p>
+                    11. Other information relevant to the learning process of this student
+                </p>
+                <div>
+                    <div [ngStyle]="getIsDtaThere(eeispf.otherInformation)" [hidden]="!isPdf"
+                        [innerHTML]="print_otherInformation"></div>
+                    <textarea autosize id="otherInformation" (resized)="textAreaAdjust('otherInformation',$event)"
+                        (ngModelChange)="textAreaPrintChangeEvent('print_otherInformation',$event)" [hidden]="isPdf"
+                        formControlName="otherInformation" pInputTextarea name="otherInformation"
+                        [(ngModel)]="eeispf.otherInformation"></textarea>
+                </div>
+
+                <h3>
+                    <b>Section V: Legal Educational Decision Maker</b>
+                </h3>
+
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-4">
+                        <div> Parent/Legal Guardian Name:</div>
+                        <div>
+                            <div [ngStyle]="getIsDtaThere(eeispf.motherName)" [hidden]="!isPdf">{{eeispf.motherName}}
+                            </div>
+                            <input [hidden]="isPdf" formControlName="motherName" type="text" pInputText size="20"
+                                name="motherName" [(ngModel)]="eeispf.motherName" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">Address: (Street, City, State, Zip)</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div [ngStyle]="getIsDtaThere(eeispf.addressParent)" [hidden]="!isPdf"
+                            [innerHTML]="print_addressParent">
+                        </div>
+                        <textarea autosize id="addressParent" (resized)="textAreaAdjust('addressParent',$event)"
+                            (ngModelChange)="textAreaPrintChangeEvent('print_addressParent',$event)" [hidden]="isPdf"
+                            formControlName="addressParent" pInputTextarea name="addressParent"
+                            [(ngModel)]="eeispf.addressParent"></textarea>
+                    </div>
+                </div>
+                <div class="row margin-bottom-2rem">
+                    <div class="col-xs-4">
+                        <div>Phone Number:</div>
+                        <div>
+                            <div [ngStyle]="getIsDtaThere(eeispf.phoneNoParent)" [hidden]="!isPdf">
+                                {{eeispf.phoneNoParent}}</div>
+                            <input [hidden]="isPdf" formControlName="phoneNoParent" type="text" pInputText size="20"
+                                name="phoneNoParent" [(ngModel)]="eeispf.phoneNoParent" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+                    <div>Email:</div>
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.emailParent)" [hidden]="!isPdf">{{eeispf.emailParent}}
+                        </div>
+                        <input [hidden]="isPdf" formControlName="emailParent" type="text" pInputText size="20"
+                            name="emailParent" [(ngModel)]="eeispf.emailParent" />
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div>Alternate / Backup Contact:</div>
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.contactParent)" [hidden]="!isPdf">{{eeispf.contactParent}}
+                        </div>
+                        <input [hidden]="isPdf" formControlName="contactParent" type="text" pInputText size="20"
+                            name="contactParent" [(ngModel)]="eeispf.contactParent" />
+                    </div>
+                </div>
+            </div>
+            <p>Restricted Contact:</p>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-2">
+                    <div>
+                        <p-checkbox formControlName="isRestrictionContactedYes" class="margin-right-1rem" binary="true"
+                            name="isRestrictionContactedYes" [(ngModel)]="eeispf.isRestrictionContactedYes">
+                        </p-checkbox>
+                        Yes
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div>
+                        <p-checkbox formControlName="isRestrictionContactedNo" class="margin-right-1rem" binary="true"
+                            name="isRestrictionContactedNo" [(ngModel)]="eeispf.isRestrictionContactedNo"></p-checkbox>
+                        No
+                    </div>
+                </div>
+            </div>
+            <p>Parental Rights Terminated or Relinquished:</p>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-2">
+                    <div>
+                        <p-checkbox formControlName="isRightsTerminatedYes" class="margin-right-1rem" binary="true"
+                            name="isRightsTerminatedYes" [(ngModel)]="eeispf.isRightsTerminatedYes"></p-checkbox>
+                        Yes
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div>
+                        <p-checkbox formControlName="isRightsTerminatedNo" class="margin-right-1rem" binary="true"
+                            name="isRightsTerminatedNo" [(ngModel)]="eeispf.isRightsTerminatedNo"></p-checkbox>
+                        No
+                    </div>
+                </div>
+            </div>
+            <p>Provide additional details as relevant to the learning process:</p>
+            <div>
+                <div [ngStyle]="getIsDtaThere(eeispf.additionalDetails)" [hidden]="!isPdf"
+                    [innerHTML]="print_additionalDetails"></div>
+                <textarea autosize id="additionalDetails" (resized)="textAreaAdjust('additionalDetails',$event)"
+                    (ngModelChange)="textAreaPrintChangeEvent('print_additionalDetails',$event)" [hidden]="isPdf"
+                    formControlName="additionalDetails" pInputTextarea name="additionalDetails"
+                    [(ngModel)]="eeispf.additionalDetails"></textarea>
+            </div>
+
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+                    <div>Parent/Legal Guardian Name:</div>
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.fatherName)" [hidden]="!isPdf">{{eeispf.fatherName}}</div>
+                        <input [hidden]="isPdf" formControlName="fatherName" type="text" pInputText size="20"
+                            name="fatherName" [(ngModel)]="eeispf.fatherName" />
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-12">Address: (Street, City, State, Zip Code)</div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-12">
+                    <div [ngStyle]="getIsDtaThere(eeispf.fatherAddress)" [hidden]="!isPdf"
+                        [innerHTML]="print_fatherAddress">
+                    </div>
+                    <textarea autosize id="fatherAddress" (resized)="textAreaAdjust('fatherAddress',$event)"
+                        (ngModelChange)="textAreaPrintChangeEvent('print_fatherAddress',$event)"
+                        formControlName="fatherAddress" pInputTextarea [hidden]="isPdf" name="fatherAddress"
+                        [(ngModel)]="eeispf.fatherAddress" style="width: 100%;height: 100%;"></textarea>
+                </div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+                    <div>Phone Number:</div>
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.fatherPhoneNumber)" [hidden]="!isPdf">
+                            {{eeispf.fatherPhoneNumber}}
+                        </div>
+                        <input [hidden]="isPdf" formControlName="fatherPhoneNumber" type="text" pInputText size="20"
+                            name="fatherPhoneNumber" [(ngModel)]="eeispf.fatherPhoneNumber" />
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+                    <div>Email:</div>
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.fatherEmail)" [hidden]="!isPdf">{{eeispf.fatherEmail}}
+                        </div>
+                        <input [hidden]="isPdf" formControlName="fatherEmail" type="text" pInputText size="20"
+                            name="fatherEmail" [(ngModel)]="eeispf.fatherEmail" />
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div>Alternate / Back up Contact:</div>
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.alternateFatherContact)" [hidden]="!isPdf">
+                            {{eeispf.alternateFatherContact}}</div>
+                        <input [hidden]="isPdf" formControlName="alternateFatherContact" type="text" pInputText
+                            size="20" name="alternateFatherContact" [(ngModel)]="eeispf.alternateFatherContact" />
+                    </div>
+                </div>
+            </div>
+            <p>Restricted Contact:</p>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-2">
+                    <div>
+                        <p-checkbox formControlName="isFatherRestrictedYes" class="margin-right-1rem" binary="true"
+                            name="isFatherRestrictedYes" [(ngModel)]="eeispf.isFatherRestrictedYes"></p-checkbox>
+                        Yes
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div>
+                        <p-checkbox formControlName="isFatherRestrictedNo" class="margin-right-1rem" binary="true"
+                            name="isFatherRestrictedNo" [(ngModel)]="eeispf.isFatherRestrictedNo"></p-checkbox>
+                        No
+                    </div>
+                </div>
+            </div>
+            <p>Parental Rights Terminated or Relinquished:</p>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-2">
+                    <div>
+                        <p-checkbox formControlName="isFatherRightsTerminatedYes" class="margin-right-1rem"
+                            binary="true" name="isFatherRightsTerminatedYes"
+                            [(ngModel)]="eeispf.isFatherRightsTerminatedYes"></p-checkbox>
+                        Yes
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div>
+                        <p-checkbox formControlName="isFatherRightsTerminatedNo" class="margin-right-1rem" binary="true"
+                            name="isFatherRightsTerminatedNo" [(ngModel)]="eeispf.isFatherRightsTerminatedNo">
+                        </p-checkbox>
+                        No
+                    </div>
+                </div>
+            </div>
+            <p>Provide additional details as relevant to the learning process:</p>
+            <div>
+                <div [ngStyle]="getIsDtaThere(eeispf.fatherAdditionalDetails)" [hidden]="!isPdf"
+                    [innerHTML]="print_fatherAdditionalDetails"></div>
+                <textarea autosize id="fatherAdditionalDetails"
+                    (resized)="textAreaAdjust('fatherAdditionalDetails',$event)"
+                    (ngModelChange)="textAreaPrintChangeEvent('print_fatherAdditionalDetails',$event)" [hidden]="isPdf"
+                    formControlName="fatherAdditionalDetails" pInputTextarea name="fatherAdditionalDetails"
+                    [(ngModel)]="eeispf.fatherAdditionalDetails"></textarea>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <b>Education Advocates are appointed through Families Together:</b>
+                </div>
+            </div>
+            <br>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-3"><b>Educational Advocate</b> Name:
+                </div>
+                <div class="col-xs-3" *ngIf="!eeispf.isAdvocateName">
+                    <div [ngStyle]="getIsDtaThere(eeispf.advocateName)" [hidden]="!isPdf">{{eeispf.advocateName}}</div>
+                    <input [hidden]="isPdf" formControlName="advocateName" type="text" pInputText size="20"
+                        name="advocateName" [(ngModel)]="eeispf.advocateName" />
+
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox formControlName="isAdvocateName" class="margin-right-1rem" binary="true"
+                        name="isAdvocateName" [(ngModel)]="eeispf.isAdvocateName"></p-checkbox>
+                    NA
+                </div>
+                <div class="col-md-2">
+                    <p-checkbox formControlName="isAdvInprogress" class="margin-right-1rem" binary="true"
+                        name="isAdvInprogress" [(ngModel)]="eeispf.isAdvInprogress"></p-checkbox>
+                    Inprogress
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">Address: (Street, City, State, Zip Code)</div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-12">
+                    <div [ngStyle]="getIsDtaThere(eeispf.advocateAddress)" [hidden]="!isPdf"
+                        [innerHTML]="print_advocateAddress">
+                    </div>
+                    <textarea autosize id="advocateAddress" (resized)="textAreaAdjust('advocateAddress',$event)"
+                        (ngModelChange)="textAreaPrintChangeEvent('print_advocateAddress',$event)" [hidden]="isPdf"
+                        formControlName="advocateAddress" pInputTextarea name="advocateAddress"
+                        [(ngModel)]="eeispf.advocateAddress"></textarea>
+                </div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+                    <div>Phone Number:</div>
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.advocatePhone)" [hidden]="!isPdf">{{eeispf.advocatePhone}}
+                        </div>
+                        <input [hidden]="isPdf" formControlName="advocatePhone" type="text" pInputText size="20"
+                            name="advocatePhone" [(ngModel)]="eeispf.advocatePhone" />
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-3">
+                    <div>Email:</div>
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.advocateEmail)" [hidden]="!isPdf">{{eeispf.advocateEmail}}
+                        </div>
+                        <input [hidden]="isPdf" formControlName="advocateEmail" type="text" pInputText size="20"
+                            name="advocateEmail" [(ngModel)]="eeispf.advocateEmail" />
+                    </div>
+                </div>
+                <div class="col-xs-9">
+                    <div>Child residing with person acting as parent (kinship relative) who meets criteria for education
+                        decision maker:</div>
+                    <div>
+                        <p-checkbox formControlName="isDecisionMakerYes" class="margin-right-1rem" binary="true"
+                            name="isDecisionMakerYes" [(ngModel)]="eeispf.isDecisionMakerYes"></p-checkbox>
+                        yes
+                        <p-checkbox formControlName="isDecisionMakerNo" class="margin-right-1rem" binary="true"
+                            name="isDecisionMakerNo" [(ngModel)]="eeispf.isDecisionMakerNo"></p-checkbox>
+                        No
+                    </div>
+                </div>
+            </div>
+
+
+            <h3>
+                <b>Section VI: Agency chain of communication</b>
+            </h3>
+
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+                    <div><b>First Contact-</b>Case Manager Name:</div>
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.managerName)" [hidden]="!isPdf">{{eeispf.managerName}}
+                        </div>
+                        <input [hidden]="isPdf" formControlName="managerName" type="text" pInputText size="20"
+                            name="managerName" [(ngModel)]="eeispf.managerName" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-12">
+                    Address: (Street, City, State, Zip)
+                    <div [ngStyle]="getIsDtaThere(eeispf.managerAddress)" [hidden]="!isPdf"
+                        [innerHTML]="print_managerAddress">
+                    </div>
+                    <textarea autosize id="managerAddress" (resized)="textAreaAdjust('managerAddress',$event)"
+                        (ngModelChange)="textAreaPrintChangeEvent('print_managerAddress',$event)" [hidden]="isPdf"
+                        formControlName="managerAddress" pInputTextarea name="managerAddress"
+                        [(ngModel)]="eeispf.managerAddress"></textarea>
+                </div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+                    <div>Cell Phone Number:</div>
+
+                    <div [ngStyle]="getIsDtaThere(eeispf.managerPhone)" [hidden]="!isPdf">{{eeispf.managerPhone}}</div>
+                    <input [hidden]="isPdf" formControlName="managerPhone" type="text" pInputText size="20"
+                        name="managerPhone" [(ngModel)]="eeispf.managerPhone" />
+
+                </div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+                    <div class="row">
+
+                        <div class="col-md-7 padding-right-1">
+                            <div>Office Phone Number:</div>
+                            <div>
+                                <div [ngStyle]="getIsDtaThere(eeispf.managerOfficePhone)" [hidden]="!isPdf">
+                                    {{eeispf.managerOfficePhone}}
+                                </div>
+                                <input [hidden]="isPdf" formControlName="managerOfficePhone" type="text" pInputText
+                                    size="20" name="managerOfficePhone" [(ngModel)]="eeispf.managerOfficePhone" />
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div>Office Extension:</div>
+                            <div>
+                                <div [ngStyle]="getIsDtaThere(eeispf.managerOfficePhone_extension)" [hidden]="!isPdf">
+                                    {{eeispf.managerOfficePhone_extension}}
+                                </div>
+                                <input [hidden]="isPdf" formControlName="managerOfficePhone_extension" type="text"
+                                    pInputText size="20" name="managerOfficePhone_extension"
+                                    [(ngModel)]="eeispf.managerOfficePhone_extension" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xs-4">
+                    <div>Email:</div>
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.managerEmail)" [hidden]="!isPdf">{{eeispf.managerEmail}}
+                        </div>
+                        <input [hidden]="isPdf" formControlName="managerEmail" type="text" pInputText size="20"
+                            name="managerEmail" [(ngModel)]="eeispf.managerEmail" />
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div>Fax Number:</div>
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.managerFax)" [hidden]="!isPdf">{{eeispf.managerFax}}</div>
+                        <input [hidden]="isPdf" formControlName="managerFax" type="text" pInputText size="20"
+                            name="managerFax" [(ngModel)]="eeispf.managerFax" />
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+                    <div>
+                        <b>Second Contact-</b> Case Manager Partner Name:
+                    </div>
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.familySupWorkAddress)"
+                            [innerHTML]="print_familySupportWorkerName" [hidden]="!isPdf"></div>
+                        <textarea autosize id="familySupportWorkerName"
+                            (resized)="textAreaAdjust('familySupportWorkerName',$event)"
+                            (ngModelChange)="textAreaPrintChangeEvent('print_familySupportWorkerName',$event)"
+                            [hidden]="isPdf" formControlName="familySupportWorkerName" pInputTextarea
+                            name="familySupportWorkerName" [(ngModel)]="eeispf.familySupportWorkerName"></textarea>
+
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div>
+                        Address: (Street, City, State, Zip)
+                    </div>
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.familySupWorkAddress)"
+                            [innerHTML]="print_familySupWorkAddress" [hidden]="!isPdf"></div>
+                        <textarea autosize id="familySupWorkAddress"
+                            (resized)="textAreaAdjust('familySupWorkAddress',$event)"
+                            (ngModelChange)="textAreaPrintChangeEvent('print_familySupWorkAddress',$event)"
+                            [hidden]="isPdf" formControlName="familySupWorkAddress" pInputTextarea
+                            name="familySupWorkAddress" [(ngModel)]="eeispf.familySupWorkAddress"></textarea>
+
+                    </div>
+                </div>
+
+                <div class="col-xs-4">
+                    <div>Cell Phone Number:</div>
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.familySupWorkPhone)" [hidden]="!isPdf">
+                            {{eeispf.familySupWorkPhone}}
+                        </div>
+                        <input [hidden]="isPdf" formControlName="familySupWorkPhone" type="text" pInputText size="20"
+                            name="familySupWorkPhone" [(ngModel)]="eeispf.familySupWorkPhone" />
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+
+                    <div class="row">
+
+                        <div class="col-md-7 padding-right-1">
+
+                            <div>Office Phone Number:</div>
+                            <div>
+                                <div [ngStyle]="getIsDtaThere(eeispf.familySupWorkOfficePhone)" [hidden]="!isPdf">
+                                    {{eeispf.familySupWorkOfficePhone}}</div>
+                                <input [hidden]="isPdf" formControlName="familySupWorkOfficePhone" type="text"
+                                    pInputText size="20" name="familySupWorkOfficePhone"
+                                    [(ngModel)]="eeispf.familySupWorkOfficePhone" />
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div>Office Extension:</div>
+                            <div>
+                                <div [ngStyle]="getIsDtaThere(eeispf.familySupWorkOfficePhone_extension)"
+                                    [hidden]="!isPdf">
+                                    {{eeispf.familySupWorkOfficePhone_extension}}
+                                </div>
+                                <input [hidden]="isPdf" formControlName="familySupWorkOfficePhone_extension" type="text"
+                                    pInputText size="20" name="familySupWorkOfficePhone_extension"
+                                    [(ngModel)]="eeispf.familySupWorkOfficePhone_extension" />
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                </div>
+                <div class="col-xs-4">
+                    <div>Email:</div>
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.familySupWorkEmail)" [hidden]="!isPdf">
+                            {{eeispf.familySupWorkEmail}}
+                        </div>
+                        <input [hidden]="isPdf" formControlName="familySupWorkEmail" type="text" pInputText size="20"
+                            name="familySupWorkEmail" [(ngModel)]="eeispf.familySupWorkEmail" />
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div>Fax Number:</div>
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.familySupWorkFax)" [hidden]="!isPdf">
+                            {{eeispf.familySupWorkFax}}</div>
+                        <input [hidden]="isPdf" formControlName="familySupWorkFax" type="text" pInputText size="20"
+                            name="familySupWorkFax" [(ngModel)]="eeispf.familySupWorkFax" />
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+                    <div>
+                        <b>Third Contact-</b>Case Team Supervisor Name:
+                    </div>
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.supervisorName)" [hidden]="!isPdf">
+                            {{eeispf.supervisorName}}</div>
+                        <input [hidden]="isPdf" formControlName="supervisorName" type="text" pInputText size="20"
+                            name="supervisorName" [(ngModel)]="eeispf.supervisorName" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-12">
+                    Address: (Street, City, State, Zip)
+                    <div [ngStyle]="getIsDtaThere(print_supervisorAddress)" [innerHTML]="print_supervisorAddress"
+                        [hidden]="!isPdf"></div>
+                    <textarea autosize id="supervisorAddress" (resized)="textAreaAdjust('supervisorAddress',$event)"
+                        (ngModelChange)="textAreaPrintChangeEvent('print_supervisorAddress',$event)" [hidden]="isPdf"
+                        formControlName="supervisorAddress" pInputTextarea name="supervisorAddress"
+                        [(ngModel)]="eeispf.supervisorAddress"></textarea>
+                </div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+                    Cell Phone Number:
+
+                    <div [ngStyle]="getIsDtaThere(eeispf.supervisorPhone)" [hidden]="!isPdf">{{eeispf.supervisorPhone}}
+                    </div>
+                    <input [hidden]="isPdf" formControlName="supervisorPhone" type="text" pInputText size="20"
+                        name="supervisorPhone" [(ngModel)]="eeispf.supervisorPhone" />
+
+                </div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+
+                    <div class="row">
+
+                        <div class="col-md-7 padding-right-1">
+
+                            <div>Office Phone Number:</div>
+                            <div>
+                                <div [ngStyle]="getIsDtaThere(eeispf.supervisorOfficePhone)" [hidden]="!isPdf">
+                                    {{eeispf.supervisorOfficePhone}}</div>
+                                <input [hidden]="isPdf" formControlName="supervisorOfficePhone" type="text" pInputText
+                                    size="20" name="supervisorOfficePhone" [(ngModel)]="eeispf.supervisorOfficePhone" />
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div>Office Extension:</div>
+                            <div>
+                                <div [ngStyle]="getIsDtaThere(eeispf.supervisorOfficePhone_extension)"
+                                    [hidden]="!isPdf">
+                                    {{eeispf.supervisorOfficePhone_extension}}
+                                </div>
+                                <input [hidden]="isPdf" formControlName="supervisorOfficePhone_extension" type="text"
+                                    pInputText size="20" name="supervisorOfficePhone_extension"
+                                    [(ngModel)]="eeispf.supervisorOfficePhone_extension" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xs-4">
+                    Email:
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.supervisorEmail)" [hidden]="!isPdf">
+                            {{eeispf.supervisorEmail}}</div>
+                        <input [hidden]="isPdf" formControlName="supervisorEmail" type="text" pInputText size="20"
+                            name="supervisorEmail" [(ngModel)]="eeispf.supervisorEmail" />
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    Fax Number:
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.supervisorFax)" [hidden]="!isPdf">{{eeispf.supervisorFax}}
+                        </div>
+                        <input [hidden]="isPdf" formControlName="supervisorFax" type="text" pInputText size="20"
+                            name="supervisorFax" [(ngModel)]="eeispf.supervisorFax" />
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+
+                    <b>Fourth Contact-</b> Education Contact Name:
+
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.eduCoordName)" [hidden]="!isPdf">{{coordName}}</div>
+
+                        <p-autoComplete [hidden]="isPdf" formControlName="eduCoordName" emptyMessage="No results found!"
+                            placeholder="Type here to search" [forceSelection]="true" [dropdown]="true"
+                            [(ngModel)]="eeispf.eduCoordName" size="23" name="eduCoordName"
+                            (onSelect)="fetchingAddressPhone($event)" (completeMethod)="getEducationEnrolls()"
+                            [suggestions]="educationLists" field="fullName">
+                        </p-autoComplete>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-12">
+                    Address: (Street, City, State, Zip)
+                    <div [ngStyle]="getIsDtaThere(eeispf.eduCoordAddress)" [hidden]="!isPdf"
+                        [innerHTML]="print_eduCoordAddress">
+                    </div>
+                    <textarea autosize (resized)="textAreaAdjust('attendees',$event)"
+                        (ngModelChange)="textAreaPrintChangeEvent('print_eduCoordAddress',$event)" [hidden]="isPdf"
+                        formControlName="eduCoordAddress" pInputTextarea name="eduCoordAddress"
+                        [(ngModel)]="eeispf.eduCoordAddress"></textarea>
+                </div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+                    Cell Phone Number:
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.eduCoordPhone)" [hidden]="!isPdf">{{eeispf.eduCoordPhone}}
+                        </div>
+                        <input [hidden]="isPdf" formControlName="eduCoordPhone" type="text" pInputText size="20"
+                            name="eduCoordPhone" [(ngModel)]="eeispf.eduCoordPhone" />
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+
+                    <div class="row">
+
+                        <div class="col-md-7 padding-right-1">
+
+                            <div>Office Phone Number:</div>
+                            <div>
+                                <div [ngStyle]="getIsDtaThere(eeispf.eduCoordOfficePhone)" [hidden]="!isPdf">
+                                    {{eeispf.eduCoordOfficePhone}}
+                                </div>
+                                <input [hidden]="isPdf" formControlName="eduCoordOfficePhone" type="text" pInputText
+                                    size="20" name="eduCoordOfficePhone" [(ngModel)]="eeispf.eduCoordOfficePhone" />
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div>Office Extension:</div>
+                            <div>
+                                <div [ngStyle]="getIsDtaThere(eeispf.eduCoordOfficePhone_extension)" [hidden]="!isPdf">
+                                    {{eeispf.eduCoordOfficePhone_extension}}
+                                </div>
+                                <input [hidden]="isPdf" formControlName="eduCoordOfficePhone_extension" type="text"
+                                    pInputText size="20" name="eduCoordOfficePhone_extension"
+                                    [(ngModel)]="eeispf.eduCoordOfficePhone_extension" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    Email:
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.eduCoordEmail)" [hidden]="!isPdf">{{eeispf.eduCoordEmail}}
+                        </div>
+                        <input [hidden]="isPdf" formControlName="eduCoordEmail" type="text" pInputText size="20"
+                            name="eduCoordEmail" [(ngModel)]="eeispf.eduCoordEmail" />
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    Fax Number:
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.eduCoordFax)" [hidden]="!isPdf">{{eeispf.eduCoordFax}}
+                        </div>
+                        <input [hidden]="isPdf" formControlName="eduCoordFax" type="text" pInputText size="20"
+                            name="eduCoordFax" [(ngModel)]="eeispf.eduCoordFax" />
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+
+                    <b>Fifth Contact-</b> DCF Foster Care Liasion:
+
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.fosterCareName)" [hidden]="!isPdf">
+                            {{eeispf.fosterCareName}}</div>
+                        <input [hidden]="isPdf" formControlName="fosterCareName" type="text" pInputText size="20"
+                            name="dcfFostName" [(ngModel)]="eeispf.fosterCareName" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-12">
+                    Address: (Street, City, State, Zip)
+                    <div [ngStyle]="getIsDtaThere(eeispf.fosterCareAddress)" [hidden]="!isPdf"
+                        [innerHTML]="print_fosterCareAddress"></div>
+                    <textarea autosize (resized)="textAreaAdjust('attendees',$event)"
+                        (ngModelChange)="textAreaPrintChangeEvent('print_fosterCareAddress',$event)" [hidden]="isPdf"
+                        formControlName="dcfFostAddress" pInputTextarea name="fosterCareAddress"
+                        [(ngModel)]="eeispf.fosterCareAddress"></textarea>
+                </div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+                    Cell Phone Number:
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.dcfFostPhone)" [hidden]="!isPdf">{{eeispf.fosterCarePhone}}
+                        </div>
+                        <input [hidden]="isPdf" formControlName="fosterCarePhone" type="text" pInputText size="20"
+                            name="fosterCarePhone" [(ngModel)]="eeispf.fosterCarePhone" />
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+
+                    <div class="row">
+
+                        <div class="col-md-7 padding-right-1">
+
+                            <div>Office Phone Number:</div>
+                            <div>
+                                <div [ngStyle]="getIsDtaThere(eeispf.fosterCareOfficePhone)" [hidden]="!isPdf">
+                                    {{eeispf.fosterCareOfficePhone}}
+                                </div>
+                                <input [hidden]="isPdf" formControlName="fosterCareOfficePhone" type="text" pInputText
+                                    size="20" name="fosterCareOfficePhone" [(ngModel)]="eeispf.fosterCareOfficePhone" />
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div>Office Extension:</div>
+                            <div>
+                                <div [ngStyle]="getIsDtaThere(eeispf.fosterCareOfficePhone_extension)"
+                                    [hidden]="!isPdf">
+                                    {{eeispf.fosterCareOfficePhone_extension}}
+                                </div>
+                                <input [hidden]="isPdf" formControlName="fosterCareOfficePhone_extension" type="text"
+                                    pInputText size="20" name="fosterCareOfficePhone_extension"
+                                    [(ngModel)]="eeispf.fosterCareOfficePhone_extension" />
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+                </div>
+                <div class="col-xs-4">
+                    Email:
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.fosterCareEmail)" [hidden]="!isPdf">
+                            {{eeispf.fosterCareEmail}}</div>
+                        <input [hidden]="isPdf" formControlName="fosterCareEmail" type="text" pInputText size="20"
+                            name="fosterCareEmail" [(ngModel)]="eeispf.fosterCareEmail" />
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    Fax Number:
+                    <div>
+                        <div [ngStyle]="getIsDtaThere(eeispf.fosterCareFax)" [hidden]="!isPdf">{{eeispf.fosterCareFax}}
+                        </div>
+                        <input [hidden]="isPdf" formControlName="fosterCareFax" type="text" pInputText size="20"
+                            name="fosterCareFax" [(ngModel)]="eeispf.fosterCareFax" />
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+
+                    <b>Sixth Contact-</b> DCF Foster Care Adminstrator:
+
+                    <div>
+
+                        <input [hidden]="isPdf" formControlName="sixth_conta_fullName" type="text" pInputText size="20"
+                            name="sixth_conta_fullName" [(ngModel)]="eeispf.sixth_conta_fullName" />
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-12">
+                    Address: (Street, City, State, Zip)
+
+                    <textarea autosize [hidden]="isPdf" formControlName="sixth_conta_fullAddress" pInputTextarea
+                        name="sixth_conta_fullAddress" [(ngModel)]="eeispf.sixth_conta_fullAddress"></textarea>
+                </div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+                    Cell Phone Number:
+                    <div>
+
+                        <input [hidden]="isPdf" formControlName="sixth_conta_cellPhone" type="text" pInputText size="20"
+                            name="sixth_conta_cellPhone" [(ngModel)]="eeispf.sixth_conta_cellPhone" />
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-bottom-2rem">
+                <div class="col-xs-4">
+
+                    <div class="row">
+
+                        <div class="col-md-12 padding-right-1">
+
+                            <div>Office Phone Number:</div>
+                            <div>
+                                <input [hidden]="isPdf" formControlName="sixth_conta_workPhone" type="text" pInputText
+                                    size="20" name="sixth_conta_workPhone" [(ngModel)]="eeispf.sixth_conta_workPhone" />
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-5">
+                            <div>Office Extension:</div>
+                            <div>
+                                <input [hidden]="isPdf" formControlName="sixth_conta_extension" type="text" pInputText
+                                    size="20" name="sixth_conta_extension" [(ngModel)]="eeispf.sixth_conta_extension" />
+                            </div>
+                        </div> -->
+                    </div>
+
+
+
+
+
+
+
+
+                </div>
+                <div class="col-xs-4">
+                    Email:
+                    <div>
+                        <input [hidden]="isPdf" formControlName="sixth_conta_email" type="text" pInputText size="20"
+                            name="sixth_conta_email" [(ngModel)]="eeispf.sixth_conta_email" />
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    Fax Number:
+                    <div>
+
+                        <input [hidden]="isPdf" formControlName="sixth_conta_fax" type="text" pInputText size="20"
+                            name="sixth_conta_fax" [(ngModel)]="eeispf.sixth_conta_fax" />
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="sf-text-center">
+                <img src="assets/kansas_log.png" alt="kansas-log" />
+            </div>
+        </form>
+    </div>
+
+</div>
+<hr>
+<button class="sf-positive-btn" (click)="printPdf()">Print</button>
+<app-form-footer [isEmail]="isEmail" (save)="saveForm(eeispf)" (finalize)="finalizeDraft(eeispf)" (edit)="editForm()"
+    [editControll]="isEdit" [discardTo]="discardTo" [isFinalize]="isFinalize" [currentNodeValue]="req"
+    [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+
+<p-dialog header="Email Alert Confirmation" [(visible)]="isEmailConfirmation" [responsive]="true" showEffect="fade"
+    [modal]="true" [width]="400" [minWidth]="200" [minY]="80" [baseZIndex]="10000" [maximizable]="true"
+    [closable]="true">
+    <div *ngIf="emailNotifiers">
+        <div>
+            <label>Compliance Tech</label>
+            <span>{{ emailNotifiers.ComplianceTech_Email }}</span>
+        </div>
+        <div>
+            <label>Educational Cooridinator</label>
+            <span>{{ emailNotifiers.EducationCoordinator_Email }}</span>
+        </div>
+        <div>
+            <label>Case Manager Team Leader</label>
+            <span>{{ emailNotifiers.CaseManager_TeamLeader_Email }}</span>
+        </div>
+        <div>
+            <label>DCF FosterCare Administator</label>
+            <span>{{ emailNotifiers.DCFFosterCareAdministrator_Email }}</span>
+        </div>
+    </div>
+</p-dialog>
+
+<p-dialog header="Are you sure?" [(visible)]="emailShow" [responsive]="true" showEffect="fade" [modal]="true"
+    [width]="700" [minWidth]="500" [minY]="100" [baseZIndex]="10000" [maximizable]="true" [closable]="true">
+
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-7">
+            <div class="sf-form">
+                <div *ngFor="let category of allSendEmails" class="p-field-checkbox">
+                    <p-checkbox name="group2" value="category" [value]="category" [(ngModel)]="selectedSentEmails">
+                    </p-checkbox>
+                    <label>{{category.email}}</label>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <input type="text" pInputText [(ngModel)]="sendEmail" name="sendEmail" size="20" />
+                    </div>
+                    <div class="col-md-4">
+                        <div style="text-align: end;">
+                            <button class="sf-positive-btn" style="background: #11345d !important;"
+                                (click)="Add_finalyzEmail()" style="width: auto;">
+                                Add Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div style="text-align: end;">
+                    <button [disabled]="isDisabled" class="sf-positive-btn" (click)="finalEmail()" style="width: auto;">
+                        Verify To Finalize!
+                    </button>
+                    <button class="sf-negative-btn" (click)="cancelWindow()" style="width: auto;">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+
+
+</p-dialog>

@@ -1,0 +1,49 @@
+<app-form-header [breadcrumbs]="FCH.breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form class="sf-form" [formGroup]="fchLevelCareForm">
+      <div class="checkbox-container">
+        <div class="container">
+          <p-checkbox name="isBasic" formControlName="isBasic" [(ngModel)]="fchLevelCare.isBasic" label="Basic (B)"
+            binary="true"></p-checkbox>
+          <p-checkbox name="isIntensive" formControlName="isIntensive" [(ngModel)]="fchLevelCare.isIntensive"
+            label="Intensive (I)" binary="true"></p-checkbox>
+          <p-checkbox name="isPreAdoptive" formControlName="isPreAdoptive" [(ngModel)]="fchLevelCare.isPreAdoptive"
+            label="Pre-Adoptive (PA)" binary="true"></p-checkbox>
+        </div>
+        <div class="container">
+          <p-checkbox name="isEmergency" formControlName="isEmergency" [(ngModel)]="fchLevelCare.isEmergency"
+            label="Emergency (ER)" binary="true"></p-checkbox>
+          <p-checkbox name="isIntensivePlus" formControlName="isIntensivePlus"
+            [(ngModel)]="fchLevelCare.isIntensivePlus" label="Intensive Plus (IP)" binary="true"></p-checkbox>
+          <p-checkbox name="isRespite" formControlName="isRespite" [(ngModel)]="fchLevelCare.isRespite"
+            label="Respite (R)" binary="true"></p-checkbox>
+        </div>
+        <div class="container">
+          <p-checkbox name="isHcbs" formControlName="isHcbs" [(ngModel)]="fchLevelCare.isHcbs" label="HCBS"
+            binary="true"></p-checkbox>
+          <p-checkbox name="isJJFC" formControlName="isJJFC" [(ngModel)]="fchLevelCare.isJJFC" label="JJFC"
+            binary="true"></p-checkbox>
+          <p-checkbox name="isRespiteWeekend" formControlName="isRespiteWeekend"
+            [(ngModel)]="fchLevelCare.isRespiteWeekend" label="Respite (Weekend only) (RWO)" binary="true"></p-checkbox>
+        </div>
+        <div class="container">
+          <p-checkbox name="isInformalCare" formControlName="isInformalCare" [(ngModel)]="fchLevelCare.isInformalCare"
+            label="Informal Care (IC)" binary="true"></p-checkbox>
+          <p-checkbox name="isModerate" formControlName="isModerate" [(ngModel)]="fchLevelCare.isModerate"
+            label="Moderate (M)" binary="true"></p-checkbox>
+          <p-checkbox name="isSC" formControlName="isSC" [(ngModel)]="fchLevelCare.isSC" label="Specific Children (SC)"
+            binary="true"></p-checkbox>
+        </div>
+      </div>
+    </form>
+
+    <app-form-footer (labelEmit)="uncheckAll()" [isLabel]="buttonLabel" (save)="formAction(fchLevelCare)"
+      (edit)="editForm()" [editControll]="FCH.isEdit" [discardTo]="FCH.discardTo" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+  </div>
+</div>

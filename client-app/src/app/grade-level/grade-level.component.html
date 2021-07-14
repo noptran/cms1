@@ -1,0 +1,65 @@
+<app-form-header [breadcrumbs]="breadcurmbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="contianer-background">
+  <div class="container-foreground">
+    <form class="sf-form" [formGroup]="gradeLevelForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-md-3 col-sm-3 col-lg-3"><span>Current Grade</span> <span class="mandatory">*</span></div>
+          <div class="col-md-3 col-sm-3 col-lg-3">
+            <p-autoComplete formControlName="gradeID" [(ngModel)]="grade.gradeID" [suggestions]="metaData"
+              (completeMethod)="getMetaData($event,'grade')" name="gradeID" emptyMessage="No results found!"
+              [dropdown]="true"
+              [forceSelection]="true" placeholder="Type here to search" field="grade" size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-md-3 col-sm-3 col-lg-3"><span>Begin Date</span><span class="mandatory">*</span></div>
+          <div class="col-md-3 col-sm-3 col-lg-3">
+            <p-calendar name="dateInput" [(ngModel)]="grade.beginDate" formControlName="beginDate" [showIcon]="true"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030">
+            </p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-md-3 col-sm-3 col-lg-3"><span>End Date</span></div>
+          <div class="col-md-3 col-sm-3 col-lg-3">
+            <p-calendar name="dateInput" [(ngModel)]="grade.endDate" formControlName="endDate" [showIcon]="true"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030">
+            </p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-md-3 col-sm-3 col-lg-3"><span>Completed</span></div>
+          <div class="col-md-3 col-sm-3 col-lg-3">
+            <p-inputSwitch formControlName="isComplete" name="inputtoggle" [(ngModel)]="grade.isComplete">
+            </p-inputSwitch>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-md-3 col-sm-3 col-lg-3"><span>Notes</span></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea name="notes" formControlName="notes" style="width:100%;height:100%" pInputTextArea
+              [(ngModel)]="grade.notes"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer [attachmentControll]="isAttachmentRequired" [isAttachmentDisabled]="false"
+      (attachDoc)="navigateTo()" (save)="formAction(grade)" [editControll]="isEdit" (edit)="editForm()"
+      (discard)="discard()" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+    <app-quick-menu [module]="quickMenu"></app-quick-menu>
+  </div>
+</div>

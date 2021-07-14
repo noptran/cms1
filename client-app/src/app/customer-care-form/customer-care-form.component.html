@@ -1,0 +1,290 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form class="sf-form form-container" [formGroup]="customerCareForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Report ID</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText formControlName="reportID" name="reportID" [(ngModel)]="cc.reportID" size="27"
+              maxlength="25" readonly/>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Report Type</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete formControlName="custCareReportTypeID" [(ngModel)]="cc.custCareReportTypeID"
+              [dropdown]="true" name="custCareReportTypeID" emptyMessage="No results found!" [suggestions]="metaData"
+              (completeMethod)="getMetaData($event,'reportType')" [forceSelection]="true"
+              placeholder="Type here to search" field="ReportType" size="23"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Date Reported</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" [showIcon]="true" formControlName="reportDate" [(ngModel)]="cc.reportDate"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030">
+            </p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Customer Care Staff</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" formControlName="customerCareStaffID" [(ngModel)]="cc.customerCareStaffID"
+              name="gradeID" emptyMessage="No results found!" [suggestions]="metaData"
+              (completeMethod)="getMetaData($event,'staff')" [forceSelection]="true"
+              (onSelect)="getCustomerCareStaffId($event)" placeholder="Type here to search" field="staffFullName"
+              size="23"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Method Of Notification</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" formControlName="custCareNotificationTypeID" [suggestions]="metaData"
+              [(ngModel)]="cc.custCareNotificationTypeID" name="gradeID" emptyMessage="No results found!"
+              (completeMethod)="getMetaData($event,'custCareNotificationType')" [forceSelection]="true"
+              placeholder="Type here to search" field="notificationType" size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Program</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="programType" [(ngModel)]="programType"
+              (onSelect)="getprogramTypeId($event)" formControlName="programType" emptyMessage="No results found!"
+              [suggestions]="metaData" (completeMethod)="getMetaData($event,'programType')" [forceSelection]="true"
+              placeholder="Type here to search" field="programType" size="23"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>General Report Classification</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" [(ngModel)]="cc.custCareGeneralConcernID" [suggestions]="metaData"
+              formControlName="custCareGeneralConcernID" name="gradeID" emptyMessage="No results found!"
+              (completeMethod)="getMetaData($event,'custCareGeneralConcern')" [forceSelection]="true"
+              placeholder="Type here to search" field="generalConcern" size="23"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row separator">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span><b>Notifiers</b></span><span style="color:red">&#42;</span>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Person Sub Type</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="gradeID" formControlName="personSubType"
+              emptyMessage="No results found!" (completeMethod)="getMetaData($event,'personSubType')"
+              field="personAssignmentType" [suggestions]="metaData" [forceSelection]="true" [(ngModel)]="personSubType"
+              (onSelect)="getSubTypeName($event)" placeholder="Type here to search" size="23">
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-2 col-md-2 col-sm-2"><span>Name</span></div>
+          <div class="col-lg-4 col-md-4 col-sm-4">
+            <p-autoComplete [dropdown]="true" name="gradeID" formControlName="personName" [(ngModel)]="personName"
+              (onSelect)="getPersonId($event)" emptyMessage="No results found!"
+              (completeMethod)="getPersonSubTypeName($event)" [forceSelection]="true" [suggestions]="metaData"
+              placeholder="Type here to search" field="staffFullName" size="23">
+            </p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Relationship</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="gradeID" formControlName="personRelationship"
+              [(ngModel)]="personRelationship" emptyMessage="No results found!" field="personType"
+              (completeMethod)="getMetaData($event,'relationship')" [suggestions]="metaData" [forceSelection]="true"
+              placeholder="Type here to search" size="23">
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><button
+              (click)="notifierAddList(personSubType,personName,personRelationship, 'notifier')"
+              class="positive-btn">{{notifierBtnLabel}}</button>
+            <button (click)="removeList('notifier')" class="negative-btn">Remove</button></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row" *ngIf="notifyInvolvedList.length > 0">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <table class="list-table" border="1" cellpadding="10">
+              <tr>
+                <th></th>
+                <th>Person Sub Type</th>
+                <th>Name</th>
+                <th>Relationship</th>
+              </tr>
+              <tr *ngFor="let client of notifyInvolvedList; let i = index;"
+                (click)="getListDetails(client,'notifier',i)">
+                <td><input type="checkbox"></td>
+                <td>{{client?.personSubType?.personAssignmentType}}</td>
+                <td>{{client?.name?.staffFullName}}</td>
+                <td>{{client?.relationship?.personType}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row separator">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span><b>Clients Involved</b></span><span
+              style="color:red">&#42;</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Client</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="gradeID" formControlName="clientName"
+              emptyMessage="No results found!" [(ngModel)]="client" (completeMethod)="getMetaData($event,'client')"
+              [forceSelection]="true" placeholder="Type here to search" [suggestions]="metaData" field="clientFullName"
+              size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3" (click)="addList(client, 'client')"><button
+              class="positive-btn">{{clientBtnLabel}}</button>
+            <button (click)="removeList('client')" class="negative-btn">Remove</button>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row" *ngIf="clientInvolvedList.length > 0">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <table class="list-table" border="1" cellpadding="10">
+              <tr>
+                <th></th>
+                <th>Client ID</th>
+                <th>Client Name</th>
+                <th>DOB</th>
+                <th>SSN</th>
+                <th>KEES</th>
+                <th>Email</th>
+              </tr>
+              <tr *ngFor="let client of clientInvolvedList; let i = index;" (click)="getListDetails(client,'client',i)">
+                <td><input type="checkbox"></td>
+                <td>{{client.clientID}}</td>
+                <td>{{client.clientName}}</td>
+                <td>{{client.dob | date:"MM/dd/yyyy" }}</td>
+                <td>{{client.ssn}}</td>
+                <td>{{client.kees}}</td>
+                <td>{{client.email}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row separator">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span><b>Staff Involved</b></span><span
+              style="color:red">&#42;</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Staff</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="gradeID" formControlName="staffName"
+              emptyMessage="No results found!" [(ngModel)]="staff" [suggestions]="metaData"
+              (completeMethod)="getMetaData($event,'staff')" [forceSelection]="true" placeholder="Type here to search"
+              field="staffFullName" size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><button (click)="addList(staff, 'staff')"
+              class="positive-btn">{{staffBtnLabel}}</button>
+            <button (click)="removeList('staff')" class="negative-btn">Remove</button></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row" *ngIf="staffInvolvedList.length > 0">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <table class="list-table" border="1" cellpadding="10">
+              <tr>
+                <th></th>
+                <th>Staff ID</th>
+                <th>Staff Name</th>
+                <th>Gender</th>
+                <th>Email</th>
+              </tr>
+              <tr *ngFor="let staff of staffInvolvedList; let i = index" (click)="getListDetails(staff,'staff',i)">
+                <td><input type="checkbox"></td>
+                <td>{{staff.staffID}}</td>
+                <td>{{staff.lastName}} {{staff.firstName}}</td>
+                <td>{{staff.genderID?.gender}}</td>
+                <td>{{staff.email}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span>Overview</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea pInputTextArea style="width:100%;height:100%" [(ngModel)]="cc.overview"
+              formControlName="overview"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row separator">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span><b>Resolution</b></span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Resolved Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" showTime="true" [showIcon]="true" [(ngModel)]="cc.resolvedDate" hourFormat="24"
+              formControlName="resolvedDate" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030">
+            </p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span>Resolution</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea pInputTextArea style="width:100%;height:100%" [(ngModel)]="cc.resolution"
+              formControlName="resolution"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer (save)="formAction(cc)" [discardTo]="discardTo" [editControll]="isEdit" (edit)="editForm()">
+    </app-form-footer>
+    <app-quick-menu [module]="quickMenu"></app-quick-menu>
+  </div>
+</div>

@@ -1,0 +1,1182 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="treatmentPlanForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        FAMILY PRESERVATION <br>
+        TREATMENT PLAN UPDATE
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Client Name:</span>
+          <input [(ngModel)]="fpTreatmentPlan.clientName" formControlName="clientName" name="clientName"  type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>FACTS Number:</span>
+          <input [(ngModel)]="fpTreatmentPlan.factsNumber" formControlName="factsNumber" name="factsNumber"  type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Date of Birth:</span>
+          <p-calendar [(ngModel)]="fpTreatmentPlan.dateOfBirth" formControlName="dateOfBirth" name="dateOfBirth"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>MHA Date:</span>
+          <p-calendar [(ngModel)]="fpTreatmentPlan.mhaDate" formControlName="mhaDate" name="mhaDate"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>Date:</span>
+          <p-calendar [(ngModel)]="fpTreatmentPlan.date" formControlName="date" name="date"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <p class="bold">INSTRUCTIONS: To be completed by a LMHP upon case plan expiration if ongoing therapy is indicated.
+    </p>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        Covers
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right"> From</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpTreatmentPlan.coversFrom" formControlName="coversFrom" name="coversFrom"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">To End of Referral Year:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpTreatmentPlan.toEnd" formControlName="toEnd" name="toEnd"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p>Changes shall be added when needed during the treatment period. </p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Therapist/Counselor and Credentials :</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpTreatmentPlan.therapist" formControlName="therapist" name="therapist"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <p>Presenting Problem/Referral Reason:</p>
+        <div class="space-down">
+          <textarea [(ngModel)]="fpTreatmentPlan.presentingProblem" formControlName="presentingProblem" name="presentingProblem"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <p>Clinical Symptoms: (Diagnostic Justification)</p>
+        <div class="space-down">
+          <textarea [(ngModel)]="fpTreatmentPlan.clinicalSymptoms" formControlName="clinicalSymptoms" name="clinicalSymptoms"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <p class="bold center">DSM Diagnosis (Initial)</p>
+    <div class="space-down">
+     
+     <table class="space-down">
+      <tr>
+        <th class="table-td">Code </th>
+        <th class="table-td">
+          <div class="flex-container description">
+            <div>(Principal First)</div>
+            <div>Description</div>
+          </div>
+        </th>
+      </tr>
+      <tr>
+        <td class="table-td"><input  [(ngModel)]="fpTreatmentPlan.code" formControlName="code" name="code" type="text" pInputText size="20" /></td>
+        <td class="table-td"> <textarea [(ngModel)]="fpTreatmentPlan.principalFirst" formControlName="principalFirst" name="principalFirst"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td class="table-td"><input  [(ngModel)]="fpTreatmentPlan.code1" formControlName="code1" name="code1" type="text" pInputText size="20" /></td>
+        <td class="table-td"> <textarea [(ngModel)]="fpTreatmentPlan.principalFirst1" formControlName="principalFirst1" name="principalFirst1"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="table-td"><input  [(ngModel)]="fpTreatmentPlan.code2" formControlName="code2" name="code2" type="text" pInputText size="20" /></td>
+        <td class="table-td"> <textarea [(ngModel)]="fpTreatmentPlan.principalFirst2" formControlName="principalFirst2" name="principalFirst2"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="table-td"><input  [(ngModel)]="fpTreatmentPlan.code3" formControlName="code3" name="code3" type="text" pInputText size="20" /></td>
+        <td class="table-td"> <textarea [(ngModel)]="fpTreatmentPlan.principalFirst3" formControlName="principalFirst3" name="principalFirst3"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="table-td"><input  [(ngModel)]="fpTreatmentPlan.code4" formControlName="code4" name="code4" type="text" pInputText size="20" /></td>
+        <td class="table-td"> <textarea [(ngModel)]="fpTreatmentPlan.principalFirst4" formControlName="principalFirst4" name="principalFirst4"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="table-td"><input  [(ngModel)]="fpTreatmentPlan.code5" formControlName="code5" name="code5" type="text" pInputText size="20" /></td>
+        <td class="table-td"> <textarea [(ngModel)]="fpTreatmentPlan.principalFirst5" formControlName="principalFirst5" name="principalFirst5"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="table-td"><input  [(ngModel)]="fpTreatmentPlan.code6" formControlName="code6" name="code6" type="text" pInputText size="20" /></td>
+        <td class="table-td"> <textarea [(ngModel)]="fpTreatmentPlan.principalFirst6" formControlName="principalFirst6" name="principalFirst6"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="table-td"><input  [(ngModel)]="fpTreatmentPlan.code7" formControlName="code7" name="code7" type="text" pInputText size="20" /></td>
+        <td class="table-td"> <textarea [(ngModel)]="fpTreatmentPlan.principalFirst7" formControlName="principalFirst7" name="principalFirst7"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="table-td"><input  [(ngModel)]="fpTreatmentPlan.code8" formControlName="code8" name="code8" type="text" pInputText size="20" /></td>
+        <td class="table-td"> <textarea [(ngModel)]="fpTreatmentPlan.principalFirst8" formControlName="principalFirst8" name="principalFirst8"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="table-td"></td>
+        <td class="table-td"> GAF:<textarea [(ngModel)]="fpTreatmentPlan.principalFirst9" formControlName="principalFirst9" name="principalFirst9"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+        </td>
+      </tr>
+   
+    </table>
+    </div>
+    <p class="bold center">DSM Diagnosis (Updated)</p>
+    <div class="space-down">
+      <table class="space-down">
+        <tr>
+          <th class="table-td">Code </th>
+          <th class="table-td">
+            <div class="flex-container description">
+              <div>(Principal First)</div>
+              <div>Description</div>
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <td class="table-td"><input  [(ngModel)]="fpTreatmentPlan.codeUpdated" formControlName="codeUpdated" name="codeUpdated" type="text" pInputText size="20" /></td>
+          <td class="table-td"> <textarea [(ngModel)]="fpTreatmentPlan.principalFirstUpdated" formControlName="principalFirstUpdated" name="principalFirstUpdated"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"><input  [(ngModel)]="fpTreatmentPlan.code1Updated" formControlName="code1Updated" name="code1Updated" type="text" pInputText size="20" /></td>
+          <td class="table-td"> <textarea [(ngModel)]="fpTreatmentPlan.principalFirst1Updated" formControlName="principalFirst1Updated" name="principalFirst1Updated"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input  [(ngModel)]="fpTreatmentPlan.code2Updated" formControlName="code2Updated" name="code2Updated" type="text" pInputText size="20" /></td>
+          <td class="table-td"> <textarea [(ngModel)]="fpTreatmentPlan.principalFirst2Updated" formControlName="principalFirst2Updated" name="principalFirst2Updated"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input  [(ngModel)]="fpTreatmentPlan.code3Updated" formControlName="code3Updated" name="code3Updated" type="text" pInputText size="20" /></td>
+          <td class="table-td"> <textarea [(ngModel)]="fpTreatmentPlan.principalFirst3Updated" formControlName="principalFirst3Updated" name="principalFirst3Updated"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input  [(ngModel)]="fpTreatmentPlan.code4Updated" formControlName="code4Updated" name="code4Updated" type="text" pInputText size="20" /></td>
+          <td class="table-td"> <textarea [(ngModel)]="fpTreatmentPlan.principalFirst4Updated" formControlName="principalFirst4Updated" name="principalFirst4Updated"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input  [(ngModel)]="fpTreatmentPlan.code5Updated" formControlName="code5Updated" name="code5Updated" type="text" pInputText size="20" /></td>
+          <td class="table-td"> <textarea [(ngModel)]="fpTreatmentPlan.principalFirst5Updated" formControlName="principalFirst5Updated" name="principalFirst5Updated"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input  [(ngModel)]="fpTreatmentPlan.code6Updated" formControlName="code6Updated" name="code6Updated" type="text" pInputText size="20" /></td>
+          <td class="table-td"> <textarea [(ngModel)]="fpTreatmentPlan.principalFirst6Updated" formControlName="principalFirst6Updated" name="principalFirst6Updated"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input  [(ngModel)]="fpTreatmentPlan.code7Updated" formControlName="code7Updated" name="code7Updated" type="text" pInputText size="20" /></td>
+          <td class="table-td"> <textarea [(ngModel)]="fpTreatmentPlan.principalFirst7Updated" formControlName="principalFirst7Updated" name="principalFirst7Updated"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input  [(ngModel)]="fpTreatmentPlan.code8Updated" formControlName="code8Updated" name="code8Updated" type="text" pInputText size="20" /></td>
+          <td class="table-td"> <textarea [(ngModel)]="fpTreatmentPlan.principalFirst8Updated" formControlName="principalFirst8Updated" name="principalFirst8Updated"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td"></td>
+          <td class="table-td"> GAF:<textarea [(ngModel)]="fpTreatmentPlan.principalFirst9Updated" formControlName="principalFirst9Updated" name="principalFirst9Updated"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+     
+      </table>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <div class="flex-container space-down">
+          <div class="space-right">
+            Special Health Care Needs Status (SHCN):
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpTreatmentPlan.isNoShcn" formControlName="isNoShcn" name="isNoShcn"  class="space-right"></p-checkbox>No SHCN
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpTreatmentPlan.isSpmi" formControlName="isSpmi" name="isSpmi"  class="space-right"></p-checkbox>SPMI
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpTreatmentPlan.isMentalIllness" formControlName="isMentalIllness" name="isMentalIllness"  class="space-right"></p-checkbox>Mental Illness/Substance Abuse
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpTreatmentPlan.isIdd" formControlName="isIdd" name="isIdd"  class="space-right"></p-checkbox>Mental Illness/IDD
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpTreatmentPlan.isPregnant" formControlName="isPregnant" name="isPregnant"  class="space-right"></p-checkbox>Pregnant and using Substances
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpTreatmentPlan.isIntravenousDrugs" formControlName="isIntravenousDrugs" name="isIntravenousDrugs"  class="space-right"></p-checkbox>Using Intravenous Drugs
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <p>Client Identified Barriers to Treatment:</p>
+        <div class="space-down">
+          <textarea [(ngModel)]="fpTreatmentPlan.isBarriers" formControlName="isBarriers" name="isBarriers"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <p>Client Identified Strengths/Assets:</p>
+        <div class="space-down">
+          <textarea [(ngModel)]="fpTreatmentPlan.isStrengths" formControlName="isStrengths" name="isStrengths"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <p>Discharge Criteria (What will client “look” like if complete goals. Must be measurable)</p>
+        <div class="space-down">
+          <textarea [(ngModel)]="fpTreatmentPlan.isDischargeCriteria" formControlName="isDischargeCriteria" name="isDischargeCriteria"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <p>Service Modality Codes</p>
+    <div class="space-down">
+      <div class="flex-container space-between">
+        <div>1. Individual Therapy</div>
+        <div>2. Med Review/Management</div>
+      </div>
+      <div class="flex-container space-between">
+        <div>3. Family Therapy (In home/community)</div>
+        <div>4. Consultations (school, family, physician, etc)</div>
+      </div>
+      <div class="flex-container space-between">
+        <div>5. Family Therapy (In clinic)</div>
+        <div>6. Close Case</div>
+      </div>
+      <div class="flex-container space-between">
+        <div>7. A/D Therapy</div>
+        <div class="flex-container space-between">
+          <div class="space-right">8. Other:</div>
+          <div><span> <input [(ngModel)]="fpTreatmentPlan.isOther" formControlName="isOther" name="isOther"  type="text" pInputText size="20" /></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="table-td">
+      <div class="border-line">
+        <div class="flex-container diagnoses table-td">
+          <div class="space-right">Goal I. </div>
+          <span> <input [(ngModel)]="fpTreatmentPlan.goalI" formControlName="goalI" name="goalI"  type="text" pInputText size="20" /></span>
+        </div>
+        <div class="table-td">
+          <table id="input" class="center table-td">
+            <tr>
+              <th class="table-td">Obj #</th>
+              <th class="table-td">Objectives (must be measurable, observable, behavioral)</th>
+              <th class="table-td">Service Modality</th>
+              <th class="table-td">Frequency</th>
+              <th class="table-td">Duration</th>
+              <th class="table-td">Start Date</th>
+              <th class="table-td">Target Date</th>
+              <th class="table-td">Review Score or Completed Date</th>
+            </tr>
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIObj" formControlName="goalIObj" name="goalIObj" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIObjectives" formControlName="goalIObjectives" name="goalIObjectives"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIServiceModality" formControlName="goalIServiceModality" name="goalIServiceModality"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIFrequency" formControlName="goalIFrequency" name="goalIFrequency" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIDuration" formControlName="goalIDuration" name="goalIDuration" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIStartDate" formControlName="goalIStartDate" name="goalIStartDate" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalITargetDate" formControlName="goalITargetDate" name="goalITargetDate" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIReviewScore" formControlName="goalIReviewScore" name="goalIReviewScore" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIObj1" formControlName="goalIObj1" name="goalIObj1" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIObjectives1" formControlName="goalIObjectives1" name="goalIObjectives1"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIServiceModality1" formControlName="goalIServiceModality1" name="goalIServiceModality1"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIFrequency1" formControlName="goalIFrequency1" name="goalIFrequency1" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIDuration1" formControlName="goalIDuration1" name="goalIDuration1" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIStartDate1" formControlName="goalIStartDate1" name="goalIStartDate1" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalITargetDate1" formControlName="goalITargetDate1" name="goalITargetDate1" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIReviewScore1" formControlName="goalIReviewScore1" name="goalIReviewScore1" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIObj2" formControlName="goalIObj2" name="goalIObj2" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIObjectives2" formControlName="goalIObjectives2" name="goalIObjectives2"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIServiceModality2" formControlName="goalIServiceModality2" name="goalIServiceModality2"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIFrequency2" formControlName="goalIFrequency2" name="goalIFrequency2" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIDuration2" formControlName="goalIDuration2" name="goalIDuration2" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIStartDate2" formControlName="goalIStartDate2" name="goalIStartDate2" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalITargetDate2" formControlName="goalITargetDate2" name="goalITargetDate2" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIReviewScore2" formControlName="goalIReviewScore2" name="goalIReviewScore2" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIObj3" formControlName="goalIObj3" name="goalIObj3" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIObjectives3" formControlName="goalIObjectives3" name="goalIObjectives3"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIServiceModality3" formControlName="goalIServiceModality3" name="goalIServiceModality3"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIFrequency3" formControlName="goalIFrequency3" name="goalIFrequency3" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIDuration3" formControlName="goalIDuration3" name="goalIDuration3" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIStartDate3" formControlName="goalIStartDate3" name="goalIStartDate3" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalITargetDate3" formControlName="goalITargetDate3" name="goalITargetDate3" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIReviewScore3" formControlName="goalIReviewScore3" name="goalIReviewScore3" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIObj4" formControlName="goalIObj4" name="goalIObj4" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIObjectives4" formControlName="goalIObjectives4" name="goalIObjectives4"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIServiceModality4" formControlName="goalIServiceModality4" name="goalIServiceModality4"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIFrequency4" formControlName="goalIFrequency4" name="goalIFrequency4" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIDuration4" formControlName="goalIDuration4" name="goalIDuration4" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIStartDate4" formControlName="goalIStartDate4" name="goalIStartDate4" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalITargetDate4" formControlName="goalITargetDate4" name="goalITargetDate4" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIReviewScore4" formControlName="goalIReviewScore4" name="goalIReviewScore4" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="table-td">
+      <div class="border-line">
+        <div class="flex-container diagnoses table-td">
+          <div class="space-right">Goal II. </div>
+          <span> <input [(ngModel)]="fpTreatmentPlan.goalII" formControlName="goalII" name="goalII"  type="text" pInputText size="20" /></span>
+        </div>
+        <div class="table-td">
+          <table id="input" class="center table-td">
+            <tr>
+              <th class="table-td">Obj #</th>
+              <th class="table-td">Objectives (must be measurable, observable, behavioral)</th>
+              <th class="table-td">Service Modality</th>
+              <th class="table-td">Frequency</th>
+              <th class="table-td">Duration</th>
+              <th class="table-td">Start Date</th>
+              <th class="table-td">Target Date</th>
+              <th class="table-td">Review Score or Completed Date</th>
+            </tr>
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIObj" formControlName="goalIIObj" name="goalIIObj" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIObjectives" formControlName="goalIIObjectives" name="goalIIObjectives"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIServiceModality" formControlName="goalIIServiceModality" name="goalIIServiceModality"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIFrequency" formControlName="goalIIFrequency" name="goalIIFrequency" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIDuration" formControlName="goalIIDuration" name="goalIIDuration" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIStartDate" formControlName="goalIIStartDate" name="goalIIStartDate" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIITargetDate" formControlName="goalIITargetDate" name="goalIITargetDate" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIReviewScore" formControlName="goalIIReviewScore" name="goalIIReviewScore" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIObj1" formControlName="goalIIObj1" name="goalIIObj1" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIObjectives1" formControlName="goalIIObjectives1" name="goalIIObjectives1"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIServiceModality1" formControlName="goalIIServiceModality1" name="goalIIServiceModality1"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIFrequency1" formControlName="goalIIFrequency1" name="goalIIFrequency1" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIDuration1" formControlName="goalIIDuration1" name="goalIIDuration1" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIStartDate1" formControlName="goalIIStartDate1" name="goalIIStartDate1" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIITargetDate1" formControlName="goalIITargetDate1" name="goalIITargetDate1" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIReviewScore1" formControlName="goalIIReviewScore1" name="goalIIReviewScore1" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIObj2" formControlName="goalIIObj2" name="goalIIObj2" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIObjectives2" formControlName="goalIIObjectives2" name="goalIIObjectives2"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIServiceModality2" formControlName="goalIIServiceModality2" name="goalIIServiceModality2"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIFrequency2" formControlName="goalIIFrequency2" name="goalIIFrequency2" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIDuration2" formControlName="goalIIDuration2" name="goalIIDuration2" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIStartDate2" formControlName="goalIIStartDate2" name="goalIIStartDate2" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIITargetDate2" formControlName="goalIITargetDate2" name="goalIITargetDate2" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIReviewScore2" formControlName="goalIIReviewScore2" name="goalIIReviewScore2" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIObj3" formControlName="goalIIObj3" name="goalIIObj3" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIObjectives3" formControlName="goalIIObjectives3" name="goalIIObjectives3"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIServiceModality3" formControlName="goalIIServiceModality3" name="goalIIServiceModality3"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIFrequency3" formControlName="goalIIFrequency3" name="goalIIFrequency3" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIDuration3" formControlName="goalIIDuration3" name="goalIIDuration3" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIStartDate3" formControlName="goalIIStartDate3" name="goalIIStartDate3" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIITargetDate3" formControlName="goalIITargetDate3" name="goalIITargetDate3" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIReviewScore3" formControlName="goalIIReviewScore3" name="goalIIReviewScore3" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIObj4" formControlName="goalIIObj4" name="goalIIObj4" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIObjectives4" formControlName="goalIIObjectives4" name="goalIIObjectives4"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIServiceModality4" formControlName="goalIIServiceModality4" name="goalIIServiceModality4"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIFrequency4" formControlName="goalIIFrequency4" name="goalIIFrequency4" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIDuration4" formControlName="goalIIDuration4" name="goalIIDuration4" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIStartDate4" formControlName="goalIIStartDate4" name="goalIIStartDate4" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIITargetDate4" formControlName="goalIITargetDate4" name="goalIITargetDate4" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIReviewScore4" formControlName="goalIIReviewScore4" name="goalIIReviewScore4" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="table-td">
+      <div class="border-line">
+        <div class="flex-container diagnoses table-td">
+          <div class="space-right">Goal III. </div>
+          <span> <input [(ngModel)]="fpTreatmentPlan.goalIII" formControlName="goalIII" name="goalIII"  type="text" pInputText size="20" /></span>
+        </div>
+        <div class="table-td">
+          <table id="input" class="center table-td">
+            <tr>
+              <th class="table-td">Obj #</th>
+              <th class="table-td">Objectives (must be measurable, observable, behavioral)</th>
+              <th class="table-td">Service Modality</th>
+              <th class="table-td">Frequency</th>
+              <th class="table-td">Duration</th>
+              <th class="table-td">Start Date</th>
+              <th class="table-td">Target Date</th>
+              <th class="table-td">Review Score or Completed Date</th>
+            </tr>
+            
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIObj" formControlName="goalIIIObj" name="goalIIIObj" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIObjectives" formControlName="goalIIIObjectives" name="goalIIIObjectives"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIServiceModality" formControlName="goalIIIServiceModality" name="goalIIIServiceModality"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIFrequency" formControlName="goalIIIFrequency" name="goalIIIFrequency" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIDuration" formControlName="goalIIIDuration" name="goalIIIDuration" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIIStartDate" formControlName="goalIIIStartDate" name="goalIIIStartDate" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIITargetDate" formControlName="goalIIITargetDate" name="goalIIITargetDate" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIIReviewScore" formControlName="goalIIIReviewScore" name="goalIIIReviewScore" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIObj1" formControlName="goalIIIObj1" name="goalIIIObj1" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIObjectives1" formControlName="goalIIIObjectives1" name="goalIIIObjectives1"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIServiceModality1" formControlName="goalIIIServiceModality1" name="goalIIIServiceModality1"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIFrequency1" formControlName="goalIIIFrequency1" name="goalIIIFrequency1" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIDuration1" formControlName="goalIIIDuration1" name="goalIIIDuration1" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIIStartDate1" formControlName="goalIIIStartDate1" name="goalIIIStartDate1" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIITargetDate1" formControlName="goalIIITargetDate1" name="goalIIITargetDate1" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIIReviewScore1" formControlName="goalIIIReviewScore1" name="goalIIIReviewScore1" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIObj2" formControlName="goalIIIObj2" name="goalIIIObj2" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIObjectives2" formControlName="goalIIIObjectives2" name="goalIIIObjectives"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIServiceModality2" formControlName="goalIIIServiceModality2" name="goalIIIServiceModality2"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIFrequency2" formControlName="goalIIIFrequency2" name="goalIIIFrequency2" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIDuration2" formControlName="goalIIIDuration2" name="goalIIIDuration2" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIIStartDate2" formControlName="goalIIIStartDate2" name="goalIIIStartDate2" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIITargetDate2" formControlName="goalIIITargetDate2" name="goalIIITargetDate2" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIIReviewScore2" formControlName="goalIIIReviewScore2" name="goalIIIReviewScore2" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIObj3" formControlName="goalIIIObj3" name="goalIIIObj3" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIObjectives3" formControlName="goalIIIObjectives3" name="goalIIIObjectives3"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIServiceModality3" formControlName="goalIIIServiceModality3" name="goalIIIServiceModality3"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIFrequency3" formControlName="goalIIIFrequency3" name="goalIIIFrequency3" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIDuration3" formControlName="goalIIIDuration3" name="goalIIIDuration3" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIIStartDate3" formControlName="goalIIIStartDate3" name="goalIIIStartDate3" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIITargetDate3" formControlName="goalIIITargetDate3" name="goalIIITargetDate3" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIIReviewScore3" formControlName="goalIIIReviewScore3" name="goalIIIReviewScore3" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIObj4" formControlName="goalIIIObj4" name="goalIIIObj4" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIObjectives4" formControlName="goalIIIObjectives4" name="goalIIIObjectives4"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIServiceModality4" formControlName="goalIIIServiceModality4" name="goalIIIServiceModality4"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIFrequency4" formControlName="goalIIIFrequency4" name="goalIIIFrequency4" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.goalIIIDuration4" formControlName="goalIIIDuration4" name="goalIIIDuration4" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIIStartDate4" formControlName="goalIIIStartDate4" name="goalIIIStartDate4" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIITargetDate4" formControlName="goalIIITargetDate4" name="goalIIITargetDate4" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.goalIIIReviewScore4" formControlName="goalIIIReviewScore4" name="goalIIIReviewScore4" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="table-td">
+      <div class="border-line">
+        <div class="flex-container diagnoses table-td">
+          <div class="space-right">Long Term Goal :</div>
+          <span> <input [(ngModel)]="fpTreatmentPlan.longGoal" formControlName="longGoal" name="longGoal"  type="text" pInputText size="20" /></span>
+        </div>
+        <p>(Goal Cl would like to meet 6 mos or longer)(ONLY completed if providing Substance Tx.)</p>
+        <div class="table-td">
+          <table id="input" class="center table-td">
+            <tr>
+              <th class="table-td">Obj #</th>
+              <th class="table-td">Objectives (must be measurable, observable, behavioral)</th>
+              <th class="table-td">Service Modality</th>
+              <th class="table-td">Frequency</th>
+              <th class="table-td">Duration</th>
+              <th class="table-td">Start Date</th>
+              <th class="table-td">Target Date</th>
+              <th class="table-td">Review Score or Completed Date</th>
+            </tr>
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalObj" formControlName="longGoalObj" name="longGoalObj" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalObjectives" formControlName="longGoalObjectives" name="longGoalObjectives"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalServiceModality" formControlName="longGoalServiceModality" name="longGoalServiceModality"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalFrequency" formControlName="longGoalFrequency" name="longGoalFrequency" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalDuration" formControlName="longGoalDuration" name="longGoalDuration" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.longGoalStartDate" formControlName="longGoalStartDate" name="longGoalStartDate" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.longGoalTargetDate" formControlName="longGoalTargetDate" name="longGoalTargetDate" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.longGoalReviewScore" formControlName="longGoalReviewScore" name="longGoalReviewScore" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalObj1" formControlName="longGoalObj1" name="longGoalObj1" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalObjectives1" formControlName="longGoalObjectives1" name="longGoalObjectives1"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalServiceModality1" formControlName="longGoalServiceModality1" name="longGoalServiceModality1"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalFrequency1" formControlName="longGoalFrequency1" name="longGoalFrequency1" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalDuration1" formControlName="longGoalDuration1" name="longGoalDuration1" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.longGoalStartDate1" formControlName="longGoalStartDate1" name="longGoalStartDate1" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.longGoalTargetDate1" formControlName="longGoalTargetDate1" name="longGoalTargetDate1" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.longGoalReviewScore1" formControlName="longGoalReviewScore1" name="longGoalReviewScore1" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalObj2" formControlName="longGoalObj2" name="longGoalObj2" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalObjectives2" formControlName="longGoalObjectives2" name="longGoalObjectives2"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalServiceModality2" formControlName="longGoalServiceModality2" name="longGoalServiceModality2"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalFrequency2" formControlName="longGoalFrequency2" name="longGoalFrequency2" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalDuration2" formControlName="longGoalDuration2" name="longGoalDuration2" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.longGoalStartDate2" formControlName="longGoalStartDate2" name="longGoalStartDate2" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.longGoalTargetDate2" formControlName="longGoalTargetDate2" name="longGoalTargetDate2" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.longGoalReviewScore2" formControlName="longGoalReviewScore2" name="longGoalReviewScore2" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalObj3" formControlName="longGoalObj3" name="longGoalObj3" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalObjectives3" formControlName="longGoalObjectives3" name="longGoalObjectives3"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalServiceModality3" formControlName="longGoalServiceModality3" name="longGoalServiceModality3"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalFrequency3" formControlName="longGoalFrequency3" name="longGoalFrequency3" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalDuration3" formControlName="longGoalDuration3" name="longGoalDuration3" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.longGoalStartDate3" formControlName="longGoalStartDate3" name="longGoalStartDate3" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.longGoalTargetDate3" formControlName="longGoalTargetDate3" name="longGoalTargetDate3" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.longGoalReviewScore3" formControlName="longGoalReviewScore3" name="longGoalReviewScore3" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalObj" formControlName="longGoalObj" name="longGoalObj" type="text" pInputText
+                  size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalObjectives4" formControlName="longGoalObjectives4" name="longGoalObjectives4"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalServiceModality4" formControlName="longGoalServiceModality4" name="longGoalServiceModality4"
+                  type="text" pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalFrequency4" formControlName="longGoalFrequency4" name="longGoalFrequency4" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <input [(ngModel)]="fpTreatmentPlan.longGoalDuration4" formControlName="longGoalDuration4" name="longGoalDuration4" type="text"
+                  pInputText size="20" />
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.longGoalStartDate4" formControlName="longGoalStartDate4" name="longGoalStartDate4" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.longGoalTargetDate4" formControlName="longGoalTargetDate4" name="longGoalTargetDate4" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+              <td class="table-td">
+                <p-calendar [(ngModel)]="fpTreatmentPlan.longGoalReviewScore" formControlName="longGoalReviewScore4" name="longGoalReviewScore4" [inputStyle]="{'width':'130px'}"
+                  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </td>
+            </tr>
+
+
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-between space-down">
+      <div class="space-down">
+        <span>PROGNOSIS (Relative to treatment goals/objectives) </span>
+      </div>
+      <div class="space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpTreatmentPlan.isGood" formControlName="isGood" name="isGood"  class="space-right"></p-checkbox>
+        <span>Good </span>
+      </div>
+      <div class="space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpTreatmentPlan.isFair" formControlName="isFair" name="isFair"  class="space-right"></p-checkbox>
+        <span>Fair </span>
+      </div>
+      <div class="space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpTreatmentPlan.isGuarded" formControlName="isGuarded" name="isGuarded"  class="space-right"></p-checkbox>
+        <span>Guarded</span>
+      </div>
+    </div>
+    <div class="table-td">
+      <div class="space-down border-line">
+        <div class="table-td">Justification:</div>
+        <div class="table-td">
+          <textarea [(ngModel)]="fpTreatmentPlan.justification" formControlName="justification" name="justification"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <h3 class="center">TREATMENT PLAN SIGNATURE PAGE</h3>
+    <div class="flex-container space-between space-down">
+      <div>
+        <input [(ngModel)]="fpTreatmentPlan.consumer" formControlName="consumer" name="consumer"  type="text" pInputText size="20" />
+        <p>Consumer (Client)</p>
+      </div>
+      <div>
+        <p-calendar [(ngModel)]="fpTreatmentPlan.consumerDate" formControlName="consumerDate" name="consumerDate"  showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        <p>Date</p>
+      </div>
+    </div>
+    <div class="flex-container space-between space-down">
+      <div>
+        <input [(ngModel)]="fpTreatmentPlan.parent" formControlName="parent" name="parent"  type="text" pInputText size="20" />
+        <p>Parent/Guardian/Legal Representative</p>
+      </div>
+      <div>
+        <p-calendar [(ngModel)]="fpTreatmentPlan.parentDate" formControlName="parentDate" name="parentDate"  showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        <p>Date</p>
+      </div>
+    </div>
+    <div class="flex-container space-between space-down">
+      <div>
+        <input [(ngModel)]="fpTreatmentPlan.therapistSignature" formControlName="therapistSignature" name="therapistSignature"  type="text" pInputText size="20" />
+        <p>Therapist/Counselor Signature</p>
+      </div>
+      <div>
+        <p-calendar [(ngModel)]="fpTreatmentPlan.therapistDate" formControlName="therapistDate" name="therapistDate"  showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        <p>Date</p>
+      </div>
+    </div>
+    <div class="flex-container space-down diagnoses">
+      <div class="space-right">Participant’s Signatures:</div>
+      <div>
+        <div class="flex-container space-between">
+          <div class="space-down">
+            <div class="space-right space-down"><input [(ngModel)]="fpTreatmentPlan.participantSignatures" formControlName="participantSignatures" name="participantSignatures"  type="text" pInputText size="20" /></div>
+            <div class="space-right space-down"><input [(ngModel)]="fpTreatmentPlan.participantSignatures1" formControlName="participantSignatures1" name="participantSignatures1"  type="text" pInputText size="20" /></div>
+          </div>
+          <div class="space-down">
+            <div class="space-right space-down"> <input [(ngModel)]="fpTreatmentPlan.participantSignatures2" formControlName="participantSignatures2" name="participantSignatures2"  type="text" pInputText size="20" /></div>
+            <div class="space-right space-down"> <input [(ngModel)]="fpTreatmentPlan.participantSignatures3" formControlName="participantSignatures3" name="participantSignatures3"  type="text" pInputText size="20" /></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+        <div class="space-right space-down">
+          <div class="space-right">
+            <b>Printed Date:</b>
+          </div>
+          <div class="space-right">
+            <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="space-right space-down margin-left-66rem">
+          <div class="space-right">
+            <b>Printed By:</b>
+          </div>
+          <div class="space-right">
+            <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+          </div>
+        </div>
+  
+      </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,fpTreatmentPlan)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

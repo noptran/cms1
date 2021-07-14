@@ -1,0 +1,55 @@
+<div class="position-lock">
+  <div class="header-container">
+    <div *ngIf="!isBackLabel">
+      <app-breadcrumb
+        (breadCrumOut)="cmsAttach($event)"
+        [data]="crumbs"
+      ></app-breadcrumb>
+    </div>
+    <div *ngIf="isBackLabel">
+      <div
+        class="sf-formBack-btn"
+        (click)="goToPreviousStep()"
+        pTooltip="{{ backLabel }}"
+      >
+        <span class="fa fa-arrow-left"></span>
+      </div>
+    </div>
+    <!-- <div class="header-container-rightwell">
+      <div>
+        <span class="header-text">Status: </span>
+        <span class="draft status-text">Draft</span>
+      </div>
+      <div class="header-container-formswitch">
+        <span class="switch-text">Inactive</span>
+        <p-inputSwitch  (onChange)="formStatusControll()" pTooltip="Form status"></p-inputSwitch>
+        <span class="switch-text">Active</span>
+      </div>
+    </div> -->
+  </div>
+  <div *ngIf="isProfileView">
+    <person-types-profile-info
+      [primaryValue]="currentPrimaryValue"
+      [personType]="currentPersonType"
+      *ngIf="isProfileView"
+    ></person-types-profile-info>
+  </div>
+  <div>
+    <p class="text-center" *ngIf="isWaitForProviderRes">
+      <b>Please Wait....</b>
+    </p>
+    <provider-info
+      *ngIf="isProviderInfoView"
+      [profileDatas]="providerData"
+    ></provider-info>
+    <staff-info
+      *ngIf="isShowStaffInfoView"
+      [staff_profileDatas]="staffData"
+      [staffName_profileDatas]="staffNameData"
+    ></staff-info>
+    <app-school-info
+    *ngIf="isShowSchoolProfile"
+    [schoolDatas]="schoolData"
+    ></app-school-info>
+  </div>
+</div>

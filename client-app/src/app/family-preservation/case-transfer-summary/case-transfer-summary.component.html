@@ -1,0 +1,301 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="caseTransferForm" class="sf-form">
+      <div class="flex-container header">
+          <div>
+    
+          </div>
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+          <div>
+    
+          </div>
+        </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Case Name: </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="fpCaseTransfer.caseName" formControlName="caseName" name="caseName"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpCaseTransfer.date" formControlName="date" name="date"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">FACTS Case Number:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpCaseTransfer.factsCaseNumber" formControlName="factsCaseNumber" name="factsCaseNumber"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td center" rowspan="2">DATE/ TIME</th>
+          <th class="table-td center" colspan="3">STAFF PARTICIPATING</th>
+        </tr>
+        <tr>
+          <th class="table-td">Full Name</th>
+          <th class="table-td">Position</th>
+          <th class="table-td">Relationship to the Case</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpCaseTransfer.dateTime" formControlName="dateTime" name="dateTime"  [inputStyle]="{'width':'140px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td"> <input [(ngModel)]="fpCaseTransfer.fullName" formControlName="fullName" name="fullName"  type="text" pInputText size="20" /></td>
+          <td class="table-td"> <input [(ngModel)]="fpCaseTransfer.position" formControlName="position" name="position"  type="text" pInputText size="20" /></td>
+          <td class="table-td"> <input [(ngModel)]="fpCaseTransfer.relationship" formControlName="relationship" name="relationship"  type="text" pInputText size="20" /></td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpCaseTransfer.dateTime1" formControlName="dateTime1" name="dateTime1"  [inputStyle]="{'width':'140px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td"> <input [(ngModel)]="fpCaseTransfer.fullName1" formControlName="fullName1" name="fullName1"  type="text" pInputText size="20" /></td>
+          <td class="table-td"> <input [(ngModel)]="fpCaseTransfer.position1" formControlName="position1" name="position1"  type="text" pInputText size="20" /></td>
+          <td class="table-td"> <input [(ngModel)]="fpCaseTransfer.relationship1" formControlName="relationship1" name="relationship1"  type="text" pInputText size="20" /></td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpCaseTransfer.dateTime2" formControlName="dateTime2" name="dateTime2"  [inputStyle]="{'width':'140px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td"> <input [(ngModel)]="fpCaseTransfer.fullName2" formControlName="fullName2" name="fullName2"  type="text" pInputText size="20" /></td>
+          <td class="table-td"> <input [(ngModel)]="fpCaseTransfer.position2" formControlName="position2" name="position2"  type="text" pInputText size="20" /></td>
+          <td class="table-td"> <input [(ngModel)]="fpCaseTransfer.relationship2" formControlName="relationship2" name="relationship2"  type="text" pInputText size="20" /></td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpCaseTransfer.dateTime3" formControlName="dateTime3" name="dateTime3"  [inputStyle]="{'width':'140px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td"> <input [(ngModel)]="fpCaseTransfer.fullName3" formControlName="fullName3" name="fullName3"  type="text" pInputText size="20" /></td>
+          <td class="table-td"> <input [(ngModel)]="fpCaseTransfer.position3" formControlName="position3" name="position3"  type="text" pInputText size="20" /></td>
+          <td class="table-td"> <input [(ngModel)]="fpCaseTransfer.relationship3" formControlName="relationship3" name="relationship3"  type="text" pInputText size="20" /></td>
+        </tr>
+
+      </table>
+    </div>
+    <p class="bold">I. Type of Transfer Staffing </p>
+    <p><span class="bold">Transfer Level of Service</span> (Intensive to less intensive; FC/RE/AD to aftercare, etc.
+      Excludes DCF referrals to FS/FPS/FC/RE/AD):</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right space-down">
+        <div class="space-right">Current Service</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpCaseTransfer.currentService" formControlName="currentService" name="currentService"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-right">New Level of Service</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpCaseTransfer.newLevel" formControlName="newLevel" name="newLevel"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p>New Worker/Supervisor:</p>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="fpCaseTransfer.isNewWorker" formControlName="isNewWorker" name="isNewWorker"  class="space-right"></p-checkbox>New worker with same agency/level of service
+    </div>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="fpCaseTransfer.isNewSupervisor" formControlName="isNewSupervisor" name="isNewSupervisor"  class="space-right"></p-checkbox>New Supervisor with same agency/level of service
+    </div>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="fpCaseTransfer.isFamilyMoved" formControlName="isFamilyMoved" name="isFamilyMoved"  class="space-right"></p-checkbox>Family moved requiring a new worker
+    </div>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="fpCaseTransfer.isChangeOfVenue" formControlName="isChangeOfVenue" name="isChangeOfVenue"  class="space-right"></p-checkbox>Change of venue or tribal court jurisdiction
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpCaseTransfer.isOther" formControlName="isOther" name="isOther"  class="space-right"></p-checkbox>Other
+      </div>
+      <div><input [(ngModel)]="fpCaseTransfer.isOther" formControlName="isOther" name="isOther"  type="text" pInputText size="20" /></div>
+    </div>
+    <p class="bold">II. Discussion</p>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Referral (Briefly review why the family was referred for services)</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpCaseTransfer.rferral" formControlName="rferral" name="rferral"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Review of Case Plan Goal and Activities and Family’s Progress</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpCaseTransfer.reviewOfCasePlan" formControlName="reviewOfCasePlan" name="reviewOfCasePlan"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Decisions/Next steps /Follow-up</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpCaseTransfer.decisions" formControlName="decisions" name="decisions"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">General Family Information (Is the family accepting of services, have they
+        engaged, what made the engagement with the family successful, what is the family’s opinion of the services/need
+        for services, etc., when is the family available/what is their schedule, general tips and ideas for helping
+        this family be successful, how the family prefers to communicate.) </div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpCaseTransfer.generalFamilyInformation" formControlName="generalFamilyInformation" name="generalFamilyInformation"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Non-Custodial Parent, Siblings, Relatives (Review contact information,
+        updates, and/or where information is located in file. Discuss attempts to locate/engage and current status of
+        relationships.)</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpCaseTransfer.nonCustodialParent" formControlName="nonCustodialParent" name="nonCustodialParent"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Child(ren)’s Connections (Review social connections including school,
+        extra-curricular activities, religious organizations, current therapist and contact information and updates for
+        each, if applicable, and/or where information is located in file)</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpCaseTransfer.childrenSConnections" formControlName="childrenSConnections" name="childrenSConnections"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Decisions/Next steps /Follow-up</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpCaseTransfer.decisions1" formControlName="decisions1" name="decisions1"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Safety Concerns Identified (May include: abuse/neglect concerns,
+        self-harming/danger to self, imminent danger, child vulnerability, caregiver protective capacities, safety
+        plans, protective actions mitigating the safety concern)</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpCaseTransfer.safetyConcerns" formControlName="safetyConcerns" name="safetyConcerns"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Decisions/Next steps to mitigate/Follow-up </div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpCaseTransfer.decisionsNextSteps" formControlName="decisionsNextSteps" name="decisionsNextSteps"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Risk Concerns Identified (May include: child factors, parent/caregiver
+        factors, environmental factors, family strengths, services, and resources, and case plan progress mitigating
+        the risk concerns)</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpCaseTransfer.riskConcernsIdentified" formControlName="riskConcernsIdentified" name="riskConcernsIdentified"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Decisions/Next steps to mitigate/Follow-up</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpCaseTransfer.decisionsNextSteps1" formControlName="decisionsNextSteps1" name="decisionsNextSteps1"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">ICWA (Discuss efforts to determine the child(ren)’s heritage and eligibility,
+        services available through the tribe, contacts with the tribe, etc.) </div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpCaseTransfer.icwa" formControlName="icwa" name="icwa"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Decisions/Next steps /Follow-up</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpCaseTransfer.decisionsNextSteps2" formControlName="decisionsNextSteps2" name="decisionsNextSteps2"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <p>
+      Has a referral been made for Kansas Infant Toddler Services for a child under the age of three? (Early
+      intervention services funded under part C of the Individuals with Disabilities Education Act.)
+    </p>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="fpCaseTransfer.isReferralYes" formControlName="isReferralYes" name="isReferralYes"  class="space-right"></p-checkbox>Yes
+    </div>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="fpCaseTransfer.isReferralNo" formControlName="isReferralNo" name="isReferralNo"  class="space-right"></p-checkbox>No
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Next steps /Follow-up </div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpCaseTransfer.decisionsNextSteps3" formControlName="decisionsNextSteps3" name="decisionsNextSteps3"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Other (Explain):</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpCaseTransfer.otherExplain" formControlName="otherExplain" name="otherExplain"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Decisions/Next steps to mitigate/Follow-up</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpCaseTransfer.decisionsNextSteps3" formControlName="decisionsNextSteps3" name="decisionsNextSteps3"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <p class="bold">III. Supervisor Approval</p>
+    <div class="flex-container space-right space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <input [(ngModel)]="fpCaseTransfer.transferringSupervisorSignature" formControlName="transferringSupervisorSignature" name="transferringSupervisorSignature"  type="text" pInputText size="20" />
+        </div>
+        <div class="space-right">Transferring Supervisor Signature</div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpCaseTransfer.transferringSupervisorSignatureDate" formControlName="transferringSupervisorSignatureDate" name="transferringSupervisorSignatureDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-right">Date</div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <input [(ngModel)]="fpCaseTransfer.receivingSupervisorSignature" formControlName="receivingSupervisorSignature" name="receivingSupervisorSignature"  type="text" pInputText size="20" />
+        </div>
+        <div class="space-right">Receiving Supervisor Signature <br>
+          (if different from above)
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpCaseTransfer.receivingSupervisorSignatureDate" formControlName="receivingSupervisorSignatureDate" name="receivingSupervisorSignatureDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-right">Date</div>
+      </div>
+    </div>
+    <p>Distribution: File, Participants</p>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm(fpCaseTransfer)" (print)="printForm()" [isPrint]="isPrint" [editControll]="editControll" (edit)="editForm()" ></app-form-footer>

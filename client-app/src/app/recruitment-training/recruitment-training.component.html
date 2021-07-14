@@ -1,0 +1,219 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+
+<div class="container-background">
+  <div class="container-foreground">
+    <form [formGroup]="recruitmentForm" class="sf-form">
+      <div class="sf-form-size margin-left-45">
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Licensing Path
+              </span>
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete [(ngModel)]="recruitmentTraining.recruitmentLicensingTypeID"
+                formControlName="recruitmentLicensingTypeID" name="recruitmentLicensingTypeID" [dropdown]="true"
+                [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'LicensingPath')"
+                [required]="true" field="recruitmentLicensingType">
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Staff Completing Referral</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+
+              <p-autoComplete class="input-container" [disabled]="true" [(ngModel)]="recruitmentTraining.staffID"
+                formControlName="staffID" name="staffID" field="fullname">
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Current / Previous Sponsor
+              </span>
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="input-box" type="text" formControlName="sponsor" [(ngModel)]="recruitmentTraining.sponsor"
+                name="sponsor" class="input" maxlength="25" pInputText size="27" />
+
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Kinship or Agency Approved Home?</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+
+              <p-autoComplete class="input-container" [disabled]="true"
+                [(ngModel)]="recruitmentTraining.recruitmentKinshipAgencyApprovedID"
+                formControlName="recruitmentKinshipAgencyApprovedID" name="recruitmentKinshipAgencyApprovedID"
+                field="recruitmentKinshipAgencyApprovedType">
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Type of Home (Interest at Referral)
+              </span>
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="input-box" [disabled]="true" type="text" formControlName="typeOfHome"
+                [(ngModel)]="recruitmentTraining.typeOfHome" name="typeOfHome" class="input" maxlength="25" pInputText
+                size="27" />
+
+
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Preferred Ages at Referral</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="input-box" [disabled]="true" type="text" formControlName="preferredAges"
+                [(ngModel)]="recruitmentTraining.preferredAges" name="preferredAges" class="input" maxlength="25"
+                pInputText size="27" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Training Type
+              </span>
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete [(ngModel)]="recruitmentTraining.recruitmentTrainingTypeID"
+                formControlName="recruitmentTrainingTypeID" name="recruitmentTrainingTypeID" [dropdown]="true"
+                [forceSelection]="true" [suggestions]="metaData"
+                (completeMethod)="getMetaData($event,'RecruitmentTrainingType')" [required]="true"
+                field="recruitmentTrainingType">
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Training Started</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar formControlName="trainingStarted" name="trainingStarted"
+                [(ngModel)]="recruitmentTraining.trainingStarted" [showTime]="true" [showIcon]="true"
+                [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
+            </div>
+          </div>
+        </div>
+
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Training Completed
+              </span>
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar formControlName="trainingCompleted" name="trainingCompleted"
+                [(ngModel)]="recruitmentTraining.trainingCompleted" [showTime]="true" [showIcon]="true"
+                [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030" showButtonBar="true"></p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Catagory</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete (onSelect)="onCatagorySelect($event)"
+                [(ngModel)]="recruitmentTraining.referralSourceCategoryID" formControlName="referralSourceCategoryID"
+                name="referralSourceCategoryID" [dropdown]="true" [forceSelection]="true" [suggestions]="metaData"
+                (completeMethod)="getMetaData($event,'ReferralSourceCategory')" field="referralSourceCategory">
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Type
+              </span>
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete emptyMessage="No results found!" (completeMethod)="getMetaData($event,'Types')" [(ngModel)]="recruitmentTraining.referralSourceTypeID"
+                formControlName="referralSourceTypeID" name="referralSourceTypeID" [dropdown]="true"
+                [forceSelection]="true" [suggestions]="metaData" [required]="true"
+                field="referralSourceType">
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Notes</span></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-sm-12 col-md-12">
+            <div class="col-lg-12 col-sm-12 col-md-12">
+              <textarea pInputTextarea formControlName="notes" [(ngModel)]="recruitmentTraining.notes" name="notes"
+                style="width:100%;height:100%"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Comments</span></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-sm-12 col-md-12">
+            <div class="col-lg-12 col-sm-12 col-md-12">
+              <textarea pInputTextarea formControlName="referralSourceComments"
+                [(ngModel)]="recruitmentTraining.referralSourceComments" name="referralSourceComments"
+                style="width:100%;height:100%"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Notes
+              </span>
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" formControlName="notes"
+              [(ngModel)]="recruitmentTraining.notes" name="notes" class="input"
+              maxlength="25" pInputText size="27" />
+            </div>
+          </div>
+
+        </div> -->
+      </div>
+    </form>
+    <app-form-footer [attachmentControll]="isAttachmentRequired" [isAttachmentDisabled]="false"
+      (attachDoc)="navigateTo()" (save)="saveForm(recruitmentTraining)" (reset)="resetForm()" (discard)="discardForm()"
+      (edit)="editForm()" [editControll]="editControll" [discardTo]="discardTo" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+    </app-form-footer>
+  </div>
+</div>

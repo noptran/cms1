@@ -1,0 +1,133 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="missingChildForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        FAMILY PRESERVATION
+        <br> MISSING CHILD QUESTIONNAIRE
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Case Name:</span>
+          <input readonly [(ngModel)]="fpMissingChild.caseName" formControlName="caseName" name="caseName" type="text" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>Case Number:</span>
+          <input readonly [(ngModel)]="fpMissingChild.caseNumber" formControlName="caseNumber" name="caseNumber" type="text" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>Date of Referral:</span>
+          <p-calendar [(ngModel)]="fpMissingChild.dateOfReferral" formControlName="dateOfReferral" name="dateOfReferral" [inputStyle]="{'width':'170px'}"
+            class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>Date:</span>
+          <p-calendar [(ngModel)]="fpMissingChild.date" formControlName="date" name="date" [inputStyle]="{'width':'170px'}" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <p class="bold">Instructions: Staff will assist the parents/caregivers with providing law enforcement the following:
+    </p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpMissingChild.isPhysicalDescription" formControlName="isPhysicalDescription" name="isPhysicalDescription"
+          class="space-right"></p-checkbox>
+      </div>
+      <div class="space-right"> Current photo/Physical Description</div>
+    </div>
+    <div class="space-down">
+      <textarea [(ngModel)]="fpMissingChild.physicalDescription" formControlName="physicalDescription" name="physicalDescription"
+        pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpMissingChild.isClothing" formControlName="isClothing" name="isClothing" class="space-right"></p-checkbox>
+      </div>
+      <div class="space-right">Clothing the client was last seen wearing</div>
+    </div>
+    <div class="space-down">
+      <textarea [(ngModel)]="fpMissingChild.clothing" formControlName="clothing" name="caseNamclothinge" pInputTextarea autoResize="autoResize"
+        rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpMissingChild.isMissingItems" formControlName="isMissingItems" name="isMissingItems"
+          class="space-right"></p-checkbox>
+      </div>
+      <div class="space-right">If client’s possessions are missing, what items in particular are missing</div>
+    </div>
+    <div class="space-down">
+      <textarea [(ngModel)]="fpMissingChild.missingItems" formControlName="missingItems" name="missingItems" pInputTextarea autoResize="autoResize"
+        rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpMissingChild.isSuggestedLocation" formControlName="isSuggestedLocation" name="isSuggestedLocation"
+          class="space-right"></p-checkbox>
+      </div>
+      <div class="space-right">Suggested location, people, or direction where the client could be located</div>
+    </div>
+    <div class="space-down">
+      <textarea [(ngModel)]="fpMissingChild.suggestedLocation" formControlName="suggestedLocation" name="suggestedLocation" pInputTextarea
+        autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpMissingChild.isContactInformation" formControlName="isContactInformation" name="isContactInformation"
+          class="space-right"></p-checkbox>
+      </div>
+      <div class="space-right">Contact information including the client’s cell phone number, email address, Facebook account, Twitter handle, etc.</div>
+    </div>
+    <div class="space-down">
+      <textarea [(ngModel)]="fpMissingChild.contactInformation" formControlName="contactInformation" name="contactInformation"
+        pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpMissingChild.isPossibleRisks" formControlName="isPossibleRisks" name="isPossibleRisks"
+          class="space-right"></p-checkbox>
+      </div>
+      <div class="space-right">Possible risks associated with the client missing</div>
+    </div>
+    <div class="space-down">
+      <textarea [(ngModel)]="fpMissingChild.possibleRisks" formControlName="possibleRisks" name="possibleRisks" pInputTextarea
+        autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpMissingChild.isMedicalConditions" formControlName="isMedicalConditions" name="isMedicalConditions"
+          class="space-right"></p-checkbox>
+      </div>
+      <div class="space-right">Medical conditions or mental health conditions and medication information that may impact the client’s decision making
+        process and health.
+        <br> If there is a mental health condition, advise law enforcement of the need for an immediate mental health screen
+        as soon as the client is located, if necessary.</div>
+    </div>
+    <div class="space-down">
+      <textarea [(ngModel)]="fpMissingChild.medicalConditions" formControlName="medicalConditions" name="medicalConditions" pInputTextarea
+        autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Signature:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpMissingChild.signature" formControlName="signature" name="signature" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpMissingChild.signatureDate" formControlName="signatureDate" name="caseNsignatureDateame" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,fpMissingChild)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

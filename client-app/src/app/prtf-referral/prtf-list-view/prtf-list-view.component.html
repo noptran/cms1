@@ -1,0 +1,12 @@
+<table *ngIf="tableRows.length>0">
+  <tr>
+    <th *ngFor="let header of tableHeaders">{{header.label}}</th>
+
+  </tr>
+  <tr class="table-row-data" (click)="onRowSelect(row)" *ngFor="let row of tableRows">
+    <td *ngFor="let header of tableHeaders">{{row[header.key]}}</td>
+
+  </tr>
+
+
+</table>

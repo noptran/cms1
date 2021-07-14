@@ -1,0 +1,143 @@
+<p-dialog header="Notification transfer" [contentStyle]="{'min-width':'103rem','width': '98vw'}" [responsive]="true"
+  [(visible)]="isPopListWindow" (onHide)="close()">
+  <button class="sf-positive-btn pull-right" (click)="showSaveModel()">
+    <span>Add new record</span>
+  </button>
+
+  <div class="dropdown pull-left" style="border: none !important;">
+    <button type="button" style="margin-left: 0px;" class="sf-negative-btn dropdown-toggle" data-toggle="dropdown">
+      Export
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" (click)="exportAll()">Excel</a>
+      <!-- <a class="dropdown-item" href="#">PDF</a> -->
+    </div>
+  </div>
+
+  <!-- <div class="dropdown box-export right-icon pull-left">
+      <button class="box-export right-icon" type="button" data-toggle="dropdown">
+        <span class="fa fa-download"></span>
+        <span>Export</span>
+      </button>
+      <ul class="dropdown-menu export-submenu">
+        <li class="export-menu-item" (click)="exportAll('excel')"> Excel </li>
+        <li *ngIf="isPlacementExportEnabled" class="export-menu-item" (click)="exportAll('csv')">Pdf </li>
+      </ul>
+    </div> -->
+  <br>
+  <br>
+  <h3 class="text-center" *ngIf="isPlesWait"><b>Please Wait...</b></h3>
+  <div class="sf-text-right sf-table-header sf-black" *ngIf="totalCount > 0">
+    <app-pagesize *ngIf="totalCount" [totalCount]="totalCount" [initial]="initial" [end]="end"
+      (keyup)="pagesizeNav($event)" (click)="pagesize($event)"></app-pagesize>
+  </div>
+  <br>
+  <ag-grid-angular style="width: 500px; height: 500px;" class="ag-theme-balham" [rowData]="rowData"
+    [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [enableSorting]="true" [rowDragManaged]="true"
+    [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid style="width: 100%;height: 68vh;"
+    animateRows="true" rowSelection="multiple" (cellClicked)='onRowSelected($event)'>
+  </ag-grid-angular>
+</p-dialog>
+<p-dialog header="Notification transfer" [contentStyle]="{'min-width':'100rem','width': '95vw'}" [responsive]="true"
+  [(visible)]="isPopWindow">
+  <h3 class="text-center" *ngIf="isPlesWait"><b>Please Wait...</b></h3>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-6">
+          <div>Transfer Staff</div>
+        </div>
+        <div class="col-md-6">
+          <p-autoComplete [dropdown]="true" name="staff" emptyMessage="No results found!" [disabled]='isUpdate_dis'
+            [(ngModel)]="transferStaffID" [forceSelection]="true" placeholder="Type here to search" field="StaffName"
+            (completeMethod)="filterStaff($event)" [suggestions]="metaData" size="23"></p-autoComplete>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row pt-3">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-6">
+          <div><span>Begin Date<span class="mandatory"> *</span></span></div>
+        </div>
+        <div class="col-md-6">
+          <p-calendar name="beginDate" [disabled]='isUpdate_dis' [yearNavigator]="true" [disabled]='isUpdate_dis'
+            [(ngModel)]="beginDate" [monthNavigator]="true" yearRange="2000:2030" [showIcon]="true"
+            [inputStyle]="{'height':'30px','width':'100% !important'}"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+
+      <div class="row">
+        <div class="col-md-6">
+          <div><span>End Date</span></div>
+        </div>
+        <div class="col-md-6">
+          <p-calendar name="endDate" [disabled]='isUpdate_dis' [yearNavigator]="true" [disabled]='isUpdate_dis'
+            [(ngModel)]="endDate" [monthNavigator]="true" yearRange="2000:2030" [showIcon]="true"
+            [inputStyle]="{'height':'30px','width':'100% !important'}"></p-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div><span>Notes</span></div>
+      <textarea pInputTextarea name="inputTextarea" [disabled]='isUpdate_dis' [(ngModel)]="notes"
+        style="width:100%;height:100%"></textarea>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-2">
+      <div>Entered By</div>
+      <div class="form-control" style="height: 30px;border: 1px solid #737374;font-size: 1.5rem;">{{enteredBy}}</div>
+
+    </div>
+    <div class="col-md-2">
+      <div>Changed By</div>
+      <div class="form-control" style="height: 30px;border: 1px solid #737374;font-size: 1.5rem;">{{changedBy}}</div>
+    </div>
+  </div>
+
+
+
+  <br>
+  <br>
+  <div class="row">
+    <div class="col-md-6">
+      <button class="btn btn-danger" *ngIf="isUpdate" (click)="this.isDeleteConfirmation = true;">
+        <span>Delete</span>
+      </button>
+    </div>
+    <div class="col-md-6 pull-right">
+      <button class="sf-edit-btn pull-right" title="Edit" pTooltip="Edit" (click)="editForm()" *ngIf="isEdit">
+        <!-- <span class="fa fa-pencil-square-o"></span> -->
+        <span>Edit</span>
+      </button>
+
+      <button class="sf-positive-btn margin-left-0 pull-right" *ngIf="!isEdit"
+        (click)="formAction()">Save</button>&nbsp;&nbsp;
+      <button class="sf-negative-btn margin-right-10 pull-right" style="margin-right: 10px;"
+        (click)="discard()">Cancel</button>
+
+    </div>
+  </div>
+
+
+</p-dialog>
+
+
+<p-dialog header="Delete confirmation" [(visible)]="isDeleteConfirmation">
+  <p>Are you sure want to delete this record?</p>
+  <p-footer>
+    <div class="dialog-footer">
+      <button (click)="this.isDeleteConfirmation = false;" [disabled]="isDeleteConfirmationDisable">Cancel</button>
+      <button (click)="onDelete()" [disabled]="isDeleteConfirmationDisable"
+        class="alert-text">{{deleteConfirmationBtnLabel}}</button>
+    </div>
+  </p-footer>
+</p-dialog>

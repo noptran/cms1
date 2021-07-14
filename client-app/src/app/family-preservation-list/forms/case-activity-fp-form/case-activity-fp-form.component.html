@@ -1,0 +1,734 @@
+<app-form-header
+  *ngIf="!isOtherFormsOpened"
+  [title]="title"
+  [status]="status"
+  [breadcrumbs]="breadcrumbs"
+  [formstatus]="formStatus"
+  [formNavigation]=""
+  [subtitle]="subtitle"
+></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+
+<div class="container-background">
+  <div *ngIf="!isOtherFormsOpened" class="container-foreground">
+    <form
+      id="form-content"
+      [formGroup]="caseActivityForm"
+      class="sf-form client-form"
+    >
+      <div class="row" *ngIf="showAdditionalClientList">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-4">
+              <p>Additional Client List</p>
+            </div>
+            <div class="col-md-6">
+              <p-dropdown
+                [options]="cities"
+                [style]="{ width: '100%', border: '1px solid #737374' }"
+                [(ngModel)]="selectedCity"
+                (onChange)="getOtherClientLists($event, 1, 100)"
+                placeholder=""
+                optionLabel="name"
+                [showClear]="true"
+              ></p-dropdown>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+      <hr />
+      <div class="margin-left-45 form-size">
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Client</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                [(ngModel)]="fpCaseActivity.clientID"
+                formControlName="clientID"
+                name="clientID"
+                placeholder="Type here to search"
+                emptyMessage="No records found!"
+                [suggestions]="filteredFisClient"
+                [dropdown]="true"
+                [forceSelection]="true"
+                (completeMethod)="getMetaData($event, 'fisClient')"
+                field="clientName"
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Begin Date</span>
+              <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar
+                formControlName="beginDate"
+                hourFormat="12"
+                [(ngModel)]="fpCaseActivity.beginDate"
+                [showTime]="true"
+                [showIcon]="true"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                yearRange="1900:2030"
+              ></p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>End Date</span>
+              <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar
+                [(ngModel)]="fpCaseActivity.endDate"
+                hourFormat="12"
+                formControlName="endDate"
+                name="endDate"
+                [showTime]="true"
+                [showIcon]="true"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                yearRange="1900:2030"
+              ></p-calendar>
+            </div>
+          </div>
+          <div *ngIf="isDetailsPage" class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Units</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                readonly
+                type="number"
+                name="units"
+                formControlName="units"
+                [(ngModel)]="fpCaseActivity.units"
+                [step]="0.1"
+                pInputText
+              />
+            </div>
+          </div>
+          <div *ngIf="!isDetailsPage" class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Units</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                readonly
+                type="number"
+                name="units"
+                formControlName="units"
+                [(ngModel)]="fpCaseActivity.units"
+                [step]="0.1"
+                pInputText
+                placeholder="Units value automaticaly calculated"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Staff Performing Activity</span>
+              <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                [(ngModel)]="fpCaseActivity.staffID"
+                (onSelect)="getStaffName($event)"
+                formControlName="staffID"
+                name="staffID"
+                [dropdown]="true"
+                placeholder="Type here to search"
+                emptyMessage="No records found!"
+                [suggestions]="metaData"
+                [forceSelection]="true"
+                (completeMethod)="getMetaData($event, 'staff')"
+                field="fullName"
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Person Type</span>
+              <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                [(ngModel)]="fpCaseActivity.personTypeID"
+                formControlName="personTypeID"
+                name="personTypeID"
+                field="personType"
+                placeholder="Type here to search"
+                emptyMessage="No records found!"
+                [suggestions]="metaData"
+                [dropdown]="true"
+                [forceSelection]="true"
+                (onSelect)="getProcodeInfo($event)"
+                (completeMethod)="getMetaData($event, 'personType')"
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Type of Contact</span>
+              <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                [(ngModel)]="fpCaseActivity.contactTypeID"
+                formControlName="contactTypeID"
+                name="contactTypeID"
+                placeholder="Type here to search"
+                emptyMessage="No records found!"
+                [suggestions]="filteredContactTypesData"
+                (onSelect)="getStaffingValue($event)"
+                [dropdown]="true"
+                [forceSelection]="true"
+                (completeMethod)="filteredContactTypes($event)"
+                field="contactType"
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Procedure Code</span>
+              <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                [(ngModel)]="fpCaseActivity.procodeID"
+                formControlName="procodeID"
+                name="procodeID"
+                field="ProcodeFinal"
+                placeholder="Type here to search"
+                emptyMessage="No records found!"
+                [suggestions]="filteredProcodeData"
+                [dropdown]="true"
+                [forceSelection]="true"
+                (completeMethod)="filteredProcodes($event)"
+                (onSelect)="onGetSelectedProcodeObject($event)"
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20" *ngIf="pdfForms">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Attached Documents</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="document-link" (click)="viewAttachment()">view</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Staff Notes</span>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea
+                [(ngModel)]="fpCaseActivity.notes"
+                formControlName="notes"
+                name="notes"
+                pInputTextarea
+                style="width: 100%; height: 100%"
+                cols="60"
+                rows="5"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="isCisDataStored" class="versioning-table">
+        <table class="space-down table-hover">
+          <tr>
+            <th class="table-td">Version</th>
+            <th class="table-td">Completed By</th>
+            <th class="table-td">Last Modified</th>
+            <th class="table-td"></th>
+          </tr>
+
+          <tr *ngFor="let cisArrayData of formCisArrayValue; let i = index">
+            <td class="table-td">
+              {{ generateVersion(cisArrayData.version) }}
+            </td>
+            <td class="table-td">
+              {{
+                cisArrayData.staffID.firstName +
+                  " " +
+                  cisArrayData.staffID.lastName
+              }}
+            </td>
+            <td class="table-td">
+              {{ cisArrayData.createdDate | date: "medium" }}
+            </td>
+            <td class="table-td">
+              <span
+                class="document-link"
+                (click)="cisVersionBasedView(cisArrayData.version)"
+                >View</span
+              >
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <hr />
+      <div style="padding: 12px" *ngIf="showAdditionalClientList">
+        <div
+          class="sf-text-right sf-table-header sf-black"
+          *ngIf="totalCount > 0"
+        >
+          <app-pagesize
+            *ngIf="totalCount"
+            [totalCount]="totalCount"
+            [initial]="initial"
+            [end]="end"
+            (keyup)="pagesizeNav($event)"
+            (click)="pagesize($event)"
+          ></app-pagesize>
+        </div>
+
+        <ag-grid-angular
+          style="width: 500px; height: 50vh; overflow: scroll"
+          class="ag-theme-balham"
+          [rowData]="rowData"
+          [columnDefs]="columnDefs"
+          [defaultColDef]="defaultColDef"
+          [enableSorting]="true"
+          [rowDragManaged]="true"
+          [suppressDragLeaveHidesColumns]="true"
+          enableColResize="true"
+          #agGrid
+          style="width: 100%; height: 75vh"
+          animateRows="true"
+          rowSelection="multiple"
+          (rowSelected)="onRowSelected($event)"
+        >
+        </ag-grid-angular>
+      </div>
+    </form>
+    <app-form-footer
+      [currentNodeValue]="getByIDRequest"
+      [isFormLog]="isFormLog"
+      [formLogInfo]="formLogInfo"
+      [isAttachmentsBtn]="isAttachment"
+      (attachDoc)="navigateTo()"
+      (print)="printPreview()"
+      (save)="saveForm(fpCaseActivity)"
+      (reset)="resetForm()"
+      (discard)="discardForm()"
+      (edit)="editForm()"
+      [editControll]="editControll"
+      [discardTo]="discardTo"
+      [isPrint]="editControll"
+      (caAttachmentData)="caAttachmentData($event)"
+    >
+    </app-form-footer>
+
+    <app-quick-menu [module]="quickMenu"></app-quick-menu>
+  </div>
+  <!-- Print Model Dialog -->
+
+  <p-dialog
+    [contentStyle]="{ 'min-width': '106rem' }"
+    header="Case Activity Preview"
+    [(visible)]="isCaseActivityPrintable"
+    [modal]="true"
+    [responsive]="true"
+    [minY]="70"
+    [baseZIndex]="999"
+    [closable]="true"
+  >
+    <div id="print-content">
+      <div class="flex-container header">
+        <div class="heading">CASE ACTIVITY</div>
+        <div class="logo">
+          <img src="assets/logo color.svg" alt="" />
+        </div>
+      </div>
+      <div class="sf-form">
+        <div class="margin-left-45">
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="print-font-size">Client</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  [(ngModel)]="caseActPrintValues.clientID"
+                  type="text"
+                  class="remove-borders"
+                  pInputText
+                  size="20"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="print-font-size">Begin Date </span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  [(ngModel)]="caseActPrintValues.beginDate"
+                  type="text"
+                  class="remove-borders"
+                  pInputText
+                  size="20"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="print-font-size">End Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  [(ngModel)]="caseActPrintValues.endDate"
+                  type="text"
+                  class="remove-borders"
+                  pInputText
+                  size="20"
+                />
+              </div>
+            </div>
+            <div *ngIf="isDetailsPage" class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="print-font-size">Units</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  [(ngModel)]="caseActPrintValues.units"
+                  type="text"
+                  class="remove-borders"
+                  pInputText
+                  size="20"
+                />
+              </div>
+            </div>
+            <div *ngIf="!isDetailsPage" class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="print-font-size">Units</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  [(ngModel)]="caseActPrintValues.units"
+                  type="text"
+                  class="remove-borders"
+                  pInputText
+                  size="20"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="print-font-size">Type of Contact</span>
+                <span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  [(ngModel)]="caseActPrintValues.contactTypeID"
+                  type="text"
+                  class="remove-borders"
+                  pInputText
+                  size="20"
+                />
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="print-font-size">Person Type</span>
+                <span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  [(ngModel)]="caseActPrintValues.personTypeID"
+                  type="text"
+                  class="remove-borders"
+                  pInputText
+                  size="20"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="print-font-size">Staff Performing Activity</span>
+                <span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <textarea
+                  [(ngModel)]="printStaffName"
+                  pInputTextarea
+                  style="width: 100%; height: auto"
+                  cols="150"
+                  rows="4"
+                ></textarea>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="print-font-size">Procedure Code</span>
+                <span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <textarea
+                  [(ngModel)]="printProcode"
+                  pInputTextarea
+                  style="width: 100%; height: auto"
+                  cols="150"
+                  rows="4"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20" *ngIf="pdfForms">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="print-font-size">Attached Documents</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="document-link" (click)="viewAttachment()"
+                  >view</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="print-font-size">Staff Notes</span>
+              </div>
+            </div>
+          </div>
+          <span *ngFor="let data of printStaffNotes; let i = index"
+            >{{ data }}
+            <br />
+          </span>
+        </div>
+      </div>
+    </div>
+    <app-form-footer
+      (discard)="closeModalBox()"
+      (print)="printForm()"
+      [isPrint]="true"
+    >
+    </app-form-footer>
+  </p-dialog>
+
+  <app-progress-notes-fp-form
+    *ngIf="isProgressNotes"
+  ></app-progress-notes-fp-form>
+  <app-lack-of-contact-notification
+    *ngIf="isLackofContact"
+  ></app-lack-of-contact-notification>
+  <app-supervisory-staffing
+    *ngIf="isSupervisorStaff"
+  ></app-supervisory-staffing>
+  <app-non-therapy-face-to-face
+    *ngIf="isNtfflog"
+  ></app-non-therapy-face-to-face>
+
+  <!-- isNtfflogCis -->
+  <p-dialog
+    header="Non-Therapy Face to Face Log"
+    [(visible)]="isNtfflogCis"
+    [modal]="true"
+    [responsive]="true"
+    [style]="{ width: '350px', minWidth: '200px' }"
+    [minY]="70"
+    [maximizable]="true"
+    [baseZIndex]="10000"
+  >
+    <app-non-therapy-face-to-face-log
+      (ntffFormOut)="getFormData($event)"
+    ></app-non-therapy-face-to-face-log>
+  </p-dialog>
+  <p-dialog
+    header="Client Face to Face Contact Form"
+    [(visible)]="iscfff"
+    [modal]="true"
+    [responsive]="true"
+    [style]="{ width: '350px', minWidth: '200px' }"
+    [minY]="70"
+    [maximizable]="true"
+    [baseZIndex]="10000"
+  >
+    <app-client-face-to-face></app-client-face-to-face>
+  </p-dialog>
+  <p-dialog
+    header="Supervisory Staffing"
+    [(visible)]="issupervisoryStaffing"
+    [modal]="true"
+    [responsive]="true"
+    [style]="{ width: '350px', minWidth: '200px' }"
+    [minY]="70"
+    [maximizable]="true"
+    [baseZIndex]="10000"
+  >
+    <app-supervisory-staffing
+      (supervisoryStaffOut)="getFormData($event)"
+    ></app-supervisory-staffing>
+  </p-dialog>
+  <p-dialog
+    header="Lack of Contact Notification - PPS 50031"
+    [(visible)]="ispps50031"
+    [modal]="true"
+    [responsive]="true"
+    [style]="{ width: '350px', minWidth: '200px' }"
+    [minY]="70"
+    [maximizable]="true"
+    [baseZIndex]="10000"
+  >
+    <app-lack-of-contact-notification
+      (locFromOut)="getFormData($event)"
+    ></app-lack-of-contact-notification>
+  </p-dialog>
+  <p-dialog
+    header="Worker Child Visit Activity Note"
+    [(visible)]="isworkerChildvisitActivityNote"
+    [modal]="true"
+    [responsive]="true"
+    [minY]="70"
+    [maximizable]="true"
+    [baseZIndex]="10000"
+    (onHide)="getCisJson()"
+  >
+    <app-worker-child-visit-activity-note
+      *ngIf="isworkerChildvisitActivityNote"
+      (wcvnFormOut)="getFormData($event)"
+      (cancelOut)="discardModel()"
+    ></app-worker-child-visit-activity-note>
+  </p-dialog>
+  <p-dialog
+    header="Worker parent Visit Activity Note"
+    [(visible)]="isworkerParentVisitAcitivity"
+    [modal]="true"
+    [responsive]="true"
+    [minY]="70"
+    [maximizable]="true"
+    [baseZIndex]="10000"
+    (onHide)="getCisJson()"
+  >
+    <app-worker-parent-visit-activity
+      *ngIf="isworkerParentVisitAcitivity"
+      (wpvaForm)="getFormData($event)"
+      (cancelOut)="discardModel()"
+    ></app-worker-parent-visit-activity>
+  </p-dialog>
+  <p-dialog
+    header="parent child visitation"
+    [(visible)]="isParentChildVisitation"
+    [modal]="true"
+    [responsive]="true"
+    [minY]="70"
+    [maximizable]="true"
+    [baseZIndex]="10000"
+    (onHide)="getCisJson()"
+  >
+    <app-parent-child-visitaion
+      *ngIf="isParentChildVisitation"
+      (pcvFormOut)="getFormData($event)"
+      (cancelOut)="discardModel()"
+    ></app-parent-child-visitaion>
+  </p-dialog>
+
+  <p-dialog
+    [contentStyle]="{ 'min-width': '106rem' }"
+    header="Case Activity"
+    [(visible)]="isCaseActivityNode"
+    [modal]="true"
+    [responsive]="true"
+    [minY]="70"
+    [baseZIndex]="10000"
+    (onHide)="getCisJson()"
+  >
+    <app-case-activity-reint
+      *ngIf="isCaseActivityNode"
+      (caFormOut)="getFormData($event)"
+      (cancelOut)="discardModel()"
+    >
+    </app-case-activity-reint>
+  </p-dialog>
+
+  <p-dialog
+    [contentStyle]="{ 'min-width': '106rem' }"
+    header="Foster Care Placement Support"
+    [(visible)]="isFosterCareNode"
+    [modal]="true"
+    [responsive]="true"
+    [minY]="70"
+    [baseZIndex]="10000"
+    (onHide)="getCisJson()"
+  >
+    <app-foster-care
+      *ngIf="isFosterCareNode"
+      (fosterOut)="getFormData($event)"
+      (cancelOut)="discardModel()"
+    >
+    </app-foster-care>
+  </p-dialog>
+
+  <p-dialog
+    header="Continue"
+    [(visible)]="endDateClient"
+    [modal]="true"
+    [contentStyle]="{ 'min-width': '66rem' }"
+    [responsive]="true"
+    [maximizable]="true"
+    [minY]="100"
+    [baseZIndex]="10000"
+  >
+    <div class="panel panel-default">
+      <div class="panel-heading">This will add this record to these:</div>
+      <div class="panel-body">
+        <p *ngFor="let item of endDateClients">{{ item.clientName }}</p>
+        <br />
+        <p>Do you wish to continue?</p>
+        <hr />
+        <button class="sf-negative-btn pull-right" (click)="clearEndClients()">
+          <span>No</span>
+        </button>
+        <button
+          class="sf-positive-btn pull-right"
+          (click)="addEndDateClients()"
+        >
+          <span>Yes</span>
+        </button>
+      </div>
+    </div>
+  </p-dialog>
+</div>

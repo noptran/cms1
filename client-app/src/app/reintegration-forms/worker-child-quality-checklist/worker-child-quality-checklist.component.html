@@ -1,0 +1,317 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="WorkerChildQualityForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        REINTEGRATION FOSTER CARE
+        <br> W/C QUALITY CHECKLIST
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Client Name:</span>
+          <input [(ngModel)]="reIWorkerChildQuality.ClientName" formControlName="ClientName" name="ClientName" type="text" pInputText
+            size="20" />
+        </div>
+        <div>
+          <span>Age:</span>
+          <input [(ngModel)]="reIWorkerChildQuality.Age" formControlName="Age" name="Age" type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Date of W/C:</span>
+          <p-calendar [(ngModel)]="reIWorkerChildQuality.Date" formControlName="Date" name="Date" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>W/C Completed By:</span>
+          <input [(ngModel)]="reIWorkerChildQuality.CompletedBy" formControlName="CompletedBy" name="CompletedBy" type="text" pInputText
+            size="20" />
+        </div>
+        <div>
+          <span>Reviewer’s Name:</span>
+          <input [(ngModel)]="reIWorkerChildQuality.ReviewerName" formControlName="ReviewerName" name="ReviewerName" type="text" pInputText
+            size="20" />
+        </div>
+        <div>
+          <span> Date Review Occurred:</span>
+          <p-calendar [(ngModel)]="reIWorkerChildQuality.DateReview" formControlName="DateReview" name="DateReview" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span> Date of Documentation:</span>
+          <p-calendar [(ngModel)]="reIWorkerChildQuality.DateOfDocumentation" formControlName="DateOfDocumentation" name="DateOfDocumentation"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <p> 1. Did the visit occur in the child’s placement?</p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.IsVisitOccurYes" formControlName="IsVisitOccurYes" name="IsVisitOccurYes"
+          class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.IsVisitOccurNo" formControlName="IsVisitOccurNo" name="IsVisitOccurNo"
+          class="space-right"></p-checkbox>No
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">If no, where did the visit take place? </div>
+        <div class="space-right">
+          <input [(ngModel)]="reIWorkerChildQuality.VisitOccur" formControlName="VisitOccur" name="VisitOccur" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+    </div>
+    <p> 2.Was alone time with the child clearly documented with more than just a checkbox? (summary includes notes on where alone
+      time occurred and what was discussed)</p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.IsAloneTimeYes" formControlName="IsAloneTimeYes" name="IsAloneTimeYes"
+          class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.IsAloneTimeNo" formControlName="IsAloneTimeNo" name="IsAloneTimeNo"
+          class="space-right"></p-checkbox>No
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Comments </div>
+        <div class="space-right">
+          <input [(ngModel)]="reIWorkerChildQuality.AloneTime" formControlName="AloneTime" name="AloneTime" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+    </div>
+    <p> 3.Did the worker assess for safety and risk of the child regarding placement and describe in narrative (environment,
+      appearance, interaction with caregiver, safety concerns, strengths and resources, and services needed or given including
+      safety plans)?</p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.IsAssessForSafetyYes" formControlName="IsAssessForSafetyYes"
+          name="IsAssessForSafetyYes" class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.IsAssessForSafetyNo" formControlName="IsAssessForSafetyNo" name="IsAssessForSafetyNo"
+          class="space-right"></p-checkbox>No
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">List any concerns: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reIWorkerChildQuality.AssessForSafety" formControlName="AssessForSafety" name="AssessForSafety" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Plan to address concerns: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reIWorkerChildQuality.AddressConcernsSafety" formControlName="AddressConcernsSafety" name="AddressConcernsSafety"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p> 4.Did the worker assess for risk of the child regarding placement and describe in narrative (environment, appearance,
+      interaction with caregiver, safety concerns, strengths and resources, and services needed or given including service
+      plans)?
+    </p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.IsAssessForRiskYes" formControlName="IsAssessForRiskYes" name="IsAssessForRiskYes"
+          class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.IsAssessForRiskNo" formControlName="IsAssessForRiskNo" name="IsAssessForRiskNo"
+          class="space-right"></p-checkbox>No
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">List any concerns: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reIWorkerChildQuality.AssessForRisk" formControlName="AssessForRisk" name="AssessForRisk" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Plan to address concerns: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reIWorkerChildQuality.AddressConcernsRisk" formControlName="AddressConcernsRisk" name="AddressConcernsRisk"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p> 5.Did the worker discuss medications and describe conversation in narrative? (Med changes should be listed. Including
+      documentation of whether the child is taking meds and if they are experiencing any side effects.)?</p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.IsMedicationsYes" formControlName="IsMedicationsYes" name="IsMedicationsYes"
+          class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.IsMedicationsNo" formControlName="IsMedicationsNo" name="IsMedicationsNo"
+          class="space-right"></p-checkbox>No
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Plan for any needed follow-up: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reIWorkerChildQuality.Medications" formControlName="Medications" name="Medications" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+    </div>
+    <p>6. Were all appointments since the last W/C visit noted; did the worker address KBH, medical, dental, and mental health
+      needs and describe conversation in narrative?</p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.IsAppointmentsYes" formControlName="IsAppointmentsYes" name="IsAppointmentsYes"
+          class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.IsAppointmentsNo" formControlName="IsAppointmentsNo" name="IsAppointmentsNo"
+          class="space-right"></p-checkbox>No
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">List child’s needs: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reIWorkerChildQuality.Appointments" formControlName="Appointments" name="Appointments" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Plan to address child’s needs: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reIWorkerChildQuality.AddressConcernsAppointments" formControlName="AddressConcernsAppointments" name="AddressConcernsAppointments"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p> 7.Did the worker offer the Monthly Contact form for children 10 and older?</p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.IsMonthlyContactYes" formControlName="IsMonthlyContactYes" name="IsMonthlyContactYes"
+          class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.IsMonthlyContactNo" formControlName="IsMonthlyContactNo" name="IsMonthlyContactNo"
+          class="space-right"></p-checkbox>No
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.VisitOccur1" formControlName="VisitOccur1" name="VisitOccur1"
+          class="space-right"></p-checkbox>N/A (Child is too young)
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">If child is non-verbal list who provided the information: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reIWorkerChildQuality.AddressConcerns4" formControlName="AddressConcerns4" name="AddressConcerns4" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p> 8.Is there a summary and review of developmental needs/ life skills/ the transition plan?</p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.IsSummaryYes" formControlName="IsSummaryYes" name="IsSummaryYes"
+          class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.IsSummaryNo" formControlName="IsSummaryNo" name="IsSummaryNo"
+          class="space-right"></p-checkbox>No
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">List child’s needs: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reIWorkerChildQuality.Summary" formControlName="Summary" name="Summary" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Plan to address child’s needs: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reIWorkerChildQuality.AddressConcernsSummary" formControlName="AddressConcernsSummary" name="AddressConcernsSummary"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p> 9.Were the child’s case plan tasks reviewed with the child?</p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.IsTasksReviewedYes" formControlName="IsTasksReviewedYes" name="IsTasksReviewedYes"
+          class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.IsTasksReviewedNo" formControlName="IsTasksReviewedNo" name="IsTasksReviewedNo"
+          class="space-right"></p-checkbox>No
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.TasksReviewed" formControlName="TasksReviewed" name="TasksReviewed"
+          class="space-right"></p-checkbox>N/A (child non-verbal)
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Comments </div>
+        <div class="space-right">
+          <input [(ngModel)]="reIWorkerChildQuality.AddressConcerns5" formControlName="AddressConcerns5" name="AddressConcerns5" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p>10. Did the worker assess the placement for needs and describe in narrative?</p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.IsNarrativeYes" formControlName="IsNarrativeYes" name="IsNarrativeYes"
+          class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reIWorkerChildQuality.IsNarrativeNo" formControlName="IsNarrativeNo" name="IsNarrativeNo"
+          class="space-right"></p-checkbox>No
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">List placements needs: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reIWorkerChildQuality.Narrative" formControlName="Narrative" name="Narrative" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Plan to address placement’s needs: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reIWorkerChildQuality.AddressConcernsNarrative" formControlName="AddressConcernsNarrative" name="AddressConcernsNarrative"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Total # of Yes or N/A: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reIWorkerChildQuality.Total" formControlName="Total" name="Total" type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">/10 =  </div>
+        <div class="space-right">
+          <input [(ngModel)]="reIWorkerChildQuality.Total1" formControlName="Total1" name="Total1" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,reIWorkerChildQuality)" (edit)="editForm()" [editControll]="editControll"  (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

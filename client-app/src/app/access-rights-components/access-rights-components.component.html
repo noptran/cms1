@@ -1,0 +1,308 @@
+<hr style="margin: 0px !important;">
+<h5 class="head_acces">Access Rights</h5>
+<hr style="margin: 0px !important;">
+<div class="container-background">
+  <div class="container-foreground" style="padding: 19px;">
+    <p-toast position="center"></p-toast>
+    <div class="row" style="margin-left: -32px;">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <form class="sf-form client-form" [formGroup]="accessRights">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div>
+                <h5><b>Access Rights</b></h5>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-2">
+              <span class="sf-labels">Role Name
+                <span class="mandatory"> *</span></span>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-10">
+              <input type="text" name="roleType" class="input" maxlength="25" [(ngModel)]="access.roleType"
+                formControlName="roleType" pInputText size="27" />
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-2">
+              <span class="sf-labels">Description</span>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-10">
+              <textarea class="sf-width-100" name="notes" [(ngModel)]="access.description" formControlName="description"
+                rows="5"></textarea>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+              <div class="col-lg-2 col-md-2 col-sm-2">
+                <span class="sf-labels">Assign Staff</span>
+              </div>
+              <div class="col-lg-10 col-md-10 col-sm-10 accessRights">
+                <p-autoComplete formControlName="staff" [(ngModel)]="access.staff" [suggestions]="metaData" (completeMethod)="getStaffDetails($event)"
+                  [forceSelection]="true" [dropdown]="true" placeholder="Type here to search" emptyMessage="No matches found!"
+                  field="fullName" [multiple]="true" (onSelect)="triggerStaffView($event)"></p-autoComplete>
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="showStaffValues">
+              <div class="col-lg-2 col-md-2 col-sm-2">
+                <span class="sf-labels"> Selected Staff</span>
+              </div>
+              <div class="col-lg-10 col-md-10 col-sm-10 staffTable">
+                <div *ngFor="let index of staffValues">
+                  <button pButton type="button" icon="pi pi-times" label="{{index}}" iconPos="right" (click)="spliceStaffValue(index)"></button>
+                </div>
+              </div>
+            </div>
+          <!-- <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-2">
+              <span class="sf-labels">Assign Staff</span>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-10 accessRights">
+              <p-autoComplete formControlName="staff" [(ngModel)]="access.staff" [suggestions]="metaData"
+                (completeMethod)="getStaffDetails($event)" [forceSelection]="true" [dropdown]="true"
+                placeholder="Type here to search" emptyMessage="No matches found!" field="fullName" [multiple]="true"
+                (onSelect)="triggerStaffView($event)"></p-autoComplete>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-2">
+              <span class="sf-labels">Staffs</span>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-10 staffTable">
+              <div *ngFor="let index of staffValues">
+                <button pButton type="button" icon="pi pi-times" label="{{index}}" iconPos="right"
+                  (click)="spliceStaffValue(index)"></button>
+              </div>
+            </div>
+          </div> -->
+          <hr>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div>
+                <h5><b>Features</b>
+                </h5>
+              </div>
+              <hr>
+              <h5>Client</h5>
+            </div>
+          </div>
+         
+          <div class="row">
+            <ul>
+              <li>
+                <p-checkbox binary="true" value="true" [(ngModel)]="cis" [ngModelOptions]="{standalone: true}"
+                  label="CIS">
+                </p-checkbox>
+                <ul *ngIf="cis">
+                  <li>
+                    <p-checkbox binary="true" value="true" [(ngModel)]="reintegration"
+                      [ngModelOptions]="{standalone: true}" label="Reintegration">
+                    </p-checkbox>
+                    <ul *ngIf="reintegration">
+                      <li>
+                        <p-checkbox value="Worker_Child_Visit_Activity_Note" [(ngModel)]="access.reintegration"
+                          formControlName="reintegration" label="Worker Child Visit Activity Note">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="Worker_Parent_Visit_Activity_Log" [(ngModel)]="access.reintegration"
+                          formControlName="reintegration" label="Worker Parent Visit Activity Log">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="Adoptive_Resource_Inquiry_Form" [(ngModel)]="access.reintegration"
+                          formControlName="reintegration" label="Adoptive Resource Inquiry">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="Parent_Child_Visitation_Log" [(ngModel)]="access.reintegration"
+                          formControlName="reintegration" label="Parent-Child Visitation Log Form">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="Case_Activity" [(ngModel)]="access.reintegration"
+                          formControlName="reintegration" label="Case Activity">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="Court_Appearance_Log" [(ngModel)]="access.reintegration"
+                          formControlName="reintegration" label="Court Appearance Log">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="Initial_Family_Team_Meeting_w_Informed_Consent"
+                          [(ngModel)]="access.reintegration" formControlName="reintegration"
+                          label="Initial Family-Team Meeting w Informed Consent">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="Maternal_and_Paternal_Relative_Form" [(ngModel)]="access.reintegration"
+                          formControlName="reintegration" label="Maternal & Paternal Kinship">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="Permanency_Release_or_Change_of_Status" [(ngModel)]="access.reintegration"
+                          formControlName="reintegration" label="Permanency Release or Change of Status">
+                        </p-checkbox>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <p-checkbox binary="true" value="true" [(ngModel)]="behavior" [ngModelOptions]="{standalone: true}"
+                      label="Behavior">
+                    </p-checkbox>
+                    <ul *ngIf="behavior">
+                      <li>
+                        <p-checkbox value="ASQ12months" [(ngModel)]="access.behavioralAssessment"
+                          formControlName="behavioralAssessment" label="ASQ 12 Months">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="ASQ18months" [(ngModel)]="access.behavioralAssessment"
+                          formControlName="behavioralAssessment" label="ASQ 18 Months">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="ASQ24months" [(ngModel)]="access.behavioralAssessment"
+                          formControlName="behavioralAssessment" label="ASQ 24 Months">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="ASQ2months" [(ngModel)]="access.behavioralAssessment"
+                          formControlName="behavioralAssessment" label="ASQ 2 Months">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="ASQ30months" [(ngModel)]="access.behavioralAssessment"
+                          formControlName="behavioralAssessment" label="ASQ 30 Months">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="ASQ36months" [(ngModel)]="access.behavioralAssessment"
+                          formControlName="behavioralAssessment" label="ASQ 36 Months">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="ASQ48months" [(ngModel)]="access.behavioralAssessment"
+                          formControlName="behavioralAssessment" label="ASQ 48 Months">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="ASQ60months" [(ngModel)]="access.behavioralAssessment"
+                          formControlName="behavioralAssessment" label="ASQ 60 Months">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="ASQ6months" [(ngModel)]="access.behavioralAssessment"
+                          formControlName="behavioralAssessment" label="ASQ 6 Months">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="CAFAS" [(ngModel)]="access.behavioralAssessment"
+                          formControlName="behavioralAssessment" label="CAFAS">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="CROPS" [(ngModel)]="access.behavioralAssessment"
+                          formControlName="behavioralAssessment" label="CROPS">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="CSDC" [(ngModel)]="access.behavioralAssessment"
+                          formControlName="behavioralAssessment" label="CSDC">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="NCFAS" [(ngModel)]="access.behavioralAssessment"
+                          formControlName="behavioralAssessment" label="NCFAS">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="PECFAS" [(ngModel)]="access.behavioralAssessment"
+                          formControlName="behavioralAssessment" label="PECFAS">
+                        </p-checkbox>
+                      </li>
+                      <li>
+                        <p-checkbox value="PSI" [(ngModel)]="access.behavioralAssessment"
+                          formControlName="behavioralAssessment" label="PSI">
+                        </p-checkbox>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <p-checkbox binary="true" value="true" [(ngModel)]="fosterCare"
+                      [ngModelOptions]="{standalone: true}" label="Foster Care">
+                    </p-checkbox>
+                    <ul *ngIf="fosterCare">
+                      <li>
+                        <p-checkbox value="Placement_Support_Plan" [(ngModel)]="access.fosterCare"
+                          formControlName="fosterCare" label="Reintegration Foster Care Placement Support Plan">
+                        </p-checkbox>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <p-checkbox binary="true" value="true" [(ngModel)]="familyPres"
+                      [ngModelOptions]="{standalone: true}" label="Family Preservation">
+                    </p-checkbox>
+                    <ul *ngIf="familyPres">
+                      <li>
+                        <p-checkbox value="Supervisory_Staffing_Form" [(ngModel)]="access.familyPreservation"
+                          formControlName="familyPreservation" label="FP Supervisory Staffing">
+                        </p-checkbox>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <p-checkbox binary="true" value="true" [(ngModel)]="oklahoma" [ngModelOptions]="{standalone: true}"
+                      label="Oklahoma">
+                    </p-checkbox>
+                    <ul *ngIf="oklahoma">
+                      <li>
+                        <p-checkbox value="Guide_for_Monthly_Resource_Home_Contact" [(ngModel)]="access.oklahoma"
+                          formControlName="oklahoma" label="Guide for Monthly Resource Home Contact">
+                        </p-checkbox>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <p-checkbox value="true" [(ngModel)]="cms_view" binary="true" [ngModelOptions]="{standalone: true}" label="CMS"
+                  (onChange)="handleData($event)">
+                </p-checkbox>
+              </li>
+            </ul>
+          </div>
+          <div *ngIf="cms_view">
+            <div class="panel panel-default">
+              <div class="panel-heading"><b>Client</b></div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <p-checkbox value="true" binary="true" label="Client Create" [(ngModel)]="access.clientCreate"
+                     formControlName="clientCreate" >
+                    </p-checkbox>
+                  </div>
+                  <div class="col-md-6">
+                    <p-checkbox value="true" binary="true" label="View SSN" [(ngModel)]="access.viewSSN"
+                      formControlName="viewSSN">
+                    </p-checkbox>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        
+        <app-form-footer [discardTo]="discardTo" (save)="saveAccessRight(access)" (edit)="editForm()"
+          [editControll]="isEdit"></app-form-footer>
+      </div>
+    </div>
+  </div>

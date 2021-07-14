@@ -1,0 +1,371 @@
+<div id="pdf-content">
+  <div class="header">
+    <div class="title">
+      <h3>REINTEGRATION FOSTER CARE ADOPTION <br> PARENT/CHILD VISITATION LOG FORM</h3>
+    </div>
+    <div class="logo">
+      <img src="assets/images/logo.svg" />
+    </div>
+    <div class="form-info">
+      <client-search [ClientName]='displayClientName()' (setClientAction)="setClient($event)"></client-search>
+      <div>
+        <span>Case Number:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.Kaecses.value" readonly>
+        </mat-form-field>
+      </div>
+      <div>
+        <span>Date:</span>
+        <mat-form-field floatLabel="never">
+          <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose a date" class="date"
+            [(ngModel)]="model.CompletionDate.value" value="{{date}}">
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="per-data hideOnPdf">
+        <p class="pad-right">From:</p>
+        <mat-form-field>
+          <input matInput class="input-s" type="time" [(ngModel)]="model.FromTime.value">
+        </mat-form-field>
+        <p class="pad-right">To:</p>
+        <mat-form-field>
+          <input matInput class="input-s" type="time" (ngModelChange)="timeValidate($event)"
+            [(ngModel)]="model.ToTime.value">
+        </mat-form-field>
+      </div>
+      <div style="color:red" *ngIf="showTimeValidate">From time and To Time should not be same</div>
+      <div style="color:red" *ngIf="showTimeValidate_greater">The To Time should be greater than
+        From Time</div>
+      <!-- NOTE: this is to only show on PDF -->
+      <div class="per-data">
+        <p class="pad-right showOnPdf">From:</p>
+        <p class="pad-right showOnPdf font-weight-normal">{{getFormatedTime(model.FromTime.value)}}</p>
+        <p class="pad-right showOnPdf">To:</p>
+        <p class="pad-right showOnPdf font-weight-normal">{{getFormatedTime(model.ToTime.value)}}</p>
+      </div>
+    </div>
+  </div>
+  <!-- multi client -->
+  <div *ngIf='model.showMultiClient === true' class="hideOnPdf">
+    <span class="spanMulticlient">Select the option for multi client</span>
+    <mat-form-field>
+      <mat-select placeholder="Select the option for multi client" [(ngModel)]="model.multiClientValue">
+        <mat-option (click)="client()" value="By Facts">By Facts</mat-option>
+        <mat-option (click)="allClient()" value="By All clients">By All clients</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf='showClient === true' class="hideOnPdf">
+    <mat-form-field floatLabel="never">
+      <input matInput [(ngModel)]="search" placeholder="Enter the last name" name="search" class="date">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="client()" class="search">Select Client</button>
+  </div>
+
+  <div class="column">
+    <div *ngFor="let clients of model.multiClient; let i = index;" class="multiClient">
+      <span class="pad-right">Child{{i + 1}}</span>
+      <mat-form-field>
+        <input matInput [(ngModel)]="model.multiClient[i]" [ngModelOptions]="{standalone: true}" readonly />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="visit-section">
+    <div>
+      <h3 class="visit-heading">VISIT TYPE</h3>
+    </div>
+    <div class="checkbox-section">
+      <div class="visitTypeInput">
+        <input type="radio" value="0" name="VisitType" [(ngModel)]="model.VisitType.fieldOptionIndex">Supervised
+        <input type="radio" value="1" name="VisitType" [(ngModel)]="model.VisitType.fieldOptionIndex">Monitored
+        <input type="radio" value="2" name="VisitType" [(ngModel)]="model.VisitType.fieldOptionIndex">Virtual
+        <input type="radio" value="3" name="VisitType" [(ngModel)]="model.VisitType.fieldOptionIndex">Phone
+      </div>
+    </div>
+    <div class="textarea-section">
+      <p>If visit not in person, please explain why:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.VisitTypePerson.value"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="location-section">
+      <div>
+        <span class="pad-right">Location of Visit : </span>
+        <input class="rad" type="radio" value="0" name="Location" [(ngModel)]="model.Location.fieldOptionIndex">SFM
+        office <input class="rad" type="radio" value="1" name="Location"
+          [(ngModel)]="model.Location.fieldOptionIndex">Parents
+        Home
+        <input class="rad" type="radio" value="2" name="Location" [(ngModel)]="model.Location.fieldOptionIndex">Other,
+        <span class="pad-right">specify place:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.LocationVisit.value">
+        </mat-form-field>
+      </div>
+      <div>
+      </div>
+    </div>
+    <div class="textarea-section">
+      <p>If visit not in parents’ home, please explain why:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.ParentsHome.value"></textarea>
+      </mat-form-field>
+    </div>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.ParentsHome.value}}</span>
+    <hr *ngIf="isFinalize">
+    <div class="textarea-section">
+      <p>If in the parent’s home, describe the environment:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.ParentsEnvironment.value"></textarea>
+      </mat-form-field>
+    </div>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.ParentsEnvironment.value}}</span>
+    <hr *ngIf="isFinalize">
+    <div class="textarea-section">
+      <p>Adults and children present at visit and relationship to child(ren):</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.AdultsVisit.value"></textarea>
+      </mat-form-field>
+    </div>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.AdultsVisit.value}}</span>
+    <hr *ngIf="isFinalize">
+    <div>
+      <p>Was an adjustment made to visit time, length or location?</p>
+      <div class="visitTypeInput margin-top-1rem textarea-section">
+        <input type="radio" value="0" name="adjustment" [(ngModel)]="model.adjustment.fieldOptionIndex">Yes
+        <input type="radio" value="1" name="adjustment" [(ngModel)]="model.adjustment.fieldOptionIndex">No
+      </div>
+    </div>
+    <div class="textarea-section">
+      <p>If yes, what was the reason:</p>
+      <div>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.reason.value"></textarea>
+        </mat-form-field>
+      </div>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.reason.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div>
+      <h3 class="visit-heading">
+        SAFETY ASSESSMENT OF VISITS (Supervised/Monitored Visits)
+        <br> *Safety is the potential for serious maltreatment which is imminent. It determines the need for immediate
+        protective
+        action or controlling interventions to protect the child from imminent danger.
+      </h3>
+    </div>
+    <div class="textarea-section">
+      <p>List the safety concerns/contributing factors leading to the decision for supervised or monitored visitation:
+      </p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.MonitoredVisitation.value"></textarea>
+      </mat-form-field>
+    </div>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.MonitoredVisitation.value}}</span>
+    <hr *ngIf="isFinalize">
+
+    <div>
+      <span>Were there any new safety concerns observed during the visit?</span>
+      <div class="visitTypeInput margin-top-1rem">
+        <input type="radio" value="0" name="SafetyConcernsYesNo"
+          [(ngModel)]="model.SafetyConcernsYesNo.fieldOptionIndex">Yes
+        <input type="radio" value="1" name="SafetyConcernsYesNo"
+          [(ngModel)]="model.SafetyConcernsYesNo.fieldOptionIndex">No
+      </div>
+    </div>
+    <div class="textarea-section">
+      <p>If yes, describe the safety concern and how the concern was addressed during the visit:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.AddressedVisit.value"></textarea>
+      </mat-form-field>
+    </div>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.AddressedVisit.value}}</span>
+    <hr *ngIf="isFinalize">
+    <div>
+      <span>Is there a safety plan currently in place?</span>
+      <div class="visitTypeInput margin-top-1rem">
+        <input type="radio" value="0" name="SafetyPlanYesNo" [(ngModel)]="model.SafetyPlanYesNo.fieldOptionIndex">Yes
+        <input type="radio" value="1" name="SafetyPlanYesNo" [(ngModel)]="model.SafetyPlanYesNo.fieldOptionIndex">No
+        <input type="radio" value="2" name="SafetyPlanYesNo" [(ngModel)]="model.SafetyPlanYesNo.fieldOptionIndex">NA
+      </div>
+    </div>
+    <div>
+      <span>If no, was a safety plan created in today's visit? </span>
+      <div class="visitTypeInput margin-top-1rem">
+        <input type="radio" value="0" name="SafetyPlanVisitYesNo"
+          [(ngModel)]="model.SafetyPlanVisitYesNo.fieldOptionIndex">Yes
+        <input type="radio" value="1" name="SafetyPlanVisitYesNo"
+          [(ngModel)]="model.SafetyPlanVisitYesNo.fieldOptionIndex">No
+      </div>
+    </div>
+    <div>
+      <span>If there is a safety plan in place, was it reviewed, or updated, with the family to determine if the safety
+        plan is still needed, or to address any new concerns?</span>
+      <div class="visitTypeInput margin-top-1rem">
+        <input type="radio" value="0" name="SafetyPlanConcernsYesNo"
+          [(ngModel)]="model.SafetyPlanConcernsYesNo.fieldOptionIndex">Yes
+        <input type="radio" value="1" name="SafetyPlanConcernsYesNo"
+          [(ngModel)]="model.SafetyPlanConcernsYesNo.fieldOptionIndex">No
+      </div>
+      <div class="textarea-section">
+        <p>Concerns:</p>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput autosize [(ngModel)]="model.SafetyPlanConcerns.value"></textarea>
+        </mat-form-field>
+      </div>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.SafetyPlanConcerns.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="textarea-section">
+      <p>What progress has the child(ren) and family made in following the safety plan?</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.SafetyPlan.value"></textarea>
+      </mat-form-field>
+    </div>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.SafetyPlan.value}}</span>
+    <hr *ngIf="isFinalize">
+    <div class="textarea-section">
+      <p>What are the family’s strengths and resources to mitigate the safety concerns?</p>
+      <p>(i.e - resilient, mental health services, drug/alcohol services, parenting class, mentor, support system)</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.SafetyConcerns.value"></textarea>
+      </mat-form-field>
+    </div>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.SafetyConcerns.value}}</span>
+    <hr *ngIf="isFinalize">
+    <div>
+      <h3 class="visit-heading">
+        RISK ASSESSMENT OF VISITS (Supervised/Monitored Visits) Explain Both Yes And No Answers *Risk is potential
+        maltreatment in
+        the future. It determines the need for services to address potential future maltreatment.
+      </h3>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <div class="textarea-section">
+      <p>List the risk concerns leading to the decision for supervised or monitored visitation:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.SupervisedVisitation.value"></textarea>
+      </mat-form-field>
+    </div>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.SupervisedVisitation.value}}</span>
+    <hr *ngIf="isFinalize">
+    <div class="textarea-section">
+      <p>What services or case plan tasks are in place to mitigate the risks?</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.ServiceCasePlan.value"></textarea>
+      </mat-form-field>
+    </div>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.ServiceCasePlan.value}}</span>
+    <hr *ngIf="isFinalize">
+    <div class="textarea-section">
+      <p>What progress has been made by the family to mitigate the risks?</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.FamilyMitigate.value"></textarea>
+      </mat-form-field>
+    </div>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.FamilyMitigate.value}}</span>
+    <hr *ngIf="isFinalize">
+    <div>
+      <h3 class="visit-heading">
+        OBSERVATIONS OF INTERACTIONS (Supervised/Monitored Visits) Explain Both Yes And No Answers
+      </h3>
+    </div>
+    <div class="observation-section">
+      <div>
+        <span>Caregiver(s) had a plan and activities for the visit and brought appropriate supplies</span>
+        <div class="visitTypeInput">
+          <input type="radio" value="0" name="ChildAcceptedLimits"
+            [(ngModel)]="model.ChildAcceptedLimits.fieldOptionIndex">Yes
+          <input type="radio" value="1" name="ChildAcceptedLimits"
+            [(ngModel)]="model.ChildAcceptedLimits.fieldOptionIndex">No
+        </div>
+      </div>
+      <div>
+        <span>Caregiver(s) set limits when necessary and were firm, but not harsh, in these limits</span>
+        <div class="visitTypeInput">
+          <input type="radio" value="0" name="InteractionYesNo"
+            [(ngModel)]="model.InteractionYesNo.fieldOptionIndex">Yes
+          <input type="radio" value="1" name="InteractionYesNo" [(ngModel)]="model.InteractionYesNo.fieldOptionIndex">No
+        </div>
+      </div>
+      <div>
+        <span>Child(ren) accepted limits set by the caregiver(s)</span>
+        <div class="visitTypeInput">
+          <input type="radio" value="0" name="FeelingsYesNo" [(ngModel)]="model.FeelingsYesNo.fieldOptionIndex">Yes
+          <input type="radio" value="1" name="FeelingsYesNo" [(ngModel)]="model.FeelingsYesNo.fieldOptionIndex">No
+          <input type="radio" value="2" name="FeelingsYesNo" [(ngModel)]="model.FeelingsYesNo.fieldOptionIndex">NA
+        </div>
+      </div>
+      <div>
+        <span>Child(ren) positively engaged in interaction and showed positive feelings toward caregiver(s)</span>
+        <div class="visitTypeInput">
+          <input type="radio" value="0" name="RelationshipYesNo"
+            [(ngModel)]="model.RelationshipYesNo.fieldOptionIndex">Yes
+          <input type="radio" value="1" name="RelationshipYesNo"
+            [(ngModel)]="model.RelationshipYesNo.fieldOptionIndex">No
+        </div>
+      </div>
+      <div>
+        <span>Caregiver(s) positively engaged in interaction, showed empathy, support, and positive
+          feelings toward caregiver(s)</span>
+        <div class="visitTypeInput">
+          <input type="radio" value="0" name="SocialRewardsYesNo"
+            [(ngModel)]="model.SocialRewardsYesNo.fieldOptionIndex">Yes
+          <input type="radio" value="1" name="SocialRewardsYesNo"
+            [(ngModel)]="model.SocialRewardsYesNo.fieldOptionIndex">No
+        </div>
+      </div>
+      <div>
+        <span>Caregiver(s) encouraged appropriate behavior with social rewards or positive physical
+          Contact (praise, smiles, high five, hug)</span>
+        <div class="visitTypeInput">
+          <input type="radio" value="0" name="PhysicalContactYesorNo"
+            [(ngModel)]="model.PhysicalContactYesorNo.fieldOptionIndex">Yes
+          <input type="radio" value="1" name="PhysicalContactYesorNo"
+            [(ngModel)]="model.PhysicalContactYesorNo.fieldOptionIndex">No
+        </div>
+      </div>
+      <div>
+        <span>Caregiver(s) actively listened to child(ren) and showed interest in their activities and wellbeing</span>
+        <div class="visitTypeInput">
+          <input type="radio" value="0" name="InteractionsYesNo"
+            [(ngModel)]="model.InteractionsYesNo.fieldOptionIndex">Yes
+          <input type="radio" value="1" name="InteractionsYesNo"
+            [(ngModel)]="model.InteractionsYesNo.fieldOptionIndex">No
+        </div>
+      </div>
+      <div>
+        <span>Caregiver(s) positively engaged with each other during visitation</span>
+        <div class="visitTypeInput">
+          <input type="radio" value="0" name="SupportChildYesNo"
+            [(ngModel)]="model.SupportChildYesNo.fieldOptionIndex">Yes
+          <input type="radio" value="1" name="SupportChildYesNo"
+            [(ngModel)]="model.SupportChildYesNo.fieldOptionIndex">No
+          <input type="radio" value="2" name="SupportChildYesNo"
+            [(ngModel)]="model.SupportChildYesNo.fieldOptionIndex">NA
+        </div>
+      </div>
+
+    </div>
+    <div class="footer">
+      <div>
+        <span>Signature/Title:</span>
+        <mat-form-field>
+          <input matInput class="input-md" [(ngModel)]="model.Signature.value">
+        </mat-form-field>
+      </div>
+      <div>
+        <span>Date:</span>
+        <mat-form-field floatLabel="never">
+          <input matInput [matDatepicker]="Date" (click)="Date.open()" placeholder="Choose a date" class="date"
+            [(ngModel)]="model.Date.value">
+          <mat-datepicker #Date></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="hideOnPdf">
+    <form-footer (resetAction)='resetForm()' (calculateAction)='calculateForm()' (saveAction)='saveForm()'
+      (finalizeAction)='finalize()'>
+    </form-footer>
+  </div>

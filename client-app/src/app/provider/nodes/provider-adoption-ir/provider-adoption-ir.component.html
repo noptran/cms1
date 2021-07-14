@@ -1,0 +1,105 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <p class="msg">"IR Type" of Placement can be edited on client's placement.</p>
+    <form class="sf-form" [formGroup]="identifierResource">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Client</span> <span class="mandatory"> *</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="client" emptyMessage="No results found!" [(ngModel)]="IR.clientID"
+              [forceSelection]="true" formControlName="clientID" placeholder="Type here to search" field="clientName"
+              size="23" (completeMethod)="filteredClients($event)" [suggestions]="results"
+              (onSelect)="getReferralId($event)">
+              <ng-template let-client pTemplate="item">
+                <div class="ui-helper-clearfix dropDownList">
+                  <div>
+                    <table>
+                      <tr>
+                        <td>Client Name</td>
+                        <td style="padding: 5px;">:</td>
+                        <td>{{client?.clientName}}</td>
+                      </tr>
+                      <tr>
+                        <td>Referral Date</td>
+                        <td style="padding: 5px;">:</td>
+                        <td>{{client?.referralDate | date: 'MM/dd/yyyy'}}</td>
+                      </tr>
+                      <tr>
+                        <td>DOB</td>
+                        <td style="padding: 5px;">:</td>
+                        <td>{{client?.dob | date: 'MM/dd/yyyy'}}</td>
+                      </tr>
+                      <tr>
+                        <td>SSN</td>
+                        <td style="padding: 5px;">:</td>
+                        <td>{{client?.ssn }}</td>
+                      </tr>
+                      <tr>
+                        <td>Facts</td>
+                        <td style="padding: 5px;">:</td>
+                        <td>{{client?.facts }}</td>
+                      </tr>
+                      <tr>
+                        <td>Kaecses</td>
+                        <td style="padding: 5px;">:</td>
+                        <td>{{client?.kaecses }}</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>IR type</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="identifiedResourceTypeID" emptyMessage="No results found!"
+              [(ngModel)]="IR.identifiedResourceTypeID" [forceSelection]="true"
+              formControlName="identifiedResourceTypeID" placeholder="Type here to search"
+              field="identifiedResourceType" size="23" (completeMethod)="getIdentifiedResourceType()"
+              [suggestions]="results" [disabled]="isDisabled"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin Date</span> <span class="mandatory"> *</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" hourFormat="12" [yearNavigator]="true" [(ngModel)]="IR.beginDate"
+              [monthNavigator]="true" formControlName="beginDate" yearRange="2000:2030" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" hourFormat="12" [yearNavigator]="true" [(ngModel)]="IR.endDate"
+              [monthNavigator]="true" formControlName="endDate" yearRange="2000:2030" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea pInputTextarea name="inputTextarea" [(ngModel)]="IR.notes" formControlName="notes"
+              autoResize="autoResize" rows="3" cols="150" style="width: 100%;min-height: 5rem;"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer [discardTo]="discardTo" (save)="formAction(IR)" (edit)="editForm()" [editControll]="isEdit"
+      [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+    </app-form-footer>
+  </div>
+</div>

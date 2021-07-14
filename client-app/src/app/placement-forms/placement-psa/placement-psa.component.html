@@ -1,0 +1,427 @@
+<div class="sf-form pdf-content">
+  <div class="mail-attachments">
+    <!--Water mark-->
+    <p *ngIf="!isShowdata" style="text-align: center;
+    font-size: larger;
+    font-weight: bolder;margin-top: 74px;">No Data found</p>
+    <div id="pdf-content-print" style="margin: 2rem" *ngIf="isShowdata">
+      <div class="water-mark" *ngIf="isWatermarkerEnable">
+        <p>{{ waterMarkContent }}</p>
+      </div>
+      <div class="flex-container header">
+        <div class="logo">
+          <img src="assets/logo color.svg" alt="" />
+        </div>
+        <div class="heading">
+          PROVIDER SERVICE AGREEMENT
+          <br />SFM PAYMENT AUTHORIZATION
+        </div>
+
+        <div class="case-info-no-border">
+          <div>
+            <span class="text-bold">Pre-Authorization No.{{ printPreviewData.AuthorizationID }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="border: 1px solid black; margin-top: 2rem; padding-left: 1rem">
+        <div class="row margin-bottom-2rem">
+          <div class="col-md-6">
+            <div class="row">
+              <span class="col-md-5 margin-top-10"><strong>Date:</strong></span>
+              <div class="col-md-7">
+                <input [(ngModel)]="currentDateTime" type="text" class="remove-borders" pInputText size="20" />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <span class="col-md-5 margin-top-10">
+                <strong>SFM Worker:</strong></span>
+              <div class="col-md-7">
+                <input [(ngModel)]="placementData.caseManager" type="text" class="remove-borders" pInputText
+                  size="20" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row margin-bottom-2rem">
+          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <div class="row">
+              <span class="col-md-5 margin-top-10">
+                <strong>Telephone:</strong></span>
+              <div class="col-md-7">
+                <input [(ngModel)]="placementData.caseManagerPhone" type="text" class="remove-borders" pInputText
+                  size="20" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="border: 1px solid black; margin-top: 2rem; padding-left: 1rem">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <span class="col-md-2 margin-top-10"><strong>Client:</strong></span>
+              <div class="col-md-10 margin-top-2px">
+                <input [(ngModel)]="printPreviewData.ClientName" type="text" class="remove-borders" pInputText
+                  size="35" />
+              </div>
+            </div>
+            <div class="row">
+              <span class="col-md-2 margin-top-10"><strong>DOB:</strong></span>
+              <div class="col-md-10">
+                <input [(ngModel)]="printPreviewData.DOB" type="text" class="remove-borders" pInputText size="35" />
+              </div>
+            </div>
+            <div class="row">
+              <span class="col-md-2 margin-top-10"><strong>FACTS:</strong></span>
+              <div class="col-md-10">
+                <input [(ngModel)]="printPreviewData.Facts" type="text" class="remove-borders" pInputText size="35" />
+              </div>
+            </div>
+            <div class="row">
+              <span class="col-md-2 margin-top-10"><strong>KAECSES:</strong></span>
+              <div class="col-md-10">
+                <input [(ngModel)]="printPreviewData.Kaecses" type="text" class="remove-borders" pInputText size="35" />
+              </div>
+            </div>
+            <div class="row">
+              <span class="col-md-2 margin-top-10"><strong>SSN:</strong></span>
+              <div class="col-md-10">
+                <input [(ngModel)]="printPreviewData.SSN" type="text" class="remove-borders" pInputText size="35" />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 border-left">
+            <div class="row">
+              <span class="col-md-2 margin-top-10">
+                <strong>Provider:</strong></span>
+              <div class="col-md-10 margin-top-2px">
+                <input [(ngModel)]="printPreviewData.ProviderName" type="text" class="remove-borders" pInputText
+                  size="35" />
+              </div>
+            </div>
+            <div class="row">
+              <span class="col-md-2 margin-top-10">
+                <strong>Address:</strong></span>
+              <div class="col-md-10">
+                <input [(ngModel)]="printPreviewData.ProviderAddress" type="text" class="remove-borders" pInputText
+                  size="35" />
+              </div>
+            </div>
+            <div class="row">
+              <span class="col-md-2 margin-top-10">
+                <strong>Phone:</strong></span>
+              <div class="col-md-10">
+                <input [(ngModel)]="printPreviewData.ProviderPhone" type="text" class="remove-borders" pInputText
+                  size="35" />
+              </div>
+            </div>
+            <div class="row">
+              <span class="col-md-2 margin-top-10"> <strong>Fax:</strong></span>
+              <div class="col-md-10">
+                <!-- <input [(ngModel)]="printPreviewData.fax" type="text" class="remove-borders" pInputText size="35" /> -->
+              </div>
+            </div>
+            <div class="row">
+              <span class="col-md-2 margin-top-10">
+                <strong>Prov. Rate:</strong></span>
+              <div class="col-md-10">
+                <input [(ngModel)]="printPreviewData.ProviderRate" type="text" class="remove-borders" pInputText
+                  size="35" />
+              </div>
+            </div>
+            <div class="row">
+              <span class="col-md-2 margin-top-10">
+                <strong>Medicaid ID:</strong></span>
+              <div class="col-md-10">
+                <!-- <input [(ngModel)]="printPreviewData.medicaidId" type="text" class="remove-borders" pInputText size="35" /> -->
+              </div>
+            </div>
+            <div class="row">
+              <span class="col-md-2 margin-top-10">
+                <strong>TaxID:</strong></span>
+              <div class="col-md-10">
+                <!-- <input [(ngModel)]="placementData.taxID" type="text" class="remove-borders" pInputText size="35" /> -->
+              </div>
+            </div>
+            <div class="row margin-bottom-2rem">
+              <span class="col-md-2 margin-top-10">
+                <strong>Sponsor:</strong></span>
+              <div class="col-md-10">
+                <input [(ngModel)]="printPreviewData.SponsorName" type="text" class="remove-borders" pInputText
+                  size="35" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="border: 1px solid black; margin-top: 2rem; padding-left: 1rem">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <span class="col-md-2 margin-top-10 font-bold">Service:</span>
+              <div class="col-md-10">
+                <!-- <textarea class="remove-borders" pInputTextarea style="margin-top: 4px; width: 100%; height: 100%;"
+                  [(ngModel)]="placementData.service"></textarea> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5">
+            <div class="row">
+              <span class="col-md-5 margin-top-10 font-bold">Begin Date:</span>
+              <div class="col-md-5">
+                <input [(ngModel)]="printPreviewData.CurrentPlacementBeginDate" type="text" class="remove-borders"
+                  pInputText size="18" />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <span class="col-md-5 margin-top-10 font-bold">End Date:</span>
+              <div class="col-md-5">
+                <input [(ngModel)]="placementData.endDate" type="text" class="remove-borders" pInputText size="18" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-bottom-2rem">
+          <div class="col-md-5">
+            <div class="row">
+              <span class="col-md-5 margin-top-10 font-bold">Rate:</span>
+              <div class="col-md-5">
+                <input [(ngModel)]="printPreviewData.PrevProviderRate" type="text" class="remove-borders" pInputText
+                  size="18" />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <span class="col-md-5 margin-top-10 font-bold">Billable Unit:</span>
+              <div class="col-md-5">
+                <!-- <input [(ngModel)]="placementData.billableUnit" type="text" class="remove-borders" pInputText
+                  size="18" /> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-bottom-2rem">
+          <div class="col-md-7">
+            <div class="row">
+              <span class="col-md-5 margin-top-10 font-bold">Next Scheduled Review Date:</span>
+              <div class="col-md-7">
+                <!-- <input [(ngModel)]="placementData.endDate" type="text" class="remove-borders" pInputText size="18" /> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="row">
+              <span class="col-md-5 margin-top-10 font-bold">Service Frequency:</span>
+              <div class="col-md-5">
+                <!-- <input type="text" class="remove-borders" pInputText size="18" name="frequency"
+                  [(ngModel)]="placementData.frequency" /> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="border: 1px solid black; margin-top: 2rem; padding-left: 1rem">
+        <div class="row margin-bottom-2rem">
+          <div class="col-md-12">
+            <div class="row">
+              <span class="col-md-12 margin-top-10"><strong>ADDITIONAL INFORMATION: (i.e. Client names if different from
+                  above, other info., etc.) FOR ALL SERVICES PURCHASED Either
+                  document the desired outcome here or attach a copy of the case
+                  plan which pertains to the outcome.</strong></span>
+              <div class="col-md-12">
+                <input type="text" class="remove-borders" pInputText size="18" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; padding-left: 1rem">
+        <strong>
+          <u>RIGHTS and REQUIREMENTS:</u>
+        </strong>
+        <div class="row">
+          <div class="col-md-6">
+            <strong>
+              <u>Agency:</u>
+            </strong>
+          </div>
+          <div class="col-md-6">
+            <strong>
+              <u>Mutual:</u>
+            </strong>
+          </div>
+        </div>
+
+        <div class="row margin-bottom-2rem">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12">
+                <p>1. Plan with client.</p>
+                <p>2. Share with provider.</p>
+                <p>
+                  3. Services purchased must be consistent with the plan/goal.
+                </p>
+                <p>
+                  4. Transport client to and from case planning activities,
+                  school, work, mental health and medical appointments when
+                  foster home is unable to transport.
+                </p>
+                <p>5. Negotiate and monitor provider agreement.</p>
+                <p>
+                  6. Notification of 48 hours for termination of this provider
+                  service agreement prior to proposed ending date unless a move
+                  occurs due to extenuating circumstances. Examples of
+                  extenuating circumstances may include but are not limited to
+                  court ordered moves, AWOLs, emergency situations and critical
+                  incidents.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12">
+                <p>1. Discuss any change in status or plan for client.</p>
+                <p>
+                  2. Direct Care Provider shall maintain homeowners (liability)
+                  insurance through duration of agreement.
+                </p>
+                <p>
+                  3. Services provided in conformation with standards contained
+                  herein.
+                </p>
+                <p>
+                  4. Services provided consistent with and supportive of the
+                  case plan.
+                </p>
+                <p>
+                  5. Abide by licensing standards and other regulations as
+                  applicable.
+                </p>
+                <p>6. Maintain up to date records documenting service</p>
+                <p>7. Provide progress reports to the agency as specified.</p>
+                <p>8. Maintain records to demonstrate cost.</p>
+                <p>9. Submit claim forms as required.</p>
+                <p>
+                  10. Services provided consistent with contractual agreement
+                  signed by both parties.
+                </p>
+                <p>11. Follow SFM Agency Provider Manual.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 2rem; padding-left: 1rem">
+        <strong>
+          <u>AUTHORIZATION:</u>
+        </strong>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="row">
+              <span class="col-md-5 margin-top-10 font-bold">Provider:</span>
+              <div class="col-md-7"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="row">
+              <span class="col-md-5 margin-top-10">Title:</span>
+              <div class="col-md-7">
+                <input type="text" class="remove-borders" pInputText size="18" />
+              </div>
+            </div>
+            <div class="row">
+              <span class="col-md-5 margin-top-10">Date:</span>
+              <div class="col-md-7">
+                <input type="text" class="remove-borders" pInputText size="18" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="row">
+              <span class="col-md-12 margin-top-10 font-bold">Agency: Saint Francis Ministries Services:</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="row">
+              <span class="col-md-5 margin-top-10">Title:</span>
+              <div class="col-md-7">
+                <input type="text" class="remove-borders" pInputText size="18" />
+              </div>
+            </div>
+            <div class="row">
+              <span class="col-md-5 margin-top-10">Date:</span>
+              <div class="col-md-7">
+                <input [(ngModel)]="currentDateTime" type="text" class="remove-borders" pInputText size="18" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; padding-left: 1rem">
+        <strong>
+          <u>SFM Use Only</u>
+        </strong>
+        <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-3">
+            {{ staffName }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            {{ placementData.payorName }}
+          </div>
+          <div class="col-md-3">Pay Provider</div>
+        </div>
+      </div>
+      <hr *ngIf="isPSA_View">
+      <!-- <button *ngIf="isPSA_View" class="sf-positive-btn pull-right" (click)="printPSA()">Export</button> -->
+      <!-- <div class="row" *ngIf="isPSA_View" style="border: none;">
+        <div class="col-md-4" style="border: none;">
+
+        </div>
+        <div class="col-md-4 text-center" style="border: none;">
+          <p *ngIf="isLoad" style="font-size: 17px;
+          font-weight: bold;">Loading...</p>
+        </div>
+        <div class="col-md-4" style="border: none;">
+          <button class="sf-positive-btn pull-right" (click)="printPSA()">Export</button>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>
+<div>
+  <app-placement-email-footer [currentForm]="'PSA'" *ngIf="isShowEmailFooter" [isViewHistory]="isPSA_View"
+    [viewHistoryData]="sendFooterReq" [savePSA_req]="savePSA_req" [isPlacementDelete]="isPlacementDelete"
+    deleteForm="placementPSA" (isPlacementPsaPrompt)="getFormStatus($event)" (closeAck_Window)="closeAck_Window($event)"
+    [placementServiceAgreementFormData]="formData">
+  </app-placement-email-footer>
+</div>

@@ -1,0 +1,100 @@
+<div class="Report">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 main" [ngClass]="Sidenav?'main-class':'width-100'" style="padding:0px !important">
+        <div class="">
+          <div *ngIf="loaderController" class="overlay-loader">
+            <p class="loader-text">Processing ...</p>
+          </div>
+          <br>
+
+          <div style="margin-left: 10px;
+    margin-right: 158px;">
+    <div class="text-right"><button type="submit" (click)="gotoDonateForm()" class="btn sf-primary-btn font-600">Create</button></div>
+            
+
+            <div class="card">
+              <!-- <div class="card-header">
+                <div>
+                  <h4 class="pull-left">Donation List</h4>
+                </div>
+              </div> -->
+              <div class="card-body table-responsive">
+                  <ag-grid-angular style="height: 525px; width: 100%;" class="ag-theme-balham"
+                  [gridOptions]="gridOptions"
+                  [columnDefs]="columnDefs"
+                  [rowData]="donationList"
+                  [icons]="icons"
+                  enableColResize
+                  enableSorting
+                  enableFilter
+                  groupHeaders
+                  suppressRowClickSelection
+                  toolPanelSuppressGroups
+                  toolPanelSuppressValues
+                  rowSelection="multiple"
+                  [enableSorting]="true"
+ 
+                  (gridReady)="onReady($event)">
+ </ag-grid-angular>
+              
+              </div>
+            
+
+       
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+  .report {
+    padding-top: 65px;
+  }
+
+  .card-body {
+    padding: 1.25rem 0 0 !important;
+  }
+
+  .card-header {
+    background-color: rgb(82, 142, 211) !important;
+    border-bottom: none !important;
+    color: white;
+    font-weight: bold;
+  }
+
+  .table-responsive {
+    max-height: 400px;
+  }
+</style>
+
+
+<!-- 
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Doner ID</th>
+        <th>First name</th>
+        <th>Last Name</th>
+        <th>Phone Number</th>
+        <th>State</th>
+        <th>City</th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <tr *ngFor="let donate of donationList.slice().reverse()">
+        <td>{{donate.name}}</td>
+        <td>{{donate.f_name}}</td>
+        <td>{{donate.l_name}}</td>
+        <td>{{donate.mobile_ph}}</td>
+        <td>{{donate.state_id[1]}}</td>
+        <td>{{donate.city}}</td>
+      </tr>
+
+    </tbody>
+  </table> -->

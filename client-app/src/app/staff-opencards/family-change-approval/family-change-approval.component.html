@@ -1,0 +1,525 @@
+<p-dialog header="Family Changes Approval" [contentStyle]="{'min-width':'103rem','width': '98vw'}" [responsive]="true"
+  [(visible)]="isPopListWindow" (onHide)="close()" [maximizable]="true">
+
+  <br>
+  <br>
+  <h3 class="text-center" *ngIf="isPlesWait"><strong>Please Wait...</strong></h3>
+  <div class="sf-text-right sf-table-header sf-black" *ngIf="totalCount > 0">
+    <app-pagesize *ngIf="totalCount" [totalCount]="totalCount" [initial]="initial" [end]="end"
+      (keyup)="pagesizeNav($event)" (click)="pagesize($event)"></app-pagesize>
+  </div>
+  <br>
+  <!-- <ag-grid-angular [gridOptions]="gridOptions" [rowStyle]="colors" style="width: 500px; height: 500px;"
+    class="ag-theme-balham" [rowData]="rowData" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef"
+    [enableSorting]="true" [rowDragManaged]="true" [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid
+    style="width: 100%;height: 68vh;" animateRows="true" rowSelection="multiple" (cellClicked)='onRowSelected($event)'>
+  </ag-grid-angular> -->
+  <table border="1"> 
+    <th>Weekly Date Range</th>
+    <th>Action</th>
+    <tr *ngFor="let data of weeklyDateRangeList">
+      <td><span [style.color]="data.foreColor === 'OPEN' ? 'purple': data.foreColor" title="Click here to open FCH Family change review" (click)="onWeeklyDateRangeSelect(data)">{{data.weeklyDateRange}}</span></td>
+      <td><span class="hypherlink" title="Click here to open Resource worker" (click)="onResourceWorkerSelect(data)">Resource Worker</span></td>
+    </tr>
+  </table>
+</p-dialog>
+
+<!-- Week List Pop Window -->
+<p-dialog header="Resource Worker" [contentStyle]="{'min-width':'103rem','width': '98vw'}" [responsive]="true"
+  [(visible)]="isWeekListPopWindow" (onHide)="closeWeekProviderList()">
+
+  <br>
+  <br>
+  <h3 class="text-center" *ngIf="isWeeklistPleasWait"><strong>Please Wait...</strong></h3>
+  <div class="sf-text-right sf-table-header sf-black" *ngIf="weekListTotalCount > 0">
+    <app-pagesize *ngIf="weekListTotalCount" [totalCount]="weekListTotalCount" [initial]="weekListInitial"
+      [end]="weekListEnd" (keyup)="weekListPagesizeNav($event)" (click)="weekListPagesize($event)"></app-pagesize>
+  </div>
+  <br>
+  <ag-grid-angular [gridOptions]="gridOptionsResourceHome" style="width: 500px; height: 500px;" class="ag-theme-balham"
+    [rowData]="weekListRowData" [columnDefs]="weekListColumnDefs" [defaultColDef]="weekListDefaultColDef"
+    [enableSorting]="true" [rowDragManaged]="true" [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid
+    style="width: 100%;height: 68vh;" animateRows="true" rowSelection="multiple"
+    (cellClicked)='onWeekListRowSelected($event)'>
+  </ag-grid-angular>
+</p-dialog>
+
+<!-- Week Provider List Pop Window -->
+<p-dialog header="Resource Home" [contentStyle]="{'min-width':'103rem','width': '98vw'}" [responsive]="true"
+  [(visible)]="isWeekProviderListPopWindow" (onHide)="closeWeekProviderList()">
+  <!-- placeholder="Type here to search" -->
+  <p-autoComplete (onSelect)="onWeekDropdownSelection($event)" class="inline-block" field="weeklyDateRange"
+    [dropdown]="true" [(ngModel)]="weeklyDateRange" emptyMessage="No results found!"
+    [suggestions]="weeklyDateSuggestions" (completeMethod)="getMetaData($event,'weeklyDateRange')"
+    [forceSelection]="true" size="23">
+  </p-autoComplete>
+  <!-- <button class="sf-positive-btn new-record-button" (click)="saveFCA()">
+    <span>Save</span>
+  </button>
+  <button class="sf-negative-btn new-record-button" (click)="closeFCAPrompt()">
+    <span>Cancel</span>
+  </button> -->
+
+  <br>
+  <br>
+  <h3 class="text-center" *ngIf="isWeekProviderlistPleasWait"><strong>Please Wait...</strong></h3>
+  <div class="sf-text-right sf-table-header sf-black" *ngIf="weekProviderListTotalCount > 0">
+    <app-pagesize *ngIf="weekProviderListTotalCount" [totalCount]="weekProviderListTotalCount"
+      [initial]="weekProviderListInitial" [end]="weekProviderListEnd" (keyup)="weekProviderListPagesizeNav($event)"
+      (click)="weekProviderListPagesize($event)"></app-pagesize>
+  </div>
+  <br>
+  <ag-grid-angular [gridOptions]="gridOptionsResourceWorker" style="width: 500px; height: 500px;"
+    class="ag-theme-balham" [rowData]="weekProviderListRowData" [columnDefs]="weekProviderListColumnDefs"
+    [defaultColDef]="weekProviderListDefaultColDef" [enableSorting]="true" [rowDragManaged]="true"
+    [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid style="width: 100%;height: 68vh;"
+    animateRows="true" rowSelection="multiple" (cellClicked)='onWeekProviderListRowSelected($event,"resourceHome")'>
+  </ag-grid-angular>
+</p-dialog>
+
+<!-- Form View Popup Window -->
+<p-dialog header="FCH Family Change Review" [contentStyle]="{'min-width':'100rem','width': '95vw'}" [responsive]="true"
+  [(visible)]="isFCHPopWindow">
+
+  <div>
+    <div>
+
+      <div>
+
+        <div style="padding:10px;">
+          <div>
+            <div class="container-foreground">
+
+              <div class="sf-form">
+                <div class="sf-form-size margin-left-45">
+                  <div>
+
+                    <button class="sf-positive-btn new-record-button current-value-button"
+                      (click)="showCurrentValues()">
+                      <span>Current Values</span>
+                    </button>
+                  </div>
+                  <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Status
+                        </span>
+
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+
+                        <!-- <p-autoComplete *ngIf="isStatusDisabled" [disabled]="true" field="statusType" [dropdown]="true"
+                          [(ngModel)]="fca.status" emptyMessage="No results found!" [suggestions]="metaData"
+                          (completeMethod)="getMetaData($event,'status')" [forceSelection]="true"
+                          placeholder="Type here to search" size="23">
+                        </p-autoComplete> -->
+
+                        <p-autoComplete *ngIf="!isStatusDisabled" field="statusType" [dropdown]="true"
+                          [(ngModel)]="fca.status" emptyMessage="No results found!" [suggestions]="metaData"
+                          (completeMethod)="getMetaData($event,'status')" [forceSelection]="true"
+                          placeholder="Type here to search" size="23">
+                        </p-autoComplete>
+
+                        <input [(ngModel)]="fca.status.statusType" *ngIf="isStatusDisabled" [disabled]="true"
+                          type="text" maxlength="25" [(ngModel)]="fca.providerName" pInputText size="27" />
+
+
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Provider Name
+                        </span>
+
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+
+                        <input [disabled]="true" type="text" maxlength="25" [(ngModel)]="fca.providerName" pInputText
+                          size="27" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Begin Date</span>
+                        <span class="mandatory">*</span>
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+
+                        <p-calendar [disabled]="true" [(ngModel)]="fca.beginDate" [showIcon]="true"
+                          [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
+                        </p-calendar>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>End Date
+                        </span>
+
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+
+                        <p-calendar [disabled]="true" [(ngModel)]="fca.endDate" [showIcon]="true"
+                          [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
+                        </p-calendar>
+
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Changes
+                        </span>
+
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+
+                        <input [disabled]="true" type="text" maxlength="25" [(ngModel)]="fca.changes" pInputText
+                          size="27" />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Resource Worker
+                        </span>
+
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+
+                        <input [disabled]="true" type="text" maxlength="25" [(ngModel)]="fca.resourceWorker" pInputText
+                          size="27" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="margin-top-20 row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <span>Notes</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="margin-top-20 row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <textarea [disabled]="true" [(ngModel)]="fca.notes" pInputTextArea
+                          style="width:100%;height:100%"></textarea>
+
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                </div>
+              </div>
+
+              <div>
+                <button class="sf-positive-btn new-record-button" (click)="updateFchData()">
+                  <span>Save</span>
+                </button>
+                <button class="sf-negative-btn new-record-button" (click)="closeFCAFormView()">
+                  <span>Cancel</span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</p-dialog>
+
+<!-- To be converted for current values -->
+<p-dialog (onHide)="closeCurrentValuePopUp()" header="Current Values"
+  [contentStyle]="{'min-width':'100rem','width': '95vw'}" [responsive]="true" [(visible)]="isCurrentValuePopWindow">
+
+  <div>
+    <div>
+
+      <div>
+
+        <div style="padding:10px;">
+          <div>
+            <div class="container-foreground">
+
+              <div class="sf-form">
+                <div class="sf-form-size margin-left-45">
+                  <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Provider Type
+                        </span>
+
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <input [disabled]="true" type="text" maxlength="25" [(ngModel)]="currentValues.providerType"
+                          pInputText size="27" />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Provider Status
+                        </span>
+
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+
+                        <input [disabled]="true" type="text" maxlength="25"
+                          [(ngModel)]="currentValues.providerStatusType" pInputText size="27" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Day Care Hours</span>
+
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+
+                        <input [disabled]="true" type="text" maxlength="25"
+                          [(ngModel)]="currentValues.daycareHoursRequired" pInputText size="27" />
+                      </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Level of Care
+                        </span>
+
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+
+                        <input [disabled]="true" type="text" maxlength="25" [(ngModel)]="currentValues.levelOfCare"
+                          pInputText size="27" />
+
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Youngest
+                        </span>
+
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+
+                        <input [disabled]="true" type="text" maxlength="25" [(ngModel)]="currentValues.youngestAge"
+                          pInputText size="27" />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Oldest
+                        </span>
+
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+
+                        <input [disabled]="true" type="text" maxlength="25" [(ngModel)]="currentValues.oldestAge"
+                          pInputText size="27" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Age is Flexible
+                        </span>
+
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-checkbox [disabled]="true" binary="true" [(ngModel)]="currentValues.ageIsFlexible">
+                        </p-checkbox>
+
+
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Youngest Licensed
+                        </span>
+
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+
+                        <input [disabled]="true" type="text" maxlength="25" [(ngModel)]="currentValues.youngestLicensed"
+                          pInputText size="27" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Oldest Licensed
+                        </span>
+
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+
+                        <input [disabled]="true" type="text" maxlength="25" [(ngModel)]="currentValues.oldestLicensed"
+                          pInputText size="27" />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Prefared Race
+                        </span>
+
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+
+                        <input [disabled]="true" type="text" maxlength="25" [(ngModel)]="currentValues.race" pInputText
+                          size="27" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Race is Flexible
+                        </span>
+
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-checkbox [disabled]="true" binary="true" value="true"
+                          [(ngModel)]="currentValues.raceIsFlexible">
+                        </p-checkbox>
+
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Prefared Capacity
+                        </span>
+
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+
+                        <input [disabled]="true" type="text" maxlength="25" [(ngModel)]="currentValues.capacity"
+                          pInputText size="27" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Licensed Capacity
+                        </span>
+
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+
+                        <input [disabled]="true" type="text" maxlength="25" [(ngModel)]="currentValues.licenseCapacity"
+                          pInputText size="27" />
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Gender
+                        </span>
+
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+
+                        <input [disabled]="true" type="text" maxlength="25" [(ngModel)]="currentValues.genderGroup"
+                          pInputText size="27" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Gender is Flexible
+                        </span>
+
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-checkbox [disabled]="true" binary="true" value="true"
+                          [(ngModel)]="currentValues.genderIsFlexible">
+                        </p-checkbox>
+
+                      </div>
+                    </div>
+
+                  </div>
+
+
+
+
+
+                </div>
+              </div>
+
+
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</p-dialog>
+
+<p-dialog header="{{weeklyChangeAuthHeader}}" [(visible)]="isOpenWeeklyChangeAuthList" [maximizable]="true" [contentStyle]="{'min-width':'100rem','width': '95vw'}">
+  <p class="text-center" *ngIf="isWeeklyAuthListLoader"> <strong>Loading...</strong></p>
+    <p class="text-center" *ngIf="weeklyChangeAuthList.length === 0"><strong>No Records Found!</strong></p>
+    <div style="display: flex;
+    justify-content: flex-end;">
+      
+      <app-pagesize *ngIf="fchAuthTotalCount" [totalCount]="fchAuthTotalCount" [initial]="fchAuthListInitial" [end]="fchAuthListEnd"
+      (keyup)="fchAuthListPagesizeNav($event)" (click)="fchAuthListPagesize($event)"></app-pagesize>
+    </div>
+    <ag-grid-angular  style="width: 500px; height: 500px;" class="ag-theme-balham"
+    [rowData]="weeklyChangeAuthList" [columnDefs]="weeklyChangeAuthListColumnDefs" [defaultColDef]="weekListDefaultColDef"
+    [enableSorting]="true" [rowDragManaged]="true" [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid
+    style="width: 100%;height: 68vh;" animateRows="true" rowSelection="multiple"
+    (cellClicked)='onWeekProviderListRowSelected($event,"authList")'></ag-grid-angular>
+<!-- 
+    <table border="1" *ngIf="weeklyChangeAuthList.length > 0" style="width: auto;">
+      <th>Status</th>
+      <th>Provider Name</th>
+      <th>Resource Worker</th>
+      <th>Changes</th>
+      <th>Notes</th>
+      <th>Begin Date</th>
+      <th>End Date</th>
+      <th>Change_ProviderStatusTypeID</th>
+        <tr *ngFor="let auth of weeklyChangeAuthList">
+          <td>{{auth.status}}</td>
+          <td>{{auth.providerName}}</td>
+          <td>{{auth.resourceWorker}}</td>
+          <td>{{auth.changes}}</td>
+          <td>{{auth.notes}}</td>
+          <td>{{auth.beginDate}}</td>
+          <td>{{auth.endDate}}</td>
+          <td>{{auth.change_ProviderStatusTypeID}}</td>
+        </tr>
+    </table> -->
+</p-dialog>

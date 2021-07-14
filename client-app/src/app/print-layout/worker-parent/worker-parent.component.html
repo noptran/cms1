@@ -1,0 +1,355 @@
+<div id="print-form-content" class="sf-form">
+  <div class="flex-container header">
+    <div class="heading">
+      WORKER PARENT VISIT <br>
+      ACTIVITY LOG
+    </div>
+    <div class="logo">
+      <img src="assets/logo color.svg" alt="">
+    </div>
+    <div class="case-info">
+      <div>
+        <span>Children’s Name(s): </span>
+
+        <div class="remove-borders">{{workerParent?.ClientName?.value}}</div>
+      </div>
+      <div>
+        <span>Parent’s Name(s):</span>
+
+        <div class="remove-borders">{{workerParent?.parentName?.value}}</div>
+      </div>
+      <div>
+        <span>FACTS:</span>
+
+        <div class="remove-borders">{{workerParent?.fact?.value}}</div>
+      </div>
+      <div>
+        <span>Date:</span>
+
+        <div class="remove-borders">{{workerParent?.CompletionDate?.value | date: 'dd/MM/yyyy'}}</div>
+      </div>
+      <div class="flex-container">
+        <div>
+          <span>Time/Length:</span>
+        </div>
+        <div>
+          <div class="space-right">From:</div>
+
+          <div class="remove-borders">{{workerParent?.FromTime?.value}}</div>
+        </div>
+        <div>
+          <div class="space-right">To:</div>
+
+          <div class="remove-borders">{{workerParent?.ToTime?.value}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-container space-down">
+    <div class="space-right center">
+      CF069.1 Visit in residence
+      <input type="radio" ngDefaultControl class="space-right" name="procode" value="CF069.1"
+        label="CF069.1 Visit in residence" [(ngModel)]="workerParent.proCode">
+    </div>
+    <div class="space-right center">
+      CF069.2 Visit not in residence
+      <input type="radio" ngDefaultControl class="space-right" name="procode" value="CF069.2"
+        label="CF069.2 Visit not in residence" [(ngModel)]="workerParent.proCode">
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">Location of visit:</div>
+    <div class="space-right">
+
+      <pre>{{workerParent?.LocationOfVisit?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">List those present at visit:</div>
+    <div class="space-right">
+
+      <pre>{{workerParent?.ListThosePresentAtVisit?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">Children Living in the Removal Home:</div>
+    <div class="space-right">
+
+      <pre>{{workerParent?.ChildrenLivingInTheRemovalHome?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">Others Living in Home:</div>
+    <div class="space-right">
+
+      <pre>{{workerParent?.OthersLivingInHome?.value}}</pre>
+    </div>
+  </div>
+  <div class="flex-container space-down">
+    <div class="space-right">Case Plan Goal:</div>
+    <div class="space-right center">
+      Reintegration
+      <input type="radio" ngDefaultControl class="space-right" name="CasePlanGoals" value="0" label="Reintegration"
+        [(ngModel)]="workerParent.CasePlanGoals.fieldOptionIndex">
+    </div>
+    <div class="space-right center">
+      Adoption
+      <input type="radio" ngDefaultControl class="space-right" name="CasePlanGoals" value="1" label="Adoption"
+        [(ngModel)]="workerParent.CasePlanGoals.fieldOptionIndex">
+    </div>
+    <div class="space-right center">
+      APPLA
+      <input type="radio" ngDefaultControl class="space-right" name="CasePlanGoals" value="2" label="APPLA"
+        [(ngModel)]="workerParent.CasePlanGoals.fieldOptionIndex">
+    </div>
+    <div class="space-right center">
+      Custodianship
+      <input type="radio" ngDefaultControl class="space-right" name="CasePlanGoals" value="3" label="Custodianship"
+        [(ngModel)]="workerParent.CasePlanGoals.fieldOptionIndex">
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-down"> Case Plan Tasks, Services and/or Additional Concerns addressed at this Visit: (Limit to
+      3 Tasks) </div>
+    <div class="space-down">
+
+      <pre>{{workerParent?.casePlanLimit?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-down"> Progress since last W/P Visit: </div>
+    <div class="space-down">
+
+      <pre>{{workerParent?.progress?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="flex-container">
+      <div class="flex-container space-right">
+        <div class="space-right">Tasks for the parent before the next W/P visit:</div>
+        <div class="space-right">
+
+          <div class="remove-borders">{{workerParent?.Tasksparentnextvisit?.value}}</div>
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">Due Date:</div>
+        <div class="space-right">
+
+          <div class="remove-borders">{{workerParent?.duedate1?.value}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="flex-container">
+      <div class="flex-container space-right">
+        <div class="space-right">Tasks for the worker before the next W/P visit:</div>
+        <div class="space-right">
+
+          <div class="remove-borders">{{workerParent?.Tasksworker?.value}}</div>
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">Due Date:</div>
+        <div class="space-right">
+
+          <div class="remove-borders">{{workerParent?.duedate2?.value}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-down">What family members/kin have a connection to the child? </div>
+    <div class="space-down">
+      <div class="space-right">Name:</div>
+      <div class="space-right">
+
+        <pre>{{workerParent?.WhatFamilyMembersKinHaveaConnectionToTheChildAndProvideSupportToTheFamily?.value}}</pre>
+      </div>
+    </div>
+  </div>
+  <p>Safety Assessment (for all family members living in the home):</p>
+  <p>Safety is the potential for serious maltreatment which is imminent. It determines the need for immediate
+    protection action or controlling interventions to protect the child from imminent danger.</p>
+  <div class="flex-container space-down">
+    <div class="space-right">Have additional safety concerns been identified since last visit?</div>
+    <div class="space-right">
+      Yes
+      <input type="radio" ngDefaultControl class="space-right"
+        name="WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeeting" value="0" label="Yes"
+        [(ngModel)]="workerParent.WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeeting.fieldOptionIndex">
+    </div>
+    <div class="space-right">
+      No
+      <input type="radio" ngDefaultControl class="space-right"
+        name="WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeeting" value="1" label="No"
+        [(ngModel)]="workerParent.WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeeting.fieldOptionIndex">
+    </div>
+  </div>
+  <p>If yes, please answer the following</p>
+  <div class="space-down">
+    <div class="space-down"> What safety concerns have been identified? </div>
+    <div class="space-down">
+
+      <pre>{{workerParent?.WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeetingDescription?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-down"> What are the family’s strengths and resources mitigating safety concerns? </div>
+    <div class="space-down">
+
+      <pre>{{workerParent?.HowWereSafetyRiskConcernsAddressed?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-down"> What are the contributing factors directly related to the safety concern? </div>
+    <div class="space-down">
+
+      <pre>{{workerParent?.contributingfactors?.value}}</pre>
+    </div>
+  </div>
+  <div class="flex-container space-down">
+    <div class="space-right">Has a safety plan been developed or reviewed?</div>
+    <div class="space-right">
+      Yes
+      <input type="radio" ngDefaultControl class="space-right" name="safetyplandevelopedorreviewed" value="0"
+        label="Yes" [(ngModel)]="workerParent.safetyplandevelopedorreviewed.fieldOptionIndex">
+    </div>
+    <div class="space-right">
+      No
+      <input type="radio" ngDefaultControl class="space-right" name="safetyplandevelopedorreviewed" value="1" label="No"
+        [(ngModel)]="workerParent.safetyplandevelopedorreviewed.fieldOptionIndex">
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-down"> If reviewed, what progress has been made to follow the safety plan? </div>
+    <div class="space-down">
+
+      <pre>{{workerParent?.reviewprogressfollow?.value}}</pre>
+    </div>
+  </div>
+  <p> Risk Assessment (for all family members living in the home):</p>
+  <p>Risk is potential maltreatment in the future. It determines the need for services to address potential future
+    maltreatment.
+  </p>
+  <div class="flex-container space-down">
+    <div class="space-right">Have additional risk concerns been identified since last visit?</div>
+    <div class="space-right">
+      Yes
+      <input type="radio" ngDefaultControl class="space-right" name="additionalriskconcernidentified" value="0"
+        label="Yes" [(ngModel)]="workerParent.additionalriskconcernidentified.fieldOptionIndex">
+    </div>
+    <div class="space-right">
+      No
+      <input type="radio" ngDefaultControl class="space-right" name="additionalriskconcernidentified" value="1"
+        label="No" [(ngModel)]="workerParent.additionalriskconcernidentified.fieldOptionIndex">
+    </div>
+  </div>
+  <p>If yes, please answer the following:</p>
+  <div class="space-down">
+    <div class="space-down">What risk concerns have been identified?</div>
+    <div class="space-down">
+
+      <pre>{{workerParent?.risk_concern_identified?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-down"> What are the family’s strengths and resources mitigating the risks?</div>
+    <div class="space-down">
+
+      <pre>{{workerParent?.family_mitigate_risk?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-down"> What services are needed or have taken place to mitigate the concerns? </div>
+    <div class="space-down">
+
+      <pre>{{workerParent?.service_mitigate_concern?.value}}</pre>
+    </div>
+  </div>
+  <div class="flex-container space-down">
+    <div class="space-right">Has a service plan been developed or reviewed?</div>
+    <div class="space-right">
+      Yes
+      <input type="radio" ngDefaultControl class="space-right" name="service_plan_reviewed" value="0" label="Yes"
+        [(ngModel)]="workerParent.service_plan_reviewed.fieldOptionIndex">
+
+    </div>
+    <div class="space-right">
+      No
+      <input type="radio" ngDefaultControl class="space-right" name="service_plan_reviewed" value="1" label="No"
+        [(ngModel)]="workerParent.service_plan_reviewed.fieldOptionIndex">
+
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-down"> If reviewed, what progress has been made to follow the service plan? </div>
+    <div class="space-down">
+
+      <pre>{{workerParent?.CasePlanTasks?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-down">Additional Remarks, Positives, and/or Concerns: </div>
+    <div class="space-down">
+
+      <pre>{{workerParent?.NarrativeSummary?.value}}</pre>
+    </div>
+  </div>
+
+  <div class="space-down">
+    <div class="space-right">Next W/P Visit Scheduled For:</div>
+    <div class="space-right">
+
+      <pre>{{workerParent?.TasksForSFCSBeforeNextVisit?.value}}</pre>
+    </div>
+  </div>
+  <p>I received a copy of this form and understand what is expected of me. </p>
+  <div class="flex-container space-down">
+    <div class="space-down">
+      <div class="space-right">
+
+        <div class="remove-borders">{{workerParent?.parent_Signature1?.value}}</div>
+      </div>
+      <div class="space-right">Parent Signature</div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">
+
+        <div class="remove-borders">{{workerParent?.date1?.value}}</div>
+      </div>
+      <div class="space-right">Date:</div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">
+
+        <div class="remove-borders">{{workerParent?.parent_Signature2?.value}}</div>
+      </div>
+      <div class="space-right">Parent Signature</div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">
+
+        <div class="remove-borders">{{workerParent?.date2?.value}}</div>
+      </div>
+      <div class="space-right">Date:</div>
+    </div>
+  </div>
+  <div class="flex-container space-down">
+    <div class="space-down">
+      <div class="space-right">
+
+        <div class="remove-borders">{{workerParent?.Worker_Signature?.value}}</div>
+      </div>
+      <div class="space-right">Worker Signature/Title</div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">
+
+        <div class="remove-borders">{{workerParent?.date3?.value | date: 'dd/MM/yyyy'}}</div>
+      </div>
+      <div class="space-right">Date:</div>
+    </div>
+  </div>
+</div>

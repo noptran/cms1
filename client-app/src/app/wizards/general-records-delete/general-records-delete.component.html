@@ -1,0 +1,52 @@
+<button (click)="this.isDeleteConfirmation = true" class="alert-text">
+  <i class="fa fa-trash-o" aria-hidden="true"></i>
+  <span>Delete</span>
+</button>
+
+<p-dialog header="Delete confirmation" [(visible)]="isDeleteConfirmation">
+  <p>Are you sure want to delete this record?</p>
+  <p class="info-text">{{ infoText }}</p>
+  <p-footer>
+    <div class="dialog-footer">
+      <button
+        (click)="this.isDeleteConfirmation = false"
+        [disabled]="isDeleteConfirmationDisable"
+      >
+        Cancel
+      </button>
+      <button
+        (click)="onDelete()"
+        [disabled]="isDeleteConfirmationDisable"
+        class="alert-text"
+      >
+        {{ deleteConfirmationBtnLabel }}
+      </button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<p-dialog header="Acknowledgement Options" [(visible)]="isOpenAckForm">
+  <app-ack-options
+    moduleName="PlacementDelete"
+    *ngIf="isOpenAckForm"
+    (disableAck)="onAckOptionsForm($event)"
+  ></app-ack-options>
+</p-dialog>
+
+<p-dialog header="Acknowledgement" [(visible)]="isPPS5120Form">
+  <div style="width: 90vw; height: 86vh">
+    <app-placement-acknowledgement
+      *ngIf="isPPS5120Form"
+      (formStatus)="getPlacementAcknowledgmentFormStatus($event)"
+    ></app-placement-acknowledgement>
+  </div>
+</p-dialog>
+
+<p-dialog header="PSA" [(visible)]="isPSAForm">
+  <app-placement-psa
+    currentFormMode="delete"
+    *ngIf="isPSAForm"
+    (formStatus)="getPSAFormStatus($event)"
+  >
+  </app-placement-psa>
+</p-dialog>

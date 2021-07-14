@@ -1,0 +1,84 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-backgorund">
+  <div class="container-foreground">
+
+    <form class="sf-form" [formGroup]="permanencyForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Date Of Permanency Or Release</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" showTime="true" hourFormat="24" [yearNavigator]="true" [(ngModel)]="permanency.dateOfPermanencyOrRelease"
+              formControlName="dateOfPermanencyOrRelease" [monthNavigator]="true" yearRange="2000:2030" [showIcon]="true" placeholder="{{permanency.dateOfPermanencyOrRelease}}"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Staff</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>{{permanency.staffID?.firstName}} {{permanency.staffID?.lastName}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Office Name</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>{{permanency.sfcsofficeID?.officeName}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-md-3">
+
+            <button class="document-link" routerLink="/reintegration/referral/opencard/move-permanency/permanency-form/attachment"
+              class="btn btn-primary">View Attachments</button>
+          </div>
+        </div>
+      </div>
+
+    </form>
+    
+    <div class="footer">
+      <div id="loading-overlay">
+        <p class="loader-text">
+          <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+        </p>
+      </div>
+      <div class="footer-left-well">
+
+        <button class="sf-attachment-btn" pTooltip="Upload Attachment" (click)="openUploadDocument()" [ngClass]="isAttachmentDisabled ?'disable':'sf-positive-btn'"
+          [disabled]="false" *ngIf="isAttachmentRequired">
+          <span class="fa fa-file-text-o"></span>
+          <span class="attach-text">Upload Attachments</span>
+        </button>
+
+        <button class="sf-attachment-btn" pTooltip="Attachment" (click)="navigateTo()" [ngClass]="isAttachmentDisabled ?'disable':'sf-positive-btn'"
+          [disabled]="isAttachmentDisabled" *ngIf="isAttachmentRequired">
+          <span class="fa fa-file-text-o"></span>
+          <span class="attach-text">View Attachments</span>
+        </button>
+
+      </div>
+      <div class="footer-right-well">
+        <button class="sf-negative-btn" pTooltip="Cancel" (click)="discardBtn()">
+          <span>
+            Back
+          </span>
+        </button>
+      </div>
+    </div>
+    <app-quick-menu [module]="quickMenu"></app-quick-menu>
+
+  </div>
+</div>

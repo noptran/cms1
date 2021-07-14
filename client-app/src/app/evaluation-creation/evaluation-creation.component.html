@@ -1,0 +1,131 @@
+<div *ngIf="isList" class="list-table">
+  <p>Case Evaluation List</p>
+  <div style="display: flex; justify-content: flex-end; margin: 5px;">
+    <button (click)="addForm()" class="sf-positive-btn">Add</button>
+  </div>
+  <table style="width: 100%;" border="1">
+    <th scope="beginDate">Evaluation Date</th>
+    <th scope="personType">Total Score</th>
+    <th scope="endDate">Corrected Score</th>
+    <th scope="name">Evaluation Type ID</th>
+    <th scope="name">Evaluation ID</th>
+    <th scope="actions">Actions</th>
+    <tr *ngFor="let caseEvaluation of caseEvaluationList">
+      <td>{{caseEvaluation.evaluationDate | date :'MM/dd/yyyy' }}</td>
+      <td>{{caseEvaluation.totalScore}}</td>
+      <td>{{caseEvaluation.correctedScore}}</td>
+      <td>{{caseEvaluation.evaluationType}}</td>
+      <td>{{caseEvaluation.evaluationID}}</td>
+      <td>
+        <div>
+          <span class="fa fa-edit" (click)="onEdit(caseEvaluation)" style="font-size: 14px;cursor: pointer;"></span>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+</div>
+
+<div *ngIf="isForm">
+  <div *ngIf="isAppHeader">
+    <app-form-header [title]="title" [breadcrumbs]="breadcrumbs"></app-form-header>
+  </div>
+
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+  <div class="container-background case-background ">
+    <div class="container-foreground case-foreground">
+      <form [formGroup]="caseEvaluationsForm" class="sf-form">
+        <div class="flex-container">
+          <div>
+            <span class="caseEvaluation-field">Available Evaluations </span>
+          </div>
+          <div>
+            <p-autoComplete name="evaluationVersion" formControlName="evaluationVersion"
+              [(ngModel)]="caseEval.evaluationVersionID" (onSelect)="selectEvaluationVersion($event)"
+              [suggestions]="metaData" [dropdown]="true" field="versionDesc"
+              (completeMethod)="getEvaluationVersion($event)" placeholder="Type here to search"></p-autoComplete>
+          </div>
+          <button [hidden]="true" class="sf-positive-btn pull-right" id="closeBtn">Referesh</button>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Directions</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-sm-12 col-md-12">
+            <div class="col-lg-12 col-sm-12 col-md-12">
+              <textarea [ngModelOptions]="{standalone: true}" style="width: 100%" [(ngModel)]="directions"
+                [readonly]="isReadOnly"></textarea>
+              <!-- <div class="directions-container">
+                {{directions}}
+              </div> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="margin-top-20 table-responsive" style="padding: 10px; overflow-x: hidden !important;">
+          <table class="table table-bordered">
+            <thead>
+              <th style="width: 2%;">#</th>
+              <th style="width: 28%;">Order</th>
+              <th style="width: 10%;">Question</th>
+              <th style="width: 20%;">Begin Date</th>
+              <th style="width: 20%;">End date</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of evaluationQuestions;let index = index;">
+              
+                <td>{{data.orderID}}</td>
+             
+                <td class="case-table-width">{{data.questionDetail}}<p class="margin-top-10">
+                    <b *ngIf="data.clarification!=undefined">{{clarifyLabel}}:{{data.clarification}}</b>
+                  </p>
+                </td>
+                <td>{{data.Scale?.scale}}</td>
+
+                <td>
+                  <p-autoComplete [dropdown]="true" [ngModelOptions]="{standalone: true}"
+                    emptyMessage="No results found!" [suggestions]="filteredScore" [forceSelection]="true"
+                    placeholder="Type here to search" field="view" (completeMethod)="scoreSelection($event)"
+                    [(ngModel)]="evaluationQuestions[index].selectedScore" (onSelect)="getScore(data,'score')" size="23"
+                    [disabled]="isReadOnly">
+                  </p-autoComplete>
+                </td>
+                <td [hidden]="!showHideNotesAndCorrect">
+                
+                  <p-autoComplete [dropdown]="true" [ngModelOptions]="{standalone: true}"
+                    emptyMessage="No results found!" [suggestions]="filteredScore" [forceSelection]="true"
+                    placeholder="Type here to search" (completeMethod)="scoreSelection($event)" field="view" value="0"
+                    [(ngModel)]="evaluationQuestions[index].selectedCorrectedScore" size="23"
+                    (onSelect)="getScore(data,'cort')" [disabled]="isReadOnly">
+                  </p-autoComplete>
+
+                </td>
+                <td>
+                  <textarea [ngModelOptions]="{standalone: true}" cols="30" rows="3"
+                    [(ngModel)]="evaluationQuestions[index].notes" [readonly]="isReadOnly"
+                    (focusout)="getScore(data,$event)"></textarea>
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </form>
+
+      <app-form-footer (discard)="discardForm()" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"
+        [attachmentControll]="isAttachmentRequired" [isAttachmentDisabled]="false" (attachDoc)="navigateTo()"
+        (save)="addPost(caseEval)" (edit)="edit()" [editControll]="editControl">
+      </app-form-footer>
+    </div>
+  </div>
+
+</div>

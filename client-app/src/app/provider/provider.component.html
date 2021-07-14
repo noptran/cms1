@@ -1,0 +1,2298 @@
+<div *ngIf="!isPopupWindow">
+  <app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+</div>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <div *ngIf="currentPlacementID" class="jump-to-tree-row">
+      <div class="jump-to-tree-container" (click)="openLocationWindow()">
+        <span><b>View Location</b></span>
+      </div>
+      <div
+        class="jump-to-tree-container"
+        style="margin-left: 2rem"
+        pTooltip="Click here to open"
+        (click)="onClickJumptoPlacement()"
+      >
+        <span><b>Jump to Placement</b></span>
+      </div>
+    </div>
+
+    <span
+      class="fa fa-th opencard-menu margin-left-15"
+      routerLink="/provider/dashboard"
+    ></span>
+    <!-- <span class="fa fa-th opencard-menu margin-left-15" (click)="openInNewBrowserWindow('/provider/dashboard')"></span> -->
+    <nav class="nav-fill">
+      <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+        <a
+          class="nav-item nav-link"
+          *ngFor="let main of mainTabs; let i = index"
+          [class.active]="sIndex === i"
+          (click)="setIndex(i, $event)"
+          data-toggle="tab"
+          href="{{ main.href }}"
+          role="tab"
+          >{{ main.label }}
+        </a>
+      </div>
+    </nav>
+    <div class="tab-content padding-15 nav-content" id="nav-tabContent">
+      <div
+        class="tab-pane margin-left-45 active in inner-scroll"
+        id="nav-general"
+        role="tabpanel"
+        aria-labelledby="nav-general-tab"
+      >
+        <div *ngIf="!isEdit">
+          <div class="provider-member-container">
+            <div class="add-provider">
+              <form class="sf-form">
+                <!-- <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Provider Memeber</span> <span class="mandatory">*</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-autoComplete [dropdown]="true" name="memberID" emptyMessage="No results found!"
+                        [forceSelection]="true" placeholder="Type here to search" field="fullName" size="23"
+                        (completeMethod)="getMetaData($event,'providerMember')" [suggestions]="metaData"
+                        [(ngModel)]="providerMember.member"></p-autoComplete>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Person Type</span> <span class="mandatory">*</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-autoComplete [dropdown]="true" name="personType" emptyMessage="No results found!"
+                        [forceSelection]="true" placeholder="Type here to search" field="personType" size="23"
+                        (completeMethod)="getMetaData($event,'personType')" [suggestions]="metaData"
+                        [(ngModel)]="providerMember.personType"></p-autoComplete>
+                    </div>
+                  </div>
+                </div> -->
+                <div class="flex-layout-provider-member">
+                  <div class="flex-row">
+                    <span>Provider Member</span>
+                    <span class="mandatory" *ngIf="isProviderMemberRequired"
+                      >*</span
+                    >
+                    <div class="margin-left-25">
+                      <p-autoComplete
+                        [dropdown]="true"
+                        name="memberID"
+                        emptyMessage="No results found!"
+                        [forceSelection]="true"
+                        placeholder="Type here to search"
+                        field="fullName"
+                        size="23"
+                        (completeMethod)="getMetaData($event, 'providerMember')"
+                        [suggestions]="metaData"
+                        [(ngModel)]="providerMember.member"
+                      ></p-autoComplete>
+                    </div>
+                  </div>
+                  <div>
+                    <button
+                      (click)="
+                        isPersonMasterValidation = !isPersonMasterValidation
+                      "
+                    >
+                      New Provider Member
+                    </button>
+                  </div>
+                  <div class="flex-row">
+                    <span>Person Type</span>
+                    <span class="mandatory" *ngIf="isProviderMemberRequired"
+                      >*</span
+                    >
+                    <div class="margin-left-25">
+                      <p-autoComplete
+                        [dropdown]="true"
+                        name="personType"
+                        emptyMessage="No results found!"
+                        [forceSelection]="true"
+                        placeholder="Type here to search"
+                        field="personType"
+                        size="23"
+                        (completeMethod)="getMetaData($event, 'personType')"
+                        [suggestions]="metaData"
+                        [(ngModel)]="providerMember.personType"
+                      ></p-autoComplete>
+                    </div>
+                  </div>
+                </div>
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Begin Date</span>
+                      <span class="mandatory" *ngIf="isProviderMemberRequired"
+                        >*</span
+                      >
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-calendar
+                        name="providerMemberBeginDate"
+                        showTime="true"
+                        hourFormat="12"
+                        [yearNavigator]="true"
+                        [monthNavigator]="true"
+                        yearRange="2000:2030"
+                        [showIcon]="true"
+                        [(ngModel)]="providerMember.beginDate"
+                        (onSelect)="onSelectProviderMemeberBeginDate()"
+                      ></p-calendar>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>End Date</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-calendar
+                        name="dateInput"
+                        showTime="true"
+                        hourFormat="12"
+                        [yearNavigator]="true"
+                        [monthNavigator]="true"
+                        yearRange="2000:2030"
+                        [showIcon]="true"
+                        [(ngModel)]="providerMember.endDate"
+                      ></p-calendar>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Primary Contact</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-checkbox
+                        binary="true"
+                        name="checkbox"
+                        [(ngModel)]="providerMember.primaryContact"
+                      >
+                      </p-checkbox>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="margin-top-20 row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <span>Notes</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="margin-top-20 row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <textarea
+                        pInputTextarea
+                        name="inputTextarea"
+                        style="width: 100%; height: 100%"
+                        [(ngModel)]="providerMember.notes"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="sub-form-footer">
+              <button>Cancel</button>
+              <button (click)="providerMemberAction(providerMember, 0, 0)">
+                {{ providerMemberButtonLabel }}
+              </button>
+            </div>
+            <div class="display-provider" *ngIf="providerMembers.length > 0">
+              <table class="subTable-table">
+                <tr>
+                  <th>Provider Member</th>
+                  <th>Person Type</th>
+                  <th>Primary Contact</th>
+                  <th>Begin Date</th>
+                  <th>End Date</th>
+                  <th>Notes</th>
+                </tr>
+                <tr
+                  *ngFor="let item of providerMembers; let i = index"
+                  (click)="providerMemberAction(item, i, true)"
+                >
+                  <td>
+                    {{ item?.member?.lastName }} {{ item?.member?.firstName }}
+                  </td>
+                  <td>{{ item?.personType?.personType }}</td>
+                  <td>
+                    <span *ngIf="item.primaryContact">Yes</span>
+                    <span *ngIf="!item.primaryContact">No</span>
+                  </td>
+                  <td>{{ item?.beginDate | date: "MM/dd/yyyy" }}</td>
+                  <td>{{ item?.endDate | date: "MM/dd/yyyy" }}</td>
+                  <td>{{ item?.notes }}</td>
+                  <td>
+                    <span
+                      (click)="removeProviderMember(i)"
+                      class="fa fa-trash remove-icon"
+                    ></span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <form class="sf-form" [formGroup]="providerMainForm">
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Provider Name</span>
+                <span class="mandatory" *ngIf="isProvderMainRequired">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  type="text"
+                  pInputText
+                  formControlName="providerName"
+                  name="inputText"
+                  [(ngModel)]="provider.providerName"
+                  size="27"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3"><span>Acronym</span></div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-inputSwitch
+                  formControlName="acronym"
+                  name="inputtoggle"
+                  [(ngModel)]="provider.acronym"
+                >
+                </p-inputSwitch>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Provider Type</span>
+                <span class="mandatory" *ngIf="isProvderMainRequired">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  formControlName="providerTypeID"
+                  [(ngModel)]="provider.providerTypeID"
+                  [suggestions]="metaData"
+                  (completeMethod)="getMetaData($event, 'providerType')"
+                  name="gradeID"
+                  emptyMessage="No results found!"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  placeholder="Type here to search"
+                  field="providerType"
+                  size="23"
+                  (onSelect)="basicNodeValidation($event)"
+                ></p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Begin Date</span>
+                <span class="mandatory" *ngIf="isProvderMainRequired">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  name="beginDate"
+                  [(ngModel)]="provider.beginDate"
+                  formControlName="beginDate"
+                  [showIcon]="true"
+                  showTime="true"
+                  hourFormat="12"
+                  [yearNavigator]="true"
+                  [monthNavigator]="true"
+                  yearRange="2000:2030"
+                  (onSelect)="onSelectProviderBeginDate()"
+                >
+                </p-calendar>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>End Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  name="endDate"
+                  [(ngModel)]="provider.endDate"
+                  formControlName="endDate"
+                  [showIcon]="true"
+                  showTime="true"
+                  showButtonBar="true"
+                  hourFormat="12"
+                  [yearNavigator]="true"
+                  [monthNavigator]="true"
+                  yearRange="2000:2030"
+                >
+                </p-calendar>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Email Address</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  type="text"
+                  pInputText
+                  formControlName="email"
+                  name="inputText"
+                  [(ngModel)]="provider.email"
+                  size="27"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Daycare Type</span>
+                <span class="mandatory" *ngIf="isDaycareRequired">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  formControlName="dayCareTypeID"
+                  [(ngModel)]="provider.dayCareTypeID"
+                  [suggestions]="metaData"
+                  (completeMethod)="getMetaData($event, 'daycareType')"
+                  name="gradeID"
+                  emptyMessage="No results found!"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  placeholder="Type here to search"
+                  field="daycareType"
+                  size="23"
+                ></p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>VenderID</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  type="text"
+                  pInputText
+                  formControlName="venderID"
+                  name="inputText"
+                  [(ngModel)]="provider.venderID"
+                  size="27"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Federal Tax#</span
+                ><span class="mandatory" *ngIf="isFedTaxRequired">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  type="text"
+                  pInputText
+                  formControlName="fedTaxNo"
+                  name="inputText"
+                  [(ngModel)]="provider.fedTaxNo"
+                  size="27"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Medicaid#</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  type="text"
+                  pInputText
+                  formControlName="medicaidNo"
+                  name="inputText"
+                  [(ngModel)]="provider.medicaidNo"
+                  size="27"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row" *ngIf="!isOklahoma">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>DCF Servie Code</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  type="text"
+                  pInputText
+                  name="inputText"
+                  [disabled]="true"
+                  size="27"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>MAPP Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  type="text"
+                  pInputText
+                  name="inputText"
+                  [disabled]="true"
+                  size="27"
+                />
+              </div>
+            </div>
+          </div>
+          <div *ngIf="isOklahoma">
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Training completed</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar
+                    [(ngModel)]="provider.trainingCompleted_NCFCHOK"
+                    formControlName="trainingCompleted_NCFCHOK"
+                    [showIcon]="true"
+                    [showIcon]="true"
+                    [yearNavigator]="true"
+                    [monthNavigator]="true"
+                    yearRange="1930:2030"
+                  ></p-calendar>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>DHS Family intro</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-autoComplete
+                    [(ngModel)]="provider.dhsFamilyIntroID"
+                    name="dhsFamilyIntroID"
+                    formControlName="dhsFamilyIntroID"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    [suggestions]="metaData"
+                    field="dhsFamilyIntro"
+                    (completeMethod)="getMetaData($event, 'dhsFamilyIntro')"
+                  >
+                  </p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>DHS PreRes ID</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input
+                    type="text"
+                    pInputText
+                    name="dhsPreResourceID"
+                    formControlName="dhsPreResourceID"
+                    [(ngModel)]="provider.dhsPreResourceID"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>DHS Res ID</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input
+                    type="text"
+                    pInputText
+                    name="dhsResourceID"
+                    formControlName="dhsResourceID"
+                    [(ngModel)]="provider.dhsResourceID"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="!isOklahoma">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>PSMAPP Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  type="text"
+                  pInputText
+                  name="inputText"
+                  [disabled]="true"
+                  size="27"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="isOklahoma">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>DHS Region OvrRd</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  [(ngModel)]="provider.dhsRegionID_Override"
+                  formControlName="dhsRegionID_Override"
+                  [showIcon]="true"
+                  [showIcon]="true"
+                  [yearNavigator]="true"
+                  [monthNavigator]="true"
+                  yearRange="1930:2030"
+                  name="dhsRegionID_Override"
+                ></p-calendar>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3"><span>DT Date</span></div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  type="text"
+                  pInputText
+                  name="inputText"
+                  [disabled]="true"
+                  size="27"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Weekly Daycare</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-spinner
+                  formControlName="daycareHoursRequired"
+                  name="numericInput"
+                  [(ngModel)]="provider.daycareHoursRequired"
+                  [step]="1"
+                ></p-spinner>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Web AGMT Signed</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  name="dateInput"
+                  [(ngModel)]="provider.fchWebTermSignDate"
+                  formControlName="fchWebTermSignDate"
+                  [showIcon]="true"
+                  showTime="true"
+                  hourFormat="12"
+                  [yearNavigator]="true"
+                  [monthNavigator]="true"
+                  yearRange="2000:2030"
+                ></p-calendar>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Electronic Sig Opt Out</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  name="dateInput"
+                  [(ngModel)]="provider.fchWebElectronicSignatureOptOutDate"
+                  formControlName="fchWebElectronicSignatureOptOutDate"
+                  [showIcon]="true"
+                  showTime="true"
+                  hourFormat="12"
+                  [yearNavigator]="true"
+                  [monthNavigator]="true"
+                  yearRange="2000:2030"
+                ></p-calendar>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Pay Sponsor</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-inputSwitch
+                  formControlName="paySponsor"
+                  name="inputtoggle"
+                  [(ngModel)]="provider.paySponsor"
+                >
+                </p-inputSwitch>
+              </div>
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Pay Semi-Monthly</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-inputSwitch
+                  formControlName="paySemiMonthly"
+                  name="inputtoggle"
+                  [(ngModel)]="provider.paySemiMonthly"
+                >
+                </p-inputSwitch>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Is a Sponsor</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-inputSwitch
+                  formControlName="isSponsor"
+                  name="inputtoggle"
+                  [(ngModel)]="provider.isSponsor"
+                >
+                </p-inputSwitch>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3"><span>CLARIS</span></div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  type="text"
+                  pInputText
+                  formControlName="claris"
+                  name="inputText"
+                  [(ngModel)]="provider.claris"
+                  size="27"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="isNebraska">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Focus Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  type="text"
+                  pInputText
+                  name="inputText"
+                  [disabled]="true"
+                  size="27"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <b><span>SFM Employee</span></b>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Is SFM Employee</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-inputSwitch
+                  name="isSFCSEmployee"
+                  formControlName="isSFCSEmployee"
+                  [(ngModel)]="provider.isSFCSEmployee"
+                >
+                </p-inputSwitch>
+              </div>
+            </div>
+            <div
+              class="col-lg-6 col-md-6 col-sm-6"
+              *ngIf="provider.isSFCSEmployee"
+            >
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>SFM Staff #1</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  formControlName="staffID"
+                  [(ngModel)]="provider.staffID"
+                  [suggestions]="metaData"
+                  (completeMethod)="getMetaData($event, 'staff')"
+                  name="staffId"
+                  emptyMessage="No results found!"
+                  [forceSelection]="true"
+                  placeholder="Type here to search"
+                  field="fullName"
+                  size="23"
+                  [dropdown]="true"
+                >
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row" *ngIf="provider.isSFCSEmployee">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>SFM Staff #2</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  formControlName="employee2_StaffID"
+                  [(ngModel)]="provider.employee2_StaffID"
+                  [suggestions]="metaData"
+                  (completeMethod)="getMetaData($event, 'staff')"
+                  name="gradeID"
+                  emptyMessage="No results found!"
+                  [forceSelection]="true"
+                  placeholder="Type here to search"
+                  field="fullName"
+                  size="23"
+                  [dropdown]="true"
+                ></p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <b><span>Referral Source</span></b>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Category</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  formControlName="referralSourceCategoryID"
+                  [(ngModel)]="provider.referralSourceCategoryID"
+                  [suggestions]="metaData"
+                  (completeMethod)="
+                    getMetaData($event, 'referralSourceCategory')
+                  "
+                  name="gradeID"
+                  emptyMessage="No results found!"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  placeholder="Type here to search"
+                  field="referralSourceCategory"
+                  size="23"
+                  [disabled]="true"
+                >
+                </p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3"><span>Type</span></div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  formControlName="referralSourceTypeID"
+                  [(ngModel)]="provider.referralSourceTypeID"
+                  [suggestions]="metaData"
+                  (completeMethod)="getMetaData($event, 'referralSourceType')"
+                  name="gradeID"
+                  emptyMessage="No results found!"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  placeholder="Type here to search"
+                  field="referralSourceType"
+                  size="23"
+                  [disabled]="true"
+                >
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Comments</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  type="text"
+                  pInputText
+                  name="inputText"
+                  [disabled]="true"
+                  size="27"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Best Time to Contact</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  type="text"
+                  pInputText
+                  size="27"
+                  name="bestTimeToContact"
+                  [(ngModel)]="provider.bestTimeToContact"
+                  formControlName="bestTimeToContact"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Marital Status</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  formControlName="maritalStatusID"
+                  [(ngModel)]="provider.maritalStatusID"
+                  [suggestions]="metaData"
+                  (completeMethod)="getMetaData($event, 'maritalStatus')"
+                  name="gradeID"
+                  emptyMessage="No results found!"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  placeholder="Type here to search"
+                  field="maritalStatus"
+                  size="23"
+                ></p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Household Income Range</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  formControlName="incomeRangeID"
+                  [(ngModel)]="provider.incomeRangeID"
+                  [suggestions]="metaData"
+                  (completeMethod)="getMetaData($event, 'incomeRange')"
+                  name="gradeID"
+                  emptyMessage="No results found!"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  placeholder="Type here to search"
+                  field="incomeRange"
+                  size="23"
+                ></p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3"><span>Notes</span></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-sm-12 col-md-12">
+              <div class="col-lg-12 col-sm-12 col-md-12">
+                <textarea
+                  pInputTextarea
+                  formControlName="notes"
+                  name="inputTextarea"
+                  [(ngModel)]="provider.notes"
+                  style="width: 100%; height: 100%"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </form>
+        <app-form-footer
+          [currentNodeValue]="placementReq"
+          *ngIf="isFormView"
+          [discardTo]="discardTo"
+          (save)="formAction(provider, sponsor, staff, status, pref, sfaOffice)"
+          [editControll]="isEdit"
+          (edit)="editForm()"
+        ></app-form-footer>
+      </div>
+      <div
+        class="tab-pane margin-left-45 inner-scroll"
+        id="nav-locations"
+        role="tabpanel"
+        aria-labelledby="nav-general-tab"
+      >
+        <div>
+          <div class="provider-member-container">
+            <div class="add-provider">
+              <form class="sf-form" [formGroup]="locationForm">
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Location Type</span>
+                      <span class="mandatory" *ngIf="isLocationRequired"
+                        >*</span
+                      >
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-autoComplete
+                        [dropdown]="true"
+                        name="locatonType"
+                        emptyMessage="No results found!"
+                        [forceSelection]="true"
+                        placeholder="Type here to search"
+                        field="providerLocationType"
+                        size="23"
+                        (completeMethod)="
+                          getMetaData($event, 'providerLocationType')
+                        "
+                        [suggestions]="metaData"
+                        [(ngModel)]="location.providerLocationTypeID"
+                        formControlName="locationType"
+                      ></p-autoComplete>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Address 1</span>
+                      <span class="mandatory" *ngIf="isLocationRequired"
+                        >*</span
+                      >
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <input
+                        type="text"
+                        pInputText
+                        name="address1"
+                        [(ngModel)]="location.address1"
+                        size="27"
+                        formControlName="address1"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Address 2</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <input
+                        type="text"
+                        pInputText
+                        name="address2"
+                        [(ngModel)]="location.address2"
+                        size="27"
+                        formControlName="address2"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>State</span>
+                      <span class="mandatory" *ngIf="isLocationRequired"
+                        >*</span
+                      >
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-autoComplete
+                        [dropdown]="true"
+                        name="state"
+                        emptyMessage="No results found!"
+                        [forceSelection]="true"
+                        placeholder="Type here to search"
+                        field="state"
+                        size="23"
+                        (completeMethod)="getMetaData($event, 'state')"
+                        [suggestions]="metaData"
+                        [(ngModel)]="location.stateID"
+                        (onSelect)="generateCity($event)"
+                        formControlName="state"
+                      >
+                      </p-autoComplete>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>City</span>
+                      <span class="mandatory" *ngIf="isLocationRequired"
+                        >*</span
+                      >
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-autoComplete
+                        [dropdown]="true"
+                        name="city"
+                        emptyMessage="No results found!"
+                        [forceSelection]="true"
+                        placeholder="Type here to search"
+                        field="city"
+                        size="23"
+                        (completeMethod)="filteringCities($event)"
+                        [suggestions]="metaData"
+                        (onSelect)="generateZipcodeAndCounty($event)"
+                        [(ngModel)]="location.cityID"
+                        formControlName="city"
+                      ></p-autoComplete>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>County</span>
+                      <span class="mandatory" *ngIf="isLocationRequired"
+                        >*</span
+                      >
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-autoComplete
+                        [dropdown]="true"
+                        name="countyName"
+                        emptyMessage="No results found!"
+                        [forceSelection]="true"
+                        placeholder="Type here to search"
+                        field="countyName"
+                        size="23"
+                        (completeMethod)="filteringCounties($event)"
+                        [suggestions]="metaData"
+                        [(ngModel)]="location.countyID"
+                        formControlName="county"
+                      ></p-autoComplete>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>ZIP Code</span>
+                      <span class="mandatory" *ngIf="isLocationRequired"
+                        >*</span
+                      >
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-autoComplete
+                        [dropdown]="true"
+                        name="zipcode"
+                        emptyMessage="No results found!"
+                        [forceSelection]="true"
+                        placeholder="Type here to search"
+                        field="zipcode"
+                        size="23"
+                        (completeMethod)="filteringZipcodes($event)"
+                        [suggestions]="metaData"
+                        [(ngModel)]="location.zipcodeID"
+                        formControlName="zipcode"
+                      ></p-autoComplete>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Phone</span>
+                      <span class="mandatory" *ngIf="isLocationRequired"
+                        >*</span
+                      >
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-inputMask
+                        mask="(999) 999-9999"
+                        [(ngModel)]="location.phone"
+                        name="phone"
+                        formControlName="phone"
+                      ></p-inputMask>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>FAX</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-inputMask
+                        mask="(999) 999-9999"
+                        [(ngModel)]="location.fax"
+                        name="fax"
+                        formControlName="fax"
+                      >
+                      </p-inputMask>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Begin Date</span>
+                      <span class="mandatory" *ngIf="isLocationRequired"
+                        >*</span
+                      >
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-calendar
+                        name="locationBeginDate"
+                        [yearNavigator]="true"
+                        [monthNavigator]="true"
+                        yearRange="2000:2030"
+                        [showIcon]="true"
+                        [(ngModel)]="location.beginDate"
+                        formControlName="beginDate"
+                        (onSelect)="onSelectLocationBeginDate()"
+                      >
+                      </p-calendar>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>End Date</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-calendar
+                        name="locationEndDate"
+                        [yearNavigator]="true"
+                        [monthNavigator]="true"
+                        yearRange="2000:2030"
+                        [showIcon]="true"
+                        [(ngModel)]="location.endDate"
+                        formControlName="endDate"
+                        showButtonBar="true"
+                      >
+                      </p-calendar>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Location Header</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <input
+                        type="text"
+                        pInputText
+                        name="locationHeader"
+                        [(ngModel)]="location.locationHeader"
+                        size="27"
+                        formControlName="locationHeader"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="margin-top-20 row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <span>Notes</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="margin-top-20 row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <textarea
+                        pInputTextarea
+                        name="locationNotes"
+                        style="width: 100%; height: 100%"
+                        [(ngModel)]="location.notes"
+                        formControlName="notes"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="margin-top-20 row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <p-checkbox
+                        binary="true"
+                        name="billingAddress"
+                        [(ngModel)]="location.isServiceAdressForBillingAddress"
+                        formControlName="isBillingAddress"
+                        (onChange)="onChangeServiceAddress($event, location)"
+                      ></p-checkbox>
+                      Service address same as Billing Address
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="sub-form-footer">
+              <button>Cancel</button>
+              <button (click)="onProviderLocationSave()" *ngIf="!isProviderLocationUpdateBtnVisible">Save</button>
+              <button (click)="onProviderLocationUpdate()" *ngIf="isProviderLocationUpdateBtnVisible"
+                title="Update record">Update</button>
+            </div>
+            <div class="display-provider" *ngIf="providerLocations.length > 0">
+              <table class="subTable-table">
+                <tr>
+                  <th>Location Type</th>
+                  <th>Address 1</th>
+                  <th>Address 2</th>
+                  <th>State</th>
+                  <th>City</th>
+                  <th>County</th>
+                  <th>ZIP Code</th>
+                  <th>Phone</th>
+                  <th>FAX</th>
+                  <th>Begin Date</th>
+                  <th>End Date</th>
+                  <th>Location Header</th>
+                  <th>Notes</th>
+                </tr>
+                <tr
+                  *ngFor="let item of providerLocations; let i = index"
+                >
+                  <td>
+                    {{ item?.providerLocationTypeID?.providerLocationType }}
+                  </td>
+                  <td>{{ item?.address1 }}</td>
+                  <td>{{ item?.address2 }}</td>
+                  <td>{{ item?.stateID?.state }}</td>
+                  <td>{{ item?.cityID?.city }}</td>
+                  <td>{{ item?.countyID?.countyName }}</td>
+                  <td>{{ item?.zipcodeID?.zipcode }}</td>
+                  <td>{{ item?.phone }}</td>
+                  <td>{{ item?.fax }}</td>
+                  <td>{{ item?.beginDate | date: "MM/dd/yyyy" }}</td>
+                  <td>{{ item?.endDate | date: "MM/dd/yyyy" }}</td>
+                  <td>{{ item?.locationHeader }}</td>
+                  <td>{{ item?.notes }}</td>
+                  <td>
+                    <span
+                      (click)="removeProviderLocation(i)"
+                      class="fa fa-trash remove-icon"
+                    ></span>
+                    <span (click)="onProviderLocationEdit(i, item)" class="fa fa-edit"
+                  title="Edit"></span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="tab-pane margin-left-45 inner-scroll"
+        id="nav-pref"
+        role="tabpanel"
+        aria-labelledby="nav-general-tab"
+      >
+        <div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12"><b>Preference</b></div>
+            </div>
+          </div>
+          <div class="provider-member-container">
+            <div class="add-provider">
+              <form class="sf-form">
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Youngest</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-spinner
+                        name="youngest"
+                        [(ngModel)]="pref.youngestAge"
+                        [step]="1"
+                      ></p-spinner>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Oldest</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-spinner
+                        name="oldest"
+                        [(ngModel)]="pref.oldestAge"
+                        [step]="1"
+                      ></p-spinner>
+                    </div>
+                  </div>
+                </div>
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Race</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-autoComplete
+                        [dropdown]="true"
+                        name="race"
+                        emptyMessage="No results found!"
+                        [forceSelection]="true"
+                        placeholder="Type here to search"
+                        field="race"
+                        size="23"
+                        (completeMethod)="getMetaData($event, 'race')"
+                        [suggestions]="metaData"
+                        [(ngModel)]="pref.raceID"
+                      ></p-autoComplete>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Gender Group</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-autoComplete
+                        [dropdown]="true"
+                        name="genderGroup"
+                        emptyMessage="No results found!"
+                        [forceSelection]="true"
+                        placeholder="Type here to search"
+                        field="genderGroup"
+                        size="23"
+                        (completeMethod)="getMetaData($event, 'genderGroup')"
+                        [suggestions]="metaData"
+                        [(ngModel)]="pref.genderGroupID"
+                      ></p-autoComplete>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Capacity</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-spinner
+                        name="capacity"
+                        [(ngModel)]="pref.capacity"
+                        [step]="1"
+                      ></p-spinner>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Age is Flexible</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-checkbox
+                        binary="true"
+                        name="ageIsFlexible"
+                        [(ngModel)]="pref.ageIsFlexible"
+                      ></p-checkbox>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Race is Flexible</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-checkbox
+                        binary="true"
+                        name="raceIsFlexible"
+                        [(ngModel)]="pref.raceIsFlexible"
+                      ></p-checkbox>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Gender is Flexible</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-checkbox
+                        binary="true"
+                        name="genderIsFlexible"
+                        [(ngModel)]="pref.genderIsFlexible"
+                      >
+                      </p-checkbox>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>ER Respite Only</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-checkbox
+                        binary="true"
+                        name="erRespiteOnly"
+                        [(ngModel)]="pref.respiteOnly"
+                      ></p-checkbox>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>On Hold Capacity</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <input
+                        type="text"
+                        name="onHoldCapacity"
+                        value="1"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Wil Take Respite</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-checkbox
+                        binary="true"
+                        name="willTakeRespite"
+                        [(ngModel)]="pref.willTakeRespite"
+                      ></p-checkbox>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="margin-top-20 row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <span>Notes</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="margin-top-20 row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <textarea
+                        pInputTextarea
+                        name="prefNotes"
+                        style="width: 100%; height: 100%"
+                        [(ngModel)]="pref.notes"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- <div class="sub-form-footer">
+            <button>Cancel</button>
+            <button (click)="prefereneAction(pref)">{{prefButtonLabel}}</button>
+          </div> -->
+          </div>
+        </div>
+      </div>
+      <div
+        class="tab-pane margin-left-45 inner-scroll"
+        id="nav-sponsor"
+        role="tabpanel"
+        aria-labelledby="nav-general-tab"
+      >
+        <div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <b>Sponsor</b>
+                <span *ngIf="isSponsorRequired"> ( Required ) </span>
+                <span *ngIf="!isSponsorRequired"> ( Not Required ) </span>
+              </div>
+            </div>
+          </div>
+          <div class="provider-member-container">
+            <div class="add-provider">
+              <form class="sf-form" [formGroup]="sponsorForm">
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Sponsor</span>
+                      <span class="mandatory" *ngIf="isSponsorRequired">*</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-autoComplete
+                        [dropdown]="true"
+                        name="race"
+                        emptyMessage="No results found!"
+                        [forceSelection]="true"
+                        placeholder="Type here to search"
+                        field="sponsorName"
+                        size="23"
+                        (completeMethod)="getMetaData($event, 'sponsorName')"
+                        [suggestions]="metaData"
+                        [(ngModel)]="sponsor.sponsorID"
+                        formControlName="sponsorID"
+                      ></p-autoComplete>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Begin Date</span>
+                      <span class="mandatory" *ngIf="isSponsorRequired">*</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-calendar
+                        name="sponsorBeginDate"
+                        showTime="true"
+                        hourFormat="12"
+                        [yearNavigator]="true"
+                        [monthNavigator]="true"
+                        yearRange="2000:2030"
+                        [showIcon]="true"
+                        [(ngModel)]="sponsor.beginDate"
+                        formControlName="beginDate"
+                        (onSelect)="onSelectSponsorBeginDate()"
+                      >
+                      </p-calendar>
+                    </div>
+                  </div>
+                </div>
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>End Date</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-calendar
+                        name="sponsorEndDate"
+                        showTime="true"
+                        hourFormat="12"
+                        [yearNavigator]="true"
+                        [monthNavigator]="true"
+                        yearRange="2000:2030"
+                        [showIcon]="true"
+                        [(ngModel)]="sponsor.endDate"
+                        [disabled]="true"
+                        formControlName="endDate"
+                      ></p-calendar>
+                    </div>
+                  </div>
+                </div>
+                <div class="margin-top-20 row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <span>Notes</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="margin-top-20 row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <textarea
+                        pInputTextarea
+                        name="prefNotes"
+                        style="width: 100%; height: 100%"
+                        [(ngModel)]="sponsor.notes"
+                        formControlName="notes"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- <div class="sub-form-footer">
+            <button>Cancel</button>
+            <button (click)="sponsorAction(sponsor)">{{sponsorBtnLabel}}</button>
+          </div> -->
+          </div>
+        </div>
+        <div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <b>Staff</b>
+              </div>
+            </div>
+          </div>
+          <div class="provider-member-container">
+            <div class="add-provider">
+              <form class="sf-form" [formGroup]="staffForm">
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Person Type</span>
+                      <span class="mandatory" *ngIf="isStaffRequired">*</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-autoComplete
+                        [dropdown]="true"
+                        name="race"
+                        emptyMessage="No results found!"
+                        [forceSelection]="true"
+                        placeholder="Type here to search"
+                        field="personType"
+                        size="23"
+                        (completeMethod)="getMetaData($event, 'personType')"
+                        [suggestions]="metaData"
+                        [(ngModel)]="staff.personTypeID"
+                        formControlName="personTypeID"
+                      ></p-autoComplete>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>SFM Staff</span>
+                      <span class="mandatory" *ngIf="isStaffRequired">*</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-autoComplete
+                        [dropdown]="true"
+                        name="race"
+                        emptyMessage="No results found!"
+                        [forceSelection]="true"
+                        placeholder="Type here to search"
+                        field="fullName"
+                        size="23"
+                        (completeMethod)="getMetaData($event, 'staff')"
+                        [suggestions]="metaData"
+                        [(ngModel)]="staff.staffID"
+                        formControlName="staffID"
+                      >
+                      </p-autoComplete>
+                    </div>
+                  </div>
+                </div>
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Begin Date</span>
+                      <span class="mandatory" *ngIf="isStaffRequired">*</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-calendar
+                        name="staffBeginDate"
+                        showTime="true"
+                        hourFormat="12"
+                        [yearNavigator]="true"
+                        [monthNavigator]="true"
+                        yearRange="2000:2030"
+                        [showIcon]="true"
+                        [(ngModel)]="staff.beginDate"
+                        formControlName="beginDate"
+                        (onSelect)="onSelectStaffBeginDate()"
+                      >
+                      </p-calendar>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>End Date</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-calendar
+                        name="staffEndDate"
+                        showTime="true"
+                        hourFormat="12"
+                        [yearNavigator]="true"
+                        [monthNavigator]="true"
+                        yearRange="2000:2030"
+                        [showIcon]="true"
+                        [(ngModel)]="staff.endDate"
+                        [disabled]="true"
+                        formControlName="endDate"
+                      ></p-calendar>
+                    </div>
+                  </div>
+                </div>
+                <div class="margin-top-20 row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <span>Notes</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="margin-top-20 row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <textarea
+                        pInputTextarea
+                        name="prefNotes"
+                        style="width: 100%; height: 100%"
+                        [(ngModel)]="staff.notes"
+                        formControlName="notes"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- <div class="sub-form-footer">
+            <button>Cancel</button>
+            <button (click)="staffAction(staff)">{{staffBtnLabel}}</button>
+          </div> -->
+          </div>
+        </div>
+      </div>
+      <div
+        class="tab-pane margin-left-45 inner-scroll"
+        id="nav-status"
+        role="tabpanel"
+        aria-labelledby="nav-general-tab"
+      >
+        <div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <b>Status</b>
+                <span *ngIf="isStatusRequired"> ( Required ) </span>
+                <span *ngIf="!isStatusRequired"> ( Not Required ) </span>
+              </div>
+            </div>
+          </div>
+          <div class="provider-member-container">
+            <div class="add-provider">
+              <form class="sf-form" [formGroup]="statusForm">
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Status</span>
+                      <span class="mandatory" *ngIf="isStatusRequired">*</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-autoComplete
+                        [dropdown]="true"
+                        name="providerStatusTypeID"
+                        emptyMessage="No results found!"
+                        [forceSelection]="true"
+                        placeholder="Type here to search"
+                        field="providerStatusType"
+                        size="23"
+                        (completeMethod)="getStatusData($event, 'status')"
+                        [suggestions]="metaData"
+                        [(ngModel)]="status.providerStatusTypeID"
+                        formControlName="status"
+                      ></p-autoComplete>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Begin Date</span>
+                      <span class="mandatory" *ngIf="isStatusRequired">*</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-calendar
+                        name="statusBeginDate"
+                        showTime="true"
+                        hourFormat="12"
+                        [yearNavigator]="true"
+                        [monthNavigator]="true"
+                        yearRange="2000:2030"
+                        [showIcon]="true"
+                        [(ngModel)]="status.beginDate"
+                        formControlName="beginDate"
+                        (onSelect)="onSelectStatusBeginDate()"
+                      >
+                      </p-calendar>
+                    </div>
+                  </div>
+                </div>
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>End Date</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-calendar
+                        name="sponsorBeginDate"
+                        showTime="true"
+                        hourFormat="12"
+                        [yearNavigator]="true"
+                        [monthNavigator]="true"
+                        yearRange="2000:2030"
+                        [showIcon]="true"
+                        [(ngModel)]="status.endDate"
+                        [disabled]="true"
+                        [ngModelOptions]="{ standalone: true }"
+                      ></p-calendar>
+                    </div>
+                  </div>
+                </div>
+                <div class="margin-top-20 row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <span>Notes</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="margin-top-20 row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <textarea
+                        pInputTextarea
+                        name="prefNotes"
+                        style="width: 100%; height: 100%"
+                        [(ngModel)]="status.notes"
+                        [ngModelOptions]="{ standalone: true }"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- <div class="sub-form-footer">
+            <button>Cancel</button>
+            <button (click)="statusAction(status)">{{statusLabel}}</button>
+          </div> -->
+          </div>
+        </div>
+        <div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12"><b>SFM Office</b></div>
+            </div>
+          </div>
+          <div class="provider-member-container">
+            <div class="add-provider">
+              <form class="sf-form" [formGroup]="officeForm">
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>SFM Office</span>
+                      <span class="mandatory" *ngIf="isOfficeRequired">*</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-autoComplete
+                        [dropdown]="true"
+                        name="status"
+                        emptyMessage="No results found!"
+                        [forceSelection]="true"
+                        placeholder="Type here to search"
+                        field="officeName"
+                        size="23"
+                        (completeMethod)="getMetaData($event, 'sfcsOffice')"
+                        [suggestions]="metaData"
+                        [(ngModel)]="sfaOffice.sfaofficeID"
+                        formControlName="sfaofficeID"
+                      ></p-autoComplete>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Begin Date</span>
+                      <span class="mandatory" *ngIf="isOfficeRequired">*</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-calendar
+                        name="officeBeginDate"
+                        showTime="true"
+                        hourFormat="12"
+                        [yearNavigator]="true"
+                        [monthNavigator]="true"
+                        yearRange="2000:2030"
+                        [showIcon]="true"
+                        [(ngModel)]="sfaOffice.beginDate"
+                        formControlName="beginDate"
+                        (onSelect)="onSelectSFAOfficeBeginDate()"
+                      >
+                      </p-calendar>
+                    </div>
+                  </div>
+                </div>
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>End Date</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-calendar
+                        name="officeEndDate"
+                        showTime="true"
+                        hourFormat="12"
+                        [yearNavigator]="true"
+                        [monthNavigator]="true"
+                        yearRange="2000:2030"
+                        [showIcon]="true"
+                        [(ngModel)]="status.endDate"
+                        [disabled]="true"
+                        formControlName="endDate"
+                      ></p-calendar>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- <div class="sub-form-footer">
+            <button>Cancel</button>
+            <button (click)="statusAction(status)">{{officeLabel}}</button>
+          </div> -->
+          </div>
+        </div>
+      </div>
+      <div
+        class="tab-pane margin-left-45 inner-scroll"
+        id="nav-school"
+        role="tabpanel"
+        aria-labelledby="nav-general-tab"
+      >
+        <div class="provider-member-container">
+          <div class="add-provider">
+            <form class="sf-form">
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Begin Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      name="shoolBeginDate"
+                      showTime="true"
+                      hourFormat="12"
+                      [yearNavigator]="true"
+                      [monthNavigator]="true"
+                      yearRange="2000:2030"
+                      [showIcon]="true"
+                      [(ngModel)]="school.beginDate"
+                      (onSelect)="onSelectSchoolBeginDate()"
+                    >
+                    </p-calendar>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>End Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      name="schoolEndDate"
+                      showTime="true"
+                      hourFormat="12"
+                      [yearNavigator]="true"
+                      [monthNavigator]="true"
+                      yearRange="2000:2030"
+                      [showIcon]="true"
+                      [(ngModel)]="school.endDate"
+                    >
+                    </p-calendar>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>School</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete
+                      (onSelect)="onSchoolSelect($event)"
+                      [(ngModel)]="school.schoolID"
+                      [suggestions]="metaData"
+                      (completeMethod)="getMetaData($event, 'schoolName')"
+                      [dropdown]="true"
+                      field="schoolName"
+                      size="23"
+                      [ngModelOptions]="{ standalone: true }"
+                    >
+                      <ng-template let-schoolID pTemplate="item">
+                        <table>
+                          <tr>
+                            <td><b>Name</b></td>
+                            <td>:</td>
+                            <td>{{ schoolID?.schoolName }}</td>
+                          </tr>
+                          <tr>
+                            <td><b>USD</b></td>
+                            <td>:</td>
+                            <td>{{ schoolID?.usd }}</td>
+                          </tr>
+                          <tr>
+                            <td><b>Address</b></td>
+                            <td>:</td>
+                            <td>{{ schoolID?.address }}</td>
+                          </tr>
+                          <tr>
+                            <td><b>City</b></td>
+                            <td>:</td>
+                            <td>{{ schoolID?.cityID?.city }}</td>
+                          </tr>
+                          <tr>
+                            <td><b>State</b></td>
+                            <td>:</td>
+                            <td>{{ schoolID?.stateID?.state }}</td>
+                          </tr>
+                        </table>
+                      </ng-template>
+                    </p-autoComplete>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Notes</span>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea
+                      pInputTextarea
+                      name="locationNotes"
+                      style="width: 100%; height: 100%"
+                      [(ngModel)]="school.notes"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="sub-form-footer">
+            <button>Cancel</button>
+            <button (click)="providerSchoolAction(school, 0, 0)">
+              {{ schoolButtonLabel }}
+            </button>
+          </div>
+          <div class="display-provider" *ngIf="providerSchools.length > 0">
+            <table class="subTable-table">
+              <tr>
+                <th>Begin Date</th>
+                <th>End Date</th>
+                <th>School</th>
+                <th>Notes</th>
+              </tr>
+              <tr
+                *ngFor="let item of providerSchools; let k = index"
+                (click)="providerSchoolAction(item, k, true)"
+              >
+                <td>{{ item?.beginDate | date: "MM/dd/yyyy" }}</td>
+                <td>{{ item?.endDate | date: "MM/dd/yyyy" }}</td>
+                <td>{{ item?.schoolID?.schoolName }}</td>
+                <td>{{ item?.notes }}</td>
+                <td>
+                  <span
+                    (click)="removeProviderLocation(i)"
+                    class="fa fa-trash remove-icon"
+                  ></span>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <app-form-footer
+          [currentNodeValue]="placementReq"
+          [discardTo]="discardTo"
+          [fileUploadControl]="!isNodeOpened"
+          (save)="formAction(provider, sponsor, staff, status, pref, sfaOffice)"
+          [editControll]="isEdit"
+          (edit)="editForm()"
+          [isFormLog]="isFormLog"
+          [formLogInfo]="formLogInfo"
+        ></app-form-footer>
+      </div>
+    </div>
+  </div>
+
+  <person-master-wizards
+    isAdd="false"
+    *ngIf="isPersonMasterValidation"
+    [isPersonMasterWizardsOpen]="isPersonMasterValidation"
+    [selectedModule]="selectedModule"
+    (onSelection)="personMasterValidationWizardOut($event)"
+    [isNonContractVisible]="isNonContractVisible"
+    [isSSNVisbile]="isSSNVisbile"
+    [isKaecsesDisable]="isKaecsesDisable"
+    [isKaecsesMandatory]="isKaecsesMandatory"
+    [isComponent]="isComponent"
+  >
+  </person-master-wizards>
+
+  <p-dialog
+    header="Provider member creation"
+    [(visible)]="isProviderMemberCreation"
+    [style]="{ width: '50vw' }"
+    [maximizable]="true"
+    [responsive]="true"
+    [minY]="70"
+    [contentStyle]="{ 'min-width': '106rem', height: 'unset' }"
+  >
+    <app-provider-member-form
+      [isAppHeader]="isAppHeader"
+      [isProvider]="isProviderComponent"
+      (onSave)="onProviderMemeberComSave($event)"
+      [predefinedData]="providerMemberPredefinedData"
+    >
+    </app-provider-member-form>
+  </p-dialog>
+
+  <p-dialog
+    header="Provider Location"
+    [(visible)]="isProviderLocationPopUp"
+    [style]="{ width: '50vw' }"
+    [maximizable]="true"
+    [responsive]="true"
+    [minY]="70"
+    [contentStyle]="{ 'min-width': '106rem', height: 'unset' }"
+  >
+    <div class="list-table">
+      <table style="width: 100%" border="1">
+        <th scope="endDate">Location Type</th>
+        <th scope="personType">Address1</th>
+        <th scope="name">Address2</th>
+        <th scope="beginDate">State</th>
+        <th scope="personType">City</th>
+        <th scope="endDate">County</th>
+        <th scope="endDate">Zip Code</th>
+        <th scope="name">Phone</th>
+        <th scope="name">Fax</th>
+        <th scope="name">Begin Date</th>
+        <th scope="name">End Date</th>
+        <th scope="name">Notes</th>
+
+        <tr *ngFor="let location of providerLocationMetadata">
+          <td>{{ location["Location Type"] }}</td>
+          <td>{{ location.Address1 }}</td>
+          <td>{{ location.Address2 }}</td>
+          <td>{{ location.State }}</td>
+          <td>{{ location.City }}</td>
+          <td>{{ location.County }}</td>
+          <td>{{ location["Zip Code"] }}</td>
+          <td>{{ location.Phone }}</td>
+          <td>{{ location.Fax }}</td>
+          <td>{{ location["Begin Date"] }}</td>
+          <td>{{ location["End Date"] }}</td>
+          <td>{{ location.Notes }}</td>
+        </tr>
+      </table>
+    </div>
+  </p-dialog>
+  <p-dialog
+    [(visible)]="isProviderDashboard"
+    header="Provider Dashboard"
+    [style]="{ width: '100vw' }"
+    [maximizable]="true"
+    [responsive]="true"
+    [minY]="70"
+  >
+    <p-accordion [multiple]="true">
+      <p-accordionTab header="The Placement Provider Information">
+        <table class="table-width-100">
+          <tr>
+            <td><strong>Provider Name</strong></td>
+            <td></td>
+            <td><strong>SFM Foster Care Worker</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Provider Address:</strong></td>
+            <td></td>
+            <td><strong>SFM Foster Care Supervisor</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Provider Phone</strong></td>
+            <td></td>
+            <td><strong>SFM Kinship Worker</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>EMAIL:</strong></td>
+            <td></td>
+            <td><strong>SFM Kinship Supervisor</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Provider Type</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Sponsor</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Status</strong></td>
+            <td></td>
+          </tr>
+        </table>
+      </p-accordionTab>
+      <p-accordionTab
+        header="Licensed Capacity (only available on SFM Sponsored homes)"
+      >
+        <table class="table-width-100">
+          <tr>
+            <td><strong>Licensed Capacity</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Preferred Capacity</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Able to Go Over Capacity</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Open Beds</strong></td>
+            <td></td>
+          </tr>
+        </table>
+      </p-accordionTab>
+      <p-accordionTab
+        header="Other Demographic Info (only available on SFM home) - leave bank is not SFM home"
+      >
+        <div
+          *ngFor="
+            let child of providerDashboard?.providerMemberChildrens;
+            let i = index
+          "
+        >
+          <span> {{ i + 1 }}</span>
+          <table class="table-width-100">
+            <tr>
+              <td>
+                <strong>In home Family Members (Children only)</strong>
+                <tr>
+                  <td><strong>Name</strong></td>
+                  <td></td>
+                  <td><strong>Age</strong></td>
+                  <td></td>
+                  <td><strong>Relationship</strong></td>
+                  <td></td>
+                </tr>
+              </td>
+              <td>
+                <strong>Pets</strong>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </p-accordionTab>
+      <p-accordionTab header="The Active SFM Placements in home">
+        <table class="table-width-100">
+          <tr>
+            <td><strong>Client Name</strong></td>
+            <td></td>
+            <td><strong>Home Country</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Gender</strong></td>
+            <td></td>
+            <td><strong>CM Office</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Age</strong></td>
+            <td></td>
+            <td><strong>Region</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>DOB</strong></td>
+            <td></td>
+            <td><strong>Kan Care MCO</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><strong>Level of Care</strong></td>
+            <td></td>
+            <td><strong>Financial Mgt. Office</strong></td>
+            <td></td>
+          </tr>
+        </table>
+      </p-accordionTab>
+      <p-accordionTab header="Common navigation buttons"></p-accordionTab>
+    </p-accordion>
+  </p-dialog>
+</div>

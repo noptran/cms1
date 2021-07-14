@@ -1,0 +1,313 @@
+<div id="print-form-content">
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+  <p-toast position="center" [baseZIndex]="99999999"></p-toast>
+  <form id="form-content" [formGroup]="fosterCareForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        REINTEGRATION
+        <br> FOSTER CARE
+        <br> PLACEMENT SUPPORT
+        <br> PLAN
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Client Name:</span>
+          <input readonly formControlName="ClientName" name="ClientName" [(ngModel)]="cisFosterCare.ClientName.value" type="text" pInputText
+            size="20" />
+        </div>
+        <div>
+          <span>Case Manager:</span>
+          <input type="text" pInputText size="20" formControlName="CaseManager" name="CaseManager" [(ngModel)]="cisFosterCare.CaseManager.value"
+          />
+        </div>
+        <div>
+          <span>Date of Placement:</span>
+          <p-calendar showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" formControlName="DateOfPlacement"
+            name="DateOfPlacement" [(ngModel)]="cisFosterCare.DateOfPlacement.value"> </p-calendar>
+        </div>
+        <div>
+          <span>Date of Completion:</span>
+          <p-calendar showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" formControlName="CompletionDate"
+            name="CompletionDate" [(ngModel)]="cisFosterCare.CompletionDate.value"> </p-calendar>
+        </div>
+        <div>
+          <span>Time/Length:</span> &nbsp;From:
+          <!-- <p-calendar timeOnly="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" formControlName="FromTime"
+          name="FromTime" [(ngModel)]="cisFosterCare.FromTime.value"></p-calendar>  -->
+          <input [(ngModel)]="cisFosterCare.FromTime.value" formControlName="FromTime" name="FromTime" class="input-sm" type="time"> To:
+          <!-- <p-calendar timeOnly="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" formControlName="ToTime"
+          name="ToTime" [(ngModel)]="cisFosterCare.ToTime.value"> </p-calendar>-->
+          <input [(ngModel)]="cisFosterCare.ToTime.value" formControlName="ToTime" name="ToTime" class="input-sm" type="time">
+
+
+        </div>
+      </div>
+    </div>
+
+    <h2>Foster/Kinship Family Team Contact Information:</h2>
+    <div>
+      <div class="flex-container space-between">
+        <div class="flex-container">
+          <div>
+            Provider Name:
+          </div>
+          <div>
+            <input type="text" pInputText size="20" formControlName="ProviderID" name="ProviderID" [(ngModel)]="cisFosterCare.ProviderID.value"
+            />
+          </div>
+        </div>
+        <div class="flex-container">
+          <div>
+            Person Type:
+          </div>
+          <div>
+            <input type="text" pInputText size="20" formControlName="personTypeField" name="personTypeField" [(ngModel)]="cisFosterCare.personTypeField.value"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="flex-container space-between">
+        <div class="flex-container">
+          <div>
+            Foster Care Worker:
+          </div>
+          <div>
+            <input type="text" pInputText size="20" formControlName="FosterCareWorker" name="FosterCareWorker" [(ngModel)]="cisFosterCare.FosterCareWorker.value"
+            />
+          </div>
+        </div>
+        <div class="flex-container">
+          <div>
+            Completed By:
+          </div>
+          <div>
+            <input readonly type="text" pInputText size="20" formControlName="StaffName" name="StaffName" [(ngModel)]="cisFosterCare.StaffName.value"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          Kinship Worker:
+        </div>
+        <div>
+          <input type="text" pInputText size="20" formControlName="KinshipWorker" name="KinshipWorker" [(ngModel)]="cisFosterCare.KinshipWorker.value"
+          />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          Licensed Permanency Specialist:
+        </div>
+        <div>
+          <input type="text" pInputText size="20" formControlName="LicensedPermanencySpecialist" name="LicensedPermanencySpecialist"
+            [(ngModel)]="cisFosterCare.LicensedPermanencySpecialist.value" />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          Family Support Worker:
+        </div>
+        <div>
+          <input type="text" pInputText size="20" formControlName="FamilySupportWorker" name="FamilySupportWorker" [(ngModel)]="cisFosterCare.FamilySupportWorker.value"
+          />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          List those present at visit:
+        </div>
+        <div>
+          <input type="text" pInputText size="20" formControlName="presentAtVisit" name="presentAtVisit" [(ngModel)]="cisFosterCare.presentAtVisit.value"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <h2>1. Seven-Day Success Needs</h2>
+        <p>1. What medications does the child have that need to be refilled? </p>
+        <div class="table-td">
+          <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(cisFosterCare.MedicationsNeedToBeFilled.value)}} cols="150" style="width: 100%;height: auto;" formControlName="MedicationsNeedToBeFilled"
+            name="MedicationsNeedToBeFilled" [(ngModel)]="cisFosterCare.MedicationsNeedToBeFilled.value"></textarea>
+        </div>
+        <p>2. What needs do you (foster parent/kinship parent) have that SFCS can assist with in the first 7 days of placement?
+        </p>
+        <div class="table-td">
+          <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(cisFosterCare.SFCSAssistFirst7Days.value)}} cols="150" style="width: 100%;height: auto;" formControlName="SFCSAssistFirst7Days"
+            name="SFCSAssistFirst7Days" [(ngModel)]="cisFosterCare.SFCSAssistFirst7Days.value"></textarea>
+        </div>
+        <p>3. Has the child had their KBH, Vision, and Dental Appointments scheduled? (If no, they need to be scheduled in the
+          first 7 days) </p>
+        <div class="table-td">
+          <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(cisFosterCare.KPHAppointmentsScheduled.value)}} cols="150" style="width: 100%;height: auto;" formControlName="KPHAppointmentsScheduled"
+            name="KPHAppointmentsScheduled" [(ngModel)]="cisFosterCare.KPHAppointmentsScheduled.value"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <h2>2. Crisis Support Plan</h2>
+        <p>1. Emergency After Hours Contacts:</p>
+        <p> Sponsoring Agency on Call, CMHC, etc:
+        </p>
+        <p>SFCS On-Call Phone Number:
+          <span class="bold">1-(888) SFA-HOPE</span>
+        </p>
+        <p>2. What are specific de-escalation tactics that work for the child? </p>
+        <div class="table-td">
+          <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(cisFosterCare.DeescalationTatics.value)}} cols="150" style="width: 100%;height: auto;" formControlName="DeescalationTatics"
+            name="DeescalationTatics" [(ngModel)]="cisFosterCare.DeescalationTatics.value"></textarea>
+        </div>
+        <p>3. What community resources are available for the Foster/Kinship Home to utilize in times of crisis?</p>
+        <div class="table-td">
+          <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(cisFosterCare.CommunityResources.value)}} cols="150" style="width: 100%;height: auto;" formControlName="CommunityResources"
+            name="CommunityResources" [(ngModel)]="cisFosterCare.CommunityResources.value"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <h2>3. Appointment Plan</h2>
+        <table>
+          <tr>
+            <th class="table-td">Appointment Type:</th>
+            <th class="table-td">Child:</th>
+            <th class="table-td">Day of the Week/Time:</th>
+            <th class="table-td">Location: </th>
+          </tr>
+          <tr>
+            <td class="table-td">(Example) Sibling Visit </td>
+            <td class="table-td"></td>
+            <td class="table-td">Tuesdays, 2pm-3pm </td>
+            <td class="table-td">Wichita Park</td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <input type="text" pInputText size="20" formControlName="AppointmentType1" name="AppointmentType1" [(ngModel)]="cisFosterCare.AppointmentType1.value"
+              />
+            </td>
+            <td class="table-td">
+              <input type="text" pInputText size="20" formControlName="AppointmentChild1" name="AppointmentChild1" [(ngModel)]="cisFosterCare.AppointmentChild1.value"
+              />
+            </td>
+            <td class="table-td">
+              <input type="text" pInputText size="20" formControlName="AppointmentTime1" name="AppointmentTime1" [(ngModel)]="cisFosterCare.AppointmentTime1.value"
+              />
+            </td>
+            <td class="table-td">
+              <input type="text" pInputText size="20" formControlName="AppointmentLocation1" name="AppointmentLocation1" [(ngModel)]="cisFosterCare.AppointmentLocation1.value"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <input type="text" pInputText size="20" formControlName="AppointmentType2" name="AppointmentType2" [(ngModel)]="cisFosterCare.AppointmentType2.value"
+              />
+            </td>
+            <td class="table-td">
+              <input type="text" pInputText size="20" formControlName="AppointmentChild2" name="AppointmentChild2" [(ngModel)]="cisFosterCare.AppointmentChild2.value"
+              />
+            </td>
+            <td class="table-td">
+              <input type="text" pInputText size="20" formControlName="AppointmentTime2" name="AppointmentTime2" [(ngModel)]="cisFosterCare.AppointmentTime2.value"
+              />
+            </td>
+            <td class="table-td">
+              <input type="text" pInputText size="20" formControlName="AppointmentLocation2" name="AppointmentLocation2" [(ngModel)]="cisFosterCare.AppointmentLocation2.value"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <input type="text" pInputText size="20" formControlName="AppointmentType3" name="AppointmentType3" [(ngModel)]="cisFosterCare.AppointmentType3.value"
+              />
+            </td>
+            <td class="table-td">
+              <input type="text" pInputText size="20" formControlName="AppointmentChild3" name="AppointmentChild3" [(ngModel)]="cisFosterCare.AppointmentChild3.value"
+              />
+            </td>
+            <td class="table-td">
+              <input type="text" pInputText size="20" formControlName="AppointmentTime3" name="AppointmentTime3" [(ngModel)]="cisFosterCare.AppointmentTime3.value"
+              />
+            </td>
+            <td class="table-td">
+              <input type="text" pInputText size="20" formControlName="AppointmentLocation3" name="AppointmentLocation3" [(ngModel)]="cisFosterCare.AppointmentLocation3.value"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <input type="text" pInputText size="20" formControlName="AppointmentType4" name="AppointmentType4" [(ngModel)]="cisFosterCare.AppointmentType4.value"
+              />
+            </td>
+            <td class="table-td">
+              <input type="text" pInputText size="20" formControlName="AppointmentChild4" name="AppointmentChild4" [(ngModel)]="cisFosterCare.AppointmentChild4.value"
+              />
+            </td>
+            <td class="table-td">
+              <input type="text" pInputText size="20" formControlName="AppointmentTime4" name="AppointmentTime4" [(ngModel)]="cisFosterCare.AppointmentTime4.value"
+              />
+            </td>
+            <td class="table-td">
+              <input type="text" pInputText size="20" formControlName="AppointmentLocation4" name="AppointmentLocation4" [(ngModel)]="cisFosterCare.AppointmentLocation4.value"
+              />
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <h2>4. Communication and Miscellaneous Information</h2>
+        <p>Saint Francis Community Services is committed to communicate changes to visits, appointments, and court hearings
+          as soon as possible. When there is a cancellation, SFCS will reschedule these within 24 hours and inform you of
+          the changes. In order to do this successfully, we request your preferred method of communication (phone call, text,
+          etc.) and phone number</p>
+        <div class="flex-container">
+          <div>
+            1. Preferred method of communication:
+          </div>
+          <div>
+            <input type="text" pInputText size="20" formControlName="PreferredCommunication" name="PreferredCommunication" [(ngModel)]="cisFosterCare.PreferredCommunication.value"
+            />
+          </div>
+        </div>
+        <div class="flex-container">
+          <div>
+            2. Preferred Contact Phone Number:
+          </div>
+          <div>
+            <input type="text" pInputText size="20" formControlName="PhoneNumber" name="PhoneNumber" [(ngModel)]="cisFosterCare.PhoneNumber.value"
+            />
+          </div>
+        </div>
+        <p>As foster parents/kinship parents, you have a right to attend court hearings, case plans, and submit letters to the
+          court. Please contact your foster child’s case manager if you have any questions regarding this process.
+        </p>
+        <p>1. If you foster children are school aged, when are the days school is not in session due to in-services, vacations,
+          etc., what are the child care plans for those days?</p>
+        <div class="table-td">
+          <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(cisFosterCare.InServiceDays.value)}} cols="150" style="width: 100%;height: auto;" formControlName="InServiceDays"
+            name="InServiceDays" [(ngModel)]="cisFosterCare.InServiceDays.value"></textarea>
+        </div>
+        <p>2. Tuesdays, 2pm-3pm If your child attends daycare, when does the child have daycare outings, if any?</p>
+        <div class="table-td">
+          <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(cisFosterCare.DayCareOutings.value)}} cols="150" style="width: 100%;height: auto;" formControlName="DayCareOutings"
+            name="DayCareOutings" [(ngModel)]="cisFosterCare.DayCareOutings.value"></textarea>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<app-form-footer (print)="printForm()" [isPrint]="true" (save)="saveForm(cisFosterCare)" (edit)="editForm()" [isDisabled]="isDisable" [editControll]="editControll"
+  (finalize)="finalizeForm(cisFosterCare)" [isFinalize]="isFinalize" (discard)="discardForm()" [isDisabled]="isDisable"></app-form-footer>

@@ -1,0 +1,115 @@
+<div class="container-fluid" style="margin-top:60px">
+  <div class="container">
+    <form id="print-form-content" [formGroup]="caseActivityForm" class="sf-form">
+      <div class="header-activity">
+        <h2>
+          Saint Francis Community Services Case Activity Notes
+        </h2>
+      </div>
+      <div class="header">
+        <div>
+          <span>Staff Name:</span>
+          <input [(ngModel)]="cisCaseActive.Signature.value" formControlName="Signature" name="Signature" type="text" pInputText size="20"
+            readonly />
+        </div>
+        <div class="header-right">
+          <div>
+            <span>Client Name:</span>
+            <input [(ngModel)]="cisCaseActive.ClientName.value" formControlName="ClientName" name="ClientName" type="text" pInputText
+              size="20" readonly />
+          </div>
+          <div class="margin-top-1rem">
+            <span>Kaecses:</span>
+            <input [(ngModel)]="cisCaseActive.Kaecses.value" formControlName="Kaecses" name="Kaecses" type="text" pInputText size="20"
+              readonly />
+          </div>
+          <div class="margin-top-1rem">
+            <span>FACTS:</span>
+            <input [(ngModel)]="cisCaseActive.facts.value" formControlName="facts" name="facts" type="text" pInputText size="20" readonly
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row margin-bottom-2rem">
+        <div class="col-xs-12">
+          <!-- <div class="col-xs-5">
+              
+            </div> -->
+          <div class="flex">
+            <div class="child-list">
+              <span>
+                <b>Child List: </b>
+              </span>
+            </div>
+            <div *ngFor="let client of multiClientArr; let i = index;" class="multiClient">
+              <span>Child{{i + 1}}:</span>
+              <input class="margin-left-1rem" type="text" pInputText size="20" value={{client}} readonly />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="date-section margin-top-1rem">
+        <div>
+          <span>Begin Date:</span>
+          <p-calendar formControlName="beginDate" name="beginDate" [(ngModel)]="cisCaseActive.beginDate" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          <!-- <input [(ngModel)]="cisCaseActive.beginDate" formControlName="beginDate" name="beginDate" type="text"
+            pInputText size="20" readonly /> -->
+        </div>
+        <div class="margin-left-16rem">
+          <span>End Date:</span>
+          <p-calendar formControlName="endDate" name="endDate" [(ngModel)]="cisCaseActive.endDate" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          <!-- <input [(ngModel)]="cisCaseActive.endDate" formControlName="endDate" name="endDate" type="text" pInputText
+            size="20" readonly /> -->
+        </div>
+
+      </div>
+      <div class="code-section margin-top-1rem">
+        <div>
+          <span>Person Type:</span>
+          <p-autoComplete [(ngModel)]="cisCaseActive.person" formControlName="person" name="person" [suggestions]="results" [dropdown]="true"
+            [forceSelection]="true" field="personType" (completeMethod)="getPersonType($event)"></p-autoComplete>
+
+          <!-- <p-autoComplete [(ngModel)]="cisCaseActive.person" [ngModelOptions]="{standalone: true}" [suggestions]="results" [dropdown]="true"
+            [forceSelection]="true" field="personType" (completeMethod)="getPersonType($event)"></p-autoComplete> -->
+        </div>
+        <div>
+          <span>Pro-code:</span>
+          <p-autoComplete [(ngModel)]="cisCaseActive.procodeType" formControlName="procodeType" name="procodeType" [suggestions]="results"
+            [dropdown]="true" [forceSelection]="true" field="procodeTypeField" (completeMethod)="getProcode()"></p-autoComplete>
+
+          <!-- <p-autoComplete [(ngModel)]="cisCaseActive.procodeType" [ngModelOptions]="{standalone: true}" [suggestions]="results" [dropdown]="true"
+            [forceSelection]="true" field="procodeTypeField" (completeMethod)="getProcode($event)"></p-autoComplete> -->
+        </div>
+        <div>
+          <span>Contact Type:</span>
+          <p-autoComplete [(ngModel)]="cisCaseActive.contact" formControlName="contact" name="contact" [suggestions]="results" [dropdown]="true"
+            [forceSelection]="true" field="contactType" (completeMethod)="getContactType($event)"></p-autoComplete>
+
+          <!-- <p-autoComplete [(ngModel)]="cisCaseActive.contact" [ngModelOptions]="{standalone: true}" [suggestions]="results" [dropdown]="true"
+            [forceSelection]="true" field="contactType" (completeMethod)="getContactType($event)"></p-autoComplete> -->
+        </div>
+      </div>
+      <div class="staff-notes-section margin-top-1rem">
+        <span>Staff Notes:</span>
+        <textarea [(ngModel)]="cisCaseActive.staffNotes.value" formControlName="staffNotes" name="staffNotes" pInputTextarea autoResize="autoResize"
+          rows={{rowMethod(cisCaseActive.staffNotes.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+
+      </div>
+      <div class="code-section margin-top-1rem">
+        <div>
+          <span>Signature:</span>
+          <input [(ngModel)]="cisCaseActive.Signature.value" formControlName="Signature" name="Signature" type="text" pInputText size="20"
+            readonly />
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<app-form-footer (print)="printForm()" [isPrint]="true" (save)="saveForm(cisCaseActive)" (edit)="editForm()" [isDisabled]="isDisable"
+  [editControll]="editControll" (finalize)="finalizeForm(cisCaseActive)" [isFinalize]="isFinalize" (discard)="discardForm()"
+  [isDisabled]="isDisable"></app-form-footer>

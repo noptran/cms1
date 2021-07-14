@@ -1,0 +1,158 @@
+<p-dialog class="complianceTechDashboard" (onHide)="closeDashboard()" header="Office Dashboard"
+  [contentStyle]="{'min-height': '23rem;','min-width':'103rem','width': '98vw'}" [responsive]="true"
+  [(visible)]="isDashboardWindow">
+
+  <div class="row">
+    <div class="col-lg-2 col-md-2 col-sm-2">
+      <div class="card-header-row">
+        <div class="opencard-menu-container rfcOpencard">
+          <div class="dropdown border-none">
+            <!-- <span class="fa fa-th opencard-menu" data-toggle="dropdown" pTooltip="OpenCards"></span> -->
+            <!-- class="dropdown-menu opencard-box" -->
+            <div class="opencard-box">
+              <div class="card-container">
+                <div *ngFor="let item of techCards" class="opencard" pTooltip="Click here to open"
+                  (click)=openPopUp(item)>
+                  <div class="opencard-info">
+                    <span class="title">{{item.title}}</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</p-dialog>
+
+<p-dialog header="{{teamType}}" [contentStyle]="{'min-width':'103rem','width': '98vw'}" [responsive]="true"
+  [(visible)]="isPopListWindow" (onHide)="close()">
+  <button class="sf-positive-btn pull-right new-record-button" (click)="showSaveModel()">
+    <span>Add new record</span>
+  </button>
+  <br>
+  <br>
+  <h3 class="text-center" *ngIf="isPlesWait"><b>Please Wait...</b></h3>
+  <div class="sf-text-right sf-table-header sf-black" *ngIf="totalCount > 0">
+    <app-pagesize *ngIf="totalCount" [totalCount]="totalCount" [initial]="initial" [end]="end"
+      (keyup)="pagesizeNav($event)" (click)="pagesize($event)"></app-pagesize>
+  </div>
+  <br>
+  <ag-grid-angular style="width: 500px; height: 500px;" class="ag-theme-balham" [rowData]="rowData"
+    [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [enableSorting]="true" [rowDragManaged]="true"
+    [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid style="width: 100%;height: 68vh;"
+    animateRows="true" rowSelection="multiple" (cellClicked)='onRowSelected($event)'>
+  </ag-grid-angular>
+</p-dialog>
+
+
+<p-dialog class="mainpopup" header="{{teamType}}" [contentStyle]="{'min-width':'100rem','width': '95vw'}"
+  [responsive]="true" [(visible)]="isPopWindow">
+
+  <div>
+    <div>
+      <!-- class="panel panel-default ui-call" -->
+      <div >
+        <!-- <div class="panel-heading">SFM Office</div> -->
+        <!-- class="panel-body sf-form" -->
+        <div class="sf-form" style="padding:10px;">
+          <!-- class="container-background" -->
+
+          <div>
+            <div class="container-foreground">
+
+              <form class="margin-top-20 sf-form" [formGroup]="orgForm">
+                <div class="margin-top-20 margin-left-45">
+                  <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <span class="sf-labels">SFM Office</span>
+                        <span class="mandatory">*</span>
+
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                        <p-autoComplete formControlName="sfaOfficeID" field="Name" [forceSelection]="true"
+                          emptyMessage="No results found!" placeholder="Type here to search" [suggestions]="results"
+                          (completeMethod)="getMetaData($event,'office')" name="endDate" [(ngModel)]="sfcs.sfaOfficeID"
+                          [dropdown]="true"></p-autoComplete>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <span class="sf-labels">SFM Office Type</span>
+                        <span class="mandatory">*</span>
+
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                        <p-autoComplete formControlName="staffSFAOfficeTypeID" field="staffSFAOfficeType"
+                          [forceSelection]="true" emptyMessage="No results found!" placeholder="Type here to search"
+                          [suggestions]="results" (completeMethod)="getMetaData($event,'officeType')"
+                          name="staffSFAOfficeTypeID" [(ngModel)]="sfcs.staffSFAOfficeTypeID" [dropdown]="true">
+                        </p-autoComplete>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row margin-top-20 margin-bottom-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <span class="sf-labels">Begin Date</span>
+                        <span class="mandatory">*</span>
+
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <p-calendar formControlName="beginDate" showTime="true" [showIcon]="true" name="beginDate"
+                          [(ngModel)]="sfcs.beginDate"></p-calendar>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <span class="sf-labels">End Date</span>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <p-calendar formControlName="endDate" showTime="true" [showIcon]="true" name="endDate"
+                          [(ngModel)]="sfcs.endDate"></p-calendar>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="margin-top-20 row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <span>Notes</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="margin-top-20 row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <textarea name="notes" [(ngModel)]="sfcs.notes" formControlName="notes" pInputTextArea
+                          style="width:100%;height:100%"></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+              <app-form-footer (deleted)="afterDelete()"  (discard)="discardForm()" [attachmentControll]="isAttachmentRequired"
+                [isAttachmentDisabled]="false" (attachDoc)="navigateTo()" (save)="addPost(sfcs)" (edit)="editForm()"
+                [editControll]="editControll" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- </div> -->
+</p-dialog>
+<!-- </div> -->
+
+

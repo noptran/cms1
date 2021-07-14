@@ -1,0 +1,601 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="selfSufficiencyPlanForm" class="sf-form">
+      <div class="flex-container header">
+          <div>
+    
+          </div>
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+          <div>
+    
+          </div>
+        </div>
+    <div class="text-center">
+      <h3>
+        <b>Self-Sufficiency Plan</b>
+      </h3>
+    </div>
+    <div class="border-container margin-bottom-2rem">
+      <div class="d-flex">
+        <div class="p-3">
+          Case Name:
+        </div>
+        <div class="p-2">
+           <input [(ngModel)]="indSelfSufficiencyPlan.CaseName" formControlName="CaseName" name="CaseName"  type="text" pInputText size="20" />
+        </div>
+        <div class="p-3">
+          FACTS Case #:
+        </div>
+        <div class="p-2">
+           <input [(ngModel)]="indSelfSufficiencyPlan.FactsCase" formControlName="FactsCase" name="FactsCase"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="p-3">
+          Roommates/Child(ren):
+        </div>
+        <div class="p-2">
+           <input [(ngModel)]="indSelfSufficiencyPlan.Roommates" formControlName="Roommates" name="Roommates"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="p-3">
+          Local DCF Office:
+        </div>
+        <div class="p-2">
+           <input [(ngModel)]="indSelfSufficiencyPlan.LocalDcfOffice" formControlName="LocalDcfOffice" name="LocalDcfOffice"  type="text" pInputText size="20" />
+        </div>
+        <div class="p-3">
+          DCF IL Coordinator:
+        </div>
+        <div class="p-2">
+           <input [(ngModel)]="indSelfSufficiencyPlan.DcfIlCoordinator" formControlName="DcfIlCoordinator" name="DcfIlCoordinator"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="p-3">
+          Case Planning Conference Date:
+        </div>
+        <div class="p-2">
+          <p-calendar [(ngModel)]="indSelfSufficiencyPlan.PlanningConferenceDate" formControlName="PlanningConferenceDate" name="PlanningConferenceDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="p-3">
+          Previous Case Planning Conference From:
+        </div>
+        <div class="p-2">
+          <p-calendar [(ngModel)]="indSelfSufficiencyPlan.PlanningConferenceFrom" formControlName="PlanningConferenceFrom" name="PlanningConferenceFrom"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="p-3">
+          to:
+        </div>
+        <div class="p-2">
+          <p-calendar [(ngModel)]="indSelfSufficiencyPlan.PlanningConferenceTo" formControlName="PlanningConferenceTo" name="PlanningConferenceTo"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="p-3">
+          Case Plan is effective from:
+        </div>
+        <div class="p-2">
+          <p-calendar [(ngModel)]="indSelfSufficiencyPlan.EffectiveFrom" formControlName="EffectiveFrom" name="EffectiveFrom"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="p-3">
+          to:
+        </div>
+        <div class="p-2">
+          <p-calendar [(ngModel)]="indSelfSufficiencyPlan.EffectiveTo" formControlName="EffectiveTo" name="EffectiveTo"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="p-3">
+          Date of last completed Self-Sufficiency Matrix (SSM):
+        </div>
+        <div class="p-2">
+          <p-calendar [(ngModel)]="indSelfSufficiencyPlan.DateLastCompleted" formControlName="DateLastCompleted" name="DateLastCompleted"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="p-3">
+        Current Summary of Youth/Young Adult’s Progress:
+      </div>
+      <div class="p-3">
+        <textarea [(ngModel)]="indSelfSufficiencyPlan.CurrentSummary" formControlName="CurrentSummary" name="CurrentSummary"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+      <div class="p-3">
+        Youth/Young Adult Strengths and Resources:
+      </div>
+      <div class="p-3">
+        <textarea [(ngModel)]="indSelfSufficiencyPlan.AdultStrengths" formControlName="AdultStrengths" name="AdultStrengths"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+      <div class="d-flex">
+        <div class="p-3">
+          Has a State or Federal Court of competent jurisdiction adjudicated this youth/young adult as delinquent in the custody of
+          Kansas Department of Corrections-Juvenile Services?
+        </div>
+        <div class="p-2">
+          <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsJurisdictionAdjudicatedYes" formControlName="IsJurisdictionAdjudicatedYes" name="IsJurisdictionAdjudicatedYes"  binary="true"></p-checkbox>Yes
+        </div>
+        <div class="p-2">
+          <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsJurisdictionAdjudicatedNo" formControlName="IsJurisdictionAdjudicatedNo" name="IsJurisdictionAdjudicatedNo"  binary="true"></p-checkbox>No
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="p-3">
+          If yes, date:
+        </div>
+        <div class="p-2">
+          <p-calendar [(ngModel)]="indSelfSufficiencyPlan.YesDate" formControlName="YesDate" name="YesDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="p-3">
+          Highest grade completed (K-12, post-secondary, etc.):
+        </div>
+        <div class="p-2">
+          <div class="p-2">
+             <input [(ngModel)]="indSelfSufficiencyPlan.HighestGrade" formControlName="HighestGrade" name="HighestGrade"  type="text" pInputText size="20" />
+          </div>
+        </div>
+        <div class="d-flex">
+          <div class="p-3">
+            If youth/young adult has graduated/completed their GED, enter date this occurred:
+          </div>
+          <div class="p-2">
+            <p-calendar [(ngModel)]="indSelfSufficiencyPlan.GedDate" formControlName="GedDate" name="GedDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="margin-bottom-2rem">
+      <table class="table-bordered">
+        <tbody>
+          <tr>
+            <th class="p-2">
+              A. Self-Sufficiency Goal is Maintain at Home (MFM) Service Type: Self-Sufficiency (SS) Services to be Provided (check all
+              that apply of the following which areas expected to be utilized during this case planning period):
+            </th>
+            <th class="p-2" >
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsSelfSufficiencyGoal" formControlName="IsSelfSufficiencyGoal" name="IsSelfSufficiencyGoal"  binary="true"></p-checkbox>
+            </th>
+            <th  class="p-2" colspan="8">ETV and/or Tuition Waiver (still under CWCMP)</th>
+          </tr>
+          <tr>
+            <th class="p-2">
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsSubsidy" formControlName="IsSubsidy" name="IsSubsidy"  binary="true"></p-checkbox>
+            </th>
+            <th class="p-2">IL Subsidy/ Educational Plan
+            </th>
+            <th class="p-2">
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsEtv" formControlName="IsEtv" name="IsEtv"  binary="true"></p-checkbox>
+            </th>
+            <th class="p-2">ETV
+            </th>
+            <th class="p-2">
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsBasicChafee" formControlName="IsBasicChafee" name="IsBasicChafee"  binary="true"></p-checkbox>
+            </th>
+            <th class="p-2">Case Management/ Basic Chafee
+            </th>
+            <th class="p-2">
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsTuitionWaiver" formControlName="IsTuitionWaiver" name="IsTuitionWaiver"  binary="true"></p-checkbox>
+            </th>
+            <th class="p-2">Tuition Waiver
+            </th>
+            <th class="p-2">
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsFosterFamily" formControlName="IsFosterFamily" name="IsFosterFamily"  binary="true"></p-checkbox>
+            </th>
+            <th class="p-2">Foster Family Transition Service
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      Self- Sufficiency Objective(s) (at least 1-no more than 3):
+    </div>
+    <div class="margin-bottom-2rem">
+      <textarea [(ngModel)]="indSelfSufficiencyPlan.SelfSufficiencyObjective" formControlName="SelfSufficiencyObjective" name="SelfSufficiencyObjective"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <div class="margin-bottom-2rem">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th colspan="2">Independent Living Services to be Provided:</th>
+            <th>
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsHousingEducation" formControlName="IsHousingEducation" name="IsHousingEducation"  binary="true"></p-checkbox>
+            </th>
+            <th>
+              <div class="col-xs-8">
+                Housing Education
+              </div>
+              <div class="col-xs-4">
+                IL08N
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <td>
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsSpecialEducation" formControlName="IsSpecialEducation" name="IsSpecialEducation"  binary="true"></p-checkbox>
+            </td>
+            <td>
+              <div class="col-xs-8">
+                Special Education
+              </div>
+              <div class="col-xs-4">
+                IL01N
+              </div>
+            </td>
+            <td>
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsRiskPrevention" formControlName="IsRiskPrevention" name="IsRiskPrevention"  binary="true"></p-checkbox>
+            </td>
+            <td>
+              <div class="col-xs-8">
+                Health Education and Risk Prevention
+              </div>
+              <div class="col-xs-4">
+                IL09N
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsNeedsAssessment" formControlName="IsNeedsAssessment" name="IsNeedsAssessment"  binary="true"></p-checkbox>
+            </td>
+            <td>
+              <div class="col-xs-8">
+                Needs Assessment
+              </div>
+              <div class="col-xs-4">
+                IL02N
+              </div>
+            </td>
+            <td>
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsFamilySupport" formControlName="IsFamilySupport" name="IsFamilySupport"  binary="true"></p-checkbox>
+            </td>
+            <td>
+              <div class="col-xs-8">
+                Family Support and Marriage Education
+              </div>
+              <div class="col-xs-4">
+                IL10N
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsAcademicSupports" formControlName="IsAcademicSupports" name="IsAcademicSupports"  binary="true"></p-checkbox>
+            </td>
+            <td>
+              <div class="col-xs-8">
+                Academic Supports
+              </div>
+              <div class="col-xs-4">
+                IL03N
+              </div>
+            </td>
+            <td>
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsMentoring" formControlName="IsMentoring" name="IsMentoring"  binary="true"></p-checkbox>
+            </td>
+            <td>
+              <div class="col-xs-8">
+                Mentoring
+              </div>
+              <div class="col-xs-4">
+                IL11N
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsEducationSupport" formControlName="IsEducationSupport" name="IsEducationSupport"  binary="true"></p-checkbox>
+            </td>
+            <td>
+              <div class="col-xs-8">
+                Post-Secondary Education Support
+              </div>
+              <div class="col-xs-4">
+                IL04N
+              </div>
+            </td>
+            <td>
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsSuperviseIndependent" formControlName="IsSuperviseIndependent" name="IsSuperviseIndependent"  binary="true"></p-checkbox>
+            </td>
+            <td>
+              <div class="col-xs-8">
+                Supervise Independent Living
+              </div>
+              <div class="col-xs-4">
+                IL12N
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsCareerPreparation" formControlName="IsCareerPreparation" name="IsCareerPreparation"  binary="true"></p-checkbox>
+            </td>
+            <td>
+              <div class="col-xs-8">
+                Career Preparation
+              </div>
+              <div class="col-xs-4">
+                IL05N
+              </div>
+            </td>
+            <td>
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsRoomBoard" formControlName="IsRoomBoard" name="IsRoomBoard"  binary="true"></p-checkbox>
+            </td>
+            <td>
+              <div class="col-xs-8">
+                Room and Board Financial Assistance
+              </div>
+              <div class="col-xs-4">
+                IL13N
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsVocational" formControlName="IsVocational" name="IsVocational"  binary="true"></p-checkbox>
+            </td>
+            <td>
+              <div class="col-xs-8">
+                Employment or Vocational Programs
+              </div>
+              <div class="col-xs-4">
+                IL06N
+              </div>
+            </td>
+            <td>
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsEducationFinancial" formControlName="IsEducationFinancial" name="IsEducationFinancial"  binary="true"></p-checkbox>
+            </td>
+            <td>
+              <div class="col-xs-8">
+                Education Financial Assistance
+              </div>
+              <div class="col-xs-4">
+                IL14N
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsBudgetManagement" formControlName="IsBudgetManagement" name="IsBudgetManagement"  binary="true"></p-checkbox>
+            </td>
+            <td>
+              <div class="col-xs-8">
+                Budget and Financial Management
+              </div>
+              <div class="col-xs-4">
+                IL07N
+              </div>
+            </td>
+            <td>
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsOtherFinancial" formControlName="IsOtherFinancial" name="IsOtherFinancial"  binary="true"></p-checkbox>
+            </td>
+            <td>
+              <div class="col-xs-8">
+                Other Financial Assistance
+              </div>
+              <div class="col-xs-4">
+                IL15N
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <table class="table table-bordered margin-bottom-2rem">
+        <tbody>
+          <tr>
+            <th>
+              Task #
+            </th>
+            <th>
+              Measurable Short-Term Tasks toward Achievement of Self Sufficiency
+            </th>
+            <th>Responsible Person/Agency</th>
+            <th>Target Date</th>
+          </tr>
+          <tr>
+            <td>
+               <input [(ngModel)]="indSelfSufficiencyPlan.Task" formControlName="Task" name="Task"  type="text" pInputText size="20" />
+            </td>
+            <td>
+               <input [(ngModel)]="indSelfSufficiencyPlan.ShortTermTasks" formControlName="ShortTermTasks" name="ShortTermTasks"  class="width-fill" type="text" pInputText size="20" />
+            </td>
+            <td>
+               <!-- <input [(ngModel)]="indSelfSufficiencyPlan.ResponsiblePerson" formControlName="ResponsiblePerson" name="ResponsiblePerson"  type="text" pInputText size="20" /> -->
+            </td>
+            <td>
+              <p-calendar [(ngModel)]="indSelfSufficiencyPlan.TargetDate" formControlName="TargetDate" name="TargetDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               <input [(ngModel)]="indSelfSufficiencyPlan.Task1" formControlName="Task1" name="Task1"  type="text" pInputText size="20" />
+            </td>
+            <td>
+               <input [(ngModel)]="indSelfSufficiencyPlan.ShortTermTasks1" formControlName="ShortTermTasks1" name="ShortTermTasks1"  class="width-fill" type="text" pInputText size="20" />
+            </td>
+            <td>
+               <input [(ngModel)]="indSelfSufficiencyPlan.ResponsiblePerson1" formControlName="ResponsiblePerson1" name="ResponsiblePerson1"  type="text" pInputText size="20" />
+            </td>
+            <td>
+              <p-calendar [(ngModel)]="indSelfSufficiencyPlan.TargetDate1" formControlName="TargetDate1" name="TargetDate1"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               <input [(ngModel)]="indSelfSufficiencyPlan.Task2" formControlName="Task2" name="Task2"  type="text" pInputText size="20" />
+            </td>
+            <td>
+               <input [(ngModel)]="indSelfSufficiencyPlan.ShortTermTasks2" formControlName="ShortTermTasks2" name="ShortTermTasks2"  class="width-fill" type="text" pInputText size="20" />
+            </td>
+            <td>
+               <input [(ngModel)]="indSelfSufficiencyPlan.ResponsiblePerson2" formControlName="ResponsiblePerson2" name="ResponsiblePerson2"  type="text" pInputText size="20" />
+            </td>
+            <td>
+              <p-calendar [(ngModel)]="indSelfSufficiencyPlan.TargetDate2" formControlName="TargetDate2" name="TargetDate2"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </td>
+          </tr>
+          <tr>
+            <td>
+               <input [(ngModel)]="indSelfSufficiencyPlan.Task3" formControlName="Task3" name="Task3"  type="text" pInputText size="20" />
+            </td>
+            <td>
+               <input [(ngModel)]="indSelfSufficiencyPlan.ShortTermTasks3" formControlName="ShortTermTasks3" name="ShortTermTasks3"  class="width-fill" type="text" pInputText size="20" />
+            </td>
+            <td>
+               <input [(ngModel)]="indSelfSufficiencyPlan.ResponsiblePerson3" formControlName="ResponsiblePerson3" name="ResponsiblePerson3"  type="text" pInputText size="20" />
+            </td>
+            <td>
+              <p-calendar [(ngModel)]="indSelfSufficiencyPlan.TargetDate3" formControlName="TargetDate3" name="TargetDate3"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <div class="margin-bottom-2rem">
+      <table class="table-bordered">
+        <tbody>
+          <tr>
+            <th class="p-2" colspan="3">
+              B. Complete ONLY if ETV eligible
+            </th>
+          </tr>
+          <tr>
+            <th class="p-2">
+              If youth/young adult plans to engage in an ETV plan while attending a post-secondary institution or training program, is
+              form PPS 7001 ETV Program Plan attached? The PPS 7001 shall be reviewed, updated, and approved at every case
+              plan or when circumstances change. ETV verification must be from the DCF IL Coordinator.
+            </th>
+            <th class="p-2">
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsEtvPlanYes" formControlName="IsEtvPlanYes" name="IsEtvPlanYes"  binary="true"></p-checkbox>Yes
+            </th>
+            <th class="p-2">
+              <p-checkbox [(ngModel)]="indSelfSufficiencyPlan.IsEtvPlanNo" formControlName="IsEtvPlanNo" name="IsEtvPlanNo"  binary="true"></p-checkbox>No
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th colspan="4">
+              C. Self-Sufficiency Plan Participants
+            </th>
+          </tr>
+          <tr>
+           <td colspan="4">
+              By signing this plan, I am indicating that I agree to comply with this plan as written. I understand that failure to meet
+              or progress towards the goals identified in this plan and maintain communication with my IL Coordinator may
+              result in a delay and/or denial of payments and/or services. I also understand that continued non-compliance
+              or lack of progress on my part toward my self-sufficiency goals may result in the closure of my Independent
+              Living case.
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Youth/Young Adult Signature:
+            </th>
+            <td>
+               <input  [(ngModel)]="indSelfSufficiencyPlan.AdultSignature" formControlName="AdultSignature" name="AdultSignature"  type="text" pInputText size="20" />
+            </td>
+            <th>
+              Date:
+            </th>
+            <td>
+              <p-calendar  [(ngModel)]="indSelfSufficiencyPlan.AdultDate" formControlName="AdultDate" name="AdultDate"   showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </td>
+          </tr>
+          <tr>
+            <th class="text-center">Signatures</th>
+            <th class="text-center">Date</th>
+            <th class="text-center">Signatures</th>
+            <th class="text-center">Date</th>
+          </tr>
+          <tr>
+            <td>
+              *IL Supervisor:
+            </td>
+            <td>
+              <p-calendar [(ngModel)]="indSelfSufficiencyPlan.IlSupervisorDate" formControlName="IlSupervisorDate" name="IlSupervisorDate"   showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </td>
+            <td>
+              *DCF IL Coordinator:
+            </td>
+            <td>
+              <p-calendar  [(ngModel)]="indSelfSufficiencyPlan.IlCoordinatorDate" formControlName="IlCoordinatorDate" name="IlCoordinatorDate"   showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Mentor:
+            </td>
+            <td>
+              <p-calendar  [(ngModel)]="indSelfSufficiencyPlan.MentorDate" formControlName="MentorDate" name="MentorDate"   showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </td>
+            <td>
+              Other Participant:
+            </td>
+            <td>
+              <p-calendar  [(ngModel)]="indSelfSufficiencyPlan.OtherParticipantDate" formControlName="OtherParticipantDate" name="OtherParticipantDate"   showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="20k00:2030"></p-calendar>
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              *By signing above, I verify eligibility and approve services for this youth/young adult.*
+            </th>
+            <th colspan="2">
+              *By signing above, I verify eligibility and approve services for this youth/young adult.*
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,indSelfSufficiencyPlan)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

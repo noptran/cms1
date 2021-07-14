@@ -1,0 +1,116 @@
+<app-form-header [title]="title" [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+
+    <form [formGroup]="referralEventsForm" class="sf-form">
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Referral Event Type</span>
+            <span class="mandatory">*</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete formControlName="referralEventType" [suggestions]="metadata" name="referralEventType" [(ngModel)]="referralEvents.referralEventTypeID"
+              [dropdown]="true" (completeMethod)="getMetaData($event,'referralEventType')" field="referralEventType"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Begin Date</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" formControlName="beginDate" [showIcon]="true" showTime="true" [(ngModel)]="referralEvents.beginDate"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>End Date</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" formControlName="endDate" [showIcon]="true" showTime="true" [(ngModel)]="referralEvents.endDate"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Closure Reason</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete formControlName="closureReason" [suggestions]="metadata" name="closureReason" [dropdown]="true" [(ngModel)]="referralEvents.eventClosureReasonID"
+              (completeMethod)="getMetaData($event,'closureReason')" field="eventClosureReason"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Procode</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete formControlName="proCode" [suggestions]="metadata" name="proCode" [dropdown]="true" [(ngModel)]="referralEvents.procodeID"
+              (completeMethod)="getMetaData($event,'proCode')" field="procode"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Units</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner formControlName="units" name="units" [(ngModel)]="referralEvents.units" [step]="1" decimalSeparator="."></p-spinner>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Units Rate</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner formControlName="unitsRate" name="unitsRate" [(ngModel)]="referralEvents.unitRate" [step]="1" decimalSeparator="."></p-spinner>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Payor</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete formControlName="payor" [suggestions]="metadata" name="payor" [dropdown]="true" (completeMethod)="getMetaData($event,'payor')"
+              [(ngModel)]="referralEvents.payorID" field="payorName"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Notes</span>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea name="notes" formControlName="notes" [(ngModel)]="referralEvents.notes" pInputTextarea style=" width: 100%; height: 100%;"></textarea>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <button (click)=navigateTo() class="opencard-attachment btn btn-primary">Attachment Document</button>
+          </div>
+        </div>
+      </div> -->
+
+    </form>
+    <app-form-footer [attachmentControll]="isAttachmentRequired" [currentNodeValue]="req" [isAttachmentDisabled]="false" (attachDoc)="navigateTo()" (save)="addForm(referralEvents)" (edit)="editForm()" [editControll]="editControll" [discardTo]="discardTo" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+    <app-quick-menu [module]="quickMenu"></app-quick-menu>
+  </div>
+</div>

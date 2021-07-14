@@ -1,0 +1,92 @@
+<div class="pdf-content">
+  <div id="pdf-content-print" style="margin: 2rem;">
+    <div class="text-center">
+      <h3>
+        <b>VIEW PRINT HISTORY</b>
+      </h3>
+    </div>
+
+    <div class="versioning-table">
+
+      <table class="space-down table-hover">
+        <tr>
+          <th class="table-td">
+            Report Type
+          </th>
+          <th class="table-td">
+            History
+          </th>
+
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            Placement Status
+          </td>
+          <td class="table-td">
+            <div *ngIf="historyData.PLACEMENT_STATUS.isEmailed">
+              EMAILED on {{historyData.PLACEMENT_STATUS.emailedDate}} by {{staffName}}
+              to OTHER receipent(s): {{historyData.PLACEMENT_STATUS.emailedAddress}}
+            </div>
+            <div *ngIf="historyData.PLACEMENT_STATUS.isPrinted">
+              PRINTED on {{historyData.PLACEMENT_STATUS.printedDate}} by {{staffName}}
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            Placement Service Agreement
+          </td>
+          <td class="table-td">
+            <div *ngIf="historyData.PROVIDER_SERVICE_AGREEMENT.isEmailed">
+              EMAILED on {{historyData.PROVIDER_SERVICE_AGREEMENT.emailedDate}} by
+              {{staffName}} to OTHER receipent(s):
+              {{historyData.PROVIDER_SERVICE_AGREEMENT.emailedAddress}}
+            </div>
+            <div *ngIf="historyData.PROVIDER_SERVICE_AGREEMENT.isPrinted">
+              PRINTED on {{historyData.PROVIDER_SERVICE_AGREEMENT.printedDate}} by
+              {{staffName}}
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            Acknowledgement
+          </td>
+          <td class="table-td">
+            <div *ngIf="historyData.ACKNOWLEDGEMENT.isEmailed">
+              EMAILED on {{historyData.PLACEMENT_STATUS.emailedDate}} by {{staffName}}
+              to OTHER receipent(s): {{historyData.PLACEMENT_STATUS.emailedAddress}}
+            </div>
+            <div *ngIf="historyData.ACKNOWLEDGEMENT.isPrinted">
+              PRINTED on {{historyData.PLACEMENT_STATUS.printedDate}} by {{staffName}}
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            Agreement
+          </td>
+          <td class="table-td">
+            <div *ngIf="historyData.ACKNOWLEDGEMENT.isEmailed">
+              EMAILED on {{historyData.AGREEMENT.emailedDate}} by {{staffName}} to
+              OTHER receipent(s): {{historyData.ACKNOWLEDGEMENT.emailedAddress}}
+            </div>
+            <div *ngIf="historyData.ACKNOWLEDGEMENT.isPrinted">
+              PRINTED on {{historyData.AGREEMENT.printedDate}} by {{staffName}}
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+
+
+<app-placement-email-footer [currentForm]="'VIEW_HISTORY'">
+</app-placement-email-footer>

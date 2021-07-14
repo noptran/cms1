@@ -1,0 +1,95 @@
+<p-tabView [(activeIndex)]="index">
+  <div class="detail-containers">
+    <strong><p>Details:</p></strong>
+    <p *ngFor="let log of logger">{{ log.dateTime }} - {{ log.activity }}</p>
+  </div>
+  <p-tabPanel header="Step 1: Placement Date Check...">
+    <div class="results-containers">
+      <strong><p>Results:</p> </strong>
+      <strong
+        ><p class="line-parent-info" *ngFor="let info of parentInfo">
+          {{ info.ParentName }}
+        </p></strong
+      >
+      <p
+        *ngFor="let error of errorPlacementList"
+        (dblclick)="onSelectPlacementError(error.PrimaryKey)"
+        class="line-error"
+        title="Double click to open placement form"
+      >
+        {{ error.Info }}
+      </p>
+    </div>
+  </p-tabPanel>
+  <p-tabPanel header="Step 2: Placement Event Date Check...">
+    <div class="results-containers">
+      <strong><p>Results:</p> </strong>
+      <strong
+        ><p class="line-parent-info" *ngFor="let info of parentInfo">
+          {{ info.ParentName }}
+        </p></strong
+      >
+      <p
+        *ngFor="let error of errorPlacementDetailList"
+        (dblclick)="
+          onSelectPlacementEventError(error.ParentID, error.PrimaryKey)
+        "
+        class="line-error"
+        title="Double click to open placement event form"
+      >
+        {{ error.Info }}
+      </p>
+    </div>
+  </p-tabPanel>
+  <p-tabPanel header="Step 3: Authorization Date Check...">
+    <div class="results-containers">
+      <strong><p>Results:</p> </strong>
+      <strong
+        ><p class="line-parent-info" *ngFor="let authInfo of parentInfo">
+          {{ authInfo.ParentName }}
+        </p></strong
+      >
+      <p
+        *ngFor="let error of errorPlacementAuthList"
+        (dblclick)="
+          onSelectPlacementAuthError(error.PrimaryKey, error.ParentID)
+        "
+        class="line-error"
+        title="Double click to open placement auth form"
+      >
+        {{ error.Info }}
+      </p>
+    </div>
+  </p-tabPanel>
+  <p-tabPanel header="Step 4: Update Units Authorized...">
+    <div class="results-containers">
+      <strong><p>Results:</p> </strong>
+    </div>
+  </p-tabPanel>
+</p-tabView>
+<div class="button-container">
+  <button class="sf-moderate-btn" (click)="overallValidation()">
+    <span>Recheck</span>
+  </button>
+  <button (click)="openPrev()" class="sf-positive-btn">
+    <span>Previous</span>
+  </button>
+  <button (click)="openNext()" class="sf-positive-btn">
+    <span>Next</span>
+  </button>
+  <button class="sf-negative-btn" (click)="onCancelClick()">
+    <span>Cancel</span>
+  </button>
+</div>
+<p-dialog header="Exit Validation" [(visible)]="isExitValidation">
+  <p>All the validation stpes have not been ran.</p>
+  <p>Are you sure you wish to exit?</p>
+  <div class="exit-validation-btn-box">
+    <button class="sf-positive-btn" (click)="onClickYesInExitValidation()">
+      Yes
+    </button>
+    <button class="sf-negative-btn" (click)="onClickCancelnExitValidation()">
+      Cancel
+    </button>
+  </div>
+</p-dialog>

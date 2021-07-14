@@ -1,0 +1,113 @@
+<div style="margin-top:60px">
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+  <div class="container-fluid">
+    <app-form-header [title]="title" [status]="status" [breadcrumbs]="breadcrumbs" [formstatus]="formStatus" [formNavigation]="formNavigation"></app-form-header>
+    <div class="sf-form-size">
+      
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Referral event type</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [disabled]="formControl" [(ngModel)]="referralEvent.referralEventTypeID" field="referralEventType" [suggestions]="metadata"
+              (completeMethod)="getMetadata($event,'referral_event')"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Begin Date</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar [(ngModel)]="referralEvent.beginDate" [disabled]="formControl" [monthNavigator]="true" [yearNavigator]="true"
+              [showTime]="true" yearRange="1900:2030" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>End Date</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar [(ngModel)]="referralEvent.endDate" [disabled]="formControl" [monthNavigator]="true" [yearNavigator]="true" [showTime]="true"
+              yearRange="1900:2030" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Closure Reason</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [disabled]="formControl" [(ngModel)]="referralEvent.eventClosureReasonID" field="eventClosureReason" [suggestions]="metadata"
+              (completeMethod)="getMetadata($event,'closure_reason')"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Procode</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [disabled]="formControl" [(ngModel)]="referralEvent.procodeID" field="procode" [suggestions]="metadata" (completeMethod)="getMetadata($event,'procode')"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Units</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner name="units" [disabled]="formControl" [(ngModel)]="referralEvent.units"></p-spinner>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Unit Rate</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner name="unit_rate" [disabled]="formControl" [(ngModel)]="referralEvent.unitRate"></p-spinner>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Payor</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [disabled]="formControl" [(ngModel)]="referralEvent.payorID" field="alias" [suggestions]="metadata" (completeMethod)="getMetadata($event,'payor')"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <span class="sf-labels">
+              Notes
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+
+          <div class="col-lg-11 col-md-11 col-sm-11">
+            <textarea [disabled]="formControl" class="sf-width-100" rows="4"  pInputTextarea style=" width: 100%;     height: 100%;" [(ngModel)]="referralEvent.notes"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <footer>
+    <app-form-footer (save)="saveForm(referralEvent)" (reset)="resetForm()" (discard)="discardForm()" (edit)="editForm()"
+      [editControll]="editControll"></app-form-footer>
+  </footer>
+</div>

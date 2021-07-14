@@ -1,0 +1,311 @@
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+
+<div class="background-container">
+  <div class="foreground-container">
+    <app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+    <!--Create form-->
+    <div class="overflow">
+      <div *ngIf="isOpenCardsEnabled" class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <div class="card-header-row">
+            <div class="opencard-menu-container rfcOpencard">
+              <div class="dropdown border-none">
+                <span class="fa fa-th opencard-menu" data-toggle="dropdown" pTooltip="OpenCards"></span>
+                <div class="dropdown-menu opencard-box">
+                  <div class="card-container">
+                    <div class="opencard" pTooltip="Click here to open" (click)=navigateTo(item.title)
+                      *ngFor="let item of bhokOpencards">
+                      <img src={{item.icon}} alt="{{tip}}">
+                      <div class="opencard-info">
+                        <span class="title">{{item.title}}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <form [formGroup]="bhokForm" class="sf-form">
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-sm-2 col-md-3"><span>Initial Referral</span></div>
+            <div class="col-lg-3 col-sm-2 col-md-3">
+              <p-calendar [(ngModel)]="bhOk.initialReferralDate" formControlName="initialReferralDate" [showIcon]="true"
+                [yearNavigator]="true" showTime="true" hourFormat="24" [monthNavigator]="true" yearRange="1930:2030">
+              </p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-sm-2 col-md-3"><span>Reason For Declining</span></div>
+            <div class="col-lg-3 col-sm-2 col-md-3">
+              <p-autoComplete [suggestions]="metaData" (completeMethod)="getMetaData('Decline_Reason',$event)"
+                field="ReasonForDecline" [(ngModel)]="bhOk.reasonForDeclineID" formControlName="reasonForDeclineID"
+                [dropdown]="true" [forceSelection]="true" (onSelect)="onSelectReasonForDeclining($event)">
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-sm-2 col-md-3"><span>Tracking#</span></div>
+            <div class="col-lg-3 col-sm-2 col-md-3">
+              <input [(ngModel)]="bhOk.dhsTrackingNumber" formControlName="dhsTrackingNumber" type="text" maxLength="10" pInputText />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-sm-2 col-md-3"><span>DHS Notified</span></div>
+            <div class="col-lg-3 col-sm-2 col-md-3">
+              <p-calendar [(ngModel)]="bhOk.dhsNotifiedDate" formControlName="dhsNotifiedDate" [showIcon]="true"
+                [yearNavigator]="true" [monthNavigator]="true" yearRange="1930:2030" showTime="true" hourFormat="24">
+              </p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-sm-2 col-md-3"><span>Placement Established</span></div>
+            <div class="col-lg-3 col-sm-2 col-md-3">
+              <p-calendar [disabled]="isDetailsPage || isReasonForDeclingSelected"
+                [(ngModel)]="bhOk.placementEstablishedDate" formControlName="placementEstablishedDate" [showIcon]="true"
+                [yearNavigator]="true" [monthNavigator]="true" yearRange="1930:2030" showTime="true" hourFormat="24">
+              </p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-sm-2 col-md-3"><span>Home County</span><span class="mandatory">*</span></div>
+            <div class="col-lg-3 col-sm-2 col-md-3">
+              <p-autoComplete [disabled]="isDetailsPage" field="countyName" [suggestions]="metaData"
+                (completeMethod)="getMetaData('home_county',$event)" [(ngModel)]="bhOk.countyID" formControlName="countyID"
+                [dropdown]="true" [forceSelection]="true">
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-sm-2 col-md-3"><span>Begin Date</span></div>
+            <div class="col-lg-3 col-sm-2 col-md-3">
+              <p-calendar [disabled]="isDetailsPage || isReasonForDeclingSelected" [(ngModel)]="bhOk.beginDate"
+                formControlName="beginDate" [showIcon]="true" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="1930:2030" showTime="true" hourFormat="24">
+              </p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-sm-2 col-md-3"><span>End Date</span></div>
+            <div class="col-lg-3 col-sm-2 col-md-3">
+              <p-calendar [disabled]="isDetailsPage || isReasonForDeclingSelected" [(ngModel)]="bhOk.endDate"
+                formControlName="endDate" [showIcon]="true" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="1930:2030" showTime="true" hourFormat="24">
+              </p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-sm-2 col-md-3"><span>KK Number</span></div>
+            <div class="col-lg-3 col-sm-2 col-md-3">
+              <input [(ngModel)]="bhOk.kk" formControlName="kk" type="text" pInputText />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-sm-2 col-md-3"><span>Primary Contractor</span></div>
+            <div class="col-lg-3 col-sm-2 col-md-3">
+              <input [disabled]="true" type="text" value="DHS-DHS-OK" pInputText />
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-sm-2 col-md-3"> <span>Minutes Spent</span></div>
+            <div class="col-lg-3 col-sm-2 col-md-3">
+              <p-spinner [(ngModel)]="bhOk.minutesSpent" formControlName="minutesSpent" [disabled]="true"
+                [formatInput]="false" [min]="0"></p-spinner>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-12 col-sm-12 col-md-12">
+            <div class="col-lg-12 col-sm-12 col-md-12"><span>Notes</span></div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea [(ngModel)]="bhOk.notes" formControlName="notes" name="notes" pInputTextarea
+                style=" width: 100%; height: 100%;" cols="60" rows="5"></textarea>
+            </div>
+          </div>
+        </div>
+        <!-- This portion only for create form -->
+        <div *ngIf="isOfficeSectionEnabled">
+          <div class="row margin-top-20">
+            <div class="col-lg-12 col-sm-12 col-md-12">
+              <div class="col-lg-12 col-sm-12 col-md-12">
+                <span><b>Office/Home County/Case Team</b></span>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-sm-2 col-md-3"><span>SFM Office</span></div>
+              <div class="col-lg-3 col-sm-2 col-md-3">
+                <p-autoComplete field="Name" [suggestions]="metaData" (completeMethod)="getMetaData('SFM_Office',$event)"
+                  [(ngModel)]="bhOk.sfaOfficeID" formControlName="sfaOfficeID" [dropdown]="true"
+                  [forceSelection]="true">
+
+                  <ng-template let-office pTemplate="item">
+                    <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                      <table width="100%">
+                        <tr>
+                          <th>Name</th>
+                          <th>Address</th>
+                          <th>City</th>
+                          <th>State</th>
+                        </tr>
+                        <tr>
+                          <td>{{office?.Name}}</td>
+                          <td>{{office?.Address}}</td>
+                          <td>{{office?.City}}</td>
+                          <td>{{office?.State}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </ng-template>
+
+                </p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-sm-2 col-md-3"><span>SFM Worker</span></div>
+              <div class="col-lg-3 col-sm-2 col-md-3">
+                <p-autoComplete field="StaffName" [suggestions]="metaData" (completeMethod)="getMetaData('SFM_Worker',$event)"
+                  [(ngModel)]="bhOk.sfcsWorkerID" formControlName="sfcsWorkerID" [dropdown]="true"
+                  [forceSelection]="true">
+
+                  <ng-template let-worker pTemplate="item">
+                    <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                      <table width="100%">
+                        <tr>
+                          <th>Staff Name</th>
+                          <th>Gender</th>
+                          <th>Cell Phone</th>
+                          <th>Office</th>
+                        </tr>
+                        <tr>
+                          <td>{{worker?.StaffName}}</td>
+                          <td>{{worker?.Gender}}</td>
+                          <td>{{worker?.CellPhone}}</td>
+                          <td>{{worker?.Office}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </ng-template>
+
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-sm-2 col-md-3"><span>SFM Office Coordinator</span></div>
+              <div class="col-lg-3 col-sm-2 col-md-3">
+                <p-autoComplete field="StaffName" [suggestions]="metaData" (completeMethod)="getMetaData('SFM_Worker',$event)"
+                  [(ngModel)]="bhOk.sfcsOfficeCoordinatorID" formControlName="sfcsOfficeCoordinatorID" [dropdown]="true"
+                  [forceSelection]="true">
+
+                  <ng-template let-worker pTemplate="item">
+                    <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                      <table width="100%">
+                        <tr>
+                          <th>Staff Name</th>
+                          <th>Gender</th>
+                          <th>Cell Phone</th>
+                          <th>Office</th>
+                        </tr>
+                        <tr>
+                          <td>{{worker?.StaffName}}</td>
+                          <td>{{worker?.Gender}}</td>
+                          <td>{{worker?.CellPhone}}</td>
+                          <td>{{worker?.Office}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </ng-template>
+
+                </p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-sm-2 col-md-3"><span>DHS Jurisdiction Worker</span></div>
+              <div class="col-lg-3 col-sm-2 col-md-3">
+                <p-autoComplete field="StaffName" [suggestions]="metaData" (completeMethod)="getMetaData('DHS_Staff',$event)"
+                  [(ngModel)]="bhOk.dHSStaffID" formControlName="dHSStaffID" [dropdown]="true" [forceSelection]="true">
+
+                  <ng-template let-staff pTemplate="item">
+                    <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                      <table width="100%">
+                        <tr>
+                          <th>Staff Name</th>
+                          <th>Gender</th>
+                          <th>DHS Office</th>
+                        </tr>
+                        <tr>
+                          <td>{{staff?.StaffName}}</td>
+                          <td>{{staff?.Gender}}</td>
+                          <td>{{staff?.DHSOffice}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </ng-template>
+
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-sm-2 col-md-3"><span>Other Agency Staff</span></div>
+              <div class="col-lg-3 col-sm-2 col-md-3">
+                <p-autoComplete field="StaffName" [suggestions]="metaData"
+                  (completeMethod)="getMetaData('other_Agency_Staff',$event)" [(ngModel)]="bhOk.otherAgencyStaffID"
+                  formControlName="otherAgencyStaffID" [dropdown]="true" [forceSelection]="true">
+
+                  <ng-template let-staff pTemplate="item">
+                    <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                      <table width="100%">
+                        <tr>
+                          <th>Staff Name</th>
+                          <th>Gender</th>
+                        </tr>
+                        <tr>
+                          <td>{{staff?.StaffName}}</td>
+                          <td>{{staff?.Gender}}</td>
+
+                        </tr>
+                      </table>
+                    </div>
+                  </ng-template>
+
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <app-form-footer [currentNode]="currentNode" (edit)="editForm()" [editControll]="editControll"
+        (save)="formAction(bhOk)" [isAttachmentsBtn]="isAttachment" (attachments)="navigateToAttachment($event)"
+        [discardTo]="discardTo">
+      </app-form-footer>
+    </div>
+  </div>
+</div>

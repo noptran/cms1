@@ -1,0 +1,240 @@
+<form class="sf-form" [formGroup]="gradeForm">
+  <div class="display-flex">
+    <div><span>Client Progress Year</span><span class="mandatory">*</span></div>
+    <div>
+      <p-autoComplete
+        placeholder="Type here to search"
+        emptyMessage="No records found!"
+        [dropdown]="true"
+        [forceSelection]="true"
+        name="clientProgressYear"
+        formControlName="formProgressYear"
+        (completeMethod)="onCompleteFiscalYearSearch()"
+        field="fiscalYear"
+        [suggestions]="listOfFiscalYear"
+      ></p-autoComplete>
+    </div>
+    <div><span>Processing Date</span><span class="mandatory">*</span></div>
+    <div>
+      <p-calendar
+        [monthNavigator]="true"
+        [yearNavigator]="true"
+        [showIcon]="true"
+        yearRange="1900:2030"
+        name="processingDate"
+        formControlName="formProcessingDate"
+        dateFormat="yy-mm-dd"
+      >
+        >
+      </p-calendar>
+    </div>
+    <div>
+      <button
+        class="sf-positive-btn"
+        (click)="onSubmitForm()"
+        [disabled]="runBtnDisable"
+      >
+        Process
+      </button>
+    </div>
+    <div><button class="sf-negative-btn">Exit</button></div>
+  </div>
+</form>
+<!--tabs-->
+<div>
+  <p-tabView [(activeIndex)]="tabIndex">
+    <p-tabPanel header="Processed Data">
+      <!-- List action section start-->
+      <div class="list-action-container">
+        <p *ngIf="dataLoader" class="info-text margin-right-28-percent">
+          Please wait data is loading...
+        </p>
+        <!--Sorting start-->
+        <div class="margin-left-10" *ngIf="processedData?.dataList.length > 0">
+          <form [formGroup]="sortingForm">
+            <div>
+              <strong class="margin-right-10">Sort by: </strong>
+              <p-dropdown
+                [options]="dataColumnList"
+                formControlName="columnName"
+                optionLabel="name"
+                (onChange)="onSortByColumn()"
+              ></p-dropdown>
+              <p-selectButton
+                [options]="sortOptions"
+                optionLabel="label"
+                optionValue="value"
+                (onChange)="onSortByOrder()"
+                formControlName="orderValue"
+                name="sortOder"
+              ></p-selectButton>
+            </div>
+          </form>
+        </div>
+        <!--Sorting end-->
+        <!--Pagination start-->
+        <div class="margin-left-10" *ngIf="processedData?.dataList.length > 0">
+          <app-pagesize
+            [totalCount]="processedData?.totalCount"
+            [initial]="processedData?.beginPagination"
+            [end]="processedData?.endPagination"
+            (pageNavigationOut)="pageNavigation($event)"
+            (pageValueEnterOut)="pageNavigation($event)"
+          >
+          </app-pagesize>
+        </div>
+        <!--Pagination ends-->
+      </div>
+      <!--List action section end-->
+
+      <!--Table view start-->
+      <div class="cgp-table-body" *ngIf="processedData?.dataList.length > 0">
+        <table class="table table-striped table-responsive-md">
+          <thead>
+            <tr>
+              <th scope="col" *ngFor="let dataCol of dataColumnList">
+                {{ dataCol.name }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of processedData?.dataList">
+              <td>{{ data.ClientName }}</td>
+              <td>{{ data.ReferralName }}</td>
+              <td>{{ data.PreviousGrade }}</td>
+              <td>{{ data.PreviousGradeBeginDate }}</td>
+              <td>{{ data.PreviousGradeEndDate }}</td>
+              <td>{{ data.PreviousClientGradeID }}</td>
+              <td>{{ data.Grade }}</td>
+              <td>{{ data.BeginDate }}</td>
+              <td>{{ data.EndDate }}</td>
+              <td>{{ data.ClientGradeID }}</td>
+              <td>{{ data.ReferralID }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!--Table view end-->
+
+      <!--Initial loading screen start-->
+      <div *ngIf="!dataLoader && processedData?.dataList <= 0">
+        <p class="info-text">Please process the report...</p>
+      </div>
+      <!--Initial loading screen end-->
+
+      <!--Export option start-->
+      <div
+        class="export-btn-container"
+        *ngIf="processedData?.dataList.length > 0"
+      >
+        <button
+          class="sf-positive-btn"
+          pTooltip="Export processed data in excel format"
+          (click)="onCickProcessedDataExport()"
+          [disabled]="isExportDisable"
+        >
+          Export
+        </button>
+      </div>
+      <!--Export option end-->
+    </p-tabPanel>
+    <p-tabPanel header="Error Data">
+      <!-- List action section start-->
+      <div class="list-action-container">
+        <p *ngIf="dataLoader" class="info-text margin-right-28-percent">
+          Please wait data is loading...
+        </p>
+        <!--Sorting start-->
+        <div class="margin-left-10" *ngIf="errorData?.dataList.length > 0">
+          <form [formGroup]="sortingForm">
+            <div>
+              <strong class="margin-right-10">Sort by: </strong>
+              <p-dropdown
+                [options]="errorColumnList"
+                formControlName="columnName"
+                optionLabel="name"
+                (onChange)="onSortByColumn()"
+              ></p-dropdown>
+              <p-selectButton
+                [options]="sortOptions"
+                optionLabel="label"
+                optionValue="value"
+                (onChange)="onSortByOrder()"
+                formControlName="orderValue"
+                name="sortOder"
+              ></p-selectButton>
+            </div>
+          </form>
+        </div>
+        <!--Sorting end-->
+        <!--Pagination start-->
+        <div class="margin-left-10" *ngIf="errorData?.dataList.length > 0">
+          <app-pagesize
+            [totalCount]="errorData?.totalCount"
+            [initial]="errorData?.beginPagination"
+            [end]="errorData?.endPagination"
+            (pageNavigationOut)="pageNavigation($event)"
+            (pageValueEnterOut)="pageNavigation($event)"
+          >
+          </app-pagesize>
+        </div>
+        <!--Pagination ends-->
+      </div>
+      <!--List action section end-->
+
+      <!--Table view start-->
+      <div class="cgp-table-body" *ngIf="errorData?.dataList.length > 0">
+        <table class="table table-striped table-responsive-md">
+          <thead>
+            <tr>
+              <th scope="col" *ngFor="let errorCol of errorColumnList">
+                {{ errorCol.name }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of errorData?.dataList">
+              <td>{{ data.Error }}</td>
+              <td>{{ data.ClientName }}</td>
+              <td>{{ data.DOB }}</td>
+              <td>{{ data.ClientID }}</td>
+              <td>{{ data.ReferralID }}</td>
+              <td>{{ data.Grade }}</td>
+              <td>{{ data.GradeID }}</td>
+              <td>{{ data.ClientGradeID }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!--Table view end-->
+
+      <!--Initial loading screen start-->
+      <div *ngIf="!dataLoader && errorData?.dataList <= 0">
+        <p class="info-text">Please process the report...</p>
+      </div>
+      <!--Initial loading screen end-->
+
+      <!--Export option start-->
+      <div class="export-btn-container" *ngIf="errorData?.dataList.length > 0">
+        <button
+          class="sf-positive-btn"
+          pTooltip="Export error data in excel format"
+          (click)="onClickErrorDataExport()"
+          [disabled]="isExportDisable"
+        >
+          Export
+        </button>
+      </div>
+      <!--Export option end-->
+    </p-tabPanel>
+  </p-tabView>
+</div>
+
+<!--
+    1.display-flex
+    2.flex-end
+
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+-->

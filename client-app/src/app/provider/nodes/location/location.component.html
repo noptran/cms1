@@ -1,0 +1,138 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form class="sf-form" [formGroup]="locationForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Location Type</span> <span class="mandatory">*</span> </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <!-- [(ngModel)]="location.locationTypeID" -->
+            <p-autoComplete [dropdown]="true" name="locationType" [(ngModel)]="location.providerLocationTypeID"
+              emptyMessage="No results found!" (completeMethod)="getMetaData($event,'locationType')"
+              [suggestions]="metaData" formControlName="locationType" [forceSelection]="true"
+              placeholder="Type here to search" field="providerLocationType" size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Address 1</span> <span class="mandatory">*</span> </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText formControlName="address1" name="inputText" [(ngModel)]="location.address1"
+              size="27" />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Address 2</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText formControlName="address2" name="inputText" [(ngModel)]="location.address2"
+              size="27" />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>State</span> <span class="mandatory">*</span> </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="stateID" emptyMessage="No results found!"
+              (completeMethod)="getMetaData($event, 'state')" [(ngModel)]="location.stateID" [suggestions]="metaData"
+              formControlName="state" (onSelect)="getCityFormState($event)" [forceSelection]="true"
+              placeholder="Type here to search" field="state" size="23"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>City</span> <span class="mandatory">*</span> </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="cityID" emptyMessage="No results found!"
+              (completeMethod)="filteringCitites($event)" [(ngModel)]="location.cityID" [suggestions]="filteredCities"
+              formControlName="city" (onSelect)="getZipcodeCountyFromCity($event)" [forceSelection]="true"
+              placeholder="Type here to search" field="city" size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>County</span> <span class="mandatory">*</span> </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="countyID" [(ngModel)]="location.countyID"
+              emptyMessage="No results found!" (completeMethod)="filteringCounties($event)"
+              [suggestions]="filterCounties" formControlName="county" [forceSelection]="true"
+              placeholder="Type here to search" field="countyName" size="23"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Zip Code</span> <span class="mandatory">*</span> </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="zipcodeID" [(ngModel)]="location.zipcodeID"
+              emptyMessage="No results found!" (completeMethod)="filteringZipcodes($event)"
+              [suggestions]="filteredZipCodes" formControlName="zipcode" [forceSelection]="true"
+              placeholder="Type here to search" field="zipcode" size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Phone</span><span class="mandatory">*</span> </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-inputMask mask="(999) 999-9999" formControlName="phone" name="cellPh" [(ngModel)]="location.phone">
+            </p-inputMask>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Fax</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-inputMask mask="(999) 999-9999" formControlName="fax" name="cellPh" [(ngModel)]="location.fax">
+            </p-inputMask>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin Date</span> <span class="mandatory">*</span> </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030" formControlName="beginDate" [showIcon]="true" [(ngModel)]="location.beginDate">
+            </p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030" formControlName="endDate" [showIcon]="true" [(ngModel)]="location.endDate" showButtonBar="true">
+            </p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Location Header</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText name="inputText" formControlName="locationHeader"
+              [(ngModel)]="location.locationHeader" size="27" />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea pInputTextarea name="inputTextarea" formControlName="notes" [(ngModel)]="location.notes"
+              style="width:100%;height:100%"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer [attachmentControll]="isAttachmentRequired" (attachDoc)="navigateTo()"
+      (save)="formAction(location)" [editControll]="isEdit" (edit)="editForm()" [discardTo]="redirectTo"
+      [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+
+  </div>
+</div>

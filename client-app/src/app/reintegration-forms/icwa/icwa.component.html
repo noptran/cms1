@@ -1,0 +1,1083 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="ICWAForm" class="sf-form">
+      <div class="flex-container header">
+          <div>
+    
+          </div>
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+          <div>
+    
+          </div>
+        </div>
+    <div class="flex-container space-down space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Person Completing this Form: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reICWA.Person" formControlName="Person" name="Person" type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.Date" formControlName="Date" name="Date" [inputStyle]="{'width':'170px'}" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <h3 class="bold center">INDIAN CHILD WELFARE ACT GENEALOGICAL INFORMATION FORM </h3>
+    <p>Child’s Information and General Child Relative Information</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Child’s Full Name (please include all known variations of the child’s full name, including shortened versions):</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.FullName" formControlName="FullName" name="FullName" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Child’s Date and Place of Birth:</div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="reICWA.Dob" formControlName="Dob" name="Dob" [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24"
+          [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">County Court Handling Child’s CINC Case and Child’s CINC Case Number:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.CaseNumber" formControlName="CaseNumber" name="CaseNumber" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name(s) of Child’s Sibling(s) with open CINC Case(s) and the CINC Case Number(s)</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.ChildSibling" formControlName="ChildSibling" name="ChildSibling" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <p>Has the Child, either of the Child’s Parents, any of the Child’s Siblings/Half-Siblings/Step-Siblings, any of the Child’s
+      Grandparents, any of the Child’s Great-Grandparents, or any other Ancestor or member of the Child’s family of the Child
+      ever: </p>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Claimed to be affiliated with any Indian tribe/reservation/Rancheria/pueblo/nation/band/tribal town/community/council/confederation
+        or any Alaska Native village/regional corporation? IF so, please identify the name of the person, the person’s relationship
+        to the Child, the name and location of the Indian or Alaska Native organization:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reICWA.IndianTribe" formControlName="IndianTribe" name="IndianTribe" pInputTextarea autoResize="autoResize"
+          rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <p>
+      (If a person claims to be a member of, or affiliated with, either Cherokee, Choctaw, Chickasaw, Creek, or Seminole Tribes,
+      please read and complete the last page of this form.)
+    </p>
+    <div class="space-right space-down">
+      <div class="space-right space-down">
+        <p-checkbox binary="true" [(ngModel)]="reICWA.isLivedReservation" formControlName="isLivedReservation" name="isLivedReservation"
+          class="space-right"></p-checkbox> Lived on any Indian reservation, on any other tribal or Alaska Native property, or any other federal
+        trusted land? If so, identify the name of the person, the person’s relationship to the Child, the name and location
+        of the area where the person lived, and the dates the person lived there:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reICWA.IndianReservation" formControlName="IndianReservation" name="IndianReservation" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">
+        <p-checkbox binary="true" [(ngModel)]="reICWA.isIndianSchool" formControlName="isIndianSchool" name="isIndianSchool" class="space-right"></p-checkbox> Attended an Indian school? If so, please identify the name of the person, the person’s relationship
+        to the Child, the name and location of the Indian school, and the dates the person attended school there:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reICWA.IndianSchool" formControlName="IndianSchool" name="IndianSchool" pInputTextarea autoResize="autoResize"
+          rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">
+        <p-checkbox binary="true" [(ngModel)]="reICWA.isMedicalTreatment" formControlName="isMedicalTreatment" name="isMedicalTreatment"
+          class="space-right"></p-checkbox>Received medical treatment at an Indian health clinic or public health service hospital? If so, please
+        identify the name of the person, the person’s relationship to the Child, the name and location where the medical
+        treatment was provided, and the date(s) the person received services there:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reICWA.MedicalTreatment" formControlName="MedicalTreatment" name="MedicalTreatment" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">
+        <p-checkbox binary="true" [(ngModel)]="reICWA.isReceivedServices" formControlName="isReceivedServices" name="isReceivedServices"
+          class="space-right"></p-checkbox> Received services from the Bureau of Indian Affairs? If so, please identify the name of the person
+        who received services, and the person’s relationship to the Child, the type of services received, and the date(s)
+        and location(s) where the Bureau of Indian Affairs provide the services:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reICWA.ReceivedServices" formControlName="ReceivedServices" name="ReceivedServices" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <p class="bold">Child’s Mother’s Information</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name (including maiden, married former, middle names, initials and/or aliases (a/k/a’s)):
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MotherName" formControlName="MotherName" name="MotherName" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Current Address:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MotherCurrentAddress" formControlName="MotherCurrentAddress" name="MotherCurrentAddress" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Former Addresses:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MotherFormerAddresses" formControlName="MotherFormerAddresses" name="MotherFormerAddresses" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date and Place of Birth: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.MotherDob" formControlName="MotherDob" name="MotherDob" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">If deceased, Date and Place of Death:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.MotherDobDeceased" formControlName="MotherDobDeceased" name="MotherDobDeceased" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Name(s) and Location(s) of Indian tribe(s) or Band(s) or Alaska native village (s) or Corporation(s) in which this
+        person is said to be a member/enrollee, this person may be eligible for membership/enrollment, or this person is
+        a verified member or enrollee:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reICWA.MotherMembership" formControlName="MotherMembership" name="MotherMembership" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Tribe/Village/Corporation Enrollment Number or Membership Number: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MotherMembershipNumber" formControlName="MotherMembershipNumber" name="MotherMembershipNumber"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Additional Identifying Information:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MotherInformation" formControlName="MotherInformation" name="MotherInformation" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <p>
+      (Please attach a copy of the birth certificate, marriage license(s), death certificate, membership card, or any other document(s)
+      from which the above information was gathered.)
+    </p>
+    <p class="bold">Child’s Father's Information</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name (including former, middle, initials and/or aliases (a/k/a’s)):
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.FatherName" formControlName="FatherName" name="FatherName" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Has the Father’s paternity of the Child been established? If so, identify how the Father’s paternity has been established
+        (e.g., listed on Child’s birth certificate, court decision in paternity/child support/CINC case, or acknowledged
+        in writing by father):
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.FatherPaternity" formControlName="FatherPaternity" name="FatherPaternity" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <!-- <div class="space-right">
+      <input [(ngModel)]="reICWA.FatherName" formControlName="FatherName" name="FatherName" type="text" pInputText size="20" />
+    </div> -->
+    <!-- </div> -->
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Current Address:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.FatherCurrentAddress" formControlName="FatherCurrentAddress" name="FatherCurrentAddress" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Former Addresses:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.FatherFormerAddresses" formControlName="FatherFormerAddresses" name="FatherFormerAddresses" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date and Place of Birth: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.FatherDob" formControlName="FatherDob" name="FatherDob" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">If deceased, Date and Place of Death:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.FatherDobDeceased" formControlName="FatherDobDeceased" name="FatherDobDeceased" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Name(s) and Location(s) of Indian tribe(s) or Band(s) or Alaska native village (s) or Corporation(s) in which this
+        person is said to be a member/enrollee, this person may be eligible for membership/enrollment, or this person is
+        a verified member or enrollee:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reICWA.FatherMembership" formControlName="FatherMembership" name="FatherMembership" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Tribe/Village/Corporation Enrollment Number or Membership Number: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.FatherMembershipNumber" formControlName="FatherMembershipNumber" name="FatherMembershipNumber"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Additional Identifying Information:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.FatherInformation" formControlName="FatherInformation" name="FatherInformation" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <p>
+      (Please attach a copy of the birth certificate, marriage license(s), death certificate, membership card, or any other document(s)
+      from which the above information was gathered.)
+    </p>
+    <p class="bold">Child’s Maternal Grandmother’s Information</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name (including maiden, married former, middle names, initials and/or aliases (a/k/a’s)):
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGrandfatherName" formControlName="MaternalGrandfatherName" name="MaternalGrandfatherName"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Current Address:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGrandfatherCurrentAddress" formControlName="MaternalGrandfatherCurrentAddress" name="MaternalGrandfatherCurrentAddress"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Former Addresses:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGrandfatherFormerAddresses" formControlName="MaternalGrandfatherFormerAddresses" name="MaternalGrandfatherFormerAddresses"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date and Place of Birth: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.MaternalGrandfatherDob" formControlName="MaternalGrandfatherDob" name="MaternalGrandfatherDob"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">If deceased, Date and Place of Death:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.MaternalGrandfatherDobDeceased" formControlName="MaternalGrandfatherDobDeceased" name="MaternalGrandfatherDobDeceased"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    
+    <div class="space-right space-down">
+      <div class="space-right space-down">Name(s) and Location(s) of Indian tribe(s) or Band(s) or Alaska native village (s) or Corporation(s) in which this
+        person is said to be a member/enrollee, this person may be eligible for membership/enrollment, or this person is
+        a verified member or enrollee:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reICWA.MaternalGrandfatherMembership" formControlName="MaternalGrandfatherMembership" name="MaternalGrandfatherMembership"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Tribe/Village/Corporation Enrollment Number or Membership Number: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGrandfatherMembershipNumber" formControlName="MaternalGrandfatherMembershipNumber" name="MaternalGrandfatherMembershipNumber"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Additional Identifying Information:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGrandfatherInformation" formControlName="MaternalGrandfatherInformation" name="MaternalGrandfatherInformation"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>
+      (Please attach a copy of the birth certificate, marriage license(s), death certificate, membership card, or any other document(s)
+      from which the above information was gathered.)
+    </p>
+    <div class="html2pdf__page-break"></div>
+    <p class="bold">Child’s Maternal Grandfather’s Information</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name (including former, middle, initials and aliases a/k/a’s)):</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGrandmotherName" formControlName="PaternalGrandmotherName" name="PaternalGrandmotherName"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Current Address:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGrandmotherCurrentAddress" formControlName="PaternalGrandmotherCurrentAddress" name="PaternalGrandmotherCurrentAddress"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Former Addresses:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGrandmotherFormerAddresses" formControlName="PaternalGrandmotherFormerAddresses" name="PaternalGrandmotherFormerAddresses"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date and Place of Birth: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.PaternalGrandmotherDob" formControlName="PaternalGrandmotherDob" name="PaternalGrandmotherDob"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">If deceased, Date and Place of Death:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.PaternalGrandmotherDobDeceased" formControlName="PaternalGrandmotherDobDeceased" name="PaternalGrandmotherDobDeceased"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Name(s) and Location(s) of Indian tribe(s) or Band(s) or Alaska native village (s) or Corporation(s) in which this
+        person is said to be a member/enrollee, this person may be eligible for membership/enrollment, or this person is
+        a verified member or enrollee:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reICWA.PaternalGrandmotherMembership" formControlName="PaternalGrandmotherMembership" name="PaternalGrandmotherMembership"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Tribe/Village/Corporation Enrollment Number or Membership Number: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGrandmotherMembershipNumber" formControlName="PaternalGrandmotherMembershipNumber" name="PaternalGrandmotherMembershipNumber"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Additional Identifying Information:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGrandmotherInformation" formControlName="PaternalGrandmotherInformation" name="PaternalGrandmotherInformation"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>
+      (Please attach a copy of the birth certificate, marriage license(s), death certificate, membership card, or any other document(s)
+      from which the above information was gathered.)
+    </p>
+    <p class="bold">Child’s Paternal Grandmother’s Information</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name (including maiden, married former, middle names, initials and/or aliases (a/k/a’s)):
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGrandfatherName" formControlName="PaternalGrandfatherName" name="PaternalGrandfatherName"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Current Address:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGrandfatherCurrentAddress" formControlName="PaternalGrandfatherCurrentAddress" name="PaternalGrandfatherCurrentAddress"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Former Addresses:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGrandfatherFormerAddresses" formControlName="PaternalGrandfatherFormerAddresses" name="PaternalGrandfatherFormerAddresses"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date and Place of Birth: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.PaternalGrandfatherDob" formControlName="PaternalGrandfatherDob" name="PaternalGrandfatherDob"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">If deceased, Date and Place of Death:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.PaternalGrandfatherDobDeceased" formControlName="PaternalGrandfatherDobDeceased" name="PaternalGrandfatherDobDeceased"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Name(s) and Location(s) of Indian tribe(s) or Band(s) or Alaska native village (s) or Corporation(s) in which this
+        person is said to be a member/enrollee, this person may be eligible for membership/enrollment, or this person is
+        a verified member or enrollee:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reICWA.PaternalGrandfatherMembership" formControlName="PaternalGrandfatherMembership" name="PaternalGrandfatherMembership"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Tribe/Village/Corporation Enrollment Number or Membership Number: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGrandfatherMembershipNumber" formControlName="PaternalGrandfatherMembershipNumber" name="PaternalGrandfatherMembershipNumber"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Additional Identifying Information:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGrandfatherInformation" formControlName="PaternalGrandfatherInformation" name="PaternalGrandfatherInformation"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>
+      (Please attach a copy of the birth certificate, marriage license(s), death certificate, membership card, or any other document(s)
+      from which the above information was gathered.)
+    </p>
+    <!-- //////////// -->
+    <p class="bold">Child’s Paternal Grandfather’s Information</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name (including former, middle, initials and aliases a/k/a’s)):</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGrandmotherName1" formControlName="PaternalGrandmotherName1" name="PaternalGrandmotherName1"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Current Address:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGrandmotherCurrentAddress1" formControlName="PaternalGrandmotherCurrentAddress1" name="PaternalGrandmotherCurrentAddress1"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Former Addresses:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGrandmotherFormerAddresses1" formControlName="PaternalGrandmotherFormerAddresses1" name="PaternalGrandmotherFormerAddresses1"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date and Place of Birth: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.PaternalGrandmotherDob1" formControlName="PaternalGrandmotherDob1" name="PaternalGrandmotherDob1"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">If deceased, Date and Place of Death:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.PaternalGrandmotherDobDeceased1" formControlName="PaternalGrandmotherDobDeceased1" name="PaternalGrandmotherDobDeceased1"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Name(s) and Location(s) of Indian tribe(s) or Band(s) or Alaska native village (s) or Corporation(s) in which this
+        person is said to be a member/enrollee, this person may be eligible for membership/enrollment, or this person is
+        a verified member or enrollee:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reICWA.PaternalGrandmotherMembership1" formControlName="PaternalGrandmotherMembership1" name="PaternalGrandmotherMembership1"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Tribe/Village/Corporation Enrollment Number or Membership Number: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGrandmotherMembershipNumber1" formControlName="PaternalGrandmotherMembershipNumber1" name="PaternalGrandmotherMembershipNumber1"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Additional Identifying Information:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGrandmotherInformation1" formControlName="PaternalGrandmotherInformation1" name="PaternalGrandmotherInformation1"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>
+      (Please attach a copy of the birth certificate, marriage license(s), death certificate, membership card, or any other document(s)
+      from which the above information was gathered.)
+    </p>
+    <!-- ////////////// -->
+    <div class="html2pdf__page-break"></div>
+    <p class="bold">Child’s Maternal Great-Grandmother’s Information (First Set of Maternal Great-Grandparents)</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name (including maiden, married former, middle names, initials and/or aliases (a/k/a’s)):
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGreatGrandmotherName" formControlName="MaternalGreatGrandmotherName" name="MaternalGreatGrandmotherName"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Current Address:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGreatGrandmotherCurrentAddress" formControlName="MaternalGreatGrandmotherCurrentAddress"
+          name="MaternalGreatGrandmotherCurrentAddress" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Former Addresses:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGreatGrandmotherFormerAddresses" formControlName="MaternalGreatGrandmotherFormerAddresses"
+          name="MaternalGreatGrandmotherFormerAddresses" type="text" pInputText size="20" />
+      </div>
+    </div>
+    
+    <div class="flex-container space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date and Place of Birth: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.MaternalGreatGrandmotherDob" formControlName="MaternalGreatGrandmotherDob" name="MaternalGreatGrandmotherDob"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">If deceased, Date and Place of Death:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.MaternalGreatGrandmotherDobDeceased" formControlName="MaternalGreatGrandmotherDobDeceased"
+            name="MaternalGreatGrandmotherDobDeceased" [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Name(s) and Location(s) of Indian tribe(s) or Band(s) or Alaska native village (s) or Corporation(s) in which this
+        person is said to be a member/enrollee, this person may be eligible for membership/enrollment, or this person is
+        a verified member or enrollee:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reICWA.MaternalGreatGrandmotherMembership" formControlName="MaternalGreatGrandmotherMembership" name="MaternalGreatGrandmotherMembership"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Tribe/Village/Corporation Enrollment Number or Membership Number: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGreatGrandmotherMembershipNumber" formControlName="MaternalGreatGrandmotherMembershipNumber"
+          name="MaternalGreatGrandmotherMembershipNumber" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Additional Identifying Information:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGreatGrandmotherInformation" formControlName="MaternalGreatGrandmotherInformation" name="MaternalGreatGrandmotherInformation"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>
+      (Please attach a copy of the birth certificate, marriage license(s), death certificate, membership card, or any other document(s)
+      from which the above information was gathered.)
+    </p>
+    <p class="bold">Child’s Maternal Great-Grandfather’s Information (First Set of Maternal Great-Grandparents)</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name (including former, middle, initials and aliases a/k/a’s)):</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGreatGrandfatherName" formControlName="MaternalGreatGrandfatherName" name="MaternalGreatGrandfatherName"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Current Address:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGreatGrandfatherCurrentAddress" formControlName="MaternalGreatGrandfatherCurrentAddress"
+          name="MaternalGreatGrandfatherCurrentAddress" type="text" pInputText size="20" />
+      </div>
+    </div>
+    
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Former Addresses:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGreatGrandfatherFormerAddresses" formControlName="MaternalGreatGrandfatherFormerAddresses"
+          name="MaternalGreatGrandfatherFormerAddresses" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date and Place of Birth: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.MaternalGreatGrandfatherDob" formControlName="MaternalGreatGrandfatherDob" name="MaternalGreatGrandfatherDob"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">If deceased, Date and Place of Death:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.MaternalGreatGrandfatherDobDeceased" formControlName="MaternalGreatGrandfatherDobDeceased"
+            name="MaternalGreatGrandfatherDobDeceased" [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Name(s) and Location(s) of Indian tribe(s) or Band(s) or Alaska native village (s) or Corporation(s) in which this
+        person is said to be a member/enrollee, this person may be eligible for membership/enrollment, or this person is
+        a verified member or enrollee:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reICWA.MaternalGreatGrandfatherMembership" formControlName="MaternalGreatGrandfatherMembership" name="MaternalGreatGrandfatherMembership"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Tribe/Village/Corporation Enrollment Number or Membership Number: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGreatGrandfatherMembershipNumber" formControlName="MaternalGreatGrandfatherMembershipNumber"
+          name="MaternalGreatGrandfatherMembershipNumber" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Additional Identifying Information:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGreatGrandfatherInformation" formControlName="MaternalGreatGrandfatherInformation" name="MaternalGreatGrandfatherInformation"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>
+      (Please attach a copy of the birth certificate, marriage license(s), death certificate, membership card, or any other document(s)
+      from which the above information was gathered.)
+    </p>
+    <p class="bold">Child’s Maternal Great-Grandmother’s Information (Second Set of Maternal Great-Grandparents)</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name (including maiden, married former, middle names, initials and/or aliases (a/k/a’s)):
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGreatGrandmotherName1" formControlName="MaternalGreatGrandmotherName1" name="MaternalGreatGrandmotherName1"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Current Address:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGreatGrandmotherCurrentAddress1" formControlName="MaternalGreatGrandmotherCurrentAddress1"
+          name="MaternalGreatGrandmotherCurrentAddress1" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Former Addresses:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGreatGrandmotherFormerAddresses1" formControlName="MaternalGreatGrandmotherFormerAddresses1"
+          name="MaternalGreatGrandmotherFormerAddresses1" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date and Place of Birth: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.MaternalGreatGrandmotherDob1" formControlName="MaternalGreatGrandmotherDob1" name="MaternalGreatGrandmotherDob1"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">If deceased, Date and Place of Death:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.MaternalGreatGrandmotherDobDeceased1" formControlName="MaternalGreatGrandmotherDobDeceased1"
+            name="MaternalGreatGrandmotherDobDeceased1" [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Name(s) and Location(s) of Indian tribe(s) or Band(s) or Alaska native village (s) or Corporation(s) in which this
+        person is said to be a member/enrollee, this person may be eligible for membership/enrollment, or this person is
+        a verified member or enrollee:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reICWA.MaternalGreatGrandmotherMembership1" formControlName="MaternalGreatGrandmotherMembership1"
+          name="MaternalGreatGrandmotherMembership1" pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Tribe/Village/Corporation Enrollment Number or Membership Number: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGreatGrandmotherMembershipNumber1" formControlName="MaternalGreatGrandmotherMembershipNumber1"
+          name="MaternalGreatGrandmotherMembershipNumber1" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Additional Identifying Information:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGreatGrandmotherInformation1" formControlName="MaternalGreatGrandmotherInformation1" name="MaternalGreatGrandmotherInformation1"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>
+      (Please attach a copy of the birth certificate, marriage license(s), death certificate, membership card, or any other document(s)
+      from which the above information was gathered.)
+    </p>
+    <div class="html2pdf__page-break"></div>
+    <p class="bold">Child’s Maternal Great-Grandfather’s Information (Second Set of Maternal Great-Grandparents)</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name (including former, middle, initials and aliases a/k/a’s)):</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGreatGrandfatherName1" formControlName="MaternalGreatGrandfatherName1" name="MaternalGreatGrandfatherName1"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Current Address:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGreatGrandfatherCurrentAddress1" formControlName="MaternalGreatGrandfatherCurrentAddress1"
+          name="MaternalGreatGrandfatherCurrentAddress1" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Former Addresses:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGreatGrandfatherFormerAddresses1" formControlName="MaternalGreatGrandfatherFormerAddresses1"
+          name="MaternalGreatGrandfatherFormerAddresses1" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date and Place of Birth: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.MaternalGreatGrandfatherDob1" formControlName="MaternalGreatGrandfatherDob1" name="MaternalGreatGrandfatherDob1"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">If deceased, Date and Place of Death:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.MaternalGreatGrandfatherDobDeceased1" formControlName="MaternalGreatGrandfatherDobDeceased1"
+            name="MaternalGreatGrandfatherDobDeceased1" [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Name(s) and Location(s) of Indian tribe(s) or Band(s) or Alaska native village (s) or Corporation(s) in which this
+        person is said to be a member/enrollee, this person may be eligible for membership/enrollment, or this person is
+        a verified member or enrollee:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reICWA.MaternalGreatGrandfatherMembership1" formControlName="MaternalGreatGrandfatherMembership1"
+          name="MaternalGreatGrandfatherMembership1" pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Tribe/Village/Corporation Enrollment Number or Membership Number: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGreatGrandfatherMembershipNumber1" formControlName="MaternalGreatGrandfatherMembershipNumber1"
+          name="MaternalGreatGrandfatherMembershipNumber1" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Additional Identifying Information:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.MaternalGreatGrandfatherInformation1" formControlName="MaternalGreatGrandfatherInformation1" name="MaternalGreatGrandfatherInformation1"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>
+      (Please attach a copy of the birth certificate, marriage license(s), death certificate, membership card, or any other document(s)
+      from which the above information was gathered.)
+    </p>
+    <p class="bold">Child’s Paternal Great-Grandmother’s Information (First Set of Maternal Great-Grandparents)</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name (including maiden, married former, middle names, initials and/or aliases (a/k/a’s)):
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGreatGrandmotherName" formControlName="PaternalGreatGrandmotherName" name="PaternalGreatGrandmotherName"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Current Address:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGreatGrandmotherCurrentAddress" formControlName="PaternalGreatGrandmotherCurrentAddress"
+          name="PaternalGreatGrandmotherCurrentAddress" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Former Addresses:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGreatGrandmotherFormerAddresses" formControlName="PaternalGreatGrandmotherFormerAddresses"
+          name="PaternalGreatGrandmotherFormerAddresses" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date and Place of Birth: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.PaternalGreatGrandmotherDob" formControlName="PaternalGreatGrandmotherDob" name="PaternalGreatGrandmotherDob"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">If deceased, Date and Place of Death:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.PaternalGreatGrandmotherDobDeceased" formControlName="PaternalGreatGrandmotherDobDeceased"
+            name="PaternalGreatGrandmotherDobDeceased" [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Name(s) and Location(s) of Indian tribe(s) or Band(s) or Alaska native village (s) or Corporation(s) in which this
+        person is said to be a member/enrollee, this person may be eligible for membership/enrollment, or this person is
+        a verified member or enrollee:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reICWA.PaternalGreatGrandmotherMembership" formControlName="PaternalGreatGrandmotherMembership" name="PaternalGreatGrandmotherMembership"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Tribe/Village/Corporation Enrollment Number or Membership Number: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGreatGrandmotherMembershipNumber" formControlName="PaternalGreatGrandmotherMembershipNumber"
+          name="PaternalGreatGrandmotherMembershipNumber" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Additional Identifying Information:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGreatGrandmotherInformation" formControlName="PaternalGreatGrandmotherInformation" name="PaternalGreatGrandmotherInformation"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>
+      (Please attach a copy of the birth certificate, marriage license(s), death certificate, membership card, or any other document(s)
+      from which the above information was gathered.)
+    </p>
+    <p class="bold">Child’s Paternal Great-Grandfather’s Information (First Set of Maternal Great-Grandparents)</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name (including former, middle, initials and aliases a/k/a’s)):</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGreatGrandfatherName" formControlName="PaternalGreatGrandfatherName" name="PaternalGreatGrandfatherName"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Current Address:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGreatGrandfatherCurrentAddress" formControlName="PaternalGreatGrandfatherCurrentAddress"
+          name="PaternalGreatGrandfatherCurrentAddress" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Former Addresses:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGreatGrandfatherFormerAddresses" formControlName="PaternalGreatGrandfatherFormerAddresses"
+          name="PaternalGreatGrandfatherFormerAddresses" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date and Place of Birth: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.PaternalGreatGrandfatherDob" formControlName="PaternalGreatGrandfatherDob" name="PaternalGreatGrandfatherDob"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">If deceased, Date and Place of Death:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.PaternalGreatGrandfatherDobDeceased" formControlName="PaternalGreatGrandfatherDobDeceased"
+            name="PaternalGreatGrandfatherDobDeceased" [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Name(s) and Location(s) of Indian tribe(s) or Band(s) or Alaska native village (s) or Corporation(s) in which this
+        person is said to be a member/enrollee, this person may be eligible for membership/enrollment, or this person is
+        a verified member or enrollee:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reICWA.PaternalGreatGrandfatherMembership" formControlName="PaternalGreatGrandfatherMembership" name="PaternalGreatGrandfatherMembership"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Tribe/Village/Corporation Enrollment Number or Membership Number: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGreatGrandfatherMembershipNumber" formControlName="PaternalGreatGrandfatherMembershipNumber"
+          name="PaternalGreatGrandfatherMembershipNumber" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Additional Identifying Information:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGreatGrandfatherInformation" formControlName="PaternalGreatGrandfatherInformation" name="PaternalGreatGrandfatherInformation"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>
+      (Please attach a copy of the birth certificate, marriage license(s), death certificate, membership card, or any other document(s)
+      from which the above information was gathered.)
+    </p>
+    <div class="html2pdf__page-break"></div>
+    <p class="bold">Child’s Paternal Great-Grandfather’s Information (Second Set of Maternal Great-Grandparents)</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name (including former, middle, initials and aliases a/k/a’s)):</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGreatGrandfatherName1" formControlName="PaternalGreatGrandfatherName1" name="PaternalGreatGrandfatherName1"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Current Address:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGreatGrandfatherCurrentAddress1" formControlName="PaternalGreatGrandfatherCurrentAddress1"
+          name="PaternalGreatGrandfatherCurrentAddress1" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Former Addresses:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGreatGrandfatherFormerAddresses1" formControlName="PaternalGreatGrandfatherFormerAddresses1"
+          name="PaternalGreatGrandfatherFormerAddresses1" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date and Place of Birth: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.PaternalGreatGrandfatherDob1" formControlName="PaternalGreatGrandfatherDob1" name="PaternalGreatGrandfatherDob1"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">If deceased, Date and Place of Death:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reICWA.PaternalGreatGrandfatherDobDeceased1" formControlName="PaternalGreatGrandfatherDobDeceased1"
+            name="PaternalGreatGrandfatherDobDeceased1" [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Name(s) and Location(s) of Indian tribe(s) or Band(s) or Alaska native village (s) or Corporation(s) in which this
+        person is said to be a member/enrollee, this person may be eligible for membership/enrollment, or this person is
+        a verified member or enrollee:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reICWA.PaternalGreatGrandfatherMembership1" formControlName="PaternalGreatGrandfatherMembership1"
+          name="PaternalGreatGrandfatherMembership1" pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Tribe/Village/Corporation Enrollment Number or Membership Number: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGreatGrandfatherMembershipNumber1" formControlName="PaternalGreatGrandfatherMembershipNumber1"
+          name="PaternalGreatGrandfatherMembershipNumber1" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Additional Identifying Information:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reICWA.PaternalGreatGrandfatherInformation1" formControlName="PaternalGreatGrandfatherInformation1" name="PaternalGreatGrandfatherInformation1"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>
+      (Please attach a copy of the birth certificate, marriage license(s), death certificate, membership card, or any other document(s)
+      from which the above information was gathered.)
+    </p>
+    <p>When Affiliation with a Cherokee, Choctaw, Chickasaw, Creek, or Seminole Group is claimed:</p>
+    <p>
+      When affiliation with either the Cherokee, Choctaw, Chickasaw, Creek, or Seminole Tribes is claimed, a search for Indian
+      heritage will be greatly aided by having the name of a person whose name might have appeared on the Final Roll prepared
+      by the Dawes Commission in 1906 (“1906 Final Roll”). To learn information that may aid in the ancestor research please
+      ask for the following information from the Child’s family.
+    </p>
+    <ol>
+      <li>The name of each and every person who is a relative of the Child and who was alive in 1906 and might have been included
+        in the 1906 Final Roll.</li>
+      <li>The relationship of each named person to the Child.</li>
+      <li> The date and place of birth of each named person.</li>
+      <li> The date and place of death of each named person.</li>
+    </ol>
+    <p>
+      (Please attach copies of any documents such as birth certificates, death certificates, baptism certificates, marriage licenses,
+      or certificates, or tribal enrollment or membership documents that may aid in proving the relationship between that
+      relative and the Child).
+    </p>
+    <p>
+      When Affiliation with a Cherokee Group Located Outside of Oklahoma is claimed:
+    </p>
+    <p>
+      When affiliation with a Cherokee tribe is claimed, but through any of the states in the South Eastern United States (such
+      as but not limited to: North Carolina, Georgia, or Mississippi) instead of through Oklahoma, a search for Indian heritage
+      will be greatly aided by having the name of a person whose name might appear on the Roll of1924 prepared by U.S. agent
+      Fred Baker under an act of congress (”1942 Baker Roll”). To learn information that may aid in the ancestor research,
+      please ask for the following information from the Child’s family:
+    </p>
+    <ol>
+      <li> The name of each and every person who is a relative of the Child and who was alive in 1906 and might have been included
+        in the 1924 Baker Roll.</li>
+      <li> The relationship of each named person to the Child.</li>
+      <li> The date and place of birth of each named person.</li>
+      <li> The date and place of death of each named person.</li>
+    </ol>
+    <p>
+      (Please attach copies of any documents such as birth certificates, death certificates, baptism certificates, marriage licenses,
+      or certificates, or tribal enrollment or membership documents that may aid in proving the relationship between that
+      relative and the Child).
+    </p>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Any Other Information Pertaining to Child’s Possible Indian or Alaska Native Ancestry:
+      </div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reICWA.InformationPertaining" formControlName="InformationPertaining" name="InformationPertaining"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,reICWA)"  (edit)="editForm()" [editControll]="editControll" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

@@ -1,0 +1,17 @@
+<p-dialog [(visible)]="isPopupWindow" header="SFM Office List" [contentStyle]="{'min-width':'25rem'}" [modal]="true"
+    [responsive]="true" [baseZIndex]="10000" [closable]="true">
+    <div class="button-box-flex">
+        <button class="sf-positive-btn" (click)="onClickListAddBtn()"><span>Add</span></button>
+    </div>
+    <table>
+        <tr *ngFor="let head of dataListHeaders">
+            <th>{{head.label}}</th>
+            <th>Actions</th>
+        </tr>
+        <tr *ngFor="let column of dataList">
+            <td>{{column.officeName}}</td>
+            <td class="edit-column"><span (click)="onEditClick(column)" class="fa fa-edit" title="Edit"></span></td>
+        </tr>
+    </table>
+</p-dialog>
+<app-sfm-office-form></app-sfm-office-form>

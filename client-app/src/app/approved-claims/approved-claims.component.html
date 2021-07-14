@@ -1,0 +1,178 @@
+<hr style="margin: 0px !important" />
+<h5 class="head_acces">Approve Claims</h5>
+<hr style="margin: 0px !important" />
+<div class="container-background">
+  <div class="container-foreground">
+    <div id="loading-overlay">
+      <p class="loader-text">
+        <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+      </p>
+    </div>
+    <div style="padding: 5px">
+      <div class="panel panel-default" style="height: 700px; overflow-y: scroll">
+        <div class="row">
+          <div class="col-md-3" style="height: 480px; overflow-y: scroll">
+            <div style="padding: 7px !important">
+              <app-pagesize *ngIf="allProviderList.length > 0" [totalCount]="provide_totalCount"
+                [initial]="provide_initial" [end]="provide_end" (keyup)="provide_pagesizeNav($event)"
+                (click)="provide_pagesize($event)"></app-pagesize>
+            </div>
+            <div class="row panel-menu" *ngFor="let provideData of allProviderList; let i1 = index" [ngClass]="{
+                active: selectActiveMenuItem == provideData.ProviderPayeeID
+              }">
+              <div class="col-md-2">
+                <p-checkbox name="groupname" value="{{ provideData.ProviderPayeeID }}" *ngIf="provideData.VenderID"
+                  [(ngModel)]="provideData.chck_state" [disabled]="provideData.dis_state"
+                  (onChange)="all_claimApproved(provideData, $event)" [binary]="true"></p-checkbox>
+              </div>
+              <div class="col-md-10" (click)="
+                  providerDetail(provideData, 1, 100);
+                  firstLevelActiveMenu(provideData.ProviderPayeeID)
+                ">
+                <span>{{ provideData.ProviderPayeeName }} ({{
+                    provideData.pro_type
+                  }})</span>
+                <i class="fa fa-caret-right pull-right font-20" style="color: #e9b641"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div class="pull-right">
+              <div style="padding: 7px !important">
+                <app-pagesize *ngIf="allProviderDetails.length > 0" [totalCount]="provide_detail_totalCount"
+                  [initial]="provide_detail_initial" [end]="provide_detail_end"
+                  (keyup)="provide_detail_pagesizeNav($event)" (click)="provide_detail_pagesize($event)"></app-pagesize>
+              </div>
+            </div>
+            <div class="table-responsive" style="height: 480px; overflow-y: scroll">
+              <table class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Approve</th>
+                    <th>Claim Status</th>
+                    <th>Payment Type</th>
+                    <th>Client</th>
+                    <th>Begin Date</th>
+                    <th>End Date</th>
+                    <th>Authorization ID</th>
+                    <th>Procode</th>
+                    <th>Units</th>
+                    <th>Payor Rate</th>
+                    <th>Total Payor</th>
+                    <th>PaymentNotes</th>
+                    <th>Notes</th>
+                    <th>GLKey</th>
+                    <th>ClaimID</th>
+                    <th>PayPlacement</th>
+                    <th>ExpectedPaymentDate</th>
+                    <th>PaySponsor</th>
+                    <th>PaySemi-Monthly</th>
+                    <th>Sponsor</th>
+                    <th>ReceivedDate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="
+                      let provide_data of allProviderDetails;
+                      let i1 = index
+                    " (click)="getEnteredChanges(provide_data)">
+                    <td class="tab-min">
+                      <p-checkbox name="groupname" [disabled]="
+                          claimsSelectionCheckBoxVisbility(provide_data)
+                        " value="{{ provide_data.Approve }}" [(ngModel)]="provide_data.Approve" (onChange)="
+                          single_claimApproved(i1, provide_data, $event)
+                        " [binary]="true"></p-checkbox>
+                    </td>
+                    <td>
+                      <p-dropdown [options]="allClaims" [(ngModel)]="provide_data.ClaimStatus" [disabled]="
+                          claimsSelectionCheckBoxVisbility(provide_data)
+                        " [style]="{ width: '100%', border: '1px solid #737374' }"
+                        (onChange)="selectClaimStatus(i1, provide_data)" optionLabel="claimStatus" [showClear]="false">
+                      </p-dropdown>
+                    </td>
+                    <td>{{ provide_data.PaymentType }}</td>
+                    <td>{{ provide_data.Client }}</td>
+                    <td>{{ provide_data.BeginDate }}</td>
+                    <td>{{ provide_data.EndDate }}</td>
+                    <td>{{ provide_data.AuthorizationID }}</td>
+                    <td>{{ provide_data.Procode }}</td>
+                    <td>{{ provide_data.Units }}</td>
+                    <td>{{ provide_data.PayorRate }}</td>
+                    <td>{{ provide_data.TotalPayor }}</td>
+                    <td>{{ provide_data.PaymentNotes }}</td>
+                    <td>{{ provide_data.Notes }}</td>
+                    <td>{{ provide_data.GLKey }}</td>
+                    <td>{{ provide_data.ClaimID }}</td>
+                    <td>{{ provide_data.PayPlacement }}</td>
+                    <td>{{ provide_data.ExpectedPaymentDate }}</td>
+                    <td>{{ provide_data.PaySponsor }}</td>
+                    <td>{{ provide_data.PaySemi_Monthly }}</td>
+                    <td>{{ provide_data.Sponsor }}</td>
+                    <td>{{ provide_data.ReceivedDate }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="row" style="
+            border-top: 1px solid #a2a2a2;
+            border-bottom: 1px solid #a2a2a2;
+          ">
+          <div class="col-md-2" style="border-right: 1px solid #a2a2a2">
+            <p style="padding: 10px">
+              <b class="text-center">Total</b><span class="pull-right">:{{ total_payorRate }}</span>
+            </p>
+          </div>
+          <div class="col-md-2" style="border-right: 1px solid #a2a2a2">
+            <div>
+              <p style="padding: 10px">
+                <b>Total Checked</b><span class="pull-right">:{{ select_total_payorRate }}</span>
+              </p>
+            </div>
+          </div>
+          <div class="col-md-3" style="border-right: 1px solid #a2a2a2; padding: 10px">
+            <button class="sf-positive-btn pull-right" style="margin-top: 0px !important" (click)="saveClaims()">
+              <span>Save</span>
+            </button>
+            <button class="sf-positive-btn pull-left" style="margin-top: 0px !important" (click)="exportFile()">
+              <span>Export</span>
+            </button>
+          </div>
+          <div class="col-md-4" *ngIf="allProviderList.length > 0" style="padding: 10px">
+            <div class="row">
+              <div class="col-md-4">
+                <p><b>Entered By</b></p>
+              </div>
+              <div class="col-md-8">
+                :{{ EnteredBy }} -
+                {{ EnteredDate }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <p><b>Changed By</b></p>
+              </div>
+              <div class="col-md-8">
+                :{{ ChangedBy }} -
+                {{ ChangedDate }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p-dialog header="Confirmation" [(visible)]="showConfirmation" [closable]="false" [modal]="true">
+        <p class="text-center">{{ infoText }}</p>
+        <p-footer>
+          <div class="dialog-footer text-center">
+            <button class="sf-positive-btn" style="margin-top: 0px !important" (click)="fileDownload()">
+              <span>Ok</span>
+            </button>
+          </div>
+        </p-footer>
+      </p-dialog>
+    </div>
+  </div>
+</div>

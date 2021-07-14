@@ -1,0 +1,240 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="therapyDischargeForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        FAMILY PRESERVATION <br>
+        DISCHARGE SUMMARY
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Name:</span>
+          <input  [(ngModel)]="fpTherapyDischarge.name" formControlName="name" name="name" type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Record Number:</span>
+          <input  [(ngModel)]="fpTherapyDischarge.recordNumber" formControlName="recordNumber" name="recordNumber" type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Discharge Date:</span>
+          <p-calendar [(ngModel)]="fpTherapyDischarge.dischargeDate" formControlName="dischargeDate" name="dischargeDate"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right"> Treatment Period:</div>
+        <div class="space-right">
+          <input  [(ngModel)]="fpTherapyDischarge.treatmentPeriod" formControlName="treatmentPeriod" name="treatmentPeriod" type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right"> Number of Sessions:</div>
+        <div class="space-right">
+          <input  [(ngModel)]="fpTherapyDischarge.numberOfSessions" formControlName="numberOfSessions" name="numberOfSessions" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <p>Problem Area:</p>
+        <div class="space-down">
+          <textarea [(ngModel)]="fpTherapyDischarge.problemArea" formControlName="problemArea" name="problemArea"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <p class="bold">Discharge Reason: </p>
+    <div class="space-down">
+      <div class="flex-container space-down">
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="fpTherapyDischarge.isEvaluationCompleted" formControlName="isEvaluationCompleted" name="isEvaluationCompleted"  class="space-right"></p-checkbox>Evaluation Completed
+        </div>
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="fpTherapyDischarge.isTreatmentCompleted" formControlName="isTreatmentCompleted" name="isTreatmentCompleted"  class="space-right"></p-checkbox>Treatment Completed – Planned Discharge by mutual agreement
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="fpTherapyDischarge.isMemberMoved" formControlName="isMemberMoved" name="isMemberMoved"  class="space-right"></p-checkbox>Member Moved
+        </div>
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="fpTherapyDischarge.isTreatmentNotCompleted" formControlName="isTreatmentNotCompleted" name="isTreatmentNotCompleted"  class="space-right"></p-checkbox>Treatment Not Completed – Provider/Agency Decision
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="fpTherapyDischarge.isMemberDischarged" formControlName="isMemberDischarged" name="isMemberDischarged"  class="space-right"></p-checkbox>Member Discharged by/to Court or Jail
+        </div>
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="fpTherapyDischarge.isTreatmentMemberNotCompleted" formControlName="isTreatmentMemberNotCompleted" name="isTreatmentMemberNotCompleted"  class="space-right"></p-checkbox>Treatment Not Completed – Member Decision (AMA, No-Show, Unable
+          to Locate)
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="fpTherapyDischarge.isDeathOfMember" formControlName="isDeathOfMember" name="isDeathOfMember"  class="space-right"></p-checkbox>Death of Member
+        </div>
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="fpTherapyDischarge.isTransferToAlternative" formControlName="isTransferToAlternative" name="isTransferToAlternative"  class="space-right"></p-checkbox>Transfer to Alternative Program
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <p>Treatment Summary: (include treatment modality/frequency and summary of services) </p>
+        <div class="space-down">
+          <textarea [(ngModel)]="fpTherapyDischarge.treatmentSummary" formControlName="treatmentSummary" name="treatmentSummary"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <p>Discharge Plan:</p>
+        <div class="space-down">
+          <textarea [(ngModel)]="fpTherapyDischarge.dischargePlan" formControlName="dischargePlan" name="dischargePlan"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <p class="bold">Discharge Diagnosis:</p>
+    <div class="space-down">
+      <table class="space-down">
+        <tr>
+          <th class="table-td">Code </th>
+          <th class="table-td">
+            <div class="flex-container description">
+              <div>(Principal First)</div>
+              <div>Description</div>
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <td class="table-td"><input  [(ngModel)]="fpTherapyDischarge.code" formControlName="code" name="code" type="text" pInputText size="20" /></td>
+          <td class="table-td"> <textarea [(ngModel)]="fpTherapyDischarge.principalFirst" formControlName="principalFirst" name="principalFirst"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"><input  [(ngModel)]="fpTherapyDischarge.code1" formControlName="code1" name="code1" type="text" pInputText size="20" /></td>
+          <td class="table-td"> <textarea [(ngModel)]="fpTherapyDischarge.principalFirst1" formControlName="principalFirst1" name="principalFirst1"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input  [(ngModel)]="fpTherapyDischarge.code2" formControlName="code2" name="code2" type="text" pInputText size="20" /></td>
+          <td class="table-td"> <textarea [(ngModel)]="fpTherapyDischarge.principalFirst2" formControlName="principalFirst2" name="principalFirst2"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input  [(ngModel)]="fpTherapyDischarge.code3" formControlName="code3" name="code3" type="text" pInputText size="20" /></td>
+          <td class="table-td"> <textarea [(ngModel)]="fpTherapyDischarge.principalFirst3" formControlName="principalFirst3" name="principalFirst3"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input  [(ngModel)]="fpTherapyDischarge.code4" formControlName="code4" name="code4" type="text" pInputText size="20" /></td>
+          <td class="table-td"> <textarea [(ngModel)]="fpTherapyDischarge.principalFirst4" formControlName="principalFirst4" name="principalFirst4"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input  [(ngModel)]="fpTherapyDischarge.code5" formControlName="code5" name="code5" type="text" pInputText size="20" /></td>
+          <td class="table-td"> <textarea [(ngModel)]="fpTherapyDischarge.principalFirst5" formControlName="principalFirst5" name="principalFirst5"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input  [(ngModel)]="fpTherapyDischarge.code6" formControlName="code6" name="code6" type="text" pInputText size="20" /></td>
+          <td class="table-td"> <textarea [(ngModel)]="fpTherapyDischarge.principalFirst6" formControlName="principalFirst6" name="principalFirst6"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input  [(ngModel)]="fpTherapyDischarge.code7" formControlName="code7" name="code7" type="text" pInputText size="20" /></td>
+          <td class="table-td"> <textarea [(ngModel)]="fpTherapyDischarge.principalFirst7" formControlName="principalFirst7" name="principalFirst7"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input  [(ngModel)]="fpTherapyDischarge.code8" formControlName="code8" name="code8" type="text" pInputText size="20" /></td>
+          <td class="table-td"> <textarea [(ngModel)]="fpTherapyDischarge.principalFirst8" formControlName="principalFirst8" name="principalFirst8"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+
+        <tr>
+            GAF:<td class="table-td"> <textarea [(ngModel)]="fpTherapyDischarge.principalFirst9" formControlName="principalFirst9" name="principalFirst9"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+     
+      </table>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <div class="flex-container space-down">
+          <div class="space-right">
+            Prognosis at Discharge
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpTherapyDischarge.isPrognosGood" formControlName="isPrognosGood" name="isPrognosGood"  class="space-right"></p-checkbox>Good
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpTherapyDischarge.isPrognosFair" formControlName="isPrognosFair" name="isPrognosFair"  class="space-right"></p-checkbox>Fair
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpTherapyDischarge.isPrognosGuarded" formControlName="isPrognosGuarded" name="isPrognosGuarded"  class="space-right"></p-checkbox>Guarded
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpTherapyDischarge.isPrognosJustification" formControlName="isPrognosJustification" name="isPrognosJustification"  class="space-right"></p-checkbox>Justification
+          </div>
+        </div>
+        <div class="space-down">
+          <textarea [(ngModel)]="fpTherapyDischarge.prognosisAtDischarge" formControlName="prognosisAtDischarge" name="prognosisAtDischarge"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-down">
+        <input  [(ngModel)]="fpTherapyDischarge.therapistPrintedName" formControlName="therapistPrintedName" name="therapistPrintedName" type="text" pInputText size="20" />
+      </div>
+      <div class="space-down"> Therapist Printed Name</div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <input  [(ngModel)]="fpTherapyDischarge.therapistSignature" formControlName="therapistSignature" name="therapistSignature" type="text" pInputText size="20" />
+        </div>
+        <div class="space-down">Therapist Signature</div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar  [(ngModel)]="fpTherapyDischarge.signatureDate" formControlName="signatureDate" name="signatureDate"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div  class="space-down">Date</div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+        <div class="space-right space-down">
+          <div class="space-right">
+            <b>Printed Date:</b>
+          </div>
+          <div class="space-right">
+            <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="space-right space-down margin-left-66rem">
+          <div class="space-right">
+            <b>Printed By:</b>
+          </div>
+          <div class="space-right">
+            <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+          </div>
+        </div>
+  
+      </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,fpTherapyDischarge)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

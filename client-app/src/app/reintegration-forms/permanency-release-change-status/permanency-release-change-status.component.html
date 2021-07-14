@@ -1,0 +1,392 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="permanencyReleaseChangeForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        REINTEGRATION FOSTER CARE
+        <br> PERMANENCY, RELEASE, OR
+        <br> CHANGE OF STATUS FORM
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>LName, FName:</span>
+          <input [(ngModel)]="rePermanencyReleaseChange.Name" formControlName="Name" name="Name" type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>KAECSES:</span>
+          <input [(ngModel)]="rePermanencyReleaseChange.Kaecses" formControlName="Kaecses" name="Kaecses" type="text" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>Facts:</span>
+          <input [(ngModel)]="rePermanencyReleaseChange.Facts" formControlName="Facts" name="Facts" type="text" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>Office:</span>
+          <input [(ngModel)]="rePermanencyReleaseChange.Office" formControlName="Office" name="Office" type="text" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>Social Worker:</span>
+          <input [(ngModel)]="rePermanencyReleaseChange.SocialWorker" formControlName="SocialWorker" name="SocialWorker" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p>
+      <span class="bold">INSTRUCTIONS:</span> In order to assure accurate information is sent to DCF,
+      <span class="bold">ALL BLANKS
+      </span> must be completed and sent to Care Center by 10am the following working day after permanency occurs.
+    </p>
+    <p>Email form to:
+      <a href="REDataManagement@saintfrancisministries.org">REDataManagement@saintfrancisministries.org</a>
+    </p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Date of Permanency or Release: </div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="rePermanencyReleaseChange.DateOfPermanency" formControlName="DateOfPermanency" name="DateOfPermanency"
+          [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <p>Previous Placement:</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name: </div>
+      <div class="space-right">
+        <input [(ngModel)]="rePermanencyReleaseChange.PreviousPlacementName" formControlName="PreviousPlacementName" name="PreviousPlacementName"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Address, City, County, State, Zip: </div>
+      <div class="space-right">
+        <input [(ngModel)]="rePermanencyReleaseChange.Address" formControlName="Address" name="Address" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">District & School Leaving: </div>
+      <div class="space-right">
+        <input [(ngModel)]="rePermanencyReleaseChange.SchoolLeaving" formControlName="SchoolLeaving" name="SchoolLeaving" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Level of Care:</div>
+      <div class="space-right">
+        <input [(ngModel)]="rePermanencyReleaseChange.LevelOfCare" formControlName="LevelOfCare" name="LevelOfCare" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <p>Permanency Placement</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name: </div>
+      <div class="space-right">
+        <input [(ngModel)]="rePermanencyReleaseChange.PermanencyPlacementName" formControlName="PermanencyPlacementName" name="PermanencyPlacementName"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Address, City, County, State, Zip: </div>
+      <div class="space-right">
+        <input [(ngModel)]="rePermanencyReleaseChange.PermanencyPlacementAddress" formControlName="PermanencyPlacementAddress" name="PermanencyPlacementAddress"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Permanency Placement </div>
+      <div class="space-right">
+        <input [(ngModel)]="rePermanencyReleaseChange.PermanencyPlacement" formControlName="PermanencyPlacement" name="PermanencyPlacement"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">District & School Entering:</div>
+      <div class="space-right">
+        <input [(ngModel)]="rePermanencyReleaseChange.PermanencyPlacementSchoolEntering" formControlName="PermanencyPlacementSchoolEntering"
+          name="PermanencyPlacementSchoolEntering" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>Reason for Permanency, Release or Change of Status</p>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isReturnedHome" formControlName="isReturnedHome" name="isReturnedHome"
+          class="space-right"></p-checkbox>Returned Home (REUNI)
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isApaSigned" formControlName="isApaSigned" name="isApaSigned"
+          class="space-right"></p-checkbox>APA Signed
+      </div>
+    </div>
+    <div class="flex-container space-down space-right">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isCustodialParent" formControlName="isCustodialParent" name="isCustodialParent"
+          class="space-right"></p-checkbox>Custodial Parent
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isNonCustodialParent" formControlName="isNonCustodialParent"
+          name="isNonCustodialParent" class="space-right"></p-checkbox>Non-Custodial Parent
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isAdopt" formControlName="isAdopt" name="isAdopt" class="space-right"></p-checkbox>Adoptive Placement Finalized (ADOPT)
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isDcfReleased" formControlName="isDcfReleased" name="isDcfReleased"
+          class="space-right"></p-checkbox>DCF Released of Custody
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isYouthAged" formControlName="isYouthAged" name="isYouthAged"
+          class="space-right"></p-checkbox>Youth Aged Out
+      </div>
+    </div>
+    <div class="flex-container space-down space-right">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isDirectPlacement" formControlName="isDirectPlacement" name="isDirectPlacement"
+          class="space-right"></p-checkbox>Direct Placement
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isRelative" formControlName="isRelative" name="isRelative"
+          class="space-right"></p-checkbox>Relative
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isNonRelatives" formControlName="isNonRelatives" name="isNonRelatives"
+          class="space-right"></p-checkbox>Non-Relatives
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isHighestGradeCompleted" formControlName="isHighestGradeCompleted"
+          name="isHighestGradeCompleted" class="space-right"></p-checkbox>Highest Grade Completed:
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="rePermanencyReleaseChange.HighestGradeCompleted" formControlName="HighestGradeCompleted" name="HighestGradeCompleted"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isReturnedHome1" formControlName="isReturnedHome1" name="isReturnedHome1"
+          class="space-right"></p-checkbox>Returned Home and DCF Released of Custody (REUNI)
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isKdoc" formControlName="isKdoc" name="isKdoc" class="space-right"></p-checkbox>KDOC (Unless dually adjudicated)
+      </div>
+    </div>
+    <div class="flex-container space-down space-right">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isCustodialParent1" formControlName="isCustodialParent1"
+          name="isCustodialParent1" class="space-right"></p-checkbox>Custodial Parent
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isNonCustodialParent2" formControlName="isNonCustodialParent2"
+          name="isNonCustodialParent2" class="space-right"></p-checkbox>Non-Custodial Parent
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isChildDeath" formControlName="isChildDeath" name="isChildDeath"
+          class="space-right"></p-checkbox>Child Death
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isCustodianship" formControlName="isCustodianship" name="isCustodianship"
+          class="space-right"></p-checkbox>Custodianship/Guardianship & DCF Relieved of Custody
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isDcfRetraction" formControlName="isDcfRetraction" name="isDcfRetraction"
+          class="space-right"></p-checkbox>DCF Retraction
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isAfterCareCompleted1" formControlName="isAfterCareCompleted1"
+          name="isAfterCareCompleted1" class="space-right"></p-checkbox>After Care Completed (Living out of State – No ICPC)
+      </div>
+    </div>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isAfterCareCompleted2" formControlName="isAfterCareCompleted2"
+        name="isAfterCareCompleted2" class="space-right"></p-checkbox>After Care Completed (365 Days)
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isChangeOfVenue" formControlName="isChangeOfVenue" name="isChangeOfVenue"
+          class="space-right"></p-checkbox>Change of Venue To:
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="rePermanencyReleaseChange.To" formControlName="To" name="To" type="text" pInputText size="20" />
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isDateCountyAccepted" formControlName="isDateCountyAccepted"
+          name="isDateCountyAccepted" class="space-right"></p-checkbox>Date County accepted Venue:
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="rePermanencyReleaseChange.dateCountyAccepted" formControlName="dateCountyAccepted" name="dateCountyAccepted"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isNewCourtCase" formControlName="isNewCourtCase" name="isNewCourtCase"
+          class="space-right"></p-checkbox>New Court Case #:
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="rePermanencyReleaseChange.NewCourtCase" formControlName="NewCourtCase" name="NewCourtCase" type="text"
+          pInputText size="20" />
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.isNewDcfWorker" formControlName="isNewDcfWorker" name="isNewDcfWorker"
+          class="space-right"></p-checkbox>New DCF Worker:
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="rePermanencyReleaseChange.NewDcfWorker" formControlName="NewDcfWorker" name="NewDcfWorker" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <p> Who initiated the permanency or release?</p>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.Dcf" formControlName="Dcf" name="Dcf" class="space-right"></p-checkbox>DCF
+    </div>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.SaintFrancis" formControlName="SaintFrancis" name="SaintFrancis"
+        class="space-right"></p-checkbox>Saint Francis
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.Court" formControlName="Court" name="Court" class="space-right"></p-checkbox>Court
+      </div>
+      <div class="flex-container space-right space-down left">
+        <div class="space-right">Judge: </div>
+        <div class="space-right">
+          <input [(ngModel)]="rePermanencyReleaseChange.Judge" formControlName="Judge" name="Judge" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <p>Change of Status for Sibling(s) remaining in the Home</p>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">Name of Sibling</th>
+          <th class="table-td">DOB</th>
+          <th class="table-td">Client ID# (if known)</th>
+          <th class="table-td">Add</th>
+          <th class="table-td">Remove</th>
+          <th class="table-td">Effective Date</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="rePermanencyReleaseChange.NameOfSibling" formControlName="NameOfSibling" name="NameOfSibling"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="rePermanencyReleaseChange.Dob" formControlName="Dob" name="Dob" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="rePermanencyReleaseChange.ClientId" formControlName="ClientId" name="ClientId" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.Add" formControlName="Add" name="Add"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.Remove" formControlName="Remove" name="Remove"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="rePermanencyReleaseChange.EffectiveDate" formControlName="EffectiveDate" name="EffectiveDate" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="rePermanencyReleaseChange.NameOfSibling1" formControlName="NameOfSibling1" name="NameOfSibling1"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="rePermanencyReleaseChange.Dob1" formControlName="Dob1" name="Dob1" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="rePermanencyReleaseChange.ClientId1" formControlName="ClientId1" name="ClientId1" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.Add1" formControlName="Add1" name="Add1"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.Remove1" formControlName="Remove1" name="Remove1"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="rePermanencyReleaseChange.EffectiveDate1" formControlName="EffectiveDate1" name="EffectiveDate1"
+              [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="rePermanencyReleaseChange.NameOfSibling2" formControlName="NameOfSibling2" name="NameOfSibling2"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="rePermanencyReleaseChange.Dob2" formControlName="Dob2" name="Dob2" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="rePermanencyReleaseChange.ClientId2" formControlName="ClientId2" name="ClientId2" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.Add2" formControlName="Add2" name="Add2"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="rePermanencyReleaseChange.Remove2" formControlName="Remove2" name="Remove2"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="rePermanencyReleaseChange.EffectiveDate2" formControlName="EffectiveDate2" name="EffectiveDate2"
+              [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right"> Person filling out form: </div>
+        <div class="space-right">
+          <input [(ngModel)]="rePermanencyReleaseChange.PersonFilling" formControlName="PersonFilling" name="PersonFilling" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="rePermanencyReleaseChange.Date" formControlName="Date" name="Date" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+        <div class="space-right space-down">
+          <div class="space-right">
+            <b>Printed Date:</b>
+          </div>
+          <div class="space-right">
+            <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="space-right space-down margin-left-66rem">
+          <div class="space-right">
+            <b>Printed By:</b>
+          </div>
+          <div class="space-right">
+            <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+          </div>
+        </div>
+  
+      </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,rePermanencyReleaseChange)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

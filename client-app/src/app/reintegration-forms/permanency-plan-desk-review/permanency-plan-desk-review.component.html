@@ -1,0 +1,240 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="permanencyPlanDeskForm" class="sf-form">
+      <div class="flex-container header">
+          <div>
+    
+          </div>
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+          <div>
+    
+          </div>
+        </div>
+    <h3 class="bold center">Required for Children in Out-of-Home Care 15/22 Months</h3>
+    <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Case Name:</div>
+        <div class="space-right">
+          <input [(ngModel)]="rePermanencyPlanDesk.CaseName" formControlName="CaseName" name="CaseName"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date of Initial Removal:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="rePermanencyPlanDesk.DateOfInitial" formControlName="DateOfInitial" name="DateOfInitial"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">DCF Office:</div>
+        <div class="space-right">
+          <input [(ngModel)]="rePermanencyPlanDesk.DcfOffice" formControlName="DcfOffice" name="DcfOffice"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Case Mgmt. Provider:</div>
+        <div class="space-right">
+          <input [(ngModel)]="rePermanencyPlanDesk.ManagementProvider" formControlName="ManagementProvider" name="ManagementProvider"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date of Desk Review:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="rePermanencyPlanDesk.DateOfDesk" formControlName="DateOfDesk" name="DateOfDesk"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Assigned Case Mgr.</div>
+        <div class="space-right">
+          <input [(ngModel)]="rePermanencyPlanDesk.AssignedCase" formControlName="AssignedCase" name="AssignedCase"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p><span class="bold">BACKGROUND</span>: When a child has been removed from their home by order of the court,
+      reasonable efforts to
+      reintegrate the child must be documented and presented to the court. A plan for reintegration is not required in
+      the following situations: </p>
+    <ul>
+      <li>A parent has been convicted of murder of any child;</li>
+      <li>A parent has aided, abetted, attempted, conspired or solicited the murder of any child;</li>
+      <li>A parent has been convicted of a felony battery that resulted in bodily injury to any child;</li>
+      <li>
+        A parent has subjected any child to abandonment, torture, chronic abuse, sexual abuse, or chronic life
+        threatening neglect;
+      </li>
+      <li>Parental rights to any child have been involuntarily terminated; or</li>
+      <li>The child has been in out-of-home placement for 15 of the last 22 months.</li>
+    </ul>
+    <p>
+      When a child has been in out of home placement 15 of the preceding 22 months, a review is required at the
+      beginning of the 15th month. This form is intended to document this review.
+    </p>
+    <p>
+      The review does not replace the permanency hearing. The permanency hearing must be held within 12 months of out
+      of home placement so should have preceded the desk review. The review verifies that the plan in place at the
+      close of the permanency hearing remains in the child’s best interest by documenting the compelling reasons for
+      delay in permanency.
+    </p>
+    <p class="bold"> 1. Case Plan Goal Reintegration:</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Date of last permanency hearing?</div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="rePermanencyPlanDesk.DateLastPermanency" formControlName="DateLastPermanency" name="DateLastPermanency"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+          [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container">
+      <div class="space-right">
+        Is child in a stable placement with a relative?
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyPlanDesk.IsStablePlacementYes" formControlName="IsStablePlacementYes" name="IsStablePlacementYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyPlanDesk.IsStablePlacementNo" formControlName="IsStablePlacementNo" name="IsStablePlacementNo"  class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">The reason documented in the case plan that reintegration is still viable.
+        (Consider: age of child, need for connections to family, attachment to current family, realistic probability of
+        accomplishing reintegration within reasonable time)</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="rePermanencyPlanDesk.ReasonDocumented" formControlName="ReasonDocumented" name="ReasonDocumented"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <p><span class="bold">2. Case Plan Goal Adoption:</span> (if reintegration is not viable)</p>
+    <p> PARENTAL RIGHTS TERMINATION PETITION MUST BE FILED at the earliest of:</p>
+    <p> a.) Before the end of the 15th MONTH or</p>
+    <p>
+      b) Within 30 days of court’s determination reintegration not viable and adoption might be in the child’s best
+      interest.
+    </p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Date of last permanency hearing?</div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="rePermanencyPlanDesk.DateLastPermanencyAdoption" formControlName="DateLastPermanencyAdoption" name="DateLastPermanencyAdoption"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+          [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Date motion filed to terminate parental rights:</div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="rePermanencyPlanDesk.DateParentalRights" formControlName="DateParentalRights" name="DateParentalRights"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+          [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <p><span class="bold">3. Case Plan Goal Permanent Custodianship:</span> (if reintegration and adoption are not
+      viable)</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Date of last permanency hearing?</div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="rePermanencyPlanDesk.DateMotionCustodianship1" formControlName="DateMotionCustodianship1" name="DateMotionCustodianship1"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+          [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Date motion filed to appoint permanent custodian:</div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="rePermanencyPlanDesk.DateMotionCustodianship" formControlName="DateMotionCustodianship" name="DateMotionCustodianship"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+        [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">What is the compelling reason, documented in the case plan, reintegration or
+        adoption is not in this child’s best interest? (Consider: age of child, need for connections to family,
+        attachment to current family, realistic probability of accomplishing adoption within child’s minority,
+        availability of suitable permanent guardian)</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="rePermanencyPlanDesk.CompellingReason" formControlName="CompellingReason" name="CompellingReason"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <p><span class="bold">4. Case Plan Goal APPLA:</span> (if other permanency goal is not viable)</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Date of last permanency hearing?</div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="rePermanencyPlanDesk.DateLastPermanencyAppla" formControlName="DateLastPermanencyAppla" name="DateLastPermanencyAppla"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+          [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container">
+      <div class="space-right">
+        Is child in a stable placement with a relative?
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyPlanDesk.IsStableApplaYes" formControlName="IsStableApplaYes" name="IsStableApplaYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="rePermanencyPlanDesk.IsStableApplaNo" formControlName="IsStableApplaNo" name="IsStableApplaNo"  class="space-right"></p-checkbox>No
+       </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">What is the compelling reason, documented in the case plan, reintegration,
+        adoption or permanent custodianship is not in this child’s best interest? (Consider: age of child, need for
+        connections to family, attachment to current family, realistic probability of accomplishing adoption or
+        permanent custodianship within child’s minority, cost to child of attempting either adoption or permanent
+        custodianship)</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="rePermanencyPlanDesk.CompellingReasonAppla" formControlName="CompellingReasonAppla" name="CompellingReasonAppla"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <div class="space-right space-down">
+      <div class="space-right space-down"> What is the compelling reason documented in the case plan that this goal is
+        in this child’s best interest?</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="rePermanencyPlanDesk.CompellingReasonDocumentedAppla" formControlName="CompellingReasonDocumentedAppla" name="CompellingReasonDocumentedAppla"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right"> Signature of Person Completing Form: </div>
+        <div class="space-right">
+          <input [(ngModel)]="rePermanencyPlanDesk.SignaturePerson" formControlName="SignaturePerson" name="SignaturePerson"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="rePermanencyPlanDesk.SignaturePersonDate" formControlName="SignaturePersonDate" name="SignaturePersonDate"   [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right"> Signature of Supervisor: </div>
+        <div class="space-right">
+          <input [(ngModel)]="rePermanencyPlanDesk.SignatureSupervisor" formControlName="SignatureSupervisor" name="SignatureSupervisor"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="rePermanencyPlanDesk.SignatureSupervisorDate" formControlName="SignatureSupervisorDate" name="SignatureSupervisorDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right"> Submitted to DCF liaison this date: </div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="rePermanencyPlanDesk.LiaisonDate" formControlName="LiaisonDate" name="LiaisonDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+        [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right"> Submitted to County/District Attorney this date: </div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="rePermanencyPlanDesk.AttorneyDate" formControlName="AttorneyDate" name="ClientNaAttorneyDateme"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+        [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,rePermanencyPlanDesk)" (edit)="editForm()" [editControll]="editControll" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

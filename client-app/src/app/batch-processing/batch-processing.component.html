@@ -1,0 +1,539 @@
+<app-form-header [title]="title" [breadcrumbs]="breadcrumbs" [subtitle]="subtitle"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+
+<div class="container-background" style="height: 80vh;overflow-y: scroll;">
+  <div class="container-foreground">
+    <div id="loading-overlay">
+      <p class="loader-text">
+        <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+      </p>
+    </div>
+    <form class="margin-top-10">
+
+      <div style="border: 1px solid #e0dddd;
+        padding: 10px;
+        margin: 10px;">
+        <div class="row">
+          <div class="col-md-3">
+            <div>Begin Date</div>
+            <p-calendar name="beginDate" [(ngModel)]="batch.rangeBeginDate" [showIcon]="true" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030" placeholder="Begin Date" pTooltip="Begin Date"
+              tooltipPosition="top"></p-calendar>
+          </div>
+          <div class="col-md-3">
+            <div>End Date</div>
+            <p-calendar name="endDate" [(ngModel)]="batch.rangeEndDate" [showIcon]="true" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030" placeholder="End Date" pTooltip="End Date"
+              tooltipPosition="top"></p-calendar>
+          </div>
+          <div class="col-md-3">
+            <div>Type</div>
+            <p-autoComplete [suggestions]="type_metaData_list" [size]="30" [minLength]="1" [dropdown]="true"
+              field="TypeName" [forceSelection]="true" placeholder="Type here to search" name="type"
+              [(ngModel)]="batch.createTypeID" (completeMethod)="fillterPaymentTypes($event)"
+              (onSelect)="generateCreateType($event)"></p-autoComplete>
+          </div>
+          <div class="col-md-3">
+            <div>Sponsor</div>
+            <p-autoComplete [size]="30" (completeMethod)="fillterSponsorData($event)"
+              [suggestions]="sponser_metaData_list" [disabled]="sponserDis" field="sponsorName" [forceSelection]="true"
+              placeholder="Type here to search" name="sponsor" [(ngModel)]="batch.sponsorID" [minLength]="1"
+              [dropdown]="true" (onSelect)="sponserRestrict($event)"></p-autoComplete>
+          </div>
+        </div>
+
+        <!-- <div class="batch-row-2">
+          <div class="batch-row-box">
+            <span>Begin Date</span>
+            <p-calendar name="beginDate" [(ngModel)]="batch.rangeBeginDate" [showIcon]="true" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030" placeholder="Begin Date" pTooltip="Begin Date"
+              tooltipPosition="top"></p-calendar>
+          </div>
+          <div class="batch-row-box">
+            <span>End Date</span>
+            <p-calendar name="endDate" [(ngModel)]="batch.rangeEndDate" [showIcon]="true" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030" placeholder="End Date" pTooltip="End Date"
+              tooltipPosition="top"></p-calendar>
+          </div>
+          <div class="batch-row-box">
+            <span>Type</span>
+            <p-autoComplete [suggestions]="type_metaData_list" [size]="30" [minLength]="1" [dropdown]="true"
+              field="TypeName" [forceSelection]="true" placeholder="Type here to search" name="type"
+              [(ngModel)]="batch.createTypeID" (completeMethod)="fillterPaymentTypes($event)"
+              (onSelect)="generateCreateType($event)"></p-autoComplete>
+          </div>
+          <div class="batch-row-box-auto">
+            <span>Sponsor</span>
+            <p-autoComplete [size]="30" (completeMethod)="fillterSponsorData($event)"
+              [pTooltip]="batch.sponsorID.sponsorName" tooltipPosition="top" [suggestions]="sponser_metaData_list"
+              [disabled]="sponserDis" field="sponsorName" [forceSelection]="true" placeholder="Type here to search"
+              name="sponsor" [(ngModel)]="batch.sponsorID" [minLength]="1" [dropdown]="true"
+              (onSelect)="sponserRestrict($event)"></p-autoComplete>
+          </div>
+        </div> -->
+        <div class="row margin-top-10" style="padding-top: 10px">
+          <div class="col-md-3">
+            <div>&nbsp;</div>
+            <p-checkbox binary="true" [(ngModel)]="batch.paySemiMonthly" name="semi-month" label="Pay Semi-Monthly">
+            </p-checkbox>
+          </div>
+          <div class="col-md-3">
+            <div>&nbsp;</div>
+            <p-checkbox binary="true" name="recreateBranch" label="Recoup/Recreate Batch"
+              [(ngModel)]="batch.isRecreateBatch"></p-checkbox>
+          </div>
+          <div class="col-md-3">
+            <div>Recoup/Recreate Batch Name</div>
+            <p-autoComplete [size]="30" (completeMethod)="fillterRecreateBatchName($event)" [suggestions]="metaData"
+              [disabled]="!batch.isRecreateBatch" [forceSelection]="true" placeholder="Type here to search"
+              [(ngModel)]="batch.batchID" name="batchID" field="display" [minLength]="1" [dropdown]="true">
+            </p-autoComplete>
+          </div>
+          <div class="col-md-3">
+            <div>&nbsp;</div>
+            <button type="button" class="btn btn-block btn-add" [disabled]="itsDisable"
+              (click)=claimProcess(batch,true)>Process</button>
+          </div>
+        </div>
+      </div>
+      <div style="border: 1px solid #e0dddd;
+      padding: 10px;
+      margin: 10px;">
+        <nav class="nav-pills">
+          <div class="nav nav-tabs nav-pills nav-justified" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link" *ngFor="let main of mainTabs;let i = index" [class.active]="sIndex  === i"
+              (click)="setIndex(i,$event)" data-toggle="tab" href="{{ main.href }}" role="tab">{{main.label}}</a>
+          </div>
+        </nav>
+        <div class="tab-content padding-15" id="nav-tabContent">
+          <div class="tab-pane  active in" id="nav-sec1" role="tabpanel" aria-labelledby="nav-fis-tab">
+            <div class="batch-scroll">
+
+              <!-- <div class="table">
+                <table>
+                  <thead>
+                    <tr cdkDropList cdkDropListOrientation="horizontal" [cdkDropListData]="new_columns"
+                      (cdkDragReleased)="release=true" (cdkDropListDropped)="new_dropCol($event)">
+                      <th cdkDrag (mousedown)="mouseDown($event)" cdkDragLockAxis="x" (cdkDragReleased)="release=true"
+                        *ngFor="let column of new_columns">{{column.header}}
+                        <i class="fa fa-sort" (click)="sortingNewClaim(column.header)" aria-hidden="true"></i>
+                        <div *cdkDragPreview>
+                          <div [style.width]="pos?.width" [style.margin-top]="pos?.y" [style.margin-left]="pos?.x">
+                            <thead>
+                              <tr>
+                                <th>
+                                  {{column.header}}
+                                </th>
+                              </tr>
+                            </thead>
+                          </div>
+                        </div>
+                        <div class="placeholder" *cdkDragPlaceholder></div>
+
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="1.5"
+                    [infiniteScrollDisabled]='!isScroll_new' [infiniteScrollThrottle]="10"
+                    (scrolled)="onscrollNewClaim($event)" [scrollWindow]="false" cdkDropList
+                    [cdkDropListData]="newClaimProcessList" (cdkDropListDropped)="new_dropRow($event)">
+                    <tr #tr cdkDrag cdkDragLockAxis="y" (mousedown)="mouseDown($event,tr)"
+                      (cdkDragReleased)="onDragRelease($event)"
+                      *ngFor="let element of newClaimProcessList; let i1 = index">
+                      <td *ngFor="let cell of new_columns">
+                        <div *ngIf="cell.field==='Create'"><input type="checkbox" [(ngModel)]="element[cell.field]"
+                            [ngModelOptions]="{standalone: true}" (change)="single_New_Claims(i1,element,$event)" />
+                        </div>
+                        <div *ngIf="cell.field!=='Create'"><span *ngIf="cell.field=='ProviderRate'
+                             || cell.field=='TotalProviderRate'
+                             || cell.field=='PayorRate'
+                             || cell.field=='TotalPayorRate'">$</span>{{element[cell.field]}}
+                        </div>
+                        <div *ngIf="cell.field=='Action'"><button class="btn-edit"
+                            (click)="onRowSelected(element,i1)"><i class="fa fa-edit"></i></button></div>
+
+                      </td>
+
+
+                      <div *cdkDragPreview class="preview" [style.margin-top]="pos?.y" [style.margin-left]="pos?.x"
+                        [style.width]="pos?.width">
+                        <table>
+                          <tr>
+                            <td *ngFor="let cell of new_columns">{{element[cell.field]}}</td>
+
+                          </tr>
+                        </table>
+                      </div>
+                      <div class="preview placeholder" *cdkDragPlaceholder></div>
+
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div> -->
+
+              <div class="table-responsive">
+                <table *ngIf="newClaimProcessList.length!=0"
+                  class="table table-bordered table-striped table-fixed  table-fixedheader"
+                  style="height: 0vh !important;" id="sample2">
+                  <thead>
+                    <tr cdkDropList cdkDropListOrientation="horizontal" [cdkDropListData]="new_columns"
+                      (cdkDragReleased)="release=true" (cdkDropListDropped)="new_dropCol($event)">
+                      <th cdkDrag (mousedown)="mouseDown($event)" cdkDragLockAxis="x" (cdkDragReleased)="release=true"
+                        *ngFor="let column of new_columns">{{column.header}}
+                        <i class="fa fa-sort" (click)="sortingNewClaim(column.header,true)" aria-hidden="true"></i>
+                        <div *cdkDragPreview>
+                          <div [style.width]="pos?.width" [style.margin-top]="pos?.y" [style.margin-left]="pos?.x">
+                            <thead>
+                              <tr>
+                                <th>
+                                  {{column.header}}
+                                </th>
+                              </tr>
+                            </thead>
+                          </div>
+                        </div>
+                        <div class="placeholder" *cdkDragPlaceholder></div>
+
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="1.5"
+                    [infiniteScrollDisabled]='!isScroll_new' [infiniteScrollThrottle]="10"
+                    (scrolled)="onscrollNewClaim($event)" [scrollWindow]="false" cdkDropList
+                    [cdkDropListData]="newClaimProcessList" (cdkDropListDropped)="new_dropRow($event)">
+                    <tr #tr cdkDrag cdkDragLockAxis="y" (mousedown)="mouseDown($event,tr)"
+                      (cdkDragReleased)="onDragRelease($event)"
+                      *ngFor="let element of newClaimProcessList; let i1 = index">
+                      <td *ngFor="let cell of new_columns">
+                        <div *ngIf="cell.field==='Create'">
+                          <!-- <input type="checkbox" [(ngModel)]="element[cell.field]"
+                            [ngModelOptions]="{standalone: true}" (change)="single_New_Claims(i1,element,$event)" /> -->
+
+                          <input type="checkbox" [disabled]="element.Error!==null" name="newClaimProcessList"
+                            [checked]="element[cell.field]" (change)="single_New_Claims(i1, element, $event)" />
+                        </div>
+                        <div *ngIf="cell.field!=='Create'"><span *ngIf="cell.field=='ProviderRate'
+                             || cell.field=='TotalProviderRate'
+                             || cell.field=='PayorRate'
+                             || cell.field=='TotalPayorRate'">$</span>{{element[cell.field]}}
+                        </div>
+                        <div *ngIf="cell.field=='Action'"><button class="btn-edit"
+                            (click)="onRowSelected(element,i1)"><i class="fa fa-edit"></i></button></div>
+                      </td>
+
+
+                      <div *cdkDragPreview class="preview" [style.margin-top]="pos?.y" [style.margin-left]="pos?.x"
+                        [style.width]="pos?.width">
+                        <table>
+                          <tr>
+                            <td *ngFor="let cell of new_columns">{{element[cell.field]}}</td>
+
+                          </tr>
+                        </table>
+                      </div>
+                      <div class="preview placeholder" *cdkDragPlaceholder></div>
+
+                    </tr>
+                  </tbody>
+                </table>
+                <p style="text-align: center;
+                color: #58a5f8;
+                font-weight: bold;
+                font-size: 16px;" *ngIf="isScorllData">Loading...</p>
+                <div *ngIf="!isScorllData">
+                  <p *ngIf="newClaimProcessList.length===0" style="text-align: center;
+                  color: #58a5f8;
+                  font-weight: bold;
+                  font-size: 16px;
+                  margin-top: 31px;"> No Data Found</p>
+                  <hr *ngIf="newClaimProcessList.length===0">
+                </div>
+              </div>
+
+
+
+            </div>
+
+            <div class="row margin-top-10">
+              <div class="col-md-4">
+                <button class="sf-negative-btn" (click)="new_selectAll('SelectAll','New')">Select All</button>
+                <button class="sf-negative-btn" (click)="new_selectAll('DeselectAll','New')">Deselect All</button>
+              </div>
+              <div class="col-md-6">
+                <p>Number of records selected <span style="color: #58a5f8;font-weight: bold;">{{selectedClaims}}</span>
+                  of <span style="color: #58a5f8;font-weight: bold">{{totalSelectClaims}}</span></p>
+                <p>Total Payor Rate <span style="color: #58a5f8;font-weight: bold;">${{totalCountPayorRate}}</span>
+                </p>
+                <p>Total Provider Rate <span
+                    style="color: #58a5f8;font-weight: bold;">${{totalCountProviderRate}}</span>
+
+              </div>
+              <div class="col-md-2">
+                <div class="dropdown" style="border: none !important;">
+                  <button type="button" class="btn btn-block btn-add dropdown-toggle" data-toggle="dropdown">
+                    Export
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" (click)="allNewProcess()">Excel</a>
+                    <a class="dropdown-item" (click)="exportErrorReoprt()">Invalid Vender ID Report</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="nav-sec2" role="tabpanel" aria-labelledby="nav-fis-tab">
+            <div class="batch-scroll">
+              <div>
+
+                <div class="table-responsive">
+                  <table *ngIf="existingClaimProcessList.length!=0"
+                    class="table table-bordered table-striped table-fixed" style="height: 0vh !important;">
+                    <thead>
+                      <tr cdkDropList cdkDropListOrientation="horizontal" [cdkDropListData]="exit_columns"
+                        (cdkDragReleased)="release=true" (cdkDropListDropped)="exit_dropCol($event)">
+                        <th cdkDrag (mousedown)="mouseDown($event)" cdkDragLockAxis="x" (cdkDragReleased)="release=true"
+                          *ngFor="let column of exit_columns">{{column.header}}
+                          <i class="fa fa-sort" (click)="sortingExitClaim(column.header,true)" aria-hidden="true"></i>
+                          <div *cdkDragPreview>
+                            <div [style.width]="pos?.width" [style.margin-top]="pos?.y" [style.margin-left]="pos?.x">
+                              <thead>
+                                <tr>
+                                  <th>
+                                    {{column.header}}
+                                  </th>
+                                </tr>
+                              </thead>
+                            </div>
+                          </div>
+                          <div class="placeholder" *cdkDragPlaceholder></div>
+
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="1.5"
+                      [infiniteScrollDisabled]='!isScroll_exit' [infiniteScrollThrottle]="10"
+                      (scrolled)="onscrollExitClaim($event)" [scrollWindow]="false" cdkDropList
+                      [cdkDropListData]="existingClaimProcessList" (cdkDropListDropped)="new_dropRow($event)">
+                      <tr #tr cdkDrag cdkDragLockAxis="y" (mousedown)="mouseDown($event,tr)"
+                        (cdkDragReleased)="onDragRelease($event)"
+                        *ngFor="let element of existingClaimProcessList ; let i1 = index">
+                        <td *ngFor="let cell of exit_columns">
+                          <!-- {{element[cell.field]}} -->
+
+                          <div *ngIf="cell.field==='AddtoBatch'"><input type="checkbox"
+                              [(ngModel)]="element[cell.field]" [ngModelOptions]="{standalone: true}"
+                              (change)="single_New_exClaim(i1,element,$event)" />
+                          </div>
+                          <div *ngIf="cell.field!=='AddtoBatch'">
+                            <span *ngIf="cell.field=='ProviderRate'
+                              || cell.field=='TotalProviderRate'
+                              || cell.field=='PayorRate'
+                              || cell.field=='TotalPayorRate'">$</span>{{element[cell.field]}}</div>
+                          <div *ngIf="cell.field=='Action'"><button class="btn-edit"
+                              (click)="onRowSelected(element,i1)"><i class="fa fa-edit"></i></button></div>
+
+                        </td>
+
+
+                        <div *cdkDragPreview class="preview" [style.margin-top]="pos?.y" [style.margin-left]="pos?.x"
+                          [style.width]="pos?.width">
+                          <table>
+                            <tr>
+                              <td *ngFor="let cell of exit_columns">{{element[cell.field]}}</td>
+
+                            </tr>
+                          </table>
+                        </div>
+                        <div class="preview placeholder" *cdkDragPlaceholder></div>
+
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p style="text-align: center;
+                color: #58a5f8;
+                font-weight: bold;
+                font-size: 16px;" *ngIf="isScorll_exitData">Loading...</p>
+                  <div *ngIf="!isScorll_exitData">
+                    <p *ngIf="existingClaimProcessList.length===0" style="text-align: center;
+                  color: #58a5f8;
+                  font-weight: bold;
+                  font-size: 16px;
+                  margin-top: 31px;"> No Data Found</p>
+                    <hr *ngIf="existingClaimProcessList.length===0">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row margin-top-10">
+              <div class="col-md-4">
+                <button class="sf-negative-btn" (click)="new_selectAll('SelectAll','Existing')">Select All</button>
+                <button class="sf-negative-btn" (click)="new_selectAll('DeselectAll','Existing')">Deselect
+                  All</button>
+              </div>
+              <div class="col-md-6">
+                <p>Number of records selected <span style="color: #58a5f8;font-weight: bold;">{{selectedClaims}}</span>
+                  of <span style="color: #58a5f8;">{{totalSelectClaims}}</span></p>
+                <p>Total Payor Rate <span style="color: #58a5f8;font-weight: bold;">${{totalCountPayorRate}}</span>
+                </p>
+                <p>Total Provider Rate <span
+                    style="color: #58a5f8;font-weight: bold;">${{totalCountProviderRate}}</span>
+
+              </div>
+              <div class="col-md-2">
+                <div class="dropdown" style="border: none !important;">
+                  <button type="button" class="btn btn-block btn-add dropdown-toggle" data-toggle="dropdown">
+                    Export
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" (click)="allExitProcess()">Excel</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="border: 1px solid #e0dddd;
+      padding: 10px;
+      margin: 10px;">
+        <div class="row">
+          <div class="col-md-3">
+            <div>Batch Name</div>
+            <p-autoComplete [dropdown]="true" name="gradeID" emptyMessage="No results found!" [suggestions]="metaData"
+              (completeMethod)="fillterBatchName($event)" [forceSelection]="true" placeholder="Type here to search"
+              (onSelect)="openSaveDialogBox($event)" field="ClaimBatchName" [(ngModel)]="batch.batchName" size="23">
+            </p-autoComplete>
+
+          </div>
+          <div class="col-md-3">
+            <div>Expected Payment Date</div>
+            <p-calendar name="dateInput" [yearNavigator]="true" [monthNavigator]="true"
+              [(ngModel)]="batch.paymentDueDate" yearRange="2000:2030" [showIcon]="true"></p-calendar>
+          </div>
+          <div class="col-md-3">
+            <div>Received Date</div>
+            <p-calendar name="dateInput" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+              [showIcon]="true" disabled></p-calendar>
+          </div>
+          <div class="col-md-3">
+            <div>&nbsp;</div>
+            <p-checkbox binary="true" label="Not on Web"></p-checkbox>
+          </div>
+        </div>
+        <div class="row margin-top-10">
+          <div class="col-md-12 text-right">
+            <button class="sf-negative-btn" (click)="gotoDashboard()">Cancel</button>
+            <button class="sf-positive-btn" (click)="showSaveBox()" [disabled]="saveEnable">Save</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <p-dialog [(visible)]="isSaveDialogBox" [modal]="true" [responsive]="true" [minY]="70" [minX]="70"
+      [maximizable]="true" [baseZIndex]="10000" [blockScroll]="true" [draggable]="true">
+      <p-header>
+        Create Claims
+      </p-header>
+      <p>Are you sure you want to create the selected claims?</p>
+      <p-footer>
+        <button (click)="savePayment(batch)" class="sf-positive-btn">Yes</button>
+        <button class="sf-negative-btn" (click)="closeSaveBox()">No</button>
+      </p-footer>
+    </p-dialog>
+
+
+    <p-dialog [(visible)]="isShowBatchAdd" [modal]="true" [responsive]="true" header="Batch Processing"
+      [contentStyle]="{'min-width':'63rem','width': '58vw'}" [maximizable]="true" [baseZIndex]="10000"
+      [blockScroll]="true" [draggable]="true">
+      <form>
+        <div class="ui-grid ui-grid-responsive ui-fluid sf-form sf-form-tab">
+          <div class="ui-grid-row table-td">
+            <div class="ui-grid-col-4"><label>Begin Date</label></div>
+            <div class="ui-grid-col-10">
+              <p-calendar [(ngModel)]="edit_beginDate" showTime="true" name="edit_beginDate" [showIcon]="true"
+                [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
+              </p-calendar>
+            </div>
+          </div>
+          <div class="ui-grid-row table-td">
+            <div class="ui-grid-col-4"><label>End Date</label></div>
+            <div class="ui-grid-col-10">
+              <p-calendar [(ngModel)]="edit_EndDate" showTime="true" name="edit_EndDate" [showIcon]="true"
+                [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
+              </p-calendar>
+            </div>
+          </div>
+          <div class="ui-grid-row table-td">
+            <div class="ui-grid-col-4"><label>Received Date</label></div>
+            <div class="ui-grid-col-10">
+              <p-calendar [(ngModel)]="edit_receivedDate" showTime="true" name="edit_receivedDate" [showIcon]="true"
+                [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
+              </p-calendar>
+            </div>
+          </div>
+          <div class="ui-grid-row table-td">
+            <div class="ui-grid-col-4"><label>Claim Status</label></div>
+            <div class="ui-grid-col-10">
+              <p-autoComplete class="width-autocomplete" placeholder="Type here to search"
+                emptyMessage="No records found!" [dropdown]="true" [forceSelection]="true" field="claimStatus"
+                (completeMethod)="allClaims()" [suggestions]="claimStatusList" name="claimStatus"
+                [(ngModel)]="editClaimStatusID">
+              </p-autoComplete>
+            </div>
+          </div>
+
+
+          <div class="ui-grid-row table-td">
+            <div class="ui-grid-col-4"><label>Provider Rate</label></div>
+            <div class="ui-grid-col-10">
+              <p-spinner [(ngModel)]="edit_providerRate" name="edit_providerRate" size="30"
+                (change)="providerRateChage(edit_providerRate)" [min]="0.00" [step]="0.01"
+                pTooltip="Enter float value (eg:19.67)" tooltipEvent="focus"></p-spinner>
+            </div>
+          </div>
+          <div class="ui-grid-row table-td">
+            <div class="ui-grid-col-4"><label>Payor Rate</label></div>
+            <div class="ui-grid-col-10">
+              <p-spinner [(ngModel)]="edit_payorRate" name="edit_payorRate" size="30"
+                (change)="payorRateChage(edit_payorRate)" [min]="0.00" [step]="0.01"
+                pTooltip="Enter float value (eg:19.67)" tooltipEvent="focus"></p-spinner>
+            </div>
+          </div>
+          <div class="ui-grid-row table-td">
+            <div class="ui-grid-col-4"><label>Units</label></div>
+            <div class="ui-grid-col-10">
+              <p-spinner [(ngModel)]="edit_units" name="units" size="30" [min]="0.00" [step]="0.01"
+                pTooltip="Enter float value (eg:19.67)" tooltipEvent="focus"></p-spinner>
+            </div>
+          </div>
+        </div>
+      </form>
+      <p-footer>
+        <button (click)="saveEditBatchProcess()" class="sf-positive-btn">Save</button>
+        <button (click)="closeEditBox()" class="sf-negative-btn">Cancel</button>
+      </p-footer>
+    </p-dialog>
+
+
+
+    <p-dialog [(visible)]="isSaveClaimBox" [modal]="true" [responsive]="true" [minY]="70" [minX]="70"
+      [maximizable]="true" [baseZIndex]="10000" [blockScroll]="true" [draggable]="true">
+      <p-header>
+        Claims Created
+      </p-header>
+      <p>Number of Claims Created: <span style="color: #58a5f8;font-weight: bold;">{{selectedNewClaims}}</span></p>
+      <p>Added to Batch: <span style="color: #58a5f8;font-weight: bold;">{{save_batchName}}</span></p>
+      <p>Number Of Existing Claims added to the Batch: <span
+          style="color: #58a5f8;font-weight: bold;">{{selectedExitingClaims}}</span></p>
+      <p-footer>
+        <button (click)="closeBatchBox()" class="sf-positive-btn">Ok</button>
+      </p-footer>
+    </p-dialog>
+  </div>
+</div>

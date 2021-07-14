@@ -1,0 +1,349 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+
+<div class="container-background">
+  <div class="container-foreground">
+
+    <div class="card">
+      <h5 class="card-header">Authorization Information</h5>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6">
+                <label>Begin Date</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{authDetail.beginDate}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Provider</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{authDetail.providerID?.providerName}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Payer Rate</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{authDetail.payorRate}}</p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <label>Unit Type</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{authDetail.unitTypeID?.unitType}}</p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <label>Units</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{authDetail.unitsAuth}}</p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <p-checkbox [(ngModel)]="authDetail.payPlacement" label="Pay Placement" binary="true" disabled>
+                </p-checkbox>
+
+              </div>
+              <div class="col-md-6">
+                <p-checkbox [(ngModel)]="authDetail.paySponser" label="Pay Sponser" binary="true" disabled></p-checkbox>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6">
+                <label>End Date</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{authDetail.endDate}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Procode</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{authDetail.procodeID?.procode}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Provider Rate</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{authDetail.providerRate}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Units Remaining</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{authDetail.unitsRemaining}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Payer Authorization</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{authDetail.payorAuthorizationID}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="card">
+      <h5 class="card-header">Claim Information</h5>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6">
+                <label>Begin Date</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{claimDetail.beginDate}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <p-checkbox [(ngModel)]="claimDetail.dateOverride" label="Overide Date" binary="true" disabled>
+                </p-checkbox>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Payer Rate</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{claimDetail.payorRate}}</p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <label>Unit Type</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{claimDetail.unitTypeID?.unitType}}</p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <label>Units</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{claimDetail.units}}</p>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6">
+                <label>End Date</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{claimDetail.endDate}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Procode</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{claimDetail.procodeID?.procode}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Provider Rate</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{claimDetail.providerRate}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Total Hours</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{claimDetail.hourlyUnits}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <h5 class="paye-head">Payee</h5>
+        <hr>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6">
+                <label>Payment Type</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{claimDetail.paymentTypeID?.paymentType}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Provider</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{claimDetail.providerID?.providerName}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Received Date</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{claimDetail.receivedDate}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Address</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;{{claimDetail.clientID?.address}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6">
+                <label>Who To Pay</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Provider Sponser</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Resource</label>
+              </div>
+              <div class="col-md-6">
+                <p><b>:</b>&nbsp;</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label>City, State, Zip</label>
+              </div>
+              <div class="col-md-6">
+                <p>
+                  <b>:</b>&nbsp;{{claimDetail?.clientID?.cityID?.city}},{{claimDetail?.clientID?.stateID?.state}},{{claimDetail?.clientID?.zipcodeID?.zipcodeID}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6">
+                <label>Notes</label>
+              </div>
+              <div class="col-md-6">
+                <textarea [(ngModel)]="claimDetail.notes" [disabled]="isNotes" name="notes" pInputTextarea
+                  autoResize="autoResize" rows="3" cols="150" style="width: 90%;height: 80px"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Expected Payment Date</label>
+              </div>
+              <div class="col-md-6">
+                <p-calendar [(ngModel)]="claimDetail.paymentDueDate" [disabled]="isExpactPaymentDate" name="TargetDate"
+                  class="date-picker" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-12">
+                <p-checkbox [(ngModel)]="claimDetail.isNotFCHWeb" [disabled]="isfchWeb" label="Not On FCH web"
+                  binary="true" disabled>
+                </p-checkbox>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6">
+                <label>Payment Notes(Shows on RA)</label>
+              </div>
+              <div class="col-md-6">
+                <textarea [(ngModel)]="claimDetail.paymentNotes" [disabled]="paymentNotes_dis" name="paymentNotes"
+                  pInputTextarea autoResize="autoResize" rows="3" cols="150"
+                  style="width: 90%;height: 80px !important;"></textarea>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-6">
+                <label>Status</label>
+              </div>
+              <div class="col-md-6">
+                <!-- <p-autoComplete [dropdown]="true" name="status" [disabled]="clmStatus" [(ngModel)]="claimStatusSelect"
+                      emptyMessage="No results found!" [suggestions]="allClaimStatus" (completeMethod)="filterClaim($event)"
+                      (onSelect)="selectClaim($event)" [forceSelection]="true" placeholder="Type here to search"
+                      field="claimStatus" size="23"></p-autoComplete> -->
+
+              </div>
+            </div>
+            <br>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="card">
+      <h5 class="card-header">Claims</h5>
+      <div class="card-body">
+        <!-- <ag-grid-angular style="width: 500px; height: 70vh;" class="ag-theme-balham" [rowData]="claimAllDetail"
+          [columnDefs]="columnClaimDefs" [enableSorting]="true" [rowDragManaged]="true"
+          [suppressDragLeaveHidesColumns]="true" enableColResize="true" style="width: 100%;height: 70vh;"
+          animateRows="true" rowSelection="multiple">
+        </ag-grid-angular> -->
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,979 @@
+<div id="print-form-content">
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+  <p-toast position="center" [baseZIndex]="99999999"></p-toast>
+
+  <div class="flex-container header">
+    <div class="logo">
+      <img src="assets/logo color.svg" alt="">
+    </div>
+    <div class="head">
+      CROPS Youth Form – 3.2
+      <br> KAPP (Ages 6-18)
+    </div>
+    <div class="case-info">
+      <div>
+        <span>Administered by </span>
+        <input readonly [(ngModel)]="cisCrops.StaffName.value" type="text" pInputText size="20" />
+      </div>
+      <div>
+        <span>ID #</span>
+        <input readonly [(ngModel)]="cisCrops.staffId" type="text" pInputText size="20" />
+      </div>
+    </div>
+  </div>
+  <h2>PART A – Demographic Information</h2>
+  <div class="flex-container space-between">
+    <div class="flex-container">
+      <div>
+        Name:
+      </div>
+      <div>
+        <input readonly [(ngModel)]="cisCrops.ClientName.value" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container">
+      <div>
+        Child ID:
+      </div>
+      <div>
+        <input readonly [(ngModel)]="cisCrops.kaecses.value" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container">
+      <div>
+        Age:
+      </div>
+      <div>
+        <input readonly [(ngModel)]="cisCrops.Age.value" type="text" pInputText size="20" />
+      </div>
+    </div>
+  </div>
+  <div class="flex-container space-between">
+    <div class="flex-container">
+      <div>
+        Case ID:
+      </div>
+      <div>
+        <input readonly [(ngModel)]="cisCrops.clientId" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container">
+      <div>
+        Date of Completion:
+      </div>
+      <div>
+        <input readonly [(ngModel)]="cisCrops.CompletionDate.value" type="text" pInputText size="20" />
+        <!-- <p-calendar readonly [(ngModel)]="cisCrops.CompletionDate.value" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+          yearRange="2000:2030"></p-calendar> -->
+      </div>
+    </div>
+  </div>
+
+  <form id="form-content" [formGroup]="unableToAccesForm" class="sf-form">
+    <p-checkbox (onChange)="handleDataField(cisCrops.disableValidate)" formControlName="disableValidate" binary="true" name="disableValidate"
+      [(ngModel)]="cisCrops.disableValidate"></p-checkbox>Unable to Access
+  </form>
+  <!-- <p-checkbox *ngIf="!cisCrops.disableValidate" (onChange)="handleDataField(true)" formControlName="disableValidate" name="disableValidate"
+      [(ngModel)]="cisCrops.disableValidate"></p-checkbox>
+    <p-checkbox binary="true" *ngIf="cisCrops.disableValidate" (onChange)="handleDataField(false)"></p-checkbox> -->
+  
+  
+  <div *ngIf="cisCrops.disableValidate">
+    <p>Remarks:</p>
+    <textarea (ngModelChange)="saveRemarks($event)" [(ngModel)]="cisCrops.remarks.value" pInputTextarea autoResize="autoResize"
+    rows={{rowMethod(cisCrops.remarks.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    <!-- <textarea (ngModelChange)="saveRemarks($event)" pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea> -->
+  </div>
+  <form id="form-content" [formGroup]="cropsForm" class="sf-form">
+    <h2>PART B – CROPS</h2>
+    <p>Mark how true each statement feels for you
+      <span class="bold">in the past week.</span>
+    </p>
+    <p>Don't skip any, even if you're not sure. There is no right or wrong answer. </p>
+    <p>Answer by circling
+      <span class="bold">0 for none, 1 for some, 2 for lots.</span>
+    </p>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">None</th>
+          <th class="table-td">Some</th>
+          <th class="table-td">Lots</th>
+          <th class="table-td"></th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question1" name="CROPS_Question1" [(ngModel)]="cisCrops.CROPS_Question1.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question1" name="CROPS_Question1" [(ngModel)]="cisCrops.CROPS_Question1.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question1" name="CROPS_Question1" [(ngModel)]="cisCrops.CROPS_Question1.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">1) I daydream (I have dreamlike thoughts while awake). </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question2" name="CROPS_Question2" [(ngModel)]="cisCrops.CROPS_Question2.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question2" name="CROPS_Question2" [(ngModel)]="cisCrops.CROPS_Question2.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question2" name="CROPS_Question2" [(ngModel)]="cisCrops.CROPS_Question2.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">2) I "space out" when people are talking to me (I get distracted when people are talking to me). </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question3" name="CROPS_Question3" [(ngModel)]="cisCrops.CROPS_Question3.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question3" name="CROPS_Question3" [(ngModel)]="cisCrops.CROPS_Question3.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question3" name="CROPS_Question3" [(ngModel)]="cisCrops.CROPS_Question3.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">3) I find it hard to concentrate. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question4" name="CROPS_Question4" [(ngModel)]="cisCrops.CROPS_Question4.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question4" name="CROPS_Question4" [(ngModel)]="cisCrops.CROPS_Question4.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question4" name="CROPS_Question4" [(ngModel)]="cisCrops.CROPS_Question4.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">4) I think about bad things that have happened. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question5" name="CROPS_Question5" [(ngModel)]="cisCrops.CROPS_Question5.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question5" name="CROPS_Question5" [(ngModel)]="cisCrops.CROPS_Question5.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question5" name="CROPS_Question5" [(ngModel)]="cisCrops.CROPS_Question5.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">5) I try to forget about bad things that have happened. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question6" name="CROPS_Question6" [(ngModel)]="cisCrops.CROPS_Question6.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question6" name="CROPS_Question6" [(ngModel)]="cisCrops.CROPS_Question6.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question6" name="CROPS_Question6" [(ngModel)]="cisCrops.CROPS_Question6.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">6) I avoid reminders of bad things that have happened. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question7" name="CROPS_Question7" [(ngModel)]="cisCrops.CROPS_Question7.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question7" name="CROPS_Question7" [(ngModel)]="cisCrops.CROPS_Question7.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question7" name="CROPS_Question7" [(ngModel)]="cisCrops.CROPS_Question7.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">7) I worry that bad things will happen. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question8" name="CROPS_Question8" [(ngModel)]="cisCrops.CROPS_Question8.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question8" name="CROPS_Question8" [(ngModel)]="cisCrops.CROPS_Question8.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question8" name="CROPS_Question8" [(ngModel)]="cisCrops.CROPS_Question8.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">8) I do special things to make sure nothing bad happens. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question9" name="CROPS_Question9" [(ngModel)]="cisCrops.CROPS_Question9.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question9" name="CROPS_Question9" [(ngModel)]="cisCrops.CROPS_Question9.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question9" name="CROPS_Question9" [(ngModel)]="cisCrops.CROPS_Question9.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">9) I do some things that I'm probably too old for. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question10" name="CROPS_Question10" [(ngModel)]="cisCrops.CROPS_Question10.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question10" name="CROPS_Question10" [(ngModel)]="cisCrops.CROPS_Question10.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question10" name="CROPS_Question10" [(ngModel)]="cisCrops.CROPS_Question10.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">10) Things make me upset or mad. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question11" name="CROPS_Question11" [(ngModel)]="cisCrops.CROPS_Question11.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question11" name="CROPS_Question11" [(ngModel)]="cisCrops.CROPS_Question11.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question11" name="CROPS_Question11" [(ngModel)]="cisCrops.CROPS_Question11.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">11) It is hard for me to go to sleep at night. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question12" name="CROPS_Question12" [(ngModel)]="cisCrops.CROPS_Question12.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question12" name="CROPS_Question12" [(ngModel)]="cisCrops.CROPS_Question12.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question12" name="CROPS_Question12" [(ngModel)]="cisCrops.CROPS_Question12.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">12) I have bad dreams or nightmares. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question13" name="CROPS_Question13" [(ngModel)]="cisCrops.CROPS_Question13.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question13" name="CROPS_Question13" [(ngModel)]="cisCrops.CROPS_Question13.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question13" name="CROPS_Question13" [(ngModel)]="cisCrops.CROPS_Question13.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">13) I get headaches. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question14" name="CROPS_Question14" [(ngModel)]="cisCrops.CROPS_Question14.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question14" name="CROPS_Question14" [(ngModel)]="cisCrops.CROPS_Question14.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question14" name="CROPS_Question14" [(ngModel)]="cisCrops.CROPS_Question14.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">14) I get stomach aches. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question15" name="CROPS_Question15" [(ngModel)]="cisCrops.CROPS_Question15.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question15" name="CROPS_Question15" [(ngModel)]="cisCrops.CROPS_Question15.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question15" name="CROPS_Question15" [(ngModel)]="cisCrops.CROPS_Question15.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">15) I feel sick or have pains. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question16" name="CROPS_Question16" [(ngModel)]="cisCrops.CROPS_Question16.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question16" name="CROPS_Question16" [(ngModel)]="cisCrops.CROPS_Question16.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question16" name="CROPS_Question16" [(ngModel)]="cisCrops.CROPS_Question16.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">16) I feel tired or low energy. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question17" name="CROPS_Question17" [(ngModel)]="cisCrops.CROPS_Question17.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question17" name="CROPS_Question17" [(ngModel)]="cisCrops.CROPS_Question17.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question17" name="CROPS_Question17" [(ngModel)]="cisCrops.CROPS_Question17.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">17) I feel all alone. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question18" name="CROPS_Question18" [(ngModel)]="cisCrops.CROPS_Question18.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question18" name="CROPS_Question18" [(ngModel)]="cisCrops.CROPS_Question18.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question18" name="CROPS_Question18" [(ngModel)]="cisCrops.CROPS_Question18.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">18) I feel strange or different than other kids. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question19" name="CROPS_Question19" [(ngModel)]="cisCrops.CROPS_Question19.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question19" name="CROPS_Question19" [(ngModel)]="cisCrops.CROPS_Question19.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question19" name="CROPS_Question19" [(ngModel)]="cisCrops.CROPS_Question19.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">19) I feel like there’s something wrong with me. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question20" name="CROPS_Question20" [(ngModel)]="cisCrops.CROPS_Question20.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question20" name="CROPS_Question20" [(ngModel)]="cisCrops.CROPS_Question20.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question20" name="CROPS_Question20" [(ngModel)]="cisCrops.CROPS_Question20.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">20) I feel like it’s my fault when bad things happen. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question21" name="CROPS_Question21" [(ngModel)]="cisCrops.CROPS_Question21.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question21" name="CROPS_Question21" [(ngModel)]="cisCrops.CROPS_Question21.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question21" name="CROPS_Question21" [(ngModel)]="cisCrops.CROPS_Question21.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">21) I’m a jinx, or bad-luck charm (bad things happen because I’m around). </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question22" name="CROPS_Question22" [(ngModel)]="cisCrops.CROPS_Question22.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question22" name="CROPS_Question22" [(ngModel)]="cisCrops.CROPS_Question22.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question22" name="CROPS_Question22" [(ngModel)]="cisCrops.CROPS_Question22.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">22) I feel sad or depressed. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question23" name="CROPS_Question23" [(ngModel)]="cisCrops.CROPS_Question23.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question23" name="CROPS_Question23" [(ngModel)]="cisCrops.CROPS_Question23.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question23" name="CROPS_Question23" [(ngModel)]="cisCrops.CROPS_Question23.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">23) I don’t feel like doing much. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question24" name="CROPS_Question24" [(ngModel)]="cisCrops.CROPS_Question24.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question24" name="CROPS_Question24" [(ngModel)]="cisCrops.CROPS_Question24.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question24" name="CROPS_Question24" [(ngModel)]="cisCrops.CROPS_Question24.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">24) My future looks bad. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question25" name="CROPS_Question25" [(ngModel)]="cisCrops.CROPS_Question25.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question25" name="CROPS_Question25" [(ngModel)]="cisCrops.CROPS_Question25.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question25" name="CROPS_Question25" [(ngModel)]="cisCrops.CROPS_Question25.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">25) I’m on the lookout for bad things that might happen. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="0" formControlName="CROPS_Question26" name="CROPS_Question26" [(ngModel)]="cisCrops.CROPS_Question26.fieldOptionIndex"
+                class="space-right"></p-radioButton>0
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="1" formControlName="CROPS_Question26" name="CROPS_Question26" [(ngModel)]="cisCrops.CROPS_Question26.fieldOptionIndex"
+                class="space-right"></p-radioButton>1
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <p-radioButton value="2" formControlName="CROPS_Question26" name="CROPS_Question26" [(ngModel)]="cisCrops.CROPS_Question26.fieldOptionIndex"
+                class="space-right"></p-radioButton>2
+            </div>
+          </td>
+          <td class="table-td">26) I am nervous or jumpy </td>
+        </tr>
+      </table>
+    </div>
+    <div class="flex-container">
+      <div>
+        <input formControlName="BTotal" name="BTotal" [(ngModel)]="cisCrops.BTotal.value" type="text" pInputText size="20" />
+      </div>
+      <div>
+        Total Score: 1-26 (except for item 24)
+      </div>
+    </div>
+    <h2>PART C – Exposure to Events- CSDC-KS </h2>
+    <p>
+      <span class="bold">Instructions to Youth:</span> I want to make sure that I know as much about you as I can so that I can understand you
+      better and you have all the help you need. Sometimes it’s difficult to talk about things that are bad memories for
+      us or make us sad or angry. But it can also make us feel better to have someone to talk to that we trust. This piece
+      of paper helps me remember some of the things children have gone through. </p>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td center" width="80%">
+            <h2>Have you ever…</h2>
+          </th>
+          <th class="table-td">
+            <h2>Check YES or NO</h2>
+          </th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            1. been in a storm, tornado, flood or fire that destroyed your house or school?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton value="0" formControlName="CROPS_Question27" name="CROPS_Question27" [(ngModel)]="cisCrops.CROPS_Question27.fieldOptionIndex"
+                  class="space-right"></p-radioButton> Yes
+              </div>
+              <div>
+                <p-radioButton value="1" formControlName="CROPS_Question27" name="CROPS_Question27" [(ngModel)]="cisCrops.CROPS_Question27.fieldOptionIndex"
+                  class="space-right"></p-radioButton> No
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            2. seen or been in an accident or were you hurt really badly?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton value="0" formControlName="CROPS_Question28" name="CROPS_Question28" [(ngModel)]="cisCrops.CROPS_Question28.fieldOptionIndex"
+                  class="space-right"></p-radioButton> Yes
+              </div>
+              <div>
+                <p-radioButton value="1" formControlName="CROPS_Question28" name="CROPS_Question28" [(ngModel)]="cisCrops.CROPS_Question28.fieldOptionIndex"
+                  class="space-right"></p-radioButton> No
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            3. had to go to the hospital because you were really sick or hurt?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton value="0" formControlName="CROPS_Question29" name="CROPS_Question29" [(ngModel)]="cisCrops.CROPS_Question29.fieldOptionIndex"
+                  class="space-right"></p-radioButton> Yes
+              </div>
+              <div>
+                <p-radioButton value="1" formControlName="CROPS_Question29" name="CROPS_Question29" [(ngModel)]="cisCrops.CROPS_Question29.fieldOptionIndex"
+                  class="space-right"></p-radioButton> No
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            4. been threatened or hit, punched, kicked or choked by another child or an adult?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton value="0" formControlName="CROPS_Question30" name="CROPS_Question30" [(ngModel)]="cisCrops.CROPS_Question30.fieldOptionIndex"
+                  class="space-right"></p-radioButton> Yes
+              </div>
+              <div>
+                <p-radioButton value="1" formControlName="CROPS_Question30" name="CROPS_Question30" [(ngModel)]="cisCrops.CROPS_Question30.fieldOptionIndex"
+                  class="space-right"></p-radioButton> No
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            5. had anyone threatened to or touched, looked at or take pictures of your private parts? Has anyone ever asked you to touch
+            or look at their private parts?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton value="0" formControlName="CROPS_Question31" name="CROPS_Question31" [(ngModel)]="cisCrops.CROPS_Question31.fieldOptionIndex"
+                  class="space-right"></p-radioButton> Yes
+              </div>
+              <div>
+                <p-radioButton value="1" formControlName="CROPS_Question31" name="CROPS_Question31" [(ngModel)]="cisCrops.CROPS_Question31.fieldOptionIndex"
+                  class="space-right"></p-radioButton> No
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            6. seen one of your parents punch, beat, shove, kick, or hurt your other parent in any way?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton value="0" formControlName="CROPS_Question32" name="CROPS_Question32" [(ngModel)]="cisCrops.CROPS_Question32.fieldOptionIndex"
+                  class="space-right"></p-radioButton> Yes
+              </div>
+              <div>
+                <p-radioButton value="1" formControlName="CROPS_Question32" name="CROPS_Question32" [(ngModel)]="cisCrops.CROPS_Question32.fieldOptionIndex"
+                  class="space-right"></p-radioButton> No
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            7. watched someone in your neighborhood get really hurt or die?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton value="0" formControlName="CROPS_Question33" name="CROPS_Question33" [(ngModel)]="cisCrops.CROPS_Question33.fieldOptionIndex"
+                  class="space-right"></p-radioButton> Yes
+              </div>
+              <div>
+                <p-radioButton value="1" formControlName="CROPS_Question33" name="CROPS_Question33" [(ngModel)]="cisCrops.CROPS_Question33.fieldOptionIndex"
+                  class="space-right"></p-radioButton> No
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            8. been removed from your home and had to live with another family or in another home?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton value="0" formControlName="CROPS_Question34" name="CROPS_Question34" [(ngModel)]="cisCrops.CROPS_Question34.fieldOptionIndex"
+                  class="space-right"></p-radioButton> Yes
+              </div>
+              <div>
+                <p-radioButton value="1" formControlName="CROPS_Question34" name="CROPS_Question34" [(ngModel)]="cisCrops.CROPS_Question34.fieldOptionIndex"
+                  class="space-right"></p-radioButton> No
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            9. been left alone for long periods of time, had to go without enough food and/or had to miss a lot of days of school?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton value="0" formControlName="CROPS_Question35" name="CROPS_Question35" [(ngModel)]="cisCrops.CROPS_Question35.fieldOptionIndex"
+                  class="space-right"></p-radioButton> Yes
+              </div>
+              <div>
+                <p-radioButton value="1" formControlName="CROPS_Question35" name="CROPS_Question35" [(ngModel)]="cisCrops.CROPS_Question35.fieldOptionIndex"
+                  class="space-right"></p-radioButton> No
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            10. been bullied (called names, pushed, stole your things, or threatened) by others? or treated badly because of your skin
+            color, religion, money/ clothes, LGBTQ, or because you were in foster care?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton value="0" formControlName="CROPS_Question36" name="CROPS_Question36" [(ngModel)]="cisCrops.CROPS_Question36.fieldOptionIndex"
+                  class="space-right"></p-radioButton> Yes
+              </div>
+              <div>
+                <p-radioButton value="1" formControlName="CROPS_Question36" name="CROPS_Question36" [(ngModel)]="cisCrops.CROPS_Question36.fieldOptionIndex"
+                  class="space-right"></p-radioButton> No
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            11. seen one of your parents struggle with depression (very sad) or other mental illness (very angry or seeing/hearing voices
+            when nothing was there) or with their use of street or prescription drugs or alcohol?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton value="0" formControlName="CROPS_Question37" name="CROPS_Question37" [(ngModel)]="cisCrops.CROPS_Question37.fieldOptionIndex"
+                  class="space-right"></p-radioButton> Yes
+              </div>
+              <div>
+                <p-radioButton value="1" formControlName="CROPS_Question37" name="CROPS_Question37" [(ngModel)]="cisCrops.CROPS_Question37.fieldOptionIndex"
+                  class="space-right"></p-radioButton> No
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            12. had someone who was close to you (e.g., parent, caregiver, sibling, friend) that is not there anymore maybe because they
+            are in jail, in college, in the army, or they died or were deported?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton value="0" formControlName="CROPS_Question38" name="CROPS_Question38" [(ngModel)]="cisCrops.CROPS_Question38.fieldOptionIndex"
+                  class="space-right"></p-radioButton> Yes
+              </div>
+              <div>
+                <p-radioButton value="1" formControlName="CROPS_Question38" name="CROPS_Question38" [(ngModel)]="cisCrops.CROPS_Question38.fieldOptionIndex"
+                  class="space-right"></p-radioButton> No
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            13. felt that no one really loved or cared for you or felt that you were all alone?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton value="0" formControlName="CROPS_Question39" name="CROPS_Question39" [(ngModel)]="cisCrops.CROPS_Question39.fieldOptionIndex"
+                  class="space-right"></p-radioButton> Yes
+              </div>
+              <div>
+                <p-radioButton value="1" formControlName="CROPS_Question39" name="CROPS_Question39" [(ngModel)]="cisCrops.CROPS_Question39.fieldOptionIndex"
+                  class="space-right"></p-radioButton> No
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            14. Did I forget to ask you about anything that may have happened to you? (please specify)
+            <div>
+              <input formControlName="CROPS_Question42" name="CROPS_Question42" [(ngModel)]="cisCrops.CROPS_Question42.value" type="text"
+                pInputText size="20" />
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton value="0" formControlName="CROPS_Question40" name="CROPS_Question40" [(ngModel)]="cisCrops.CROPS_Question40.fieldOptionIndex"
+                  class="space-right"></p-radioButton> Yes
+              </div>
+              <div>
+                <p-radioButton value="1" formControlName="CROPS_Question40" name="CROPS_Question40" [(ngModel)]="cisCrops.CROPS_Question40.fieldOptionIndex"
+                  class="space-right"></p-radioButton> No
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <p>
+      <span class="bold">Instructions to Youth:</span> Thank you for sharing what you have experienced. From what you shared with me, what was
+      the
+      <span class="bold">most hurtful or upsetting thing that happen to you?</span> Can you tell me all about that? </p>
+    <div>
+      <textarea formControlName="CTotal" name="CTotal" [(ngModel)]="cisCrops.CTotal.value" pInputTextarea autoResize="autoResize"
+      rows={{rowMethod(cisCrops.CTotal.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="flex-container">
+      <div>
+        Most stressful event identified:
+      </div>
+      <div>
+        <input formControlName="StressfulEventID" name="StressfulEventID" [(ngModel)]="cisCrops.StressfulEventID.value" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-between">
+      <div class="flex-container">
+        <div>
+          How old were you at the time of the event?
+        </div>
+        <div>
+          <input formControlName="CROPS_Question43" name="CROPS_Question43" [(ngModel)]="cisCrops.CROPS_Question43.value" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          Administered by
+        </div>
+        <div>
+          <input formControlName="StaffName" name="StaffName" [(ngModel)]="cisCrops.StaffName.value" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          ID#
+        </div>
+        <div>
+          <input formControlName="StaffID" name="StaffID" [(ngModel)]="cisCrops.staffId" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <button (click)="calculate()" type="button" class="btn btn-block btn-add margin-top">Calculate</button>
+  </form>
+</div>
+
+
+<app-form-footer (print)="printForm()" [isPrint]="true" (save)="saveForm(cisCrops)" (edit)="editForm()" [isDisabled]="isDisable" [editControll]="editControll" (finalize)="finalizeForm(cisCrops)"
+  [isFinalize]="isFinalize" (discard)="discardForm()" [isDisabled]="isDisable" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>

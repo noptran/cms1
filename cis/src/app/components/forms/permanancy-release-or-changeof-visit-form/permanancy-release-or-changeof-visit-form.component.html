@@ -1,0 +1,221 @@
+<div id="pdf-content">
+  <div class="header">
+    <div class="title">
+      <h2>REINTEGRATION
+        <br> FOSTER CARE
+        <br> PERMANENCY,
+        <br> RELEASE, OR CHANGE
+        <br> OF STATUS FORM</h2>
+    </div>
+    <div class="logo">
+      <img src="assets/images/logo.svg" />
+    </div>
+    <div class="form">
+      <div>
+        <client-search [ClientName]='displayClientName()' (setClientAction)="setClient($event)"></client-search>
+      </div>
+      <div>
+        <span>FACTS #:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.Facts.value"></mat-form-field>
+      </div>
+      <div>
+        <span>KAECSES #:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.Kaecses.value" readonly></mat-form-field>
+      </div>
+      <div>
+        <span>Office:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.Office.value"></mat-form-field>
+      </div>
+      <div>
+        <span>Social Worker:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.SocialWorker.value"></mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="instruction-section">
+    <span class="instruction"> INSTRUCTIONS:</span>
+    <span> order to assure accurate information is sent to DCF,
+      <span class="blank-text">ALL BLANKS</span> must be completed and sent to Care Center by 10am the following working
+      day after permanency occurs.</span>
+  </div>
+  <div>
+    <span>Email form to:</span>
+    <mat-form-field>
+      <input matInput [(ngModel)]="model.email.value"></mat-form-field>
+  </div>
+  <div class="permanency-section">
+    <span>Date of Permanency or Release:</span>
+    <mat-form-field floatLabel="never">
+      <input matInput [matDatepicker]="DateOfRelease" (click)="DateOfRelease.open()" placeholder="Choose a date" class="date"
+        [(ngModel)]="model.DateOfRelease.value">
+      <mat-datepicker #DateOfRelease></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <h4>Previous Placement:</h4>
+  <div class="textarea-section">
+    <p>Name:</p>
+    <mat-form-field *ngIf="!isFinalize">
+      <textarea matInput autosize [(ngModel)]="model.PreviousPlacementName.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.PreviousPlacementName.value}}</span>
+    <hr *ngIf="isFinalize">
+  </div>
+  <div class="textarea-section">
+    <p>Address, City, County, State, Zip:</p>
+    <mat-form-field *ngIf="!isFinalize">
+      <textarea matInput autosize [(ngModel)]="model.PreviousPlacementAddress.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.PreviousPlacementAddress.value}}</span>
+    <hr *ngIf="isFinalize">
+  </div>
+  <div class="textarea-section">
+    <p>District & School Leaving:</p>
+    <mat-form-field *ngIf="!isFinalize">
+      <textarea matInput autosize [(ngModel)]="model.PreviousPlacementSchool.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.PreviousPlacementSchool.value}}</span>
+    <hr *ngIf="isFinalize">
+  </div>
+  <div class="textarea-section">
+    <p>Level of Care:</p>
+    <mat-form-field *ngIf="!isFinalize">
+      <textarea matInput autosize [(ngModel)]="model.PreviousPlacementLevelOfCare.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.PreviousPlacementLevelOfCare.value}}</span>
+    <hr *ngIf="isFinalize">
+  </div>
+  <h4>Permanency Placement</h4>
+  <div class="textarea-section">
+    <p>Name:</p>
+    <mat-form-field *ngIf="!isFinalize">
+      <textarea matInput autosize [(ngModel)]="model.PermanencyPlacementName.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.PermanencyPlacementName.value}}</span>
+    <hr *ngIf="isFinalize">
+  </div>
+  <div class="textarea-section">
+    <p>Address, City, County, State, Zip:</p>
+    <mat-form-field *ngIf="!isFinalize">
+      <textarea matInput autosize [(ngModel)]="model.PermanencyPlacementAddress.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.PermanencyPlacementAddress.value}}</span>
+    <hr *ngIf="isFinalize">
+  </div>
+  <div class="textarea-section">
+    <p>Phone:</p>
+    <mat-form-field *ngIf="!isFinalize">
+      <textarea matInput autosize [(ngModel)]="model.PermanencyPlacementPhone.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.PermanencyPlacementPhone.value}}</span>
+    <hr *ngIf="isFinalize">
+  </div>
+  <div class="textarea-section">
+    <p>District & School Entering:</p>
+    <mat-form-field *ngIf="!isFinalize">
+      <textarea matInput autosize [(ngModel)]="model.PermanencyPlacementSchool.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.PermanencyPlacementSchool.value}}</span>
+    <hr *ngIf="isFinalize">
+  </div>
+  <h4>Reason for Permanency, Release or Change of Status</h4>
+  <div class="checkbox-section">
+    <mat-checkbox [(ngModel)]="model.REUNI.fieldOptionIndex">Returned Home (REUNI)</mat-checkbox>
+    <mat-checkbox [(ngModel)]="model.CustodialParent.fieldOptionIndex">Custodial Parent</mat-checkbox>
+    <mat-checkbox [(ngModel)]="model.NonCustodialParent.fieldOptionIndex">Non-Custodial Parent</mat-checkbox>
+    <mat-checkbox [(ngModel)]="model.APASigned.fieldOptionIndex">APA Signed</mat-checkbox>
+    <mat-checkbox [(ngModel)]="model.Released.fieldOptionIndex">DCF Released of Custody</mat-checkbox>
+    <mat-checkbox [(ngModel)]="model.AdoptivePlacement.fieldOptionIndex">Adoptive Placement Finalized (ADOPT)
+    </mat-checkbox>
+    <mat-checkbox [(ngModel)]="model.DirectPlacement.fieldOptionIndex">Direct Placement:</mat-checkbox>
+    <mat-checkbox [(ngModel)]="model.Relative.fieldOptionIndex">Relative</mat-checkbox>
+    <mat-checkbox [(ngModel)]="model.NonRelatives.fieldOptionIndex">Non-Relatives</mat-checkbox>
+    <mat-checkbox [(ngModel)]="model.AgedOut.fieldOptionIndex">Youth Aged Out</mat-checkbox>
+    <mat-checkbox [(ngModel)]="model.ReturnedHome.fieldOptionIndex">Returned Home and DCF Released of Custody (REUNI)
+    </mat-checkbox>
+    <div class="textarea-section">
+      <span>Highest Grade Completed:</span>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.HighestGradeCompleted.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.HighestGradeCompleted.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <mat-checkbox [(ngModel)]="model.custodial_Parent.fieldOptionIndex">Custodial Parent</mat-checkbox>
+    <mat-checkbox [(ngModel)]="model.nonCustodial_Parent.fieldOptionIndex">Non-Custodial Parent</mat-checkbox>
+    <mat-checkbox [(ngModel)]="model.KDOC.fieldOptionIndex">KDOC (Unless dually adjudicated)</mat-checkbox>
+    <mat-checkbox [(ngModel)]="model.Custodianship.fieldOptionIndex">Custodianship/Guardianship & DCF Releases of
+      Custody</mat-checkbox>
+    <mat-checkbox [(ngModel)]="model.ChildDeath.fieldOptionIndex">Child Death</mat-checkbox>
+    <mat-checkbox [(ngModel)]="model.AfterCareLivingOutOfState.fieldOptionIndex">After Care Completed (Living out of
+      State -No ICPC)</mat-checkbox>
+    <mat-checkbox [(ngModel)]="model.DCFRetraction.fieldOptionIndex">DCF Retraction</mat-checkbox>
+    <mat-checkbox [(ngModel)]="model.AfterCareCompleted.fieldOptionIndex">After Care Completed (365 Days)</mat-checkbox>
+    <div>
+      <mat-checkbox [(ngModel)]="model.ChangeOfVenu.fieldOptionIndex">Change of Venue To:</mat-checkbox>
+      <mat-form-field> <input matInput class="input-md" [(ngModel)]="model.ChangeOfVenueTo.value">
+      </mat-form-field>
+    </div>
+    <div class="textarea-section">
+      <p>Date County Accepted Venue:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.DateCountAcceptedVenue.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.DateCountAcceptedVenue.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="textarea-section">
+      <p>New Court Case#:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.NewCourtCaseNo.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.NewCourtCaseNo.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="textarea-section">
+      <p>New DCF Worker:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.NewDCFWorker.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.NewDCFWorker.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+  </div>
+  <div>
+    <span>Who initiated the permanency or release?</span>
+  </div>
+  <div class="judge-section">
+    <div class="grid-section">
+      <mat-checkbox [(ngModel)]="model.InitiatedDCF.fieldOptionIndex">DCF</mat-checkbox>
+      <mat-checkbox [(ngModel)]="model.InitiatedSFCS.fieldOptionIndex">SFCS</mat-checkbox>
+      <mat-checkbox [(ngModel)]="model.InitiatedCourt.fieldOptionIndex">Court</mat-checkbox>
+    </div>
+    <div class="judge-field">
+      <span>Judge:</span>
+      <mat-form-field>
+        <input matInput class="input-md" [(ngModel)]="model.Judge.value"></mat-form-field>
+    </div>
+  </div>
+  <div class="html2pdf__page-break"></div>
+  <div class="footer">
+    <div>
+      <span>Person filling out form:</span>
+      <mat-form-field> <input matInput class="input-md" [(ngModel)]="model.StaffName.value" readonly>
+      </mat-form-field>
+    </div>
+    <div>
+      <span>Date:</span>
+      <mat-form-field floatLabel="never">
+        <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose a date" class="date"
+          [(ngModel)]="model.CompletionDate.value" value="{{date}}">
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<form-footer (resetAction)='resetForm()' (calculateAction)='calculateForm()' (saveAction)='saveForm()'
+  (finalizeAction)='finalize()'>
+</form-footer>

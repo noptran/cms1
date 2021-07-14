@@ -1,0 +1,63 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="confidentialityPolicyForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        CONFIDENTIALITY POLICY
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+    </div>
+    <p>Children in foster care and their families have the right to have information maintained about them, by the agency, kept
+      confidential. That information must be held in confidence by all involved in their care and treatment.</p>
+    <p>Saint Francis Ministries staff will disclose information only on a “need-to-know” basis and that will assist in planning
+      and caring for the child. Included in this information may be assessments and explanations of the child’s behaviors
+      and problems that will aid in the care of the child. Also included may be information pertaining to the child’s birth
+      family, such as reasons for placement, names of parents, siblings, and other relatives of the child.</p>
+    <p>Information received from Saint Francis staff, other professionals involved with the child, directly from the child or
+      his/her family, is Confidential. It is important that resource families only share this information with Saint Francis
+      staff or other professionals directly involved with the care and treatment of the child and family.</p>
+    <p>The law mandates that the child in foster care has a right to privacy. Information about them will not be discussed with
+      other relatives, friends, neighbors, or others not directly involved in the care and treatment of the child.</p>
+    <p>It is important to remember that meaningful, constructive, and necessary information will need to be shared with Saint
+      Francis staff and other professionals involved in the child and family’s care and treatment. The child in foster care
+      needs to be aware of this policy. Reminding the child of this plan helps him/her to understand that the agency, birth
+      parents, family members, and other professionals involved in his/her care are working to meet his/her needs.</p>
+
+    <div class="row margin-bottom-1rem">
+      <div class="col-xs-1">
+        Signature
+      </div>
+      <div class="col-xs-4">
+        <input [(ngModel)]="kinConfidentialityPolicy.Signature1" formControlName="Signature1" name="Signature1" type="text" pInputText
+          size="20" />
+      </div>
+      <div class="col-xs-1">
+        Date
+      </div>
+      <div class="col-xs-4">
+        <p-calendar [(ngModel)]="kinConfidentialityPolicy.Date1" formControlName="Date1" name="Date1" class="date-picker" showTime="true"
+          hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+
+    <div class="row margin-bottom-1rem">
+      <div class="col-xs-1">
+        Signature
+      </div>
+      <div class="col-xs-4">
+        <input [(ngModel)]="kinConfidentialityPolicy.Signature2" formControlName="Signature2" name="Signature2" type="text" pInputText
+          size="20" />
+      </div>
+      <div class="col-xs-1">
+        Date
+      </div>
+      <div class="col-xs-4">
+        <p-calendar [(ngModel)]="kinConfidentialityPolicy.Date2" formControlName="Date2" name="Date2" class="date-picker" showTime="true"
+          hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+
+  </form>
+</div>
+<app-form-footer (save)="saveForm($event,kinConfidentialityPolicy)" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

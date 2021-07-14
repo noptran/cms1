@@ -1,0 +1,150 @@
+<!-- <div style="margin-top:60px"> -->
+<app-form-header [title]="title" [status]="status" [breadcrumbs]="breadcrumbs" [formstatus]="formStatus"
+  [subtitle]="subtitle"></app-form-header>
+<!-- <app-open-cards [cards]="openCards" (cardAction)="opencardsAction($event)"></app-open-cards> -->
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form [formGroup]="orgForm" id="you" autocomplete="off" class="sf-form">
+      <!-- <div class="container-fluid sf-default-form"> -->
+      <div class="sf-form-size margin-left-45">
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Condition</span>
+              <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="condition" emptyMessage="No results found!"
+                placeholder="Type here to search" [forceSelection]="true" [suggestions]="metadata"
+                (completeMethod)="getMetaData($event,'condition')" [(ngModel)]="clientProfile.conditionID"
+                [dropdown]="true" field="condition"></p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="sf-labels">Begin Date</span>
+              <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+              <p-calendar formControlName="beginDate" [showIcon]="true" name="beginDate"
+                [(ngModel)]="clientProfile.beginDate"></p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="sf-labels">End Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+              <p-calendar formControlName="endDate" [showIcon]="true" [(ngModel)]="clientProfile.endDate"
+                name="endDate"></p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6 ">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="sf-labels">Notification Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+              <p-calendar formControlName="notificationDate" [showIcon]="true"
+                [(ngModel)]="clientProfile.notificationDate" name="notification_date"></p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="sf-labels">Last Occurance
+
+              </span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+              <p-calendar formControlName="lastOccurrence" [showIcon]="true" name="lastOccurrence"
+                [(ngModel)]="clientProfile.lastOccurrence"></p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3 ">
+              <span class="sf-labels">Frequency Type</span>
+              <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+              <p-autoComplete formControlName="frequency_type" emptyMessage="No results found!"
+                placeholder="Type here to search" [forceSelection]="true" [suggestions]="metadata"
+                (completeMethod)="getMetaData($event,'frequency_type')" [dropdown]="true" name="frequency_type"
+                [(ngModel)]="clientProfile.frequencyTypeID" field="frequencyType"></p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="sf-labels">Risk</span>
+              <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+              <p-autoComplete formControlName="risk" emptyMessage="No results found!" placeholder="Type here to search"
+                [forceSelection]="true" [suggestions]="metadata" (completeMethod)="getMetaData($event,'risk')"
+                [dropdown]="true" name="risk" [(ngModel)]="clientProfile.riskID" field="risk"></p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Note Any Injuries</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText formControlName="note_any_injuries" size="27" name="any_injuries"
+                [(ngModel)]="clientProfile.noteAnyInjuries" />
+            </div>
+          </div>
+
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Who Needs To Be Protected</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText formControlName="be_protected" size="27" name="be_protected"
+                [(ngModel)]="clientProfile.whoNeedsToBeProtected" />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Triggers</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText formControlName="triggers" size="27" name="triggeres"
+                [(ngModel)]="clientProfile.triggers" />
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-1 col-md-1 col-sm-1">
+              <span class="sf-labels">Notes</span>
+              <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-11 col-md-11 col-sm-11 ">
+              <textarea formControlName="notes" class="sf-width-100" rows="4" name="notes"
+                [(ngModel)]="clientProfile.notes"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+      <footer>
+        <app-form-footer [attachmentControll]="isAttachmentRequired" [isAttachmentDisabled]="false"
+          (attachDoc)="navigateTo()" (save)="saveForm(clientProfile)" (edit)="editForm()" [editControll]="editCntrl"
+          [discardTo]="discardTo" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+      </footer>
+    </form>
+    <app-quick-menu [module]="quickMenu"></app-quick-menu>
+  </div>
+</div>
+<!-- </div> -->

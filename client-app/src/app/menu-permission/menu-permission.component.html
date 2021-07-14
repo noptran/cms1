@@ -1,0 +1,244 @@
+<hr style="margin: 0px !important;">
+<h5 class="head_acces">Set Menu Permission</h5>
+<hr style="margin: 0px !important;">
+<div class="container-background">
+  <div class="container-foreground">
+    <div id="loading-overlay">
+      <p class="loader-text">
+        <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+      </p>
+    </div>
+    <div class="client-form">
+      <div style="padding:5px;">
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+
+            <div class="row">
+              <div class="col-md-4">
+                <p>Set Who's Menu Rights?</p>
+                <p-radioButton name="groupname" value="group" [(ngModel)]="menuRight" (click)="showGroupOrUser('group')"
+                  label="Group"></p-radioButton>
+                <p-radioButton name="groupname" value="user" [(ngModel)]="menuRight" (click)="showGroupOrUser('user')"
+                  label="User"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <div *ngIf="show_group_user==='group'">
+                  <p>Groups</p>
+                  <p-autoComplete [(ngModel)]="groupData" [suggestions]="groupSearchList"
+                    (onSelect)="getGroupDetails($event,'group')" (completeMethod)="getSearchGroup($event)"
+                    field="GroupName" [dropdown]="true" [forceSelection]="true">
+                  </p-autoComplete>
+                </div>
+                <div *ngIf="show_group_user==='user'">
+                  <p>Users</p>
+                  <p-autoComplete [(ngModel)]="userData" [suggestions]="allUserLists"
+                    (onSelect)="getGroupDetails($event,'user')" (completeMethod)="allUsers($event)" field="name"
+                    [dropdown]="true" [forceSelection]="true">
+                  </p-autoComplete>
+                </div>
+
+              </div>
+
+              <div class="col-md-2">
+                <p>&nbsp;</p>
+                <button class="sf-positive-btn" (click)="saveMenuAccess()">
+                  <span>Save</span>
+                </button>
+              </div>
+              <div class="col-md-2">
+                <p>&nbsp;</p>
+                <button class="sf-negative-btn">
+                  <span>Cancel</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default" *ngIf="firstLevelMenus.length==0">
+          <div class="text-center"><b>Please Select the {{select_drop}}</b></div>
+        </div>
+        <div class="horizonal-slider" *ngIf="firstLevelMenus.length>0">
+          <div class="">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div>
+                  <div class="row panel-menu" *ngFor="let firstMenus of firstLevelMenus; let i1 = index"
+                    [ngClass]="{'active': selectFirstMenuItem == firstMenus.menuName}">
+                    <div class="col-md-2">
+
+                      <p-checkbox binary="true" name="groupname" value="{{firstMenus.menuID}}"
+                        [(ngModel)]="selectedFirstLevelMenu[firstMenus.menuID]" (onChange)="handle_firstMenuData($event,firstMenus)"></p-checkbox>
+                    </div>
+                    <div class="col-md-10"
+                      (click)="getSecondLevelMenu('secondLevelMenu',firstMenus);firstLevelActiveMenu(firstMenus.menuName)">
+                      <span>{{firstMenus.menuName}}</span>
+                      <i class="fa fa-caret-right pull-right font-20" style="color: #e9b641;"></i>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div *ngFor="let secondMenus of secondLevelMenus">
+                  <div *ngIf="isReport" class="row panel-menu">
+                    <div class="col-md-2">
+                      <p-checkbox binary="true" name="groupname" value="{{secondMenus.reportMenuID}}"
+                        [(ngModel)]="selectedSecondLevelMenu[secondMenus.reportMenuID]" (onChange)="handle_SecondMenuData($event,secondMenus)"></p-checkbox>
+                    </div>
+                    <div class="col-md-10" (click)="getSecondLevelMenu('thirdLevelMenu',secondMenus)">
+                      <span>{{secondMenus.menuName}}</span>
+                      <i class="fa fa-caret-right pull-right font-20" style="color: #e9b641;"></i>
+                    </div>
+                  </div>
+                  <div *ngIf="!isReport" class="row panel-menu">
+                    <div class="col-md-2">
+                      <p-checkbox binary="true" name="groupname" value="{{secondMenus.menuID}}"
+                        [(ngModel)]="selectedSecondLevelMenu[secondMenus.menuID]" (onChange)="handle_SecondMenuData($event,secondMenus)"></p-checkbox>
+                    </div>
+                    <div class="col-md-10" (click)="getSecondLevelMenu('thirdLevelMenu',secondMenus)">
+                      <span>{{secondMenus.menuName}}</span>
+                      <i class="fa fa-caret-right pull-right font-20" style="color: #e9b641;"></i>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div>
+                  <div *ngFor="let thirdMenus of thirdLevelMenus">
+                      <div *ngIf="isReport" class="row panel-menu">
+                          <div class="col-md-2">
+                              <p-checkbox binary="true" name="groupname" value="{{thirdMenus.reportMenuID}}"
+                                [(ngModel)]="selectedThirdLevelMenu[thirdMenus.reportMenuID]" (onChange)="handle_ThirdMenuData($event,thirdMenus)"></p-checkbox>
+                            </div>
+                            <div class="col-md-10" (click)="getSecondLevelMenu('fourthLevelMenu',thirdMenus)">
+                              <span>{{thirdMenus.menuName}}</span>
+                              <i class="fa fa-caret-right pull-right font-20" style="color: #e9b641;"></i>
+                            </div>
+                      </div>
+                      <div *ngIf="!isReport" class="row panel-menu">
+                          <div class="col-md-2">
+                              <p-checkbox binary="true" name="groupname" value="{{thirdMenus.menuID}}"
+                                [(ngModel)]="selectedThirdLevelMenu[thirdMenus.menuID]" (onChange)="handle_ThirdMenuData($event,thirdMenus)"></p-checkbox>
+                            </div>
+                            <div class="col-md-10" (click)="getSecondLevelMenu('fourthLevelMenu',thirdMenus)">
+                              <span>{{thirdMenus.menuName}}</span>
+                              <i class="fa fa-caret-right pull-right font-20" style="color: #e9b641;"></i>
+                            </div>
+                        </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div>
+                  <div *ngFor="let fourthMenus of fourthLevelMenus">
+                      <div *ngIf="isReport" class="row panel-menu">
+                          <div class="col-md-2">
+                              <p-checkbox binary="true" name="groupname" value="{{fourthMenus.reportMenuID}}"
+                                [(ngModel)]="selectedFourthLevelMenu[fourthMenus.reportMenuID]" (onChange)="handle_fourthMenuData($event,fourthMenus)"></p-checkbox>
+                            </div>
+                            <div class="col-md-10" (click)="getSecondLevelMenu('fifthLevelMenu',fourthMenus)">
+                              <span>{{fourthMenus.menuName}}</span>
+                              <i class="fa fa-caret-right pull-right font-20" style="color: #e9b641;"></i>
+                            </div>
+                      </div>
+                      <div *ngIf="!isReport" class="row panel-menu">
+                          <div class="col-md-2">
+                              <p-checkbox binary="true" name="groupname" value="{{fourthMenus.menuID}}"
+                                [(ngModel)]="selectedFourthLevelMenu[fourthMenus.menuID]"(onChange)="handle_fourthMenuData($event,fourthMenus)"></p-checkbox>
+                            </div>
+                            <div class="col-md-10" (click)="getSecondLevelMenu('fifthLevelMenu',fourthMenus)">
+                              <span>{{fourthMenus.menuName}}</span>
+                              <i class="fa fa-caret-right pull-right font-20" style="color: #e9b641;"></i>
+                            </div>
+                        </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                
+                    
+                  <div *ngFor="let fifthMenus of fifthLevelMenus">
+                      <div *ngIf="isReport" class="row panel-menu">
+                          <div class="col-md-2">
+                              <p-checkbox binary="true" name="groupname" value="{{fifthMenus.reportMenuID}}"
+                                [(ngModel)]="selectedFifthLevelMenu[fifthMenus.reportMenuID]" (onChange)="handle_fifthMenuData($event,fifthMenus)"></p-checkbox>
+                            </div>
+                            <div class="col-md-10" (click)="getSecondLevelMenu('sixthLevelMenu',fifthMenus)">
+                              <span>{{fifthMenus.menuName}}</span>
+                              <i class="fa fa-caret-right pull-right font-20" style="color: #e9b641;"></i>
+                            </div>
+                        </div>
+                        <div *ngIf="!isReport" class="row panel-menu">
+                            <div class="col-md-2">
+                                <p-checkbox binary="true" name="groupname" value="{{fifthMenus.menuID}}" (onChange)="handle_fifthMenuData($event,fifthMenus)"
+                                  [(ngModel)]="selectedFifthLevelMenu[fifthMenus.menuID]"></p-checkbox>
+                              </div>
+                              <div class="col-md-10" (click)="getSecondLevelMenu('sixthLevelMenu',fifthMenus)">
+                                <span>{{fifthMenus.menuName}}</span>
+                                <i class="fa fa-caret-right pull-right font-20" style="color: #e9b641;"></i>
+                              </div>
+                          </div>
+                   
+                  </div>
+                
+              </div>
+            </div>
+          </div>
+          <div class="">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div>
+                  <div *ngFor="let sixthMenus of sixthLevelMenus">
+                      <div *ngIf="isReport" class="row panel-menu">
+                          <div class="col-md-2">
+                              <p-checkbox binary="true" name="groupname" value="{{sixthMenus.reportMenuID}}"  (onChange)="handle_sixththMenuData($event,sixthMenus)"
+                                [(ngModel)]="selectedSixthLevelMenu[sixthMenus.reportMenuID]"></p-checkbox>
+                            </div>
+                            <div class="col-md-10" (click)="getSecondLevelMenu('sixthLevelMenu',sixthMenus)">
+                              <span>{{sixthMenus.menuName}}</span>
+                              <i class="fa fa-caret-right pull-right font-20" style="color: #e9b641;"></i>
+                            </div>
+                      </div>
+                      <div *ngIf="!isReport" class="row panel-menu">
+                          <div class="col-md-2">
+                              <p-checkbox binary="true" binary="true" name="groupname" value="{{sixthMenus.menuID}}" (onChange)="handle_sixththMenuData($event,sixthMenus)"
+                                [(ngModel)]="selectedSixthLevelMenu[sixthMenus.menuID]" ></p-checkbox>
+                            </div>
+                            <div class="col-md-10" (click)="getSecondLevelMenu('sixthLevelMenu',sixthMenus)">
+                              <span>{{sixthMenus.menuName}}</span>
+                              <i class="fa fa-caret-right pull-right font-20" style="color: #e9b641;"></i>
+                            </div>
+                      </div>
+                   
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

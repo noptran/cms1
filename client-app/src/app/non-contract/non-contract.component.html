@@ -1,0 +1,1211 @@
+<app-form-header
+  [title]="title"
+  [status]="status"
+  [breadcrumbs]="breadcrumbs"
+  [formstatus]="formStatus"
+  [moreActions]="moreActions"
+  [formNavigation]="form_navigation"
+  [subtitle]="subtitle"
+></app-form-header>
+<!-- <div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div> -->
+<div class="new_ref container-background">
+  <div class="container-foreground">
+    <div class="sf-text-center">
+
+        <div class="row margin-top-20">
+           
+              <div class="col-lg-5 col-md-5 col-sm-5">
+                <span class="sf-labels">Select Referral</span>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-dropdown
+                  [options]="listOfReferral"
+                  (onChange)="onChangeReferrel(selectedReferral)"
+                  name="typeOfReferral"
+                  [(ngModel)]="selectedReferral"
+                  optionLabel="display"
+                  [style]="{ width: '360px' }"
+                  placeholder="Select one referral"
+                ></p-dropdown>
+              </div>
+          </div>
+    </div>
+  <br>
+  <hr>
+  <br>
+    <div *ngIf="nc_bh_value">
+      <nav class="nav-fill head_align">
+        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+          <a
+            class="nav-item nav-link"
+            *ngFor="let main of mainTabs; let i = index"
+            [class.active]="sIndex === i"
+            (click)="setIndex(i, $event)"
+            data-toggle="tab"
+            href="{{ main.href }}"
+            role="tab"
+            ><b>{{ main.label }}</b></a
+          >
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div
+          class="tab-pane margin-left-45 active in"
+          id="nav-1"
+          role="tabpanel"
+          aria-labelledby="nav-general-tab">
+          <form class="margin-top-20 sf-form client-form non-form">
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Client</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-autoComplete [dropdown]="true"></p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Adult</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-checkbox
+                    binary="true"
+                    binary="true"
+                    name="adult"
+                    [(ngModel)]="nc_fi_data.adult"
+                  ></p-checkbox>
+                </div>
+              </div>
+            </div>
+
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">HOH</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-checkbox
+                    binary="true"
+                    name="hoh"
+                    [(ngModel)]="nc_fi_data.hoh"
+                  ></p-checkbox>
+                </div>
+              </div>
+            </div>
+
+            <br />
+            <button
+              type="button"
+              class="sf-positive-btn pull-right  margin-right-82"
+              (click)="add_nc_fi_data()"
+            >
+              Add to FIS
+            </button>
+            <br />
+            <table class="fisMember-table">
+              <thead>
+                <tr>
+                  <th>Client</th>
+                  <th>Adult</th>
+                  <th>HOH</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let nc_fi of nc_fi_list; let i = index">
+                  <td>{{ nc_fi.client }}</td>
+                  <td>
+                    <span *ngIf="!nc_fi.adult" class="negative-mark"
+                      >&#10006;</span
+                    >
+                    <span *ngIf="nc_fi.adult" class="positive-mark"
+                      >&#10004;</span
+                    >
+                  </td>
+                  <td>
+                    <span *ngIf="!nc_fi.hoh" class="negative-mark"
+                      >&#10006;</span
+                    >
+                    <span *ngIf="nc_fi.hoh" class="positive-mark"
+                      >&#10004;</span
+                    >
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="sf-positive-btn ac"
+                      (click)="view_nc_fiTime(nc_fi, i)"
+                    >
+                      <i class="fa fa-eye" aria-hidden="true"></i>
+                    </button>
+                    <button
+                      type="button"
+                      class="sf-negative-btn ac"
+                      (click)="deletenc_fiTime(i)"
+                    >
+                      <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <hr />
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">No Child in Home</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-checkbox binary="true"></p-checkbox>
+                </div>
+              </div>
+              
+            </div>
+          </form>
+        </div>
+
+        <div
+          class="tab-pane margin-left-45"
+          id="nav-2"
+          role="tabpanel"
+          aria-labelledby="nav-general-tab"
+        >
+        <form class="margin-top-20 sf-form client-form non-form">
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Begin Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  [showIcon]="true"
+                  showTime="true"
+                  hourFormat="24"
+                  [yearNavigator]="true"
+                  [monthNavigator]="true"
+                  yearRange="2000:2030"
+                ></p-calendar>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>End Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  type="text"
+                  class="input"
+                  maxlength="25"
+                  pInputText
+                  size="27"
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Unit Rate</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-spinner></p-spinner>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Units</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-spinner></p-spinner>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Procode Code</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+                <p-autoComplete [dropdown]="true"></p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Authorization Payor</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+                <p-autoComplete [dropdown]="true"></p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Notes</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <textarea
+                  class="sf-width-100"
+                  rows="4"
+                  pInputTextarea
+                  style=" width: 100%;     height: 100%;"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <button
+          type="button"
+          class="sf-positive-btn pull-right  margin-right-82">
+          Save
+        </button>
+         </form>
+        </div>
+        <div
+          class="tab-pane margin-left-45"
+          id="nav-3"
+          role="tabpanel"
+          aria-labelledby="nav-general-tab"
+        >
+          <form class="margin-top-20 sf-form client-form non-form">
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Date of Notification</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-calendar
+                    [showIcon]="true"
+                    showTime="true"
+                    hourFormat="24"
+                    [yearNavigator]="true"
+                    [monthNavigator]="true"
+                    yearRange="2000:2030"
+                  ></p-calendar>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Referral Date </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-calendar
+                    [showIcon]="true"
+                    showTime="true"
+                    hourFormat="24"
+                    [yearNavigator]="true"
+                    [monthNavigator]="true"
+                    yearRange="2000:2030"
+                  ></p-calendar>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Facts</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <input
+                    type="text"
+                    class="input"
+                    maxlength="25"
+                    pInputText
+                    size="27"
+                  />
+                  <!-- <div class="alert" *ngIf="!orgForm.controls['lastName'].valid && orgForm.controls['lastName'].touched">Enter
+                                            a valid name</div> -->
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Primary Referral Reason</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete [dropdown]="true"></p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Secondary Referral Reason</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete [dropdown]="true"></p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">County </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <input
+                    type="text"
+                    class="input"
+                    maxlength="25"
+                    pInputText
+                    size="27"
+                  />
+                  <!-- <div class="alert" *ngIf="!orgForm.controls['lastName'].valid && orgForm.controls['lastName'].touched">Enter
+                                                    a valid name</div> -->
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">SFCS Worker</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete [dropdown]="true"></p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Case Manager Type </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <input
+                    type="text"
+                    class="input"
+                    maxlength="25"
+                    pInputText
+                    size="27"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">DCF Worker</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <input
+                    type="text"
+                    class="input"
+                    maxlength="25"
+                    pInputText
+                    size="27"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">On Radar </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-checkbox binary="true"></p-checkbox>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Why is family being referred? </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <textarea class="sf-width-100" rows="5"></textarea>
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Office File</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-spinner [maxlength]="10" [min]="0"></p-spinner>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">MMA </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-spinner [maxlength]="10" [min]="0"></p-spinner>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">File Issue Date</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-calendar
+                    [showIcon]="true"
+                    showTime="true"
+                    hourFormat="24"
+                    [yearNavigator]="true"
+                    [monthNavigator]="true"
+                    yearRange="2000:2030"
+                  ></p-calendar>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">File Staff </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-autoComplete [dropdown]="true"></p-autoComplete>
+                </div>
+              </div>
+            </div>
+
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">24 Hour Date</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-spinner [maxlength]="10" [min]="0"></p-spinner>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">24 Hour Staff </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-calendar
+                    [showIcon]="true"
+                    showTime="true"
+                    hourFormat="24"
+                    [yearNavigator]="true"
+                    [monthNavigator]="true"
+                    yearRange="2000:2030"
+                  ></p-calendar>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">48 Hour Date</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-spinner [maxlength]="10" [min]="0"></p-spinner>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">48 Hour Staff </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-calendar
+                    [showIcon]="true"
+                    showTime="true"
+                    hourFormat="24"
+                    [yearNavigator]="true"
+                    [monthNavigator]="true"
+                    yearRange="2000:2030"
+                  ></p-calendar>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >Family Income Annual Household Income</span
+                  >
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-spinner [maxlength]="10" [min]="0"></p-spinner>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Number Living in Household </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-spinner [maxlength]="10" [min]="0"></p-spinner>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Single Parent Household</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-checkbox binary="true"></p-checkbox>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Family Refused </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-checkbox binary="true"></p-checkbox>
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Referral Closure Date</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-calendar
+                    [showIcon]="true"
+                    showTime="true"
+                    hourFormat="24"
+                    [yearNavigator]="true"
+                    [monthNavigator]="true"
+                    yearRange="2000:2030"
+                  ></p-calendar>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Referral Withdraw Date </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-calendar
+                    [showIcon]="true"
+                    showTime="true"
+                    hourFormat="24"
+                    [yearNavigator]="true"
+                    [monthNavigator]="true"
+                    yearRange="2000:2030"
+                  ></p-calendar>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Referral Closure Date</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete [dropdown]="true"></p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Case Payor </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-autoComplete [dropdown]="true"></p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Withdraw Reason</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <textarea class="sf-width-100" rows="5"></textarea>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Notes </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <textarea class="sf-width-100" rows="5"></textarea>
+                </div>
+              </div>
+            </div>
+            <app-form-footer
+              [attachmentControll]="isAttachmentRequired"
+            ></app-form-footer>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="nc_ops_value">
+      <nav class="nav-fill head_align" *ngIf="nc_ops_value">
+        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+          <a
+            class="nav-item nav-link"
+            *ngFor="let main of main_ops_Tabs; let i = index"
+            [class.active]="sIndex === i"
+            (click)="setIndex(i, $event)"
+            data-toggle="tab"
+            href="{{ main.href }}"
+            role="tab"
+            ><b>{{ main.label }}</b></a
+          >
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+
+        <div
+          class="tab-pane margin-left-45  active in"
+          id="ops_nav-1"
+          role="tabpanel"
+          aria-labelledby="nav-general-tab">
+          <form class="margin-top-20 sf-form client-form non-form">
+          <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Client</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete [dropdown]="true"></p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Facts </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <input
+                    type="text"
+                    class="input"
+                    maxlength="25"
+                    pInputText
+                    size="27"/>
+                </div>
+              </div>
+            </div>
+            <br>
+            <button
+            type="button"
+            class="sf-positive-btn pull-right  margin-right-82" >
+            Check
+          </button>
+          </form>
+      </div>
+      
+      <div
+      class="tab-pane margin-left-45"
+      id="ops_nav-2"
+      role="tabpanel"
+      aria-labelledby="nav-general-tab"
+    >
+    <form class="margin-top-20 sf-form client-form non-form">
+    <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Begin Date</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar
+              [showIcon]="true"
+              showTime="true"
+              hourFormat="24"
+              [yearNavigator]="true"
+              [monthNavigator]="true"
+              yearRange="2000:2030"
+            ></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>End Date</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              type="text"
+              class="input"
+              maxlength="25"
+              pInputText
+              size="27"
+              disabled
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Unit Rate</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner></p-spinner>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Units</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner></p-spinner>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Procedure Code</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+            <p-autoComplete [dropdown]="true"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Authorization Payor</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+            <p-autoComplete [dropdown]="true"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Notes</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <textarea
+              class="sf-width-100"
+              rows="4"
+              pInputTextarea
+              style=" width: 100%;     height: 100%;"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <button
+      type="button"
+      class="sf-positive-btn pull-right  margin-right-82">
+      Save
+    </button>
+</form>
+    </div>
+
+    <div
+    class="tab-pane margin-left-45"
+    id="ops_nav-3"
+    role="tabpanel"
+    aria-labelledby="nav-general-tab">
+  <form class="margin-top-20 sf-form client-form non-form">
+      <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                      <span class="sf-labels">Begin Date</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                          <p-calendar
+                          [showIcon]="true"
+                          showTime="true"
+                          hourFormat="24"
+                          [yearNavigator]="true"
+                          [monthNavigator]="true"
+                          yearRange="2000:2030"
+                        ></p-calendar>
+                  </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                          <span class="sf-labels">End Date
+                          </span>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                              <p-calendar
+                              [showIcon]="true"
+                              showTime="true"
+                              hourFormat="24"
+                              [yearNavigator]="true"
+                              [monthNavigator]="true"
+                              yearRange="2000:2030"
+                            ></p-calendar>
+                      </div>
+                  </div>
+          </div>
+          <div class="row margin-top-20">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                          <span class="sf-labels">File Number</span>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                        <p-spinner [maxlength]="10" [min]="0"></p-spinner>
+                      </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                          <div class="col-lg-6 col-md-6 col-sm-6">
+                              <span class="sf-labels">Case Payor
+                              </span>
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-sm-6">
+                                  <p-autoComplete [dropdown]="true"></p-autoComplete>
+                          </div>
+                      </div>
+              </div>
+              <div class="row margin-top-20">
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                          <div class="col-lg-6 col-md-6 col-sm-6">
+                              <span class="sf-labels">Service Type</span>
+                          </div>
+                          <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                            <p-autoComplete [dropdown]="true"></p-autoComplete>
+                          </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                              <div class="col-lg-6 col-md-6 col-sm-6">
+                                  <span class="sf-labels">Notes
+                                  </span>
+                              </div>
+                              <div class="col-lg-6 col-md-6 col-sm-6">
+                                      <textarea class="sf-width-100"  rows="5"></textarea>
+                              </div>
+                          </div>
+                  </div>
+                  <app-form-footer [attachmentControll]="isAttachmentRequired " [isAttachmentDisabled]="false" (attachDoc)="navigateTo()" (save)="saveForm(fpRef)"
+                  (discard)="discardForm()" (edit)="editForm()" (sendMail)="showDialog()" [editControll]="edit" [mailBtnControl]="isMail"
+                  [discardTo]="discardTo"></app-form-footer>
+</form>
+  </div>
+
+
+
+
+      </div>
+    </div>
+
+
+    <div *ngIf="nc_rfc_value">
+        <nav class="nav-fill head_align" *ngIf="nc_rfc_value">
+          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a
+              class="nav-item nav-link"
+              *ngFor="let main of main_rfc_Tabs; let i = index"
+              [class.active]="sIndex === i"
+              (click)="setIndex(i, $event)"
+              data-toggle="tab"
+              href="{{ main.href }}"
+              role="tab"
+              ><b>{{ main.label }}</b></a
+            >
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div
+            class="tab-pane margin-left-45  active in"
+            id="rfc_nav-1"
+            role="tabpanel"
+            aria-labelledby="nav-general-tab">
+            <form class="margin-top-20 sf-form client-form non-form">
+            <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Client</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                    <p-autoComplete [dropdown]="true"></p-autoComplete>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Facts </span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                      <input
+                      type="text"
+                      class="input"
+                      maxlength="25"
+                      pInputText
+                      size="27"/>
+                  </div>
+                </div>
+            
+              <br>
+                <table class="fisMember-table">
+                  <thead>
+                    <tr>
+                      <th>Referral Type</th>
+                      <th>Begin Date</th>
+                      <th>HOH</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>FI</td>
+                      <td>
+                       01/09/2018 01:22:00:pm
+                      </td>
+                      <td>
+                      GillenWatter
+                      </td>
+                      
+                    </tr>
+                  </tbody>
+                </table>
+
+
+
+              </div>
+              <button
+              type="button"
+              class="sf-positive-btn pull-right  margin-right-82" >
+              Check
+            </button>
+  </form>
+  
+        </div>
+        
+        <div
+        class="tab-pane margin-left-45"
+        id="rfc_nav-2"
+        role="tabpanel"
+        aria-labelledby="nav-general-tab"
+      >
+      <form class="margin-top-20 sf-form client-form non-form">
+      <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Begin Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar
+                [showIcon]="true"
+                showTime="true"
+                hourFormat="24"
+                [yearNavigator]="true"
+                [monthNavigator]="true"
+                yearRange="2000:2030"
+              ></p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>End Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                class="input"
+                maxlength="25"
+                pInputText
+                size="27"
+                disabled
+              />
+            </div>
+          </div>
+        </div>
+  
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Unit Rate</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-spinner></p-spinner>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Units</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-spinner></p-spinner>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Procedure Code</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+              <p-autoComplete [dropdown]="true"></p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Authorization Payor</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+              <p-autoComplete [dropdown]="true"></p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Notes</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <textarea
+                class="sf-width-100"
+                rows="4"
+                pInputTextarea
+                style=" width: 100%;     height: 100%;"
+              ></textarea>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Home County</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+                <p-autoComplete [dropdown]="true"></p-autoComplete>
+              </div>
+            </div>
+        </div>
+        <app-form-footer [attachmentControll]="isAttachmentRequired " [isAttachmentDisabled]="false" (attachDoc)="navigateTo()" (save)="saveForm(fpRef)"
+        (discard)="discardForm()" (edit)="editForm()" (sendMail)="showDialog()" [editControll]="edit" [mailBtnControl]="isMail"
+        [discardTo]="discardTo"></app-form-footer>
+  </form>
+      </div>
+        </div>
+      </div>
+
+
+
+
+
+      <div *ngIf="nc_fch_value">
+          <nav class="nav-fill head_align" *ngIf="nc_fch_value">
+            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+              <a
+                class="nav-item nav-link"
+                *ngFor="let main of main_fch_Tabs; let i = index"
+                [class.active]="sIndex === i"
+                (click)="setIndex(i, $event)"
+                data-toggle="tab"
+                href="{{ main.href }}"
+                role="tab"
+                ><b>{{ main.label }}</b></a
+              >
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div
+              class="tab-pane margin-left-45  active in"
+              id="fch_nav-1"
+              role="tabpanel"
+              aria-labelledby="nav-general-tab">
+              <form class="margin-top-20 sf-form client-form non-form">
+              <div class="row margin-top-20">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <span class="sf-labels">Client</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                      <p-autoComplete [dropdown]="true"></p-autoComplete>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <span class="sf-labels">Facts </span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <input
+                        type="text"
+                        class="input"
+                        maxlength="25"
+                        pInputText
+                        size="27"/>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <button
+                type="button"
+                class="sf-positive-btn pull-right  margin-right-82" >
+                Check
+              </button>
+    </form>
+    
+          </div>
+          
+          <div
+          class="tab-pane margin-left-45"
+          id="fch_nav-2"
+          role="tabpanel"
+          aria-labelledby="nav-general-tab"
+        >
+        <form class="margin-top-20 sf-form client-form non-form">
+        <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Begin Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  [showIcon]="true"
+                  showTime="true"
+                  hourFormat="24"
+                  [yearNavigator]="true"
+                  [monthNavigator]="true"
+                  yearRange="2000:2030"
+                ></p-calendar>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>End Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  type="text"
+                  class="input"
+                  maxlength="25"
+                  pInputText
+                  size="27"
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
+    
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Facts</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input
+                  type="text"
+                  class="input"
+                  maxlength="25"
+                  pInputText
+                  size="27"
+                  disabled
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Case Payor</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+                  <p-autoComplete [dropdown]="true"></p-autoComplete>
+                </div>
+              </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Notes</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <textarea
+                  class="sf-width-100"
+                  rows="4"
+                  pInputTextarea
+                  style=" width: 100%;     height: 100%;"
+                ></textarea>
+              </div>
+            </div>
+            
+          </div>
+          <app-form-footer [attachmentControll]="isAttachmentRequired " [isAttachmentDisabled]="false" (attachDoc)="navigateTo()" (save)="saveForm(fpRef)"
+          (discard)="discardForm()" (edit)="editForm()" (sendMail)="showDialog()" [editControll]="edit" [mailBtnControl]="isMail"
+          [discardTo]="discardTo"></app-form-footer>
+    </form>
+        </div>
+          </div>
+        </div>
+
+
+  </div>
+</div>

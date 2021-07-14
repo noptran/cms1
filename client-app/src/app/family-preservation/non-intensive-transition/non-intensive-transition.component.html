@@ -1,0 +1,285 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="NonIntensiveTransitionForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        FAMILY PRESERVATION <br>
+        NON-INTENSIVE TRANSITION
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Case Name:</span>
+          <input readonly [(ngModel)]="fpNonIntensiveTransition.caseName" formControlName="caseName" name="caseName"  type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Case Number:</span>
+          <input readonly [(ngModel)]="fpNonIntensiveTransition.caseNumber" formControlName="caseNumber" name="caseNumber"  type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Date of Referral:</span>
+          <p-calendar [(ngModel)]="fpNonIntensiveTransition.dateOfReferral" formControlName="dateOfReferral" name="dateOfReferral"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>Date:</span>
+          <p-calendar [(ngModel)]="fpNonIntensiveTransition.date" formControlName="date" name="date"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Date to Transition to Non-Intensive Services</div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="fpNonIntensiveTransition.dateToTransition" formControlName="dateToTransition" name="dateToTransition"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+          [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down space-between">
+      <div class="space-right">Reason:</div>
+      <div class="space-down">
+        <div class="space-right space-down">
+          <p-checkbox binary="true" [(ngModel)]="fpNonIntensiveTransition.goalsMet" formControlName="goalsMet" name="goalsMet"  class="space-right"></p-checkbox>Goals Met
+        </div>
+        <div class="space-right space-down">
+          <p-checkbox binary="true" [(ngModel)]="fpNonIntensiveTransition.unableToLocate" formControlName="unableToLocate" name="unableToLocate"  class="space-right"></p-checkbox>Family refused services
+        </div>
+      </div>
+      <div class="space-down">
+        <div class="space-right space-down">
+          <p-checkbox binary="true" [(ngModel)]="fpNonIntensiveTransition.approvalToDcfDate" formControlName="approvalToDcfDate" name="approvalToDcfDate"  class="space-right"></p-checkbox>Unable to locate
+        </div>
+        <div class="space-right space-down">
+          <p-checkbox binary="true" [(ngModel)]="fpNonIntensiveTransition.familyRefused" formControlName="familyRefused" name="familyRefused"  class="space-right"></p-checkbox>Child(ren) moved with bio-parent who has custody
+        </div>
+      </div>
+      <div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">Approval to DCF:</div>
+          <div>
+            <div class="space-down">
+              <p-calendar [(ngModel)]="fpNonIntensiveTransition.childMoved" formControlName="childMoved" name="childMoved"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+                [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </div>
+            <div class="space-right center">Date</div>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">Approved by DCF: <br>
+            (Approval doc in file)
+          </div>
+          <div>
+            <div class="space-down">
+              <p-calendar [(ngModel)]="fpNonIntensiveTransition.approvedByDcfDate" formControlName="approvedByDcfDate" name="approvedByDcfDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+                [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </div>
+            <div class="space-right center">Date</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="space-down table-td">
+      <div class="border-line table-td">
+        <h3 class="bold center space-down">FAMILY</h3>
+        <p>1. What progress have you made since Family Preservations services were started?</p>
+        <div class="space-down">
+          <textarea [(ngModel)]="fpNonIntensiveTransition.progress" formControlName="progress" name="progress"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+        <div class="flex-container space-down">
+          <div class="space-right">
+            2. Have you accomplished the outcomes/goals of your Family Case Plan? (attach to this form)
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpNonIntensiveTransition.isOutcomesGoalsYes" formControlName="isOutcomesGoalsYes" name="isOutcomesGoalsYes"  class="space-right"></p-checkbox>Yes
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpNonIntensiveTransition.isOutcomesGoalsNo" formControlName="isOutcomesGoalsNo" name="isOutcomesGoalsNo"  class="space-right"></p-checkbox>No
+          </div>
+        </div>
+        <div class="space-down">
+          <textarea [(ngModel)]="fpNonIntensiveTransition.outcomesGoals" formControlName="outcomesGoals" name="outcomesGoals"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+        <p>3. What will you continue to work on?</p>
+        <div class="space-down">
+          <textarea [(ngModel)]="fpNonIntensiveTransition.continueToWork" formControlName="continueToWork" name="continueToWork"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+        <p>
+          4. You understand that SFCS will continue to provide services to your family (if needed) for the remainder of
+          the year (twelve months from the date of referral) and may be resumed if a report alleging abuse/neglect or
+          non-abuse/neglect concerns, the opening of a new case involving allegations of abuse/neglect, or
+          non-abuse/neglect, or the family believes they are in need of intensive services?
+        </p>
+        <div class="flex-container space-right space-down">
+          <div class="space-right"> Initials</div>
+          <div class="space-right">
+            <input [(ngModel)]="fpNonIntensiveTransition.continueToWork1" formControlName="continueToWork1" name="continueToWork1"  type="text" pInputText size="20" />
+          </div>
+        </div>
+        <p>
+          5. You understand that SFCS must be notified in the event of problems, address changes or phone changes?
+        </p>
+        <div class="flex-container space-right space-down">
+          <div class="space-right"> Initials</div>
+          <div class="space-right">
+            <input [(ngModel)]="fpNonIntensiveTransition.initials" formControlName="initials" name="initials"  type="text" pInputText size="20" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <div class="space-down table-td">
+      <div class="border-line table-td">
+        <h3 class="bold center space-down">SAINT FRANCIS COMMUNITY SERVICES</h3>
+        <p>1. The following community resources should be continued:</p>
+        <div class="space-down">
+          <textarea [(ngModel)]="fpNonIntensiveTransition.communityResources" formControlName="communityResources" name="communityResources"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+        <div class="flex-container space-down">
+          <div class="space-right">
+            2. Recommended SFCS services (check a plan):
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpNonIntensiveTransition.isAttached" formControlName="isAttached" name="isAttached"  class="space-right"></p-checkbox>Attached Non-Intensive Plan
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpNonIntensiveTransition.isReferCasePlan" formControlName="isReferCasePlan" name="isReferCasePlan"  class="space-right"></p-checkbox>Refer to Case Plan
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right"> Provided by what staff (Therapist, Family Support Worker, or both)? </div>
+          <div class="space-right">
+            <input [(ngModel)]="fpNonIntensiveTransition.providedByStaff" formControlName="providedByStaff" name="providedByStaff"  type="text" pInputText size="20" />
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right"> Date and type of next scheduled contact (face to face or phone):</div>
+          <div class="space-right">
+            <p-calendar [(ngModel)]="fpNonIntensiveTransition.dateAndType" formControlName="dateAndType" name="dateAndType"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <p>3. The following appointments, meetings, etc. should be kept as part of non-intensive services:</p>
+        <div class="space-down">
+          <textarea [(ngModel)]="fpNonIntensiveTransition.followingAppointments" formControlName="followingAppointments" name="followingAppointments"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+        </div>
+        <div class="flex-container space-down">
+          <div class="space-right">
+            4. COURT RELATED:
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpNonIntensiveTransition.isDcfCustody" formControlName="isDcfCustody" name="isDcfCustody"  class="space-right"></p-checkbox>DCF Custody
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpNonIntensiveTransition.isInformalSupervision" formControlName="isInformalSupervision" name="isInformalSupervision"  class="space-right"></p-checkbox>Informal Supervision
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpNonIntensiveTransition.isOther" formControlName="isOther" name="isOther"  class="space-right"></p-checkbox>Other
+            <input [(ngModel)]="fpNonIntensiveTransition.other" formControlName="other" name="other"  type="text" pInputText size="20" />
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="flex-container space-right space-down">
+            <div class="space-right"> Next Scheduled Court Date and Time:</div>
+            <div class="space-right">
+              <p-calendar [(ngModel)]="fpNonIntensiveTransition.nextScheduledDate" formControlName="nextScheduledDate" name="nextScheduledDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+                [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </div>
+          </div>
+          <div class="flex-container space-right space-down">
+            <div class="space-right"> Type of hearing:</div>
+            <div class="space-right">
+              <input [(ngModel)]="fpNonIntensiveTransition.typeOfHearing" formControlName="typeOfHearing" name="typeOfHearing"  type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">Current Case Plan expires on:</div>
+          <div class="space-right">
+            <input [(ngModel)]="fpNonIntensiveTransition.currentCasePlan" formControlName="currentCasePlan" name="currentCasePlan"  type="text" pInputText size="20" />
+          </div>
+          <div>(If DCF custody or Informal Supervision, the case plan must be current until released)</div>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <h3 class="bold center space-down">NON-INTENSIVE CHECKLIST</h3>
+        <div class="flex-container">
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpNonIntensiveTransition.isAchievementDates" formControlName="isAchievementDates" name="isAchievementDates"  class="space-right"></p-checkbox>Achievement dates on PPS 3050/3051 tasks
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpNonIntensiveTransition.isAsqSePost" formControlName="isAsqSePost" name="isAsqSePost"  class="space-right"></p-checkbox>ASQ-SE post survey (if applies)
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpNonIntensiveTransition.isNcfasG" formControlName="isNcfasG" name="isNcfasG"  class="space-right"></p-checkbox>NCFAS-G Closure Assessment
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3 class="bold center space-down">SIGNATURES OF THOSE PRESENT:</h3>
+    <div class="flex-container space-down space-between">
+      <div class="space-right">
+        <div class="space-down">
+          <input [(ngModel)]="fpNonIntensiveTransition.sfcsStaff" formControlName="sfcsStaff" name="sfcsStaff"  type="text" pInputText size="20" />
+        </div>
+        <div class="space-right center">SFCS Staff</div>
+      </div>
+      <div class="space-right">
+        <div class="space-down">
+          <input [(ngModel)]="fpNonIntensiveTransition.familyMember" formControlName="familyMember" name="familyMember"  type="text" pInputText size="20" />
+        </div>
+        <div class="space-right center">Family Member</div>
+      </div>
+      <div class="space-right">
+        <div class="space-down">
+          <input [(ngModel)]="fpNonIntensiveTransition.familyMember1" formControlName="familyMember1" name="familyMember1"  type="text" pInputText size="20" />
+        </div>
+        <div class="space-right center">Family Member</div>
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="space-right">
+        <div class="space-down">
+          <input [(ngModel)]="fpNonIntensiveTransition.otherend1" formControlName="otherend1" name="otherend1"  type="text" pInputText size="20" />
+        </div>
+        <div class="space-right center">Other</div>
+      </div>
+      <div class="space-right">
+        <div class="space-down">
+          <input [(ngModel)]="fpNonIntensiveTransition.otherend2" formControlName="otherend2" name="otherend2"  type="text" pInputText size="20" />
+        </div>
+        <div class="space-right center">Other</div>
+      </div>
+      <div class="space-right">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="fpNonIntensiveTransition.signaturedate" formControlName="signaturedate" name="signaturedate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-right center">Date</div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+        <div class="space-right space-down">
+          <div class="space-right">
+            <b>Printed Date:</b>
+          </div>
+          <div class="space-right">
+            <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="space-right space-down margin-left-66rem">
+          <div class="space-right">
+            <b>Printed By:</b>
+          </div>
+          <div class="space-right">
+            <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+          </div>
+        </div>
+  
+      </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,fpNonIntensiveTransition)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

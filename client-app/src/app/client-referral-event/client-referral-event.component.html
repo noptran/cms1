@@ -1,0 +1,89 @@
+<div class="margin-top-50">
+    <div id="loading-overlay">
+        <p class="loader-text">
+            <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+        </p>
+    </div>
+    <p-dataView #dv [value]="referralEventCards" [paginator]="true" [rows]="10" paginatorPosition="both" 
+        emptyMessage="No records found.">
+        <p-header>
+            <div class="ui-helper-clearfix">
+                <div class="ui-g">
+                    <div class="ui-g-12 ui-md-3">
+                        <p class="sf-black sf-label sf-heading-3 sf-black">Referral Events</p>
+                        <!-- <p class="sf-black sf-label sf-heading-3 sf-black">{{clientName}}</p> -->
+
+                        <!-- <p-dropdown [options]="configItems" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [autoWidth]="false" [style]="{'min-width':'15em'}"></p-dropdown> -->
+                    </div>
+                    <div class="ui-g-6 ui-md-3">
+                        <div style="position:relative">
+                            <!-- <input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filter($event.target.value)"> -->
+                        </div>
+                    </div>
+                    <div class="ui-g-6 ui-md-3">
+                        <!-- <span>Category</span> -->
+                        <!-- <p-dropdown [options]="listOfReferral" [(ngModel)]="selectedReferral"  *ngIf="selectedReferral" ></p-dropdown> -->
+                    </div>
+                    <div class="ui-g-6 ui-md-3  sf-text-right">
+                        <button class="sf-moderate-btn sf-filter-padding" (click)="back()" pTooltip="Back to client list">Back</button>
+                        <button class="sf-positive-btn sf-filter-padding" (click)="addReferralEvents()" pTooltip="Add new referral event details">Add</button>
+                        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                        <!-- <button class="sf-positive-btn margin-left-20"  data-toggle="modal" pTooltip="create new referral" data-target="#modalForm">+ Add Referral</button> -->
+                    </div>
+                </div>
+            </div>
+        </p-header>
+        <ng-template let-event pTemplate="listItem">
+            <!--*ngIf="selectedReferral == ref.referralName"-->
+            <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
+                <div class="ui-g-12 ui-md-5" style="text-align:center">
+                    <img src="{{generateIconURL(event?.referralEventTypeID?.referralEventType)}}" alt="{{event?.referralEventTypeID?.referralEventType}}">
+                </div>
+                <div class="ui-g-12 ui-md-6 car-details">
+                    <div class="ui-g">
+                        <div class="ui-g-2 ui-sm-6">
+                            <b>Event</b>
+                        </div>
+                        <div class="ui-g-10 ui-sm-6">{{event?.referralEventTypeID?.referralEventType}}</div>
+                        
+                        <div class="ui-g-2 ui-sm-6">
+                            <b>Payor</b>
+                        </div>
+                        <div class="ui-g-10 ui-sm-6">{{event?.payorID?.alias }}</div>
+
+                        <div class="ui-g-2 ui-sm-6">
+                            <b>Begin Date</b>
+                        </div>
+                        <div class="ui-g-10 ui-sm-6">{{event.beginDate | date:"MM/dd/yyyy" }}</div>
+
+                        <div class="ui-g-2 ui-sm-6">
+                            <b>End Date</b>
+                        </div>
+                        <div class="ui-g-10 ui-sm-6">{{event.endDate | date:"MM/dd/yyyy" }}</div>
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-md-1 search-icon">
+                    <button pButton type="button" icon="pi pi-external-link" pTooltip="click here navigate to detail view" (click)="componentNavigation(event.referralEventID)"></button>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template let-event pTemplate="gridItem">
+            <!--*ngIf="selectedReferral == ref.referralName"-->
+            <div style="padding:.5em" class="ui-g-12 ui-md-3">
+                <p-panel [header]="title" [style]="{'text-align':'center'}">
+                    <!-- <img src="assets/showcase/images/demo/car/{{car.brand}}.png" width="60"> -->
+                    <img src="{{generateIconURL(event?.referralEventTypeID?.referralEventType)}}" alt="{{event?.referralEventTypeID?.referralEventType}}">
+
+                    <!-- <div>{{allergy.dosageTypeID?.dosageType}}</div> -->
+                    <hr class="ui-widget-content" style="border-top:0">
+                    <button pButton type="button" icon="pi pi-external-link" pTooltip="click here navigate to detail view" (click)="componentNavigation(event.referralEventID)"
+                        style="margin-top:0"></button>
+                </p-panel>
+            </div>
+            <!-- <div *ngIf="selectedReferral != ref.referralName">
+    <span>No referral found!</span>
+</div> -->
+        </ng-template>
+    </p-dataView>
+</div>

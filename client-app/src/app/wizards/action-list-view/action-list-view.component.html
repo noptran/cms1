@@ -1,0 +1,57 @@
+<!--Search-->
+<!--Pagination-->
+<div *ngIf="listViewData.length > 0">
+    <div *ngIf="module ==='CISFormsList'" class="table-container">
+        <table class="list-view">
+            <tr>
+                <th>Completed Date</th>
+                <th>Actions</th>
+            </tr>
+            <tr *ngFor="let record of listViewData">
+                <td>{{record.completedDate}}</td>
+                <td><list-view-actions [actions]="actions" [rowData]="record"></list-view-actions></td>
+            </tr>
+        </table>
+    </div>
+    <!-- <div class="table-container" *ngIf="module !=='CISFormsList'">
+        <table class="list-view">
+            <thead>
+              <tr>           
+                <th *ngFor="let head of columns">{{head}}</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of listViewData">           
+                <td *ngFor="let list of item | keys">{{item[list]}}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div> -->
+    <div *ngIf="module !=='CISFormsList'" class="table-container">
+      <table class="list-view">
+          <tr>
+              <th>File Name</th>
+              <th>Document Type</th>
+              <th>Description</th>
+              <th>Uploaded Date</th>
+              <th>Uploaded By</th>
+              <th>File size</th>
+              <th>Actions</th>
+          </tr>
+          <tr *ngFor="let record of listViewData">
+              <td>{{record.fileName}}</td>
+              <td>{{record.documentType}}</td>
+              <td>{{record.description}}</td>
+              <td>{{record.uploadedDate | date: 'MM/dd/yyyy'}}</td>
+              <td>{{record.uploadedBy}}</td>
+              <td>{{record.fileSize}} K</td>
+              <td><list-view-actions [actions]="actions" [rowData]="record"></list-view-actions></td>
+          </tr>
+      </table>
+  </div>
+
+  </div>
+<div *ngIf="listViewData.length === 0">
+    <p class="info-text">No records found!</p>
+</div>

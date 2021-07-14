@@ -1,0 +1,698 @@
+<hr style="margin: 0px !important;">
+<h5 class="head_acces">Case Activity Log</h5>
+<hr style="margin: 0px !important;">
+<div class="container-background">
+  <div class="container-foreground">
+      <div id="loading-overlay-log">
+          <p class="loader-text">
+            <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+          </p>
+        </div>
+    <div class="card-header-row">
+      <div class="opencard-menu-container">
+        <div class="dropdown border-none sf-form" style=" width: 100% !important;">
+          <div class="row" style="margin-left: 7px; margin-right: 7px;">
+            <div class="col-md-7">
+              <h4 style="border-bottom: none;
+      width: 100%;" (click)="showDialog()"><span class="fa fa-filter" style="font-size:25px; color:blue;"></span>Search
+                & Filter</h4>
+            </div>
+            <div class="col-md-5">
+              <div class="pull-right">
+                <button class="sf-positive-btn" pTooltip="Add new" data-toggle="modal"
+                  data-target="#caseActivityDecisionForm">
+                  <span>Add new</span>
+                </button>
+                <button class="sf-negative-btn" pTooltip="Export" (click)="export()" *ngIf="isExport">
+                  <span>Export</span>
+                </button>
+                <button class="sf-negative-btn" pTooltip="Print" (click)="printDialogOptions()" *ngIf="isExport">
+                    <span>Print</span>
+                  </button>
+              </div>
+            </div>
+          </div>
+          <p-dialog [(visible)]="display" header="Case Activity Log" [responsive]="true" showEffect="fade"
+            [modal]="true" [width]="800" [minWidth]="800" [minY]="80" [baseZIndex]="10000" [maximizable]="true"
+            [closable]="true">
+            <div id="loading-overlay-log">
+              <p class="loader-message">Download is in progress, kindly hold on until the file is generated...</p>
+              <p class="loader-text">
+                <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+              </p>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span class="sf-labels">Limit selection</span>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9">
+                    <p-autoComplete [(ngModel)]="caseActivityLog.limitSelection" [suggestions]="allLimits" (completeMethod)="getLimit($event)" [dropdown]="true" [forceSelection]="true"></p-autoComplete>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span class="sf-labels">Staff <span class="mandatory">*</span></span>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9">
+                    <p-autoComplete placeholder="Type here to search" emptyMessage="No records found!" [dropdown]="true"
+                      [forceSelection]="true" (completeMethod)="getMetaData($event, 'staff')" [suggestions]="metaData"
+                      field="staffName" name="staff" [(ngModel)]="caseActivityLog.staffID">
+                      <ng-template let-staff pTemplate="item">
+                        <div class="ui-helper-clearfix dropdown-list">
+                          <table>
+                            <tr>
+                              <td><b>Staff Name</b></td>
+                              <td>{{staff?.lastName}}, {{staff?.firstName}}</td>
+                            </tr>
+                            <tr>
+                              <td><b>Gender</b></td>
+                              <td>{{staff?.genderID?.gender}}</td>
+                            </tr>
+                            <tr>
+                              <td><b>Cell Phone</b></td>
+                              <td>{{staff?.cellPh}}</td>
+                            </tr>
+                            <tr>
+                              <td><b>Office Name</b></td>
+                              <td>{{staff?.sfcsOfficeID?.officeName }}</td>
+                            </tr>
+                          </table>
+                        </div>
+                      </ng-template>
+                    </p-autoComplete>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span class="sf-labels">Client</span>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9">
+                    <p-autoComplete [dropdown]="true" placeholder="Type here to search" emptyMessage="No records found!"
+                      [dropdown]="true" [forceSelection]="true" (completeMethod)="getMetaData($event, 'client')"
+                      [(ngModel)]="caseActivityLog.clientID" [suggestions]="metaData" field="clientName"
+                      name="clientName" (onSelect)="clientFieldsCheck('client')">
+                      <ng-template let-client pTemplate="item">
+                        <div class="ui-helper-clearfix dropdown-list">
+                          <table>
+                            <tr>
+                              <td><b>Client Name</b></td>
+                              <td>{{client?.clientName}}</td>
+                            </tr>
+                            <tr>
+                              <td><b>DOB</b></td>
+                              <td>{{convertClientDob(client.dob)}}</td>
+                            </tr>
+                            <tr>
+                              <td><b>SSN</b></td>
+                              <td>{{client?.ssn}}</td>
+                            </tr>
+                            <tr>
+                              <td><b>Kaecses</b></td>
+                              <td>{{client?.kaecses }}</td>
+                            </tr>
+                            <tr>
+                              <td><b>OklahomaID</b></td>
+                              <td></td>
+                            </tr>
+                          </table>
+                        </div>
+                      </ng-template>
+                    </p-autoComplete>
+                    <span (click)="clearDepedentedFields('client')" *ngIf="isClearEnable" class="help-text">click here
+                      to clear the value</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span class="sf-labels">Contract</span>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9">
+                    <p-autoComplete [dropdown]="true" [dropdown]="true" [suggestions]="metaData"
+                      (completeMethod)="getMetaData($event, 'referralType')" field="referralType" name="contractType"
+                      (onSelect)="caseHeadFieldApperance($event)" [(ngModel)]="caseActivityLog.referralTypeID">
+                    </p-autoComplete>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span class="sf-labels">Begin date <span class="mandatory">*</span></span>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9">
+                    <p-calendar name="begindate" [(ngModel)]="caseActivityLog.begindate" monthNavigator="true" [showIcon]="true"
+                      yearNavigator="true" yearRange="1940:2040"></p-calendar>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span class="sf-labels">Selected order <span class="mandatory">*</span></span>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9">
+                    <p-autoComplete [dropdown]="true" [suggestions]="filteredSelectedOrder"
+                      (completeMethod)="filterSelectedOrder($event)" field="view" name="selectedOrder"
+                      [(ngModel)]="caseActivityLog.orderBy">
+                    </p-autoComplete>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span class="sf-labels">End date <span class="mandatory">*</span></span>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9">
+                    <p-calendar name="endDate" [(ngModel)]="caseActivityLog.endDate" monthNavigator="true" [showIcon]="true"
+                      yearNavigator="true" yearRange="1940:2040"></p-calendar>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span class="sf-labels">Procedure code</span>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9">
+                    <p-autoComplete [dropdown]="true" placeholder="Type here to search" emptyMessage="No records found!"
+                      [dropdown]="true" [forceSelection]="true" (completeMethod)="getMetaData($event, 'procode')"
+                      [suggestions]="metaData" field="procodeWithDesc" name="procode"
+                      [(ngModel)]="caseActivityLog.procodeID" field="categoryOfService">
+                      <ng-template let-procode pTemplate="item">
+                        <div class="ui-helper-clearfix dropdown-list">
+                          <div class="minimum-info-bax">
+                            <span>{{procode.procode}}</span>
+                            <span> - </span>
+                            <span>{{procode.categoryOfService}}</span>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </p-autoComplete>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-md-6">
+                <div class="row" *ngIf="isProvider">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span class="sf-labels">Provider</span>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9">
+                    <p-autoComplete [dropdown]="true" placeholder="Type here to search" emptyMessage="No records found!"
+                      [dropdown]="true" [forceSelection]="true" (completeMethod)="getMetaData($event, 'provider')"
+                      [suggestions]="metaData" field="providerName" name="provider"
+                      [(ngModel)]="caseActivityLog.providerID">
+                    </p-autoComplete>
+
+                  </div>
+                </div>
+                <div class="row" *ngIf="isCaseHead">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span class="sf-labels">Case Head</span>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9">
+                    <p-autoComplete [dropdown]="true" placeholder="Type here to search" emptyMessage="No records found!"
+                      [dropdown]="true" [forceSelection]="true" (completeMethod)="getMetaData($event, 'client')"
+                      [suggestions]="metaData" field="clientName" name="caseHead" [(ngModel)]="caseHead"
+                      (onSelect)="clientFieldsCheck('caseHead')">
+
+                      <ng-template let-client pTemplate="item">
+                        <div class="ui-helper-clearfix dropdown-list">
+                          <table>
+                            <tr>
+                              <td><b>Client Name</b></td>
+                              <td>{{client?.clientName}}</td>
+                            </tr>
+                            <tr>
+                              <td><b>DOB</b></td>
+                              <td>{{convertClientDob(client.dob)}}</td>
+                            </tr>
+                            <tr>
+                              <td><b>SSN</b></td>
+                              <td>{{client?.ssn}}</td>
+                            </tr>
+                            <tr>
+                              <td><b>Kaecses</b></td>
+                              <td>{{client?.kaecses }}</td>
+                            </tr>
+                            <tr>
+                              <td><b>OklahomaID</b></td>
+                              <td></td>
+                            </tr>
+                          </table>
+                        </div>
+                      </ng-template>
+                    </p-autoComplete>
+                    <span (click)="clearDepedentedFields('caseHead')" *ngIf="isClearEnable" class="help-text">click here
+                      to clear the value</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span class="sf-labels">Office</span>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-9">
+                  
+                      <p class="form-control"
+                        (click)="muteStream()"  style="height: 30px;border: 1px solid #737374;font-size: 1.5rem; width: 200px !important;">{{seleceOfc.length}} Office Selected</p>
+                      <div *ngIf="sh_drop" style="border: 1px solid f0f1f3;
+                      padding: 5px;
+                      width: 200px !important;
+                      height: 152px;
+                      background: #ffffff;
+                      position: absolute;
+                      z-index: 10;
+                      overflow-y: scroll;">
+                      <div class="pull-right">
+                        <i class="fa fa-times-circle" (click)="muteStream()" aria-hidden="true"></i>
+                      </div>
+                      <br>
+                      <input class="form-control" autocomplete="off" name="alias_MI" placeholder="Type here to search" [(ngModel)]="searchOfc" 
+                      (ngModelChange)="sf_office(searchOfc)"  style="height: 30px;border: 1px solid #737374;font-size: 1.5rem; width: 198px !important;" type="text">
+                      <br>
+                      <div>
+                        <div class="row panel-menu" *ngFor="let ofc of allOffice;let i=index">
+                          <div class="col-md-3">
+                             <p-checkbox [(ngModel)]="ofCchecked[i]" [binary]="true"
+                            (onChange)="selectOFC($event,ofc)"></p-checkbox>
+                          </div>
+                          <div class="col-md-9" (click)="muteStream()"> <p>{{ofc.officeName}}</p></div>
+                        </div>
+                          
+                       <div class="panel-menu" *ngIf="allOffice.length==0"><b>No Data Found</b></div>
+                       
+                      </div>
+                   
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-2 col-md-2 col-sm-2">
+                <span class="sf-labels">Notes</span>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-9">
+                <textarea pInputTextarea name="inputTextarea" style="width:100%;height:100%"
+                  [(ngModel)]="caseActivityLog.notes"></textarea>
+              </div>
+            </div>
+            <hr>
+            <div class="text-center">
+              <button pTooltip="Timeline" class="sf-negative-btn">
+                <span>Timeline</span>
+              </button>
+              <button class="sf-negative-btn" pTooltip="FI Timeline">
+                <span>FI Timeline</span>
+              </button>
+              <!-- (click)="print()" -->
+              <button class="sf-negative-btn" pTooltip="Print" (click)="clearForm()">
+                <span>Reset</span>
+              </button>
+              <button class="sf-positive-btn" pTooltip="Refresh" (click)="getLogResult(1,100)">
+                <span>Refresh</span>
+              </button>
+            </div>
+
+          </p-dialog>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <br>
+    <div class="sf-form client-form">
+      <div class="row" style="margin-left: 7px; margin-right: 7px;">
+        <div class="col-md-12">
+          <div class="table-responsive" *ngIf="logData.length > 0">
+            <!-- <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Last name</th>
+                  <th>First name</th>
+                  <th>MI</th>
+                  <th>Kaeceses</th>
+                  <th>Begin Date</th>
+                  <th>End Date</th>
+                  <th>Units</th>
+                  <th>Procode</th>
+                  <th>Contact type</th>
+                  <th>Staff last name</th>
+                  <th>Staff first name</th>
+                  <th>Staff MI</th>
+                  <th>Person type</th>
+                  <th>Referral date</th>
+                  <th>Closure date</th>
+                  <th>Case mgmt office</th>
+                  <th>Entered by</th>
+                  <th>Entered date</th>
+                  <th>IsBillable</th>
+                  <th>Billed date</th>
+                  <th>Provider</th>
+                  <th>Placement accepted</th>
+                  <th>Notes</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>JohnDoeDavid</td>
+                  <td>JohnDoeDavid</td>
+                  <td>L</td>
+                  <td>098989990</td>
+                  <td>06/05/201009:00 PM</td>
+                  <td>06/05/201009:00 PM</td>
+                  <td>02.00</td>
+                  <td>CF011</td>
+                  <td>LackofContact</td>
+                  <td>Doe</td>
+                  <td>john@example.com</td>
+                  <td>John</td>
+                  <td>Doe</td>
+                  <td>john@example.com</td>
+                  <td>John</td>
+                  <td>Doe</td>
+                  <td>john@example.com</td>
+                  <td>06/05/2010 09:00 PM</td>
+                  <td>
+                    No
+                  </td>
+                  <td>john@example.com</td>
+                  <td>John</td>
+                  <td>
+                    Yes
+                  </td>
+                  <td>Test02</td>
+                  <td>
+                    <div style="display:block">
+                      <div></div><i class="fa fa-pencil" aria-hidden="true" pTooltip="Edit" style="font-size: 16px;
+                    margin-right: 13px;"></i> <i class="fa fa-trash" aria-hidden="true" pTooltip="Delete"
+                        style="font-size: 16px;"></i>
+                    </div>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table> -->
+            <!-- <div class="sf-text-right sf-table-header sf-black" *ngIf="totalCount > 0">
+              <app-pagesize *ngIf="totalCount" [totalCount]="totalCount" [initial]="initial" [end]="end"
+                (keyup)="pagesizeNav($event)" (click)="pagesize($event)"></app-pagesize>
+            </div> -->
+            <div class="sf-text-right sf-table-header sf-black" *ngIf="totalCount > 0">
+              <app-pagesize *ngIf="totalCount" [totalCount]="totalCount" [initial]="initial" [end]="end"
+                (keyup)="pagesizeNav($event)" (click)="pagesize($event)"></app-pagesize>
+            </div>
+            <ag-grid-angular style="width: 500px; height: 500px;" class="ag-theme-balham" [rowData]="logData"
+              [columnDefs]="logColumns" [defaultColDef]="defaultColumn" [enableSorting]="true" [rowDragManaged]="true"
+              [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid style="width: 100%;height: 50vh;"
+              animateRows="true" rowSelection="multiple">
+            </ag-grid-angular>
+          </div>
+
+          <div *ngIf="logData.length == 0" class="info-text">
+            <p>No data found!, Please click the <i class="fa fa-filter" style="color: blue"></i> icon and generate it.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <p-dialog header="Home School List" [(visible)]="isAddNewCaseActivity" [responsive]="true" showEffect="fade"
+    [modal]="true" [width]="800" [minWidth]="800" [minY]="80" [baseZIndex]="10000" [maximizable]="true"
+    [closable]="true">
+    <form class="sf-form">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Please select client</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" placeholder="Type here to search" emptyMessage="No records found!"
+              [dropdown]="true" [forceSelection]="true" (completeMethod)="getMetaData($event, 'client')"
+              [(ngModel)]="selectedClient" [suggestions]="metaData" field="clientName" name="clientName"
+              (onSelect)="suggestedReferralForClient($event)">
+              <ng-template let-client pTemplate="item">
+                <div class="ui-helper-clearfix dropdown-list">
+                  <table>
+                    <tr>
+                      <td><b>Client Name</b></td>
+                      <td>{{client?.clientName}}</td>
+                    </tr>
+                    <tr>
+                      <td><b>DOB</b></td>
+                      <td>{{convertClientDob(client.dob)}}</td>
+                    </tr>
+                    <tr>
+                      <td><b>SSN</b></td>
+                      <td>{{client?.ssn}}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Kaecses</b></td>
+                      <td>{{client?.kaecses }}</td>
+                    </tr>
+                    <tr>
+                      <td><b>OklahomaID</b></td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Client Referral</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+          </div>
+        </div>
+      </div>
+    </form>
+  </p-dialog>
+
+  <div class="modal" id="caseActivityDecisionForm" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <span class="modal-title sf-heading-6 sf-black" id="myModalLabel">Select Client</span>
+          <button type="button" class="close" data-dismiss="modal" id="closeBtn">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+          </button>
+        </div>
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <p class="statusMsg"></p>
+          <div class="sf-text-center">
+            <p-autoComplete [dropdown]="true" placeholder="Type here to search" emptyMessage="No records found!"
+              [dropdown]="true" [forceSelection]="true" (completeMethod)="getMetaData($event, 'client')"
+              [(ngModel)]="selectedClient" [suggestions]="metaData" field="clientName" name="clientName"
+              (onSelect)="suggestedReferralForClient($event)">
+              <ng-template let-client pTemplate="item">
+                <div class="ui-helper-clearfix dropdown-list">
+                  <table>
+                    <tr>
+                      <td><b>Client Name</b></td>
+                      <td> <span>{{client?.clientName}}</span> </td>
+                    </tr>
+                    <tr>
+                      <td><b>DOB</b></td>
+                      <td><span>{{convertClientDob(client.dob)}}</span></td>
+                    </tr>
+                    <tr>
+                      <td><b>SSN</b></td>
+                      <td> <span>{{client?.ssn}}</span></td>
+                    </tr>
+                    <tr>
+                      <td><b>Kaecses</b></td>
+                      <td><span>{{client?.kaecses }}</span></td>
+                    </tr>
+                    <tr>
+                      <td><b>OklahomaID</b></td>
+                      <td></td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isCaseActivityAllowed" id="img" style="display: none;">
+
+    <span id="img{{i}}" *ngFor="let activity of caseActivityData;let i=index">
+      <p style="text-align: center;font-size: 18px;page-break-before: always;"> <b>Saint Francis Ministries</b> </p>
+      <p style="text-align: center"> <b>Case Activity Notes</b> </p>
+      <span style="display: flex;justify-content: space-around;">
+        <table>
+          <tr>
+            <td><span> <b> Staff Name</b></span></td>
+            <td><span style="margin-left: 10px">{{activity.staffLastName}},{{activity.staffFirstName}}</span></td>
+          </tr>
+          <tr>
+            <td><span><b>Case Head</b> </span></td>
+            <td><span style="margin-left: 10px">{{activity.clientLastName}},{{activity.clientFirstName}}</span></td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <td><span> <b> Client Name</b></span></td>
+            <td><span style="margin-left: 10px">{{activity.clientLastName}},{{activity.clientFirstName}}</span></td>
+          </tr>
+          <tr>
+            <td><span><b>Kaecses</b> </span></td>
+            <td><span style="margin-left: 10px">{{activity.Kaecses}}</span></td>
+          </tr>
+          <tr>
+            <td><span><b>FACTS</b> </span></td>
+            <!-- Test -->
+            <td><span style="margin-left: 10px"></span></td>
+          </tr>
+        </table>
+
+      </span>
+      <span style="display: flex;flex-direction: column; align-items: center;">
+        <table border="1" style="width:90%;">
+          <tr>
+            <th>Begin Date</th>
+            <th>End Date</th>
+            <th>Units</th>
+            <th>Procode</th>
+            <th>Contact Type</th>
+          </tr>
+          <tr>
+            <td>{{activity.beginDate}}</td>
+            <td>{{activity.endDate}}</td>
+            <td>{{activity.Units}}</td>
+            <td>{{activity.Procode}}</td>
+            <td>{{activity.ContactType}}</td>
+          </tr>
+        </table>
+      </span>
+      <p style="margin-top:10px"><b>Staff Notes</b></p>
+      <p>
+        {{activity.StaffNotes}}
+      </p>
+      <div style="margin-top:10px; page-break-after: always;">
+        <div style="display:flex; border: 1px solid #000; width: 100%; align-items: center ;height:40px">
+          <div><span> <b>Signature :</b> </span></div>
+        </div>
+        <div style="display:flex;justify-content: space-between; margin-top:30px">
+          <div><span>{{currentDate}}</span></div>
+
+        </div>
+      </div>
+
+      <div class="html2pdf__page-break"></div>
+
+      <app-non-therapy-face-to-face [ntffLogData]="activity.ntffLogJson"
+        *ngIf="activity.isNtffAvailable && isNTFFAllowed">
+      </app-non-therapy-face-to-face>
+
+      <app-progress-notes-fp-form *ngIf="activity.isProgressNotesAvailable && isProgressNotesAllowed"
+        [progressNotessLogData]="activity.progressNotesLogJson">
+      </app-progress-notes-fp-form>
+
+    </span>
+
+
+  </div>
+
+  <!--   -->
+  <p-dialog [contentStyle]="{'min-width':'106rem'}" header="Case Activity Log Print Options"
+    [(visible)]="isPrintDialogOpened" [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="100000"
+    [closable]="false">
+    <div class="margin-top-20 row">
+      <div class="col-lg-3 col-md-3 col-sm-3">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <span>Case Activity</span>
+          <span class="margin-left-1rem">
+            <p-checkbox [(ngModel)]="SelectedActivity" value="Case Activity" name="SelectedActivity"> </p-checkbox>
+          </span>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-3">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <span>Progress Notes</span>
+          <span class="margin-left-1rem">
+            <p-checkbox [(ngModel)]="SelectedActivity" value="Progressnote" name="SelectedActivity"> </p-checkbox>
+          </span>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-3">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <span>Non-Therapy-Face-To-Face</span>
+          <span class="margin-left-1rem">
+            <p-checkbox [(ngModel)]="SelectedActivity"value="NTFF"  name="SelectedActivity"> </p-checkbox>
+          </span>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-3">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span>Attachment</span>
+            <span class="margin-left-1rem">
+              <p-checkbox [(ngModel)]="SelectedActivity"value="Attachment"  name="SelectedActivity"> </p-checkbox>
+            </span>
+          </div>
+        </div>
+    </div>
+
+
+    <div class="footer">
+      <div>
+        <button [disabled]="isPrintDisabled" class="sf-negative-btn" pTooltip="Print" (click)="print()">
+          <span>Print</span>
+        </button>
+
+        <button class="sf-negative-btn" pTooltip="Cancel" (click)="discardBtn()">
+          <span>
+            Cancel
+          </span>
+        </button>
+
+      </div>
+    </div>
+
+  </p-dialog>
+
+  <div *ngIf="!isCaseActivityAllowed" id="img" style="display: none;">
+
+    <span id="img{{i}}" *ngFor="let activity of caseActivityData;let i=index">
+      <div *ngIf="activity.isNtffAvailable && isNTFFAllowed"
+        style="page-break-after: always;page-break-before: always;">
+        <app-non-therapy-face-to-face [ntffLogData]="activity.ntffLogJson">
+        </app-non-therapy-face-to-face>
+      </div>
+
+      <div *ngIf="activity.isProgressNotesAvailable && isProgressNotesAllowed"
+        style="page-break-after: always;page-break-before: always;">
+        <app-progress-notes-fp-form [progressNotessLogData]="activity.progressNotesLogJson">
+        </app-progress-notes-fp-form>
+      </div>
+
+
+    </span>
+
+
+  </div>

@@ -1,0 +1,144 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form class="sf-form" [formGroup]="IRForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Resource</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="providerID" emptyMessage="No results found!"
+              [(ngModel)]="ir.providerID" formControlName="providerID" [forceSelection]="true"
+              placeholder="Type here to search" field="providerName" size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="beginDate" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [(ngModel)]="ir.beginDate" formControlName="beginDate" [monthNavigator]="true" yearRange="2000:2030"
+              [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>File Read</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="fileRead" showTime="true" hourFormat="24" [yearNavigator]="true" [(ngModel)]="ir.fileRead"
+              formControlName="fileRead" [monthNavigator]="true" yearRange="2000:2030" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Transition Plan</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox binary="true" formControlName="isTransitionPlan" [(ngModel)]="ir.isTransitionPlan"
+              name="isTransitionPlan"></p-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Transition Plan Completed</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="transitionPlan" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [(ngModel)]="ir.transitionPlan" formControlName="transitionPlan" [monthNavigator]="true"
+              yearRange="2000:2030" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Subsidy Request</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="subsidyReferralDate" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [(ngModel)]="ir.subsidyReferralDate" formControlName="subsidyReferralDate" [monthNavigator]="true"
+              yearRange="2000:2030" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>APA Signed</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="apaDate" showTime="true" hourFormat="24" [yearNavigator]="true" [(ngModel)]="ir.apaDate"
+              formControlName="apadate" [monthNavigator]="true" yearRange="2000:2030" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Request Consent</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="consentSignedDate" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [(ngModel)]="ir.consentSignedDate" formControlName="consentSignedDate" [monthNavigator]="true"
+              yearRange="2000:2030" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Consent</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="consentSentDate" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [(ngModel)]="ir.consentSentDate" formControlName="consentSentDate" [monthNavigator]="true"
+              yearRange="2000:2030" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Attorney Packet</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="attorneyPacket" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [monthNavigator]="true" [(ngModel)]="ir.attorneyPacket" formControlName="attorneyPacket"
+              yearRange="2000:2030" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="endDate" showTime="true" hourFormat="24" [yearNavigator]="true" [(ngModel)]="ir.endDate"
+              formControlName="endDate" [monthNavigator]="true" yearRange="2000:2030" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Closure Reason</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="closureReasonID" emptyMessage="No results found!"
+              [(ngModel)]="ir.closureReasonID" formControlName="closureReasonID" [forceSelection]="true"
+              placeholder="Type here to search" field="closureReason" size="23"
+              (completeMethod)="onFilterClosureReason($event)" [suggestions]="metaData"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>IR Type</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="identifiedResourceType" emptyMessage="No results found!"
+              [(ngModel)]="ir.identifiedResourceTypeID" formControlName="identifiedResourceTypeID"
+              [forceSelection]="true" placeholder="Type here to search" field="identifiedResourceType" size="23">
+            </p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea pInputTextarea name="notes" formControlName="notes" [(ngModel)]="ir.notes"
+              style="width:100%;height:100%"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer [discardTo]="discardTo" [editControll]="isEdit" [currentNodeValue]="req" (edit)="onEdit()"
+      (save)="onFormAction()" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+    </app-form-footer>
+  </div>
+</div>

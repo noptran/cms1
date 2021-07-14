@@ -1,0 +1,871 @@
+<!--Claims navigation-->
+<app-form-header
+  *ngIf="showHeader"
+  [breadcrumbs]="breadcrumbs"
+></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+<div *ngIf="!isCSpayee">
+  <div
+    class="opencard-container"
+    *ngIf="isPayeeCard"
+    (click)="navigateTo_Claim()"
+  >
+    <span>Claims</span>
+  </div>
+  <div
+    class="opencard-container"
+    *ngIf="!isPayeeCard"
+    (click)="navigateToClaim()"
+  >
+    <span>Claims</span>
+  </div>
+</div>
+<div *ngIf="isCSpayee">
+  <div class="opencard-container">
+    <button
+      class="sf-positive-btn"
+      style="width: 13%; margin-right: 10px"
+      (click)="viewClientInfo()"
+    >
+      View Client Info
+    </button>
+    <span [routerLink]="['/CSpayee/payeeform/authClaim/new']"
+      >Create Claims</span
+    >
+  </div>
+</div>
+
+<div class="view-wrapper">
+  <!--View only information-->
+  <!-- <div *ngIf="viewOnlyInformations">
+    <div class="row margin-top-20">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <p><strong>{{moduleViewName}} View only information</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span class="info-label">Begin Date</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">{{showDateAndTime(viewOnlyInformations.beginDate)}}</div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span class="info-label">End Date</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">{{showDateAndTime(viewOnlyInformations.endDate)}}</div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span class="info-label">Procode</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          {{(viewOnlyInformations.procodeName) ? viewOnlyInformations.procodeName : 'Information not provided!'}}</div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span class="info-label">Payor</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          {{(viewOnlyInformations.payorName) ? viewOnlyInformations.payorName : 'Information not provided!'}}</div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span class="info-label">{{moduleViewName}} Provider</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          {{(viewOnlyInformations.providerInfo) ? viewOnlyInformations.providerInfo : 'Information not provided!'}}
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span class="info-label">Provider Sponsor</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          {{(viewOnlyInformations.sponsorName) ? viewOnlyInformations.sponsorName : 'Information not provided!'}}</div>
+      </div>
+    </div>
+  </div> -->
+  <div *ngIf="!isCSpayee">
+    <div *ngIf="viewOnlyInformations">
+      <div class="panel panel-default" style="margin: 10px">
+        <div class="panel-heading">
+          <strong>{{ moduleViewName }} View only information</strong>
+        </div>
+        <div class="panel-body" style="padding: 10px">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="info-label">Client Name</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                {{ clientName }}
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="info-label">Begin Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                {{ placementAuth.beginDate | date: "MM/dd/yyyy" }}
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="info-label">End Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                {{ placementAuth.endDate | date: "MM/dd/yyyy" }}
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="info-label">Procode</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                {{ procode }}
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="info-label">Payor</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                {{ payorName }}
+              </div>
+            </div>
+          </div>
+
+          <div class="row margin-top-20">
+            <div *ngIf="!providerNameAuth" class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="info-label">{{ pay }}</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                {{ pay_name }}
+              </div>
+            </div>
+            <div *ngIf="providerNameAuth" class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="info-label">Provider</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                {{ providerNameAuth }}
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="info-label">Provider Sponsor</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                {{ sponsorName }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Authorization information-->
+
+  <form class="sf-form" [formGroup]="placementAuthForm">
+    <div class="panel panel-default" style="margin: 10px">
+      <div class="panel-heading">
+        <strong>Authorization information</strong>
+      </div>
+      <div class="panel-body" style="padding: 10px">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Begin Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar
+                (onSelect)="beginDateChange()"
+                hourFormat="12"
+                [(ngModel)]="placementAuth.beginDate"
+                formControlName="beginDate"
+                name="beginDate"
+                [readonlyInput]="true"
+                [showTime]="true"
+                [showIcon]="true"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                yearRange="1900:2030"
+              ></p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar
+                (onSelect)="endDateChange()"
+                hourFormat="12"
+                [(ngModel)]="placementAuth.endDate"
+                formControlName="endDate"
+                name="endDate"
+                [readonlyInput]="true"
+                [showTime]="true"
+                [showIcon]="true"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                yearRange="1900:2030"
+              ></p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Units</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-spinner
+                [(ngModel)]="placementAuth.unitsAuth"
+                formControlName="unitsAuth"
+                size="30"
+                name="unitsAuth"
+                [step]="1"
+                (onChange)="onChangeAuthoInfoUnits()"
+              ></p-spinner>
+            </div>
+          </div>
+          <div *ngIf="!isPlacementEventAuth" class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Units Paid By Placement</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-spinner
+                [(ngModel)]="placementAuth.unitsPaidByPlacement"
+                formControlName="unitsPaidByPlacement"
+                size="30"
+                [step]="1"
+                name="unitsPaidByPlacement"
+                (onChange)="onChangeAuthoInfoUnits()"
+                [disabled]="true"
+              >
+              </p-spinner>
+            </div>
+          </div>
+          <div *ngIf="isPlacementEventAuth" class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Unit Type:</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              {{ placementAuth?.unitTypeID?.unitType }}
+
+              <!-- <input formControlName="unitType" [disabled]="true"
+                [(ngModel)]="" type="text" pInputText size="17" /> -->
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Units Remaining</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-spinner
+                [(ngModel)]="unitsRemaining"
+                formControlName="unitsRemaining"
+                size="30"
+                name="unitsRemaining"
+                [disabled]="true"
+              ></p-spinner>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Payor Rate</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-spinner
+                [(ngModel)]="placementAuth.payorRate"
+                formControlName="payorRate"
+                size="30"
+                name="payorRate"
+                [step]="1.1"
+                [min]="0"
+                (onChange)="onChangeAuthoInfoUnits()"
+              ></p-spinner>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Provider Rate</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-spinner
+                [(ngModel)]="placementAuth.providerRate"
+                formControlName="providerRate"
+                size="30"
+                [step]="1.1"
+                [min]="0"
+                name="providerRate"
+                (onChange)="onChangeAuthoInfoUnits()"
+              ></p-spinner>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Authorization Payor</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                [(ngModel)]="placementAuth.payorID"
+                formControlName="payorID"
+                name="payorID"
+                class="width-autocomplete"
+                placeholder="Type here to search"
+                emptyMessage="No records found!"
+                [dropdown]="true"
+                [forceSelection]="true"
+                (completeMethod)="getMetaData($event, 'payor')"
+                field="fullPayor"
+                [suggestions]="metaData"
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Pay Sponsor</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-checkbox
+                [(ngModel)]="placementAuth.paySponsor"
+                formControlName="paySponsor"
+                binary="true"
+                name="paySponsor"
+              ></p-checkbox>
+            </div>
+          </div>
+          <div *ngIf="!isPlacementEventAuth" class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Override Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-checkbox
+                [(ngModel)]="placementAuth.dateOverride"
+                formControlName="dateOverride"
+                binary="true"
+                name="dateOverride"
+              ></p-checkbox>
+            </div>
+          </div>
+
+          <div *ngIf="isPlacementEventAuth" class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Authorization Status</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                [(ngModel)]="placementAuth.authorizationStatusID"
+                formControlName="authorizationStatusID"
+                name="status"
+                class="width-autocomplete"
+                placeholder="Type here to search"
+                emptyMessage="No records found!"
+                [dropdown]="true"
+                [forceSelection]="true"
+                (completeMethod)="getMetaData($event, 'authorizationStatus')"
+                field="authorizationStatus"
+                [suggestions]="metaData"
+                (onSelect)="onSelectAuthorizationStatus($event)"
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!isPlacementEventAuth" class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Pay Placement</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-checkbox
+                [(ngModel)]="placementAuth.isPayPlacement"
+                formControlName="isPayPlacement"
+                binary="true"
+                name="isPayPlacement"
+              ></p-checkbox>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Hold Bed Units</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-spinner
+                [(ngModel)]="placementAuth.holdBedUnits"
+                formControlName="holdBedUnits"
+                size="30"
+                [step]="1"
+                name="holdBedUnits"
+                (onChange)="onChangeAuthoInfoUnits()"
+              ></p-spinner>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!isPlacementEventAuth" class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Hold Bed Payor</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                [(ngModel)]="placementAuth.holdBedPayorID"
+                formControlName="holdBedPayorID"
+                name="holdBedPayorID"
+                class="width-autocomplete"
+                placeholder="Type here to search"
+                emptyMessage="No records found!"
+                [dropdown]="true"
+                [forceSelection]="true"
+                (completeMethod)="getMetaData($event, 'payor')"
+                field="fullPayor"
+                [suggestions]="metaData"
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Authorization Status</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                [(ngModel)]="placementAuth.authorizationStatusID"
+                formControlName="authorizationStatusID"
+                name="status"
+                class="width-autocomplete"
+                placeholder="Type here to search"
+                emptyMessage="No records found!"
+                [dropdown]="true"
+                [forceSelection]="true"
+                (completeMethod)="getMetaData($event, 'authorizationStatus')"
+                field="authorizationStatus"
+                [suggestions]="metaData"
+                (onChange)="
+                  onChangeAuthorizationStatus(
+                    placementAuth.authorizationStatusID
+                  )
+                "
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Authorization Exception</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span (click)="isAuthExcepFormOpen = true" class="link"
+                >Open Authorization</span
+              >
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="!isEdit">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Override Existing Authorization</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                [(ngModel)]="placementAuth.overrideExistingAuth"
+                formControlName="overrideExistingAuth"
+                name="overrideExistingAuth"
+                class="width-autocomplete"
+                placeholder="Type here to search"
+                emptyMessage="No records found!"
+                [dropdown]="true"
+                [forceSelection]="true"
+                (completeMethod)="filteredExistingAuthList($event)"
+                field="authorizationID"
+                [suggestions]="filteredExistAuthList"
+                (onSelect)="onSelectExistingAuthorization($event)"
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Frequency:(PSA)</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                [(ngModel)]="placementAuth.frequency"
+                formControlName="frequency"
+                name="frequency"
+                type="text"
+                pInputText
+              />
+              <!-- <p-spinner [(ngModel)]="placementAuth.frequency" formControlName="frequency" size="30"
+            name="frequency"></p-spinner> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="row margin-top-20">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea
+                [(ngModel)]="placementAuth.notes"
+                formControlName="notes"
+                name="notes"
+                pInputTextarea
+                style="width: 100%; height: 100%"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Additional Info</span>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea
+                [(ngModel)]="placementAuth.addInfo"
+                formControlName="addInfo"
+                name="addInfo"
+                pInputTextarea
+                style="width: 100%; height: 100%"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!-- <div class="delete-btn" *ngIf="isVisibleDeleteAuthBtn">
+    <button (click)="deletedAuthorization()" [disabled]="isDeleteBtnDisable">Delete</button>
+  </div> -->
+  <!--Claims list view in edit mode only-->
+  <div *ngIf="claimList" class="scroll-x-y">
+    <div class="panel panel-default" style="margin: 10px">
+      <div class="panel-heading">
+        <strong>Claims</strong>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <table class="table table-striped table-bordered">
+                <tr>
+                  <th>Claim ID</th>
+                  <th>Status</th>
+                  <th>Paid Agency</th>
+                  <th>Units</th>
+                  <th>Payor Rate</th>
+                  <th>Total Payor Rate</th>
+                  <th>Provider Rate</th>
+                  <th>Total Provider Rate</th>
+                  <th>Begin Date</th>
+                  <th>End Date</th>
+                  <th>Received Date</th>
+                  <th>Expected Payment Date</th>
+                  <th>Posted Date</th>
+                  <th>Recoup ClaimID</th>
+                  <th>Claim Payment Batch ID</th>
+                  <th>GL Key</th>
+                </tr>
+                <tr
+                  *ngFor="let claim of claimList"
+                  (click)="gotoAuthClaimdetail(claim)"
+                >
+                  <td>{{ claim.claimID }}</td>
+                  <td>{{ claim.status }}</td>
+                  <td>{{ claim.paidAgency }}</td>
+                  <td>{{ claim.units }}</td>
+                  <td>{{ claim.payorRate }}</td>
+                  <td>{{ claim.totalPayorRate }}</td>
+                  <td>{{ claim.providerRate }}</td>
+                  <td>{{ claim.totalProviderRate }}</td>
+                  <td>{{ showTime(claim.beginDate) }}</td>
+                  <td>{{ showTime(claim.endDate) }}</td>
+                  <td>{{ showTime(claim.receivedDate) }}</td>
+                  <td>{{ showTime(claim.expectedPaymentDate) }}</td>
+                  <td>{{ claim.postedDate }}</td>
+                  <td>{{ claim.recoupClaimID }}</td>
+                  <td>{{ claim.claimPaymentBatchID }}</td>
+                  <td>{{ claim.glkey }}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isPayeeCard">
+    <app-form-footer
+      *ngIf="hideFooter"
+      (save)="formAction()"
+      [editControll]="isEdit"
+      (edit)="editForm()"
+      [attachmentControll]="isAttachmentRequired"
+      (attachDoc)="navigateTo()"
+      [isAttachmentDisabled]="false"
+      [discardTo]="discardTo"
+      [currentNodeValue]="req"
+      [isFormLog]="isFormLog"
+      [formLogInfo]="formLogInfo"
+    >
+    </app-form-footer>
+  </div>
+</div>
+
+<!--Claims list view in edit mode only-->
+
+<!--Authorization Exception modal window-->
+
+<p-dialog
+  header="Authorization Exception"
+  [(visible)]="isAuthExcepFormOpen"
+  [responsive]="true"
+  showEffect="fade"
+  [modal]="true"
+  [width]="1000"
+  [minWidth]="400"
+  [minY]="80"
+  [baseZIndex]="10000"
+  [maximizable]="true"
+>
+  <form class="sf-form">
+    <h2>Authorization</h2>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Payor Rate</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-spinner
+            size="30"
+            [min]="0"
+            [step]="1"
+            [min]="0"
+            name="payorRate"
+            [(ngModel)]="authExcep.originalPayorRate"
+          >
+          </p-spinner>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Provider Rate</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-spinner
+            size="30"
+            [min]="0"
+            [step]="1"
+            name="providerRate"
+            [(ngModel)]="authExcep.originalProviderRate"
+          >
+          </p-spinner>
+        </div>
+      </div>
+    </div>
+    <h2>Exception</h2>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Payor Rate</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-spinner
+            size="30"
+            [min]="0"
+            [step]="1"
+            name="exceptionPayorRate"
+            [(ngModel)]="authExcep.exceptionPayorRate"
+            [disabled]="true"
+          >
+          </p-spinner>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Provider Rate</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-spinner
+            size="30"
+            [min]="0"
+            [step]="1"
+            name="exceptionProviderRate"
+            [(ngModel)]="authExcep.exceptionProviderRate"
+            [disabled]="true"
+          >
+          </p-spinner>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Requested By</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input
+            maxlength="75"
+            pInputText
+            size="27"
+            name="requestedBy"
+            [(ngModel)]="authExcep.requestedBy"
+          />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Exception Reason</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete
+            [dropdown]="true"
+            [forceSelection]="true"
+            name="exceptionReason"
+            (completeMethod)="
+              getMetaData($event, 'authorizationExceptionReason')
+            "
+            [suggestions]="metaData"
+            field="authorizationExceptionReason"
+            [(ngModel)]="authExcep.authorizationExceptionReasonID"
+          >
+          </p-autoComplete>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Explanation of need</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <textarea
+            pInputTextArea
+            style="width: 100%; height: 100%"
+            name="explanationNeed"
+            [(ngModel)]="authExcep.explanationOfNeed"
+          ></textarea>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Approved By</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete
+            [dropdown]="true"
+            [forceSelection]="true"
+            name="approvedBy"
+            (completeMethod)="getMetaData($event, 'staff')"
+            field="fullName"
+            [suggestions]="metaData"
+            [(ngModel)]="authExcep.approvedBy_StaffID"
+          >
+            <ng-template let-staff pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="border-bottom: 1px solid #d5d5d5"
+              >
+                <table width="100%">
+                  <tr>
+                    <th>Staff Name</th>
+                    <th>Gender</th>
+                    <th>Cell Phone</th>
+                    <th>Office</th>
+                  </tr>
+                  <tr>
+                    <td>{{ staff?.lastName }}, {{ staff?.firstName }}</td>
+                    <td>{{ staff?.genderID?.gender }}</td>
+                    <td>{{ staff?.cellPh }}</td>
+                    <td>{{ staff?.sfaofficeID?.officeName }}</td>
+                  </tr>
+                </table>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </div>
+      </div>
+    </div>
+
+    <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix">
+        <button
+          type="button"
+          class="sf-positive-btn pull-right margin-right-82"
+          (click)="getAuthExceptionValues()"
+        >
+          Save
+        </button>
+      </div>
+    </p-footer>
+  </form>
+</p-dialog>
+
+<p-dialog [(visible)]="showUnitRemaingLowInfo" header="Attention">
+  <p>
+    Units Remaining is < 0. This means that claims have processed above the
+    Units Authorized.
+  </p>
+  <p>If you continue this will cause the claims to be auto-recouped.</p>
+  <p>Do you wish to continue?</p>
+  <div class="units-remaining-alert-footer">
+    <button (click)="formAPICalls()" class="sf-positive-btn">Yes</button>
+    <button (click)="showUnitRemaingLowInfo = false" class="sf-negative-btn">
+      No
+    </button>
+  </div>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="isOverrideAuthorizationDeleteConfirmation"
+  header="Attention"
+>
+  <p>
+    This is will delete this Placement Authorization. Any claims will be
+    recouped.
+  </p>
+  <p>Are you sure you want to continue with the device ?</p>
+  <div class="units-remaining-alert-footer">
+    <button
+      class="sf-positive-btn"
+      (click)="onClickOverrideAuthConfirmationYes()"
+    >
+      Yes
+    </button>
+    <button
+      class="sf-negative-btn"
+      (click)="isOverrideAuthorizationDeleteConfirmation = false"
+    >
+      No
+    </button>
+  </div>
+</p-dialog>
+
+<!-- <p-dialog header="Placement Date Validation" [(visible)]="isPlacementDateValidationOpen">
+  <app-placement-date-validation *ngIf="isPlacementDateValidationOpen"></app-placement-date-validation>
+</p-dialog> -->

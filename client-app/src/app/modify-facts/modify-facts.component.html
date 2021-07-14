@@ -1,0 +1,148 @@
+<hr style="margin: 0px !important;">
+<h5 class="head_acces">Modify Facts</h5>
+<hr style="margin: 0px !important;">
+<div class="container-background">
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+    </p>
+  </div>
+  <div class="container-foreground">
+    <div class="sf-form client-form" style="margin: 8px;  ">
+      <div class="row">
+        <div class="col-md-6 modify-fact-drop">
+          <div>Client:</div>
+          <p-autoComplete placeholder="Type here to search" emptyMessage="No records found!" [dropdown]="true"
+            [forceSelection]="true" (completeMethod)="getClientData($event)" [suggestions]="clientLists"
+            field="clientName" name="staff" [(ngModel)]="personDetailData" (onSelect)="getClientDeatail($event)">
+            <ng-template let-staff pTemplate="item">
+              <div class="ui-helper-clearfix dropdown-list">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Client Name</th>
+                      <th>Facts</th>
+                      <th>DOB</th>
+                      <th>SSN</th>
+                      <th>Client ID</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{staff.clientName}}</td>
+                      <td>{{staff.facts}}</td>
+                      <td>{{staff.dOB}}</td>
+                      <td>{{staff.sSN }}</td>
+                      <td>{{staff.clientID }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </div>
+
+
+        <div class="col-md-6">
+          <div>&nbsp;</div>
+          <button class="sf-positive-btn pull-right" style="width: 111.1px;" (click)="showReport()">
+            View All Report
+          </button>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="table-responsive" style="padding-bottom: 1000px;">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Is Linked</th>
+              <th>Is Split</th>
+              <th>Client Name</th>
+              <th>Facts</th>
+              <th>Client ID</th>
+              <th>Secondary Client Name</th>
+              <th>Secondary Facts</th>
+              <th>Secondary Client ID</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let modify of modifiedFactLists; let i = index">
+              <td>
+                <p-checkbox [(ngModel)]="modify.isLinked" (onChange)="isFactsChange($event,i,'isLink',modify)" binary="true"></p-checkbox>
+              </td>
+              <td>
+                <p-checkbox [(ngModel)]="modify.isSplit" (onChange)="isFactsChange($event,i,'isSplit',modify)" binary="true"></p-checkbox>
+              </td>
+              <td>{{modify.clientName}}</td>
+              <td>{{modify.facts}}</td>
+              <td>{{modify.clientID}}</td>
+              <!-- <td>{{modify.secondaryClientName}}</td> -->
+              <td class="modify-fact-drop" (click)="showSecondaryDrop(i)">
+                <span [hidden]='showDrop[i]'>{{modify.secondaryClientName}}</span>
+                <p-autoComplete [suggestions]="clientLists" [hidden]='!showDrop[i]' [(ngModel)]="selectSecondaryData[i]"
+                  field="clientName" [dropdown]="true" [forceSelection]="true" (completeMethod)="getClientData($event)"
+                  (onSelect)="getSecondaryDeatail($event,i)">
+                </p-autoComplete>
+              </td>
+              <td>{{modify.secondaryFacts}}</td>
+              <td>{{modify.secondaryClientID}}</td>
+              <td><button class="sf-negative-btn" (click)="deleteClient(i,modify)"><i class="fa fa-trash"
+                    aria-hidden="true"></i></button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br><br>
+    <div class="pull-right" style="position: fixed; bottom: 43px; right: 73px;">
+      <button class="sf-positive-btn" (click)="addModify()" style="width: 111.1px;" [disabled]="add_new_but">
+        Add New
+      </button>
+      <button class="sf-negative-btn" style="width: 111.1px;" (click)="cancelData()">
+        Cancel
+      </button>
+      <button class="sf-negative-btn" style="width: 111.1px;" (click)="saveClientToSecondary()">
+        Save
+      </button>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="Modify Facts" [(visible)]="display_modify"
+  [modal]="true" [contentStyle]="{'min-width':'1100px'}" [responsive]="true" [maximizable]="true" [minY]="100"
+  [baseZIndex]="10000">
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+    </p>
+  </div>
+  <div class="row">
+      <div class="col-md-6">
+          <div class="dropdown" style="border: 1px solid #ffffff !important;">
+              <button type="button" class="sf-positive-btn" (click)="exportAll()">
+                <span class="fa fa-download"></span>
+                <span>Export</span>
+              </button>
+              <!-- <div class="dropdown-menu">
+                <a class="dropdown-item" (click)="exportAll('excel')"> Excel</a>
+                <a class="dropdown-item" (click)="exportAll('csv')">CSV </a>
+              </div> -->
+            </div>
+      </div>
+      <div class="col-md-6">
+          <div class="sf-text-right sf-table-header sf-black" *ngIf="totalCount > 0">
+              <app-pagesize *ngIf="totalCount" [totalCount]="totalCount" [initial]="initial" [end]="end"
+                (keyup)="pagesizeNav($event)" (click)="pagesize($event)"></app-pagesize>
+            </div>
+      </div>
+    </div>
+<hr>
+  <ag-grid-angular style="width: 500px; height: 70vh;" class="ag-theme-balham" [rowData]="modifyRecords"
+  [columnDefs]="columnBreahDefs" [enableSorting]="true" [rowDragManaged]="true" [suppressDragLeaveHidesColumns]="true"
+  enableColResize="true" style="width: 100%;height: 70vh;" animateRows="true">
+</ag-grid-angular>
+
+  </p-dialog>

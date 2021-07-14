@@ -1,0 +1,53 @@
+<div class="mail-foot">
+  <div class="sf-form">
+    <h3>Email</h3>
+    <div class="flex-container">
+      <div>
+        <div>
+          <input style="margin:1rem" [(ngModel)]="staff" value="true" [ngModelOptions]="{standalone: true}"
+            type="checkbox">Staff
+        </div>
+        <div>
+          <input style="margin:1rem" [(ngModel)]="dcf" value="true" [ngModelOptions]="{standalone: true}"
+            type="checkbox">DCF
+        </div>
+        <div>
+          <input style="margin:1rem" type="checkbox" disabled>FCH
+        </div>
+      </div>
+      <div>
+        <div>
+          <input style="margin:1rem" type="checkbox" disabled>Case Team
+        </div>
+        <div>
+          <input style="margin:1rem" type="checkbox" disabled>Accounts Receivable
+        </div>
+        <div>
+          <input style="margin:1rem" type="checkbox" disabled>Adoption (KCSL)
+        </div>
+      </div>
+      <div>
+        <div>
+          <input style="margin:1rem" type="checkbox" disabled>District Court
+        </div>
+        <div>
+          <input style="margin:1rem" type="checkbox" disabled>County Attorney
+        </div>
+        <div>
+          <input style="margin:1rem" type="checkbox" disabled>CFS CO
+        </div>
+      </div>
+      <div>
+        <input style="margin:1rem" [(ngModel)]="other" type="checkbox">other
+      </div>
+      <div class="chips" *ngIf="other">
+        <p-chips [(ngModel)]="otherMails" [allowDuplicate]="false" [addOnTab]="true"></p-chips>
+        <b> Please Enter your email address and separated by entering "Enter"</b>
+      </div>
+    </div>
+  </div>
+  <div class="mail-footer">
+    <button class="send" (click)="sendMails()">Send Emails</button>
+    <button class="discard" (click)="cancel()">Exit</button>
+  </div>
+</div>

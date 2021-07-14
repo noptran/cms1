@@ -1,0 +1,393 @@
+<app-form-header
+  [title]="title"
+  [status]="status"
+  [breadcrumbs]="breadcrumbs"
+  [formstatus]="formStatus"
+  [formNavigation]=""
+  [subtitle]="subtitle"
+></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <div class="opencard-menu-container" *ngIf="medication.clientMedicationID">
+      <div class="dropdown border-none">
+        <span
+          class="fa fa-th opencard-menu"
+          data-toggle="dropdown"
+          pTooltip="OpenCards"
+        ></span>
+        <div class="dropdown-menu opencard-box">
+          <div class="card-container">
+            <div
+              class="opencard"
+              pTooltip="Allergies"
+              (click)="navigateToList('/reports/allergies/view')"
+            >
+              <span class="opencard-title">Allergies</span>
+              <div>
+                <span class="fa fa-exclamation-triangle allergies"></span>
+              </div>
+              <span class="opencard-footer"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="medicationForm" class="sf-form">
+      <div class="sf-form-size margin-left-45">
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Medication</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                formControlName="medication"
+                pInputText
+                name="medication"
+                [(ngModel)]="medication.medication"
+                maxlength="50"
+              />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Dosage</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-spinner
+                name="Dosage"
+                formControlName="dosage"
+                [(ngModel)]="medication.dosage"
+                [step]="0.1"
+                maxlength="8"
+              ></p-spinner>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Dosage Type</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                formControlName="dosage_type"
+                [(ngModel)]="medication.dosageTypeID"
+                [suggestions]="metadata"
+                (completeMethod)="getMetadata($event, 'dosage')"
+                field="dosageType"
+                [dropdown]="true"
+                [forceSelection]="true"
+              ></p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Frequency</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                formControlName="frequency"
+                [(ngModel)]="medication.frequencyTypeID"
+                [suggestions]="metadata"
+                (completeMethod)="getMetadata($event, 'frequency')"
+                field="frequencyType"
+                [dropdown]="true"
+                [forceSelection]="true"
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Begin Date</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar
+                hourFormat="12"
+                formControlName="beignDate"
+                [(ngModel)]="medication.beginDate"
+                [showTime]="true"
+                [showIcon]="true"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                yearRange="1900:2030"
+              ></p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>End Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar
+                hourFormat="12"
+                formControlName="endDate"
+                [(ngModel)]="medication.endDate"
+                [showIcon]="true"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                yearRange="1900:2030"
+              ></p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Prescribed For</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                formControlName="prescribedFor"
+                pInputText
+                name="prescribed_by"
+                maxlength="40"
+                [(ngModel)]="medication.prescribedBy"
+              />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Prescribed By</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                formControlName="prescribed_by"
+                pInputText
+                name="prescribed_by"
+                maxlength="40"
+                [(ngModel)]="medication.prescribedFor"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Source of Info</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                formControlName="source_info"
+                pInputText
+                name="source_info"
+                maxlength="40"
+                [(ngModel)]="medication.sourceOfInfo"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-3 col-md-3 col-md-3">
+              <span>Frequency Notes</span>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea
+                name="notes"
+                formControlName="frequencyNotes"
+                pInputTextarea
+                style="width: 100%; height: 100%"
+                [(ngModel)]="medication.frequencyNotes"
+                cols="60"
+                rows="5"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        class="sf-positive-btn new-record-button"
+        (click)="openAllergies()"
+      >
+        <span>View Allergies</span>
+      </button>
+    </form>
+
+    <p-dialog
+      header="{{ listPromptHeader }}"
+      [contentStyle]="{ 'min-width': '103rem', width: '98vw' }"
+      [responsive]="true"
+      [(visible)]="isPopListWindow"
+      (onHide)="close()"
+    >
+      <button
+        class="sf-positive-btn pull-right new-record-button"
+        (click)="showSaveModel()"
+      >
+        <span>Add new record</span>
+      </button>
+      <br />
+      <br />
+      <h3 class="text-center" *ngIf="isPlesWait"><b>Please Wait...</b></h3>
+      <div
+        class="sf-text-right sf-table-header sf-black"
+        *ngIf="totalCount > 0"
+      >
+        <app-pagesize
+          *ngIf="totalCount"
+          [totalCount]="totalCount"
+          [initial]="initial"
+          [end]="end"
+          (keyup)="pagesizeNav($event)"
+          (click)="pagesize($event)"
+        ></app-pagesize>
+      </div>
+      <br />
+      <ag-grid-angular
+        style="width: 500px; height: 500px"
+        class="ag-theme-balham"
+        [rowData]="rowData"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        [enableSorting]="true"
+        [rowDragManaged]="true"
+        [suppressDragLeaveHidesColumns]="true"
+        enableColResize="true"
+        #agGrid
+        style="width: 100%; height: 68vh"
+        animateRows="true"
+        rowSelection="multiple"
+        (cellClicked)="onRowSelected($event)"
+      >
+      </ag-grid-angular>
+    </p-dialog>
+
+    <p-dialog
+      class="mainpopup"
+      header="{{ formViewPromptHeader }}"
+      [contentStyle]="{ 'min-width': '100rem', width: '95vw' }"
+      [responsive]="true"
+      [(visible)]="isPopWindow"
+    >
+      <div>
+        <div>
+          <div>
+            <div class="sf-form" style="padding: 10px">
+              <div>
+                <div class="container-foreground">
+                  <form [formGroup]="staffCardForm" class="sf-form">
+                    <div class="sf-form-size margin-left-45">
+                      <div class="row margin-top-20">
+                        <div
+                          *ngFor="let data of designData"
+                          class="col-lg-12 col-md-12 col-sm-12 card-container"
+                        >
+                          <div class="col-lg-3 col-md-3 col-sm-3">
+                            <span>{{ data.label }} </span>
+                            <span *ngIf="data.isMandatory" class="mandatory"
+                              >*</span
+                            >
+                          </div>
+                          <div class="col-lg-3 col-md-3 col-sm-3">
+                            <p-autoComplete
+                              field="{{ data.dropdownAPI.fieldName }}"
+                              formControlName="{{ data.key }}"
+                              [(ngModel)]="staffModel[data.key]"
+                              *ngIf="data.fieldType == 'DROPDOWN'"
+                              [dropdown]="true"
+                              emptyMessage="No results found!"
+                              [suggestions]="metaData"
+                              (completeMethod)="
+                                getDropdownMetaData($event, data.dropdownAPI)
+                              "
+                              [forceSelection]="true"
+                              placeholder="Type here to search"
+                              size="23"
+                            >
+                            </p-autoComplete>
+
+                            <p-calendar
+                              formControlName="{{ data.key }}"
+                              [(ngModel)]="staffModel[data.key]"
+                              *ngIf="data.fieldType == 'DATE_PICKER'"
+                              [showIcon]="true"
+                              [monthNavigator]="true"
+                              [yearNavigator]="true"
+                              yearRange="1900:2030"
+                            >
+                            </p-calendar>
+
+                            <p-spinner
+                              formControlName="{{ data.key }}"
+                              [(ngModel)]="staffModel[data.key]"
+                              *ngIf="data.fieldType == 'SPINNER'"
+                              [step]="data.spinnerData.step"
+                            >
+                            </p-spinner>
+
+                            <textarea
+                              formControlName="{{ data.key }}"
+                              [(ngModel)]="staffModel[data.key]"
+                              *ngIf="data.fieldType == 'TEXT_AREA'"
+                              pInputTextArea
+                              style="width: 77rem; height: 100%"
+                            ></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <app-form-footer
+                    (discard)="discardAllergiesForm()"
+                    (deleted)="afterDelete()"
+                    (save)="saveAllergiesForm(staffModel)"
+                    (edit)="editAllergiesForm()"
+                    [editControll]="allergiesEditControll"
+                    [currentNodeValue]="req"
+                  >
+                  </app-form-footer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </p-dialog>
+
+    <app-form-footer
+      [isFormLog]="isFormLog"
+      [formLogInfo]="formLogInfo"
+      [attachmentControll]="isAttachmentRequired"
+      [isAttachmentDisabled]="false"
+      (attachDoc)="navigateTo()"
+      (save)="saveForm(medication)"
+      (reset)="resetForm()"
+      (discard)="discardForm()"
+      (edit)="editForm()"
+      [editControll]="editControll"
+      [discardTo]="discardTo"
+      [currentNodeValue]="req"
+    >
+    </app-form-footer>
+    <!-- <app-quick-menu [module]="quickMenu"></app-quick-menu> -->
+  </div>
+</div>
+
+<p-dialog
+  (onHide)="onAllergiesPromptClose()"
+  header="Allergies Confirm Prompt"
+  [(visible)]="isAllergiesPrompt"
+>
+  <p>Do want to create an allergy record?</p>
+  <p-footer>
+    <div class="dialog-footer">
+      <button class="delete" (click)="navigation('list')">No</button>
+      <button (click)="navigation('allergies')" class="alert-text delete">
+        Yes
+      </button>
+    </div>
+  </p-footer>
+</p-dialog>

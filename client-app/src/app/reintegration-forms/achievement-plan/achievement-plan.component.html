@@ -1,0 +1,560 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="achievementPlanForm" class="sf-form">
+    <div class="center">
+      <img src="assets/logo color.svg" alt="">
+    </div>
+    <div class="title center">
+      Permanency/Achievement Plan
+    </div>
+    <div class="row margin-1-rem">
+      <div class="col-xs-12">
+        <div class="col-xs-4">
+          <div class="d-flex">
+            <div class="p-2 flex-fill">
+              <b>For:</b>
+            </div>
+            <div class="p-2 flex-fill">
+              <input [(ngModel)]="riAchievementPlan.for" formControlName="for" name="for" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="d-flex">
+            <div class="p-2 flex-fill">
+              <b>Worker:</b>
+            </div>
+            <div class="p-2 flex-fill">
+              <input [(ngModel)]="riAchievementPlan.worker" formControlName="worker" name="worker" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="d-flex">
+            <div class="p-2 flex-fill">
+              <b>Date:</b>
+            </div>
+            <div class="p-2 flex-fill">
+              <p-calendar [(ngModel)]="riAchievementPlan.date" formControlName="date" name="date" [inputStyle]="{'width':'170px'}" showTime="true"
+                hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <b>Permanency Goal:</b>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <div class="col-xs-7">
+          <div class="d-flex">
+            <div class="p-2 flex-fill col-xs-3">
+              <div class="d-flex">
+                <div class="p-2 flex-fill">
+                  <p-checkbox binary="true" [(ngModel)]="riAchievementPlan.isMaintainAtHome" formControlName="isMaintainAtHome" name="isMaintainAtHome"></p-checkbox>
+                </div>
+                <div class="p-2 flex-fill">
+                  Maintain at Home
+                </div>
+              </div>
+            </div>
+            <div class="p-2 flex-fill col-xs-3">
+              <div class="d-flex">
+                <div class="p-2 flex-fill">
+                  <p-checkbox binary="true" [(ngModel)]="riAchievementPlan.isReturnHome" formControlName="isReturnHome" name="isReturnHome"></p-checkbox>
+                </div>
+                <div class="p-2 flex-fill">
+                  Return Home
+                </div>
+              </div>
+            </div>
+            <div class="p-2 flex-fill col-xs-3">
+              <div class="d-flex">
+                <div class="p-2 flex-fill">
+                  <p-checkbox binary="true" [(ngModel)]="riAchievementPlan.isAdoption" formControlName="isAdoption" name="isAdoption"></p-checkbox>
+                </div>
+                <div class="p-2 flex-fill">
+                  Adoption
+                </div>
+              </div>
+            </div>
+            <div class="p-2 flex-fill col-xs-3">
+              <div class="d-flex">
+                <div class="p-2 flex-fill">
+                  <p-checkbox binary="true" [(ngModel)]="riAchievementPlan.isIndependentLiving" formControlName="isIndependentLiving" name="isIndependentLiving"></p-checkbox>
+                </div>
+                <div class="p-2 flex-fill">
+                  Independent Living
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <b>Target Achievement Date:</b>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 margin-1-rem">
+        <div class="col-xs-3">
+          <b>Child Protection Concern:</b>
+        </div>
+        <div class="col-xs-9">
+          <div class="col-xs-3">
+            <div class="d-flex">
+              <div class="p-2 flex-fill">
+                <p-checkbox binary="true" [(ngModel)]="riAchievementPlan.isPhysicalAbuse" formControlName="isPhysicalAbuse" name="isPhysicalAbuse"></p-checkbox>
+              </div>
+              <div class="p-2 flex-fill">
+                Physical Abuse
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="p-2 flex-fill">
+                <p-checkbox binary="true" [(ngModel)]="riAchievementPlan.isSexualAbuse" formControlName="isSexualAbuse" name="isSexualAbuse"></p-checkbox>
+              </div>
+              <div class="p-2 flex-fill">
+                Sexual Abuse
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="p-2 flex-fill">
+                <p-checkbox binary="true" [(ngModel)]="riAchievementPlan.isEmotionalAbuse" formControlName="isEmotionalAbuse" name="isEmotionalAbuse"></p-checkbox>
+              </div>
+              <div class="p-2 flex-fill">
+                Emotional Abuse
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <div class="d-flex">
+              <div class="p-2 flex-fill">
+                <p-checkbox binary="true" [(ngModel)]="riAchievementPlan.isPhysicalNeglect" formControlName="isPhysicalNeglect" name="isPhysicalNeglect"></p-checkbox>
+              </div>
+              <div class="p-2 flex-fill">
+                Physical Neglect
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="p-2 flex-fill">
+                <p-checkbox binary="true" [(ngModel)]="riAchievementPlan.isSupervision" formControlName="isSupervision" name="isSupervision"></p-checkbox>
+              </div>
+              <div class="p-2 flex-fill">
+                Supervision
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="p-2 flex-fill">
+                <p-checkbox binary="true" [(ngModel)]="riAchievementPlan.isAbandonment" formControlName="isAbandonment" name="isAbandonment"></p-checkbox>
+              </div>
+              <div class="p-2 flex-fill">
+                Abandonment
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <div class="d-flex">
+              <div class="p-2 flex-fill">
+                <p-checkbox binary="true" [(ngModel)]="riAchievementPlan.isMedicalNeglect" formControlName="isMedicalNeglect" name="isMedicalNeglect"></p-checkbox>
+              </div>
+              <div class="p-2 flex-fill">
+                Medical Neglect
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-xs-12 margin-1-rem">
+        <div class="col-xs-3">
+          <b>Non-Abuse/Neglect Concern:</b>
+        </div>
+        <div class="col-xs-9">
+          <div class="col-xs-3">
+            <div class="d-flex">
+              <div class="p-2 flex-fill">
+                <p-checkbox binary="true" [(ngModel)]="riAchievementPlan.isStatusOffender" formControlName="isStatusOffender" name="isStatusOffender"></p-checkbox>
+              </div>
+              <div class="p-2 flex-fill">
+                Status Offender
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="p-2 flex-fill">
+                <p-checkbox binary="true" [(ngModel)]="riAchievementPlan.isRunaway" formControlName="isRunaway" name="isRunaway"></p-checkbox>
+              </div>
+              <div class="p-2 flex-fill">
+                Runaway (home or placement)
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <div class="d-flex">
+              <div class="p-2 flex-fill">
+                <p-checkbox binary="true" [(ngModel)]="riAchievementPlan.isTruancy" formControlName="isTruancy" name="isTruancy"></p-checkbox>
+              </div>
+              <div class="p-2 flex-fill">
+                Truancy
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="p-2 flex-fill">
+                <p-checkbox binary="true" [(ngModel)]="riAchievementPlan.isOutOfParent" formControlName="isOutOfParent" name="isOutOfParent"></p-checkbox>
+              </div>
+              <div class="p-2 flex-fill">
+                Out-of-Parental Control
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-3 margin">
+            <div class="d-flex">
+              <div class="p-2 flex-fill">
+                <p-checkbox binary="true" [(ngModel)]="riAchievementPlan.isFelony" formControlName="isFelony" name="isFelony"></p-checkbox>
+              </div>
+              <div class="p-2 flex-fill">
+                Felony or Misdemeanor (child under 10)
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-xs-12 border-black margin-1-rem">
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <b>Child Protection Goal: </b>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 border-black margin-1-rem">
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <b>Client’s Goal: </b>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 margin-bottom-1-rem">
+        <table class="space-down">
+          <tr>
+            <th class="table-td">Measurable Short-term Goals/Tasks Toward Achievement
+            </th>
+            <th class="table-td">Responsibility</th>
+            <th class="table-td">Date To Be Accomplished
+            </th>
+            <th class="table-td">Date Accomplished
+            </th>
+            <th class="table-td">Comments: (must have detailed information regarding progress for each task.)</th>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <input [(ngModel)]="riAchievementPlan.goals" formControlName="goals" name="goals" type="text" pInputText size="20" />
+            </td>
+            <td class="table-td">
+              <input [(ngModel)]="riAchievementPlan.responsibility" formControlName="responsibility" name="responsibility" type="text"
+                pInputText size="20" />
+            </td>
+            <td class="table-td">
+              <p-calendar [(ngModel)]="riAchievementPlan.dateToAccomplished" formControlName="dateToAccomplished" name="dateToAccomplished"
+                [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </td>
+            <td class="table-td">
+              <p-calendar [(ngModel)]="riAchievementPlan.dateAccomplished" formControlName="dateAccomplished" name="dateAccomplished" [inputStyle]="{'width':'170px'}"
+                showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </td>
+            <td class="table-td">
+              <input [(ngModel)]="riAchievementPlan.comments" formControlName="comments" name="comments" type="text" pInputText size="20"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <input [(ngModel)]="riAchievementPlan.goals1" formControlName="goals1" name="goals1" type="text" pInputText size="20" />
+            </td>
+            <td class="table-td">
+              <input [(ngModel)]="riAchievementPlan.responsibility1" formControlName="responsibility1" name="responsibility1" type="text"
+                pInputText size="20" />
+            </td>
+            <td class="table-td">
+              <p-calendar [(ngModel)]="riAchievementPlan.dateToAccomplished1" formControlName="dateToAccomplished1" name="dateToAccomplished1"
+                [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </td>
+            <td class="table-td">
+              <p-calendar [(ngModel)]="riAchievementPlan.dateAccomplished1" formControlName="dateAccomplished1" name="dateAccomplished1"
+                [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </td>
+            <td class="table-td">
+              <input [(ngModel)]="riAchievementPlan.comments1" formControlName="comments1" name="comments1" type="text" pInputText size="20"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <input [(ngModel)]="riAchievementPlan.goals2" formControlName="goals2" name="goals2" type="text" pInputText size="20" />
+            </td>
+            <td class="table-td">
+              <input [(ngModel)]="riAchievementPlan.responsibility2" formControlName="responsibility2" name="responsibility2" type="text"
+                pInputText size="20" />
+            </td>
+            <td class="table-td">
+              <p-calendar [(ngModel)]="riAchievementPlan.dateToAccomplished2" formControlName="dateToAccomplished2" name="dateToAccomplished2"
+                [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </td>
+            <td class="table-td">
+              <p-calendar [(ngModel)]="riAchievementPlan.dateAccomplished2" formControlName="dateAccomplished2" name="dateAccomplished2"
+                [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </td>
+            <td class="table-td">
+              <input [(ngModel)]="riAchievementPlan.comments2" formControlName="comments2" name="comments2" type="text" pInputText size="20"
+              />
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-xs-12 border-black margin-1-rem">
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <b>Child Protection Goal: </b>
+          </div>
+        </div>
+      </div>
+      <div class="html2pdf__page-break"></div>
+      <div class="col-xs-12 border-black margin-1-rem">
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <b>Client’s Goal: </b>
+          </div>
+        </div>
+      </div>
+     
+      <div class="col-xs-12 margin-bottom-1-rem">
+        <table class="space-down">
+          <tr>
+            <th class="table-td">Measurable Short-term Goals/Tasks Toward Achievement
+            </th>
+            <th class="table-td">Responsibility</th>
+            <th class="table-td">Date To Be Accomplished
+            </th>
+            <th class="table-td">Date Accomplished
+            </th>
+            <th class="table-td">Comments: (must have detailed information regarding progress for each task.)</th>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <input [(ngModel)]="riAchievementPlan.goalsT1" formControlName="goalsT1" name="goalsT1" type="text" pInputText size="20"
+              />
+            </td>
+            <td class="table-td">
+              <input [(ngModel)]="riAchievementPlan.responsibilityT1" formControlName="responsibilityT1" name="responsibilityT1" type="text"
+                pInputText size="20" />
+            </td>
+            <td class="table-td">
+              <p-calendar [(ngModel)]="riAchievementPlan.dateToAccomplishedT1" formControlName="dateToAccomplishedT1" name="dateToAccomplishedT1"
+                [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </td>
+            <td class="table-td">
+              <p-calendar [(ngModel)]="riAchievementPlan.dateAccomplishedT1" formControlName="dateAccomplishedT1" name="dateAccomplishedT1"
+                [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </td>
+            <td class="table-td">
+              <input [(ngModel)]="riAchievementPlan.commentsT1" formControlName="commentsT1" name="commentsT1" type="text" pInputText size="20"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <input [(ngModel)]="riAchievementPlan.goals1T1" formControlName="goals1T1" name="goals1T1" type="text" pInputText size="20"
+              />
+            </td>
+            <td class="table-td">
+              <input [(ngModel)]="riAchievementPlan.responsibility1T1" formControlName="responsibility1T1" name="responsibility1T1" type="text"
+                pInputText size="20" />
+            </td>
+            <td class="table-td">
+              <p-calendar [(ngModel)]="riAchievementPlan.dateToAccomplished1T1" formControlName="dateToAccomplished1T1" name="dateToAccomplished1T1"
+                [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </td>
+            <td class="table-td">
+              <p-calendar [(ngModel)]="riAchievementPlan.dateAccomplished1T1" formControlName="dateAccomplished1T1" name="dateAccomplished1T1"
+                [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </td>
+            <td class="table-td">
+              <input [(ngModel)]="riAchievementPlan.comments1T1" formControlName="comments1T1" name="comments1T1" type="text" pInputText
+                size="20" />
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <input [(ngModel)]="riAchievementPlan.goals2T1" formControlName="goals2T1" name="goals2T1" type="text" pInputText size="20"
+              />
+            </td>
+            <td class="table-td">
+              <input [(ngModel)]="riAchievementPlan.responsibility2T1" formControlName="responsibility2T1" name="responsibility2T1" type="text"
+                pInputText size="20" />
+            </td>
+            <td class="table-td">
+              <p-calendar [(ngModel)]="riAchievementPlan.dateToAccomplished2T1" formControlName="dateToAccomplished2T1" name="dateToAccomplished2T1"
+                [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </td>
+            <td class="table-td">
+              <p-calendar [(ngModel)]="riAchievementPlan.dateAccomplished2T1" formControlName="dateAccomplished2T1" name="dateAccomplished2T1"
+                [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </td>
+            <td class="table-td">
+              <input [(ngModel)]="riAchievementPlan.comments2T1" formControlName="comments2T1" name="comments2T1" type="text" pInputText
+                size="20" />
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-xs-12 ">
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            Acknowledgement Statement:
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 margin-bottom-2-rem">
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            I have participated in the development of this Achievement Plan and understand that by completing this plan, I am taking
+            steps towards the reintegration of my child into my care. I understand that this plan, and tasks completed/not
+            completed on this plan will be provided to the Court and may be presented at a permanency staffing to address
+            the appropriateness of the child’s case plan goal continuing to be reintegration. I further understand that the
+            consequences of not completing this plan could result in the child’s continued out of home placement and possible
+            termination of parental rights.
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 ">
+        <div class="col-xs-3">
+          <div class="d-flex">
+            <div class="p-2 flex-fill">
+              <input [(ngModel)]="riAchievementPlan.ParentSignature" formControlName="ParentSignature" name="ParentSignature" type="text"
+                pInputText size="20" />
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="p-2 flex-fill">
+              Parent’s Signature
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-3">
+          <div class="d-flex">
+            <div class="p-2 flex-fill">
+              <p-calendar [(ngModel)]="riAchievementPlan.ParentSignatureDate" formControlName="ParentSignatureDate" name="ParentSignatureDate"
+                [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="p-2 flex-fill">
+              Date
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-3">
+          <div class="d-flex">
+            <div class="p-2 flex-fill">
+              <input [(ngModel)]="riAchievementPlan.ParentSignature1" formControlName="ParentSignature1" name="ParentSignature1" type="text"
+                pInputText size="20" />
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="p-2 flex-fill">
+              Parent’s Signature
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-3">
+          <div class="d-flex">
+            <div class="p-2 flex-fill">
+              <p-calendar [(ngModel)]="riAchievementPlan.ParentSignatureDate1" formControlName="ParentSignatureDate1" name="ParentSignatureDate1"
+                [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="p-2 flex-fill">
+              Date
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 ">
+        <div class="col-xs-3">
+          <div class="d-flex">
+            <div class="p-2 flex-fill">
+              <input [(ngModel)]="riAchievementPlan.StaffSignature" formControlName="StaffSignature" name="StaffSignature" type="text"
+                pInputText size="20" />
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="p-2 flex-fill">
+              SFCS Staff Signature
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-3">
+          <div class="d-flex">
+            <div class="p-2 flex-fill">
+              <p-calendar [(ngModel)]="riAchievementPlan.StaffSignatureDate" formControlName="StaffSignatureDate" name="StaffSignatureDate"
+                [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="p-2 flex-fill">
+              Date
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-3">
+          <div class="d-flex">
+            <div class="p-2 flex-fill">
+              <input [(ngModel)]="riAchievementPlan.StaffSignature1" formControlName="StaffSignature1" name="StaffSignature1" type="text"
+                pInputText size="20" />
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="p-2 flex-fill">
+              SFCS Staff Signature
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-3">
+          <div class="d-flex">
+            <div class="p-2 flex-fill">
+              <p-calendar [(ngModel)]="riAchievementPlan.StaffSignatureDate1" formControlName="StaffSignatureDate1" name="StaffSignatureDate1"
+                [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="p-2 flex-fill">
+              Date
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,riAchievementPlan)" [editControll]="editControll" (edit)="editForm()"(print)="printForm()" [isPrint]="isPrint" ></app-form-footer>

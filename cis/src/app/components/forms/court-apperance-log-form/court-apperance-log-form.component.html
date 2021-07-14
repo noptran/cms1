@@ -1,0 +1,314 @@
+<div id="loading-overlay">
+  <p class="loader-text">
+    <span>Loading...</span>
+  </p>
+</div>
+<div id="pdf-content">
+  <div class="court-header">
+    <div class="court-title">
+      <h3>COURT
+        <br> APPEARANCE LOG</h3>
+    </div>
+    <div class="logo">
+      <img src="assets/images/logo.svg" />
+    </div>
+    <div class="form-info">
+      <div>
+        <span>Child's Name:</span>
+        <client-search [ClientName]='displayClientName()' (setClientAction)="setClient($event)"></client-search>
+      </div>
+      <div>
+        <span>KAECSES:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.Kaecses.value" readonly>
+        </mat-form-field>
+      </div>
+      <div>
+        <span>Date:</span>
+        <mat-form-field class="margin-left-3rem" floatLabel="never">
+          <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose a date" class="date"
+            [(ngModel)]="model.CompletionDate.value" value="{{date}}">
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="location-section">
+    <div class="court-section">
+      <div>
+        <span>Court Location:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.courtLocation.value">
+        </mat-form-field>
+      </div>
+      <div>
+        <span>Time:</span>
+        <mat-form-field>
+          <input matInput class="input-sm" type="time" [(ngModel)]="model.FromTime.value">
+        </mat-form-field>
+      </div>
+      <div>
+        <span>Length:</span>
+        <mat-form-field>
+          <input matInput class="input-sm" type="time" [(ngModel)]="model.length.value">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="hearing-section">
+      <div class="pad-right">
+        <span>Type of hearing:</span>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.hearing.value">
+        </mat-form-field>
+      </div>
+      <div class="visitTypeInput margin-top-1rem">
+        <input type="radio" value="0" name="Gender" [(ngModel)]="model.RadioButtonList.fieldOptionIndex">Held
+        <input type="radio" value="1" name="Gender" [(ngModel)]="model.RadioButtonList.fieldOptionIndex">Continued
+      </div>
+    </div>
+
+    <div *ngIf='model.showMultiClient === true' class="hideOnPdf">
+      <span class="spanMulticlient" id="clientButton">Select the option for multi client</span>
+      <mat-form-field floatLabel="never">
+        <mat-select placeholder="Select the option for multi client" [(ngModel)]="model.multiClientValue">
+          <mat-option (click)="client()" value="By Facts">By Facts</mat-option>
+          <mat-option (click)="allClient()" value="By All clients">By All clients</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf='showClient === true' class="hideOnPdf">
+      <mat-form-field floatLabel="never">
+        <input matInput [(ngModel)]="search" placeholder="Enter the last name" name="search" class="date">
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="client()" id="clientButton" class="search">Select
+        Client</button>
+    </div>
+
+    <div class="column">
+      <div *ngFor="let clients of model.multiClient; let i = index;" class="multiClient">
+        <span class="pad-right">Child{{i + 1}}</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.multiClient[i]" [ngModelOptions]="{standalone: true}" readonly />
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="attendees-section">
+    <h3>Attendees:</h3>
+    <div class="text-section">
+      <p>Judge:</p>
+      <mat-form-field class="margin-left-1rem" *ngIf="!isFinalize">
+        <textarea matInput autosize class="textarea" [(ngModel)]="model.Judge1.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.Judge1.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="text-section">
+      <p>SFCS Staff:</p>
+      <mat-form-field class="margin-left-1rem" *ngIf="!isFinalize">
+        <textarea matInput autosize class="textarea" [(ngModel)]="model.SFSCStaff.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.SFSCStaff.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="text-section">
+      <p>County Atty:</p>
+      <mat-form-field class="margin-left-1rem" *ngIf="!isFinalize">
+        <textarea matInput autosize class="textarea" [(ngModel)]="model.CountyAtty.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.CountyAtty.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="text-section">
+      <p>GAL:</p>
+      <mat-form-field class="margin-left-1rem" *ngIf="!isFinalize">
+        <textarea matInput autosize class="textarea" [(ngModel)]="model.GAL.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.GAL.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="text-section">
+      <p>CASA:</p>
+      <mat-form-field class="margin-left-1rem" *ngIf="!isFinalize">
+        <textarea matInput autosize class="textarea" [(ngModel)]="model.CASA.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.CASA.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="text-section">
+      <p>CSO:</p>
+      <mat-form-field class="margin-left-1rem" *ngIf="!isFinalize">
+        <textarea matInput autosize class="textarea" [(ngModel)]="model.CSO.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.CSO.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="text-section">
+      <p>DCF:</p>
+      <mat-form-field class="margin-left-1rem" *ngIf="!isFinalize">
+        <textarea matInput autosize class="textarea" [(ngModel)]="model.DCF.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.DCF.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="text-section">
+      <p>Child(ren):</p>
+      <mat-form-field class="margin-left-1rem" *ngIf="!isFinalize">
+        <textarea matInput autosize class="textarea" [(ngModel)]="model.Children.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.Children.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="text-section">
+      <p>Others:</p>
+      <mat-form-field class="margin-left-1rem" *ngIf="!isFinalize">
+        <textarea matInput autosize class="textarea" [(ngModel)]="model.Others.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.Others.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="text-section">
+      <p>Placement:</p>
+      <mat-form-field class="margin-left-1rem" *ngIf="!isFinalize">
+        <textarea matInput autosize class="textarea" [(ngModel)]="model.placement.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.placement.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="text-section">
+      <p>Mother:</p>
+      <mat-form-field class="margin-left-1rem" *ngIf="!isFinalize">
+        <textarea matInput autosize class="textarea" [(ngModel)]="model.Mother.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.Mother.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="text-section">
+      <p>Mother's Atty:</p>
+      <mat-form-field class="margin-left-1rem" *ngIf="!isFinalize">
+        <textarea matInput autosize class="textarea" [(ngModel)]="model.MothersAtty.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.MothersAtty.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="text-section">
+      <p>Father:</p>
+      <mat-form-field class="margin-left-1rem" *ngIf="!isFinalize">
+        <textarea matInput autosize class="textarea" [(ngModel)]="model.Father.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.Father.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="text-section">
+      <p>Father's Atty:</p>
+      <mat-form-field class="margin-left-1rem" *ngIf="!isFinalize">
+        <textarea matInput autosize class="textarea" [(ngModel)]="model.FatherAtty.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.FatherAtty.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+    <div class="text-section">
+      <p>Grandparents:</p>
+      <mat-form-field class="margin-left-1rem" *ngIf="!isFinalize">
+        <textarea matInput autosize class="textarea" [(ngModel)]="model.Grandparents.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.Grandparents.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+  </div>
+  <div class="html2pdf__page-break"></div>
+  <div class="notes-section text-section">
+    <h2>Notes & Recommendations:</h2>
+    <mat-form-field *ngIf="!isFinalize">
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.NotesAndRecommendations.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.NotesAndRecommendations.value}}</span>
+    <hr *ngIf="isFinalize">
+  </div>
+  <div class="court-order-section">
+    <h2>Court Orders:</h2>
+    <div class="custody-section">
+      <div>
+        <span>Custody:</span>
+        <mat-form-field>
+          <input matInput class="input-md" [(ngModel)]="model.Custody.value">
+        </mat-form-field>
+      </div>
+      <div>
+        <span>Placement:</span>
+        <mat-form-field>
+          <input matInput class="input-md" [(ngModel)]="model.Placement.value">
+        </mat-form-field>
+      </div>
+    </div>
+    <div>
+      <span>Visitation:</span>
+      <mat-form-field>
+        <input matInput class="input-lg" [(ngModel)]="model.Visitation.value">
+      </mat-form-field>
+    </div>
+    <div class="text-section">
+      <span>Other Orders:</span>
+      <mat-form-field class="margin-left-1rem" *ngIf="!isFinalize">
+        <textarea matInput autosize class="textarea" [(ngModel)]="model.OtherOrders.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;font-weight: 400;" *ngIf="isFinalize">{{model.OtherOrders.value}}</span>
+      <hr *ngIf="isFinalize">
+    </div>
+  </div>
+
+  <div class="next-hearing-section">
+    <h2>Next Hearing:</h2>
+    <div class="Judge-section">
+      <div>
+        <span>Judge:</span>
+        <mat-form-field floatLabel="never">
+          <input matInput class="input-md" placeholder="Not Available,NA,NIL"
+            (input)="getJudgeValue($event.target.value)" [(ngModel)]="model.NextHearingJudge.value">
+        </mat-form-field>
+      </div>
+      <div>
+        <span>Type:</span>
+        <mat-form-field floatLabel="never">
+          <input matInput placeholder="Not Available,NA,NIL" class="input-md"
+            (input)="getTypeValue($event.target.value)" [(ngModel)]="model.NextHearingType.value">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="date-section">
+      <div>
+        <span>Date:</span>
+        <mat-form-field class="margin-left-1rem" floatLabel="never">
+          <input [disabled]="model.disable === true && model.disableAll === true" matInput
+            [matDatepicker]="NextHearingDate" (click)="NextHearingDate.open()" placeholder="Choose a date" class="date"
+            [(ngModel)]="model.NextHearingDate.value">
+          <mat-datepicker #NextHearingDate></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div>
+        <span class="margin-left-1rem">Time:</span>
+        <mat-form-field>
+          <input matInput class="input-sm" [disabled]="model.disable === true && model.disableAll === true" type="time"
+            [(ngModel)]="model.NextHearingTime.value">
+        </mat-form-field>
+      </div>
+      <div>
+        <span class="margin-left-1rem">Location:</span>
+        <mat-form-field>
+          <input matInput class="input-sm" [disabled]="model.disable === true && model.disableAll === true"
+            [(ngModel)]="model.NextHearingLocation.value">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="signature-section">
+      <span>Signature/Title:</span>
+      <mat-form-field>
+        <input matInput class="input-sm" [(ngModel)]="model.Signature.value" value={{staffName}} readonly>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<form-footer (resetAction)='resetForm()' (calculateAction)='calculateForm()' (saveAction)='saveForm()'
+  (finalizeAction)='finalize()'>
+</form-footer>

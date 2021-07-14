@@ -1,0 +1,558 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="planOfSafeCareForm" class="sf-form">
+    <div class="flex-container header">
+      <div>
+
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div>
+
+      </div>
+    </div>
+    <p class="bold">Section I Identifying Information:</p>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">Case Name: </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="fpPlanOfSafeCare.caseName" formControlName="caseName" name="caseName" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">Case #: </div>
+        <div class="space-right">
+          <input [(ngModel)]="fpPlanOfSafeCare.case" formControlName="case" name="case" type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">Event #:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpPlanOfSafeCare.event" formControlName="event" name="event" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">Infant Name:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpPlanOfSafeCare.infantName" formControlName="infantName" name="infantName" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">Date Completed: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpPlanOfSafeCare.dateCompleted" formControlName="dateCompleted" name="dateCompleted" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">CPS Specialist:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpPlanOfSafeCare.specialist" formControlName="specialist" name="specialist" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">CFSP/ CWCMP Case Manager:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpPlanOfSafeCare.caseManager" formControlName="caseManager" name="caseManager" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+    </div>
+    <p class="bold">Section II Plan of Safe Care Description:</p>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isPlanSafeProvided" formControlName="isPlanSafeProvided" name="isPlanSafeProvided"
+        class="space-right"></p-checkbox>PPS 2008 Plan of Safe Care pamphlet has been provided and explained to the family.
+    </div>
+    <p class="bold">Section III Assessment: </p>
+    <p>At the time of the plan of safe care, list the needs of the infant including physical health, substance use disorder
+      treatment needs, general functioning, development, safety and any special care needs. The service(s) identified to
+      address the needs and the referral date(s) may be completed at the time of the plan of safe care, or by the monitoring
+      provider. </p>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">Infant Need(s)</th>
+          <th class="table-td">Service(s)</th>
+          <th class="table-td">Family Accepted Service</th>
+          <th class="table-td">Referral Date</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.infantNeeds" formControlName="infantNeeds" name="infantNeeds" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.service" formControlName="service" name="service" type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isAcceptedServiceYes" formControlName="isAcceptedServiceYes" name="isAcceptedServiceYes"
+                  class="space-right"></p-checkbox>Yes
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isAcceptedServiceNo" formControlName="isAcceptedServiceNo" name="isAcceptedServiceNo"
+                  class="space-right"></p-checkbox>No
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpPlanOfSafeCare.referralDate" formControlName="referralDate" name="referralDate" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.infantNeeds1" formControlName="infantNeeds1" name="infantNeeds1" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.service1" formControlName="service1" name="service1" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isAcceptedServiceYes1" formControlName="isAcceptedServiceYes1" name="isAcceptedServiceYes1"
+                  class="space-right"></p-checkbox>Yes
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isAcceptedServiceNo1" formControlName="isAcceptedServiceNo1" name="isAcceptedServiceNo1"
+                  class="space-right"></p-checkbox>No
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpPlanOfSafeCare.referralDate1" formControlName="referralDate1" name="referralDate1" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.infantNeeds2" formControlName="infantNeeds2" name="infantNeeds2" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.service2" formControlName="service2" name="service2" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isAcceptedServiceYes2" formControlName="isAcceptedServiceYes2" name="isAcceptedServiceYes2"
+                  class="space-right"></p-checkbox>Yes
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isAcceptedServiceNo2" formControlName="isAcceptedServiceNo2" name="isAcceptedServiceNo2"
+                  class="space-right"></p-checkbox>No
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpPlanOfSafeCare.referralDate2" formControlName="referralDate2" name="referralDate2" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.infantNeeds3" formControlName="infantNeeds3" name="infantNeeds3" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.service3" formControlName="service3" name="service3" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isAcceptedServiceYes3" formControlName="isAcceptedServiceYes3" name="isAcceptedServiceYes3"
+                  class="space-right"></p-checkbox>Yes
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isAcceptedServiceNo3" formControlName="isAcceptedServiceNo3" name="isAcceptedServiceNo3"
+                  class="space-right"></p-checkbox>No
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpPlanOfSafeCare.referralDate3" formControlName="referralDate3" name="referralDate3" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.infantNeeds4" formControlName="infantNeeds4" name="infantNeeds4" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.service4" formControlName="service4" name="service4" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isAcceptedServiceYes4" formControlName="isAcceptedServiceYes4" name="isAcceptedServiceYes4"
+                  class="space-right"></p-checkbox>Yes
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isAcceptedServiceNo4" formControlName="isAcceptedServiceNo4" name="isAcceptedServiceNo4"
+                  class="space-right"></p-checkbox>No
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpPlanOfSafeCare.referralDate4" formControlName="referralDate4" name="referralDate4" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.infantNeeds5" formControlName="infantNeeds5" name="infantNeeds5" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.service5" formControlName="service5" name="service5" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isAcceptedServiceYes5" formControlName="isAcceptedServiceYes5" name="isAcceptedServiceYes5"
+                  class="space-right"></p-checkbox>Yes
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isAcceptedServiceNo5" formControlName="isAcceptedServiceNo5" name="isAcceptedServiceNo5"
+                  class="space-right"></p-checkbox>No
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpPlanOfSafeCare.referralDate5" formControlName="referralDate5" name="referralDate5" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+
+      </table>
+    </div>
+    <p>
+      At the time of the plan of safe care, list the physical/social/emotional health, substance use disorder treatment, parenting
+      capacity, and preparation to care for an infant with special care needs of the family or caregiver (Include all affected
+      family members). The service(s) identified to address the needs and the referral date(s) may be completed at the time
+      of the plan of safe care, or by the monitoring provider.
+    </p>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">Family Member(s) Name</th>
+          <th class="table-td">Need(s) identified</th>
+          <th class="table-td">Service</th>
+          <th class="table-td">Family Accepted Service</th>
+          <th class="table-td">Referral Date</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.familyMemberCare" formControlName="familyMemberCare" name="familyMemberCare" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.needIdentifiedCare" formControlName="needIdentifiedCare" name="needIdentifiedCare" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.serviceCare" formControlName="serviceCare" name="serviceCare" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isFamilyAcceptedCareYes" formControlName="isFamilyAcceptedCareYes"
+                  name="isFamilyAcceptedCareYes" class="space-right"></p-checkbox>Yes
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isFamilyAcceptedCareNo" formControlName="isFamilyAcceptedCareNo"
+                  name="isFamilyAcceptedCareNo" class="space-right"></p-checkbox>No
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpPlanOfSafeCare.referralDateCare" formControlName="referralDateCare" name="referralDateCare" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.familyMemberCare1" formControlName="familyMemberCare1" name="familyMemberCare1" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.needIdentifiedCare1" formControlName="needIdentifiedCare1" name="needIdentifiedCare1"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.serviceCare1" formControlName="serviceCare1" name="serviceCare1" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isFamilyAcceptedCareYes1" formControlName="isFamilyAcceptedCareYes1"
+                  name="isFamilyAcceptedCareYes1" class="space-right"></p-checkbox>Yes
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isFamilyAcceptedCareNo1" formControlName="isFamilyAcceptedCareNo1"
+                  name="isFamilyAcceptedCareNo1" class="space-right"></p-checkbox>No
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpPlanOfSafeCare.referralDateCare1" formControlName="referralDateCare1" name="referralDateCare1"
+              [inputStyle]="{'width':'140px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.familyMemberCare2" formControlName="familyMemberCare2" name="familyMemberCare2" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.needIdentifiedCare2" formControlName="needIdentifiedCare2" name="needIdentifiedCare2"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.serviceCare2" formControlName="serviceCare2" name="serviceCare2" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isFamilyAcceptedCareYes2" formControlName="isFamilyAcceptedCareYes2"
+                  name="isFamilyAcceptedCareYes2" class="space-right"></p-checkbox>Yes
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isFamilyAcceptedCareNo2" formControlName="isFamilyAcceptedCareNo2"
+                  name="isFamilyAcceptedCareNo2" class="space-right"></p-checkbox>No
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpPlanOfSafeCare.referralDateCare2" formControlName="referralDateCare2" name="referralDateCare2"
+              [inputStyle]="{'width':'140px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.familyMemberCare3" formControlName="familyMemberCare3" name="familyMemberCare3" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.needIdentifiedCare3" formControlName="needIdentifiedCare3" name="needIdentifiedCare3"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.serviceCare3" formControlName="serviceCare3" name="serviceCare3" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isFamilyAcceptedCareYes3" formControlName="isFamilyAcceptedCareYes3"
+                  name="isFamilyAcceptedCareYes3" class="space-right"></p-checkbox>Yes
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isFamilyAcceptedCareNo3" formControlName="isFamilyAcceptedCareNo3"
+                  name="isFamilyAcceptedCareNo3" class="space-right"></p-checkbox>No
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpPlanOfSafeCare.referralDateCare3" formControlName="referralDateCare3" name="referralDateCare3"
+              [inputStyle]="{'width':'140px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.familyMemberCare4" formControlName="familyMemberCare4" name="familyMemberCare4" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.needIdentifiedCare4" formControlName="needIdentifiedCare4" name="needIdentifiedCare4"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.serviceCare4" formControlName="serviceCare4" name="serviceCare4" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isFamilyAcceptedCareYes4" formControlName="isFamilyAcceptedCareYes4"
+                  name="isFamilyAcceptedCareYes4" class="space-right"></p-checkbox>Yes
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isFamilyAcceptedCareNo4" formControlName="isFamilyAcceptedCareNo4"
+                  name="isFamilyAcceptedCareNo4" class="space-right"></p-checkbox>No
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpPlanOfSafeCare.referralDateCare4" formControlName="referralDateCare4" name="referralDateCare4"
+              [inputStyle]="{'width':'140px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.familyMemberCare5" formControlName="familyMemberCare5" name="familyMemberCare5" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.needIdentifiedCare5" formControlName="needIdentifiedCare5" name="needIdentifiedCare5"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.serviceCare5" formControlName="serviceCare5" name="serviceCare5" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isFamilyAcceptedCareYes5" formControlName="isFamilyAcceptedCareYes5"
+                  name="isFamilyAcceptedCareYes5" class="space-right"></p-checkbox>Yes
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="fpPlanOfSafeCare.isFamilyAcceptedCareNo5" formControlName="isFamilyAcceptedCareNo5"
+                  name="isFamilyAcceptedCareNo5" class="space-right"></p-checkbox>No
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpPlanOfSafeCare.referralDateCare" formControlName="referralDateCare" name="referralDateCare" [inputStyle]="{'width':'140px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+
+      </table>
+    </div>
+    <p>List the family’s strengths and resources:</p>
+    <div class="space-down">
+      <textarea [(ngModel)]="fpPlanOfSafeCare.familyStrengths" formControlName="familyStrengths" name="familyStrengths" pInputTextarea
+        autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p>List the Monitoring Provider(s) (Family Preservation Services Community Family Service Provider, other): </p>
+    <div class="space-down">
+      <textarea [(ngModel)]="fpPlanOfSafeCare.monitoringProviders" formControlName="monitoringProviders" name="monitoringProviders"
+        pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p>
+      <span class="bold">Section IV SIGNATURES</span> (All participating individuals are to sign this plan and the family is to retain a copy)</p>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">Participant:</th>
+          <th class="table-td">Role:</th>
+          <th class="table-td">Date:</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.participant" formControlName="participant" name="participant" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.role" formControlName="role" name="role" type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpPlanOfSafeCare.date" formControlName="date" name="date" [inputStyle]="{'width':'140px'}" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.participant1" formControlName="participant1" name="participant1" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.role1" formControlName="role1" name="role1" type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpPlanOfSafeCare.date1" formControlName="date1" name="date1" [inputStyle]="{'width':'140px'}" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.participant2" formControlName="participant2" name="participant2" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.role2" formControlName="role2" name="role2" type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpPlanOfSafeCare.date2" formControlName="date2" name="date2" [inputStyle]="{'width':'140px'}" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.participant3" formControlName="participant3" name="participant" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.role3" formControlName="role3" name="role3" type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpPlanOfSafeCare.date3" formControlName="date3" name="date3" [inputStyle]="{'width':'140px'}" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.participant4" formControlName="participant4" name="participant4" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.role4" formControlName="role4" name="role4" type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpPlanOfSafeCare.date4" formControlName="date4" name="date4" [inputStyle]="{'width':'140px'}" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.participant5" formControlName="participant5" name="participant5" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input [(ngModel)]="fpPlanOfSafeCare.role5" formControlName="role5" name="role5" type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p-calendar [(ngModel)]="fpPlanOfSafeCare.date5" formControlName="date5" name="date5" [inputStyle]="{'width':'140px'}" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <p>Distribution: Family, Case File</p>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,fpPlanOfSafeCare)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()"
+  [isPrint]="isPrint"></app-form-footer>

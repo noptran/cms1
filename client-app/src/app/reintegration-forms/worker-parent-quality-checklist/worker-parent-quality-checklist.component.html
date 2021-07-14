@@ -1,0 +1,233 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="workerParentForm"class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        REINTEGRATION FOSTER CARE <br>
+        W/P QUALITY CHECKLIST
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Client Name:</span>
+          <input [(ngModel)]="reWorkerParent.ClientName" formControlName="ClientName" name="ClientName"  type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Parent Name:</span>
+          <input [(ngModel)]="reWorkerParent.ParentName" formControlName="ParentName" name="ParentName"  type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Date of W/P:</span>
+          <p-calendar [(ngModel)]="reWorkerParent.DateOfWP" formControlName="DateOfWP" name="DateOfWP"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>W/P Completed By:</span>
+          <input [(ngModel)]="reWorkerParent.CompletedBy" formControlName="CompletedBy" name="CompletedBy"  type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Reviewer’s Name:</span>
+          <input [(ngModel)]="reWorkerParent.ReviewerName" formControlName="ReviewerName" name="ReviewerName"  type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span> Date Review:</span>
+          <p-calendar [(ngModel)]="reWorkerParent.DateOfReview" formControlName="DateOfReview" name="DateOfReview"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <p> 1. Was the visit face-to-face (for parent in state) or by phone/letter (for parents out of state or otherwise
+      unable to have face to face visits)? (example: incarcerated parents where visits are not permitted by the
+      facility, must be clearly </p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsVisitFaceYes" formControlName="IsVisitFaceYes" name="IsVisitFaceYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsVisitFaceNo" formControlName="IsVisitFaceNo" name="IsVisitFaceNo"  class="space-right"></p-checkbox>No
+      </div>
+      <div class="space-right bold">If No, it is not a W/P by definition and staff need to correct the procedure code
+        in
+        eKidz.
+        No need to complete this checklist
+      </div>
+    </div>
+    <p> 2.Did the visit occur in an environment conducive to open and honest conversation (such as a private home)?</p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsVisitOccurYes" formControlName="IsVisitOccurYes" name="IsVisitOccurYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsVisitOccurNo" formControlName="IsVisitOccurNo" name="IsVisitOccurNo"  class="space-right"></p-checkbox>No
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">If no, where did the visit take place? </div>
+        <div class="space-right">
+          <input [(ngModel)]="reWorkerParent.VisitOccur" formControlName="VisitOccur" name="VisitOccur"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p> 3.Were the parent’s case plan tasks reviewed?</p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsTasksReviewedYes" formControlName="IsTasksReviewedYes" name="IsTasksReviewedYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsTasksReviewedNo" formControlName="IsTasksReviewedNo" name="IsTasksReviewedNo"  class="space-right"></p-checkbox>No
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Comments: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reWorkerParent.TasksReviewed" formControlName="TasksReviewed" name="TasksReviewed"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p> 4.Did the worker document tasks for the parent to complete before the next visit?</p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsWorkerDocumentYes" formControlName="IsWorkerDocumentYes" name="IsWorkerDocumentYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsWorkerDocumentNo" formControlName="IsWorkerDocumentNo" name="IsWorkerDocumentNo"  class="space-right"></p-checkbox>No
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Comments: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reWorkerParent.WorkerDocument" formControlName="WorkerDocument" name="WorkerDocument"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p> 5.Did the worker document tasks for the worker to complete before the next visit?</p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsWorkerDocument1Yes" formControlName="IsWorkerDocument1Yes" name="IsWorkerDocument1Yes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsWorkerDocument1No" formControlName="IsWorkerDocument1No" name="IsWorkerDocument1No"  class="space-right"></p-checkbox>No
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Comments: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reWorkerParent.WorkerDocument1" formControlName="WorkerDocument1" name="WorkerDocument1"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p>6. Did the worker document a discussion about important connections, including relatives?</p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsRelativesYes" formControlName="IsRelativesYes" name="IsRelativesYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsRelativesNo" formControlName="IsRelativesNo" name="IsRelativesNo"  class="space-right"></p-checkbox>No
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Comments: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reWorkerParent.Relatives" formControlName="Relatives" name="Relatives"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p> 7.Did the worker assess for safety concerns for of all family members living in the home (including safety
+      concerns for children living in the removal home)?</p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsAssessForSafetyYes" formControlName="IsAssessForSafetyYes" name="IsAssessForSafetyYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsAssessForSafetyNo" formControlName="IsAssessForSafetyNo" name="IsAssessForSafetyNo"  class="space-right"></p-checkbox>No
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">List any concerns: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reWorkerParent.AssessForSafety" formControlName="AssessForSafety" name="AssessForSafety"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p> 8.Did the worker assess for risk concerns of all family members living in the home (including risk concerns for
+      children living in the removal home)?</p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsAssessForRiskYes" formControlName="IsAssessForRiskYes" name="IsAssessForRiskYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsAssessForRiskNo" formControlName="IsAssessForRiskNo" name="IsAssessForRiskNo"  class="space-right"></p-checkbox>No
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">List any concerns: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reWorkerParent.AssessForRisk" formControlName="AssessForRisk" name="AssessForRisk"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p> 9.Did the worker make plans to address any safety and risk concerns noted?</p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsAddressSafetyYes" formControlName="IsAddressSafetyYes" name="IsAddressSafetyYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsAddressSafetyNo" formControlName="IsAddressSafetyNo" name="IsAddressSafetyNo"  class="space-right"></p-checkbox>No
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.isAddressSafety" formControlName="isAddressSafety" name="isAddressSafety"  class="space-right"></p-checkbox>N/A
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Plan to address concerns: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reWorkerParent.AddressSafety" formControlName="AddressSafety" name="AddressSafety"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p>10. Is there documentation of progress since the last W/P visit?</p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsProgressYes" formControlName="IsProgressYes" name="IsProgressYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsProgressNo" formControlName="IsProgressNo" name="IsProgressNo"  class="space-right"></p-checkbox>No
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Comments: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reWorkerParent.Progress" formControlName="Progress" name="Progress"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p>11. Was the visit of sufficient length to address key issues?</p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsKeyIssuesYes" formControlName="IsKeyIssuesYes" name="IsKeyIssuesYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reWorkerParent.IsKeyIssuesNo" formControlName="IsKeyIssuesNo" name="IsKeyIssuesNo"  class="space-right"></p-checkbox>No
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Comments: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reWorkerParent.KeyIssues" formControlName="KeyIssues" name="KeyIssues"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,reWorkerParent)" (edit)="editForm()" [editControll]="editControll" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

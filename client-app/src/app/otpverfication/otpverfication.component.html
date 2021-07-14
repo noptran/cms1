@@ -1,0 +1,47 @@
+<div class="otp-container">
+    <div>
+        <div id="loading-overlay">
+          <p class="loader-text">
+            <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+          </p>
+        </div>
+        <div class="verification-container">
+          <!-- <div class="{{alertMsg}} alert-message-container">
+            <span>{{alertData}}</span>
+          </div> -->
+          <div class="verify-logo">
+            <img src="/assets/login/app_logo.svg" alt="app-logo" />
+          </div>
+          <div class="verify-title">
+            <span>OTP VERIFICATION</span>
+          </div>
+          <div class="verify-info">
+            <span>Please enter the OTP sent to your Email address <span class="sf-primary-color">{{otpverfication.userEmail}}</span></span>
+          </div>
+          <div class="verify-inputarea">
+            <input type="text" name="otp" class="otp-input" [(ngModel)]="otpverfication.otp" maxlength="6">
+          </div>
+          <div [ngClass]="otpverfication.otp? 'verify-button-active': 'verify-button'" (click)="save()">
+            <span class="btn-txt">{{otpBtnTxt}}</span>
+          </div>
+          <div class="verify-remember">
+            <p-checkbox pTooltip="Keep this checked for quicker access
+              on this computer on this browser." label="Remember Me"
+              name="remember_me" value="checked" [(ngModel)]="otpverfication.rememberMe"></p-checkbox>
+          </div>
+          <div class="verify-footer row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span>I didn’t recieve any mail, <span (click)="resendLink()" class="navigation-link">Resend code</span></span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 text-align-right">
+              <img src="/assets/icons/info.svg" alt="info" pTooltip="OTP verification is required whenever 
+                you logut and login application to 
+                maintain the better security and 
+                meet HIPAA compliance">
+            </div>
+          </div>
+        </div>
+      
+      </div>
+</div>
+

@@ -1,0 +1,371 @@
+<app-form-header [breadcrumbs]="PS.breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form [formGroup]="providerStrenfthForm" class="sf-form">
+      <div class="row">
+        <div class="col-lg-12 margin-top-1rem">
+          <p><b>Office/Documentation</b></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <!-- (onChange)="resetOfficeValues($event)" -->
+          <p-checkbox (onChange)="onCheckboxSelect(strength.isPaperwork,'isPaperwork')" name="isPaperwork"
+            formControlName="isPaperwork" [(ngModel)]="strength.isPaperwork" label="Paperwork Completed Timely"
+            binary="true"></p-checkbox>
+
+
+        </div>
+        <div class="col-md-4">
+
+          <p-checkbox (onChange)="onCheckboxSelect(strength.isProvidesThorough,'isProvidesThorough')" name="isProvidesThorough"
+            formControlName="isProvidesThorough" [(ngModel)]="strength.isProvidesThorough"
+            label="Provides Thorough Documentation" binary="true">
+          </p-checkbox>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="row">
+        <div class="col-lg-12 margin-top-1rem">
+          <p><b>Strengths Related to Child</b></p>
+        </div>
+      </div>
+      <div class="checkbox-container">
+        <div class="row">
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isStrenghtActiveAdoption,'isStrenghtActiveAdoption')"
+              name="isStrenghtActiveAdoption" formControlName="isStrenghtActiveAdoption"
+              [(ngModel)]="strength.isStrenghtActiveAdoption" label="Actively Participates With/In Adoption Plans"
+              binary="true"></p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isStrengthActiveReint,'isStrengthActiveReint')" name="isStrengthActiveReint"
+              formControlName="isStrengthActiveReint" [(ngModel)]="strength.isStrengthActiveReint"
+              label="Actively Participates With/In Reintegration Plans" binary="true"></p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isStrengthFlexible,'isStrengthFlexible')" name="isStrengthFlexible"
+              formControlName="isStrengthFlexible" [(ngModel)]="strength.isStrengthFlexible" label="Flexible"
+              binary="true"></p-checkbox>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isStrengthPatience,'isStrengthPatience')" name="isStrengthPatience"
+              formControlName="isStrengthPatience" [(ngModel)]="strength.isStrengthPatience" label="Patience"
+              binary="true"></p-checkbox>
+          </div>
+
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isStrengthSupport,'isStrengthSupport')" name="isStrengthSupport"
+              formControlName="isStrengthSupport" [(ngModel)]="strength.isStrengthSupport"
+              label="Support Children's Activities/Work" binary="true">
+            </p-checkbox>
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 margin-top-1rem">
+          <p><b>Strengths Related to Provider</b></p>
+        </div>
+      </div>
+      <div class="checkbox-container">
+        <div class="row">
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isProviderCommunicates,'isProviderCommunicates')"
+              name="isProviderCommunicates" formControlName="isProviderCommunicates"
+              [(ngModel)]="strength.isProviderCommunicates" label="Communicates Effectively" binary="true"></p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isProviderCultural,'isProviderCultural')"
+              name="isProviderCultural" formControlName="isProviderCultural" [(ngModel)]="strength.isProviderCultural"
+              label="Culturally Sensative" binary="true"></p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isProviderEffective,'isProviderEffective')"
+              name="isProviderEffective" formControlName="isProviderEffective"
+              [(ngModel)]="strength.isProviderEffective" label="Effectively Uses Positive Discipline Techniques"
+              binary="true"></p-checkbox>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isProviderExperience1To5,'isProviderExperience1To5')"
+              name="isProviderExperience1To5" formControlName="isProviderExperience1To5"
+              [(ngModel)]="strength.isProviderExperience1To5" label="Experience in Foster Care (1-5 yrs)" binary="true">
+            </p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isProviderExperience10To20,'isProviderExperience10To20')"
+              name="isProviderExperience10To20" formControlName="isProviderExperience10To20"
+              [(ngModel)]="strength.isProviderExperience10To20" label="Experience in Foster Care (10-20 yrs)"
+              binary="true"></p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isProviderExperience5To10,'isProviderExperience5To10')"
+              name="isProviderExperience5To10" formControlName="isProviderExperience5To10"
+              [(ngModel)]="strength.isProviderExperience5To10" label="Experience in Foster Care (5-10 yrs)"
+              binary="true"></p-checkbox>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isProviderExtendedFamily,'isProviderExtendedFamily')"
+              name="isProviderExtendedFamily" formControlName="isProviderExtendedFamily"
+              [(ngModel)]="strength.isProviderExtendedFamily" label="Extended Family Supports" binary="true">
+            </p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isProviderFlexible,'isProviderFlexible')"
+              name="isProviderFlexible" formControlName="isProviderFlexible" [(ngModel)]="strength.isProviderFlexible"
+              label="Flexible" binary="true"></p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isProviderOpenSuggestion,'isProviderOpenSuggestion')"
+              name="isProviderOpenSuggestion" formControlName="isProviderOpenSuggestion"
+              [(ngModel)]="strength.isProviderOpenSuggestion" label="Open To Suggestions" binary="true"></p-checkbox>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isProviderConsistency,'isProviderConsistency')"
+              name="isProviderConsistency" formControlName="isProviderConsistency"
+              [(ngModel)]="strength.isProviderConsistency" label="Provides Consistency For Children in their Home"
+              binary="true"></p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isProviderStructure,'isProviderStructure')"
+              name="isProviderStructure" formControlName="isProviderStructure"
+              [(ngModel)]="strength.isProviderStructure" label="Provides Structure For Children in Their Home"
+              binary="true"></p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isProviderStrong,'isProviderStrong')" name="isProviderStrong"
+              formControlName="isProviderStrong" [(ngModel)]="strength.isProviderStrong"
+              label="Strong Advocate For Children Placed in Their Home" binary="true"></p-checkbox>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isProviderWilling,'isProviderWilling')" name="isProviderWilling"
+              formControlName="isProviderWilling" [(ngModel)]="strength.isProviderWilling"
+              label="Willing to Take Teen Placements" binary="true">
+            </p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isProviderWorksWelFamilies,'isProviderWorksWelFamilies')"
+              name="isProviderWorksWelFamilies" formControlName="isProviderWorksWelFamilies"
+              [(ngModel)]="strength.isProviderWorksWelFamilies" label="Works Well With Birth/Adoptive Families" binary="true">
+            </p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isProviderExperience0To1,'isProviderExperience0To1')"
+              name="isProviderExperience0To1" formControlName="isProviderExperience0To1"
+              [(ngModel)]="strength.isProviderExperience0To1" label="Experience in Foster Care (0-1 yrs)" binary="true">
+            </p-checkbox>
+
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isProviderExperienceOver20,'isProviderExperienceOver20')"
+              name="isProviderExperienceOver20" formControlName="isProviderExperienceOver20"
+              [(ngModel)]="strength.isProviderExperienceOver20" label="Experience in Foster Care (over 20 yrs)"
+              binary="true"></p-checkbox>
+
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isProviderPartners,'isProviderPartners')"
+              name="isProviderPartners" formControlName="isProviderPartners" [(ngModel)]="strength.isProviderPartners"
+              label="Partners Well With Staff, Therapists, Schools, etc" binary="true"></p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isProviderUtilize,'isProviderUtilize')" name="isProviderUtilize"
+              formControlName="isProviderUtilize" [(ngModel)]="strength.isProviderUtilize"
+              label="Utilizes Community Resources" binary="true"></p-checkbox>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="row">
+        <div class="col-lg-12 margin-top-1rem">
+          <p><b>Experience with</b></p>
+        </div>
+      </div>
+      <div class="checkbox-container">
+        <div class="row">
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isExperienceWithADHD,'isExperienceWithADHD')" name="isExperienceWithADHD"
+              formControlName="isExperienceWithADHD" [(ngModel)]="strength.isExperienceWithADHD"
+              label="Experience with ADHD" binary="true">
+            </p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isExperienceWithAutism,'isExperienceWithAutism')" name="isExperienceWilling"
+              formControlName="isExperienceWithAutism" [(ngModel)]="strength.isExperienceWithAutism"
+              label="Experience with Autism" binary="true">
+            </p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isExperienceWithDeaf_SignLanguage,'isExperienceWithDeaf_SignLanguage')" name="isExperienceWithDeaf_SignLanguage"
+              formControlName="isExperienceWithDeaf_SignLanguage" [(ngModel)]="strength.isExperienceWithDeaf_SignLanguage"
+              label="Experience with Deaf/Sign Language" binary="true"></p-checkbox>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isExperienceWithFAS_FAE,'isExperienceWithFAS_FAE')" name="isExperienceWithFAS_FAE"
+              formControlName="isExperienceWithFAS_FAE" [(ngModel)]="strength.isExperienceWithFAS_FAE"
+              label="Experience with FAS/FAE" binary="true">
+            </p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isExperienceWithFireStarters,'isExperienceWithFireStarters')" name="isExperienceWithFireStarters"
+              formControlName="isExperienceWithFireStarters" [(ngModel)]="strength.isExperienceWithFireStarters"
+              label="Experience with Fire Starters" binary="true">
+            </p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isExperienceWithIndependentLivingSkills,'isExperienceWithIndependentLivingSkills')"
+              name="isExperienceWithIndependentLivingSkills" formControlName="isExperienceWithIndependentLivingSkills"
+              [(ngModel)]="strength.isExperienceWithIndependentLivingSkills" label="Experience with Independent Living Skills"
+              binary="true"></p-checkbox>
+          </div>
+        </div>
+
+        
+
+
+
+
+
+
+
+        <div class="row">
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isExperienceWithMedicalNeeds_Concerns,'isExperienceWithMedicalNeeds_Concerns')" name="isExperienceWithMedicalNeeds_Concerns"
+              formControlName="isExperienceWithMedicalNeeds_Concerns" [(ngModel)]="strength.isExperienceWithMedicalNeeds_Concerns"
+              label="Experience with Medical Needs/Concerns" binary="true">
+            </p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isExperienceWithMR_DD,'isExperienceWithMR_DD')" name="isExperienceWithMR_DD"
+              formControlName="isExperienceWithMR_DD" [(ngModel)]="strength.isExperienceWithMR_DD"
+              label="Experience with MR/DD" binary="true">
+            </p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isExperienceWithNon_EnglishSpeakingFamilies,'isExperienceWithNon_EnglishSpeakingFamilies')"
+              name="isExperienceWithNon_EnglishSpeakingFamilies" formControlName="isExperienceWithNon_EnglishSpeakingFamilies"
+              [(ngModel)]="strength.isExperienceWithNon_EnglishSpeakingFamilies" label="Experience with Non-English Speaking Families"
+              binary="true"></p-checkbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isExperienceWithPhysicalAggression,'isExperienceWithPhysicalAggression')" name="isExperienceWithPhysicalAggression"
+              formControlName="isExperienceWithPhysicalAggression" [(ngModel)]="strength.isExperienceWithPhysicalAggression"
+              label="Experience with Physical Aggression" binary="true">
+            </p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isExperienceWithRAD,'isExperienceWithRAD')" name="isExperienceWithRAD"
+              formControlName="isExperienceWithRAD" [(ngModel)]="strength.isExperienceWithRAD"
+              label="Experience with RAD" binary="true">
+            </p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isExperienceWithSexualOffenders,'isExperienceWithSexualOffenders')"
+              name="isExperienceWithSexualOffenders" formControlName="isExperienceWithSexualOffenders"
+              [(ngModel)]="strength.isExperienceWithSexualOffenders" label="Experience with Sexual Offenders"
+              binary="true"></p-checkbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isExperienceWithSpanishSpeakingFamilies,'isExperienceWithSpanishSpeakingFamilies')" name="isExperienceWithSpanishSpeakingFamilies"
+              formControlName="isExperienceWithSpanishSpeakingFamilies" [(ngModel)]="strength.isExperienceWithSpanishSpeakingFamilies"
+              label="Experience with Spanish Speaking Families" binary="true">
+            </p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isExperienceWithTeenParents,'isExperienceWithTeenParents')" name="isExperienceWithTeenParents"
+              formControlName="isExperienceWithTeenParents" [(ngModel)]="strength.isExperienceWithTeenParents"
+              label="Experience with Teen Parents" binary="true">
+            </p-checkbox>
+          </div>
+          <div class="col-md-4">
+            <p-checkbox (onChange)="onCheckboxSelect(strength.isExperienceWithVerbalAggression,'isExperienceWithVerbalAggression')"
+              name="isExperienceWithVerbalAggression" formControlName="isExperienceWithVerbalAggression"
+              [(ngModel)]="strength.isExperienceWithVerbalAggression" label="Experience with Verbal Aggression"
+              binary="true"></p-checkbox>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+              <p-checkbox (onChange)="onCheckboxSelect(strength.isExperienceWithJuvenileOffenders,'isExperienceWithJuvenileOffenders')" name="isExperienceWithPhysicalAggression"
+                formControlName="isExperienceWithJuvenileOffenders" [(ngModel)]="strength.isExperienceWithJuvenileOffenders"
+                label="Experience with Juvenile Offenders" binary="true">
+              </p-checkbox>
+            </div>
+        </div>
+
+        <div class="subnode-table">
+          <table>
+            <tr>
+              <th>Strength</th>
+              <th>Current</th>
+              <th>Explanation</th>
+              <th></th>
+            </tr>
+            <tr *ngFor="let data of providerStrengthList">
+              <td>{{data.strength}}</td>
+              <td> <p-checkbox
+                name="iscurrent"
+                [(ngModel)]="data.current" [disabled]="isListDis" [ngModelOptions]="{standalone: true}"
+                binary="true"></p-checkbox></td>
+              <td><textarea pInputTextarea name="inputTextarea" [disabled]="isListDis" [(ngModel)]="data.explanation" [ngModelOptions]="{standalone: true}"
+                style="width:100%;height:100%"></textarea></td>
+                <td><button (click)="deleteRec(data)">Delete</button></td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+</div>
+<app-form-footer (edit)="editForm()" [editControll]="PS.isEdit" (save)="formAction(strength)"
+  [discardTo]="PS.discardTo" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>

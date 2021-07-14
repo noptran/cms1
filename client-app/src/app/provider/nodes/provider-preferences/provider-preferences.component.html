@@ -1,0 +1,119 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form class="sf-form form-container" [formGroup]="preference">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Youngest</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner name="numericInput" formControlName="youngestAge" [(ngModel)]="pref.youngestAge" [step]="1.00">
+            </p-spinner>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Oldest</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner name="numericInput" formControlName="oldestAge" [(ngModel)]="pref.oldestAge" [step]="1.00">
+            </p-spinner>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Race</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="gradeID" formControlName="raceID" [(ngModel)]="pref.raceID"
+              (completeMethod)="getMetaData($event, 'race')" [suggestions]="metaData" [forceSelection]="true"
+              placeholder="Type here to search" field="race" size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Gender Group</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="gradeID" formControlName="genderGroupID"
+              [(ngModel)]="pref.genderGroupID" emptyMessage="No results found!"
+              (completeMethod)="getMetaData($event, 'genderGroup')" [suggestions]="metaData" [forceSelection]="true"
+              placeholder="Type here to search" field="genderGroup" size="23"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Capacity</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner name="numericInput" [(ngModel)]="pref.capacity" formControlName="capacity" [step]="1">
+            </p-spinner>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Age is Flexible</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox binary="true" name="checkbox" formControlName="ageIsFlexible" [(ngModel)]="pref.ageIsFlexible">
+            </p-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Race is Flexible</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox binary="true" name="checkbox" formControlName="raceIsFlexible"
+              [(ngModel)]="pref.raceIsFlexible"></p-checkbox>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Gender is Flexible</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox binary="true" name="checkbox" formControlName="genderIsFlexible"
+              [(ngModel)]="pref.genderIsFlexible"></p-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>ER Respite Only</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox binary="true" name="checkbox" formControlName="respiteOnly" [(ngModel)]="pref.respiteOnly">
+            </p-checkbox>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Will Take Respite</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox binary="true" name="checkbox" formControlName="willTakeRespite"
+              [(ngModel)]="pref.willTakeRespite"></p-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>On Hold Capacity</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText name="inputText" [(ngModel)]="pref.onHoldCapacity"
+              formControlName="onHoldCapacity" size="27" readonly />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea pInputTextarea name="inputTextarea" formControlName="notes" [(ngModel)]="pref.notes"
+              style="width:100%;height:100%"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer [attachmentControll]="isAttachmentRequired" (attachDoc)="navigateTo()" [discardTo]="discardTo"
+      (save)="save(pref)" (edit)="editForm()" [editControll]="isEdit" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+  </div>
+</div>

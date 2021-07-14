@@ -1,0 +1,575 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="nonCustodialParentIcedForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        FAMILY PRESERVATION
+        <br> NON-CUSTODIAL PARENT ICED WORKSHEET
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Case Name:</span>
+          <input readonly [(ngModel)]="fpNonCustodialParentIced.caseName" formControlName="caseName" name="caseName" type="text" pInputText
+            size="20" />
+        </div>
+        <div>
+          <span>Case Number:</span>
+          <input readonly [(ngModel)]="fpNonCustodialParentIced.caseNumber" formControlName="caseNumber" name="caseNumber" type="text" pInputText
+            size="20" />
+        </div>
+        <div>
+          <span>Date of Referral:</span>
+          <p-calendar [(ngModel)]="fpNonCustodialParentIced.dateOfReferral" formControlName="dateOfReferral" name="dateOfReferral"
+            [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>Date:</span>
+          <p-calendar [(ngModel)]="fpNonCustodialParentIced.assessmentDate" formControlName="assessmentDate" name="assessmentDate"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <p class="bold">IDENTIFY:</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Non-Custodial Parent Name:</div>
+      <div class="space-right">
+        <div class="space-down">
+          <input [(ngModel)]="fpNonCustodialParentIced.parentName" formControlName="parentName" name="parentName" type="text" pInputText
+            size="20" />
+        </div>
+        <div class="space-down">
+          <input [(ngModel)]="fpNonCustodialParentIced.parentName1" formControlName="parentName1" name="parentName1" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+      <div class="space-right">Child(ren):</div>
+      <div class="space-right">
+        <div class="space-down">
+          <input [(ngModel)]="fpNonCustodialParentIced.child" formControlName="child" name="child" type="text" pInputText size="20"
+          />
+        </div>
+        <div class="space-down">
+          <input [(ngModel)]="fpNonCustodialParentIced.child1" formControlName="child1" name="child1" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Does the custodial parent (FP Case Head) give verbal permission to locate, contact and assess the noncustodial? </div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentIced.custodialParent" formControlName="custodialParent" name="custodialParent" type="text"
+          pInputText size="20" />
+      </div>
+      <div class="space-right">No, document the reasons why:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentIced.reasonsWhy" formControlName="reasonsWhy" name="reasonsWhy" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <p>ANSWER THE NEXT 3 QUESTIONS:</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Therapeutic assessment of not involving noncustodial:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentIced.therapeuticAssessment" formControlName="therapeuticAssessment" name="therapeuticAssessment"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">DCF assessment of not involving noncustodial:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentIced.dcfAssessment" formControlName="dcfAssessment" name="dcfAssessment" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Is contacting noncustodial contrary to the child’s best interest or safety, explain?
+      </div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpNonCustodialParentIced.contactingNoncustodial" formControlName="contactingNoncustodial" name="contactingNoncustodial"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentIced.dcfAssessment1" formControlName="dcfAssessment1" name="dcfAssessment1" type="text"
+          pInputText size="20" />
+      </div>
+      <div class="space-right">DCF assessment of not involving noncustodial:</div>
+    </div>
+    <p>Does the custodial know the noncustodial parent’s contact information?</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentIced.yesDocument" formControlName="yesDocument" name="yesDocument" type="text" pInputText
+          size="20" />
+      </div>
+      <div class="space-right">Yes, document on the Initial Family Assessment forms. Move to CONTACT</div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentIced.noDocument" formControlName="noDocument" name="noDocument" type="text" pInputText
+          size="20" />
+      </div>
+      <div class="space-right">No, does the custodial know noncustodial relatives’ contact information?</div>
+    </div>
+    <p> Yes, Custodial must sign ROI before staff contacts</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Date staff contacted noncustodial relatives:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentIced.dateStaffContacted" formControlName="dateStaffContacted" name="dateStaffContacted"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Results of contact with noncustodial relatives:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentIced.resultsOfContact" formControlName="resultsOfContact" name="resultsOfContact"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>If location is obtained, move to CONTACT</p>
+    <div class="space-down">
+      Is the custodial receiving child support?
+      <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentIced.isChildSupportNo"
+        formControlName="isChildSupportNo" name="isChildSupportNo" class="space-right"></p-checkbox> No
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentIced.kansasChildSupport" formControlName="kansasChildSupport" name="kansasChildSupport"
+          type="text" pInputText size="20" />
+      </div>
+      <div class="space-right">Yes, complete the Kansas Child Support Enforcement Request to Perform Federal Parent Locator Service Search
+        <br> and provide to the referring DCF PPS social worker
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Date staff submitted form to DCF:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentIced.dateStaffDcf" formControlName="dateStaffDcf" name="dateStaffDcf" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Results of contact with noncustodial relatives:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentIced.resultsOfContact1" formControlName="resultsOfContact1" name="resultsOfContact1"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>If location is obtained, move to CONTACT</p>
+    <p>Web search using noncustodial parent’s name (Use one free website below):</p>
+    <div class="flex-container space-right space-down">
+      <div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">
+            <input [(ngModel)]="fpNonCustodialParentIced.zabasearch" formControlName="zabasearch" name="zabasearch" type="text" pInputText
+              size="20" />
+          </div>
+          <div class="space-right">
+            <a href="www.zabasearch.com">www.zabasearch.com</a>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">
+            <input [(ngModel)]="fpNonCustodialParentIced.switchboard" formControlName="switchboard" name="switchboard" type="text" pInputText
+              size="20" />
+          </div>
+          <div class="space-right">
+            <a href="www.switchboard.com ">www.switchboard.com </a>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">
+            <input [(ngModel)]="fpNonCustodialParentIced.google" formControlName="google" name="google" type="text" pInputText size="20"
+            />
+          </div>
+          <div class="space-right">
+            <a href="www.google.com ">www.google.com </a>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">
+            <input [(ngModel)]="fpNonCustodialParentIced.yahoo" formControlName="yahoo" name="yahoo" type="text" pInputText size="20"
+            />
+          </div>
+          <div class="space-right">
+            <a href="www.yahoo.com">www.yahoo.com </a>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">
+            <input [(ngModel)]="fpNonCustodialParentIced.whitepages" formControlName="whitepages" name="whitepages" type="text" pInputText
+              size="20" />
+          </div>
+          <div class="space-right">
+            <a href="www.whitepages.com">www.whitepages.com</a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">
+            <input [(ngModel)]="fpNonCustodialParentIced.veromi" formControlName="veromi" name="veromi" type="text" pInputText size="20"
+            />
+          </div>
+          <div class="space-right">
+            <a href="http://veromi.net/processor.asp">http://veromi.net/processor.asp</a>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">
+            <input [(ngModel)]="fpNonCustodialParentIced.peoplesearch" formControlName="peoplesearch" name="peoplesearch" type="text"
+              pInputText size="20" />
+          </div>
+          <div class="space-right">
+            <a href="www.123peoplesearch.com">www.123peoplesearch.com </a>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">
+            <input [(ngModel)]="fpNonCustodialParentIced.findpeoplesearch" formControlName="findpeoplesearch" name="findpeoplesearch"
+              type="text" pInputText size="20" />
+          </div>
+          <div class="space-right">
+            <a href="www.findpeoplesearch.com">www.findpeoplesearch.com </a>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">
+            <input [(ngModel)]="fpNonCustodialParentIced.truepeoplesearch" formControlName="truepeoplesearch" name="truepeoplesearch"
+              type="text" pInputText size="20" />
+          </div>
+          <div class="space-right">
+            <a href="www.truepeoplesearch.com">www.truepeoplesearch.com</a>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">
+            <input [(ngModel)]="fpNonCustodialParentIced.anywhoWhitepages" formControlName="anywhoWhitepages" name="anywhoWhitepages"
+              type="text" pInputText size="20" />
+          </div>
+          <div class="space-right">
+            <a href="www.anywho.com/whitepages">www.anywho.com/whitepages</a>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">
+            <input [(ngModel)]="fpNonCustodialParentIced.pipl" formControlName="pipl" name="pipl" type="text" pInputText size="20" />
+          </div>
+          <div class="space-right">
+            <a href="www.pipl.com">www.pipl.com</a>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">
+            <input [(ngModel)]="fpNonCustodialParentIced.usaPeopleSearch" formControlName="usaPeopleSearch" name="usaPeopleSearch" type="text"
+              pInputText size="20" />
+          </div>
+          <div class="space-right">
+            <a href="www.usa-people-search.com">www.usa-people-search.com </a>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">
+            <input [(ngModel)]="fpNonCustodialParentIced.spokeo" formControlName="spokeo" name="spokeo" type="text" pInputText size="20"
+            />
+          </div>
+          <div class="space-right">
+            <a href="www.spokeo.com">www.spokeo.com</a>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">
+            <input [(ngModel)]="fpNonCustodialParentIced.spokeo1" formControlName="spokeo1" name="spokeo1" type="text" pInputText size="20"
+            />
+          </div>
+          <div class="space-right">
+            <a href="www.spokeo.com">www.spokeo.com</a>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">
+            <input [(ngModel)]="fpNonCustodialParentIced.caseName" formControlName="caseName" name="caseName" type="text" pInputText
+              size="20" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>Print website search results and place in the file If location is obtained, move to CONTACT</p>
+    <p>Is the noncustodial incarcerated and location is unknown?</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentIced.completeWebSearch" formControlName="completeWebSearch" name="completeWebSearch"
+          type="text" pInputText size="20" />
+      </div>
+      <div class="space-right">Yes, complete web search</div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">
+          <input [(ngModel)]="fpNonCustodialParentIced.kasper" formControlName="kasper" name="kasper" type="text" pInputText size="20"
+          />
+        </div>
+        <div class="space-right">
+          <a href="www.doc.ks.gov/kasper">www.doc.ks.gov/kasper </a>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">
+          <input [(ngModel)]="fpNonCustodialParentIced.vinelink" formControlName="vinelink" name="vinelink" type="text" pInputText
+            size="20" />
+        </div>
+        <div class="space-right">
+          <a href="www.vinelink.com">www.vinelink.com</a>
+        </div>
+      </div>
+    </div>
+    <p>Print website search results and place in the file If location is obtained, move to CONTACT
+    </p>
+    <p class="bold">CONTACT (Assessment)</p>
+    <p>Call the noncustodial parent to arrange a face to face meeting or another time by phone to answer Non-Custodial Assessment
+      questions. Use phone outline and noncustodial form letter to answer general questions noncustodial may have. </p>
+    <div class="flex-container space-right space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date of Call:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpNonCustodialParentIced.dateOfCall" formControlName="dateOfCall" name="dateOfCall" [inputStyle]="{'width':'170px'}"
+            class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Outcome of Call:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpNonCustodialParentIced.outcomeOfCall" formControlName="outcomeOfCall" name="outcomeOfCall" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Is the noncustodial willing to participate in the assessment? </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentIced.isNoncustodialYes" formControlName="isNoncustodialYes" name="isNoncustodialYes"
+          class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentIced.isNoncustodialNo" formControlName="isNoncustodialNo" name="isNoncustodialNo"
+          class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">If no, why?</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentIced.noWhy" formControlName="noWhy" name="noWhy" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right"> If yes, Date of follow up phone call:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpNonCustodialParentIced.dateOfFollow" formControlName="dateOfFollow" name="dateOfFollow" [inputStyle]="{'width':'170px'}"
+            class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Outcome of call:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpNonCustodialParentIced.outcomeOfCall1" formControlName="outcomeOfCall1" name="outcomeOfCall1" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">OR, Date of face to face:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpNonCustodialParentIced.dateOfFaceToFace" formControlName="dateOfFaceToFace" name="dateOfFaceToFace"
+            [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Outcome of meeting:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpNonCustodialParentIced.outcomeOfMeeting" formControlName="outcomeOfMeeting" name="outcomeOfMeeting"
+            type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">OR, Date of letter sent:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpNonCustodialParentIced.dateOfLetterSent" formControlName="dateOfLetterSent" name="dateOfLetterSent"
+            [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Response From Header:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpNonCustodialParentIced.outcomeOfMeeting1" formControlName="outcomeOfMeeting1" name="outcomeOfMeeting1"
+            type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Date Noncustodial Parent Assessment completed:</div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="fpNonCustodialParentIced.dateNoncustodial" formControlName="dateNoncustodial" name="dateNoncustodial"
+          [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+          yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Inform noncustodial of date and time of case plan. Date invited:</div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="fpNonCustodialParentIced.informNoncustodial" formControlName="informNoncustodial" name="informNoncustodial"
+          [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+          yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Will noncustodial participate in the case plan? </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentIced.isNoncustodialParticipateYes" formControlName="isNoncustodialParticipateYes"
+          name="isNoncustodialParticipateYes" class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentIced.isNoncustodialParticipateNo" formControlName="isNoncustodialParticipateNo"
+          name="isNoncustodialParticipateNo" class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">If no, explain:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentIced.noReason" formControlName="noReason" name="noReason" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <p>If yes, move to ENGAGE</p>
+    <p class="bold">ENGAGE</p>
+    <p>How will noncustodial participate in the case plan?</p>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentIced.isProvideInput" formControlName="isProvideInput" name="isProvideInput"
+          class="space-right"></p-checkbox>Provide input prior to case plan
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentIced.isReviewCase" formControlName="isReviewCase" name="isReviewCase"
+          class="space-right"></p-checkbox>Review case plan after completion
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentIced.isAttendCase" formControlName="isAttendCase" name="isAttendCase"
+          class="space-right"></p-checkbox>Attend case plan by phone
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentIced.isByPhone" formControlName="isByPhone" name="isByPhone" class="space-right"></p-checkbox>By phone
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentIced.isAttendCasePlan" formControlName="isAttendCasePlan" name="isAttendCasePlan"
+          class="space-right"></p-checkbox>Attend case plan in person
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentIced.isInPerson" formControlName="isInPerson" name="isInPerson"
+          class="space-right"></p-checkbox>In person
+      </div>
+    </div>
+    <p>
+      If noncustodial participates in case plan, add at least one task relating to any needs that impact the ability to provide
+      appropriate care and/or supervision to ensure the child’s safety and well-being. Does the noncustodial parent have
+      needs that Saint Francis can address or refer to another provider? If yes, move to ONGOING SERVICES. If no, move to
+      DOCUMENT.
+    </p>
+    <p>
+      See additional resources in iConnect, “noncustodial parent” folder.
+    </p>
+    <p class="bold">DOCUMENT</p>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Does case activity reflect all attempts to locate, assess and engage the noncustodial parent?</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpNonCustodialParentIced.caseActivityReflect" formControlName="caseActivityReflect" name="caseActivityReflect"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <p class="bold">ONGOING SERVICES</p>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Identify services that will be provided to address the noncustodial parent’s needs:
+      </div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpNonCustodialParentIced.caseActivityReflect" identifyServices="identifyServices" name="identifyServices"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">What is the frequency of services involving noncustodial parent to achieve case plan goals:
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentIced.frequencyOfServices" formControlName="frequencyOfServices" name="frequencyOfServices"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <div class="flex-container space-down">
+      <div class="space-right">Do visits between Saint Francis and noncustodial parent support safety, permanency and well-being of child(ren) and
+        promote achievement of case goals? </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentIced.isVisitsYes" formControlName="isVisitsYes" name="isVisitsYes"
+          class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentIced.isVisitsNo" formControlName="isVisitsNo" name="isVisitsNo"
+          class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">If yes, move to DOCUMENT, if no, explain:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentIced.moveToDocumentReason" formControlName="moveToDocumentReason" name="moveToDocumentReason"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="flex-container space-right">
+        <div class="space-right">Completed by:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpNonCustodialParentIced.completedBy" formControlName="completedBy" name="completedBy" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">Date</div>
+        <div>
+          <p-calendar [(ngModel)]="fpNonCustodialParentIced.signatureDate" formControlName="signatureDate" name="signatureDate" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+        <div class="space-right space-down">
+          <div class="space-right">
+            <b>Printed Date:</b>
+          </div>
+          <div class="space-right">
+            <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="space-right space-down margin-left-66rem">
+          <div class="space-right">
+            <b>Printed By:</b>
+          </div>
+          <div class="space-right">
+            <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+          </div>
+        </div>
+  
+      </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,fpNonCustodialParentIced)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

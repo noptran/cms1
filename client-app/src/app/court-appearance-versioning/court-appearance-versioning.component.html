@@ -1,0 +1,56 @@
+<!--  -->
+
+<app-form-header [breadcrumbs]="breadcrumbs" [formNavigation]=""></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <div *ngIf="isCisDataStored" class="versioning-table">
+
+      <table class="space-down table-hover">
+        <tr>
+          <th class="table-td">
+            Version
+          </th>
+          <th class="table-td">
+            Completed By
+          </th>
+          <th class="table-td">
+            Last Modified
+          </th>
+          <th class="table-td">
+
+          </th>
+        </tr>
+
+        <tr *ngFor="let cisArrayData of formCisArrayValue; let i = index">
+          <td class="table-td">
+            <!-- {{cisArrayData.version}} -->
+            {{generateVersion(cisArrayData.version)}}
+          </td>
+          <td class="table-td">
+            {{cisArrayData.staffID.firstName+" "+cisArrayData.staffID.lastName}}
+          </td>
+          <td class="table-td">
+
+            {{cisArrayData.createdDate |date: dateFormat }}
+
+          </td>
+          <td class="table-td">
+            <span class="document-link" (click)="cisVersionBasedView(cisArrayData.version)">View</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <p-dialog [contentStyle]="{'min-width':'106rem'}" header="Court Appearance Log" [(visible)]="isCourtAppearanceLog"
+    [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="999" (onHide)="getCisJson()">
+    <app-court-appearance-log *ngIf="isCourtAppearanceLog" (courtAppearOut)="getFormData($event)"
+      (cancelOut)="discardCourtAppearance()"></app-court-appearance-log>
+  </p-dialog>
+
+</div>
+<!-- ///////////////////// -->

@@ -1,0 +1,522 @@
+<!-- id="loading-overlay" -->
+<div *ngIf="isLoading">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+
+<div *ngIf="!createAttachmentMode" class="footer">
+  <div class="footer-left-well">
+    <!-- <button class="back-btn" pTooltip="Back" (click)="backBtn()">
+        <span class="fa fa-arrow-left"></span>
+        <span>Back</span>
+      </button> -->
+    <button class="sf-attachment-btn" *ngIf="isCaseActivityCreation"
+      (click)="isOpenCACAttachmentBox = !isOpenCACAttachmentBox">
+      <span class="fa fa-file-text-o"></span>
+      <span class="attach-text">Attached Documents</span>
+    </button>
+    <button class="sf-attachment-btn" (click)="labelAction()" *ngIf="isLabel.isLabel">
+      <span>{{ isLabel.label }}</span>
+    </button>
+    <!-- <button class="sf-attachment-btn" pTooltip="Attachment" (click)="basicEmail()" *ngIf="isEmail">
+        <span class="fa fa-envelope "></span>
+        <span class="attach-text">Email</span>
+      </button>
+       -->
+    <button class="sf-attachment-btn" pTooltip="Attachments"
+      (click)="onClickAttachments() && getfilteredDocumentTypes($event.query)" *ngIf="isAttachmentsBtn">
+      <span class="fa fa-file-text-o"></span>
+      <span class="attach-text">Attached Documents</span>
+    </button>
+
+    <send-email-auto-attachment [primaryValue]="currentNodeValue" *ngIf="isAttachmentsBtn" [staffEmail]="nodeStaffEmail"
+      [emailSubjectContent]="emailSubjectContent">
+    </send-email-auto-attachment>
+
+    <general-records-delete (deleted)="onCardDelete()" [isCallOtherMethod]="isCallOtherMethod"
+      [module]="currentNodeValue" *ngIf="isDeleteBtn && !iepSchoolForm" [isPopUp]="isPopUp"></general-records-delete>
+    <button class="export-button" pTooltip="Export" (click)="export()" *ngIf="exportOption">
+      <span>Export</span>
+    </button>
+
+    <!-- <div class="upload_css">
+        <p-fileUpload
+          accept=".pdf,text/plain,image/*,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.csv,.xlsx, .xls,.doc,.odt,.svg"
+          *ngIf="fileUploadControl" customUpload="true" chooseLabel="Browse" mode="basic" maxFileSize="40000000"
+          (uploadHandler)="onBasicUpload($event)"></p-fileUpload>
+      </div> -->
+  </div>
+  <div class="footer-right-well">
+    <button class="sf-negative-btn" pTooltip="Validate" (click)="validateBtn()" *ngIf="isValidate">
+      <!-- <span class="fa fa-eraser"></span> -->
+      <span>Validate</span>
+    </button>
+    <button class="sf-negative-btn" pTooltip="Restart" (click)="restartBtn()" *ngIf="isRestart">
+      <!-- <span class="fa fa-eraser"></span> -->
+      <span>Restart</span>
+    </button>
+
+    <button class="sf-negative-btn" pTooltip="Report" (click)="reportBtn()" *ngIf="isReport">
+      <span>Report</span>
+    </button>
+    <button class="sf-negative-btn" pTooltip="preview" (click)="printPreview()" *ngIf="isPrintPreview">
+      <span>Preview</span>
+    </button>
+
+    <button class="sf-negative-btn" pTooltip="Print" (click)="printBtn()" *ngIf="isPrint">
+      <!-- <span class="fa fa-eraser"></span> -->
+      <span>Print</span>
+    </button>
+    <button [ngClass]="isSendMailDisabled ? 'disable' : 'sf-negative-btn'" pTooltip="Send Mail" (click)="mailBtn()"
+      *ngIf="mailBtnControl" [disabled]="isSendMailDisabled">
+      <!-- <span class="fa fa-eraser"></span> -->
+      <span>Send Email</span>
+    </button>
+
+    <!--  -->
+    <p-splitButton (onDropdownClick)="onPrintNavigateSelect()" *ngIf="isPrintNavigation" label="Print"
+      pTooltip="Navigates to your main form" [model]="printFormList">
+      Print
+    </p-splitButton>
+
+    <!--  -->
+
+    <button *ngIf="!iepSchoolForm" class="sf-negative-btn" pTooltip="Cancel" (click)="discardBtn()">
+      <!-- <span class="fa fa-eraser"></span> -->
+      <!-- <span>Cancel</span> -->
+      <!--  -->
+      <span *ngIf="isBackButton; else cancel_button"> Back </span>
+      <ng-template #cancel_button>
+        <span>Cancel</span>
+      </ng-template>
+      <!--  -->
+    </button>
+    <button [ngClass]="isDisabled ? 'disable' : 'sf-positive-btn'" pTooltip="Save" (click)="saveBtn()"
+      [disabled]="isDisabled" *ngIf="!editControll && !isSaveandCountinue && !iepSchoolForm">
+      <!-- <span class="fa fa-floppy-o"></span> -->
+      <!-- <span>Save</span> -->
+      <!--  -->
+      <span *ngIf="isAttachmentUrl; else other_content"> Submit </span>
+
+      <ng-template #other_content>
+        <span>Save</span>
+      </ng-template>
+      <!--  -->
+    </button>
+    <button class="sf-positive-btn" pTooltip="Submit" (click)="saveBtn()" *ngIf="isSave">
+      <!-- <span class="fa fa-floppy-o"></span> -->
+      <span>Save</span>
+    </button>
+
+    <button class="sf-positive-btn" pTooltip="Submit" (click)="submitBtn()" *ngIf="isSubmit">
+      <!-- <span class="fa fa-floppy-o"></span> -->
+      <span>Submit</span>
+    </button>
+    <button class="sf-positive-btn" pTooltip="Finalize" (click)="finalizeBtn()" *ngIf="isFinalize">
+      <!-- <span class="fa fa-floppy-o"></span> -->
+      <span>Finalize</span>
+    </button>
+    <button class="sf-edit-btn" title="Edit" pTooltip="Edit" (click)="editBtn()"
+      [ngClass]="showEdit ? 'showedit' : 'hideedit'" [disabled]="isDisabled" *ngIf="editControll">
+      <!-- <span class="fa fa-pencil-square-o"></span> -->
+      <span>Edit</span>
+    </button>
+
+    <button class="sf-positive-btn" pTooltip="Delete" (click)="deleteRecordAction()" *ngIf="isDelete">
+      <span>Delete</span>
+    </button>
+
+    <p-splitButton label="Save & Continue" class="sf-saveContu-btn" (onClick)="saveAndContinue()" [model]="subActions"
+      *ngIf="isSaveandCountinue"></p-splitButton>
+
+    <!-- Email portion-->
+    <div class="email-composer">
+      <p-dialog header="{{ mail.subject }}" [(visible)]="openMailWindow" [responsive]="true"
+        [style]="{ width: '350px', minWidth: '200px' }" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+        <div class="recepients">
+          <span>To</span>
+          <p-autoComplete [(ngModel)]="mail.to" [suggestions]="filteredStaffEmailIDS"
+            (completeMethod)="filterStaffMultiple($event)" styleClass="wid100" [minLength]="1"
+            placeholder="Type here to search" name="to" field="email" [multiple]="true">
+            <ng-template let-staff pTemplate="item">
+              <div class="ui-helper-clearfix" style="border-bottom: 1px solid #d5d5d5">
+                <p>{{ staff.firstName }} {{ staff.lastName }}</p>
+                <p>{{ staff.email }}</p>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+
+          <span>CC</span>
+          <p-autoComplete [(ngModel)]="mail.cc" [suggestions]="filteredStaffEmailIDS"
+            (completeMethod)="filterStaffMultiple($event)" styleClass="wid100" [minLength]="1"
+            placeholder="Type here to search" field="email" name="cc" [multiple]="true">
+            <ng-template let-staff pTemplate="item">
+              <div class="ui-helper-clearfix" style="border-bottom: 1px solid #d5d5d5">
+                <p>{{ staff.firstName }} {{ staff.lastName }}</p>
+                <p>{{ staff.email }}</p>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+
+          <span>BCC</span>
+          <p-autoComplete [(ngModel)]="mail.bcc" [suggestions]="filteredStaffEmailIDS"
+            (completeMethod)="filterStaffMultiple($event)" styleClass="wid100" [minLength]="1"
+            placeholder="Type here to search" field="email" name="bcc" [multiple]="true">
+            <ng-template let-staff pTemplate="item">
+              <div class="ui-helper-clearfix" style="border-bottom: 1px solid #d5d5d5">
+                <p>{{ staff.firstName }} {{ staff.lastName }}</p>
+                <p>{{ staff.email }}</p>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </div>
+
+        <div class="composer">
+          <input type="text" pInputText [(ngModel)]="mail.subject" name="subject" placeholder="Subject" />
+          <p-editor class="margin-bottom-1rem" name="content" [(ngModel)]="mail.content" [style]="{ height: '320px' }">
+          </p-editor>
+
+          <ul *ngIf="sendMailAttachmentStream.length">
+            <li class="attachments-added" *ngFor="let file of sendMailAttachmentStream">
+              {{ file.name
+              }}<span class="kilobytes-text">({{ byteToKbConversion(file.size) }} K)</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="actions">
+          <div class="mail-attachment-button">
+            <p-fileUpload #form mode="basic" customUpload="true" auto="true" multiple="multiple"
+              accept=".pdf,text/plain,image/*,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.csv,.xlsx, .xls,.doc,.odt,.svg"
+              chooseLabel="Attach File" maxFileSize="200000000" (uploadHandler)="storeSendMailAttachment($event, form)">
+            </p-fileUpload>
+          </div>
+          <button class="cancel" (click)="discardTrigger()">
+            <span class="fa fa-trash-o"></span>
+            <span>Discard</span>
+          </button>
+          <button class="send" (click)="MailTrigger()">
+            <span class="fa fa-paper-plane-o"></span>
+            <span>Send</span>
+          </button>
+        </div>
+      </p-dialog>
+    </div>
+
+    <p-dialog header="Attached Documents" [(visible)]="isProviderUploadWindow" [responsive]="true"
+      [contentStyle]="{ 'min-width': '66rem' }" [maximizable]="true" [baseZIndex]="10000">
+      <p class="info-text">{{ uploadDocTypes.fileStatusText }}</p>
+      <p-accordion [multiple]="true">
+        <p-accordionTab header="Upload Attachment" [selected]="true">
+          <div class="sf-form">
+            <div>
+              <p>Document Type Category</p>
+              <p-autoComplete name="documentType" emptyMessage="No results found!" placeholder="Type here to search"
+                [forceSelection]="true" [dropdown]="true" [suggestions]="filteredDocumentTypes" field="documentType"
+                (completeMethod)="
+                  filteredDocumentTypes = uploadDocTypes.filteringUplodDocType(
+                    $event.query
+                  )
+                " (onSelect)="uploadDocTypes.onSelectedDocType($event)" [(ngModel)]="docCategory"></p-autoComplete>
+            </div>
+            <div>
+              <p>SFCS Notes</p>
+              <textarea name="sfcsNotes" style="width: 100%; height: auto" [(ngModel)]="sfcsNotes"></textarea>
+            </div>
+            <div>
+              <p>Description</p>
+              <textarea name="description" style="width: 100%; height: auto"
+                [(ngModel)]="uploadDocTypes.description"></textarea>
+            </div>
+          </div>
+          <p-fileUpload name="caseActivity[]" customUpload="true" (uploadHandler)="onUpload($event)"
+            maxFileSize="200000000" #uploadAction [showUploadButton]="isCMSFileUploadBtnDisable" multiple="true">
+            <ng-template pTemplate="content">
+              <ul>
+                <li *ngFor="let file of uploadedDocuments">
+                  {{ file.name }} - {{ file.size }} bytes
+                </li>
+              </ul>
+            </ng-template>
+          </p-fileUpload>
+        </p-accordionTab>
+
+        <p-accordionTab header="View Attachments">
+          <div class="text-center" *ngIf="scannedDocumentList.length === 0">
+            <span>No attachments found!</span>
+          </div>
+          <div class="data-table view-attachment-container" *ngIf="scannedDocumentList.length > 0">
+            <div class="flex-end" *ngIf="scannedDocumentList.length > 1">
+              <button class="delete" (click)="isDeleteAllConfirmation = true">
+                <span class="fa fa-trash"></span>
+                <span>Delete All</span>
+              </button>
+            </div>
+            <table>
+              <tr>
+                <th>Document Type</th>
+                <th>Description</th>
+                <th>Upload Date</th>
+                <th>Upload By</th>
+                <th>Reupload Date</th>
+                <th>Reupload By</th>
+                <th>File Size</th>
+                <th>Action</th>
+              </tr>
+              <tr *ngFor="let file of scannedDocumentList">
+                <td>{{ file?.documentType }}</td>
+                <td>{{ file?.Description }}</td>
+                <td>{{ file?.UploadDate | date: "MM/dd/yyyy" }}</td>
+                <td>{{ file?.UploadBy }}</td>
+                <td>{{ file?.ReUploadDate | date: "MM/dd/yyyy" }}</td>
+                <td>{{ file?.ReUploadBy }}</td>
+                <td>{{ file?.Filesize }} KB.</td>
+                <td>
+                  <span class="fa fa-download download-icon" title="Download the record" (click)="
+                      uploadDocTypes.downloadAttachedDocument(
+                        file.ScannedDocumentID
+                      )
+                    "></span>
+                  <span class="fa fa-trash delete-icon" title="Delete the record"
+                    (click)="onAttachDocDelete(file.ScannedDocumentID)"></span>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+      <p-footer></p-footer>
+    </p-dialog>
+  </div>
+</div>
+<div style="text-align: center" *ngIf="isFormLog">
+  <span class="span-box">
+    <strong>Entered By:</strong>
+    <span> {{ formLogInfo?.enteredBy }} on {{ formLogInfo?.enteredDate }}</span>
+  </span>
+  <span class="span-box" *ngIf="!iepSchoolForm">
+    <strong>Changed By:</strong>
+    <span> {{ formLogInfo?.changedBy }} on {{ formLogInfo?.changedDate }}</span>
+  </span>
+</div>
+
+<p-dialog header="Delete all confirmation" [(visible)]="isDeleteAllConfirmation">
+  <p>Are you sure want to delete {{ totalScannedDocumentCounts }} records?</p>
+  <p-footer>
+    <div class="dialog-footer">
+      <button (click)="this.isDeleteAllConfirmation = false" [disabled]="isDeleteAllConfirmationDisable">
+        Cancel
+      </button>
+      <button (click)="onAttachmentDeleteAll()" [disabled]="isDeleteAllConfirmationDisable" class="alert-text">
+        Confirm
+      </button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<p-dialog header="Delete confirmation" [(visible)]="isDeleteConfirmation">
+  <p>Are you sure want to delete records</p>
+  <p-footer>
+    <div class="dialog-footer">
+      <button (click)="this.isDeleteConfirmation = false" [disabled]="isDeleteConfirmationDisable">
+        Cancel
+      </button>
+      <button (click)="attachDocDelete()" [disabled]="isDeleteConfirmationDisable" class="alert-text">
+        {{ deleteConfirmationLabel }}
+      </button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<div *ngIf="showPacementHistory">
+  <app-placement-history (closeModel)="closeModelComp($event)"></app-placement-history>
+</div>
+
+<div *ngIf="createAttachmentMode" class="footer-provider">
+  <div *ngIf="isLoading">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+    </p>
+  </div>
+  <div class="footer-left-well">
+    <button class="sf-attachment-btn" pTooltip="Attachments" (click)="onClickProviderAttachments()"
+      *ngIf="isAttachmentsBtn">
+      <span class="fa fa-file-text-o"></span>
+      <span class="attach-text">Create New Attachment</span>
+    </button>
+  </div>
+</div>
+
+<p-dialog (onHide)="onCloseAttachedDocumentPrompt()" header="Attached Documents"
+  [(visible)]="isFamilyProviderUploadWindow" [responsive]="true" [contentStyle]="{ 'min-width': '66rem' }"
+  [maximizable]="true" [baseZIndex]="10000">
+  <p class="info-text">{{ uploadDocTypes.fileStatusText }}</p>
+  <p-accordion [multiple]="true">
+    <p-accordionTab header="Upload Attachment" [selected]="true">
+      <div class="sf-form">
+        <div>
+          <p>Document Type Category</p>
+          <p-autoComplete name="documentType" emptyMessage="No results found!" placeholder="Type here to search"
+            [forceSelection]="true" [dropdown]="true" [suggestions]="filteredDocumentTypes" field="documentType"
+            (completeMethod)="
+              filteredDocumentTypes = uploadDocTypes.filteringUplodDocType(
+                $event.query
+              )
+            " (onSelect)="uploadDocTypes.onSelectedDocType($event)" [(ngModel)]="docCategory"></p-autoComplete>
+        </div>
+        <div>
+          <p>SFCS Notes</p>
+          <textarea name="sfcsNotes" style="width: 100%; height: auto" [(ngModel)]="sfcsNotes"></textarea>
+        </div>
+        <div>
+          <p>Description</p>
+          <textarea name="description" style="width: 100%; height: auto"
+            [(ngModel)]="uploadDocTypes.description"></textarea>
+        </div>
+      </div>
+      <p-fileUpload name="caseActivity[]" customUpload="true" (uploadHandler)="onUpload($event)" maxFileSize="200000000"
+        #uploadAction [multiple]="true">
+        <ng-template pTemplate="content">
+          <ul>
+            <li *ngFor="let file of uploadedDocuments">
+              {{ file.name }} - {{ file.size }} bytes
+            </li>
+          </ul>
+        </ng-template>
+      </p-fileUpload>
+    </p-accordionTab>
+    <p-accordionTab header="View Attachments">
+      <div class="text-center" *ngIf="scannedDocumentList.length === 0">
+        <span>No attachments found!</span>
+      </div>
+      <div class="data-table view-attachment-container" *ngIf="scannedDocumentList.length > 0">
+        <div class="flex-end" *ngIf="scannedDocumentList.length > 1">
+          <button class="delete" (click)="isProviderDeleteAllConfirmation = true">
+            <span class="fa fa-trash"></span>
+            <span>Delete All</span>
+          </button>
+        </div>
+        <table>
+          <tr>
+            <th>Document Type</th>
+            <th>Description</th>
+            <th>Upload Date</th>
+            <th>Upload By</th>
+            <th>Reupload Date</th>
+            <th>Reupload By</th>
+            <th>File Size</th>
+            <th>Action</th>
+          </tr>
+          <tr *ngFor="let file of scannedDocumentList">
+            <td>{{ file?.documentType }}</td>
+            <td>{{ file?.Description }}</td>
+            <td>{{ file?.UploadDate | date: "MM/dd/yyyy" }}</td>
+            <td>{{ file?.UploadBy }}</td>
+            <td>{{ file?.ReUploadDate | date: "MM/dd/yyyy" }}</td>
+            <td>{{ file?.ReUploadBy }}</td>
+            <td>{{ file?.Filesize }} KB.</td>
+            <td>
+              <span class="fa fa-download download-icon" title="Download the record" (click)="
+                  uploadDocTypes.downloadAttachedDocument(
+                    file.ScannedDocumentID
+                  )
+                "></span>
+              <span class="fa fa-trash delete-icon" title="Delete the record"
+                (click)="onProviderAttachDocDelete(file.ScannedDocumentID)"></span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </p-accordionTab>
+  </p-accordion>
+  <p-footer></p-footer>
+
+  <p-dialog header="Delete confirmation" [(visible)]="isDeleteProviderConfirmation">
+    <p>Are you sure want to delete records</p>
+    <p-footer>
+      <div class="dialog-footer">
+        <button (click)="this.isDeleteProviderConfirmation = false" [disabled]="isDeleteConfirmationDisable">
+          Cancel
+        </button>
+        <button (click)="attachProviderDocDelete()" [disabled]="isDeleteConfirmationDisable" class="alert-text">
+          {{ deleteConfirmationLabel }}
+        </button>
+      </div>
+    </p-footer>
+  </p-dialog>
+</p-dialog>
+
+<p-dialog header="Delete all confirmation" [(visible)]="isProviderDeleteAllConfirmation">
+  <p>Are you sure want to delete {{ totalScannedDocumentCounts }} records?</p>
+  <p-footer>
+    <div class="dialog-footer">
+      <button (click)="this.isProviderDeleteAllConfirmation = false" [disabled]="isDeleteAllConfirmationDisable">
+        Cancel
+      </button>
+      <button (click)="onAttachmentDeleteAll()" [disabled]="isDeleteAllConfirmationDisable" class="alert-text">
+        Confirm
+      </button>
+    </div>
+  </p-footer>
+</p-dialog>
+<p-dialog header="Ackowledgement option form" [(visible)]="isAckOptionFormOpen">
+  <app-ack-options [isIndividualPrintForms]="isAckOptionEnable" [urlFromFormFooterComp]="urlForAckComp"
+    [paramsFromFormFooterComp]="paramsForAckComp" [blankFromFormFooterComp]="blankForAckComp"
+    [draftFromFormFooterComp]="draftForAckComp" *ngIf="isAckOptionEnable"></app-ack-options>
+</p-dialog>
+<p-dialog [(visible)]="isOpenCACAttachmentBox" [contentStyle]="{ 'min-width': '100rem' }"
+  header="Case activity file upload">
+  <form [formGroup]="caAttachmentForm" id="form" autocomplete="off" class="sf-form">
+    <span class="mandatory">Don't close or complete the window without clicking 'Upload' button</span>
+    <div class="sf-form-size-34 margin-left-45">
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Document Type</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete name="documentType" field="documentType" formControlName="documentType"
+              [(ngModel)]="caAttachment.documentType" emptyMessage="No results found!" placeholder="Type here to search"
+              (onSelect)="onSelectCAAttachmentDocType($event)" [forceSelection]="true" [dropdown]="true"
+              [suggestions]="caAttachDocTypes" (completeMethod)="filterCAAttachDocTypes($event)"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Description</span>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea name="description" formControlName="description" [(ngModel)]="caAttachment.description"
+              class="sf-width-100" rows="4"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="upload_css">
+              <p-fileUpload
+                accept=".pdf,text/plain,image/*,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.csv,.xlsx, .xls,.doc,.odt,.svg"
+                customUpload="true" chooseLabel="Browse" mode="advanced" maxFileSize="200000000"
+                (uploadHandler)="onUploadCAFileHandler()" (onSelect)="onSelectUploadedCAFiles($event)">
+                <ng-template pTemplate="toolbar">
+                  <div>
+                    Please click 'Browse' to select files and then click upload
+                  </div>
+                </ng-template>
+              </p-fileUpload>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</p-dialog>

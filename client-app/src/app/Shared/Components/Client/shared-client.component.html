@@ -1,0 +1,290 @@
+<p-dialog header="client" [contentStyle]="{'min-width':'106rem','width': '100vw'}" [responsive]="true"
+    [(visible)]="isPopWindow">
+    <form class="sf-form form-height" [formGroup]="clientForm">
+        <div class="margin-top-20 divider">
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>First Name</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <input type="text" name="firstName" [(ngModel)]="client.firstName" formControlName="firstName"
+                            pInputText />
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>Last Name</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <input type="text" name="lastName" [(ngModel)]="client.lastName" formControlName="lastName"
+                            pInputText />
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>Acronym</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-checkbox binary="true" [(ngModel)]="client.acronym" formControlName="acronym"></p-checkbox>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>MI</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <input type="text" name="mi" [(ngModel)]="client.mi" formControlName="mi" pInputText />
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>Suffix</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <input type="text" name="suffix" [(ngModel)]="client.suffix" formControlName="suffix"
+                            pInputText />
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>DOB</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <!-- <p-calendar [showIcon]="true" [(ngModel)]="client.dob" showTime="true" [yearNavigator]="true"
+                            formControlName="dob" [monthNavigator]="true" yearRange="2000:2030">
+                        </p-calendar> -->
+
+                        <p-calendar [(ngModel)]="client.dob" formControlName="dob" [showIcon]="true"
+                        [showIcon]="true" [yearNavigator]="true" [monthNavigator]="true"
+                        yearRange="1930:2030"></p-calendar>
+
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>NOT Live Birth</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-checkbox binary="true" [(ngModel)]="client.isNotLiveBirth" formControlName="isNotLiveBirth">
+                        </p-checkbox>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>SSN</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-inputMask name="ssn" [(ngModel)]="client.ssn" mask="999-99-9999" formControlName="ssn"
+                            placeholder="999-99-9999">
+                        </p-inputMask>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>Con.ST</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-autoComplete [suggestions]="metaData" [(ngModel)]="client.conST"
+                            (completeMethod)="getMetaData('conST',$event)" formControlName="conST" name="conST"
+                            [dropdown]="true" [forceSelection]="true" field="abbreviation"></p-autoComplete>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>KACSES</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <input type="text" formControlName="kaecses" [(ngModel)]="client.kaecses" name="firstName"
+                            pInputText />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="margin-top-20 divider">
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>Gender</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-autoComplete [suggestions]="metaData" [(ngModel)]="client.genderID"
+                            (completeMethod)="getMetaData('gender',$event)" formControlName="genderID" name="genderID"
+                            [dropdown]="true" [forceSelection]="true" field="gender"></p-autoComplete>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>Race</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-autoComplete [suggestions]="metaData" [(ngModel)]="client.raceID"
+                            (completeMethod)="getMetaData('race',$event)" formControlName="raceID" name="raceID"
+                            [dropdown]="true" [forceSelection]="true" field="race">
+                        </p-autoComplete>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>Ethnicity</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-autoComplete [suggestions]="metaData" [(ngModel)]="client.ethnicityID"
+                            (completeMethod)="getMetaData('ethnicity',$event)" formControlName="ethnicityID"
+                            name="ethnicityID" [dropdown]="true" [forceSelection]="true" field="ethnicity">
+                        </p-autoComplete>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>Tribe</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-autoComplete [suggestions]="metaData" [(ngModel)]="client.tribeID"
+                            (completeMethod)="getMetaData('tribe',$event)" formControlName="tribeID" name="tribeID"
+                            [dropdown]="true" [forceSelection]="true" field="tribe"></p-autoComplete>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>Insurance Type</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-autoComplete [suggestions]="metaData" [(ngModel)]="client.insuranceTypeID"
+                            (completeMethod)="getMetaData('insuranceType',$event)" formControlName="insuranceTypeID"
+                            name="insuranceTypeID" [dropdown]="true" [forceSelection]="true" field="insuranceType">
+                        </p-autoComplete>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>KEES ClientID</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <input type="text" formControlName="kees" [(ngModel)]="client.kees" name="firstName"
+                            pInputText />
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>Alternative ID</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <input type="text" name="alternativeID" [(ngModel)]="client.alternateID"
+                            formControlName="alternateID" pInputText />
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>Email Address</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <input type="text" name="email" [(ngModel)]="client.email" formControlName="email" pInputText />
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>Home Phone</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-inputMask mask="(999) 999-9999" [(ngModel)]="client.homePh" name="homePhone"
+                            formControlName="homePh" placeholder="(999) 999-9999"></p-inputMask>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>Cell Phone</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-inputMask mask="(999) 999-9999" [(ngModel)]="client.cellPh" name="cellPhone"
+                            formControlName="cellPh" placeholder="(999) 999-9999"></p-inputMask>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>Work Phone</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-inputMask mask="(999) 999-9999" [(ngModel)]="client.workPh" name="workPhone"
+                            formControlName="workPh" placeholder="(999) 999-9999"></p-inputMask>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>Fax</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-inputMask mask="(999) 999-9999" [(ngModel)]="client.fax" name="fax" formControlName="fax"
+                            placeholder="(999) 999-9999">
+                        </p-inputMask>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>KanCare MCO</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-autoComplete [suggestions]="metaData" [(ngModel)]="client.kanCareMCO_ProviderID"
+                            (completeMethod)="getMetaData('kancareMCO',$event)" formControlName="kanCareMCO_ProviderID"
+                            name="kanCareMCO" [dropdown]="true" [forceSelection]="true" field="providerName">
+                        </p-autoComplete>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>Medical ID</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <input type="text" formControlName="medicalID" [(ngModel)]="client.medicalID" name="medicalID"
+                            pInputText />
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>MedicaId</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <input type="text" formControlName="medicaid" [(ngModel)]="client.medicaid" name="firstName"
+                            pInputText />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="margin-top-20 divider">
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>Address</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <input type="text" formControlName="address" [(ngModel)]="client.address" name="firstName"
+                            pInputText />
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>State</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-autoComplete [suggestions]="metaData" [(ngModel)]="client.stateID"
+                            (completeMethod)="getMetaData('state',$event)" formControlName="stateID" name="stateID"
+                            [dropdown]="true" [forceSelection]="true" field="state" (onSelect)="onSelectState($event)"
+                            [(ngModel)]="client.stateID">
+                        </p-autoComplete>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>City</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-autoComplete [suggestions]="metaData" [(ngModel)]="client.cityID"
+                            (completeMethod)="getAndFilterCity($event)" formControlName="city" name="cityID"
+                            [dropdown]="true" [forceSelection]="true" field="city" [(ngModel)]="client.cityID"
+                            (onSelect)="onSelectCity($event)"></p-autoComplete>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>Zip</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-autoComplete [suggestions]="metaData" [(ngModel)]="client.zipcodeID"
+                            (completeMethod)="getAndFilterZipcode($event)" formControlName="zipcodeID" name="zip"
+                            [dropdown]="true" [forceSelection]="true" field="zipcode"></p-autoComplete>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"><span>County</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-autoComplete [suggestions]="metaData" [(ngModel)]="client.countyID"
+                            (completeMethod)="getAndFilterCounty($event)" formControlName="countyID" name="countyID"
+                            [dropdown]="true" [forceSelection]="true" field="countyName"></p-autoComplete>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <textarea name="notes" [(ngModel)]="client.notes" formControlName="notes"
+                            style="width: 100%;height: 100%;" pInputTextarea></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <app-form-footer (save)="onFormActions()" [editControll]="isEdit" (edit)="onEditForm()"></app-form-footer>
+</p-dialog>

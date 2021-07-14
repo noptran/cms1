@@ -1,0 +1,808 @@
+<div id="pdf-content">
+  <div class="header">
+    <div class="title">
+      <h3>WORKER CHILD VISIT
+        <br /> ACTIVITY NOTE </h3>
+    </div>
+    <div class="logo">
+      <img src="assets/images/logo.svg" />
+    </div>
+    <div class="form-info">
+      <div class="person-data">
+        <div class="field-name">Child's Name:</div>
+        <div>
+          <client-search [ClientName]='displayClientName()' (setClientAction)="setClient($event)"></client-search>
+        </div>
+      </div>
+      <div class="person-data">
+        <div class="field-name">Case Number:</div>
+        <div>
+          <mat-form-field>
+            <input matInput [(ngModel)]="model.caseNo.value" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="person-data">
+        <div class="field-name">Date:</div>
+        <div class="date-field">
+          <mat-form-field floatLabel="never">
+            <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose a date" class="date"
+              [(ngModel)]="model.CompletionDate.value" value="{{date}}">
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="person-data per-data hideOnPdf">
+        <p class="pad-right">Time/Length:</p>
+        <p class="pad-right">From:</p>
+        <mat-form-field>
+          <input matInput class="input-s" type="time" [(ngModel)]="model.FromTime.value">
+        </mat-form-field>
+        <p class="pad-right">To:</p>
+        <mat-form-field>
+          <input matInput class="input-s" type="time" (ngModelChange)="timeValidate($event)"
+            [(ngModel)]="model.ToTime.value">
+        </mat-form-field>
+        <!--  -->
+      </div>
+      <div style="color:red" *ngIf="showTimeValidate">From time and To Time should not be same</div>
+      <div style="color:red" *ngIf="showTimeValidate_greater">The To Time should be greater than From Time</div>
+      <!-- NOTE: this is to only show on PDF -->
+      <div class="person-data per-data">
+        <p class="pad-right showOnPdf">Time/Length:</p>
+        <p class="pad-right showOnPdf">From:</p>
+        <p class="pad-right showOnPdf font-weight-normal">{{getFormatedTime(model.FromTime.value)}}</p>
+        <p class="pad-right showOnPdf">To:</p>
+        <p class="pad-right showOnPdf font-weight-normal">{{getFormatedTime(model.ToTime.value)}}</p>
+      </div>
+    </div>
+  </div>
+  <div *ngIf='model.showMultiClient === true' class="hideOnPdf">
+    <span class="spanMulticlient" id="clientButton">Select the option for multi client</span>
+    <mat-form-field>
+      <mat-select placeholder="Select the option for multi client" name="multiClientValue"
+        [(ngModel)]="model.multiClientValue">
+        <mat-option (click)="client()" value="By Facts">By Facts</mat-option>
+        <mat-option (click)="allClient()" value="By All clients">By All clients</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div *ngIf='showClient === true' class="hideOnPdf">
+    <mat-form-field floatLabel="never">
+      <input matInput [(ngModel)]="search" name="search" placeholder="Enter the last name" name="search" class="date">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="client()" id="clientButton" class="search">Select Client</button>
+  </div>
+
+  <div class="column additionalClient">
+    <div *ngFor="let clients of model.multiClient; let i = index;" class="multiClient">
+      <span class="pad-right">Child{{i + 1}}</span>
+      <mat-form-field>
+        <input matInput [(ngModel)]="model.multiClient[i]" [ngModelOptions]="{standalone: true}" readonly />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="formBody">
+    <div class="visitTypeInput">
+      <input type="radio" value="CF065.1" name="proCode" (click)="getValue()" [(ngModel)]="model.proCode">CF065.1 Visit
+      in
+      residence
+      <input type="radio" value="CF065.2" name="proCode" (click)="enablePlacement()" [(ngModel)]="model.proCode">CF065.2
+      Visit not in residence
+    </div>
+    <div class="text-section">
+      <p>If visit is outside of placement, specify place:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.Place.value" [disabled]="model.isPlacement"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Place.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div class="text-section">
+      <p>List those present at visit:</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.presentAtVisit.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.presentAtVisit.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <div>
+      <span>Did worker spend time alone with child?</span>
+
+      <span class="visitTypeInput">
+        <input type="radio" value="0" name="DidWorkerSpendTimeAloneWithChild"
+          [(ngModel)]="model.DidWorkerSpendTimeAloneWithChild.fieldOptionIndex">Yes
+        <input type="radio" value="1" name="DidWorkerSpendTimeAloneWithChild"
+          [(ngModel)]="model.DidWorkerSpendTimeAloneWithChild.fieldOptionIndex">No
+      </span>
+    </div>
+    <div>
+      <span>Placement supportive of worker meeting with child?</span>
+
+      <span class="visitTypeInput">
+        <input type="radio" value="0" name="PlacementSupportiveofMeeting"
+          [(ngModel)]="model.PlacementSupportiveofMeeting.fieldOptionIndex">Yes
+        <input type="radio" value="1" name="PlacementSupportiveofMeeting"
+          [(ngModel)]="model.PlacementSupportiveofMeeting.fieldOptionIndex">No
+      </span>
+    </div>
+    <div class="text-section">
+      <span>
+        <i>Describe location of visit, length of time, items discussed, and list any comments made by the child. Explain
+          any
+          no answer to the above two questions.</i>
+      </span>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.DescriptionAndCommentsByChild.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.DescriptionAndCommentsByChild.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div>
+      <h4>Case Plan Goal</h4>
+      <div class="visitTypeInput">
+        <input type="radio" value="0" name="casePlanGoal"
+          [(ngModel)]="model.casePlanGoal.fieldOptionIndex">Reintegration
+        <input type="radio" value="1" name="casePlanGoal" [(ngModel)]="model.casePlanGoal.fieldOptionIndex">Adoption
+        <input type="radio" value="2" name="casePlanGoal" [(ngModel)]="model.casePlanGoal.fieldOptionIndex">APPLA
+        <input type="radio" value="3" name="casePlanGoal"
+          [(ngModel)]="model.casePlanGoal.fieldOptionIndex">Custodianship
+        <input type="radio" value="4" name="casePlanGoal" [(ngModel)]="model.casePlanGoal.fieldOptionIndex">Maintain at
+        Home
+      </div>
+    </div>
+    <div class="sectionHeader">
+      <h4>Safety Assessment</h4>
+      *Safety is the potential for serious maltreatment which is imminent. It determines the need for immediate
+      protective action
+      or controlling interventions to protect the child from imminent danger.
+    </div>
+    <div class="riskAssessmentSection">
+      <div>
+        <span>Home is free of safety concerns</span>
+
+        <div class="visitTypeInputTwo">
+          <div> <input type="radio" value="0" name="HomeIsFreeOfSafetyConcerns"
+              [(ngModel)]="model.HomeIsFreeOfSafetyConcerns.fieldOptionIndex">Yes</div>
+          <div><input type="radio" value="1" name="HomeIsFreeOfSafetyConcerns"
+              [(ngModel)]="model.HomeIsFreeOfSafetyConcerns.fieldOptionIndex">No</div>
+          <div><input type="radio" value="2" name="HomeIsFreeOfSafetyConcerns"
+              [(ngModel)]="model.HomeIsFreeOfSafetyConcerns.fieldOptionIndex">NA</div>
+        </div>
+        <span>Child's appearance is healthy</span>
+
+        <div class="visitTypeInputTwo">
+          <div><input type="radio" value="0" name="ChildsAppearanceIsHealthy"
+              [(ngModel)]="model.ChildsAppearanceIsHealthy.fieldOptionIndex">Yes</div>
+          <div><input type="radio" value="1" name="ChildsAppearanceIsHealthy"
+              [(ngModel)]="model.ChildsAppearanceIsHealthy.fieldOptionIndex">No</div>
+        </div>
+      </div>
+      <div>
+        <span>Home is clean</span>
+
+        <div class="visitTypeInputTwo">
+          <div><input type="radio" value="0" name="HomeIsClean" [(ngModel)]="model.HomeIsClean.fieldOptionIndex">Yes
+          </div>
+          <div><input type="radio" value="1" name="HomeIsClean" [(ngModel)]="model.HomeIsClean.fieldOptionIndex">No
+          </div>
+          <div><input type="radio" value="2" name="HomeIsClean" [(ngModel)]="model.HomeIsClean.fieldOptionIndex">NA
+          </div>
+        </div>
+
+        <span>Free from unusual marks or bruising</span>
+
+        <div class="visitTypeInputTwo">
+          <div><input type="radio" value="0" name="FreeFromUnusualMarksOrBruising"
+              [(ngModel)]="model.FreeFromUnusualMarksOrBruising.fieldOptionIndex">Yes</div>
+          <div><input type="radio" value="1" name="FreeFromUnusualMarksOrBruising"
+              [(ngModel)]="model.FreeFromUnusualMarksOrBruising.fieldOptionIndex">No</div>
+
+        </div>
+      </div>
+      <div>
+        <span>Homicidal Thoughts or Gestures</span>
+
+        <div class="visitTypeInputTwo">
+          <div> <input type="radio" value="0" name="homicidalThoughts"
+              [(ngModel)]="model.homicidalThoughts.fieldOptionIndex">Yes</div>
+          <div><input type="radio" value="1" name="homicidalThoughts"
+              [(ngModel)]="model.homicidalThoughts.fieldOptionIndex">No</div>
+          <div class="hide-element"><input type="radio">NA</div>
+        </div>
+        <span>Suicidal Thoughts or Gestures</span>
+
+        <div class="visitTypeInputTwo">
+          <div><input type="radio" value="0" name="suicidalThoughts"
+              [(ngModel)]="model.suicidalThoughts.fieldOptionIndex">Yes</div>
+          <div><input type="radio" value="1" name="suicidalThoughts"
+              [(ngModel)]="model.suicidalThoughts.fieldOptionIndex">No</div>
+
+        </div>
+      </div>
+      <div>
+        <span>Caregiver has the protective capacity ability to care for the child</span>
+
+        <div class="visitTypeInputTwo">
+          <div><input type="radio" value="0" name="caregiverProtectiveCapacity"
+              [(ngModel)]="model.caregiverProtectiveCapacity.fieldOptionIndex">Yes</div>
+          <div><input type="radio" value="1" name="caregiverProtectiveCapacity"
+              [(ngModel)]="model.caregiverProtectiveCapacity.fieldOptionIndex">No</div>
+          <div><input type="radio" value="2" name="caregiverProtectiveCapacity"
+              [(ngModel)]="model.caregiverProtectiveCapacity.fieldOptionIndex">NA</div>
+
+        </div>
+        <span>Have additional concerns about risk been identified since last visit?</span>
+
+        <div class="visitTypeInputTwo">
+          <div> <input type="radio" value="0" name="additionalSafetyConcerns"
+              [(ngModel)]="model.additionalSafetyConcerns.fieldOptionIndex">Yes</div>
+          <div><input type="radio" value="1" name="additionalSafetyConcerns"
+              [(ngModel)]="model.additionalSafetyConcerns.fieldOptionIndex">No</div>
+        </div>
+      </div>
+    </div>
+    <div class="text-section">
+      <h4>Describe the placement environment:</h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.placementEnvironment.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.placementEnvironment.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <!-- <div class="html2pdf__page-break"></div> -->
+    <div class="text-section">
+      <h4>Describe the child’s appearance:</h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.childAppearance.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.childAppearance.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <div class="text-section">
+      <h4>Observed interaction with caregiver:</h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.interactionWithCaregiver.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.interactionWithCaregiver.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <div class="text-section">
+      <h4>If applicable, what safety concerns have been identified since last visit?:</h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.safetyConcernsIndentified.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.safetyConcernsIndentified.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <div class="text-section">
+      <h4>What are the family’s strengths and resources mitigating safety concerns?:</h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.familySafetyMitigationStrengths.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.familySafetyMitigationStrengths.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <div class="text-section">
+      <h4>What are the contributing factors directly related to the safety concern? :</h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.safetyConcernsContributingFactors.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.safetyConcernsContributingFactors.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <div>
+      <span>Safety plan developed or reviewed</span>
+
+      <span class="visitTypeInput">
+        <input type="radio" value="0" name="SafetyPlanReviewed"
+          [(ngModel)]="model.SafetyPlanReviewed.fieldOptionIndex">Yes
+        <input type="radio" value="1" name="SafetyPlanReviewed"
+          [(ngModel)]="model.SafetyPlanReviewed.fieldOptionIndex">No
+        <input type="radio" value="2" name="SafetyPlanReviewed"
+          [(ngModel)]="model.SafetyPlanReviewed.fieldOptionIndex">NA
+      </span>
+    </div>
+    <div class="sectionHeader">
+      <h4>RISK ASSESSMENT</h4>
+      *Risk is potential maltreatment in the future. It determines the need for services to address potential future
+      maltreatment.
+    </div>
+    <div class="riskAssessmentSection">
+      <div>
+        <span>Change in placement household</span>
+
+        <div class="visitTypeInputTwo">
+          <div> <input type="radio" value="0" name="Changeinplacementhousehold"
+              [(ngModel)]="model.Changeinplacementhousehold.fieldOptionIndex">Yes</div>
+          <div> <input type="radio" value="1" name="Changeinplacementhousehold"
+              [(ngModel)]="model.Changeinplacementhousehold.fieldOptionIndex">No</div>
+          <div class="hide-element"><input type="radio">NA</div>
+        </div>
+        <span>Height and Weight appear normal</span>
+
+        <div class="visitTypeInputTwo">
+          <div> <input type="radio" value="0" name="HeightandWeightappearnormal"
+              [(ngModel)]="model.HeightandWeightappearnormal.fieldOptionIndex">Yes</div>
+          <div> <input type="radio" value="1" name="HeightandWeightappearnormal"
+              [(ngModel)]="model.HeightandWeightappearnormal.fieldOptionIndex">No</div>
+        </div>
+      </div>
+      <div>
+        <span>Child has adequate space</span>
+
+        <div class="visitTypeInputTwo">
+          <div> <input type="radio" value="0" name="ChildHasAdequateSpace"
+              [(ngModel)]="model.ChildHasAdequateSpace.fieldOptionIndex">Yes</div>
+          <div> <input type="radio" value="1" name="ChildHasAdequateSpace"
+              [(ngModel)]="model.ChildHasAdequateSpace.fieldOptionIndex">No</div>
+          <div><input type="radio" value="2" name="ChildHasAdequateSpace"
+              [(ngModel)]="model.ChildHasAdequateSpace.fieldOptionIndex">NA</div>
+        </div>
+        <span>Child is clean, neatly groomed</span>
+
+        <div class="visitTypeInputTwo">
+          <div> <input type="radio" value="0" name="ChildisCleanNeatlyGroomed"
+              [(ngModel)]="model.ChildisCleanNeatlyGroomed.fieldOptionIndex">Yes</div>
+          <div> <input type="radio" value="1" name="ChildisCleanNeatlyGroomed"
+              [(ngModel)]="model.ChildisCleanNeatlyGroomed.fieldOptionIndex">No</div>
+        </div>
+      </div>
+      <div>
+        <span>Caregiver has natural and community supports</span>
+
+        <div class="visitTypeInputTwo">
+          <div> <input type="radio" value="0" name="caregiverNaturalAndCommunitySupports"
+              [(ngModel)]="model.caregiverNaturalAndCommunitySupports.fieldOptionIndex">Yes</div>
+          <div> <input type="radio" value="1" name="caregiverNaturalAndCommunitySupports"
+              [(ngModel)]="model.caregiverNaturalAndCommunitySupports.fieldOptionIndex">No</div>
+          <div> <input type="radio" value="2" name="caregiverNaturalAndCommunitySupports"
+              [(ngModel)]="model.caregiverNaturalAndCommunitySupports.fieldOptionIndex">NA</div>
+
+        </div>
+        <span>Child feels safe and treated well</span>
+
+        <div class="visitTypeInputTwo">
+          <div> <input type="radio" value="0" name="ChildFeelsSafeAndTreatedWell"
+              [(ngModel)]="model.ChildFeelsSafeAndTreatedWell.fieldOptionIndex">Yes</div>
+          <div> <input type="radio" value="1" name="ChildFeelsSafeAndTreatedWell"
+              [(ngModel)]="model.ChildFeelsSafeAndTreatedWell.fieldOptionIndex">No</div>
+        </div>
+      </div>
+      <div>
+        <span>Caregiver demonstrates the ability to provide adequate care for the child</span>
+
+        <div class="visitTypeInputTwo">
+          <div> <input type="radio" value="0" name="caregiverDemonstratesAbilityToProvideCare"
+              [(ngModel)]="model.caregiverDemonstratesAbilityToProvideCare.fieldOptionIndex">Yes</div>
+          <div> <input type="radio" value="1" name="caregiverDemonstratesAbilityToProvideCare"
+              [(ngModel)]="model.caregiverDemonstratesAbilityToProvideCare.fieldOptionIndex">No</div>
+          <div> <input type="radio" value="2" name="caregiverDemonstratesAbilityToProvideCare"
+              [(ngModel)]="model.caregiverDemonstratesAbilityToProvideCare.fieldOptionIndex">NA</div>
+        </div>
+        <span>Child has displayed self-harming behaviors</span>
+        <div class="visitTypeInputTwo">
+          <div> <input type="radio" value="0" name="displayedSelfHarmingBehavior"
+              [(ngModel)]="model.displayedSelfHarmingBehavior.fieldOptionIndex">Yes</div>
+          <div> <input type="radio" value="1" name="displayedSelfHarmingBehavior"
+              [(ngModel)]="model.displayedSelfHarmingBehavior.fieldOptionIndex">No</div>
+        </div>
+      </div>
+      <div>
+        <span>Child has displayed aggressive behaviors</span>
+
+        <div class="visitTypeInputTwo">
+          <div> <input type="radio" value="0" name="displayedAgressiveBehavior"
+              [(ngModel)]="model.displayedAgressiveBehavior.fieldOptionIndex">Yes</div>
+          <div> <input type="radio" value="1" name="displayedAgressiveBehavior"
+              [(ngModel)]="model.displayedAgressiveBehavior.fieldOptionIndex">No</div>
+          <div class="hide-element"><input type="radio">NA</div>
+        </div>
+
+        <span>Have additional risk concerns been identified since last visit?</span>
+
+        <div class="visitTypeInputTwo">
+          <div> <input type="radio" value="0" name="additionalSafetyConcernsSinceLastVisit"
+              [(ngModel)]="model.additionalSafetyConcernsSinceLastVisit.fieldOptionIndex">Yes</div>
+          <div> <input type="radio" value="1" name="additionalSafetyConcernsSinceLastVisit"
+              [(ngModel)]="model.additionalSafetyConcernsSinceLastVisit.fieldOptionIndex">No</div>
+        </div>
+      </div>
+    </div>
+    <div class="text-section">
+      <h4>Describe the placement environment:</h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.placementEnvironmentRiskSection.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.placementEnvironmentRiskSection.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <!-- <div class="html2pdf__page-break"></div> -->
+    <div class="text-section">
+      <h4>Describe the child’s appearance:</h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.childsAppearance.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.childsAppearance.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <div class="text-section">
+      <h4>Observed interaction with caregiver:</h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.interactionWithCaregiverRiskSection.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.interactionWithCaregiverRiskSection.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <div class="text-section">
+      <h4>If applicable, what risk concerns have been identified?:</h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.safetyConcernsSinceLastVisit.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.safetyConcernsSinceLastVisit.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <div class="text-section">
+      <h4>What are the family’s strengths and resources mitigating risk concerns?:</h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.visitDetailsRiskSection.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.visitDetailsRiskSection.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <div class="text-section">
+      <h4>What services are needed or have taken place to mitigate the concerns?:</h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.serviceMitigateConcerns.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.serviceMitigateConcerns.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <div class="sectionHeader">
+      <h4>CHILD'S WELL BEING</h4>
+      *NA means not assessed or not applicable due to child’s age or not participating in services.
+    </div>
+    <div class="well-being-section">
+      <div class="questions">
+        <div>
+          <span>Has interactions with parents</span>
+
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="HasInteractionsWithParents"
+              [(ngModel)]="model.HasInteractionsWithParents.fieldOptionIndex">Yes
+            <input type="radio" value="1" name="HasInteractionsWithParents"
+              [(ngModel)]="model.HasInteractionsWithParents.fieldOptionIndex">No
+            <input type="radio" value="2" name="HasInteractionsWithParents"
+              [(ngModel)]="model.HasInteractionsWithParents.fieldOptionIndex">NA
+          </div>
+        </div>
+        <div>
+          <span>Has interactions with siblings</span>
+
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="HasInteractionsWithSiblings"
+              [(ngModel)]="model.HasInteractionsWithSiblings.fieldOptionIndex">Yes
+            <input type="radio" value="1" name="HasInteractionsWithSiblings"
+              [(ngModel)]="model.HasInteractionsWithSiblings.fieldOptionIndex">No
+            <input type="radio" value="2" name="HasInteractionsWithSiblings"
+              [(ngModel)]="model.HasInteractionsWithSiblings.fieldOptionIndex">NA
+          </div>
+        </div>
+        <div>
+          <span>Maintaining other important connections</span>
+
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="MaintainingOtherImportantConnections"
+              [(ngModel)]="model.MaintainingOtherImportantConnections.fieldOptionIndex">Yes
+            <input type="radio" value="1" name="MaintainingOtherImportantConnections"
+              [(ngModel)]="model.MaintainingOtherImportantConnections.fieldOptionIndex">No
+          </div>
+        </div>
+        <div>
+          <span>Attending mental health appointments</span>
+
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="AttendingMentalHealthAppointments"
+              [(ngModel)]="model.AttendingMentalHealthAppointments.fieldOptionIndex">Yes
+            <input type="radio" value="1" name="AttendingMentalHealthAppointments"
+              [(ngModel)]="model.AttendingMentalHealthAppointments.fieldOptionIndex">No
+            <input type="radio" value="2" name="AttendingMentalHealthAppointments"
+              [(ngModel)]="model.AttendingMentalHealthAppointments.fieldOptionIndex">NA
+          </div>
+        </div>
+        <div>
+          <span>Medical/Vision/Dental current</span>
+
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Medical" [(ngModel)]="model.Medical.fieldOptionIndex">Yes
+            <input type="radio" value="1" name="Medical" [(ngModel)]="model.Medical.fieldOptionIndex">No
+          </div>
+        </div>
+        <div>
+          <span>Life Book is updated</span>
+
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="LifeBookIsUpdated"
+              [(ngModel)]="model.LifeBookIsUpdated.fieldOptionIndex">Yes
+            <input type="radio" value="1" name="LifeBookIsUpdated"
+              [(ngModel)]="model.LifeBookIsUpdated.fieldOptionIndex">No
+          </div>
+        </div>
+        <div>
+          <span>Adequate opportunities for sleep</span>
+
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Adequate" [(ngModel)]="model.Adequate.fieldOptionIndex">Yes
+            <input type="radio" value="1" name="Adequate" [(ngModel)]="model.Adequate.fieldOptionIndex">No
+
+          </div>
+        </div>
+      </div>
+      <div class="questions">
+        <div>
+          <span>Feels parent interactions are going well</span>
+
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="FeelsParentInteractionsAreGoingWell"
+              [(ngModel)]="model.FeelsParentInteractionsAreGoingWell.fieldOptionIndex">Yes
+            <input type="radio" value="1" name="FeelsParentInteractionsAreGoingWell"
+              [(ngModel)]="model.FeelsParentInteractionsAreGoingWell.fieldOptionIndex">No
+            <input type="radio" value="2" name="FeelsParentInteractionsAreGoingWell"
+              [(ngModel)]="model.FeelsParentInteractionsAreGoingWell.fieldOptionIndex">NA
+          </div>
+        </div>
+        <div>
+          <span>Feels sibling interactions are going well</span>
+
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="FeelsSiblingInteractionsAreGoingWell"
+              [(ngModel)]="model.FeelsSiblingInteractionsAreGoingWell.fieldOptionIndex">Yes
+            <input type="radio" value="1" name="FeelsSiblingInteractionsAreGoingWell"
+              [(ngModel)]="model.FeelsSiblingInteractionsAreGoingWell.fieldOptionIndex">No
+            <input type="radio" value="2" name="FeelsSiblingInteractionsAreGoingWell"
+              [(ngModel)]="model.FeelsSiblingInteractionsAreGoingWell.fieldOptionIndex">NA
+          </div>
+        </div>
+        <div>
+          <span>Participates in extracurricular activities</span>
+
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Participatesinextracurricular"
+              [(ngModel)]="model.Participatesinextracurricular.fieldOptionIndex">Yes
+            <input type="radio" value="1" name="Participatesinextracurricular"
+              [(ngModel)]="model.Participatesinextracurricular.fieldOptionIndex">No
+            <input type="radio" value="2" name="Participatesinextracurricular"
+              [(ngModel)]="model.Participatesinextracurricular.fieldOptionIndex">NA
+          </div>
+        </div>
+        <div>
+          <span>Attending school regularly</span>
+
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="AttendingSchoolRegularly"
+              [(ngModel)]="model.AttendingSchoolRegularly.fieldOptionIndex">Yes
+            <input type="radio" value="1" name="AttendingSchoolRegularly"
+              [(ngModel)]="model.AttendingSchoolRegularly.fieldOptionIndex">No
+            <input type="radio" value="2" name="AttendingSchoolRegularly"
+              [(ngModel)]="model.AttendingSchoolRegularly.fieldOptionIndex">NA
+          </div>
+        </div>
+        <div>
+          <span>Adjusting to school & average grades</span>
+
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="AdjustingToSchoolSverageGrades"
+              [(ngModel)]="model.AdjustingToSchoolSverageGrades.fieldOptionIndex">Yes
+            <input type="radio" value="1" name="AdjustingToSchoolSverageGrades"
+              [(ngModel)]="model.AdjustingToSchoolSverageGrades.fieldOptionIndex">No
+            <input type="radio" value="2" name="AdjustingToSchoolSverageGrades"
+              [(ngModel)]="model.AdjustingToSchoolSverageGrades.fieldOptionIndex">NA
+          </div>
+        </div>
+        <div>
+          <span>Taking medications as prescribed</span>
+
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="TakingMedicationsAsPrescribed"
+              [(ngModel)]="model.TakingMedicationsAsPrescribed.fieldOptionIndex">Yes
+            <input type="radio" value="1" name="TakingMedicationsAsPrescribed"
+              [(ngModel)]="model.TakingMedicationsAsPrescribed.fieldOptionIndex">No
+            <input type="radio" value="2" name="TakingMedicationsAsPrescribed"
+              [(ngModel)]="model.TakingMedicationsAsPrescribed.fieldOptionIndex">NA
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-section">
+      <h4>List medication changes since last W/C visit:</h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.medication.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.medication.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <div class="html2pdf__page-break"></div>
+    <div class="text-section">
+      <h4>List all appointments since last W/C visit:</h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.appointments.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.appointments.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <div class="text-section">
+      <h4>How is the child is maintaining important connections?</h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.maintaining.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.maintaining.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <div class="text-section">
+      <h4>List extracurricular activities:</h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.extracurricular.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.extracurricular.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <div class="text-section">
+      <h4>Describe how child is doing in school/day care:</h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.school.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.school.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <div>
+      <div> <input class="input-type-1" type="radio" value="0" [(ngModel)]="model.Provided.fieldOptionIndex">Provided
+        Child Opportunity
+        to Complete Monthly Individual Contact form, PPS 3061 (age 10 and older)</div>
+      <div><input class="input-type-1" type="radio" value="1" [(ngModel)]="model.Provided.fieldOptionIndex">Offered to
+        help Child
+        Complete Monthly Individual Contact form, PPS 3061 (age 10 and older)</div>
+      <div>
+        <input class="input-type-1" type="radio" value="2" [(ngModel)]="model.Provided.fieldOptionIndex">Declined
+        opportunity
+        to Complete Monthly Individual Contact form, PPS 3061 (age 10 and older)
+      </div>
+      <div> <input class="input-type-1" type="radio" value="3" [(ngModel)]="model.Provided.fieldOptionIndex">N/A Child
+        is younger
+        than 10 years of age</div>
+    </div>
+    <div>
+      <span>Worker contact info provided to youth?</span>
+
+      <span class="visitTypeInput">
+        <input type="radio" value="0" name="information" [(ngModel)]="model.information.fieldOptionIndex">Yes
+        <input type="radio" value="1" name="information" [(ngModel)]="model.information.fieldOptionIndex">No
+        <input type="radio" value="2" name="information" [(ngModel)]="model.information.fieldOptionIndex">Not Age
+        Appropriate
+      </span>
+    </div>
+    <div class="info-provided-method-section">
+      <span>How was information provided?</span>
+
+      <span class="visitTypeInput">
+        <input type="radio" value="0" name="informationprovided"
+          [(ngModel)]="model.informationprovided.fieldOptionIndex">Review of blue book
+        <input type="radio" value="1" name="informationprovided"
+          [(ngModel)]="model.informationprovided.fieldOptionIndex">Business card provided
+        <input type="radio" value="2" name="informationprovided"
+          [(ngModel)]="model.informationprovided.fieldOptionIndex">Written out
+        <input type="radio" value="3" name="informationprovided"
+          [(ngModel)]="model.informationprovided.fieldOptionIndex">Given to placement
+      </span>
+    </div>
+    <div class="sectionHeader">
+      <h4>PROGRESS TOWARD PERMANENCY</h4>
+    </div>
+    <div class="text-section">
+      <h4>
+        Summary & Review of Life Skills/Transition Plan:
+        <i>(Be sure Life Skills Assessment is current for children 14 and over, transition plan is current, and case
+          plan tasks
+          are discussed)</i>
+      </h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.ReviewOfLifeSkillsTransitionPlan.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.ReviewOfLifeSkillsTransitionPlan.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <div class="text-section">
+      <h4>
+        Summary & Review of Permanency Plan, After Care Plan, Safety Plan, Service Plan and Progress:
+      </h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.ReviewOfPermanencyPlanAfterCarePlanProgress.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;"
+        *ngIf="isFinalize">{{model.ReviewOfPermanencyPlanAfterCarePlanProgress.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <div class="text-section">
+      <h4>
+        Additional Comments (Pertains to information discussed but not addressed above):
+      </h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.AdditionalRemarksPositivesOrConcerns.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;"
+        *ngIf="isFinalize">{{model.AdditionalRemarksPositivesOrConcerns.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+
+    <div class="casePlanGoal auto">
+      <div>
+        <span>FOLLOW-UP ACTIVITIES IDENTIFIED DURING VISIT</span>
+        <mat-form-field>
+          <input matInput class="input-md" (input)="onSearchChange($event.target.value)"
+            [(ngModel)]="model.Follow.value">
+        </mat-form-field>
+      </div>
+      <div>
+        <span>PERSON RESPONSIBLE</span>
+        <mat-form-field>
+          <input matInput class="input-md" (input)="onTargetDate($event.target.value)"
+            [(ngModel)]="model.PersonResponsible.value">
+        </mat-form-field>
+      </div>
+      <div>
+        <span>TARGET DATE</span>
+        <mat-form-field floatLabel="never">
+          <input [disabled]="disable === true || showTargetDate === true" matInput [matDatepicker]="TargetDate"
+            (click)="TargetDate.open()" class="date" [(ngModel)]="model.TargetDate.value">
+          <mat-datepicker #TargetDate></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div>
+
+      <div class="visitTypeInput">
+        <input type="radio" value="0" name="CaseTeamMember" [(ngModel)]="model.CaseTeamMember.fieldOptionIndex">Case
+        Team
+        Member
+        <input type="radio" value="1" name="CaseTeamMember" [(ngModel)]="model.CaseTeamMember.fieldOptionIndex">New Case
+        Team Member
+      </div>
+    </div>
+    <div class="text-section">
+      <h4>Next W/C Visit Scheduled For:</h4>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.Scheduled.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Scheduled.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div>
+      <span>Signature/Title:</span>
+      <mat-form-field>
+        <input matInput class="input-lg" [(ngModel)]="model.Signature.value" value={{staffName}} readonly>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<form-footer (resetAction)='resetForm()' (calculateAction)='calculateForm()' (saveAction)='saveForm()'
+  (finalizeAction)='finalize()'>
+</form-footer>

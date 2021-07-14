@@ -1,0 +1,122 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="disciplinePolicyForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        DISCIPLINE POLICY
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+    </div>
+    <p>
+      Discipline comes from the word “disciple” and means to teach. It is an essential part of child rearing and when used positively
+      it contributes to the health, growth, and development of children. In doing so, it establishes positive patterns of
+      behavior in preparation for adulthood. Discipline is intended to help children understand the connection between feelings,
+      needs, and behaviors; to develop positive self-esteem; to learn how to problem solve and be responsible, by understanding
+      their own needs and learning healthy ways to meet those needs; and to feel good about their relationship with adults
+      and other children. When these objectives are met children learn to feel loveable, capable, worthwhile, and responsible.
+    </p>
+    <p>
+      Positive discipline when used for purposes of guiding and teaching, provides children with encouragement, a sense of satisfaction,
+      and helps them to understand the consequences of their behavior. The object of discipline is to promote behaviors beneficial
+      to children’s development and to change or eliminate behaviors, which are injurious to their wellbeing. Effective,
+      positive discipline provides a sense of security and respect for order, by setting behavioral limits for the child
+      while enlisting the child’s help in the process.
+    </p>
+    <p>
+      Saint Francis Ministries encourages positive discipline and will not accept any action administered in a fashion, which may
+      cause a child to suffer physical or emotional harm. Any person living or working in a home providing care for children
+      shall not use disciplinary acts which cause pain such as hitting, beating, shaking, cursing, threatening, binding,
+      closeting, prolonged isolation, denial of meals, derogatory remarks about the child or his/her family of origin, other
+      emotional cruelty or refusing a child access to the home. Any such acts will be cause for corrective action and/or
+      termination of placement.
+    </p>
+    <p>
+      Only those certified in proper physical hold techniques are allowed to physically restrain children or youth.
+    </p>
+    <p>
+      Specific recommendations made by a licensed mental health professional regarding behavior management techniques will be reviewed
+      by the case team prior to implementation.
+    </p>
+    <p>
+      Any modifications made to the physical environment (bedroom, living area) of a licensed foster home, for the safety, medical,
+      or therapeutic reasons associated to a specific child, must be reviewed and approved by the case team prior to implementation.
+    </p>
+    <p>
+      Supporting documentation for behavior management or home modifications may include safety plans, treatment plans, clinical/medical
+      recommendations, and any existing approved exceptions to licensing regulations.
+    </p>
+    <p>I have read, understand, and agree to abide by the above discipline policy.</p>
+    <div class="row">
+      <div class="col-xs-4">
+        <input [(ngModel)]="kinDisciplinePolicy.NamePrinted" formControlName="NamePrinted" name="NamePrinted"  type="text" pInputText size="20" />
+      </div>
+      <div class="col-xs-4">
+        <input [(ngModel)]="kinDisciplinePolicy.Signature" formControlName="Signature" name="Signature"  type="text" pInputText size="20" />
+      </div>
+      <div class="col-xs-4">
+        <p-calendar [(ngModel)]="kinDisciplinePolicy.Date" formControlName="Date" name="Date"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+          yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        Name Printed
+      </div>
+      <div class="col-xs-4">
+        Signature
+      </div>
+      <div class="col-xs-4">
+        Date
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <input [(ngModel)]="kinDisciplinePolicy.NamePrinted1" formControlName="NamePrinted1" name="NamePrinted1"  type="text" pInputText size="20" />
+      </div>
+      <div class="col-xs-4">
+        <input [(ngModel)]="kinDisciplinePolicy.Signature1" formControlName="Signature1" name="Signature1"  type="text" pInputText size="20" />
+      </div>
+      <div class="col-xs-4">
+        <p-calendar [(ngModel)]="kinDisciplinePolicy.Date1" formControlName="Date1" name="Date1"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+          yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        Name Printed
+      </div>
+      <div class="col-xs-4">
+        Signature
+      </div>
+      <div class="col-xs-4">
+        Date
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-4">
+        <input [(ngModel)]="kinDisciplinePolicy.NamePrinted2" formControlName="NamePrinted2" name="NamePrinted2"  type="text" pInputText size="20" />
+      </div>
+      <div class="col-xs-4">
+        <input [(ngModel)]="kinDisciplinePolicy.Signature2" formControlName="Signature2" name="Signature2"  type="text" pInputText size="20" />
+      </div>
+      <div class="col-xs-4">
+        <p-calendar [(ngModel)]="kinDisciplinePolicy.Date2" formControlName="Date2" name="Date2"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+          yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-4">
+        Witness Name Printed
+      </div>
+      <div class="col-xs-4">
+        Witness
+      </div>
+      <div class="col-xs-4">
+        Date
+      </div>
+    </div>
+  </form>
+</div>
+
+<app-form-footer (save)="saveForm($event,kinDisciplinePolicy)" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

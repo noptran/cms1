@@ -1,0 +1,212 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="VisitationScheduleForm" class="sf-form">
+      <div class="flex-container header">
+          <div>
+    
+          </div>
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+          <div>
+    
+          </div>
+        </div>
+    <p>
+      Note: This is a stand-alone document that may be changed between case planning conferences. Each visit shall be
+      documented on a visit log. See Section 3237 of the DCF PPM regarding visitations.
+    </p>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">Child’s Name:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpVisitationSchedule.childName" formControlName="childName" name="childName"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">Date:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpVisitationSchedule.date" formControlName="date" name="date"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">FACTS Case # </div>
+        <div class="space-right">
+          <input [(ngModel)]="fpVisitationSchedule.factsCase" formControlName="factsCase" name="factsCase"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right bold">Worker-Parent Contact: 1x per month</div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="fpVisitationSchedule.isWorkerParentNotApplicable" formControlName="isWorkerParentNotApplicable" name="isWorkerParentNotApplicable" ></p-checkbox>
+        </div>
+        <div class="space-right">
+          Not Applicable
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">1. Effective Date:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpVisitationSchedule.workerParentEffectiveDate" formControlName="workerParentEffectiveDate" name="workerParentEffectiveDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right"># Visits per month:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpVisitationSchedule.workerParentVisitsPerMonth" formControlName="workerParentVisitsPerMonth" name="workerParentVisitsPerMonth"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Participants:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpVisitationSchedule.workerParentParticipants" formControlName="workerParentParticipants" name="workerParentParticipants"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Arrangements: (transport, location, time, duration, other restrictions)</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpVisitationSchedule.arrangements" formControlName="arrangements" name="arrangements"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">2. Effective Date:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpVisitationSchedule.arrangementsEffectiveDate" formControlName="arrangementsEffectiveDate" name="arrangementsEffectiveDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right"># Visits per month:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpVisitationSchedule.arrangementsVisitsPerMonth" formControlName="arrangementsVisitsPerMonth" name="arrangementsVisitsPerMonth"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Participants:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpVisitationSchedule.arrangmentsParticipants" formControlName="arrangmentsParticipants" name="arrangmentsParticipants"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Arrangements: (transport, location, time, duration, other restrictions)</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpVisitationSchedule.arrangements2" formControlName="arrangements2" name="arrangements2"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p class="bold">Worker-Child Contact: Mandatory 1x per month</p>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">1. Effective Date:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpVisitationSchedule.workerMandatoryEffectiveDate" formControlName="workerMandatoryEffectiveDate" name="workerMandatoryEffectiveDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right"># Visits per month:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpVisitationSchedule.workerMandatoryVisitsPerMonth" formControlName="workerMandatoryVisitsPerMonth" name="workerMandatoryVisitsPerMonth"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Participants:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpVisitationSchedule.workerMandatoryParticipants" formControlName="workerMandatoryParticipants" name="workerMandatoryParticipants"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Arrangements: (transport, location, time, duration, other restrictions)</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpVisitationSchedule.arrangments3" formControlName="arrangments3" name="arrangments3"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right bold">Child-Sibling Visitation: Mandatory 2x monthly</div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="fpVisitationSchedule.isChildSiblingNotApplicable" formControlName="isChildSiblingNotApplicable" name="isChildSiblingNotApplicable" ></p-checkbox>
+        </div>
+        <div class="space-right">
+          Not Applicable
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="fpVisitationSchedule.isChildSiblingPlaced" formControlName="isChildSiblingPlaced" name="isChildSiblingPlaced" ></p-checkbox>
+        </div>
+        <div class="space-right">
+          Siblings Placed Together
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">1. Effective Date:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpVisitationSchedule.childSiblingEffectiveDate" formControlName="childSiblingEffectiveDate" name="childSiblingEffectiveDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right"># Visits per month:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpVisitationSchedule.childSiblingVisitsPerMonth" formControlName="childSiblingVisitsPerMonth" name="childSiblingVisitsPerMonth"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Participants:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpVisitationSchedule.childSiblingParticipants" formControlName="childSiblingParticipants" name="childSiblingParticipants"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Arrangements: (transport, location, time, duration, other restrictions)</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpVisitationSchedule.arrangments4" formControlName="arrangments4" name="arrangments4"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">If interactions are not occurring (therapeutic, court order) or are not in-person (i.e.
+        by phone, mail electronic) explain why:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpVisitationSchedule.explainWhy" formControlName="explainWhy" name="explainWhy"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>CC: All affected parties</p>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,fpVisitationSchedule)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

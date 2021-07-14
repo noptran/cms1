@@ -1,0 +1,2685 @@
+<div id="print-form-content">
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+  <p-toast position="center" [baseZIndex]="99999999"></p-toast>
+  <form id="form-content" [formGroup]="csdcForm" class="sf-form">
+    <h2 class="center">CSDC-KS –CAREGIVER VERSION 4.3</h2>
+    <h2 class="center">KAPP (Ages 2-18)</h2>
+    <h3>PART A – Demographic Information</h3>
+    <div class="flex-container space-between">
+      <div class="flex-container">
+        <div>
+          Caregiver’s Name:
+        </div>
+        <div>
+          <input formControlName="CareGiverName" name="CareGiverName" [(ngModel)]="cisCsdc.CareGiverName.value" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          Date:
+        </div>
+        <div>
+          <input formControlName="CompletionDate" name="CompletionDate" [(ngModel)]="cisCsdc.CompletionDate.value" type="text" pInputText
+            size="20" />
+          <!-- <p-calendar [(ngModel)]="cisCsdc.CompletionDate.value" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+          yearRange="2000:2030"></p-calendar> -->
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-between">
+      <div class="flex-container">
+        <div>
+          Administered by:
+        </div>
+        <div>
+          <input formControlName="StaffName" name="StaffName" [(ngModel)]="cisCsdc.StaffName.value" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          ID #:
+        </div>
+        <div>
+          <input formControlName="StaffID" name="StaffID" [(ngModel)]="cisCsdc.StaffID.value" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+  </form>
+  <!-- <form id="form-content" [formGroup]="csdcForm" class="sf-form">
+
+    <p-checkbox *ngIf="!cisCsdc.disableValidate" (onChange)="handleDataField(true)" formControlName="disableValidate" name="disableValidate"
+      [(ngModel)]="cisCsdc.disableValidate"></p-checkbox>
+    <p-checkbox binary="true" *ngIf="cisCsdc.disableValidate" (onChange)="handleDataField(false)"></p-checkbox>Unable to Access
+  </form> -->
+  <form id="form-content" [formGroup]="unableToAccesForm" class="sf-form">
+    <p-checkbox (onChange)="handleDataField(cisCsdc.disableValidate)" formControlName="disableValidate" binary="true" name="disableValidate"
+      [(ngModel)]="cisCsdc.disableValidate"></p-checkbox>Unable to Access
+  </form>
+  <div *ngIf="cisCsdc.disableValidate">
+    <p>Remarks:</p>
+    <textarea (ngModelChange)="saveRemarks($event)" [(ngModel)]="cisCsdc.remarks.value" pInputTextarea autoResize="autoResize"
+    rows={{rowMethod(cisCsdc.remarks.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+
+  </div>
+  <form id="form-content" [formGroup]="csdcForm" class="sf-form">
+
+    <p>
+      <span class="bold">Relationship to Child</span>:Check all that apply</p>
+    <div class="flex-container">
+      <div>
+        <p-radioButton formControlName="CareGiverRelationToClient" name="CareGiverRelationToClient" value="0" [(ngModel)]="cisCsdc.CareGiverRelationToClient.fieldOptionIndex"
+          class="space-right"></p-radioButton>Biological Parent
+      </div>
+      <div>
+        <p-radioButton formControlName="CareGiverRelationToClient" name="CareGiverRelationToClient" value="1" [(ngModel)]="cisCsdc.CareGiverRelationToClient.fieldOptionIndex"
+          class="space-right"></p-radioButton>Step parent
+      </div>
+      <div>
+        <p-radioButton formControlName="CareGiverRelationToClient" name="CareGiverRelationToClient" value="2" [(ngModel)]="cisCsdc.CareGiverRelationToClient.fieldOptionIndex"
+          class="space-right"></p-radioButton>Foster parent
+      </div>
+      <div>
+        <p-radioButton formControlName="CareGiverRelationToClient" name="CareGiverRelationToClient" value="3" [(ngModel)]="cisCsdc.CareGiverRelationToClient.fieldOptionIndex"
+          class="space-right"></p-radioButton>Guardian
+      </div>
+      <div>
+        <p-radioButton formControlName="CareGiverRelationToClient" name="CareGiverRelationToClient" value="4" [(ngModel)]="cisCsdc.CareGiverRelationToClient.fieldOptionIndex"
+          class="space-right"></p-radioButton>Adoptive Parent
+      </div>
+      <div>
+        <p-radioButton formControlName="CareGiverRelationToClient" name="CareGiverRelationToClient" value="5" [(ngModel)]="cisCsdc.CareGiverRelationToClient.fieldOptionIndex"
+          class="space-right"></p-radioButton>Other
+      </div>
+      <div>
+        <input formControlName="RelationToClientOther" name="RelationToClientOther" [(ngModel)]="cisCsdc.RelationToClientOther.value"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <h3>PART B – Exposure to Traumatic Events</h3>
+    <p>
+      <span class="bold">Instructions to Caregiver:</span> Has your child ever experienced, witnessed, or learned about an event that caused,
+      or threatened to cause death, or serious harm to him or herself or to someone else? If any of your children were exposed
+      to the following events, please, check the corresponding number of your child (below). </p>
+    <p>If your children didn’t experience the event, leave it blank. </p>
+    <div class="flex-container">
+      <div>
+        Children’s Name(s):
+      </div>
+      <div>
+        <input formControlName="ClientName" name="ClientName" [(ngModel)]="cisCsdc.ClientName.value" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <div class="table-td">
+      <table>
+        <tr>
+          <th class="table-td">
+            <h2 class="center">Which of your children has ever…</h2>
+          </th>
+          <th class="bold table-td">Check which of your children experienced this event
+          </th>
+        </tr>
+        <tr>
+          <td class="table-td">1. been in a storm, tornado, flood, or fire that destroyed their house or school and/or caused them to be injured?</td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question1_CheckBox_Client1" name="CSDC_KS_Question1_CheckBox_Client1" [(ngModel)]="cisCsdc.CSDC_KS_Question1_CheckBox_Client1.fieldOptionIndex"
+                  binary="true"></p-checkbox>1
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question1_CheckBox_Client2" name="CSDC_KS_Question1_CheckBox_Client2" [(ngModel)]="cisCsdc.CSDC_KS_Question1_CheckBox_Client2.fieldOptionIndex"
+                  binary="true"></p-checkbox>2
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question1_CheckBox_Client3" name="CSDC_KS_Question1_CheckBox_Client3" [(ngModel)]="cisCsdc.CSDC_KS_Question1_CheckBox_Client3.fieldOptionIndex"
+                  binary="true"></p-checkbox>3
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question1_CheckBox_Client4" name="CSDC_KS_Question1_CheckBox_Client4" [(ngModel)]="cisCsdc.CSDC_KS_Question1_CheckBox_Client4.fieldOptionIndex"
+                  binary="true"></p-checkbox>4
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">2. seen or been in a serious accident in which they or someone they cared about were hurt really badly?</td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question2_CheckBox_Client1" name="CSDC_KS_Question2_CheckBox_Client1" [(ngModel)]="cisCsdc.CSDC_KS_Question2_CheckBox_Client1.fieldOptionIndex"
+                  binary="true"></p-checkbox>1
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question2_CheckBox_Client2" name="CSDC_KS_Question2_CheckBox_Client2" [(ngModel)]="cisCsdc.CSDC_KS_Question2_CheckBox_Client2.fieldOptionIndex"
+                  binary="true"></p-checkbox>2
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question2_CheckBox_Client3" name="CSDC_KS_Question2_CheckBox_Client3" [(ngModel)]="cisCsdc.CSDC_KS_Question2_CheckBox_Client3.fieldOptionIndex"
+                  binary="true"></p-checkbox>3
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question2_CheckBox_Client4" name="CSDC_KS_Question2_CheckBox_Client4" [(ngModel)]="cisCsdc.CSDC_KS_Question2_CheckBox_Client4.fieldOptionIndex"
+                  binary="true"></p-checkbox>4
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">3. had to go to the hospital or emergency room for treatment because they had a serious or prolonged medical issue?</td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question3_CheckBox_Client1" name="CSDC_KS_Question3_CheckBox_Client1" [(ngModel)]="cisCsdc.CSDC_KS_Question3_CheckBox_Client1.fieldOptionIndex"
+                  binary="true"></p-checkbox>1
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question3_CheckBox_Client2" name="CSDC_KS_Question3_CheckBox_Client2" [(ngModel)]="cisCsdc.CSDC_KS_Question3_CheckBox_Client2.fieldOptionIndex"
+                  binary="true"></p-checkbox>2
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question3_CheckBox_Client3" name="CSDC_KS_Question3_CheckBox_Client3" [(ngModel)]="cisCsdc.CSDC_KS_Question3_CheckBox_Client3.fieldOptionIndex"
+                  binary="true"></p-checkbox>3
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question3_CheckBox_Client4" name="CSDC_KS_Question3_CheckBox_Client4" [(ngModel)]="cisCsdc.CSDC_KS_Question3_CheckBox_Client4.fieldOptionIndex"
+                  binary="true"></p-checkbox>4
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">4. been threatened or physically injured (hit, punched, kicked, choked or use of weapon) by another child or adult?</td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question4_CheckBox_Client1" name="CSDC_KS_Question4_CheckBox_Client1" [(ngModel)]="cisCsdc.CSDC_KS_Question4_CheckBox_Client1.fieldOptionIndex"
+                  binary="true"></p-checkbox>1
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question4_CheckBox_Client2" name="CSDC_KS_Question4_CheckBox_Client2" [(ngModel)]="cisCsdc.CSDC_KS_Question4_CheckBox_Client2.fieldOptionIndex"
+                  binary="true"></p-checkbox>2
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question4_CheckBox_Client3" name="CSDC_KS_Question4_CheckBox_Client3" [(ngModel)]="cisCsdc.CSDC_KS_Question4_CheckBox_Client3.fieldOptionIndex"
+                  binary="true"></p-checkbox>3
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question4_CheckBox_Client4" name="CSDC_KS_Question4_CheckBox_Client4" [(ngModel)]="cisCsdc.CSDC_KS_Question4_CheckBox_Client4.fieldOptionIndex"
+                  binary="true"></p-checkbox>4
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">5. had anyone touch, attempt to touch his/her private areas and/or looked at or take pictures of his/her private
+            areas? Has anyone ever asked them to touch or look at their private parts?</td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question5_CheckBox_Client1" name="CSDC_KS_Question5_CheckBox_Client1" [(ngModel)]="cisCsdc.CSDC_KS_Question5_CheckBox_Client1.fieldOptionIndex"
+                  binary="true"></p-checkbox>1
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question5_CheckBox_Client2" name="CSDC_KS_Question5_CheckBox_Client2" [(ngModel)]="cisCsdc.CSDC_KS_Question5_CheckBox_Client2.fieldOptionIndex"
+                  binary="true"></p-checkbox>2
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question5_CheckBox_Client3" name="CSDC_KS_Question5_CheckBox_Client3" [(ngModel)]="cisCsdc.CSDC_KS_Question5_CheckBox_Client3.fieldOptionIndex"
+                  binary="true"></p-checkbox>3
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question5_CheckBox_Client4" name="CSDC_KS_Question5_CheckBox_Client4" [(ngModel)]="cisCsdc.CSDC_KS_Question5_CheckBox_Client4.fieldOptionIndex"
+                  binary="true"></p-checkbox>4
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">6. seen their parent punch, beat, shove, kick, or hurt their other parent in any way?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question6_CheckBox_Client1" name="CSDC_KS_Question6_CheckBox_Client1" [(ngModel)]="cisCsdc.CSDC_KS_Question6_CheckBox_Client1.fieldOptionIndex"
+                  binary="true"></p-checkbox>1
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question6_CheckBox_Client2" name="CSDC_KS_Question6_CheckBox_Client2" [(ngModel)]="cisCsdc.CSDC_KS_Question6_CheckBox_Client2.fieldOptionIndex"
+                  binary="true"></p-checkbox>2
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question6_CheckBox_Client3" name="CSDC_KS_Question6_CheckBox_Client3" [(ngModel)]="cisCsdc.CSDC_KS_Question6_CheckBox_Client3.fieldOptionIndex"
+                  binary="true"></p-checkbox>3
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question6_CheckBox_Client4" name="CSDC_KS_Question6_CheckBox_Client4" [(ngModel)]="cisCsdc.CSDC_KS_Question6_CheckBox_Client4.fieldOptionIndex"
+                  binary="true"></p-checkbox>4
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">7. watched someone in their neighborhood being seriously injured or killed?</td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question7_CheckBox_Client1" name="CSDC_KS_Question7_CheckBox_Client1" [(ngModel)]="cisCsdc.CSDC_KS_Question7_CheckBox_Client1.fieldOptionIndex"
+                  binary="true"></p-checkbox>1
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question7_CheckBox_Client2" name="CSDC_KS_Question7_CheckBox_Client2" [(ngModel)]="cisCsdc.CSDC_KS_Question7_CheckBox_Client2.fieldOptionIndex"
+                  binary="true"></p-checkbox>2
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question7_CheckBox_Client3" name="CSDC_KS_Question7_CheckBox_Client3" [(ngModel)]="cisCsdc.CSDC_KS_Question7_CheckBox_Client3.fieldOptionIndex"
+                  binary="true"></p-checkbox>3
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question7_CheckBox_Client4" name="CSDC_KS_Question7_CheckBox_Client4" [(ngModel)]="cisCsdc.CSDC_KS_Question7_CheckBox_Client4.fieldOptionIndex"
+                  binary="true"></p-checkbox>4
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">8. been removed from their home and had to live with another family or in another home?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question8_CheckBox_Client1" name="CSDC_KS_Question8_CheckBox_Client1" [(ngModel)]="cisCsdc.CSDC_KS_Question8_CheckBox_Client1.fieldOptionIndex"
+                  binary="true"></p-checkbox>1
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question8_CheckBox_Client2" name="CSDC_KS_Question8_CheckBox_Client2" [(ngModel)]="cisCsdc.CSDC_KS_Question8_CheckBox_Client2.fieldOptionIndex"
+                  binary="true"></p-checkbox>2
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question8_CheckBox_Client3" name="CSDC_KS_Question8_CheckBox_Client3" [(ngModel)]="cisCsdc.CSDC_KS_Question8_CheckBox_Client3.fieldOptionIndex"
+                  binary="true"></p-checkbox>3
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question8_CheckBox_Client4" name="CSDC_KS_Question8_CheckBox_Client4" [(ngModel)]="cisCsdc.CSDC_KS_Question8_CheckBox_Client4.fieldOptionIndex"
+                  binary="true"></p-checkbox>4
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">9. been left alone for long periods of time, had to go without enough food and/or had to miss a lot of days of
+            school?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question9_CheckBox_Client1" name="CSDC_KS_Question9_CheckBox_Client1" [(ngModel)]="cisCsdc.CSDC_KS_Question9_CheckBox_Client1.fieldOptionIndex"
+                  binary="true"></p-checkbox>1
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question9_CheckBox_Client2" name="CSDC_KS_Question9_CheckBox_Client2" [(ngModel)]="cisCsdc.CSDC_KS_Question9_CheckBox_Client2.fieldOptionIndex"
+                  binary="true"></p-checkbox>2
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question9_CheckBox_Client3" name="CSDC_KS_Question9_CheckBox_Client3" [(ngModel)]="cisCsdc.CSDC_KS_Question9_CheckBox_Client3.fieldOptionIndex"
+                  binary="true"></p-checkbox>3
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question9_CheckBox_Client4" name="CSDC_KS_Question9_CheckBox_Client4" [(ngModel)]="cisCsdc.CSDC_KS_Question9_CheckBox_Client4.fieldOptionIndex"
+                  binary="true"></p-checkbox>4
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">10. been bullied (called names, pushed, stole your things, or threatened) or treated badly because of their skin
+            color, religion, money/ clothes, LGBTQ, or because they were in foster care?</td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question10_CheckBox_Client1" name="CSDC_KS_Question10_CheckBox_Client1" [(ngModel)]="cisCsdc.CSDC_KS_Question10_CheckBox_Client1.fieldOptionIndex"
+                  binary="true"></p-checkbox>1
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question10_CheckBox_Client2" name="CSDC_KS_Question10_CheckBox_Client2" [(ngModel)]="cisCsdc.CSDC_KS_Question10_CheckBox_Client2.fieldOptionIndex"
+                  binary="true"></p-checkbox>2
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question10_CheckBox_Client3" name="CSDC_KS_Question10_CheckBox_Client3" [(ngModel)]="cisCsdc.CSDC_KS_Question10_CheckBox_Client3.fieldOptionIndex"
+                  binary="true"></p-checkbox>3
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question10_CheckBox_Client4" name="CSDC_KS_Question10_CheckBox_Client4" [(ngModel)]="cisCsdc.CSDC_KS_Question10_CheckBox_Client4.fieldOptionIndex"
+                  binary="true"></p-checkbox>4
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">11. seen a parent or caregiver struggle with a substance abuse problem (drinking, drugs, prescriptions, etc.) or
+            with a mental health problem (anxiety, depression, bipolar, etc.)? </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question11_CheckBox_Client1" name="CSDC_KS_Question11_CheckBox_Client1" [(ngModel)]="cisCsdc.CSDC_KS_Question11_CheckBox_Client1.fieldOptionIndex"
+                  binary="true"></p-checkbox>1
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question11_CheckBox_Client2" name="CSDC_KS_Question11_CheckBox_Client2" [(ngModel)]="cisCsdc.CSDC_KS_Question11_CheckBox_Client2.fieldOptionIndex"
+                  binary="true"></p-checkbox>2
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question11_CheckBox_Client3" name="CSDC_KS_Question11_CheckBox_Client3" [(ngModel)]="cisCsdc.CSDC_KS_Question11_CheckBox_Client3.fieldOptionIndex"
+                  binary="true"></p-checkbox>3
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question11_CheckBox_Client4" name="CSDC_KS_Question11_CheckBox_Client4" [(ngModel)]="cisCsdc.CSDC_KS_Question11_CheckBox_Client4.fieldOptionIndex"
+                  binary="true"></p-checkbox>4
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">12. had someone who was close to them (e.g., parent, caregiver, sibling, friend) that is not there anymore maybe
+            because they are in jail, in college, in the army, or they died or were deported?</td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question12_CheckBox_Client1" name="CSDC_KS_Question12_CheckBox_Client1" [(ngModel)]="cisCsdc.CSDC_KS_Question12_CheckBox_Client1.fieldOptionIndex"
+                  binary="true"></p-checkbox>1
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question12_CheckBox_Client2" name="CSDC_KS_Question12_CheckBox_Client2" [(ngModel)]="cisCsdc.CSDC_KS_Question12_CheckBox_Client2.fieldOptionIndex"
+                  binary="true"></p-checkbox>2
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question12_CheckBox_Client3" name="CSDC_KS_Question12_CheckBox_Client3" [(ngModel)]="cisCsdc.CSDC_KS_Question12_CheckBox_Client3.fieldOptionIndex"
+                  binary="true"></p-checkbox>3
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question12_CheckBox_Client4" name="CSDC_KS_Question12_CheckBox_Client4" [(ngModel)]="cisCsdc.CSDC_KS_Question12_CheckBox_Client4.fieldOptionIndex"
+                  binary="true"></p-checkbox>4
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">13. felt that no one really loved or cared for them or felt that they were all alone?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question13_CheckBox_Client1" name="CSDC_KS_Question13_CheckBox_Client1" [(ngModel)]="cisCsdc.CSDC_KS_Question13_CheckBox_Client1.fieldOptionIndex"
+                  binary="true"></p-checkbox>1
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question13_CheckBox_Client2" name="CSDC_KS_Question13_CheckBox_Client2" [(ngModel)]="cisCsdc.CSDC_KS_Question13_CheckBox_Client2.fieldOptionIndex"
+                  binary="true"></p-checkbox>2
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question13_CheckBox_Client3" name="CSDC_KS_Question13_CheckBox_Client3" [(ngModel)]="cisCsdc.CSDC_KS_Question13_CheckBox_Client3.fieldOptionIndex"
+                  binary="true"></p-checkbox>3
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question13_CheckBox_Client4" name="CSDC_KS_Question13_CheckBox_Client4" [(ngModel)]="cisCsdc.CSDC_KS_Question13_CheckBox_Client4.fieldOptionIndex"
+                  binary="true"></p-checkbox>4
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">14. Did I forget to ask you about anything that may have happened to your child? (please specify)
+            <!-- <input formControlName="aaaa" name="aaaa" type="text"
+              pInputText size="20" /> -->
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question14_CheckBox_Client1" name="CSDC_KS_Question14_CheckBox_Client1" [(ngModel)]="cisCsdc.CSDC_KS_Question14_CheckBox_Client1.fieldOptionIndex"
+                  binary="true"></p-checkbox>1
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question14_CheckBox_Client2" name="CSDC_KS_Question14_CheckBox_Client2" [(ngModel)]="cisCsdc.CSDC_KS_Question14_CheckBox_Client2.fieldOptionIndex"
+                  binary="true"></p-checkbox>2
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question14_CheckBox_Client3" name="CSDC_KS_Question14_CheckBox_Client3" [(ngModel)]="cisCsdc.CSDC_KS_Question14_CheckBox_Client3.fieldOptionIndex"
+                  binary="true"></p-checkbox>3
+              </div>
+              <div class="space-right">
+                <p-checkbox formControlName="CSDC_KS_Question14_CheckBox_Client4" name="CSDC_KS_Question14_CheckBox_Client4" [(ngModel)]="cisCsdc.CSDC_KS_Question14_CheckBox_Client4.fieldOptionIndex"
+                  binary="true"></p-checkbox>4
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="space-right">
+      <p-checkbox formControlName="CSDC_KS_NoneOfAbove_CheckBox" name="CSDC_KS_NoneOfAbove_CheckBox" [(ngModel)]="cisCsdc.CSDC_KS_NoneOfAbove_CheckBox.fieldOptionIndex"
+        binary="true"></p-checkbox>If your children were not exposed to any of these events, please check this box If you checked the box,
+      you can STOP here. You don’t need to answer the next set of questions.
+    </div>
+    <p>Of the events selected above, please next to the corresponding number of your child (from above), note which event your
+      children currently consider to be most stressful, and indicate how old they were at the time of the event:
+    </p>
+    <div class="table-td">
+      <div class="table-td border-line">
+        <div class="flex-container space-between">
+          <div class="flex-container">
+            <div class="space-right">
+              Child 1
+            </div>
+            <div>
+              <input formControlName="ClientID1" name="ClientID1" [(ngModel)]="cisCsdc.ClientID1.value" type="text" pInputText size="20"
+              />
+            </div>
+          </div>
+          <div class="flex-container">
+            <div>
+              Age:
+            </div>
+            <div>
+              <input formControlName="Age_Client1" name="Age_Client1" [(ngModel)]="cisCsdc.Age_Client1.value" type="text" pInputText size="20"
+              />
+            </div>
+          </div>
+          <div class="flex-container">
+            <div class="space-right">
+              Child 2
+            </div>
+            <div>
+              <input formControlName="ClientID2" name="ClientID2" [(ngModel)]="cisCsdc.ClientID2.value" type="text" pInputText size="20"
+              />
+            </div>
+          </div>
+          <div class="flex-container">
+            <div>
+              Age:
+            </div>
+            <div>
+              <input formControlName="Age_Client2" name="Age_Client2" [(ngModel)]="cisCsdc.Age_Client2.value" type="text" pInputText size="20"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="flex-container space-between">
+          <div class="flex-container">
+            <div class="space-right">
+              Identified:
+            </div>
+            <div>
+              <input formControlName="Client1ReferralID" name="Client1ReferralID" [(ngModel)]="cisCsdc.Client1ReferralID.value" type="text"
+                pInputText size="20" />
+            </div>
+          </div>
+          <div class="flex-container">
+            <div>
+              Identified:
+            </div>
+            <div>
+              <input formControlName="Client2ReferralID" name="Client2ReferralID" [(ngModel)]="cisCsdc.Client2ReferralID.value" type="text"
+                pInputText size="20" />
+            </div>
+          </div>
+        </div>
+        <div class="flex-container space-between">
+          <div class="flex-container">
+            <div class="space-right">
+              Child 3
+            </div>
+            <div>
+              <input formControlName="ClientID3" name="ClientID3" [(ngModel)]="cisCsdc.ClientID3.value" type="text" pInputText size="20"
+              />
+            </div>
+          </div>
+          <div class="flex-container">
+            <div>
+              Age:
+            </div>
+            <div>
+              <input formControlName="Age_Client3" name="Age_Client3" [(ngModel)]="cisCsdc.Age_Client3.value" type="text" pInputText size="20"
+              />
+            </div>
+          </div>
+          <div class="flex-container">
+            <div class="space-right">
+              Child 4
+            </div>
+            <div>
+              <input formControlName="ClientID4" name="ClientID4" [(ngModel)]="cisCsdc.ClientID4.value" type="text" pInputText size="20"
+              />
+            </div>
+          </div>
+          <div class="flex-container">
+            <div>
+              Age:
+            </div>
+            <div>
+              <input formControlName="Age_Client4" name="Age_Client4" [(ngModel)]="cisCsdc.Age_Client4.value" type="text" pInputText size="20"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="flex-container space-between">
+          <div class="flex-container">
+            <div class="space-right">
+              Identified:
+            </div>
+            <div>
+              <input formControlName="Client3ReferralID" name="Client3ReferralID" [(ngModel)]="cisCsdc.Client3ReferralID.value" type="text"
+                pInputText size="20" />
+            </div>
+          </div>
+          <div class="flex-container">
+            <div>
+              Identified:
+            </div>
+            <div>
+              <input formControlName="Client4ReferralID" name="Client4ReferralID" [(ngModel)]="cisCsdc.Client4ReferralID.value" type="text"
+                pInputText size="20" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3>PART C – Screener Exposure Symptoms</h3>
+    <p>
+      <span class="bold">Instructions to Caregiver:</span> Thank you for telling me what has HAPPENED to your children, now I would like to
+      know more about their behaviors and
+      <span class="bold">how they reacted to what they went through.</span> The questions I’m going to ask you are about your children’s behavior
+      <span class="bold">NOW</span> or
+      <span class="bold">WITHIN THE PAST MONTH.</span> Here are your answer choices:
+      <span class="bold">VERY TRUE (2), SOMEWHAT TRUE (1)</span> or
+      <span class="bold">NOT TRUE (0)</span> at all. Please answer all questions as well as you can.
+    </p>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">Child 1</th>
+          <th class="table-td">Child 2</th>
+          <th class="table-td">Child 3</th>
+          <th class="table-td">Child 4</th>
+          <th class="instruction table-td">0 = Not True (as far as you know) 1 = Somewhat True 2 = Very True</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question1_Client1" name="CSDC_KS_PartC_Question1_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question1_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question1_Client1" name="CSDC_KS_PartC_Question1_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question1_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question1_Client1" name="CSDC_KS_PartC_Question1_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question1_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question1_Client2" name="CSDC_KS_PartC_Question1_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question1_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question1_Client2" name="CSDC_KS_PartC_Question1_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question1_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question1_Client2" name="CSDC_KS_PartC_Question1_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question1_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question1_Client3" name="CSDC_KS_PartC_Question1_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question1_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question1_Client3" name="CSDC_KS_PartC_Question1_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question1_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question1_Client3" name="CSDC_KS_PartC_Question1_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question1_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question1_Client4" name="CSDC_KS_PartC_Question1_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question1_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question1_Client4" name="CSDC_KS_PartC_Question1_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question1_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question1_Client4" name="CSDC_KS_PartC_Question1_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question1_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">(1) Does your child complain about headaches, stomachaches, nausea, difficulty breathing when he/she is reminded
+            of what happened?
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question2_Client1" name="CSDC_KS_PartC_Question2_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question2_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question2_Client1" name="CSDC_KS_PartC_Question2_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question2_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question2_Client1" name="CSDC_KS_PartC_Question2_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question2_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question2_Client2" name="CSDC_KS_PartC_Question2_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question2_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question2_Client2" name="CSDC_KS_PartC_Question2_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question2_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question2_Client2" name="CSDC_KS_PartC_Question2_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question2_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question2_Client3" name="CSDC_KS_PartC_Question2_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question2_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question2_Client3" name="CSDC_KS_PartC_Question2_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question2_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question2_Client3" name="CSDC_KS_PartC_Question2_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question2_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question2_Client4" name="CSDC_KS_PartC_Question2_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question2_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question2_Client4" name="CSDC_KS_PartC_Question2_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question2_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question2_Client4" name="CSDC_KS_PartC_Question2_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question2_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">(2) Does your child avoid doing things that remind him/her of what happened?
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question3_Client1" name="CSDC_KS_PartC_Question3_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question3_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question3_Client1" name="CSDC_KS_PartC_Question3_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question3_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question3_Client1" name="CSDC_KS_PartC_Question3_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question3_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question3_Client2" name="CSDC_KS_PartC_Question3_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question3_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question3_Client2" name="CSDC_KS_PartC_Question3_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question3_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question3_Client2" name="CSDC_KS_PartC_Question3_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question3_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question3_Client3" name="CSDC_KS_PartC_Question3_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question3_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question3_Client3" name="CSDC_KS_PartC_Question3_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question3_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question3_Client3" name="CSDC_KS_PartC_Question3_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question3_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question3_Client4" name="CSDC_KS_PartC_Question3_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question3_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question3_Client4" name="CSDC_KS_PartC_Question3_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question3_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question3_Client4" name="CSDC_KS_PartC_Question3_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question3_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">(3) Does your child startle easily. For example, he or she jumps when he/she hears sudden or loud noises?</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question4_Client1" name="CSDC_KS_PartC_Question4_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question4_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question4_Client1" name="CSDC_KS_PartC_Question4_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question4_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question4_Client1" name="CSDC_KS_PartC_Question4_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question4_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question4_Client2" name="CSDC_KS_PartC_Question4_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question4_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question4_Client2" name="CSDC_KS_PartC_Question4_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question4_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question4_Client2" name="CSDC_KS_PartC_Question4_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question4_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question4_Client3" name="CSDC_KS_PartC_Question4_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question4_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question4_Client3" name="CSDC_KS_PartC_Question4_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question4_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question4_Client3" name="CSDC_KS_PartC_Question4_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question4_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question4_Client4" name="CSDC_KS_PartC_Question4_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question4_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question4_Client4" name="CSDC_KS_PartC_Question4_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question4_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartC_Question4_Client4" name="CSDC_KS_PartC_Question4_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartC_Question4_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">(4) Does your child get very upset if reminded of what happened?</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="CTotal_Client1" name="CTotal_Client1" [(ngModel)]="cisCsdc.CTotal_Client1.value" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="CTotal_Client2" name="CTotal_Client2" [(ngModel)]="cisCsdc.CTotal_Client2.value" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="CTotal_Client3" name="CTotal_Client3" [(ngModel)]="cisCsdc.CTotal_Client3.value" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="CTotal_Client4" name="CTotal_Client4" [(ngModel)]="cisCsdc.CTotal_Client4.value" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="instruction table-td">
+            <span class="bold">SUB TOTAL A</span> (Sum of items 1-4 above. Score of 0-8 is possible)
+          </td>
+        </tr>
+      </table>
+    </div>
+    <p class="bold mark">If the score is zero for all your children, you can stop here. You don’t need to answer the next set of questions. Otherwise
+      continue answer the following questions only for your children who had a score between 1 and 8.</p>
+    <h3>PART D</h3>
+    <p>
+      <span class="bold">Instructions to Caregiver:</span> This is our final set of questions. For each feeling or behavior that describes your
+      children, please answer
+      <span class="bold">VERY TRUE (2), SOMETIMES TRUE (1), OR NOT TRUE (0).</span> Please answer all items as well as you can even if some
+      do not seem to apply to your children. Remember, now I am asking you about your children’s feelings and behaviors
+      <span class="bold">NOW</span> or
+      <span class="bold">WITHIN THE PAST MONTH</span>. The term "event" refers to the
+      <span class="bold">most</span> stressful experience that you noted above.
+    </p>
+    <div class="table-td">
+      <table>
+        <tr>
+          <th class="table-td">Child 1</th>
+          <th class="table-td">Child 2</th>
+          <th class="table-td">Child 3</th>
+          <th class="table-td">Child 4</th>
+          <th class="instruction table-td">0 = Not True (as far as you know) 1 = Somewhat True 2 = Very True</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question1_Client1" name="CSDC_KS_PartD_Question1_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question1_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question1_Client1" name="CSDC_KS_PartD_Question1_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question1_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question1_Client1" name="CSDC_KS_PartD_Question1_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question1_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question1_Client2" name="CSDC_KS_PartD_Question1_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question1_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question1_Client2" name="CSDC_KS_PartD_Question1_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question1_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question1_Client2" name="CSDC_KS_PartD_Question1_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question1_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question1_Client3" name="CSDC_KS_PartD_Question1_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question1_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question1_Client3" name="CSDC_KS_PartD_Question1_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question1_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question1_Client3" name="CSDC_KS_PartD_Question1_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question1_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question1_Client4" name="CSDC_KS_PartD_Question1_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question1_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question1_Client4" name="CSDC_KS_PartD_Question1_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question1_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question1_Client4" name="CSDC_KS_PartD_Question1_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question1_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">1) Does your child have uncomfortable memories of the event?</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question2_Client1" name="CSDC_KS_PartD_Question2_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question2_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question2_Client1" name="CSDC_KS_PartD_Question2_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question2_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question2_Client1" name="CSDC_KS_PartD_Question2_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question2_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question2_Client2" name="CSDC_KS_PartD_Question2_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question2_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question2_Client2" name="CSDC_KS_PartD_Question2_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question2_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question2_Client2" name="CSDC_KS_PartD_Question2_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question2_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question2_Client3" name="CSDC_KS_PartD_Question2_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question2_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question2_Client3" name="CSDC_KS_PartD_Question2_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question2_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question2_Client3" name="CSDC_KS_PartD_Question2_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question2_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question2_Client4" name="CSDC_KS_PartD_Question2_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question2_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question2_Client4" name="CSDC_KS_PartD_Question2_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question2_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question2_Client4" name="CSDC_KS_PartD_Question2_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question2_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">2) Does your child feel numb or distant from their feelings?</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question3_Client1" name="CSDC_KS_PartD_Question3_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question3_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question3_Client1" name="CSDC_KS_PartD_Question3_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question3_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question3_Client1" name="CSDC_KS_PartD_Question3_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question3_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question3_Client2" name="CSDC_KS_PartD_Question3_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question3_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question3_Client2" name="CSDC_KS_PartD_Question3_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question3_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question3_Client2" name="CSDC_KS_PartD_Question3_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question3_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question3_Client3" name="CSDC_KS_PartD_Question3_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question3_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question3_Client3" name="CSDC_KS_PartD_Question3_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question3_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question3_Client3" name="CSDC_KS_PartD_Question3_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question3_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question3_Client4" name="CSDC_KS_PartD_Question3_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question3_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question3_Client4" name="CSDC_KS_PartD_Question3_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question3_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question3_Client4" name="CSDC_KS_PartD_Question3_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question3_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">3) Is your child irritable or angry?</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question4_Client1" name="CSDC_KS_PartD_Question4_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question4_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question4_Client1" name="CSDC_KS_PartD_Question4_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question4_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question4_Client1" name="CSDC_KS_PartD_Question4_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question4_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question4_Client2" name="CSDC_KS_PartD_Question4_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question4_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question4_Client2" name="CSDC_KS_PartD_Question4_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question4_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question4_Client2" name="CSDC_KS_PartD_Question4_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question4_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question4_Client3" name="CSDC_KS_PartD_Question4_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question4_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question4_Client3" name="CSDC_KS_PartD_Question4_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question4_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question4_Client3" name="CSDC_KS_PartD_Question4_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question4_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question4_Client4" name="CSDC_KS_PartD_Question4_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question4_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question4_Client4" name="CSDC_KS_PartD_Question4_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question4_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question4_Client4" name="CSDC_KS_PartD_Question4_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question4_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">4) Does your child have difficulty remembering details about the event?</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question5_Client1" name="CSDC_KS_PartD_Question5_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question5_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question5_Client1" name="CSDC_KS_PartD_Question5_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question5_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question5_Client1" name="CSDC_KS_PartD_Question5_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question5_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question5_Client2" name="CSDC_KS_PartD_Question5_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question5_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question5_Client2" name="CSDC_KS_PartD_Question5_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question5_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question5_Client2" name="CSDC_KS_PartD_Question5_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question5_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question5_Client3" name="CSDC_KS_PartD_Question5_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question5_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question5_Client3" name="CSDC_KS_PartD_Question5_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question5_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question5_Client3" name="CSDC_KS_PartD_Question5_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question5_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question5_Client4" name="CSDC_KS_PartD_Question5_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question5_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question5_Client4" name="CSDC_KS_PartD_Question5_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question5_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question5_Client4" name="CSDC_KS_PartD_Question5_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question5_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">5) Does your child have difficulty falling asleep or staying asleep?</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question6_Client1" name="CSDC_KS_PartD_Question6_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question6_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question6_Client1" name="CSDC_KS_PartD_Question6_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question6_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question6_Client1" name="CSDC_KS_PartD_Question6_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question6_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question6_Client2" name="CSDC_KS_PartD_Question6_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question6_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question6_Client2" name="CSDC_KS_PartD_Question6_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question6_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question6_Client2" name="CSDC_KS_PartD_Question6_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question6_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question6_Client3" name="CSDC_KS_PartD_Question6_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question6_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question6_Client3" name="CSDC_KS_PartD_Question6_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question6_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question6_Client3" name="CSDC_KS_PartD_Question6_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question6_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question6_Client4" name="CSDC_KS_PartD_Question6_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question6_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question6_Client4" name="CSDC_KS_PartD_Question6_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question6_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question6_Client4" name="CSDC_KS_PartD_Question6_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question6_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">6) Does your child feel detached or distant from other people?</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question7_Client1" name="CSDC_KS_PartD_Question7_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question7_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question7_Client1" name="CSDC_KS_PartD_Question7_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question7_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question7_Client1" name="CSDC_KS_PartD_Question7_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question7_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question7_Client2" name="CSDC_KS_PartD_Question7_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question7_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question7_Client2" name="CSDC_KS_PartD_Question7_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question7_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question7_Client2" name="CSDC_KS_PartD_Question7_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question7_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question7_Client3" name="CSDC_KS_PartD_Question7_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question7_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question7_Client3" name="CSDC_KS_PartD_Question7_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question7_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question7_Client3" name="CSDC_KS_PartD_Question7_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question7_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question7_Client4" name="CSDC_KS_PartD_Question7_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question7_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question7_Client4" name="CSDC_KS_PartD_Question7_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question7_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question7_Client4" name="CSDC_KS_PartD_Question7_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question7_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">7) Has your child been having difficulty getting along with friends, schoolmates or teachers?
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question8_Client1" name="CSDC_KS_PartD_Question8_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question8_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question8_Client1" name="CSDC_KS_PartD_Question8_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question8_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question8_Client1" name="CSDC_KS_PartD_Question8_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question8_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question8_Client2" name="CSDC_KS_PartD_Question8_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question8_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question8_Client2" name="CSDC_KS_PartD_Question8_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question8_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question8_Client2" name="CSDC_KS_PartD_Question8_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question8_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question8_Client3" name="CSDC_KS_PartD_Question8_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question8_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question8_Client3" name="CSDC_KS_PartD_Question8_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question8_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question8_Client3" name="CSDC_KS_PartD_Question8_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question8_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question8_Client4" name="CSDC_KS_PartD_Question8_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question8_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question8_Client4" name="CSDC_KS_PartD_Question8_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question8_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question8_Client4" name="CSDC_KS_PartD_Question8_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question8_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">8) Does your child do things that he/she had outgrown? For example, thumb sucking, bedwetting, nail biting, or
+            requesting to sleep with parents.</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question9_Client1" name="CSDC_KS_PartD_Question9_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question9_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question9_Client1" name="CSDC_KS_PartD_Question9_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question9_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question9_Client1" name="CSDC_KS_PartD_Question9_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question9_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question9_Client2" name="CSDC_KS_PartD_Question9_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question9_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question9_Client2" name="CSDC_KS_PartD_Question9_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question9_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question9_Client2" name="CSDC_KS_PartD_Question9_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question9_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question9_Client3" name="CSDC_KS_PartD_Question9_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question9_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question9_Client3" name="CSDC_KS_PartD_Question9_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question9_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question9_Client3" name="CSDC_KS_PartD_Question9_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question9_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question9_Client4" name="CSDC_KS_PartD_Question9_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question9_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question9_Client4" name="CSDC_KS_PartD_Question9_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question9_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question9_Client4" name="CSDC_KS_PartD_Question9_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question9_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">9) Does your child feel as if the event were happening again?</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question10_Client1" name="CSDC_KS_PartD_Question10_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question10_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question10_Client1" name="CSDC_KS_PartD_Question10_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question10_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question10_Client1" name="CSDC_KS_PartD_Question10_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question10_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question10_Client2" name="CSDC_KS_PartD_Question10_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question10_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question10_Client2" name="CSDC_KS_PartD_Question10_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question10_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question10_Client2" name="CSDC_KS_PartD_Question10_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question10_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question10_Client3" name="CSDC_KS_PartD_Question10_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question10_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question10_Client3" name="CSDC_KS_PartD_Question10_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question10_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question10_Client3" name="CSDC_KS_PartD_Question10_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question10_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question10_Client4" name="CSDC_KS_PartD_Question10_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question10_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question10_Client4" name="CSDC_KS_PartD_Question10_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question10_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question10_Client4" name="CSDC_KS_PartD_Question10_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question10_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">10) Does your child feel restless and have trouble sitting still?</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question11_Client1" name="CSDC_KS_PartD_Question11_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question11_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question11_Client1" name="CSDC_KS_PartD_Question11_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question11_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question11_Client1" name="CSDC_KS_PartD_Question11_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question11_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question11_Client2" name="CSDC_KS_PartD_Question11_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question11_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question11_Client2" name="CSDC_KS_PartD_Question11_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question11_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question11_Client2" name="CSDC_KS_PartD_Question11_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question11_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question11_Client3" name="CSDC_KS_PartD_Question11_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question11_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question11_Client3" name="CSDC_KS_PartD_Question11_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question11_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question11_Client3" name="CSDC_KS_PartD_Question11_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question11_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question11_Client4" name="CSDC_KS_PartD_Question11_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question11_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question11_Client4" name="CSDC_KS_PartD_Question11_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question11_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question11_Client4" name="CSDC_KS_PartD_Question11_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question11_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">11) Does your child avoid going to places that remind him/her of what happened?
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question12_Client1" name="CSDC_KS_PartD_Question12_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question12_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question12_Client1" name="CSDC_KS_PartD_Question12_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question12_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question12_Client1" name="CSDC_KS_PartD_Question12_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question12_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question12_Client2" name="CSDC_KS_PartD_Question12_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question12_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question12_Client2" name="CSDC_KS_PartD_Question12_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question12_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question12_Client2" name="CSDC_KS_PartD_Question12_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question12_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question12_Client3" name="CSDC_KS_PartD_Question12_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question12_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question12_Client3" name="CSDC_KS_PartD_Question12_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question12_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question12_Client3" name="CSDC_KS_PartD_Question12_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question12_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question12_Client3" name="CSDC_KS_PartD_Question12_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question12_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question12_Client3" name="CSDC_KS_PartD_Question12_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question12_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question12_Client3" name="CSDC_KS_PartD_Question12_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question12_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">12) Has your child been having difficulty getting along with family members?
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question13_Client1" name="CSDC_KS_PartD_Question13_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question13_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question13_Client1" name="CSDC_KS_PartD_Question13_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question13_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question13_Client1" name="CSDC_KS_PartD_Question13_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question13_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question13_Client2" name="CSDC_KS_PartD_Question13_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question13_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question13_Client2" name="CSDC_KS_PartD_Question13_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question13_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question13_Client2" name="CSDC_KS_PartD_Question13_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question13_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question13_Client3" name="CSDC_KS_PartD_Question13_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question13_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question13_Client3" name="CSDC_KS_PartD_Question13_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question13_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question13_Client3" name="CSDC_KS_PartD_Question13_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question13_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question13_Client4" name="CSDC_KS_PartD_Question13_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question13_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question13_Client4" name="CSDC_KS_PartD_Question13_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question13_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question13_Client4" name="CSDC_KS_PartD_Question13_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question13_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">13) Has your child been confused about things that he/she should know?</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question14_Client1" name="CSDC_KS_PartD_Question14_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question14_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question14_Client1" name="CSDC_KS_PartD_Question14_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question14_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question14_Client1" name="CSDC_KS_PartD_Question14_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question14_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question14_Client2" name="CSDC_KS_PartD_Question14_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question14_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question14_Client2" name="CSDC_KS_PartD_Question14_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question14_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question14_Client2" name="CSDC_KS_PartD_Question14_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question14_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question14_Client3" name="CSDC_KS_PartD_Question14_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question14_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question14_Client3" name="CSDC_KS_PartD_Question14_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question14_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question14_Client3" name="CSDC_KS_PartD_Question14_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question14_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question14_Client4" name="CSDC_KS_PartD_Question14_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question14_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question14_Client4" name="CSDC_KS_PartD_Question14_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question14_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question14_Client4" name="CSDC_KS_PartD_Question14_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question14_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">14) Does your child feel “on edge” or nervous?</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="D2Total_Client1" name="D2Total_Client1" [(ngModel)]="cisCsdc.D2Total_Client1.value" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="D2Total_Client2" name="D2Total_Client2" [(ngModel)]="cisCsdc.D2Total_Client2.value" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="D2Total_Client3" name="D2Total_Client3" [(ngModel)]="cisCsdc.D2Total_Client3.value" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="D2Total_Client4" name="D2Total_Client4" [(ngModel)]="cisCsdc.D2Total_Client4.value" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="instruction table-td">
+            <span class="bold">SUB Total D</span> (Sum 1-14)
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question15_Client1" name="CSDC_KS_PartD_Question15_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question15_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question15_Client1" name="CSDC_KS_PartD_Question15_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question15_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question15_Client1" name="CSDC_KS_PartD_Question15_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question15_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question15_Client2" name="CSDC_KS_PartD_Question15_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question15_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question15_Client2" name="CSDC_KS_PartD_Question15_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question15_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question15_Client2" name="CSDC_KS_PartD_Question15_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question15_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question15_Client3" name="CSDC_KS_PartD_Question15_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question15_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question15_Client3" name="CSDC_KS_PartD_Question15_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question15_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question15_Client3" name="CSDC_KS_PartD_Question15_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question15_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question15_Client4" name="CSDC_KS_PartD_Question15_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question15_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question15_Client4" name="CSDC_KS_PartD_Question15_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question15_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question15_Client4" name="CSDC_KS_PartD_Question15_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question15_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">15) Does your child seem to feel “spaced out” or in a daze?</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question16_Client1" name="CSDC_KS_PartD_Question16_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question16_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question16_Client1" name="CSDC_KS_PartD_Question16_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question16_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question16_Client1" name="CSDC_KS_PartD_Question16_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question16_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question16_Client2" name="CSDC_KS_PartD_Question16_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question16_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question16_Client2" name="CSDC_KS_PartD_Question16_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question16_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question16_Client2" name="CSDC_KS_PartD_Question16_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question16_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question16_Client3" name="CSDC_KS_PartD_Question16_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question16_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question16_Client3" name="CSDC_KS_PartD_Question16_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question16_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question16_Client3" name="CSDC_KS_PartD_Question16_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question16_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question16_Client4" name="CSDC_KS_PartD_Question16_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question16_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question16_Client4" name="CSDC_KS_PartD_Question16_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question16_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question16_Client4" name="CSDC_KS_PartD_Question16_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question16_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">16) Does your child act as if the event were happening again?</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question17_Client1" name="CSDC_KS_PartD_Question17_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question17_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question17_Client1" name="CSDC_KS_PartD_Question17_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question17_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question17_Client1" name="CSDC_KS_PartD_Question17_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question17_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question17_Client2" name="CSDC_KS_PartD_Question17_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question17_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question17_Client2" name="CSDC_KS_PartD_Question17_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question17_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question17_Client2" name="CSDC_KS_PartD_Question17_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question17_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question17_Client3" name="CSDC_KS_PartD_Question17_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question17_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question17_Client3" name="CSDC_KS_PartD_Question17_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question17_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question17_Client3" name="CSDC_KS_PartD_Question17_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question17_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question17_Client4" name="CSDC_KS_PartD_Question17_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question17_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question17_Client4" name="CSDC_KS_PartD_Question17_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question17_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question17_Client4" name="CSDC_KS_PartD_Question17_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question17_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">17) Does your child have trouble keeping track of time? For example, your child is confused about the time of day,
+            the day of the week, or when something really happened.</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question18_Client1" name="CSDC_KS_PartD_Question18_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question18_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question18_Client1" name="CSDC_KS_PartD_Question18_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question18_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question18_Client1" name="CSDC_KS_PartD_Question18_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question18_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question18_Client2" name="CSDC_KS_PartD_Question18_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question18_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question18_Client2" name="CSDC_KS_PartD_Question18_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question18_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question18_Client2" name="CSDC_KS_PartD_Question18_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question18_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question18_Client3" name="CSDC_KS_PartD_Question18_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question18_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question18_Client3" name="CSDC_KS_PartD_Question18_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question18_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question18_Client3" name="CSDC_KS_PartD_Question18_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question18_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question18_Client4" name="CSDC_KS_PartD_Question18_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question18_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question18_Client4" name="CSDC_KS_PartD_Question18_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question18_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question18_Client4" name="CSDC_KS_PartD_Question18_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question18_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">18) Does your child avoid talking about the event?</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question19_Client1" name="CSDC_KS_PartD_Question19_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question19_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question19_Client1" name="CSDC_KS_PartD_Question19_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question19_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question19_Client1" name="CSDC_KS_PartD_Question19_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question19_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question19_Client2" name="CSDC_KS_PartD_Question19_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question19_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question19_Client2" name="CSDC_KS_PartD_Question19_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question19_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question19_Client2" name="CSDC_KS_PartD_Question19_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question19_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question19_Client3" name="CSDC_KS_PartD_Question19_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question19_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question19_Client3" name="CSDC_KS_PartD_Question19_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question19_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question19_Client3" name="CSDC_KS_PartD_Question19_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question19_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question19_Client4" name="CSDC_KS_PartD_Question19_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question19_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question19_Client4" name="CSDC_KS_PartD_Question19_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question19_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question19_Client4" name="CSDC_KS_PartD_Question19_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question19_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">19) Does your child have bad dreams?</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question20_Client1" name="CSDC_KS_PartD_Question20_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question20_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question20_Client1" name="CSDC_KS_PartD_Question20_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question20_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question20_Client1" name="CSDC_KS_PartD_Question20_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question20_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question20_Client2" name="CSDC_KS_PartD_Question20_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question20_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question20_Client2" name="CSDC_KS_PartD_Question20_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question20_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question20_Client2" name="CSDC_KS_PartD_Question20_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question20_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question20_Client3" name="CSDC_KS_PartD_Question20_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question20_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question20_Client3" name="CSDC_KS_PartD_Question20_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question20_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question20_Client3" name="CSDC_KS_PartD_Question20_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question20_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question20_Client4" name="CSDC_KS_PartD_Question20_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question20_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question20_Client4" name="CSDC_KS_PartD_Question20_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question20_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question20_Client4" name="CSDC_KS_PartD_Question20_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question20_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">20) Does your child have difficulty performing activities such as schoolwork or chores?
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question21_Client1" name="CSDC_KS_PartD_Question21_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question21_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question21_Client1" name="CSDC_KS_PartD_Question21_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question21_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question21_Client1" name="CSDC_KS_PartD_Question21_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question21_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question21_Client2" name="CSDC_KS_PartD_Question21_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question21_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question21_Client2" name="CSDC_KS_PartD_Question21_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question21_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question21_Client2" name="CSDC_KS_PartD_Question21_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question21_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question21_Client3" name="CSDC_KS_PartD_Question21_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question21_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question21_Client3" name="CSDC_KS_PartD_Question21_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question21_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question21_Client3" name="CSDC_KS_PartD_Question21_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question21_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question21_Client4" name="CSDC_KS_PartD_Question21_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question21_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question21_Client4" name="CSDC_KS_PartD_Question21_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question21_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question21_Client4" name="CSDC_KS_PartD_Question21_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question21_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">21) Does your child’s play seem to be about the event (For example, does your child express what happened to them
+            with toys, games, drawings, or other fantasy-play)?</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question22_Client1" name="CSDC_KS_PartD_Question22_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question22_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question22_Client1" name="CSDC_KS_PartD_Question22_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question22_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question22_Client1" name="CSDC_KS_PartD_Question22_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question22_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question22_Client2" name="CSDC_KS_PartD_Question22_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question22_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question22_Client2" name="CSDC_KS_PartD_Question22_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question22_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question22_Client2" name="CSDC_KS_PartD_Question22_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question22_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question22_Client3" name="CSDC_KS_PartD_Question22_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question22_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question22_Client3" name="CSDC_KS_PartD_Question22_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question22_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question22_Client3" name="CSDC_KS_PartD_Question22_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question22_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question22_Client4" name="CSDC_KS_PartD_Question22_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question22_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question22_Client4" name="CSDC_KS_PartD_Question22_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question22_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question22_Client4" name="CSDC_KS_PartD_Question22_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question22_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">22) Does your child seem slowed down? For example, it takes your child a long time to respond to things.</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question23_Client1" name="CSDC_KS_PartD_Question23_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question23_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question23_Client1" name="CSDC_KS_PartD_Question23_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question23_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question23_Client1" name="CSDC_KS_PartD_Question23_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question23_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question23_Client2" name="CSDC_KS_PartD_Question23_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question23_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question23_Client2" name="CSDC_KS_PartD_Question23_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question23_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question23_Client2" name="CSDC_KS_PartD_Question23_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question23_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question23_Client3" name="CSDC_KS_PartD_Question23_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question23_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question23_Client3" name="CSDC_KS_PartD_Question23_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question23_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question23_Client3" name="CSDC_KS_PartD_Question23_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question23_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question23_Client4" name="CSDC_KS_PartD_Question23_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question23_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question23_Client4" name="CSDC_KS_PartD_Question23_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question23_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question23_Client4" name="CSDC_KS_PartD_Question23_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question23_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">23) Do your child’s surroundings (at home, neighborhood, school) seem different to him/her than it used to? For
+            example, things look or sound different.</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question24_Client1" name="CSDC_KS_PartD_Question24_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question24_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question24_Client1" name="CSDC_KS_PartD_Question24_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question24_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question24_Client1" name="CSDC_KS_PartD_Question24_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question24_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question24_Client2" name="CSDC_KS_PartD_Question24_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question24_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question24_Client2" name="CSDC_KS_PartD_Question24_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question24_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question24_Client2" name="CSDC_KS_PartD_Question24_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question24_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question24_Client3" name="CSDC_KS_PartD_Question24_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question24_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question24_Client3" name="CSDC_KS_PartD_Question24_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question24_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question24_Client3" name="CSDC_KS_PartD_Question24_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question24_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question24_Client4" name="CSDC_KS_PartD_Question24_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question24_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question24_Client4" name="CSDC_KS_PartD_Question24_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question24_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question24_Client4" name="CSDC_KS_PartD_Question24_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question24_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">24) Does your child avoid people who remind him/her child of what happened?
+          </td>
+        </tr>
+        <div class="html2pdf__page-break"></div>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question25_Client1" name="CSDC_KS_PartD_Question25_Client1" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question25_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question25_Client1" name="CSDC_KS_PartD_Question25_Client1" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question25_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question25_Client1" name="CSDC_KS_PartD_Question25_Client1" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question25_Client1.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question25_Client2" name="CSDC_KS_PartD_Question25_Client2" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question25_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question25_Client2" name="CSDC_KS_PartD_Question25_Client2" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question25_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question25_Client2" name="CSDC_KS_PartD_Question25_Client2" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question25_Client2.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question25_Client3" name="CSDC_KS_PartD_Question25_Client3" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question25_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question25_Client3" name="CSDC_KS_PartD_Question25_Client3" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question25_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question25_Client3" name="CSDC_KS_PartD_Question25_Client3" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question25_Client3.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question25_Client4" name="CSDC_KS_PartD_Question25_Client4" value="0" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question25_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>0
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question25_Client4" name="CSDC_KS_PartD_Question25_Client4" value="1" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question25_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>1
+              </div>
+              <div>
+                <p-radioButton formControlName="CSDC_KS_PartD_Question25_Client4" name="CSDC_KS_PartD_Question25_Client4" value="2" [(ngModel)]="cisCsdc.CSDC_KS_PartD_Question25_Client4.fieldOptionIndex"
+                  class="space-right"></p-radioButton>2
+              </div>
+            </div>
+          </td>
+          <td class="instruction table-td">25) Does your child have trouble concentrating?</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="Sub_Total_Client1" name="Sub_Total_Client1" [(ngModel)]="cisCsdc.Sub_Total_Client1.value" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="Sub_Total_Client2" name="Sub_Total_Client2" [(ngModel)]="cisCsdc.Sub_Total_Client2.value" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="Sub_Total_Client3" name="Sub_Total_Client3" [(ngModel)]="cisCsdc.Sub_Total_Client3.value" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="Sub_Total_Client4" name="Sub_Total_Client4" [(ngModel)]="cisCsdc.Sub_Total_Client4.value" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="instruction table-td">
+            <span class="bold">SUB Total D</span> (Sum scores on items 15-25)
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="Total_Client1" name="Total_Client1" [(ngModel)]="cisCsdc.Total_Client1.value" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="Total_Client2" name="Total_Client2" [(ngModel)]="cisCsdc.Total_Client2.value" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="Total_Client3" name="Total_Client3" [(ngModel)]="cisCsdc.Total_Client3.value" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="Total_Client4" name="Total_Client4" [(ngModel)]="cisCsdc.Total_Client4.value" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="instruction table-td">
+            <span class="bold">TOTAL SCORE</span>(Sum the Subtotal Scores A, B, and C - possible scores 0-74)
+          </td>
+        </tr>
+      </table>
+    </div>
+    <p class="mark">Thank you for your time. If there is anything else you feel like it is important for me to know about your children,
+      please tell me anytime. I will want to share the results of this assessment with you soon and what we might suggest
+      to help your children heal from what they went through.</p>
+    <button (click)="calculate()" type="button" class="btn btn-block btn-add margin-top">Calculate</button>
+  </form>
+</div>
+
+
+<app-form-footer (print)="printForm()" [isPrint]="true" (save)="saveForm(cisCsdc)" (edit)="editForm()" [isDisabled]="isDisable" [editControll]="editControll" (finalize)="finalizeForm(cisCsdc)"
+  [isFinalize]="isFinalize" (discard)="discardForm()" [isDisabled]="isDisable" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>

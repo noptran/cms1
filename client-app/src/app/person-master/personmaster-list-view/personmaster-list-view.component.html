@@ -1,0 +1,2345 @@
+<div class="container-fluid bg-color">
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+    </p>
+  </div>
+  <div *ngIf="isSearchAny" class="search-container">
+    <p-autoComplete
+      class="search-dropdown"
+      (onSelect)="onSearchTypeSelection()"
+      emptyMessage="No records found!"
+      (completeMethod)="onSearchTypeSearch()"
+      *ngIf="currentPersonType"
+      field="searchType"
+      [suggestions]="searchTypeSuggestions"
+      [(ngModel)]="searchType"
+      [dropdown]="true"
+      [forceSelection]="true"
+      placeholder="All"
+    >
+    </p-autoComplete>
+    <input
+      type="text"
+      pInputText
+      placeholder="{{ searchLabel }}"
+      size="70"
+      [(ngModel)]="searchInput"
+      name="search"
+      class="search-bar"
+      pTooltip="Press enter to search"
+      (keydown)="onEnterSearch($event)"
+      tooltipPosition="top"
+    />
+
+    <button type="button" class="sf-positive-btn" (click)="search_btn()">
+      Search
+    </button>
+    <button type="button" class="clear-btn" (click)="clearEvent()">
+      Reset
+    </button>
+    <span *ngIf="isSearchLoader">Searching...</span>
+  </div>
+  <div
+    class="nav-box pad-top-3"
+    style="display: flex; justify-content: space-between"
+  >
+    <div>
+      <app-breadcrumb [data]="crumbs"></app-breadcrumb>
+    </div>
+    <div style="display: flex">
+      <div class="dropdown box-export right-icon">
+        <button
+          class="box-export right-icon"
+          type="button"
+          data-toggle="dropdown"
+        >
+          <span class="fa fa-download"></span>
+          <span>Export</span>
+        </button>
+        <ul class="dropdown-menu export-submenu">
+          <li class="export-menu-item" (click)="exportAll('excel')">Excel</li>
+          <li
+            *ngIf="isPlacementExportEnabled"
+            class="export-menu-item"
+            (click)="exportAll('csv')"
+          >
+            CSV
+          </li>
+        </ul>
+      </div>
+
+      <app-filter-component
+        [dataTypes]="numericColumns"
+        [columnList]="columnDropdownList"
+        [payload]="personData"
+        (apply)="applyFilter($event)"
+        (resetFilter)="reset($event)"
+      ></app-filter-component>
+    </div>
+  </div>
+  <div *ngIf="isInfoBox">
+    <person-types-profile-info
+      [primaryValue]="currentPrimaryValue"
+      [personType]="personType"
+      *ngIf="isInfoBox"
+    >
+    </person-types-profile-info>
+  </div>
+  <div *ngIf="isProviderInfoView">
+    <p class="text-center" *ngIf="isWaitForProviderRes">
+      <b>Please Wait....</b>
+    </p>
+    <provider-info [profileDatas]="providerData"></provider-info>
+  </div>
+  <div *ngIf="isShowStaffInfoView">
+    <p class="text-center" *ngIf="isWaitForProviderRes">
+      <b>Please Wait....</b>
+    </p>
+    <staff-info
+      [staff_profileDatas]="staffData"
+      [staffName_profileDatas]="staffNameData"
+    ></staff-info>
+  </div>
+  <div *ngIf="isShowSchoolProfile">
+    <p class="text-center" *ngIf="isWaitForProviderRes">
+      <b>Please Wait....</b>
+    </p>
+    <app-school-info [schoolDatas]="schoolData"></app-school-info>
+  </div>
+
+  <div class="page">
+    <div class="row-2 margin-top-10" [hidden]="hideTable">
+      <div style="display: flex" *ngIf="isListAdd">
+        <div class="addUser" pTooltip="Add new record" tooltipPosition="bottom">
+          <person-master-wizards
+            (onValidation)="navigateToFormView(addLink)"
+            [isAdd]="isAddBtnVisible"
+          ></person-master-wizards>
+        </div>
+        <div class="pad-left-5">
+          <div class="head sf-black">{{ personName }}</div>
+          <!-- <div class="totalcount margin-0">No. of {{personName}} : {{totalCount | number}}</div> -->
+        </div>
+      </div>
+      <div style="display: flex" *ngIf="isListAddAction">
+        <div class="addUser" pTooltip="Add new case" tooltipPosition="bottom">
+          <img
+            data-toggle="modal"
+            data-target="#referralDecisionForm"
+            src="/assets/person/addUser.svg"
+          />
+        </div>
+        <div class="pad-left-5">
+          <div class="head sf-black">{{ personName }}</div>
+          <div class="totalcount margin-0">
+            No. of {{ personName }} : {{ totalCount | number }}
+          </div>
+        </div>
+      </div>
+      <div style="display: flex" *ngIf="isAddBtnDisable">
+        <!-- <div class=" addUser" pTooltip="Add new case" tooltipPosition="bottom"><img (click)="referralDecision()" src="/assets/person/addUser.svg"></div> -->
+        <div class="pad-left-5">
+          <div class="head sf-black">{{ personName }}</div>
+          <div class="totalcount margin-0">
+            No. of {{ personName }} : {{ totalCount | number }}
+          </div>
+        </div>
+      </div>
+      <div class="sorting-layer">
+        <span class="sort-title">Sort by Column</span>
+        <p-autoComplete
+          [(ngModel)]="sortColumn"
+          [suggestions]="filtered"
+          [dropdown]="true"
+          [forceSelection]="true"
+          placeholder="Select a column"
+          (completeMethod)="getSortColumns($event)"
+          (onSelect)="SortChanged(this.sortOrder)"
+        ></p-autoComplete>
+        <div
+          class="asc-container"
+          [ngClass]="sortOrder == 'asc' ? 'sort-active' : ''"
+          pTooltip="Ascending"
+        >
+          <span
+            class="fa fa-sort-amount-asc"
+            (click)="SortChanged('asc')"
+          ></span>
+        </div>
+        <div
+          class="desc-container"
+          [ngClass]="sortOrder == 'desc' ? 'sort-active' : ''"
+          pTooltip="Decending"
+        >
+          <span
+            class="fa fa-sort-amount-desc"
+            (click)="SortChanged('desc')"
+          ></span>
+        </div>
+        <div class="sort-clear" *ngIf="sortingEnable">
+          <span (click)="SortChanged('no sort')">Clear</span>
+        </div>
+      </div>
+      <div
+        class="sf-text-right sf-table-header sf-black"
+        *ngIf="totalCount > 0"
+      >
+        <app-pagesize
+          *ngIf="totalCount"
+          [totalCount]="totalCount"
+          [initial]="initial"
+          [end]="end"
+          (keyup)="pagesizeNav($event)"
+          (click)="pagesize($event)"
+        ></app-pagesize>
+      </div>
+      <div *ngIf="isTableBottomAction">
+        <button (click)="billabelPanelAction()">
+          <span *ngIf="!isBillablePanel">Open panel</span>
+          <span *ngIf="isBillablePanel">Close Panel</span>
+        </button>
+      </div>
+      <!-- <div *ngIf="isQuickUpdate">
+        <button class="sf-positive-btn" (click)="showClientBulkUpdateDialog()">
+          Quick Update
+        </button>
+      </div> -->
+      <div *ngIf="isPlacementListView">
+        <button (click)="openDeletedAuthorization()" class="delete-auth-btn">
+          View Deleted Authorization
+        </button>
+        <button
+          class="delete-auth-btn margin-left-15"
+          (click)="isPlacementDateValidationOpen = true"
+        >
+          Validate placement dates
+        </button>
+      </div>
+      <div *ngIf="multiDelete">
+        <button class="sf-positive-btn" (click)="deleteFile()">Delete</button>
+      </div>
+    </div>
+
+    <div class="billable-container" *ngIf="isBillablePanel">
+      <div class="limit-selection">
+        <p-dropdown
+          [options]="billableLimits"
+          [(ngModel)]="selectedBillableLimit"
+          [filter]="true"
+          placeholder="Limit Selection"
+          (onChange)="billableLimitFilter($event)"
+        ></p-dropdown>
+        <button>Export</button>
+      </div>
+      <div>
+        <p-calendar
+          name="dateInput"
+          showTime="true"
+          hourFormat="24"
+          [yearNavigator]="true"
+          [monthNavigator]="true"
+          yearRange="2000:2030"
+          placeholder="Billing Date"
+          [showIcon]="true"
+          [(ngModel)]="billableDate"
+          name="billableDate"
+        ></p-calendar>
+        <p-checkbox
+          binary="true"
+          label="Billable"
+          name="isBillable"
+          [(ngModel)]="isBillable"
+        ></p-checkbox>
+        <button (click)="billableActivity()">Apply</button>
+      </div>
+      <div>
+        <button (click)="billableCancel()">Cancel</button>
+      </div>
+    </div>
+
+    <!-- <div class="row margin-top-20">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 sf-text-right">
+        <button class="btn sf-moderate-btn font-600 add" (click)="goToMenu()">Back</button>
+      <button class="btn sf-positive-btn font-600 add" (click)="add()">Add</button>
+    </div>
+  </div> -->
+
+    <div class="margin-top-10 padding-bottom-10 row-cursor">
+      <ag-grid-angular
+        [gridOptions]="gridOptions"
+        style="width: 500px; height: 500px"
+        class="ag-theme-balham"
+        [rowData]="rowData"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        [enableSorting]="true"
+        [rowDragManaged]="true"
+        [suppressDragLeaveHidesColumns]="true"
+        enableColResize="true"
+        #agGrid
+        style="width: 100%; height: 68vh"
+        animateRows="true"
+        rowSelection="multiple"
+        (rowSelected)="onCheckBoxSelect($event)"
+        (cellClicked)="onRowSelected($event)"
+        (cellDoubleClicked)="goToClientForm($event)"
+      >
+      </ag-grid-angular>
+    </div>
+  </div>
+  <!-- <app-quick-menu [module]="quickMenu" *ngIf="showQuickMenu"></app-quick-menu> -->
+</div>
+
+<div class="modal" id="referralDecisionForm" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <span class="modal-title sf-heading-6 sf-black" id="myModalLabel"
+          >Referral Programs</span
+        >
+        <button type="button" class="close" data-dismiss="modal" id="closeBtn">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+      </div>
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <p class="statusMsg"></p>
+        <div class="sf-text-center">
+          <p-dropdown
+            [options]="listOfReferral"
+            (onChange)="onChangeReferrel(selectedReferral)"
+            name="typeOfReferral"
+            [(ngModel)]="selectedReferral"
+            optionLabel="display"
+            [style]="{ width: '360px' }"
+            placeholder="Select one referral"
+          ></p-dropdown>
+        </div>
+        <p *ngIf="selectedReferral" class="margin-top-20">
+          You have selected
+          <span class="sf-positive-text">{{ selectedReferral.display }}</span
+          >, Click submit to continue.
+        </p>
+      </div>
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="sf-negative-btn" data-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          class="sf-positive-btn"
+          (click)="createReferral(selectedReferral)"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog
+  [(visible)]="isClientBulkUpdateDisplay"
+  header="Client Address Update"
+  [responsive]="true"
+  showEffect="fade"
+  [modal]="true"
+  [width]="800"
+  [minWidth]="800"
+  [minY]="80"
+  [baseZIndex]="10000"
+  [maximizable]="true"
+  [closable]="true"
+>
+  <form
+    class="margin-top-20 sf-form client-form"
+    [formGroup]="clientBulKUpdateForm"
+  >
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <span class="sf-labels"
+            >Address
+            <span class="mandatory"> *</span>
+          </span>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <input
+            type="text"
+            name="firstName"
+            [(ngModel)]="client.address"
+            class="input"
+            pInputText
+            size="27"
+            formControlName="address"
+          />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <span class="sf-labels">Cell Phone</span>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <p-inputMask
+            mask="(999) 999-9999"
+            [(ngModel)]="client.cellPh"
+            name="cellPh"
+            formControlName="cellPh"
+          >
+          </p-inputMask>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="pull-right">
+      <button class="sf-positive-btn" (click)="updateClient()">
+        <span>Update</span>
+      </button>
+    </div>
+    <div *ngIf="isUpdateLoading">
+      <span style="text-align: center"
+        >Please wait information is updating ...</span
+      >
+    </div>
+  </form>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="isMoreOptions"
+  header="{{ selectedClientName }} - view"
+  [responsive]="true"
+  showEffect="fade"
+  [modal]="true"
+  [width]="800"
+  [minWidth]="800"
+  [minY]="80"
+  [baseZIndex]="10000"
+  [maximizable]="true"
+  [closable]="true"
+>
+  <p-accordion [multiple]="true">
+    <p-accordionTab header="Case(s)">
+      <span *ngIf="isLoadText"
+        >Getting information from database. Please wait..</span
+      >
+      <div *ngIf="!isLoadText">
+        <div *ngFor="let case of casesList">
+          <div [class.open-highlight-accordian]="case.closureDate === null">
+            <p-accordionTab
+              header="{{ case.Description }};{{ showTime(case.BeginDate) }} {{
+                endDateCheck(case.closureDate)
+              }}"
+            >
+              <div *ngIf="case.ReferralType === 'FC'">
+                <p-accordionTab header="Adoption"></p-accordionTab>
+              </div>
+              <div (click)="getSelectedCaseInfo(case, 'assessment')">
+                <p-accordionTab header="Assessments" cache="true">
+                  <span *ngIf="isLoadText"
+                    >Getting information from database. Please wait..</span
+                  >
+                  <div class="subnode-table" *ngIf="!isLoadText">
+                    <table>
+                      <tr>
+                        <th>Assessment Type</th>
+                        <th>Completed Date</th>
+                        <th>Actions</th>
+                      </tr>
+                      <tr *ngFor="let assessment of assessmentList">
+                        <td>{{ assessment.assessmentType }}</td>
+                        <td>{{ showTime(assessment.completedDate) }}</td>
+                        <td>
+                          <tr>
+                            <div class="flex">
+                              <span
+                                class="fa fa-pencil edit"
+                                pTooltip="Modify record"
+                                (click)="
+                                  openRecord(
+                                    'assessment',
+                                    assessment.assessmentID
+                                  )
+                                "
+                              ></span>
+                              <span
+                                class="fa fa-upload upload"
+                                pTooltip="Upload document"
+                              ></span>
+                              <span
+                                class="fa fa-download download"
+                                pTooltip="Download document"
+                              ></span>
+                              <span
+                                class="fa fa-trash delete"
+                                pTooltip="Delete record"
+                              ></span>
+                            </div>
+                          </tr>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </p-accordionTab>
+              </div>
+              <p-accordionTab
+                header="Authorization Summary (View only)"
+              ></p-accordionTab>
+              <div (click)="getSelectedCaseInfo(case, 'billable')">
+                <p-accordionTab header="Billable Case Activity" cache="true">
+                  <span *ngIf="isLoadText"
+                    >Getting information from database. Please wait..</span
+                  >
+                  <div class="subnode-table" *ngIf="!isLoadText">
+                    <table>
+                      <tr>
+                        <th>Assessment Type</th>
+                        <th>Completed Date</th>
+                        <th>Actions</th>
+                      </tr>
+                      <tr *ngFor="let assessment of billableCaseActivityList">
+                        <td>{{ assessment.assessmentType }}</td>
+                        <td>{{ showTime(assessment.completedDate) }}</td>
+                        <td>
+                          <tr>
+                            <div class="flex">
+                              <span
+                                class="fa fa-pencil edit"
+                                pTooltip="Modify record"
+                                (click)="
+                                  openRecord(
+                                    'assessment',
+                                    assessment.assessmentID
+                                  )
+                                "
+                              ></span>
+                              <span
+                                class="fa fa-upload upload"
+                                pTooltip="Upload document"
+                              ></span>
+                              <span
+                                class="fa fa-download download"
+                                pTooltip="Download document"
+                              ></span>
+                              <span
+                                class="fa fa-trash delete"
+                                pTooltip="Delete record"
+                              ></span>
+                            </div>
+                          </tr>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </p-accordionTab>
+              </div>
+              <div (click)="getSelectedCaseInfo(case, 'caseActivity')">
+                <p-accordionTab header="Case Activity" cache="true">
+                  <span *ngIf="isLoadText"
+                    >Getting information from database. Please wait..</span
+                  >
+                  <div class="subnode-table" *ngIf="!isLoadText">
+                    <table>
+                      <tr>
+                        <th>Begin Date</th>
+                        <th>End Date</th>
+                        <th>Units</th>
+                        <th>Type Of Contact</th>
+                        <th>Procedure Code</th>
+                        <th>Staff Performing Activity</th>
+                        <th>Actions</th>
+                      </tr>
+                      <tr
+                        *ngFor="let caseActivity of caseActivityList"
+                        [class.open-highlight]="caseActivity.endDate === null"
+                      >
+                        <td>{{ showTime(caseActivity.beginDate) }}</td>
+                        <td>{{ showTime(caseActivity.endDate) }}</td>
+                        <td>{{ caseActivity.units }}</td>
+                        <td>{{ caseActivity.contactType }}</td>
+                        <td>{{ caseActivity.procode }}</td>
+                        <td>{{ caseActivity.staffName }}</td>
+                        <td>
+                          <tr>
+                            <div class="flex">
+                              <span
+                                class="fa fa-pencil edit"
+                                pTooltip="Modify record"
+                                (click)="
+                                  openRecord(
+                                    'caseActivity',
+                                    caseActivity.caseActivityID
+                                  )
+                                "
+                              ></span>
+                              <span
+                                class="fa fa-upload upload"
+                                pTooltip="Upload document"
+                              ></span>
+                              <span
+                                class="fa fa-download download"
+                                pTooltip="Download document"
+                              ></span>
+                              <span
+                                class="fa fa-trash delete"
+                                pTooltip="Delete record"
+                              ></span>
+                            </div>
+                          </tr>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </p-accordionTab>
+              </div>
+              <div (click)="getSelectedCaseInfo(case, 'caseEvaluation')">
+                <p-accordionTab header="Case Evaluations" cache="true">
+                  <span *ngIf="isLoadText"
+                    >Getting information from database. Please wait..</span
+                  >
+                  <div class="subnode-table" *ngIf="!isLoadText">
+                    <table>
+                      <tr>
+                        <th>Evaluation Type</th>
+                        <th>Evaluation Date</th>
+                        <th>Score</th>
+                      </tr>
+                      <tr *ngFor="let eval of caseEvaluationsList">
+                        <td>{{ eval.evaluationType }}</td>
+                        <td>{{ showTime(eval.evaluationDate) }}</td>
+                        <td>{{ eval.totalScore }}</td>
+                        <td>
+                          <tr>
+                            <div class="flex">
+                              <span
+                                class="fa fa-pencil edit"
+                                pTooltip="Modify record"
+                                (click)="openRecord('eval', eval.evaluationID)"
+                              ></span>
+                              <span
+                                class="fa fa-upload upload"
+                                pTooltip="Upload document"
+                              ></span>
+                              <span
+                                class="fa fa-download download"
+                                pTooltip="Download document"
+                              ></span>
+                              <span
+                                class="fa fa-trash delete"
+                                pTooltip="Delete record"
+                              ></span>
+                            </div>
+                          </tr>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </p-accordionTab>
+              </div>
+              <div (click)="getSelectedCaseInfo(case, 'casePlanGoal')">
+                <p-accordionTab header="Case Plan Goals" cache="true">
+                  <span *ngIf="isLoadText"
+                    >Getting information from database. Please wait..</span
+                  >
+                  <div class="subnode-table" *ngIf="!isLoadText">
+                    <table>
+                      <tr>
+                        <th>Goal</th>
+                        <th>Dud Date</th>
+                        <th>End Date</th>
+                        <th>Actions</th>
+                      </tr>
+                      <tr
+                        *ngFor="let casePlan of casePlanGoalList"
+                        [class.open-highlight]="casePlan.endDate === null"
+                      >
+                        <td>{{ casePlan.CasePlanGoal }}</td>
+                        <td>{{ showTime(casePlan.DateDueToDCF) }}</td>
+                        <td>{{ showTime(casePlan.endDate) }}</td>
+                        <td>
+                          <tr>
+                            <div class="flex">
+                              <span
+                                class="fa fa-pencil edit"
+                                pTooltip="Modify record"
+                                (click)="
+                                  openRecord('casePlan', casePlan.casePlanID)
+                                "
+                              ></span>
+                              <span
+                                class="fa fa-upload upload"
+                                pTooltip="Upload document"
+                              ></span>
+                              <span
+                                class="fa fa-download download"
+                                pTooltip="Download document"
+                              ></span>
+                              <span
+                                class="fa fa-trash delete"
+                                pTooltip="Delete record"
+                              ></span>
+                            </div>
+                          </tr>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </p-accordionTab>
+              </div>
+              <p-accordionTab
+                header="Case File Activity"
+                cache="true"
+              ></p-accordionTab>
+              <div (click)="getSelectedCaseInfo(case, 'caseTeam')">
+                <p-accordionTab header="Case Team" cache="true">
+                  <span *ngIf="isLoadText"
+                    >Getting information from database. Please wait..</span
+                  >
+                  <div class="subnode-table" *ngIf="!isLoadText">
+                    <table>
+                      <tr>
+                        <th>Case Manager</th>
+                        <th>Begin Date</th>
+                        <th>End Date</th>
+                        <th>Actions</th>
+                      </tr>
+                      <tr
+                        *ngFor="let caseTeam of caseTeamList"
+                        [class.open-highlight]="caseTeam.endDate === null"
+                      >
+                        <td>{{ caseTeam.name }}</td>
+                        <td>{{ showTime(caseTeam.beginDate) }}</td>
+                        <td>{{ showTime(caseTeam.endDate) }}</td>
+                        <td>
+                          <tr>
+                            <div class="flex">
+                              <span
+                                class="fa fa-pencil edit"
+                                pTooltip="Modify record"
+                                (click)="
+                                  openRecord('caseTeam', caseTeam.caseTeamID)
+                                "
+                              ></span>
+                              <span
+                                class="fa fa-upload upload"
+                                pTooltip="Upload document"
+                              ></span>
+                              <span
+                                class="fa fa-download download"
+                                pTooltip="Download document"
+                              ></span>
+                              <span
+                                class="fa fa-trash delete"
+                                pTooltip="Delete record"
+                              ></span>
+                            </div>
+                          </tr>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </p-accordionTab>
+              </div>
+              <div (click)="getSelectedCaseInfo(case, 'courtOrder')">
+                <p-accordionTab header="Court Orders" cache="true">
+                  <span *ngIf="isLoadText"
+                    >Getting information from database. Please wait..</span
+                  >
+                  <div class="subnode-table" *ngIf="!isLoadText">
+                    <table *ngIf="!isLoadText">
+                      <tr>
+                        <th>Assessment Type</th>
+                        <th>Completed Date</th>
+                        <th>Actions</th>
+                      </tr>
+                      <tr *ngFor="let assessment of courtOrdersList">
+                        <td>{{ assessment.assessmentType }}</td>
+                        <td>{{ showTime(assessment.completedDate) }}</td>
+                        <td>
+                          <tr>
+                            <div class="flex">
+                              <span
+                                class="fa fa-pencil edit"
+                                pTooltip="Modify record"
+                                (click)="
+                                  openRecord(
+                                    'assessment',
+                                    assessment.assessmentID
+                                  )
+                                "
+                              ></span>
+                              <span
+                                class="fa fa-upload upload"
+                                pTooltip="Upload document"
+                              ></span>
+                              <span
+                                class="fa fa-download download"
+                                pTooltip="Download document"
+                              ></span>
+                              <span
+                                class="fa fa-trash delete"
+                                pTooltip="Delete record"
+                              ></span>
+                            </div>
+                          </tr>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </p-accordionTab>
+              </div>
+              <div (click)="getSelectedCaseInfo(case, 'homeCounty')">
+                <p-accordionTab header="Home County" cache="true">
+                  <span *ngIf="isLoadText"
+                    >Getting information from database. Please wait..</span
+                  >
+                  <div class="subnode-table" *ngIf="!isLoadText">
+                    <table>
+                      <tr>
+                        <th>County</th>
+                        <th>Begin Date</th>
+                        <th>End Date</th>
+                        <th>Actions</th>
+                      </tr>
+                      <tr
+                        *ngFor="let county of homeCountyList"
+                        [class.open-highlight]="county.endDate === null"
+                      >
+                        <td>{{ county.countyName }}</td>
+                        <td>{{ showTime(county.beginDate) }}</td>
+                        <td>{{ showTime(county.endDate) }}</td>
+                        <td>
+                          <tr>
+                            <div class="flex">
+                              <span
+                                class="fa fa-pencil edit"
+                                pTooltip="Modify record"
+                                (click)="
+                                  openRecord('county', county.homeCountyID)
+                                "
+                              ></span>
+                              <span
+                                class="fa fa-upload upload"
+                                pTooltip="Upload document"
+                              ></span>
+                              <span
+                                class="fa fa-download download"
+                                pTooltip="Download document"
+                              ></span>
+                              <span
+                                class="fa fa-trash delete"
+                                pTooltip="Delete record"
+                              ></span>
+                            </div>
+                          </tr>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </p-accordionTab>
+              </div>
+              <p-accordionTab header="Family"></p-accordionTab>
+              <p-accordionTab header="KIPP/PMTO" cache="true">
+                <table>
+                  <tr>
+                    <th>Assessment Type</th>
+                    <th>Completed Date</th>
+                    <th>Actions</th>
+                  </tr>
+                  <tr *ngFor="let assessment of kippPMTOList">
+                    <td>{{ assessment.assessmentType }}</td>
+                    <td>{{ showTime(assessment.completedDate) }}</td>
+                    <td>
+                      <tr>
+                        <div class="flex">
+                          <span
+                            class="fa fa-pencil edit"
+                            pTooltip="Modify record"
+                            (click)="
+                              openRecord('assessment', assessment.assessmentID)
+                            "
+                          ></span>
+                          <span
+                            class="fa fa-upload upload"
+                            pTooltip="Upload document"
+                          ></span>
+                          <span
+                            class="fa fa-download download"
+                            pTooltip="Download document"
+                          ></span>
+                          <span
+                            class="fa fa-trash delete"
+                            pTooltip="Delete record"
+                          ></span>
+                        </div>
+                      </tr>
+                    </td>
+                  </tr>
+                </table>
+              </p-accordionTab>
+              <p-accordionTab header="Lack Of Contact" cache="true">
+                <table>
+                  <tr>
+                    <th>Assessment Type</th>
+                    <th>Completed Date</th>
+                    <th>Actions</th>
+                  </tr>
+                  <tr *ngFor="let assessment of lackOfContactList">
+                    <td>{{ assessment.assessmentType }}</td>
+                    <td>{{ showTime(assessment.completedDate) }}</td>
+                    <td>
+                      <tr>
+                        <div class="flex">
+                          <span
+                            class="fa fa-pencil edit"
+                            pTooltip="Modify record"
+                            (click)="
+                              openRecord('assessment', assessment.assessmentID)
+                            "
+                          ></span>
+                          <span
+                            class="fa fa-upload upload"
+                            pTooltip="Upload document"
+                          ></span>
+                          <span
+                            class="fa fa-download download"
+                            pTooltip="Download document"
+                          ></span>
+                          <span
+                            class="fa fa-trash delete"
+                            pTooltip="Delete record"
+                          ></span>
+                        </div>
+                      </tr>
+                    </td>
+                  </tr>
+                </table>
+              </p-accordionTab>
+              <div (click)="getSelectedCaseInfo(case, 'ntff')">
+                <p-accordionTab header="Non-Theraphy Face-To-Face" cache="true">
+                  <span *ngIf="isLoadText"
+                    >Getting information from database. Please wait..</span
+                  >
+                  <div class="subnode-table" *ngIf="!isLoadText">
+                    <table>
+                      <tr>
+                        <th>Begin Date</th>
+                        <th>End Date</th>
+                        <th>Staff</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                      <tr
+                        *ngFor="let ntff of ntffList"
+                        [class.open-highlight]="ntff.endDate === null"
+                      >
+                        <td>{{ showTime(ntff.beginDate) }}</td>
+                        <td>{{ showTime(ntff.beginDate) }}</td>
+                        <td>{{ ntff.staffName }}</td>
+                        <td>{{ ntff.statusType }}</td>
+                        <td>
+                          <tr>
+                            <div class="flex">
+                              <span
+                                class="fa fa-pencil edit"
+                                pTooltip="Modify record"
+                                (click)="
+                                  openRecord(
+                                    'ntff',
+                                    ntff.NonTherapyFaceToFaceID
+                                  )
+                                "
+                              ></span>
+                              <span
+                                class="fa fa-upload upload"
+                                pTooltip="Upload document"
+                              ></span>
+                              <span
+                                class="fa fa-download download"
+                                pTooltip="Download document"
+                              ></span>
+                              <span
+                                class="fa fa-trash delete"
+                                pTooltip="Delete record"
+                              ></span>
+                            </div>
+                          </tr>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </p-accordionTab>
+              </div>
+              <div (click)="getSelectedCaseInfo(case, 'phase')">
+                <p-accordionTab header="Phase" cache="true">
+                  <span *ngIf="isLoadText"
+                    >Getting information from database. Please wait..</span
+                  >
+                  <div class="subnode-table" *ngIf="!isLoadText">
+                    <table>
+                      <tr>
+                        <th>Phase Type</th>
+                        <th>Begin Date</th>
+                        <th>End Date</th>
+                        <th>Actions</th>
+                      </tr>
+                      <tr
+                        *ngFor="let phase of phaseList"
+                        [class.open-highlight]="phase.EndDate === null"
+                      >
+                        <td>{{ phase.PhaseType }}</td>
+                        <td>{{ showTime(phase.BeginDate) }}</td>
+                        <td>{{ showTime(phase.EndDate) }}</td>
+                        <td>
+                          <tr>
+                            <div class="flex">
+                              <span
+                                class="fa fa-pencil edit"
+                                pTooltip="Modify record"
+                                (click)="openRecord('phase', phase.phaseID)"
+                              ></span>
+                              <span
+                                class="fa fa-upload upload"
+                                pTooltip="Upload document"
+                              ></span>
+                              <span
+                                class="fa fa-download download"
+                                pTooltip="Download document"
+                              ></span>
+                              <span
+                                class="fa fa-trash delete"
+                                pTooltip="Delete record"
+                              ></span>
+                            </div>
+                          </tr>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </p-accordionTab>
+              </div>
+              <p-accordionTab header="Progress Notes" cache="true">
+                <span *ngIf="isLoadText"
+                  >Getting information from database. Please wait..</span
+                >
+                <div class="subnode-table" *ngIf="!isLoadText">
+                  <table>
+                    <tr>
+                      <th>Client</th>
+                      <th>Begin Date</th>
+                      <th>End Date</th>
+                      <th>Principal Diagnosis Code</th>
+                      <th>Therapist</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                    <tr
+                      *ngFor="let pn of progressNoteList"
+                      [class.open-highlight]="pn.Enddate === null"
+                    >
+                      <td>{{ pn.clientName }}</td>
+                      <td>{{ showTime(pn.BeginDate) }}</td>
+                      <td>{{ showTime(pn.Enddate) }}</td>
+                      <td></td>
+                      <td>{{ pn.therapistName }}</td>
+                      <td>{{ pn.StatusType }}</td>
+                      <td>
+                        <tr>
+                          <div class="flex">
+                            <span
+                              class="fa fa-pencil edit"
+                              pTooltip="Modify record"
+                              (click)="openRecord('pn', pn.progressNoteID)"
+                            ></span>
+                            <span
+                              class="fa fa-upload upload"
+                              pTooltip="Upload document"
+                            ></span>
+                            <span
+                              class="fa fa-download download"
+                              pTooltip="Download document"
+                            ></span>
+                            <span
+                              class="fa fa-trash delete"
+                              pTooltip="Delete record"
+                            ></span>
+                          </div>
+                        </tr>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </p-accordionTab>
+              <p-accordionTab header="Progress Notes Diagnosis" cache="true">
+                <span *ngIf="isLoadText"
+                  >Getting information from database. Please wait..</span
+                >
+                <div class="subnode-table" *ngIf="!isLoadText">
+                  <table>
+                    <tr>
+                      <th>Client</th>
+                      <th>Begin Date</th>
+                      <th>End Date</th>
+                      <th>Principal Diagnosis Code</th>
+                      <th>Therapist</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                    <tr
+                      *ngFor="let pnd of progressNoteDiagnosisList"
+                      [class.open-highlight]="pnd.Enddate === null"
+                    >
+                      <td>{{ pnd.clientName }}</td>
+                      <td>{{ showTime(pnd.BeginDate) }}</td>
+                      <td>{{ showTime(pnd.Enddate) }}</td>
+                      <td></td>
+                      <td>{{ pnd.therapistName }}</td>
+                      <td>{{ pnd.StatusType }}</td>
+                      <td>
+                        <tr>
+                          <div class="flex">
+                            <span
+                              class="fa fa-pencil edit"
+                              pTooltip="Modify record"
+                              (click)="
+                                openRecord('pnd', pnd.progressNoteDiagnosisID)
+                              "
+                            ></span>
+                            <span
+                              class="fa fa-upload upload"
+                              pTooltip="Upload document"
+                            ></span>
+                            <span
+                              class="fa fa-download download"
+                              pTooltip="Download document"
+                            ></span>
+                            <span
+                              class="fa fa-trash delete"
+                              pTooltip="Delete record"
+                            ></span>
+                          </div>
+                        </tr>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </p-accordionTab>
+              <div (click)="getSelectedCaseInfo(case, 'referralEvents')">
+                <p-accordionTab header="Referral Events" cache="true">
+                  <span *ngIf="isLoadText"
+                    >Getting information from database. Please wait..</span
+                  >
+                  <div class="subnode-table" *ngIf="!isLoadText">
+                    <table>
+                      <tr>
+                        <th>Referral Event Type</th>
+                        <th>Begin Date</th>
+                        <th>End Date</th>
+                        <th>Payor</th>
+                        <th>Procode</th>
+                        <th>Units</th>
+                        <th>Unit Rate</th>
+                        <th>Actions</th>
+                      </tr>
+                      <tr
+                        *ngFor="let referralEvent of referralEventsList"
+                        [class.open-highlight]="referralEvent.endDate === null"
+                      >
+                        <td>{{ referralEvent.ReferralEventType }}</td>
+                        <td>{{ showTime(referralEvent.beginDate) }}</td>
+                        <td>{{ showTime(referralEvent.endDate) }}</td>
+                        <td>{{ referralEvent.payorName }}</td>
+                        <td>{{ referralEvent.procode }}</td>
+                        <td>{{ referralEvent.units }}</td>
+                        <td>{{ referralEvent.unitRate }}</td>
+                        <td>
+                          <tr>
+                            <div class="flex">
+                              <span
+                                class="fa fa-pencil edit"
+                                pTooltip="Modify record"
+                                (click)="
+                                  openRecord(
+                                    'referralEvent',
+                                    referralEvent.referralEventID
+                                  )
+                                "
+                              ></span>
+                              <span
+                                class="fa fa-upload upload"
+                                pTooltip="Upload document"
+                              ></span>
+                              <span
+                                class="fa fa-download download"
+                                pTooltip="Download document"
+                              ></span>
+                              <span
+                                class="fa fa-trash delete"
+                                pTooltip="Delete record"
+                              ></span>
+                            </div>
+                          </tr>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </p-accordionTab>
+              </div>
+              <p-accordionTab
+                header="Service Claims"
+                cache="true"
+              ></p-accordionTab>
+              <div (click)="getSelectedCaseInfo(case, 'sfcsOffice')">
+                <p-accordionTab header="SFM Office">
+                  <span *ngIf="isLoadText"
+                    >Getting information from database. Please wait..</span
+                  >
+                  <div class="subnode-table" *ngIf="!isLoadText">
+                    <table>
+                      <tr>
+                        <th>SFM Office</th>
+                        <th>Office Type</th>
+                        <th>Begin Date</th>
+                        <th>End Date</th>
+                        <th>Actions</th>
+                      </tr>
+                      <tr
+                        *ngFor="let sfm of sfaOfficeList"
+                        [class.open-highlight]="sfm.EndDate === null"
+                      >
+                        <td>{{ sfm.OfficeName }}</td>
+                        <td>{{ sfm.SFAOfficeType }}</td>
+                        <td>{{ showTime(sfm.BeginDate) }}</td>
+                        <td>{{ showTime(sfm.EndDate) }}</td>
+                        <td>
+                          <tr>
+                            <div class="flex">
+                              <span
+                                class="fa fa-pencil edit"
+                                pTooltip="Modify record"
+                                (click)="
+                                  openRecord('sfm', sfm.sfaOfficeActivityID)
+                                "
+                              ></span>
+                              <span
+                                class="fa fa-upload upload"
+                                pTooltip="Upload document"
+                              ></span>
+                              <span
+                                class="fa fa-download download"
+                                pTooltip="Download document"
+                              ></span>
+                              <span
+                                class="fa fa-trash delete"
+                                pTooltip="Delete record"
+                              ></span>
+                            </div>
+                          </tr>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </p-accordionTab>
+              </div>
+              <p-accordionTab header="Supervisory Staffing" cache="true">
+                <span *ngIf="isLoadText"
+                  >Getting information from database. Please wait..</span
+                >
+                <div class="subnode-table" *ngIf="!isLoadText">
+                  <table>
+                    <tr>
+                      <th>Assessment Type</th>
+                      <th>Completed Date</th>
+                      <th>Actions</th>
+                    </tr>
+                    <tr *ngFor="let assessment of supervisoryStaffingList">
+                      <td>{{ assessment.assessmentType }}</td>
+                      <td>{{ showTime(assessment.completedDate) }}</td>
+                      <td>
+                        <tr>
+                          <div class="flex">
+                            <span
+                              class="fa fa-pencil edit"
+                              pTooltip="Modify record"
+                              (click)="
+                                openRecord(
+                                  'assessment',
+                                  assessment.assessmentID
+                                )
+                              "
+                            ></span>
+                            <span
+                              class="fa fa-upload upload"
+                              pTooltip="Upload document"
+                            ></span>
+                            <span
+                              class="fa fa-download download"
+                              pTooltip="Download document"
+                            ></span>
+                            <span
+                              class="fa fa-trash delete"
+                              pTooltip="Delete record"
+                            ></span>
+                          </div>
+                        </tr>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </p-accordionTab>
+            </p-accordionTab>
+          </div>
+        </div>
+      </div>
+    </p-accordionTab>
+    <p-accordionTab header="Medications/Allergies">
+      <span *ngIf="isLoadText"
+        >Getting information from database. Please wait..</span
+      >
+      <div *ngIf="!isLoadText">
+        <div *ngFor="let medication of medicationsList">
+          <div [class.open-highlight-accordian]="medication.EndDate === null">
+            <p-accordionTab
+              header="{{ medication.Medication }}; {{ medication.Dosage }} {{
+                medication.DosageType
+              }} {{ medication.FrequencyType }} {{
+                showTime(medication.BeginDate)
+              }}
+                      {{ endDateCheck(medication.EndDate) }}"
+            >
+              <p-accordionTab header="Allergies">
+                <div class="subnode-table">
+                  <table>
+                    <tr>
+                      <th>Allergies</th>
+                      <th>Notification Date</th>
+                      <th>Actions</th>
+                    </tr>
+                    <tr *ngFor="let allergie of allergiesList">
+                      <td>{{ allergie.Allergies }}</td>
+                      <td>{{ showTime(allergie.NotificationDate) }}</td>
+                      <td>
+                        <tr>
+                          <div class="flex">
+                            <span
+                              class="fa fa-pencil edit"
+                              pTooltip="Modify record"
+                            ></span>
+                            <span
+                              class="fa fa-upload upload"
+                              pTooltip="Upload document"
+                            ></span>
+                            <span
+                              class="fa fa-download download"
+                              pTooltip="Download document"
+                            ></span>
+                            <span
+                              class="fa fa-trash delete"
+                              pTooltip="Delete record"
+                            ></span>
+                          </div>
+                        </tr>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </p-accordionTab>
+            </p-accordionTab>
+          </div>
+        </div>
+      </div>
+    </p-accordionTab>
+    <p-accordionTab header="Client's Profile">
+      <span *ngIf="isLoadText"
+        >Getting information from database. Please wait..</span
+      >
+      <div class="subnode-table" *ngIf="!isLoadText">
+        <table>
+          <tr>
+            <th>Codition</th>
+            <th>Begin Date</th>
+            <th>End Date</th>
+            <th>Actions</th>
+          </tr>
+          <tr
+            *ngFor="let profile of profileList"
+            [class.open-highlight]="profile.EndDate === null"
+          >
+            <td>{{ profile.Condition }}</td>
+            <td>{{ showTime(profile.BeginDate) }}</td>
+            <td>{{ showTime(profile.EndDate) }}</td>
+            <td>
+              <tr>
+                <div class="flex">
+                  <span
+                    class="fa fa-pencil edit"
+                    pTooltip="Modify record"
+                  ></span>
+                  <span
+                    class="fa fa-upload upload"
+                    pTooltip="Upload document"
+                  ></span>
+                  <span
+                    class="fa fa-download download"
+                    pTooltip="Download document"
+                  ></span>
+                  <span
+                    class="fa fa-trash delete"
+                    pTooltip="Delete record"
+                  ></span>
+                </div>
+              </tr>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </p-accordionTab>
+    <p-accordionTab header="Client's Strengths">
+      <span *ngIf="isLoadText"
+        >Getting information from database. Please wait..</span
+      >
+      <div class="subnode-table" *ngIf="!isLoadText">
+        <table>
+          <tr>
+            <th>Strength</th>
+            <th>Actions</th>
+          </tr>
+          <tr
+            *ngFor="let strength of strengthList"
+            [class.open-highlight]="strength.Current === true"
+          >
+            <td>{{ strength.Strength }}</td>
+            <td>
+              <tr>
+                <div class="flex">
+                  <span
+                    class="fa fa-pencil edit"
+                    pTooltip="Modify record"
+                  ></span>
+                  <span
+                    class="fa fa-upload upload"
+                    pTooltip="Upload document"
+                  ></span>
+                  <span
+                    class="fa fa-download download"
+                    pTooltip="Download document"
+                  ></span>
+                  <span
+                    class="fa fa-trash delete"
+                    pTooltip="Delete record"
+                  ></span>
+                </div>
+              </tr>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </p-accordionTab>
+    <p-accordionTab header="Court Case Number">
+      <span *ngIf="isLoadText"
+        >Getting information from database. Please wait..</span
+      >
+      <div class="subnode-table" *ngIf="!isLoadText">
+        <table>
+          <tr>
+            <th>Court Case Number</th>
+            <th>County Name</th>
+            <th>Begin Date</th>
+            <th>End Date</th>
+            <th>Referral Type</th>
+            <th>Actions</th>
+          </tr>
+          <tr
+            *ngFor="let court of courtCaseList"
+            [class.open-highlight]="court.EndDate === null"
+          >
+            <td>{{ court.CourtCaseNo }}</td>
+            <td>{{ court.CountyName }}</td>
+            <td>{{ showTime(court.BeginDate) }}</td>
+            <td>{{ showTime(court.EndDate) }}</td>
+            <td>{{ court.ReferralType }}</td>
+            <td>
+              <tr>
+                <div class="flex">
+                  <span
+                    class="fa fa-pencil edit"
+                    pTooltip="Modify record"
+                  ></span>
+                  <span
+                    class="fa fa-upload upload"
+                    pTooltip="Upload document"
+                  ></span>
+                  <span
+                    class="fa fa-download download"
+                    pTooltip="Download document"
+                  ></span>
+                  <span
+                    class="fa fa-trash delete"
+                    pTooltip="Delete record"
+                  ></span>
+                </div>
+              </tr>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </p-accordionTab>
+    <p-accordionTab header="Third Party Liability">
+      <span *ngIf="isLoadText"
+        >Getting information from database. Please wait..</span
+      >
+      <div class="subnode-table" *ngIf="!isLoadText">
+        <table>
+          <tr>
+            <th>Company</th>
+            <th>Begin Date</th>
+            <th>End Date</th>
+            <th>Actions</th>
+          </tr>
+          <tr
+            *ngFor="let tpl of liabilityList"
+            [class.open-highlight]="tpl.endDate === null"
+          >
+            <td>{{ tpl.Company }}</td>
+            <td>{{ showTime(tpl.beginDate) }}</td>
+            <td>{{ showTime(tpl.endDate) }}</td>
+            <td>
+              <tr>
+                <div class="flex">
+                  <span
+                    class="fa fa-pencil edit"
+                    pTooltip="Modify record"
+                  ></span>
+                  <span
+                    class="fa fa-upload upload"
+                    pTooltip="Upload document"
+                  ></span>
+                  <span
+                    class="fa fa-download download"
+                    pTooltip="Download document"
+                  ></span>
+                  <span
+                    class="fa fa-trash delete"
+                    pTooltip="Delete record"
+                  ></span>
+                </div>
+              </tr>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </p-accordionTab>
+    <p-accordionTab header="Preventative Measures">
+      <span *ngIf="isLoadText"
+        >Getting information from database. Please wait..</span
+      >
+      <div class="subnode-table" *ngIf="!isLoadText">
+        <table>
+          <tr>
+            <th>Preventative Measure</th>
+            <th>Begin Date</th>
+            <th>End Date</th>
+            <th>Actions</th>
+          </tr>
+          <tr
+            *ngFor="let pm of preventativeMeasurementList"
+            [class.open-highlight]="pm.EndDate === null"
+          >
+            <td>{{ pm.PreventativeMeasure }}</td>
+            <td>{{ showTime(pm.BeginDate) }}</td>
+            <td>{{ showTime(pm.EndDate) }}</td>
+            <td>
+              <tr>
+                <div class="flex">
+                  <span
+                    class="fa fa-pencil edit"
+                    pTooltip="Modify record"
+                  ></span>
+                  <span
+                    class="fa fa-upload upload"
+                    pTooltip="Upload document"
+                  ></span>
+                  <span
+                    class="fa fa-download download"
+                    pTooltip="Download document"
+                  ></span>
+                  <span
+                    class="fa fa-trash delete"
+                    pTooltip="Delete record"
+                  ></span>
+                </div>
+              </tr>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </p-accordionTab>
+    <p-accordionTab header="Attached Documents">
+      <span *ngIf="isLoadText"
+        >Getting information from database. Please wait..</span
+      >
+      <div class="subnode-table" *ngIf="!isLoadText">
+        <table>
+          <tr>
+            <th>Document Type</th>
+            <th>Upload Date</th>
+            <th>Size</th>
+            <th>Actions</th>
+          </tr>
+          <tr *ngFor="let doc of attachedDocsList">
+            <td>{{ doc.ScanDocumentTypeID }}</td>
+            <td>{{ showTime(doc.UploadDate) }}</td>
+            <td>{{ doc.Filesize }}</td>
+            <td>
+              <tr>
+                <div class="flex">
+                  <span
+                    class="fa fa-pencil edit"
+                    pTooltip="Modify record"
+                  ></span>
+                  <span
+                    class="fa fa-upload upload"
+                    pTooltip="Upload document"
+                  ></span>
+                  <span
+                    class="fa fa-download download"
+                    pTooltip="Download document"
+                  ></span>
+                  <span
+                    class="fa fa-trash delete"
+                    pTooltip="Delete record"
+                  ></span>
+                </div>
+              </tr>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </p-accordionTab>
+    <p-accordionTab header="Critical/Significant/Unusal Incident">
+      <span *ngIf="isLoadText"
+        >Getting information from database. Please wait..</span
+      >
+      <div class="subnode-table" *ngIf="!isLoadText">
+        <table>
+          <tr>
+            <th>Report ID</th>
+            <th>Incident Date</th>
+            <th>Discovery Date</th>
+            <th>Incident Type</th>
+            <th>Actions</th>
+          </tr>
+          <tr *ngFor="let unusual of unusualIncidentList">
+            <td>{{ unusual.ReportID }}</td>
+            <td>{{ showTime(unusual.IncidentDate) }}</td>
+            <td>{{ showTime(unusual.DiscoveryDate) }}</td>
+            <td>{{ unusual.IncidentType }}</td>
+            <td>
+              <tr>
+                <div class="flex">
+                  <span
+                    class="fa fa-pencil edit"
+                    pTooltip="Modify record"
+                  ></span>
+                  <span
+                    class="fa fa-upload upload"
+                    pTooltip="Upload document"
+                  ></span>
+                  <span
+                    class="fa fa-download download"
+                    pTooltip="Download document"
+                  ></span>
+                  <span
+                    class="fa fa-trash delete"
+                    pTooltip="Delete record"
+                  ></span>
+                </div>
+              </tr>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </p-accordionTab>
+    <p-accordionTab header="Critical/Significant/Unusal Incident - RM only">
+      <span *ngIf="isLoadText"
+        >Getting information from database. Please wait..</span
+      >
+      <div class="subnode-table" *ngIf="!isLoadText">
+        <table>
+          <tr>
+            <th>Report ID</th>
+            <th>Incident Date</th>
+            <th>Discovery Date</th>
+            <th>Incident Type</th>
+            <th>Actions</th>
+          </tr>
+          <tr *ngFor="let unusualRM of unusualIncidentRMList">
+            <td>{{ unusualRM.ReportID }}</td>
+            <td>{{ showTime(unusualRM.IncidentDate) }}</td>
+            <td>{{ showTime(unusualRM.DiscoveryDate) }}</td>
+            <td>{{ unusualRM.IncidentType }}</td>
+            <td>
+              <tr>
+                <div class="flex">
+                  <span class="fa fa-pencil edit" title="Modify record"></span>
+                  <span
+                    class="fa fa-upload upload"
+                    title="Upload document"
+                  ></span>
+                  <span
+                    class="fa fa-download download"
+                    title="Download document"
+                  ></span>
+                  <span class="fa fa-trash delete" title="Delete record"></span>
+                </div>
+              </tr>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </p-accordionTab>
+    <p-accordionTab
+      header="Customer Care - CC Staff Only (Client Tree)"
+    ></p-accordionTab>
+  </p-accordion>
+</p-dialog>
+
+<p-dialog
+  header="Person Wizard - Step1"
+  [(visible)]="dis_step_1"
+  [modal]="true"
+  [contentStyle]="{ 'min-width': '106rem' }"
+  [responsive]="true"
+  [maximizable]="true"
+  [minY]="100"
+  [baseZIndex]="10000"
+>
+  <form>
+    <div class="row">
+      <div
+        class="col-md-4"
+        style="margin: auto; border-right: 1px solid #b3adad"
+        *ngIf="currentPersonType"
+      >
+        <div class="sf-labels">What type of Person do you wish to create?</div>
+        <input
+          type="text"
+          name="personType"
+          class="input input_text"
+          maxlength="25"
+          pInputText
+          size="27"
+          value="{{ currentPersonType.view }}"
+          disabled
+        />
+      </div>
+      <div class="col-md-8">
+        <div class="row margin-top-10">
+          <div class="col-md-6">
+            <div class="sf-labels">
+              First Name <span class="mandatory"> *</span>
+            </div>
+            <input
+              type="text"
+              name="firstName"
+              [(ngModel)]="dublicateDatas.firstName"
+              class="input input_text"
+              maxlength="25"
+              pInputText
+              size="27"
+            />
+          </div>
+          <div class="col-md-6">
+            <div class="sf-labels">
+              Last Name <span class="mandatory"> *</span>
+            </div>
+            <input
+              type="text"
+              name="lastName"
+              class="input input_text"
+              [(ngModel)]="dublicateDatas.lastName"
+              maxlength="25"
+              pInputText
+              size="27"
+            />
+          </div>
+        </div>
+
+        <div class="row margin-top-10">
+          <div class="col-md-6 p-mask">
+            <div class="sf-labels">SSN</div>
+            <p-inputMask
+              mask="999-99-9999"
+              name="ssn"
+              [(ngModel)]="dublicateDatas.ssn"
+              [disabled]="isSSNValidationDisable"
+            ></p-inputMask>
+          </div>
+          <div class="col-md-6">
+            <div class="sf-labels">Kaecses</div>
+            <input
+              type="text"
+              class="input input_text"
+              name="kaecses"
+              [(ngModel)]="dublicateDatas.kaecses"
+              maxlength="25"
+              pInputText
+              size="27"
+              [disabled]="isKaecsesValidationDisable"
+            />
+          </div>
+        </div>
+
+        <div *ngIf="isPersontypeContractEnabled" class="row margin-top-10">
+          <div class="col-md-6">
+            <div class="sf-labels">Non-Contract Client</div>
+            <p-checkbox
+              [ngModelOptions]="{ standalone: true }"
+              binary="true"
+              name="nonContratClient"
+              [(ngModel)]="dublicateDatas.nonContratClient"
+            ></p-checkbox>
+          </div>
+          <div class="col-md-6 dub">
+            <div class="sf-labels">Contract State</div>
+            <p-dropdown
+              [ngModelOptions]="{ standalone: true }"
+              [options]="cities"
+              [(ngModel)]="selectedCity"
+              placeholder="Contract State"
+              optionLabel="name"
+              [style]="{ 'min-width': '100%' }"
+              [showClear]="true"
+            >
+            </p-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="pull-right">
+      <button type="button" class="sf-positive-btn" (click)="nextDisStep()">
+        Next
+      </button>
+      <button type="button" class="clear-btn" (click)="closeTAb()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</p-dialog>
+
+<p-dialog
+  header="Person Wizard - Step2"
+  [(visible)]="dis_step_2"
+  [modal]="true"
+  [contentStyle]="{ 'min-width': '106rem' }"
+  [responsive]="true"
+  [maximizable]="true"
+  [minY]="100"
+  [baseZIndex]="10000"
+>
+  <div class="panel panel-default">
+    <div class="panel-heading">Search Result</div>
+    <div class="panel-body">
+      <div class="" style="height: 30vh; overflow-y: auto">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>MI</th>
+              <th>DOB</th>
+              <th>SSN</th>
+              <th>Kaecses</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let item of allDublicatesDatas; let i = index"
+              (click)="setClickedRow(item, i)"
+              [class.active]="i == selectedRow"
+            >
+              <td>
+                {{ item.FirstName }}
+              </td>
+              <td>
+                {{ item.LastName }}
+              </td>
+              <td>
+                {{ item.MI }}
+              </td>
+              <td>
+                {{ item.DOB }}
+              </td>
+              <td>
+                {{ item.SSN }}
+              </td>
+              <td>
+                {{ item.Kaecses }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="sf-labels">Selected Person</div>
+          <input
+            type="text"
+            name="selectPerson"
+            [(ngModel)]="selectPerson"
+            class="input input_text"
+            maxlength="25"
+            pInputText
+            size="27"
+          />
+        </div>
+        <div class="col-md-4">
+          <div class="sf-labels">Number of matches</div>
+          <input
+            type="text"
+            name="num_of_matc"
+            class="input input_text"
+            maxlength="25"
+            [(ngModel)]="num_of_matc"
+            pInputText
+            size="27"
+          />
+        </div>
+      </div>
+
+      <div class="sf-labels">How Would you like continue?</div>
+      <p-radioButton
+        name="groupname"
+        value="alreadyCreated"
+        [(ngModel)]="selectedValue"
+        label="The person is in this list and do I have them selected"
+        inputId="opt1"
+        [disabled]="updateRadio"
+      >
+      </p-radioButton>
+      <br />
+      <p-radioButton
+        name="groupname"
+        value="dontCreate"
+        [(ngModel)]="selectedValue"
+        label="The person is not in this list and I wish to create them"
+        inputId="opt2"
+      ></p-radioButton>
+
+      <hr />
+      <div class="pull-right">
+        <button type="button" class="clear-btn" (click)="backDis()">
+          Back
+        </button>
+        <button type="button" class="sf-positive-btn" (click)="nextStepDis()">
+          Next
+        </button>
+        <button type="button" class="clear-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog
+  header="View Deleted Authorization"
+  [(visible)]="isOpenDeleteAuthListWindow"
+  [responsive]="true"
+  showEffect="fade"
+  [modal]="true"
+  [width]="1000"
+  [minWidth]="400"
+  [minY]="80"
+  [baseZIndex]="10000"
+  [maximizable]="true"
+>
+  <div class="delete-info-table">
+    <table>
+      <tr>
+        <th>Authorization Type</th>
+        <th>Begin Date</th>
+        <th>End Date</th>
+        <th>Procode</th>
+        <th>Provider/Payee</th>
+        <th>Units</th>
+        <th>Rate</th>
+        <th>Authorization ID</th>
+        <th>Deleted By</th>
+        <th>Deleted Date</th>
+        <th>Authorization Deleted_ID</th>
+        <th>ReferralID</th>
+        <th>Action</th>
+      </tr>
+      <tr *ngFor="let auth of deletedAuthList">
+        <td>{{ auth.authorizationType }}</td>
+        <td>{{ showTime(auth.beginDate) }}</td>
+        <td>{{ showTime(auth.endDate) }}</td>
+        <td>{{ auth.procode }}</td>
+        <td>{{ auth.provider_Payee }}</td>
+        <td>{{ auth.units }}</td>
+        <td>{{ auth.rate }}</td>
+        <td>{{ auth.authorizationID }}</td>
+        <td>{{ auth.deletedBy }}</td>
+        <td>{{ showTime(auth.deletedDate) }}</td>
+        <td>{{ auth.authorization_DeletedID }}</td>
+        <td>{{ auth.referralID }}</td>
+        <td>
+          <span
+            (click)="
+              getDeletedAuthorizationPDFForms(
+                auth.authorizationID,
+                auth.placementDetailID
+              )
+            "
+            class="hypherlink"
+            >Form Actions</span
+          >
+        </td>
+      </tr>
+    </table>
+  </div>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="isCaseActivityModal"
+  [contentStyle]="{ 'min-width': '106rem' }"
+  [responsive]="true"
+  [maximizable]="true"
+  header="Case Activity"
+>
+  <!-- <p>case activity component here</p> -->
+  <app-shared-case-activity
+    [caseActivityId]="isSelectedBillableCaseactivityIdsCaseactivityID"
+    *ngIf="isCaseActivityModal"
+    (caseActivityDialog)="getSharedCaseActivityComponentStatus($event)"
+  >
+  </app-shared-case-activity>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="isDeleteAuthFormActionsList"
+  [responsive]="true"
+  [maximizable]="true"
+  header="Acknowledgement Forms"
+>
+  <table class="deleted-auth-table" style="width: 100%" border="1">
+    <tr *ngFor="let deleteForm of deleteAuthFormsList">
+      <td>{{ deleteForm.label }}</td>
+      <td>
+        <button
+          class="action-btns"
+          [disabled]="true"
+          (click)="onClickSendDeleteAuthorizationEmail(deleteForm.label)"
+        >
+          <span class="fa fa-envelope-square icon" title="Send email"></span>
+        </button>
+        <button
+          class="action-btns"
+          (click)="onClickDeleteAuthExport(deleteForm.label, $event)"
+        >
+          <span class="fa fa-download icon" title="Click to Export"></span>
+        </button>
+      </td>
+    </tr>
+  </table>
+</p-dialog>
+
+<p-dialog header="Placement Service Agreement" [(visible)]="isPSAPrompt">
+  <div style="width: 95vw">
+    <app-placement-psa
+      currentFormMode="delete"
+      *ngIf="isPSAPrompt"
+      (formStatus)="getPSAFormStatus($event)"
+    >
+    </app-placement-psa>
+  </div>
+</p-dialog>
+
+<p-dialog
+  header="Placement Agreement (Kinship Non-Paid)"
+  [(visible)]="isPlacementAgreementKinshipNonPaid"
+>
+  <div style="width: 95vw">
+    <app-placement-agreement-kinship-non-paid></app-placement-agreement-kinship-non-paid>
+  </div>
+</p-dialog>
+
+<p-dialog
+  header="Placement Agreement (Kinship/Agency Approved)"
+  [(visible)]="isPlacementAgreementKinship"
+>
+  <div style="width: 95vw">
+    <app-placement-agreement-kinship-ap></app-placement-agreement-kinship-ap>
+  </div>
+</p-dialog>
+
+<p-dialog
+  header="Placement Service Agreement Foster care homes / Kinship non-relative"
+  [(visible)]="isPlacementAgreementFCH"
+>
+  <div style="width: 95vw">
+    <app-placement-agreement-form></app-placement-agreement-form>
+  </div>
+</p-dialog>
+
+<!-- <p-dialog header="ACK (Void) - Acknowledgement" [(visible)]="isPlacementAck">
+  <div style="width: 95vw;">
+    <app-placement-acknowledgement></app-placement-acknowledgement>
+  </div>
+</p-dialog>
+
+<p-dialog header="ACK (Void) - Acknowledgement ( Return )" [(visible)]="isPlacementAckReturn">
+  <div style="width: 95vw;">
+    <app-placement-acknowledgement></app-placement-acknowledgement>
+  </div>
+</p-dialog> -->
+
+<person-master-wizards
+  isAdd="false"
+  *ngIf="isPersonMasterValidation"
+  [isPersonMasterWizardsOpen]="isPersonMasterValidation"
+  [selectedModule]="selectedModule"
+  (onSelection)="personMasterValidationWizardOut($event)"
+  [isNonContractVisible]="isNonContractVisible"
+  [isSSNVisbile]="isSSNVisbile"
+  [isKaecsesDisable]="isKaecsesDisable"
+  [isKaecsesMandatory]="isKaecsesMandatory"
+  [isComponent]="isComponent"
+>
+</person-master-wizards>
+
+<p-dialog
+  header="Provider member creation"
+  [(visible)]="isProviderMemberCreation"
+  [style]="{ width: '50vw' }"
+  [maximizable]="true"
+  [responsive]="true"
+  [minY]="70"
+  [contentStyle]="{ 'min-width': '106rem', height: 'unset' }"
+>
+  <app-provider-member-form
+    [isAppHeader]="isAppHeader"
+    [isComponent]="isComponent"
+    (onSave)="onProviderMemeberComSave($event)"
+    [predefinedData]="providerMemberPredefinedData"
+  >
+  </app-provider-member-form>
+</p-dialog>
+<div *ngIf="isProviderMemberAdult">
+  <p-dialog
+    header="Provider member (Adult)"
+    [(visible)]="isProviderMemberAdult"
+    [style]="{ width: '50vw' }"
+    [maximizable]="true"
+    [responsive]="true"
+    [minY]="70"
+    [contentStyle]="{ 'min-width': '106rem', height: 'unset' }"
+  >
+    <app-provider-member-form
+      [isAppHeader]="isAppHeader"
+      [isComponent]="isComponent"
+      (onSave)="onProviderMemeberComSave($event)"
+      [predefinedData]="providerMemberPredefinedData"
+    >
+    </app-provider-member-form>
+  </p-dialog>
+</div>
+<div *ngIf="isProviderMemberChildren">
+  <p-dialog
+    header="Provider member (Children)"
+    [(visible)]="isProviderMemberChildren"
+    [style]="{ width: '50vw' }"
+    [maximizable]="true"
+    [responsive]="true"
+    [minY]="70"
+    [contentStyle]="{ 'min-width': '106rem', height: 'unset' }"
+  >
+    <app-provider-member-form
+      [isAppHeader]="isAppHeader"
+      [isComponent]="isComponent"
+      [isAdult]="isAdult"
+      (onSave)="onProviderMemeberComSave($event)"
+      [predefinedData]="providerMemberPredefinedData"
+    >
+    </app-provider-member-form>
+  </p-dialog>
+</div>
+
+<p-dialog
+  class="referral-validation-popup"
+  (onHide)="onReferralValidationClose()"
+  header="{{ referralValidationHeader }}"
+  [(visible)]="isReferralValidationVisible"
+  [maximizable]="true"
+  [responsive]="true"
+  [minY]="70"
+  [contentStyle]="{ 'min-width': '106rem', height: 'unset' }"
+>
+  <div>
+    <div class="pull-right margin-bottom-alignment">
+      <button type="button" class="sf-negative-btn" (click)="checkValidation()">
+        Check
+      </button>
+      <!-- [disabled]="!isReferralPassed" -->
+      <button
+        type="button"
+        class="sf-positive-btn"
+        (click)="nextStepValidation()"
+      >
+        Next
+      </button>
+      <button type="button" class="clear-btn" (click)="closeTabValidation()">
+        Cancel
+      </button>
+    </div>
+
+    <!-- <hr> -->
+
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Client</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input
+            class="input-border"
+            [(ngModel)]="referralValidationObject.client"
+            [disabled]="true"
+            type="text"
+            pInputText
+            size="20"
+            style="width: 100%"
+          />
+        </div>
+      </div>
+      <div *ngIf="!isKkshown" class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Facts</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input
+            class="input-border"
+            type="text"
+            pInputText
+            size="20"
+            style="width: 100%"
+            [(ngModel)]="referralValidationObject.facts"
+          />
+        </div>
+      </div>
+      <div *ngIf="isKkshown" class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>KK Number</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input
+            [(ngModel)]="referralValidationObject.kk"
+            class="input-border"
+            type="text"
+            pInputText
+            size="20"
+            style="width: 100%"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div>Existing Cases</div>
+      <table class="fisMember-table">
+        <tr>
+          <th>Referral Type</th>
+          <th>Begin Date</th>
+          <th>HOH</th>
+        </tr>
+        <tr *ngFor="let data of openReferralList; let i = index">
+          <td>{{ data.referralType }}</td>
+          <td>{{ data.beginDate | date: "dd/MM/yyyy" }}</td>
+          <td>{{ data.hoh }}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="opencase-message" *ngIf="isReferralPassed">
+      {{ openCaseMessage }}
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog
+  (onHide)="isReferralAlert = false"
+  header="Unable to add Referral"
+  [(visible)]="isReferralAlert"
+>
+  <p>This client is currently in {{ opencaseReferralTypes }} case(s)</p>
+  <p>This case must be closed first</p>
+  <p-footer>
+    <div class="dialog-footer">
+      <button (click)="isReferralAlert = false" class="sf-positive-btn">
+        Okay
+      </button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<app-prtf-referral
+  [isPopUpWindow]="isPRTF"
+  (save)="onEventPRTFSave($event)"
+  (update)="onEventPRTFUpdate($event)"
+>
+</app-prtf-referral>
+
+<p-dialog [header]="deleteAckFormHeader" [(visible)]="isEmailCheckboxView">
+  <div>
+    <div>
+      <p-checkbox
+        binary="true"
+        label="Staff"
+        name="emailStaff"
+        [(ngModel)]="isStaffEmail"
+      ></p-checkbox>
+    </div>
+    <div>
+      <p-checkbox
+        binary="true"
+        label="DCF"
+        name="emailDCF"
+        [(ngModel)]="isStaffDCF"
+      ></p-checkbox>
+    </div>
+    <div>
+      <p-checkbox
+        binary="true"
+        label="Case Team"
+        name="emailCaseTeam"
+        [(ngModel)]="isCaseTeamEmail"
+      ></p-checkbox>
+    </div>
+    <div>
+      <textarea
+        name="authDeleteOtherEmail"
+        [(ngModel)]="authDeleteOtherEmail"
+        cols="50"
+        rows="5"
+        placeholder="Enter email addressess separated with comma"
+      ></textarea>
+    </div>
+    <div>
+      <button
+        (click)="sendAnEmailForDeleteAuth()"
+        class="sf-positive-btn"
+        style="margin-left: 0px"
+      >
+        Send
+      </button>
+      <span style="margin-left: 10px">{{ mailStatusIndication }}</span>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog
+  header="Placement Date Validation"
+  [(visible)]="isPlacementDateValidationOpen"
+>
+  <app-placement-date-validation
+    *ngIf="isPlacementDateValidationOpen"
+    (exitValidation)="placementDateValidationExitOut($event)"
+  ></app-placement-date-validation>
+</p-dialog>

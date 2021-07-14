@@ -1,0 +1,1056 @@
+<app-form-header [title]="title" [status]="status" [breadcrumbs]="breadcrumbs" [formstatus]="formStatus"
+  [formNavigation]="" [subtitle]="subtitle"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <!-- Open Cards -->
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="opencard-menu-container" *ngIf="fpRef.referralID && this.referralTypeName === 'FI'">
+          <div class="dropdown border-none">
+            <span class="fa fa-th opencard-menu" data-toggle="dropdown" pTooltip="OpenCards"></span>
+            <div class="dropdown-menu opencard-box">
+              <div class="card-container">
+                <div *ngIf="refNodes.isAssessments" class="opencard" pTooltip="Assessments"
+                  routerLink="/reports/referral/family-preservation/assessment/view">
+                  <span class="opencard-title">Assessments</span>
+                  <div>
+                    <span class="fa fa-medkit medical"></span>
+                  </div>
+
+                </div>
+                <div *ngIf="refNodes.isBillCaseActivity" style="width: 141px;" class="opencard"
+                  pTooltip="Billable Case Activity" routerLink="/reports/fp-billable-case-activity/view">
+                  <span class="opencard-title">Billable Case Activity</span>
+                  <div>
+                    <span class="fa fa-medkit medical"></span>
+                  </div>
+
+                </div>
+                <div *ngIf="refNodes.isCaseActivity" class="opencard" pTooltip="Case Activity"
+                  routerLink="/reports/referral/family-preservation/case-activity/view">
+                  <span class="opencard-title">Case Activity</span>
+                  <div>
+                    <span class="fa fa-suitcase cases"></span>
+                  </div>
+
+                </div>
+                <div *ngIf="refNodes.isCaseTeam" class="opencard" pTooltip="Case Team"
+                  routerLink="/reports/referral/family-preservation/case-team/view">
+                  <span class="opencard-title">Case Team</span>
+                  <div>
+                    <span class="fa fa-user profile"></span>
+                  </div>
+                </div>
+                <div *ngIf="refNodes.isFamily" class="opencard" pTooltip="Family" routerLink="/reports/family/view">
+                  <span class="opencard-title">Family</span>
+                  <div>
+                    <span class="fa fa-child strengths"></span>
+                  </div>
+                </div>
+                <!-- <div class="opencard" pTooltip="FIS Members" routerLink="/reports/referral/family-preservation/fis-members/view">
+                  <span class="opencard-title">FIS Members</span>
+                  <div>
+                    <span class="fa fa-newspaper-o court-case"></span>
+                  </div>
+                </div> -->
+                <!-- <div class="opencard" pTooltip="Head of Household" routerLink="/reports/referral/family-preservation/head-of-household/view">
+                  <span class="opencard-title">HoH</span>
+                  <div>
+                    <span class="fa fa-file-text-o liability"></span>
+                  </div>
+
+                </div> -->
+                <div *ngIf="refNodes.isHomeCounty" class="opencard" pTooltip="Home county"
+                  routerLink="/reports/referral/family-preservation/home-county/view">
+                  <span class="opencard-title">Home County</span>
+                  <div>
+                    <span class="fa fa-file-text-o preventative"></span>
+                  </div>
+
+                </div>
+                <div *ngIf="refNodes.isCasePlanGoals" class="opencard" pTooltip="Case Plan Goals"
+                  routerLink="/reports/referral/family-preservation/case-plan-goals/view" style="width:100px">
+                  <span class="opencard-title">Case Plan Goals</span>
+                  <div>
+                    <span class="fa fa-file-text-o documents"></span>
+                  </div>
+
+                </div>
+                <div *ngIf="refNodes.isSfcsOffice" class="opencard" pTooltip="SFCS Office"
+                  routerLink="/reports/referral/family-preservation/sfcs-office/view">
+                  <span class="opencard-title">SFM Office</span>
+                  <div>
+                    <span class="fa fa-file-text-o incident"></span>
+                  </div>
+
+                </div>
+                <div *ngIf="refNodes.isNtff" class="opencard" pTooltip="Non-Therapy Face-To-Face"
+                  routerLink="/reports/referral/family-preservation/non-therapy-face-to-face/view">
+                  <span class="opencard-title">NTFF</span>
+                  <div>
+                    <span class="fa fa-file-text-o incident"></span>
+                  </div>
+
+                </div>
+
+                <div *ngIf="refNodes.isIntensivePhase" style="width: 141px;" class="opencard" pTooltip="Phase"
+                  routerLink="/reports/referral/family-preservation/phase">
+                  <span class="opencard-title">Phase</span>
+                  <div>
+                    <span class="fa fa-file-text-o incident"></span>
+                  </div>
+                </div>
+                <!-- <div *ngIf="refNodes.isNonIntPhase" class="opencard" pTooltip="Phase" routerLink="/reports/referral/family-preservation/phase/nonintensive-view">
+                  <span class="opencard-title">Non-Intensive Phase</span>
+                  <div>
+                    <span class="fa fa-file-text-o incident"></span>
+                  </div>
+                  <span class="opencard-footer">0 </span>
+                </div> -->
+
+                <div *ngIf="refNodes.isProgressNotes" class="opencard" pTooltip="Progress Notes"
+                  routerLink="/reports/referral/family-preservation/progress-notes/view" style="width:100px">
+                  <span class="opencard-title">Progress Notes</span>
+                  <div>
+                    <span class="fa fa-file-text-o incident"></span>
+                  </div>
+
+                </div>
+                <div *ngIf="refNodes.isCaseEvaluations" class="opencard" pTooltip="Case Evaluations"
+                  routerLink="/reports/referral/family-preservation/case-evaluations/view" style="width:100px">
+                  <span class="opencard-title">Case Evaluations</span>
+                  <div>
+                    <span class="fa fa-file-text-o incident"></span>
+                  </div>
+
+                </div>
+                <div *ngIf="refNodes.isProgNoteDiag" class="opencard" pTooltip="Progress Note Diagnosis"
+                  routerLink="/reports/referral/family-preservation/progress-note-diagnosis/view"
+                  style="    width: 141px;">
+                  <span class="opencard-title">Progress Note Diagnosis</span>
+                  <div>
+                    <span class="fa fa-file-text-o incident"></span>
+                  </div>
+
+                </div>
+                <div *ngIf="refNodes.isRefEvents" class="opencard" pTooltip="Referral Events"
+                  routerLink="/reports/referral/family-preservation/referral-events/view" style="width:100px">
+                  <span class="opencard-title">Referral Events</span>
+                  <div>
+                    <span class="fa fa-file-text-o incident"></span>
+                  </div>
+
+                </div>
+                <div *ngIf="refNodes.isCourtOrders" class="opencard" pTooltip="Court order"
+                  routerLink="/reports/referral/family-preservation/court-order/view" style="width:100px">
+                  <span class="opencard-title">Court Orders</span>
+                  <div>
+                    <span class="fa fa-file-text-o incident"></span>
+                  </div>
+
+                </div>
+                <div *ngIf="refNodes.isKippPmto" class="opencard" pTooltip="KIPP PMTO"
+                  routerLink="/reports/referral/family-preservation/kipp-pmto/view" style="width:100px">
+                  <span class="opencard-title">KIPP PMTO</span>
+                  <div>
+                    <span class="fa fa-file-text-o incident"></span>
+                  </div>
+
+                </div>
+                <div *ngIf="refNodes.isServiceClaims" class="opencard" pTooltip="Service Claims"
+                  (click)="redirectToSubnodes()" style="width:100px">
+                  <span class="opencard-title">Service Claims</span>
+                  <div>
+                    <span class="fa fa-file-text-o incident"></span>
+                  </div>
+
+                </div>
+                <div *ngIf="refNodes.isAuthSummary" style="width: 141px;" class="opencard"
+                  pTooltip="Authorization summary" routerLink="/reintegration/referral/service/authorization/summary"
+                  style="width:100px">
+                  <span class="opencard-title">Authorization summary </span>
+                  <div>
+                    <span class="fa fa-file-text-o incident"></span>
+                  </div>
+
+                </div>
+
+                <div *ngIf="refNodes.isSupervisStaff" class="opencard" pTooltip="Authorization summary"
+                  routerLink="/reports/supervisory-staffing-form/view" style="width:100px">
+                  <span class="opencard-title">Supervisory Staffing Form</span>
+                  <div>
+                    <span class="fa fa-file-text-o incident"></span>
+                  </div>
+
+                </div>
+                <div *ngIf="refNodes.isLackOfContact" class="opencard" pTooltip="Lack of Contact"
+                  routerLink="/reports/lack-of-contact/view">
+                  <span class="opencard-title">Lack of Contact</span>
+                  <div>
+                    <span class="fa fa-medkit medical"></span>
+                  </div>
+
+                </div>
+                <div *ngIf="refNodes.isCaseFileActivity" class="opencard" style="width: 141px;"
+                  pTooltip="Case File Activity" routerLink="/reintegration/referral/opencard/case-file-activity/view">
+                  <span class="opencard-title">Case File Activity</span>
+                  <div>
+                    <span class="fa fa-user profile"></span>
+                  </div>
+
+                </div>
+                <!--  -->
+                <div *ngIf="refNodes.isAppointment" class="opencard" pTooltip="Appointments"
+                  routerLink="/reintegration/referral/opencard/appointments/view">
+                  <span class="opencard-title">Appointments</span>
+                  <div>
+                    <span class="fa fa-medkit medical"></span>
+                  </div>
+
+                </div>
+
+                <div *ngIf="refNodes.isMedical" class="opencard" pTooltip="Medical"
+                  routerLink="/reintegration/referral/opencard/medical/dashboard">
+                  <span class="opencard-title">Medical</span>
+                  <div>
+                    <span class="fa fa-medkit medical"></span>
+                  </div>
+
+                </div>
+
+                <div *ngIf="refNodes.isPlacements" class="opencard" pTooltip="Placements"
+                  routerLink="/reintegration/referral/opencard/placement/view">
+                  <span class="opencard-title">Placements</span>
+                  <div>
+                    <span class="fa fa-medkit medical"></span>
+                  </div>
+
+                </div>
+
+                <div *ngIf="refNodes.isSchool" class="opencard" pTooltip="School"
+                  routerLink="/reintegration/referral/opencard/school/dashboard">
+                  <span class="opencard-title">School</span>
+                  <div>
+                    <span class="fa fa-medkit medical"></span>
+                  </div>
+
+                </div>
+
+                <div *ngIf="refNodes.isSiblingInOut" style="width: 185px;" class="opencard"
+                  pTooltip="Siblings In Out-Of-Home-Family"
+                  routerLink="/reintegration/referral/opencard/sibilings-in-out-of-home-family/view">
+                  <span class="opencard-title">Siblings In Out-Of-Home-Family</span>
+                  <div>
+                    <span class="fa fa-medkit medical"></span>
+                  </div>
+
+                </div>
+
+                <div *ngIf="refNodes.isAdoption" class="opencard" pTooltip="Adoption"
+                  routerLink="/reintegration/referral/opencard/adoption/view">
+                  <span class="opencard-title">Adoption</span>
+                  <div>
+                    <span class="fa fa-medkit medical"></span>
+                  </div>
+
+                </div>
+
+                <div *ngIf="refNodes.isMonthlyReports" style="width: 141px;" class="opencard" pTooltip="Monthly Reports"
+                  routerLink="/reintegration/referral/opencard/monthly-reports/view">
+                  <span class="opencard-title">Monthly Reports</span>
+                  <div>
+                    <span class="fa fa-medkit medical"></span>
+                  </div>
+                </div>
+                <!--  -->
+              </div>
+              <!-- <div *ngIf="isNcopsReferral" class="card-container">
+                <div class="opencard" pTooltip="Case Activity" routerLink="/reports/referral/family-preservation/case-activity/view">
+                  <span class="opencard-title">Case Activity</span>
+                  <div>
+                    <span class="fa fa-suitcase cases"></span>
+                  </div>
+
+                </div>
+
+                <div class="opencard" style="    width: 141px;" pTooltip="Case File Activity" routerLink="/reintegration/referral/opencard/case-file-activity/view">
+                  <span class="opencard-title">Case File Activity</span>
+                  <div>
+                    <span class="fa fa-user profile"></span>
+                  </div>
+
+                </div>
+
+
+                <div class="opencard" pTooltip="Case Team" routerLink="/reports/referral/family-preservation/case-team/view">
+                  <span class="opencard-title">Case Team</span>
+                  <div>
+                    <span class="fa fa-user profile"></span>
+                  </div>
+                </div>
+                <div class="opencard" pTooltip="Family" routerLink="/reports/family/view">
+                  <span class="opencard-title">Family</span>
+                  <div>
+                    <span class="fa fa-child strengths"></span>
+                  </div>
+                </div>
+                <div class="opencard" pTooltip="Progress Notes" routerLink="/reports/referral/family-preservation/progress-notes/view" style="width:100px">
+                  <span class="opencard-title">Progress Notes</span>
+                  <div>
+                    <span class="fa fa-file-text-o incident"></span>
+                  </div>
+                </div>
+                <div class="opencard" pTooltip="Progress Note Diagnosis" routerLink="/reports/referral/family-preservation/progress-note-diagnosis/view"
+                  style="    width: 141px;">
+                  <span class="opencard-title">Progress Note Diagnosis</span>
+                  <div>
+                    <span class="fa fa-file-text-o incident"></span>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6" style="text-align: right;" *ngIf="referralTypeId != 14">
+        <span class="quick-nav-btn" routerLink="/reports/referral/family-preservation/case-activity/view">Case
+          activity</span>
+        <span class="quick-nav-btn"
+          routerLink="/reports/referral/family-preservation/assessment/view">Assessments</span>
+        <span class="quick-nav-btn" routerLink="/reports/referral/family-preservation/court-order/view">Court
+          order</span>
+        <span class="quick-nav-btn" routerLink="/reports/referral/family-preservation/case-team/view">Case team</span>
+      </div>
+
+    </div>
+
+    <div class="opencard-menu-container rfcOpencard" *ngIf="fpRef.referralID && this.referralTypeName === 'NC-FI'">
+      <div class="dropdown border-none">
+        <span class="fa fa-th opencard-menu" data-toggle="dropdown" pTooltip="OpenCards"></span>
+        <div class="dropdown-menu opencard-box">
+          <div class="card-container">
+            <div class="opencard" pTooltip="Click here to open" (click)=ncfiSubnodeNavigation(item.title)
+              *ngFor="let item of ncfiOpencards">
+              <img src={{item.icon}} alt="{{tip}}">
+              <div class="opencard-info">
+                <span class="title">{{item.title}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="opencard-menu-container rfcOpencard" *ngIf="referralTypeId==14">
+      <div class="dropdown border-none">
+        <span class="fa fa-th opencard-menu" data-toggle="dropdown" pTooltip="OpenCards"></span>
+        <div class="dropdown-menu opencard-box">
+          <div class="card-container">
+            <div class="opencard" pTooltip="Click here to open" routerLink="{{item.navigation}}"
+              *ngFor="let item of prtfOpencards">
+              <img src={{item.icon}} alt="{{tip}}">
+              <div class="opencard-info">
+                <span class="title">{{item.title}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+    <!-- <button (click)=navigateTo() class="opencard-attachment btn btn-primary">Attachment Document</button> -->
+    <form [formGroup]="fprefrralform" class="cl-form sf-form">
+      <nav class="nav-fill">
+        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link" *ngFor="let main of mainTabs; let i = index" [class.active]="sIndex === i"
+            (click)="setIndex(i, $event)" data-toggle="tab" href="tabNavigateTo" role="tab">{{ main.label }}</a>
+        </div>
+      </nav>
+      <div class="tab-content padding-15" id="nav-tabContent">
+        <div class="tab-pane margin-left-45 {{ tabStatus_1 }}" id="nav-sec1" role="tabpanel"
+          aria-labelledby="nav-fis-tab">
+          <div class="fisMember-add-container" *ngIf="
+              this._router.url === '/reports/referral/family-preservation/new'
+            ">
+            <form [formGroup]="fisForm" class="fisForm">
+              <span>Client Name: </span>
+              <p-autoComplete [disabled]="isReadOnlyClient" formControlName="client_name" [(ngModel)]="fpFis.clientID"
+                [suggestions]="metaData" (completeMethod)="getMetaData($event, 'client')" [forceSelection]="true"
+                [dropdown]="true" placeholder="Type here to search" emptyMessage="No matches found!" field="clientName">
+              </p-autoComplete>
+              <p-checkbox binary="true" formControlName="client_hoh" [(ngModel)]="fpFis.isCaseHead" label="HoH">
+              </p-checkbox>
+              <p-checkbox binary="true" formControlName="client_adult" [(ngModel)]="fpFis.personTypeID" label="Adult">
+              </p-checkbox>
+              <p-checkbox binary="true" formControlName="client_pws" [(ngModel)]="fpFis.isPWSChild" label="PWS Referral"
+                *ngIf="this.referralTypeName === 'FI'">
+              </p-checkbox>
+              <p-checkbox binary="true" formControlName="client_pws" [(ngModel)]="fpFis.isPWSChild"
+                label="No Child In Home" *ngIf="this.referralTypeName === 'NC-FI'">
+              </p-checkbox>
+
+            </form>
+            <div>
+              <button class="cancel-btn" (click)="FISMemberCancel()" *ngIf="fpFis.clientID">
+                Cancel
+              </button>
+              <button class="sf-positive-btn" (click)="FISMemberTableAction(fpFis, isReadOnlyClient)"
+                style="background:#48b1fb !important;" *ngIf="fpFis.clientID">
+                {{ btnLabel }}
+              </button>
+            </div>
+          </div>
+          <div *ngIf="selectedFISClients.length > 0 && !isFormEditMode">
+            <table class="fisMember-table">
+              <tr>
+                <th>Client ID</th>
+                <th>Name</th>
+                <th>DOB</th>
+                <th>Age</th>
+                <th pTooltip="Head of Household">HoH</th>
+                <th>Adult</th>
+                <th *ngIf="this.referralTypeName === 'NC-FI'">No Child In Home</th>
+                <th *ngIf="this.referralTypeName === 'FI'">PWS Referral</th>
+                <th></th>
+              </tr>
+              <tr *ngFor="let data of selectedFISClients; let i = index" (click)="openSelectedFIS(data, i)">
+                <td>{{ data.clientID?.clientID }}</td>
+                <td>{{ data.clientID?.clientName }}</td>
+                <td>{{data.clientID?.dob | date:"MM/dd/yyyy"}}</td>
+                <td>{{data.clientID?.age}}</td>
+                <!-- <tr *ngFor="let data of selectedFISClients; let i=index" (click)="openSelectedFIS(data, i)">
+                <td>{{data.clientID?.clientID}}</td>
+                <td>{{data.clientID?.clientName}}</td> -->
+                <td>
+                  <span *ngIf="data.isCaseHead" class="positive-mark">&#10004;</span>
+                  <span *ngIf="!data.isCaseHead" class="negative-mark">&#10006;</span>
+                </td>
+                <td>
+                  <span *ngIf="data.personTypeID" class="positive-mark">&#10004;</span>
+                  <span *ngIf="!data.personTypeID" class="negative-mark">&#10006;</span>
+                </td>
+                <td>
+                  <span *ngIf="data.isPWSChild" class="positive-mark">&#10004;</span>
+                  <span *ngIf="!data.isPWSChild" class="negative-mark">&#10006;</span>
+                </td>
+                <td *ngIf="selectedFISClients.length > 1">
+                  <span (click)="removeFISItem(data, i)" class="fa fa-trash remove-icon"></span>
+                </td>
+              </tr>
+            </table>
+
+            <!-- <div class="right-well">
+              <span (click)="showFISMemberForm=!showFISMemberForm" *ngIf="!showFISMemberForm" class="open-txt">+ Add FIS
+                Member
+              </span>
+              <span (click)="showFISMemberForm=!showFISMemberForm" *ngIf="showFISMemberForm" class="close-txt">- Close
+                FIS Member</span>
+            </div> -->
+          </div>
+          <button class="sf-positive-btn pull-right" (click)="showOpenDialog()">
+            Open
+          </button>
+          <br>
+          <div *ngIf="selectedFISClients.length > 0 && isFormEditMode">
+            <table class="fisMember-table">
+              <tr>
+                <th></th>
+                <th style="width:15%">Client ID</th>
+                <th style="width:15%">Name</th>
+                <th style="width:15%">DOB</th>
+                <th style="width:15%">Age</th>
+                <th style="width:10%" pTooltip="Head of Household">HoH</th>
+                <th style="width:10%">Adult</th>
+                <th style="width:10%" *ngIf="this.referralTypeName === 'NC-FI'">No Child In Home</th>
+                <th style="width:10%" *ngIf="this.referralTypeName === 'FI'">PWS Referral</th>
+                <th style="width:40%">Action</th>
+              </tr>
+              <tr *ngFor="let data of selectedFISClients; let i = index">
+                <td>
+                  <p-checkbox binary="selectData" (onChange)="handleData($event,data,i)"></p-checkbox>
+                </td>
+                <td style="width:15%">{{ data.clientID?.clientID }}</td>
+                <td style="width:15%">{{ data.clientID?.clientName }}</td>
+                <td style="width:15%">{{data.clientID?.dob | date:"MM/dd/yyyy"}}</td>
+                <td style="width:15%">{{data.clientID?.age}}</td>
+                <!-- <tr *ngFor="let data of selectedFISClients; let i=index" (click)="openSelectedFIS(data, i)">
+                <td>{{data.clientID?.clientID}}</td>
+                <td>{{data.clientID?.clientName}}</td> -->
+                <!-- <td *ngIf="data.isCaseHead" class="positive-mark">
+                  <span>&#10004;</span>
+                </td> -->
+                <td style="width:15%">
+                  <span *ngIf="!data.isCaseHead" class="negative-mark">&#10006;</span>
+                  <span *ngIf="data.isCaseHead" class="positive-mark">&#10004;</span>
+                </td>
+                <!-- <td *ngIf="data.personTy peID === 'Adult'" class="positive-mark">
+                  <span>&#10004;</span>
+                </td> -->
+                <td style="width:15%">
+                  <span *ngIf="data.personTypeID === 'Adult'" class="positive-mark">&#10004;</span>
+                  <span *ngIf="data.personTypeID === 'Youth'" class="negative-mark">&#10006;</span>
+                </td>
+                <!-- <td *ngIf="data.isPWSChild" class="positive-mark">
+                  <span>&#10004;</span>
+                </td> -->
+                <td *ngIf="!data.isPWSChild" class="negative-mark" style="width:10%">
+                  <span *ngIf="!data.isPWSChild" class="negative-mark">&#10006;</span>
+                  <span *ngIf="data.isPWSChild" class="positive-mark">&#10004;</span>
+                </td>
+                <!-- routerLink="/reports/client/details" -->
+                <td style="width:30%">
+                  <button style="    width: 66.1px;
+                    border-radius: 2px;
+                    background-color: #062854;" type="button" class="sf-positive-btn"
+                    (click)="getMore(i)">More</button>
+                  <div style="border: 1px solid #ffffff;
+                    border-radius: 7px;
+                    position: absolute;
+                    z-index: 1;
+                    background-color: #efefef;right: 1%;width: 10%;" *ngIf="showMore[i]">
+                    <div class="more_info" style="font-weight: bold; padding: 4px;" routerLink="/reports/client/new">
+                      Create</div>
+                    <div class="more_info" style="font-weight: bold; padding: 4px;"
+                      (click)="goToClientDetail(data.clientID)">Edit</div>
+                    <div class="more_info" style="font-weight: bold; padding: 4px;" (click)="familyInfo(i)">Family</div>
+
+                    <div *ngIf="showMoreFamily[i]">
+                      <p class="more_info" style="padding: 4px;" (click)="goToFisForm(data.clientID)">FIS Members</p>
+                      <p class="more_info" routerLink="/reports/extended-family/view">Extended Family</p>
+                      <p class="more_info" routerLink="/reports/referral/family-preservation/head-of-household/view">
+                        Head of Household </p>
+                      <p class="more_info" style="border: none !important;" routerLink="/reports/family-safety/view">
+                        Family Safety</p>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div *ngIf="selectedFISClients.length === 0 && !showFISMemberForm" class="center-well">
+            <span>
+              <b>No FIS Member Found!</b>
+            </span>
+            <span (click)="showFISMemberForm = true">+ Add FIS Member</span>
+          </div>
+        </div>
+        <div class="tab-pane margin-left-45 {{ tabStatus_2_1 }}" id="nav-wiz3" role="tabpanel"
+          aria-labelledby="nav-ncfi-tab" *ngIf="isNCFIModeEnable && isWizard2Enable">
+          <form class="sf-form" [formGroup]="ncFIFormGroup">
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin Date</span> <span class="mandatory">*</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar (onSelect)="onSelectBeginDate()" name="beginDate" showTime="true" hourFormat="24" [yearNavigator]="true"
+                    [(ngModel)]="ncfi.beginDate" formControlName="beginDate" [monthNavigator]="true"
+                    yearRange="2000:2030" [showIcon]="true"></p-calendar>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar name="ncFIendDate" showTime="true" hourFormat="24" [yearNavigator]="true"
+                    [(ngModel)]="ncfi.endDate" formControlName="endDate" [monthNavigator]="true" yearRange="2000:2030"
+                    [showIcon]="true"></p-calendar>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Units</span><span class="mandatory">*</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-spinner name="ncFIunits" [(ngModel)]="ncfi.units" formControlName="units" [step]="1.0" [min]="0">
+                  </p-spinner>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Unit Rate</span><span class="mandatory">*</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-spinner name="ncFIunitRate" [(ngModel)]="ncfi.unitRate" formControlName="unitRate" [step]="1.0"
+                    [min]="0"></p-spinner>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Procedure Code</span><span class="mandatory">*</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-autoComplete [dropdown]="true" name="ncFIProcode" emptyMessage="No results found!"
+                    [suggestions]="metaData" [(ngModel)]="ncfi.procodeID" formControlName="procodeID"
+                    [forceSelection]="true" placeholder="Type here to search"
+                    (completeMethod)="getMetaData($event,'procode')" field="display" size="23"></p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Authorization Payor</span><span class="mandatory">*</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-autoComplete (onSelect)="onAuthPayorSelection($event)" [dropdown]="true"
+                    name="ncFIAuthorizationPayor" emptyMessage="No results found!" [suggestions]="metaData"
+                    [forceSelection]="true" [(ngModel)]="ncfi.payorID" formControlName="payorID"
+                    placeholder="Type here to search" (completeMethod)="getMetaData($event,'payor')"
+                    field="payorDisplay" size="23"></p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-12 col-md-12 col-sm-12"> <span>Notes</span> </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <textarea pInputTextarea [(ngModel)]="ncfi.notes" formControlName="notes" name="ncFIAuthorization"
+                  style="width:100%;height:100%"></textarea>
+              </div>
+            </div>
+          </form>
+
+        </div>
+        <div class="tab-pane margin-left-45 {{ tabStatus_2 }}" id="nav-sec2" role="tabpanel"
+          aria-labelledby="nav-general-tab">
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Date of Notification</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput_1" size="23" formControlName="dateOfNotification"
+                [(ngModel)]="fpRef.receivedDateTime" [showIcon]="true" hourFormat="24" [yearNavigator]="true"
+                [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Referral Date</span>
+              <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" size="23" [(ngModel)]="fpRef.referralDate" formControlName="referralDate"
+                [showIcon]="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+                showTime="true">
+              </p-calendar>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Facts
+                <!-- <span class="mandatory">*</span> -->
+              </span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" formControlName="facts" size="27" pInputText name="inputText" [(ngModel)]="fpRef.facts"
+                maxlength="10" />
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Primary Referral Reason
+                <span class="mandatory">*</span>
+              </span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="primary_ref_reason" [(ngModel)]="fpRef.referralReasonID"
+                [suggestions]="metaData" (completeMethod)="getMetaData($event, 'primary_ref_reason')"
+                [forceSelection]="true" [dropdown]="true" emptyMessage="No matches found!" field="referralReason">
+              </p-autoComplete>
+              <p-message severity="error" text="Field is required" *ngIf="
+                  !fprefrralform.controls['primary_ref_reason'].valid &&
+                  fprefrralform.controls['primary_ref_reason'].dirty
+                ">
+              </p-message>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Secondary Referral Reason </span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete [forceSelection]="true" (completeMethod)="getMetaData($event, 'secondary_ref_reason')"
+                formControlName="secondary_ref_reason" [(ngModel)]="fpRef.referralReasonID_Secondary" [dropdown]="true"
+                emptyMessage="No matches found!" field="referralReason" [suggestions]="metaData"></p-autoComplete>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>County</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="county" [(ngModel)]="fpRef.countyID" [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'county')" [forceSelection]="true" [dropdown]="true"
+                emptyMessage="No matches found!" field="countyName"></p-autoComplete>
+              <!-- <p-message severity="error" text="Field is required" *ngIf="!fprefrralform.controls['county'].valid&&fprefrralform.controls['county'].dirty"></p-message> -->
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>SFM Worker
+                <span class="mandatory">*</span>
+              </span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="personID" [(ngModel)]="fpRef.personID" [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'sfcs_worker')" [forceSelection]="true" [dropdown]="true"
+                placeholder="Type here to search" emptyMessage="No matches found!" field="fullName"></p-autoComplete>
+              <!-- <p-message severity="error" text="Field is required" *ngIf="!fprefrralform.controls['sfcs_worker'].valid&&fprefrralform.controls['sfcs_worker'].dirty"></p-message> -->
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>DCF Worker
+                <span class="mandatory">*</span>
+              </span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="dcfPersonID" [(ngModel)]="fpRef.dcfPersonID" [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'dcf_worker')" [forceSelection]="true" [dropdown]="true"
+                placeholder="Type here to search" emptyMessage="No matches found!" field="fullName" name="dcfPersonID">
+              </p-autoComplete>
+              <!-- <p-message severity="error" text="Field is required" *ngIf="!fprefrralform.controls['dcf_worker'].valid&&fprefrralform.controls['dcf_worker'].dirty"></p-message> -->
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Office File Number
+                <span class="mandatory">*</span>
+              </span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" name="units" formControlName="office_file" [(ngModel)]="fpRef.officeFile" pInputText />
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>File Issue Date
+                <span class="mandatory">*</span>
+              </span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" [(ngModel)]="fpRef.fileIssueDate" formControlName="file_issue_date"
+                [showIcon]="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030">
+              </p-calendar>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>File Staff
+                <span class="mandatory">*</span>
+              </span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="file_staff" [(ngModel)]="fpRef.file_StaffID" [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'file_staff')" [forceSelection]="true" [dropdown]="true"
+                placeholder="Type here to search" emptyMessage="No matches found!" field="fullName"></p-autoComplete>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>MMA</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" name="units" formControlName="mma" [(ngModel)]="fpRef.mma" pInputText />
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Referral Closure Reason</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="referral_closure_reason" [(ngModel)]="fpRef.closureReasonID"
+                [suggestions]="metaData" (completeMethod)="
+                  getMetaData($event, 'referral_closure_reason')
+                " [forceSelection]="true" placeholder="Type here to search" [dropdown]="true"
+                emptyMessage="No matches found!" field="closureReason"></p-autoComplete>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Case Payor</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="case_payor" [(ngModel)]="fpRef.payorID" [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'case_payor')" [forceSelection]="true"
+                placeholder="Type here to search" [dropdown]="true" emptyMessage="No matches found!" field="payorName">
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Referral Withdraw Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" [(ngModel)]="fpRef.withDrawDate" formControlName="referral_withdrwal_date"
+                [showIcon]="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+                showTime="true">
+              </p-calendar>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Withdraw Reason</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <textarea pInputTextarea rows="4" cols="5" formControlName="withdraw_reason" name="inputTextarea"
+                [(ngModel)]="fpRef.withDrawReasonNote"></textarea>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Referral Closure Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" [(ngModel)]="fpRef.closureDate" formControlName="referral_closure_date"
+                [showIcon]="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+                [showTime]="true">
+              </p-calendar>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Notes</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <textarea pInputTextarea rows="4" cols="5" formControlName="notes" name="inputTextarea"
+                [(ngModel)]="fpRef.notes"></textarea>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Person Type
+                <span class="mandatory">*</span>
+              </span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="personTypeID" [(ngModel)]="fpRef.personTypeID" [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'case_manager_type')" [forceSelection]="true"
+                placeholder="Type here to search" [dropdown]="true" emptyMessage="No matches found!" field="personType">
+              </p-autoComplete>
+              <!-- <p-message severity="error" text="Field is required" *ngIf="!fprefrralform.controls['case_manager_type'].valid&&fprefrralform.controls['case_manager_type'].dirty"></p-message> -->
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Why is family being referred?</span>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9">
+              <textarea pInputTextarea formControlName="family_being_referred" name="inputTextarea"
+                [(ngModel)]="fpRef.explanation" rows="4" cols="5" style="width: 95%;height: 100%;"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane margin-left-45 {{ tabStatus_3 }}" id="nav-sec3" role="tabpanel"
+          aria-labelledby="nav-specific-tab">
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>24 Hour Date
+              </span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" [(ngModel)]="fpRef.fp24HrContactDate" formControlName="24_hours_date"
+                showTime="true" [showIcon]="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030">
+              </p-calendar>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>48 Hour Date
+              </span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" [(ngModel)]="fpRef.fp48HrContactDate" formControlName="48_hours_date"
+                showTime="true" [showIcon]="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030">
+              </p-calendar>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>48 Hour Staff</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="48_hour_staff" [(ngModel)]="fpRef.fp48Hr_StaffID"
+                [suggestions]="metaData" (completeMethod)="getMetaData($event, '48_hour_staff')" [forceSelection]="true"
+                [dropdown]="true" placeholder="Type here to search" emptyMessage="No matches found!" field="fullName">
+              </p-autoComplete>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>24 Hour Staff</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="24_hours_staff" [(ngModel)]="fpRef.fp24Hr_StaffID"
+                [suggestions]="metaData" (completeMethod)="getMetaData($event, '24_hour_staff')" [forceSelection]="true"
+                [dropdown]="true" placeholder="Type here to search" emptyMessage="No matches found!" field="fullName">
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Family Income - Number Living In Household</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-spinner formControlName="number_LivingIn_Household" name="numericInput"
+                [(ngModel)]="fpRef.numberLivingInHousehold"></p-spinner>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Family Income - Annual Household Income</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-spinner formControlName="annual_household_Income" name="fpRef.annualHouseholdIncome"
+                [(ngModel)]="fpRef.annualHouseholdIncome"></p-spinner>
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Family Income - Single Parent Household</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputSwitch formControlName="is_Single_ParentHousehold" name="inputtoggle"
+                [(ngModel)]="fpRef.isSingleParentHousehold"></p-inputSwitch>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>On Radar</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputSwitch formControlName="onRadar" name="onRadar" [(ngModel)]="fpRef.onRadar"></p-inputSwitch>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Family Income - Family Refused</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputSwitch formControlName="family_Refused" name="inputtoggle" [(ngModel)]="fpRef.familyRefused">
+              </p-inputSwitch>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <p-dialog maximizable="false" *ngIf="isFpDetailsEntered" header="Acknowledgement options" [(visible)]="display"
+      [modal]="true" [responsive]="true" [width]="1200" [minWidth]="200" [minY]="80" [baseZIndex]="10000">
+      <app-ack-options [caseTeamList]="caseTeamList" (showAck)="showAck($event)" (disableAck)="disableAck()">
+      </app-ack-options>
+    </p-dialog>
+    <p-dialog maximizable="false" header="Acknowledgement" *ngIf="isShowAck" [(visible)]="isShowAck" [modal]="true"
+      [responsive]="true" [width]="1200" [minWidth]="200" [minY]="80" [baseZIndex]="10000">
+      <app-ack-pdf [ackForm]="ackForm" (hideAck)="hideAck()"> </app-ack-pdf>
+    </p-dialog>
+
+    <app-form-footer [isFormLog]="isFormLog" [formLogInfo]="formLogInfo" [attachmentControll]="isAttachmentRequired " [isAttachmentDisabled]="false"
+      (attachDoc)="navigateTo()" (save)="saveForm(fpRef)" (discard)="discardForm()" (edit)="editForm()"
+      (sendMail)="showDialog()" [editControll]="edit" [mailBtnControl]="isMail" [discardTo]="discardTo">
+    </app-form-footer>
+
+    <app-quick-menu [module]="quickMenu"></app-quick-menu>
+  </div>
+</div>
+
+<!-- Preselected clients-->
+<div class="modal" id="clientList" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <span class="modal-title sf-heading-6 sf-black" id="myModalLabel">Select the FIS members</span>
+        <button type="button" class="close" data-dismiss="modal" id="closeBtn">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+      </div>
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <ag-grid-angular class="ag-theme-balham" [rowData]="rowData" [columnDefs]="columnDefs" [enableSorting]="true"
+          [defaultColDef]="defaultColDef" [rowDragManaged]="true" [suppressDragLeaveHidesColumns]="true"
+          enableColResize="true" #agGrid style="width: 100%;height: 61vh;" animateRows="true" rowSelection="multiple"
+          (rowSelected)="onRowSelected($event)">
+        </ag-grid-angular>
+      </div>
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="sf-negative-btn" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="sf-positive-btn" data-toggle="modal" data-target="#finalclientList">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Final selection of clients -->
+<div class="modal" id="finalclientList" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <span class="modal-title sf-heading-6 sf-black" id="myModalLabel">Select the FIS members</span>
+        <button type="button" class="close" data-dismiss="modal" id="closeBtn">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+      </div>
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <ag-grid-angular class="ag-theme-balham" [rowData]="fisRowData" [columnDefs]="fisColumndefs"
+          [enableSorting]="true" [defaultColDef]="defaultColDef" [rowDragManaged]="true"
+          [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid style="width: 100%;height: 61vh;"
+          animateRows="true" rowSelection="multiple" (rowSelected)="onRowFISSelected($event)">
+        </ag-grid-angular>
+      </div>
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="sf-negative-btn" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="sf-positive-btn" (click)="finaliseFISClientList()">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<p-dialog [(visible)]="display_open" header="Case" [responsive]="true" showEffect="fade" [modal]="true" [width]="800"
+  [minWidth]="800" [minY]="80" [baseZIndex]="10000" [maximizable]="true" [closable]="true">
+  <form class="margin-top-20 sf-form client-form">
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <span class="sf-labels">First Name
+            <span class="mandatory"> *</span>
+          </span>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <input type="text" name="firstName" [(ngModel)]="client_data.firstName" class="input" maxlength="25"
+            pInputText size="27" />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <span class="sf-labels">Suffix</span>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <input type="text" name="Suffix" class="input" [(ngModel)]="client_data.suffix" maxlength="3" pInputText
+            size="27" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <span class="sf-labels">Address</span>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <input type="text" name="addres" class="input" [(ngModel)]="client_data.address" maxlength="3" pInputText
+            size="27" />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <span class="sf-labels">Kaecses</span>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+          <input type="text" name="kaecses" class="input" maxlength="3" [(ngModel)]="client_data.kaecses" pInputText
+            size="27" />
+          <!-- <div class="alert" *ngIf="!orgForm.controls['kaecses'].valid && orgForm.controls['kaecses'].touched">Enter
+                          a valid Kaecses upto 10 characters</div> -->
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="pull-right">
+      <button class="sf-positive-btn" (click)="updateClient()">
+        <span>Submit</span>
+      </button></div>
+  </form>
+</p-dialog>

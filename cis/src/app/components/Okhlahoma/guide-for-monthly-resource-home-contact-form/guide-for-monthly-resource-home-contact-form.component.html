@@ -1,0 +1,241 @@
+<div id="pdf-content">
+  <h2 class="home-heading">Guide for Monthly Resource Home Contact</h2>
+  <p>Prior to initiating the
+    <span class="bold">monthly contact</span> with resource parents, review the resource file to determine if there is an
+    ongoing written plan of compliance (WPC), open overfill request, or recent referrals on the home. You must be prepared
+    to address the action steps in the WPC and the overfill support plan during the monthly contact.
+  </p>
+  <p>Prior to the
+    <span class="bold">in-home quarterly visit</span>, contact the permanency planning specialist for each child placed in
+    the home. This contact is made to gather feedback on the child and the resource home, the child's ongoing adjustment
+    in the home, and to discuss the child and resource family support plan.</p>
+  <div class="textarea-section text-section">
+    <p>What follow-up was completed from the previous month?</p>
+    <mat-form-field>
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.FollowUpFromPreviousMonth.value"></textarea>
+    </mat-form-field>
+  </div>
+  <h3>Resource Information</h3>
+  <p>
+    <span class="bold">Note:</span>you
+    <span class="bold">must</span> answer the following question to display the full form before printing.</p>
+  <div>
+    <span>Are any children placed in the home?</span>
+    <mat-radio-group [(ngModel)]="model.children_inhome.fieldOptionIndex">
+      <mat-radio-button value="0">Yes</mat-radio-button>
+      <mat-radio-button value="1">No</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div class="resource">
+    <div>
+      <mat-form-field  floatLabel="never">
+        <input matInput [(ngModel)]="model.Resourcename.value" placeholder="Enter the Resource name"></mat-form-field>
+    </div>
+    <div>
+      <span class="name">Resource name:</span>
+    </div>
+    <div>
+      <mat-form-field  floatLabel="never">
+        <input matInput [(ngModel)]="model.resourcenumber.value"></mat-form-field>
+    </div>
+    <div>
+      <span class="name">Resource number:</span>
+    </div>
+  </div>
+  <div class="resource">
+    <div>
+      <span>Contact date:</span>
+      <mat-form-field  floatLabel="never">
+        <input matInput [matDatepicker]="date" (click)="date.open()" [(ngModel)]="model.CompletionDate.value" placeholder="Choose a date" class="date"
+          value="{{date}}">
+        <mat-datepicker #date></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div>
+      <span>Contact type:</span>
+      <mat-radio-group [(ngModel)]="model.contactType.fieldOptionIndex">
+        <mat-radio-button value="0">phone</mat-radio-button>
+        <mat-radio-button value="1">in-home</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+  <div class="resource">
+    <div>
+      <span>Number of max approved beds in KIDS:</span>
+      <mat-form-field  floatLabel="never">
+        <input matInput class="input-sm" [(ngModel)]="model.approvedBeds.value"></mat-form-field>
+    </div>
+    <div>
+      <span>Number of children placed:</span>
+      <mat-form-field  floatLabel="never">
+        <input matInput class="input-sm" [(ngModel)]="model.KidsPlaced.value"></mat-form-field>
+    </div>
+  </div>
+  <p>When the number of children placed in the home exceeds the number of max approved beds in KIDS, complete the
+    <span class="bold">Request to Increase Maximum Number of Approved Beds</span>.</p>
+  <p>Build rapport with your resource family by asking how they are doing and following up on information shared the previous
+    month.
+  </p>
+  <p>Are there any changes in the home or with the household members?</p>
+  <div class="text-section">
+    <span>For example, is anyone staying overnight, or moving in or out of the home? Are there any changes in jobs, health, behavioral
+      health, or stress? Ask about their stress level. Is there anything they need?
+    </span>
+    <mat-form-field>
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.changes.value"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="text-section">
+    <span>Update contact information such as phone number(s) or email(s):
+    </span>
+    <mat-form-field>
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.contactInformation.value"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="text-section">
+    <span>How is everyone adjusting, including the resource family, biological children and children placed?
+    </span>
+    <mat-form-field>
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.adjusting.value"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="text-section">
+    <span>Ask the family about the type of discipline used for each child in the home and describe it's effectiveness:
+    </span>
+    <mat-form-field>
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.discipline.value"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="text-section">
+    <p>Are the children placed in your home receiving the services they need? List additional services needed and plan to follow-up.
+      Identify if the follow-up is to be completed by the worker or the family.
+    </p>
+    <mat-form-field>
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.services.value"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="text-section">
+    <span>Discuss and document the overfill support plan if the home is overfilled:
+    </span>
+    <mat-form-field>
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.discussSupportPlan.value"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="text-section">
+    <span>Discuss and document the progress on an open WPC:
+    </span>
+    <mat-form-field>
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.discussWPC.value"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="text-section">
+    <span>Has the family completed any in-service training this month? List the training received:
+    </span>
+    <mat-form-field>
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.training.value"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="text-section">
+    <span>Document which Monthly Resource Reminder was discussed:
+    </span>
+    <mat-form-field>
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.MonthlyResourceReminder.value"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="text-section">
+    <span>Does the family have any questions or concerns?
+    </span>
+    <mat-form-field>
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.questions.value"></textarea>
+    </mat-form-field>
+  </div>
+  <h3>In-Home Quarterly Visit</h3>
+  <div class="text-section">
+    <span>Observations made during walk-through of the home. Are there any changes in the home environment; for example, are there
+      any new pets, water structures, vehicles, weapons, or sleeping arrangements? List any further assessment needed and
+      the time frame for completion:
+    </span>
+    <mat-form-field>
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.ObservationsFromWalkThrough.value"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="text-section">
+    <span>Observations of family interactions made during visit. Who was present? Describe any interactions observed, positive
+      or negative:
+    </span>
+    <mat-form-field>
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.OvservationsFromInteraction.value"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="text-section">
+    <span>Are there any changes in household income, such as TANF or Social Security payments?
+    </span>
+    <mat-form-field>
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.ChangesInIncome.value"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="text-section">
+    <span>Discuss and document the child and resource family support plan:
+    </span>
+    <mat-form-field>
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.supportPlan.value"></textarea>
+    </mat-form-field>
+  </div>
+  <h3>Worker Follow-up</h3>
+  <div class="text-section">
+    <span>Concerns that need to be addressed:
+    </span>
+    <mat-form-field>
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.Concerns.value"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="text-section">
+    <span>Describe any follow-up needed after today's contact, for example, child's needs, family's needs, contact with children's
+      workers, or updating KIDS information:
+    </span>
+    <mat-form-field>
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.needs.value"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="text-section">
+    <span>Describe any follow-up needed after today's contact on a WPC, the overfill support plan, and the child and resource family
+      support plan.
+    </span>
+    <mat-form-field>
+      <textarea matInput autosize class="textarea" [(ngModel)]="model.WPC.value"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="resource">
+    <div>
+      <p class="name">Resource specialist signature</p>
+      <mat-form-field>
+        <input matInput class="input-xm" [(ngModel)]="model.SpecialistSignature.value"></mat-form-field>
+    </div>
+    <div>
+      <p class="name">Date</p>
+      <mat-form-field  floatLabel="never">
+        <input matInput [matDatepicker]="picker1" (click)="picker1.open()" [(ngModel)]="model.SpecialistSignatureDate.value" placeholder="Choose a date" class="date"
+          value="{{date}}">
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="resource">
+    <div>
+      <p class="name">Resource specialist signature</p>
+      <mat-form-field>
+        <input matInput class="input-xm" [(ngModel)]="model.SupervisorSignature.value"></mat-form-field>
+    </div>
+    <div>
+      <p class="name">Date</p>
+      <mat-form-field  floatLabel="never">
+        <input matInput [matDatepicker]="picker" (click)="picker.open()" [(ngModel)]="model.SupervisorSignatureDate.value" placeholder="Choose a date" class="date"
+          value="{{date}}">
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<form-footer  (resetAction)='resetForm()' (calculateAction)='calculateForm()'
+  (saveAction)='saveForm()' (finalizeAction)='finalize()'>
+</form-footer>

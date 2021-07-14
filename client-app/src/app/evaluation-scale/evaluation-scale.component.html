@@ -1,0 +1,128 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form class="sf-form" [formGroup]="versionCreationForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Evaluation Version ID</span> <span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText  formControlName="evaluationVersionID" name="inputText" [(ngModel)]="evaluationScale.evaluationVersionID" size="27"/>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Version</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText  formControlName="version" name="inputText" [(ngModel)]="versionCreation.version" size="27"/>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" formControlName="beginDate" [showIcon]="true" showTime="true" [(ngModel)]="versionCreation.beginDate"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" formControlName="endDate" [showIcon]="true" showTime="true" [(ngModel)]="versionCreation.endDate"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Min Value</span> <span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText  formControlName="minValue" name="inputText" [(ngModel)]="versionCreation.minValue" size="27"/>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Max Value</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText  formControlName="maxValue" name="inputText" [(ngModel)]="versionCreation.maxValue" size="27"/>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Step</span> <span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText  formControlName="step" name="inputText" [(ngModel)]="versionCreation.step" size="27"/>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Is OOH</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox name="isOOH" binary="true" formControlName="isOOH"
+              [(ngModel)]="versionCreation.isOOH"></p-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Is In Home</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox name="isInHome" binary="true" formControlName="isInHome"
+              [(ngModel)]="versionCreation.isInHome"></p-checkbox>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>IsOOH_OK</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox name="isOOH_OK" binary="true" formControlName="isOOH_OK"
+              [(ngModel)]="versionCreation.isOOH_OK"></p-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>IsProvider_OK</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox name="isProvider_OK" binary="true" formControlName="isProvider_OK"
+              [(ngModel)]="versionCreation.isProvider_OK"></p-checkbox>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>IsPRTF</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox name="isPRTF" binary="true" formControlName="isPRTF"
+              [(ngModel)]="versionCreation.isPRTF"></p-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Directions</span> <span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText  formControlName="directions" name="inputText" [(ngModel)]="versionCreation.directions" size="27"/>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Entered Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" formControlName="enteredDate" [showIcon]="true" showTime="true" [(ngModel)]="versionCreation.enteredDate"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Changed Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" formControlName="changedDate" [showIcon]="true" showTime="true" [(ngModel)]="versionCreation.changedDate"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer (update)="formActions(evaluationScale)" (save)="formActions(evaluationScale)" [editControll]="isEdit" (edit)="editForm()" [discardTo]="discardTo" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+  </div>
+</div>

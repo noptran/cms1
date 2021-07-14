@@ -1,0 +1,4635 @@
+<div *ngIf="!isPopup">
+  <app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+</div>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+<p-toast position="center"></p-toast>
+<div *ngIf="isPlacementCreateForm">
+  <div class="container-background">
+    <div
+      class="container-foreground"
+      style="height: 80vh; overflow-y: scroll; overflow-x: hidden"
+    >
+      <!-- Create form-->
+      <div>
+        <div class="sf-form">
+          <span>
+            <strong>Placement Information</strong>
+          </span>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Begin Date</span> <span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  hourFormat="12"
+                  [showTime]="true"
+                  [showIcon]="true"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  [(ngModel)]="placement.beginDate"
+                  name="placementBeginDate"
+                  yearRange="1900:2030"
+                  (onSelect)="beginDateBasedMasters(placement.beginDate)"
+                  (onInput)="beginDateBasedMasters(placement.beginDate)"
+                ></p-calendar>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>End Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  hourFormat="12"
+                  [showTime]="true"
+                  [showIcon]="true"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  yearRange="1900:2030"
+                  showButtonBar="true"
+                  (onClearClick)="endDateCleared($event)"
+                  [(ngModel)]="placement.endDate"
+                  name="placementEndDate"
+                >
+                </p-calendar>
+              </div>
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Received Form Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  hourFormat="12"
+                  [showTime]="true"
+                  [showIcon]="true"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  yearRange="1900:2030"
+                  name="formReceivedDate"
+                  [(ngModel)]="placementDetail.formReceivedDate"
+                >
+                </p-calendar>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Provider</span> <span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  placeholder="Type here to search"
+                  emptyMessage="No records found!"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  field="providerName"
+                  (completeMethod)="filterPlacemetProviders($event)"
+                  [suggestions]="metaData"
+                  name="provider"
+                  [(ngModel)]="placement.providerID"
+                  (onSelect)="onProviderSelect($event)"
+                >
+                  <ng-template let-provider pTemplate="item">
+                    <div
+                      class="ui-helper-clearfix"
+                      style="border-bottom: 1px solid #d5d5d5"
+                    >
+                      <table width="100%">
+                        <tr>
+                          <th>Provider Name</th>
+                          <th>Provider Type</th>
+                          <th>Address</th>
+                          <th>Phone</th>
+                          <th>Sponsor Name</th>
+                        </tr>
+                        <tr>
+                          <td>{{ provider?.providerName }}</td>
+                          <td>{{ provider?.providerType }}</td>
+                          <td>{{ provider?.address }}</td>
+                          <td>{{ provider?.phone }}</td>
+                          <td>{{ provider?.sponsorName }}</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </ng-template>
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Procedure Code</span> <span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  placeholder="Type here to search"
+                  emptyMessage="No records found!"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  (completeMethod)="onFilteredPlacementProcode($event)"
+                  [suggestions]="metaData"
+                  field="procode"
+                  (onSelect)="onSelectProcode(placement.beginDate, $event)"
+                  name="procodeID"
+                  [(ngModel)]="placementDetail.procodeID"
+                >
+                </p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>DCF Service Code</span>
+                <span class="mandatory" *ngIf="!isDCFServiceCodeDisabled"
+                  >*</span
+                >
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  placeholder="Type here to search"
+                  emptyMessage="No records found!"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  (completeMethod)="getMetaData($event, 'sRSServiceCode')"
+                  [suggestions]="metaData"
+                  field="sRSServiceCode"
+                  name="sRSServiceCodeID"
+                  [(ngModel)]="placementDetail.sRSServiceCodeID"
+                >
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Placement Referral</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  [disabled]="true"
+                  placeholder="Type here to search"
+                  emptyMessage="No records found!"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  (completeMethod)="filteredReferrals($event)"
+                  [suggestions]="filteredPlacementReferrals"
+                  field="prBeginDate"
+                  name="placementReferral"
+                  [(ngModel)]="placement.placementReferralID"
+                >
+                  <ng-template let-referral pTemplate="item">
+                    <div
+                      class="ui-helper-clearfix"
+                      style="border-bottom: 1px solid #d5d5d5"
+                    >
+                      <table width="100%">
+                        <tr>
+                          <th>PR Begin Date</th>
+                          <th>Status Type</th>
+                          <th>Linked</th>
+                          <th>PL Begin Date</th>
+                        </tr>
+                        <tr>
+                          <td>
+                            {{
+                              referral?.PRBeginDate
+                                | date: "MM/dd/yyyy HH:mm:ss"
+                            }}
+                          </td>
+                          <td>{{ referral?.StatusType }}</td>
+                          <td>{{ referral?.Linked }}</td>
+                          <td>
+                            {{
+                              referral?.PLBeginDate
+                                | date: "MM/dd/yyyy HH:mm:ss"
+                            }}
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </ng-template>
+                </p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Move Form</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  [disabled]="true"
+                  placeholder="Type here to search"
+                  emptyMessage="No records found!"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  name="reasonForMoveID"
+                  [(ngModel)]="placementMoveEvent.moveEventID"
+                  [suggestions]="filteredReasonForMoves"
+                  field="ReasonForMove"
+                  (completeMethod)="filteredMoves($event)"
+                >
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <span>
+            <strong>Authorization Information</strong>
+          </span>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Units</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-spinner
+                  (onChange)="onAuthorizationUnitsChanged()"
+                  size="30"
+                  name="units"
+                  [(ngModel)]="auth.unitsPaidByPlacement"
+                  [step]="0.25"
+                  [min]="0"
+                >
+                </p-spinner>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Payor Rate</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-spinner
+                  size="30"
+                  (onChange)="onChangePayorRate()"
+                  [step]="0.25"
+                  [min]="0"
+                  name="payorRate"
+                  [(ngModel)]="auth.payorRate"
+                ></p-spinner>
+              </div>
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Provider Rate</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-spinner
+                  size="30"
+                  name="providerRate"
+                  (onChange)="onChangeProviderRate()"
+                  [step]="0.25"
+                  [min]="0"
+                  [(ngModel)]="auth.providerRate"
+                >
+                </p-spinner>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Authorization Status</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  placeholder="Type here to search"
+                  emptyMessage="No records found!"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  (completeMethod)="getMetaData($event, 'status')"
+                  [suggestions]="metaData"
+                  field="authorizationStatus"
+                  name="authorizationStatusID"
+                  [(ngModel)]="auth.authorizationStatusID"
+                >
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Authorization Payor</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  placeholder="Type here to search"
+                  emptyMessage="No records found!"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  (completeMethod)="getMetaData($event, 'payor')"
+                  [suggestions]="metaData"
+                  field="payorName"
+                  name="authPayorName"
+                  [(ngModel)]="auth.payorAuthorizationID"
+                >
+                  <ng-template let-payor pTemplate="item">
+                    <div
+                      class="ui-helper-clearfix"
+                      style="border-bottom: 1px solid #d5d5d5"
+                    >
+                      <table width="100%">
+                        <tr>
+                          <th>Payor Name</th>
+                          <th>Address</th>
+                          <th>Phone</th>
+                          <th>Fax</th>
+                        </tr>
+                        <tr>
+                          <td>{{ payor?.payorName }}</td>
+                          <td>
+                            {{ payor?.address1 }}, {{ payor?.address2 }},
+                            {{ payor?.cityID?.city }},
+                            {{ payor?.zipcodeID?.stateID?.state }},
+                            {{ payor?.zipcodeID?.countyID?.countyName }},
+                            {{ payor?.zipcodeID?.zipcode }},
+                          </td>
+                          <td>{{ payor?.phone }}</td>
+                          <td>{{ payor?.fax }}</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </ng-template>
+                </p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Pay Sponsor</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-checkbox
+                  binary="true"
+                  name="paySponsor"
+                  [(ngModel)]="auth.paySponsor"
+                ></p-checkbox>
+              </div>
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Authorization Exception</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span
+                  (click)="isAuthException = true"
+                  class="wizard-action-link"
+                  pTooltip="click here to viewks"
+                  >Open Authorization Exception</span
+                >
+              </div>
+            </div>
+          </div>
+          <nav class="nav-fill">
+            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+              <a
+                class="nav-item nav-link"
+                *ngFor="let main of mainTabs; let i = index"
+                [class.active]="sIndex === i"
+                (click)="setIndex(i, $event)"
+                data-toggle="tab"
+                href="{{ main.href }}"
+                role="tab"
+                >{{ main.label }}</a
+              >
+            </div>
+          </nav>
+          <div class="tab-content padding-15" id="nav-tabContent">
+            <!-- /////////Notes///////////// -->
+            <div
+              class="tab-pane active in"
+              id="nav-sec1"
+              role="tabpanel"
+              aria-labelledby="nav-fis-tab"
+            >
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Reason For Move: (ACK,PS)</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete
+                      placeholder="Type here to search"
+                      emptyMessage="No records found!"
+                      [dropdown]="true"
+                      [forceSelection]="true"
+                      (completeMethod)="filteredMoves($event)"
+                      [suggestions]="filteredReasonForMoves"
+                      field="ReasonForMove"
+                      name="reasonForMoveID"
+                      [disabled]="true"
+                    >
+                    </p-autoComplete>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Reason For Change: (ACK,PS)</span>
+                    <span class="mandatory">*</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete
+                      emptyMessage="No records found!"
+                      [dropdown]="true"
+                      [forceSelection]="true"
+                      (completeMethod)="filteredChanges($event)"
+                      [suggestions]="filteredReasonForChanges"
+                      field="ReasonForMove"
+                      [(ngModel)]="placement.reasonForMoveID"
+                      placeholder="Type here to search"
+                    >
+                    </p-autoComplete>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Placement Initiated By</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete
+                      placeholder="Type here to search"
+                      emptyMessage="No records found!"
+                      [dropdown]="true"
+                      [forceSelection]="true"
+                      (completeMethod)="getMetaData($event, 'staff')"
+                      [suggestions]="metaData"
+                      field="fullName"
+                      name="placementInitiatedBy"
+                      [(ngModel)]="placement.initiatedByStaffID"
+                    >
+                      <ng-template let-staff pTemplate="item">
+                        <div
+                          class="ui-helper-clearfix"
+                          style="border-bottom: 1px solid #d5d5d5"
+                        >
+                          <table width="100%">
+                            <tr>
+                              <th>Staff Name</th>
+                              <th>Gender</th>
+                              <th>Cell Phone</th>
+                              <th>Office</th>
+                            </tr>
+                            <tr>
+                              <td>
+                                {{ staff?.lastName }}, {{ staff?.firstName }}
+                              </td>
+                              <td>{{ staff?.genderID?.gender }}</td>
+                              <td>{{ staff?.cellPh }}</td>
+                              <td>{{ staff?.sfaofficeID?.officeName }}</td>
+                            </tr>
+                          </table>
+                        </div>
+                      </ng-template>
+                    </p-autoComplete>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Notes Authorization (NA)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea
+                      pInputTextarea
+                      style="width: 100%; height: 100%"
+                      name="authNotes"
+                      [(ngModel)]="auth.notes"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Addtional Information: (PSA, PS, NOCL)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea
+                      pInputTextarea
+                      style="width: 100%; height: 100%"
+                      name="addInfo"
+                      [(ngModel)]="placementDetail.addInfo"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Clarifications: (ACK)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea
+                      pInputTextarea
+                      style="width: 100%; height: 100%"
+                      name="clarification"
+                      [(ngModel)]="placementDetail.clarification"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Behaviour At Previous Placement(PR)</span>
+                    <!-- <span class="mandatory">*</span> -->
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea
+                      pInputTextarea
+                      style="width: 100%; height: 100%"
+                      name="behaviors"
+                      [(ngModel)]="placement.behaviors"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Reason for Move: (PR)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea
+                      pInputTextarea
+                      style="width: 100%; height: 100%"
+                      name="reasonForMove_PR"
+                      [(ngModel)]="placement.reasonForMove_PR"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>SFCS Notes Placement Event: (NA) </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea
+                      pInputTextarea
+                      style="width: 100%; height: 100%"
+                      name="SFANotes"
+                      [(ngModel)]="placementDetail.SFANotes"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Notes Placement: (NA) </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea
+                      pInputTextarea
+                      style="width: 100%; height: 100%"
+                      name="notes"
+                      [(ngModel)]="placement.notes"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- /////////Sibs In OOH//////// -->
+            <div
+              class="tab-pane"
+              id="nav-sec2"
+              role="tabpanel"
+              aria-labelledby="nav-fis-tab"
+            >
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Has Sibling in OOH Placement</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox
+                      binary="true"
+                      name="isSibOOH"
+                      [(ngModel)]="placementDetail.isSibOOH"
+                    ></p-checkbox>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Placed With Atleast One Sibling</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox
+                      binary="true"
+                      name="isPlacedWSib"
+                      [(ngModel)]="placementDetail.isPlacedWSib"
+                      (onChange)="
+                        isReasonNotPlacedTogetherEnable = !isReasonNotPlacedTogetherEnable
+                      "
+                    >
+                    </p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Reason Not Placed Together</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete
+                      placeholder="Type here to search"
+                      emptyMessage="No records found!"
+                      [dropdown]="true"
+                      [forceSelection]="true"
+                      (completeMethod)="filteredNotPlacedTogether($event)"
+                      [suggestions]="filteredReasonForNotPlacedTogether"
+                      field="siblingReason"
+                      name="siblingReasonID"
+                      [(ngModel)]="placementDetail.siblingReasonID"
+                      [disabled]="isReasonNotPlacedTogetherEnable"
+                    >
+                    </p-autoComplete>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Sibling Affected by this Move(ACK): </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea
+                      pInputTextarea
+                      style="width: 100%; height: 100%"
+                      name="sibsAffectedbyMove"
+                      [(ngModel)]="placementDetail.sibsAffectedbyMove"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- School -->
+            <div
+              class="tab-pane"
+              id="nav-sec3"
+              role="tabpanel"
+              aria-labelledby="nav-fis-tab"
+            >
+              <div class="margin-top-20 row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <strong>Client Schools Linked to Placements</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <table *ngIf="clientSchoolPlacements" class="wizard-table">
+                  <th>From School</th>
+                  <th>To School</th>
+                  <th>Placement</th>
+                  <th>Date of Change</th>
+                  <tr
+                    *ngFor="let school of clientSchoolPlacements; let i = index"
+                  >
+                    <td>
+                      <p-autoComplete
+                        (onSelect)="addSchool($event, i, 'fromSchool')"
+                        (completeMethod)="
+                          getClientSchoolList($event, 'clientSchool')
+                        "
+                        [ngModel]="school"
+                        [suggestions]="metaData"
+                        [ngModelOptions]="{ standalone: true }"
+                        emptyMessage="No results found!"
+                        placeholder="Type here to search"
+                        [forceSelection]="true"
+                        field="fromSchool"
+                        [dropdown]="true"
+                      >
+                      </p-autoComplete>
+                    </td>
+                    <td>
+                      <input
+                        class="width-100"
+                        [disabled]="true"
+                        [ngModelOptions]="{ standalone: true }"
+                        type="text"
+                        [(ngModel)]="clientSchoolPlacements[i].toSchool"
+                      />
+                    </td>
+                    <td>
+                      <p-autoComplete
+                        (onSelect)="addSchool($event, i, 'placement')"
+                        [ngModelOptions]="{ standalone: true }"
+                        (completeMethod)="getPlacementDropdown()"
+                        [ngModel]="school"
+                        [suggestions]="metaData"
+                        emptyMessage="No results found!"
+                        placeholder="Type here to search"
+                        [forceSelection]="true"
+                        field="placement"
+                        [dropdown]="true"
+                      >
+                      </p-autoComplete>
+                    </td>
+                    <td>
+                      <p-calendar
+                        hourFormat="12"
+                        [disabled]="true"
+                        [ngModel]="
+                          getUTCDateStringFormate(
+                            clientSchoolPlacements[i].dateofChange
+                          )
+                        "
+                        [ngModelOptions]="{ standalone: true }"
+                        [showTime]="true"
+                        [monthNavigator]="true"
+                        [yearNavigator]="true"
+                        yearRange="1900:2030"
+                      ></p-calendar>
+                    </td>
+                  </tr>
+                </table>
+
+                <div *ngIf="clientSchoolPlacements">
+                  <p style="text-align: center">
+                    <em>No, Placement school records found!</em>
+                  </p>
+                </div>
+              </div>
+
+              <div class="school-actions">
+                <div>
+                  <button>Add New</button>
+                  <button (click)="updatePlacementSchool()">Save</button>
+                  <button
+                    (click)="
+                      isAttendingSchoolList = true; getAttendingSchoolList()
+                    "
+                  >
+                    Attending School
+                  </button>
+                  <button
+                    (click)="isHomeSchoolList = true; getHomeSchoolList()"
+                  >
+                    Home School
+                  </button>
+                </div>
+                <div>
+                  Note: New schools added through 'Attending school' will not
+                  show in this grid until after this placement is saved.
+                </div>
+              </div>
+            </div>
+
+            <!-- Notification Type -->
+            <div
+              class="tab-pane"
+              id="nav-sec4"
+              role="tabpanel"
+              aria-labelledby="nav-fis-tab"
+            >
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Reinstatement</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox
+                      binary="true"
+                      name="reinstatement"
+                      [(ngModel)]="placementDetail.reinstatement"
+                    >
+                    </p-checkbox>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Initial</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox
+                      binary="true"
+                      name="initial"
+                      [(ngModel)]="placementDetail.initial"
+                    ></p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Change</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox
+                      binary="true"
+                      name="change"
+                      [(ngModel)]="placementDetail.change"
+                    ></p-checkbox>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Corrected Copy</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox
+                      binary="true"
+                      name="correctedCopy"
+                      [(ngModel)]="placementDetail.correctedCopy"
+                    >
+                    </p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>AWOL</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox
+                      binary="true"
+                      name="awol"
+                      [(ngModel)]="placementDetail.awol"
+                    ></p-checkbox>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Trial Home Placement</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox
+                      binary="true"
+                      name="trialHomePlacement"
+                      [(ngModel)]="placementDetail.trialHomePlacement"
+                    ></p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Planned Move</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox
+                      binary="true"
+                      name="plannedMove"
+                      [(ngModel)]="placementDetail.plannedMove"
+                    ></p-checkbox>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Other</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox
+                      binary="true"
+                      name="other"
+                      [(ngModel)]="placementDetail.other"
+                    ></p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Disruption</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox
+                      binary="true"
+                      name="disruption"
+                      [(ngModel)]="placementDetail.disruption"
+                      (onChange)="onChangeDisruptionCreate($event)"
+                    ></p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="full-border padding-5 margin-5">
+                <form [formGroup]="disruptionCreateForm">
+                  <div class="margin-top-20 row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Previous Placement-Provider Name</span>
+                      </div>
+                      <div
+                        class="col-lg-3 col-md-3 col-sm-3"
+                        *ngIf="isDisruptionEnable"
+                      >
+                        {{ previousPlacementProviderName }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="margin-top-20 row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Other Options Offered</span>
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-checkbox
+                          binary="true"
+                          name="otherOptOffered"
+                          [(ngModel)]="disruption.otherOptOffered"
+                          formControlName="otherOptOffered"
+                        >
+                        </p-checkbox>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Disruption Reason</span>
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-autoComplete
+                          emptyMessage="No records found!"
+                          [dropdown]="true"
+                          [forceSelection]="true"
+                          (completeMethod)="filterddisruptionReasons($event)"
+                          [suggestions]="filtereddisruptionReasons"
+                          field="DisruptionReason"
+                          name="disruptionReasonID"
+                          [(ngModel)]="disruption.disruptionReasonID"
+                          formControlName="disruptionReasonID"
+                        >
+                        </p-autoComplete>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="margin-top-20 row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Disruption Type</span>
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-autoComplete
+                          emptyMessage="No records found!"
+                          [dropdown]="true"
+                          [forceSelection]="true"
+                          (completeMethod)="filterddisruptionTypes($event)"
+                          [suggestions]="filtereddisruptionTypes"
+                          field="DisruptionType"
+                          name="disruptionTypeID"
+                          [(ngModel)]="disruption.disruptionTypeID"
+                          formControlName="disruptionTypeID"
+                        >
+                        </p-autoComplete>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="margin-top-20 row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Requested By Type</span>
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-autoComplete
+                          emptyMessage="No records found!"
+                          [dropdown]="true"
+                          [forceSelection]="true"
+                          field="view"
+                          (completeMethod)="getMetaData($event, 'requestedBy')"
+                          [suggestions]="metaData"
+                          name="requestedByType"
+                          (onSelect)="onSelectRequestedBy($event)"
+                          formControlName="requestedByType"
+                        >
+                        </p-autoComplete>
+                      </div>
+                    </div>
+                    <div
+                      class="col-lg-6 col-md-6 col-sm-6"
+                      *ngIf="isRequestedByProviderEnable"
+                    >
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Requested By Provider</span>
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-autoComplete
+                          placeholder="Type here to search"
+                          emptyMessage="No records found!"
+                          [dropdown]="true"
+                          [forceSelection]="true"
+                          field="providerName"
+                          (completeMethod)="getMetaData($event, 'provider')"
+                          [suggestions]="metaData"
+                          name="requestedByTypeProvider"
+                          [(ngModel)]="disruption.providerID"
+                          formControlName="requestedByProvider"
+                        >
+                          <ng-template let-provider pTemplate="item">
+                            <div
+                              class="ui-helper-clearfix"
+                              style="border-bottom: 1px solid #d5d5d5"
+                            >
+                              <table width="100%">
+                                <tr>
+                                  <th>Provider Name</th>
+                                  <th>Provider Type</th>
+                                  <th>Address</th>
+                                  <th>Phone</th>
+                                  <th>Sponsor Name</th>
+                                  <th>IsResidential</th>
+                                  <th>IS SFCS Sponsor</th>
+                                </tr>
+                                <tr>
+                                  <td>{{ provider?.providerName }}</td>
+                                  <td>
+                                    {{ provider?.providerTypeID?.providerType }}
+                                  </td>
+                                  <td></td>
+                                  <td></td>
+                                  <td>{{ provider?.isSponsor }}</td>
+                                  <td></td>
+                                  <td></td>
+                                </tr>
+                              </table>
+                            </div>
+                          </ng-template>
+                        </p-autoComplete>
+                      </div>
+                    </div>
+                    <div
+                      class="col-lg-6 col-md-6 col-sm-6"
+                      *ngIf="!isRequestedByProviderEnable"
+                    >
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <span>Requested By Staff</span>
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-autoComplete
+                          emptyMessage="No records found!"
+                          [dropdown]="true"
+                          [forceSelection]="true"
+                          (completeMethod)="
+                            getNotificationTypeStaffDropDownData($event)
+                          "
+                          [suggestions]="metaData"
+                          field="StaffName"
+                          name="requestedByStaff"
+                          formControlName="requestedByStaff"
+                          [(ngModel)]="disruption.staffID"
+                        >
+                          <ng-template let-staff pTemplate="item">
+                            <div
+                              class="ui-helper-clearfix"
+                              style="border-bottom: 1px solid #d5d5d5"
+                            >
+                              <table width="100%">
+                                <tr>
+                                  <th>Staff Name</th>
+                                  <th>Gender</th>
+                                  <th>Cell Phone</th>
+                                  <th>Office</th>
+                                </tr>
+                                <tr>
+                                  <td>{{ staff?.StaffName }}</td>
+                                  <td>{{ staff?.Gender }}</td>
+                                  <td>{{ staff?.CellPhone }}</td>
+                                  <td>{{ staff?.Office }}</td>
+                                </tr>
+                              </table>
+                            </div>
+                          </ng-template>
+                        </p-autoComplete>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row margin-top-20">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <span
+                          >If disruption due to child's behaviors, what
+                          behaviors was child displaying that caused
+                          disruption[Behaviors:(PR)]
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row margin-top-20">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                        <textarea
+                          pInputTextarea
+                          style="width: 100%; height: 100%"
+                          name="placementbehaviourUpdate"
+                          [(ngModel)]="placementbehaviourUpdate.behavior"
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Section 6 -->
+            <div
+              class="tab-pane"
+              id="nav-sec5"
+              role="tabpanel"
+              aria-labelledby="nav-fis-tab"
+            >
+              <strong class="margin-left-bold">DCF Outcomes Reporting</strong>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Plan End Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      hourFormat="12"
+                      [showTime]="false"
+                      showButtonBar="true"
+                      (onClearClick)="endDateCleared($event)"
+                      [showIcon]="true"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      yearRange="1900:2030"
+                      name="dcfplanEndDate"
+                      [(ngModel)]="placementDetail.dcfplanEndDate"
+                    >
+                    </p-calendar>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>New DCF Referral</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox
+                      binary="true"
+                      name="dcfnewReferral"
+                      [(ngModel)]="placementDetail.dcfnewReferral"
+                    >
+                    </p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <strong class="margin-left-bold">Overrides</strong>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Override ROC Reason</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete
+                      emptyMessage="No records found!"
+                      [dropdown]="true"
+                      [forceSelection]="true"
+                      (completeMethod)="filterdOverrideROC($event)"
+                      [suggestions]="filteredOverrideROC"
+                      field="DCFReleasedOfCustodyOverride"
+                      name="dcfreleasedOfCustodyOverrideID"
+                      [(ngModel)]="
+                        placementDetail.dcfreleasedOfCustodyOverrideID
+                      "
+                    >
+                    </p-autoComplete>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Override ROC</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      hourFormat="12"
+                      showButtonBar="true"
+                      showButtonBar="true"
+                      [showTime]="false"
+                      [showIcon]="true"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      yearRange="1900:2030"
+                      name="dcfreleasedOfCustodyOverrideDate"
+                      [(ngModel)]="
+                        placementDetail.dcfreleasedOfCustodyOverrideDate
+                      "
+                    ></p-calendar>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Override PED Reason</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete
+                      emptyMessage="No records found!"
+                      [dropdown]="true"
+                      [forceSelection]="true"
+                      (completeMethod)="filterdOverridePED($event)"
+                      [suggestions]="filteredOverridePED"
+                      field="PlanEndDateOverride"
+                      name="dcfplanEndDateOverrideID"
+                      [(ngModel)]="placementDetail.dcfplanEndDateOverrideID"
+                    >
+                    </p-autoComplete>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Override PED</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      hourFormat="12"
+                      showButtonBar="true"
+                      [showTime]="false"
+                      [showIcon]="true"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      yearRange="1900:2030"
+                      name="dcfplanEndDateOverride"
+                      [(ngModel)]="placementDetail.dcfplanEndDateOverride"
+                    ></p-calendar>
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Released of Custody</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete
+                      emptyMessage="No records found!"
+                      [dropdown]="true"
+                      [forceSelection]="true"
+                      (completeMethod)="filterdReleaseOfCustody($event)"
+                      [suggestions]="filteredReleaseOfCustody"
+                      field="DCFReleasedOfCustody"
+                      name="dcfreleasedOfCustodyID"
+                      [(ngModel)]="placementDetail.dcfreleasedOfCustodyID"
+                    >
+                    </p-autoComplete>
+                    <span
+                      class="fa fa-times-circle icon-red icon-clear cursor-pointer"
+                      (click)="onRemoveReleaseOfCustody('create')"
+                      pTooltip="Clear current selection"
+                    ></span>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Released of Custody</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      hourFormat="12"
+                      showButtonBar="true"
+                      [showTime]="false"
+                      [showIcon]="true"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      yearRange="1900:2030"
+                      name="dcfreleasedOfCustodyDate"
+                      [(ngModel)]="placementDetail.dcfreleasedOfCustodyDate"
+                    >
+                    </p-calendar>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Returned Home and NOT Released from DCF Custody</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox
+                      binary="true"
+                      (onChange)="dcfCustody()"
+                      name="retHomeWOCustody"
+                      [(ngModel)]="placementDetail.retHomeWCustody"
+                    ></p-checkbox>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Returned Home and NOT Released from DCF Custody</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      hourFormat="12"
+                      showButtonBar="true"
+                      [showTime]="false"
+                      [showIcon]="true"
+                      *ngIf="dcfDisable"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      yearRange="1900:2030"
+                      name="retHomeWOCustodyDate"
+                      [(ngModel)]="placementDetail.retHomeWCustodyDate"
+                    ></p-calendar>
+                    <input
+                      type="text"
+                      pInputText
+                      *ngIf="!dcfDisable"
+                      disabled
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Transfer to JJA</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox
+                      binary="true"
+                      (onChange)="jjaStatus()"
+                      name="jja"
+                      [(ngModel)]="placementDetail.jja"
+                    >
+                    </p-checkbox>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Transfer to JJA</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      hourFormat="12"
+                      showButtonBar="true"
+                      [showTime]="false"
+                      [showIcon]="true"
+                      *ngIf="jjaDisable"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      yearRange="1900:2030"
+                      name="jjaDate"
+                      [(ngModel)]="placementDetail.jjaDate"
+                    >
+                    </p-calendar>
+                    <input
+                      type="text"
+                      pInputText
+                      *ngIf="!jjaDisable"
+                      disabled
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Venue Change</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox
+                      binary="true"
+                      (onChange)="valueChangeStatus()"
+                      name="changeOfVenue"
+                      [(ngModel)]="placementDetail.changeOfVenue"
+                    ></p-checkbox>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Venue Change</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      hourFormat="12"
+                      showButtonBar="true"
+                      [showTime]="false"
+                      [showIcon]="true"
+                      *ngIf="valueDisable"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      yearRange="1900:2030"
+                      name="changeOfVenueDate"
+                      [(ngModel)]="placementDetail.changeOfVenueDate"
+                    ></p-calendar>
+                    <input
+                      type="text"
+                      pInputText
+                      *ngIf="!valueDisable"
+                      disabled
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Referral Dates -->
+            <div
+              class="tab-pane"
+              id="nav-sec6"
+              role="tabpanel"
+              aria-labelledby="nav-fis-tab"
+            >
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Referral Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      hourFormat="12"
+                      [showTime]="true"
+                      showButtonBar="true"
+                      [showIcon]="true"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      name="referralDate"
+                      [(ngModel)]="referralDates.referralDate"
+                      yearRange="1900:2030"
+                    ></p-calendar>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Payment End Date</span>
+                  </div>
+                  <div
+                    class="col-lg-3 col-md-3 col-sm-3 icon-display-flex-col3"
+                  >
+                    <p-calendar
+                      hourFormat="12"
+                      [showTime]="true"
+                      showButtonBar="true"
+                      (onClearClick)="endDateCleared($event)"
+                      [showIcon]="true"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      name="paymentEndDate"
+                      [(ngModel)]="referralDates.paymentEndDate"
+                      yearRange="1900:2030"
+                      [disabled]="true"
+                    >
+                    </p-calendar>
+                    <span
+                      class="fa fa-search icon-red cursor-pointer icon-margin-1 icon-font-20"
+                      (click)="onClickGetPaymentEndDateHistory()"
+                      pTooltip="Open placement end date history"
+                    ></span>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Referral Retracted Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      hourFormat="12"
+                      [showTime]="true"
+                      showButtonBar="true"
+                      [showIcon]="true"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      yearRange="1900:2030"
+                      name="retractedDate"
+                      [(ngModel)]="referralDates.retractedDate"
+                    ></p-calendar>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Retracted Reason</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input
+                      type="text"
+                      pInputText
+                      name="retractedReason"
+                      size="27"
+                      name="retractedReasonNote"
+                      [(ngModel)]="referralDates.retractedReasonNote"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Referral Withdraw Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      hourFormat="12"
+                      [showTime]="true"
+                      showButtonBar="true"
+                      [showIcon]="true"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      yearRange="1900:2030"
+                      name="withDrawDate"
+                      [(ngModel)]="referralDates.withDrawDate"
+                    ></p-calendar>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Withdraw Reason</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input
+                      type="text"
+                      pInputText
+                      name="retractedReason"
+                      size="27"
+                      name="withDrawReasonNote"
+                      [(ngModel)]="referralDates.withDrawReasonNote"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Referral Release Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      hourFormat="12"
+                      [showTime]="true"
+                      showButtonBar="true"
+                      [showIcon]="true"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      name="releaseDate"
+                      [(ngModel)]="referralDates.releaseDate"
+                      yearRange="1900:2030"
+                    ></p-calendar>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Release Reason</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input
+                      type="text"
+                      pInputText
+                      name="releaseReasonNote"
+                      [(ngModel)]="referralDates.releaseReasonNote"
+                      size="27"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Referral Closure Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      hourFormat="12"
+                      showButtonBar="true"
+                      [showTime]="true"
+                      [showIcon]="true"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      name="referralClosureEndDate"
+                      [(ngModel)]="referralDates.closureDate"
+                      yearRange="1900:2030"
+                    >
+                    </p-calendar>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Closure Reason</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input
+                      type="text"
+                      pInputText
+                      name="closureReasonNote"
+                      [(ngModel)]="referralDates.closureReasonNote"
+                      size="27"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Dually ADJ Begin Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      hourFormat="12"
+                      showButtonBar="true"
+                      [showTime]="true"
+                      [showIcon]="true"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      yearRange="1900:2030"
+                      name="dualAdjBeginDate"
+                      [(ngModel)]="referralDates.dualAdjBeginDate"
+                    >
+                    </p-calendar>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Dually ADJ End Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      hourFormat="12"
+                      [showTime]="true"
+                      showButtonBar="true"
+                      (onClearClick)="endDateCleared($event)"
+                      [showIcon]="true"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      yearRange="1900:2030"
+                      name="dualAdjEndDate"
+                      [(ngModel)]="referralDates.dualAdjEndDate"
+                    >
+                    </p-calendar>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Plan End Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      hourFormat="12"
+                      showButtonBar="true"
+                      [showTime]="true"
+                      showButtonBar="true"
+                      (onClearClick)="endDateCleared($event)"
+                      [showIcon]="true"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      name="dcfplanEndDate"
+                      [(ngModel)]="referralDates.dCFPlanEndDate"
+                      yearRange="1900:2030"
+                    >
+                    </p-calendar>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>DCF Begin Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      hourFormat="12"
+                      showButtonBar="true"
+                      [showTime]="true"
+                      [showIcon]="true"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      yearRange="1900:2030"
+                      name="dCFBeginDate"
+                      [(ngModel)]="referralDates.dCFBeginDate"
+                    ></p-calendar>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>DCF Prior Moves</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-spinner
+                      size="30"
+                      name="dCFPriorMoves"
+                      [step]="0.25"
+                      [(ngModel)]="referralDates.dCFPriorMoves"
+                    >
+                    </p-spinner>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Recidivist Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      hourFormat="12"
+                      showButtonBar="true"
+                      [showTime]="true"
+                      [showIcon]="true"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      yearRange="1900:2030"
+                      name="recidivistDate"
+                      [(ngModel)]="referralDates.recidivistDate"
+                    >
+                    </p-calendar>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Recidivist Override</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      hourFormat="12"
+                      showButtonBar="true"
+                      [showTime]="true"
+                      [showIcon]="true"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      yearRange="1900:2030"
+                      name="recidivistDateOverride"
+                      [(ngModel)]="referralDates.recidivistDateOverride"
+                    ></p-calendar>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Reminder -->
+            <div
+              class="tab-pane"
+              id="nav-sec7"
+              role="tabpanel"
+              aria-labelledby="nav-fis-tab"
+            >
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Reminder notes that will show before saving: </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea
+                      pInputTextarea
+                      style="width: 100%; height: 100%"
+                      name="notes"
+                      [(ngModel)]="placement.reminderNote"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Respite Authorization -->
+            <div
+              class="tab-pane"
+              id="nav-sec8"
+              role="tabpanel"
+              aria-labelledby="nav-fis-tab"
+            >
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Units Per Month</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-spinner
+                      size="30"
+                      [step]="0.25"
+                      name="unitsPermonth"
+                      [(ngModel)]="respite.unitsPerMonth"
+                    >
+                    </p-spinner>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Begin Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      hourFormat="12"
+                      [showTime]="true"
+                      [showIcon]="true"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      yearRange="1900:2030"
+                      name="beginDate"
+                      [(ngModel)]="respite.beginDate"
+                    >
+                    </p-calendar>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>End Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      hourFormat="12"
+                      [showTime]="true"
+                      [showIcon]="true"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      showButtonBar="true"
+                      (onClearClick)="endDateCleared($event)"
+                      yearRange="1900:2030"
+                      name="respiteEndDate"
+                      [(ngModel)]="respite.endDate"
+                    >
+                    </p-calendar>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Respite Payor</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete
+                      placeholder="Type here to search"
+                      emptyMessage="No records found!"
+                      [dropdown]="true"
+                      [forceSelection]="true"
+                      (completeMethod)="getMetaData($event, 'payor')"
+                      [suggestions]="metaData"
+                      field="payorName"
+                      name="payorID"
+                      [(ngModel)]="respite.payorID"
+                    >
+                    </p-autoComplete>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Respite Notes: </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea
+                      pInputTextarea
+                      style="width: 100%; height: 100%"
+                      name="notes"
+                      [(ngModel)]="respite.notes"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 7 -->
+            <div
+              class="tab-pane"
+              id="nav-sec10"
+              role="tabpanel"
+              aria-labelledby="nav-fis-tab"
+            >
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Name</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete
+                      placeholder="Type here to search"
+                      [(ngModel)]="sibs_data.name"
+                      name="name"
+                      emptyMessage="No records found!"
+                      [dropdown]="true"
+                      [forceSelection]="true"
+                      (completeMethod)="onFilterPlacementSiblingsList($event)"
+                      [suggestions]="filteredSiblingsList"
+                      field="clientName"
+                      (onSelect)="onSelectSiblings($event)"
+                      [ngModelOptions]="{ standalone: true }"
+                      [disabled]="isEdit"
+                    >
+                    </p-autoComplete>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>DOB</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      [showIcon]="true"
+                      [(ngModel)]="sibs_data.dob"
+                      name="dob"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      yearRange="1900:2030"
+                      [ngModelOptions]="{ standalone: true }"
+                      [disabled]="isEdit"
+                    ></p-calendar>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>ClientId</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input
+                      type="text"
+                      name="clientID"
+                      [(ngModel)]="sibs_data.client_id"
+                      pInputText
+                      [ngModelOptions]="{ standalone: true }"
+                      [disabled]="isEdit"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Effective Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      [showIcon]="true"
+                      [(ngModel)]="sibs_data.eff_date"
+                      name="eff_date"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      yearRange="1900:2030"
+                      [ngModelOptions]="{ standalone: true }"
+                      [disabled]="isEdit"
+                    ></p-calendar>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Adds</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="sibs_data.adds"
+                      name="adds"
+                      [ngModelOptions]="{ standalone: true }"
+                      [disabled]="isEdit"
+                    ></p-checkbox>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Removes</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="sibs_data.remove"
+                      name="remove"
+                      [ngModelOptions]="{ standalone: true }"
+                      [disabled]="isEdit"
+                    ></p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row"></div>
+
+              <br />
+              <button
+                type="button"
+                class="sf-positive-btn pull-right margin-right-82"
+                (click)="addSibisData()"
+              >
+                Add
+              </button>
+              <br />
+              <table class="fisMember-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>DOB</th>
+                    <th>Client Id</th>
+                    <th>Effective Date</th>
+                    <th>Adds?</th>
+                    <th>Remove?</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let alone of sibis_list; let i = index">
+                    <td>{{ alone?.name?.clientName }}</td>
+                    <td>{{ alone.dob | date: "MM/dd/yyyy" }}</td>
+                    <td>{{ alone.client_id }}</td>
+                    <td>{{ alone.eff_date | date: "MM/dd/yyyy" }}</td>
+                    <td>
+                      <span *ngIf="!alone.adds" class="negative-mark"
+                        >&#10006;</span
+                      >
+                      <span *ngIf="alone.adds" class="positive-mark"
+                        >&#10004;</span
+                      >
+                    </td>
+                    <td>
+                      <span *ngIf="!alone.remove" class="negative-mark"
+                        >&#10006;</span
+                      >
+                      <span *ngIf="alone.remove" class="positive-mark"
+                        >&#10004;</span
+                      >
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        class="sf-positive-btn ac"
+                        (click)="viewSibisData(alone, i)"
+                      >
+                        <em class="fa fa-eye" aria-hidden="true"></em>
+                      </button>
+                      <button
+                        type="button"
+                        class="sf-negative-btn ac"
+                        (click)="deleteSibsDet(i)"
+                      >
+                        <em class="fa fa-trash-o" aria-hidden="true"></em>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <app-form-footer
+          [attachmentControll]="isAttachmentRequired"
+          [isAttachmentDisabled]="false"
+          (attachDoc)="navigateTo()"
+          (save)="formAction(placement)"
+          [currentNodeValue]="placementEventReq"
+          (discard)="discardTo()"
+        >
+        </app-form-footer>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!isPlacementCreateForm">
+  <div class="container-background" style="height: 75vh">
+    <div class="container-foreground">
+      <div class="opencard-container">
+        <span
+          [routerLink]="[
+            '/reintegration/referral/placement-event-authorizations/list'
+          ]"
+          [queryParams]="{
+            module: 'authorization',
+            recId: currentPlacementDetailId
+          }"
+          queryParamsHandling="merge"
+          >Authorizations</span
+        >
+      </div>
+      <form class="sf-form" [formGroup]="editForm">
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Begin Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar
+                hourFormat="12"
+                [showTime]="true"
+                [showIcon]="true"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                [(ngModel)]="placementEdit.beginDate"
+                name="AuthorizationbeginDate"
+                yearRange="1900:2030"
+                formControlName="editBeginDate"
+                (onSelect)="autoFetchPaymentEndDate(placementEdit.beginDate)"
+                (onInput)="autoFetchPaymentEndDate(placementEdit.beginDate)"
+              ></p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar
+                hourFormat="12"
+                [showTime]="true"
+                [showIcon]="true"
+                [monthNavigator]="true"
+                showButtonBar="true"
+                (onClearClick)="endDateCleared($event)"
+                [yearNavigator]="true"
+                [(ngModel)]="placementEdit.endDate"
+                name="endDate"
+                yearRange="1900:2030"
+                formControlName="editEndDate"
+              >
+              </p-calendar>
+            </div>
+          </div>
+        </div>
+
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Received Form Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar
+                hourFormat="12"
+                *ngIf="isDataFetchCompleted && placementEdit.placementDetail"
+                formControlName="receivedFormDate"
+                [showTime]="true"
+                [showIcon]="true"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                yearRange="1900:2030"
+                [(ngModel)]="placementEditMode.formReceivedDate"
+              >
+              </p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Placement Location</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <textarea
+                readonly
+                formControlName="placementLocation"
+                pInputTextarea
+                style="width: 100%; height: 100%"
+                [(ngModel)]="providerFullAddress"
+                [disabled]="isDetailsPage"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Procedure Code</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                *ngIf="isDataFetchCompleted && placementEdit.placementDetail"
+                formControlName="editProcedureCode"
+                placeholder="Type here to search"
+                emptyMessage="No records found!"
+                [dropdown]="true"
+                [forceSelection]="true"
+                (completeMethod)="getPlacementProcodes($event, 'procode')"
+                [suggestions]="metaData"
+                field="procode"
+                (onSelect)="onSelectProcode(placement.beginDate, $event)"
+                name="procodeID"
+                [(ngModel)]="placementEditMode.procodeID"
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>DCF Service Code</span>
+              <span class="mandatory" *ngIf="!isDCFServiceCodeDisabled">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                *ngIf="isDataFetchCompleted && placementEdit.placementDetail"
+                [(ngModel)]="placementEditMode.sRSServiceCodeID"
+                placeholder="Type here to search"
+                emptyMessage="No records found!"
+                [dropdown]="true"
+                [forceSelection]="true"
+                (completeMethod)="getMetaData($event, 'sRSServiceCode')"
+                [suggestions]="metaData"
+                formControlName="editDCFServiceCode"
+                field="sRSServiceCode"
+                name="sRSServiceCodeID"
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Provider</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                (onSelect)="onProviderSelect($event)"
+                *ngIf="isDataFetchCompleted"
+                placeholder="Type here to search"
+                emptyMessage="No records found!"
+                [dropdown]="true"
+                [forceSelection]="true"
+                field="providerName"
+                (completeMethod)="getMetaData($event, 'provider')"
+                [suggestions]="metaData"
+                name="providerEdit"
+                [(ngModel)]="placementEdit.providerID"
+                formControlName="editProvider"
+                [disabled]="isDetailsPage"
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6"></div>
+        </div>
+
+        <nav class="nav-fill">
+          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a
+              class="nav-item nav-link"
+              *ngFor="let edit of editTabs; let i = index"
+              [class.active]="sIndex === i"
+              (click)="setIndex(i, $event)"
+              data-toggle="tab"
+              href="{{ edit.href }}"
+              role="tab"
+              >{{ edit.label }}</a
+            >
+          </div>
+        </nav>
+        <div
+          class="tab-content padding-15"
+          id="nav-tabContent"
+          style="
+            height: 50vh;
+            border-bottom: 0.5px solid #ccc;
+            overflow-y: scroll;
+          "
+        >
+          <div
+            *ngIf="isPlacementDetailFetched && isPlacementEditFetched"
+            class="tab-pane active in"
+            id="nav-edit1"
+            role="tabpanel"
+            aria-labelledby="nav-edit1-tab"
+          >
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Reason For Change: (ACK,PS)</span>
+                  <span *ngIf="isReasonForChangeMandatroy" class="mandatory"
+                    >*</span
+                  >
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-autoComplete
+                    formControlName="editReasonForChange"
+                    placeholder="Type here to search"
+                    emptyMessage="No records found!"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    (completeMethod)="filteredChanges($event)"
+                    [suggestions]="filteredReasonForChanges"
+                    field="ReasonForMove"
+                    name="reasonForMoveID"
+                    [(ngModel)]="placementEdit.reasonForMoveID"
+                  >
+                  </p-autoComplete>
+                </div>
+              </div>
+            </div>
+
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <span>Clarifications: (ACK)</span>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <textarea
+                    formControlName="editFormClarification"
+                    pInputTextarea
+                    style="width: 100%; height: 100%"
+                    name="clarification"
+                    [(ngModel)]="placementEditMode.clarification"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <span>Addtional Information: (PSA, PS, NOCL)</span>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <textarea
+                    formControlName="editAdditionalInformation"
+                    pInputTextarea
+                    style="width: 100%; height: 100%"
+                    name="addInfo"
+                    [(ngModel)]="placementEditMode.addInfo"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <span>SFCS Notes: (NA) </span>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <textarea
+                    formControlName="editSFCSNotes"
+                    pInputTextarea
+                    style="width: 100%; height: 100%"
+                    name="SFANotes"
+                    [(ngModel)]="placementEditMode.SFANotes"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Referral Dates -->
+          <div
+            *ngIf="isReferralDatesFetched"
+            class="tab-pane"
+            id="nav-edit2"
+            role="tabpanel"
+            aria-labelledby="nav-edit2-tab"
+          >
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Referral Date</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar
+                    hourFormat="12"
+                    [disabled]="isDetailsPage"
+                    showButtonBar="true"
+                    [showTime]="true"
+                    [showIcon]="true"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    name="placementEditReferralBeginDate"
+                    [(ngModel)]="placementEditDates.referralDate"
+                    yearRange="1900:2030"
+                    formControlName="editReferralDate"
+                    [disabled]="isReferralDateFieldsDiabled"
+                  >
+                  </p-calendar>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Payment End Date</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 icon-display-flex-col3">
+                  <p-calendar
+                    hourFormat="12"
+                    [disabled]="isDetailsPage"
+                    [showTime]="true"
+                    [showIcon]="true"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    name="placementEditReferralPaymentEndDate"
+                    [(ngModel)]="placementEditDates.paymentEndDate"
+                    yearRange="1900:2030"
+                    showButtonBar="true"
+                    (onClearClick)="endDateCleared($event)"
+                    formControlName="editPayementEndDate"
+                    [disabled]="true"
+                  ></p-calendar>
+                  <span
+                    class="fa fa-search icon-red cursor-pointer icon-margin-1 icon-font-20"
+                    (click)="onClickGetPaymentEndDateHistory()"
+                    pTooltip="Open placement end date history"
+                  ></span>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Referral Retracted Date</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar
+                    hourFormat="12"
+                    [showTime]="true"
+                    showButtonBar="true"
+                    [showIcon]="true"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    yearRange="1900:2030"
+                    name="placementEditReferralRetractedDate"
+                    [(ngModel)]="placementEditDates.retractedDate"
+                    formControlName="editReferralRetractedDate"
+                    [disabled]="isReferralDateFieldsDiabled"
+                  ></p-calendar>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Retracted Reason</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input
+                    [disabled]="isDetailsPage"
+                    type="text"
+                    showButtonBar="true"
+                    pInputText
+                    name="placementEditReferralRetractedReason"
+                    [(ngModel)]="placementEditDates.retractedReasonNote"
+                    size="27"
+                    formControlName="editRetractedReason"
+                    [disabled]="isReferralDateFieldsDiabled"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Referral Withdraw Date</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar
+                    hourFormat="12"
+                    [showTime]="true"
+                    showButtonBar="true"
+                    [showIcon]="true"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    yearRange="1900:2030"
+                    name="placementEditReferralWithDrawDate"
+                    [(ngModel)]="placementEditDates.withDrawDate"
+                    formControlName="editReferralWithdrawDate"
+                    [disabled]="isReferralDateFieldsDiabled"
+                  ></p-calendar>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Withdraw Reason</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input
+                    [disabled]="isDetailsPage"
+                    type="text"
+                    pInputText
+                    name="placementEditReferralRetractedReason"
+                    size="27"
+                    [(ngModel)]="placementEditDates.withDrawReasonNote"
+                    formControlName="editWithdrawReason"
+                    [disabled]="isReferralDateFieldsDiabled"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Referral Release Date</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar
+                    hourFormat="12"
+                    showButtonBar="true"
+                    [disabled]="isDetailsPage"
+                    [showTime]="true"
+                    [showIcon]="true"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    name="placementEditReferralRlacementEditreleaseDate"
+                    [(ngModel)]="placementEditDates.releaseDate"
+                    yearRange="1900:2030"
+                    formControlName="editReferralReleaseDate"
+                    [disabled]="isReferralDateFieldsDiabled"
+                  ></p-calendar>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Release Reason</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input
+                    [disabled]="isDetailsPage"
+                    type="text"
+                    pInputText
+                    name="placementEditReferralReleaseReasonNote"
+                    [(ngModel)]="placementEditDates.releaseReasonNote"
+                    size="27"
+                    formControlName="editReleaseReason"
+                    [disabled]="isReferralDateFieldsDiabled"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Referral Closure Date</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar
+                    hourFormat="12"
+                    showButtonBar="true"
+                    [showTime]="true"
+                    [showIcon]="true"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    name="placementEditReferralClosureDate"
+                    [(ngModel)]="placementEditDates.closureDate"
+                    yearRange="1900:2030"
+                    formControlName="editReferralClosureDate"
+                    [disabled]="isReferralDateFieldsDiabled"
+                  ></p-calendar>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Closure Reason</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input
+                    [disabled]="isDetailsPage"
+                    type="text"
+                    pInputText
+                    name="placementEditReferralRetractedReason"
+                    [(ngModel)]="placementEditDates.closureReasonNote"
+                    formControlName="editReferralClosureReason"
+                    size="27"
+                    [disabled]="isReferralDateFieldsDiabled"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Dually ADJ Begin Date</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar
+                    hourFormat="12"
+                    showButtonBar="true"
+                    [showTime]="true"
+                    [showIcon]="true"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    name="placementEditReferralDuallyBeginDate"
+                    yearRange="1900:2030"
+                    [(ngModel)]="placementEditDates.dualAdj_BeginDate"
+                    formControlName="editDuallyADJBeginDate"
+                    [disabled]="isReferralDateFieldsDiabled"
+                  ></p-calendar>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Dually ADJ End Date</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar
+                    hourFormat="12"
+                    showButtonBar="true"
+                    [showTime]="true"
+                    [showIcon]="true"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    name="placementEditReferralDuallyEndDate"
+                    yearRange="1900:2030"
+                    showButtonBar="true"
+                    (onClearClick)="endDateCleared($event)"
+                    [(ngModel)]="placementEditDates.dualAdj_EndDate"
+                    formControlName="editDuallyAJEndDate"
+                    [disabled]="isReferralDateFieldsDiabled"
+                  ></p-calendar>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Plan End Date</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar
+                    hourFormat="12"
+                    showButtonBar="true"
+                    [showTime]="true"
+                    [showIcon]="true"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    name="placementEditReferralDcfplanEndDate"
+                    yearRange="1900:2030"
+                    showButtonBar="true"
+                    (onClearClick)="endDateCleared($event)"
+                    [(ngModel)]="placementEditDates.dCFPlanEndDate"
+                    formControlName="editPlanEndDate"
+                    [disabled]="isReferralDateFieldsDiabled"
+                  ></p-calendar>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>DCF Begin Date</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar
+                    hourFormat="12"
+                    showButtonBar="true"
+                    [showTime]="true"
+                    [showIcon]="true"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    name="placementEditReferralDcfBeginDate"
+                    yearRange="1900:2030"
+                    [(ngModel)]="placementEditDates.dCFBeginDate"
+                    formControlName="editDCFBeginDate"
+                    [disabled]="isReferralDateFieldsDiabled"
+                  ></p-calendar>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>DCF Prior Moves</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-spinner
+                    size="30"
+                    name="placementEditReferralDcfPriorMoves"
+                    [step]="0.25"
+                    [(ngModel)]="placementEditDates.dCFPriorMoves"
+                    formControlName="editDCFPriorMoves"
+                    [disabled]="isReferralDateFieldsDiabled"
+                  ></p-spinner>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Recidivist Date</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar
+                    hourFormat="12"
+                    showButtonBar="true"
+                    [disabled]="isDetailsPage"
+                    [showTime]="true"
+                    [showIcon]="true"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    name="placementEditReferralRecidivistDate"
+                    yearRange="1900:2030"
+                    [(ngModel)]="placementEditDates.recidivistDate"
+                    formControlName="editRecidivistDate"
+                    [disabled]="isReferralDateFieldsDiabled"
+                  ></p-calendar>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Recidivist Override</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar
+                    hourFormat="12"
+                    showButtonBar="true"
+                    [showTime]="true"
+                    [showIcon]="true"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    name="placementEditReferralRecidivistOverride"
+                    yearRange="1900:2030"
+                    formControlName="editRecidivistOverride"
+                    [(ngModel)]="placementEditDates.recidivistDateOverride"
+                    [disabled]="isReferralDateFieldsDiabled"
+                  >
+                  </p-calendar>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tab-pane"
+            id="nav-edit3"
+            role="tabpanel"
+            aria-labelledby="nav-edit3-tab"
+          >
+            <div class="margin-top-20 row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <span>Reminder notes that will show before saving</span>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <textarea
+                  pInputTextarea
+                  name="palcementEditReminderNotes"
+                  formControlName="reminderNote"
+                  [(ngModel)]="placementEdit.reminderNote"
+                  style="width: 100%; height: 100%"
+                  [disabled]="isReferralDateFieldsDiabled"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tab-pane"
+            id="nav-edit4"
+            role="tabpanel"
+            aria-labelledby="nav-edit4-tab"
+          >
+            <table
+              border="1"
+              style="width: 100%"
+              *ngIf="placementEdit.respiteAuthorization"
+            >
+              <tr>
+                <th>Units Per Month</th>
+                <th>Begin Date</th>
+                <th>End Date</th>
+                <th>Respite Payor</th>
+                <th>Respite Notes</th>
+              </tr>
+              <tr *ngFor="let respite of placementEdit.respiteAuthorization">
+                <td>{{ respite.unitsPerMonth }}</td>
+                <td>{{ respite.beginDate | date: "MM/dd/yyyy" }}</td>
+                <td>{{ respite.endDate | date: "MM/dd/yyyy" }}</td>
+                <td>{{ respite.payor }}</td>
+                <td>{{ respite.notes }}</td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- Sibs in OOH -->
+          <div
+            *ngIf="isPlacementDetailFetched"
+            class="tab-pane"
+            id="nav-edit5"
+            role="tabpanel"
+            aria-labelledby="nav-fis-tab"
+          >
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Has Sibling in OOH Placement</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-checkbox
+                    formControlName="editHasSiblingInOOHPlacement"
+                    binary="true"
+                    name="isSibOOH"
+                    [(ngModel)]="placementEditMode.isSibOOH"
+                  >
+                  </p-checkbox>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Placed With Atleast One Sibling</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-checkbox
+                    formControlName="editPlacedWithAtleastOneSiblings"
+                    binary="true"
+                    name="isPlacedWSib"
+                    [(ngModel)]="placementEditMode.isPlacedWSib"
+                    (onChange)="
+                      isReasonNotPlacedTogetherEnable = !isReasonNotPlacedTogetherEnable
+                    "
+                  >
+                  </p-checkbox>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Reason Not Placed Together</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-autoComplete
+                    [disabled]="isDetailsPage"
+                    formControlName="editReasonNotPlacedTogether"
+                    placeholder="Type here to search"
+                    emptyMessage="No records found!"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    (completeMethod)="filteredNotPlacedTogether($event)"
+                    [suggestions]="filteredReasonForNotPlacedTogether"
+                    field="siblingReason"
+                    name="siblingReasonID"
+                    [(ngModel)]="placementEditMode.siblingReasonID"
+                    [disabled]="isReasonNotPlacedTogetherEnable"
+                  >
+                  </p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <span>Sibling Affected by this Move(ACK): </span>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <textarea
+                    formControlName="editSiblingAffectedByThisMove"
+                    pInputTextarea
+                    style="width: 100%; height: 100%"
+                    name="sibsAffectedbyMove"
+                    [(ngModel)]="placementEditMode.sibsAffectedbyMove"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- School -->
+          <div
+            *ngIf="isPlacementDetailFetched"
+            class="tab-pane"
+            id="nav-edit6"
+            role="tabpanel"
+            aria-labelledby="nav-fis-tab"
+          >
+            <div class="margin-top-20 row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <strong>Client Schools Linked to Placements</strong>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <table *ngIf="clientSchoolPlacements" class="wizard-table">
+                <th>From School</th>
+                <th>To School</th>
+                <th>Placement</th>
+                <th>Date of Change</th>
+                <tr
+                  *ngFor="let school of clientSchoolPlacements; let i = index"
+                >
+                  <td>
+                    <p-autoComplete
+                      (onSelect)="addSchool($event, i, 'fromSchool')"
+                      (completeMethod)="
+                        getClientSchoolList($event, 'clientSchool')
+                      "
+                      [ngModel]="school"
+                      [suggestions]="metaData"
+                      [ngModelOptions]="{ standalone: true }"
+                      emptyMessage="No results found!"
+                      placeholder="Type here to search"
+                      [forceSelection]="true"
+                      field="fromSchool"
+                      [dropdown]="true"
+                    >
+                    </p-autoComplete>
+                  </td>
+                  <td>
+                    <input
+                      class="width-100"
+                      [disabled]="true"
+                      [ngModelOptions]="{ standalone: true }"
+                      type="text"
+                      [(ngModel)]="clientSchoolPlacements[i].toSchool"
+                    />
+                  </td>
+                  <td>
+                    <p-autoComplete
+                      (onSelect)="addSchool($event, i, 'placement')"
+                      [ngModelOptions]="{ standalone: true }"
+                      (completeMethod)="getPlacementDropdown()"
+                      [ngModel]="school"
+                      [suggestions]="metaData"
+                      emptyMessage="No results found!"
+                      placeholder="Type here to search"
+                      [forceSelection]="true"
+                      field="placement"
+                      [dropdown]="true"
+                    >
+                    </p-autoComplete>
+                  </td>
+                  <td>
+                    <p-calendar
+                      hourFormat="12"
+                      [disabled]="true"
+                      [ngModel]="
+                        getUTCDateStringFormate(
+                          clientSchoolPlacements[i].dateofChange
+                        )
+                      "
+                      [ngModelOptions]="{ standalone: true }"
+                      [showTime]="true"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      yearRange="1900:2030"
+                    ></p-calendar>
+                  </td>
+                </tr>
+              </table>
+
+              <div *ngIf="clientSchoolPlacements">
+                <p style="text-align: center">
+                  <em>No, Placement school records found!</em>
+                </p>
+              </div>
+            </div>
+
+            <div class="school-actions">
+              <div>
+                <button>Add New</button>
+                <button (click)="updatePlacementSchool()">Save</button>
+                <button
+                  (click)="
+                    isAttendingSchoolList = true; getAttendingSchoolList()
+                  "
+                >
+                  Attending School
+                </button>
+                <button (click)="isHomeSchoolList = true; getHomeSchoolList()">
+                  Home School
+                </button>
+              </div>
+              <div>
+                Note: New schools added through 'Attending school' will not show
+                in this grid until after this placement is saved.
+              </div>
+            </div>
+          </div>
+          <!-- Notification Type -->
+          <div
+            *ngIf="isPlacementDetailFetched"
+            class="tab-pane"
+            id="nav-edit7"
+            role="tabpanel"
+            aria-labelledby="nav-fis-tab"
+          >
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Reinstatement</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-checkbox
+                    binary="true"
+                    name="reinstatement"
+                    formControlName="editReinstatement"
+                    [(ngModel)]="placementEditMode.reinstatement"
+                  >
+                  </p-checkbox>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Initial</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-checkbox
+                    formControlName="editInitial"
+                    binary="true"
+                    name="initial"
+                    [(ngModel)]="placementEditMode.initial"
+                  >
+                  </p-checkbox>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Change</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-checkbox
+                    formControlName="editFormControlName"
+                    binary="true"
+                    name="change"
+                    [(ngModel)]="placementEditMode.change"
+                  >
+                  </p-checkbox>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Corrected Copy</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-checkbox
+                    formControlName="editCorrectedCopy"
+                    binary="true"
+                    name="correctedCopy"
+                    [(ngModel)]="placementEditMode.correctedCopy"
+                  >
+                  </p-checkbox>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>AWOL</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-checkbox
+                    formControlName="editAwol"
+                    binary="true"
+                    name="awol"
+                    [(ngModel)]="placementEditMode.awol"
+                  >
+                  </p-checkbox>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Trial Home Placement</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-checkbox
+                    [disabled]="isDetailsPage"
+                    formControlName="editTrialHomePlacement"
+                    binary="true"
+                    name="trialHomePlacement"
+                    [(ngModel)]="placementEditMode.trialHomePlacement"
+                  >
+                  </p-checkbox>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Planned Move</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-checkbox
+                    formControlName="editPlannedMove"
+                    binary="true"
+                    name="plannedMove"
+                    [(ngModel)]="placementEditMode.plannedMove"
+                  >
+                  </p-checkbox>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Other</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-checkbox
+                    formControlName="editOther"
+                    binary="true"
+                    name="other"
+                    [(ngModel)]="placementEditMode.other"
+                  ></p-checkbox>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Disruption</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-checkbox
+                    formControlName="editDisruption"
+                    binary="true"
+                    name="disruption"
+                    [(ngModel)]="placementEditMode.disruption"
+                    (onChange)="onChangeDisruption($event)"
+                  >
+                  </p-checkbox>
+                </div>
+              </div>
+            </div>
+            <div class="full-border padding-5 margin-5">
+              <form [formGroup]="disruptionForm">
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Previous Placement-Provider Name</span>
+                    </div>
+                    <div
+                      class="col-lg-3 col-md-3 col-sm-3"
+                      *ngIf="isDisruptionEnable"
+                    >
+                      {{ previousPlacementProviderName }}
+                    </div>
+                  </div>
+                </div>
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Other Options Offered</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-checkbox
+                        formControlName="editOtherOptionOffered"
+                        [(ngModel)]="disruptionDetail.otherOptOffered"
+                        binary="true"
+                      >
+                      </p-checkbox>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Disruption Reason</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-autoComplete
+                        formControlName="editDisruptionReason"
+                        [(ngModel)]="disruptionInfoDisruptionReason"
+                        [ngClass]="
+                          isDetailsPage ? 'disable-class' : 'defaut-class'
+                        "
+                        emptyMessage="No records found!"
+                        [dropdown]="true"
+                        [forceSelection]="true"
+                        (completeMethod)="filterddisruptionReasons($event)"
+                        [suggestions]="filtereddisruptionReasons"
+                        field="DisruptionReason"
+                        name="disruptionReasonID"
+                      >
+                      </p-autoComplete>
+                    </div>
+                  </div>
+                </div>
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Disruption Type</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-autoComplete
+                        formControlName="editDisruptionType"
+                        [(ngModel)]="disruptionInfoDisruptionType"
+                        [ngClass]="
+                          isDetailsPage ? 'disable-class' : 'defaut-class'
+                        "
+                        emptyMessage="No records found!"
+                        [dropdown]="true"
+                        [forceSelection]="true"
+                        (completeMethod)="filterddisruptionTypes($event)"
+                        [suggestions]="filtereddisruptionTypes"
+                        field="DisruptionType"
+                        name="disruptionTypeID"
+                      >
+                      </p-autoComplete>
+                    </div>
+                  </div>
+                </div>
+                <div class="margin-top-20 row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Requested By Type</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-autoComplete
+                        formControlName="editRequestedByType"
+                        [(ngModel)]="disruptionInfoRequestedType"
+                        [ngClass]="
+                          isDetailsPage ? 'disable-class' : 'defaut-class'
+                        "
+                        emptyMessage="No records found!"
+                        [dropdown]="true"
+                        [forceSelection]="true"
+                        field="view"
+                        (completeMethod)="getMetaData($event, 'requestedBy')"
+                        [suggestions]="metaData"
+                        name="requestedByType"
+                        (onSelect)="onSelectRequestedBy($event)"
+                      >
+                      </p-autoComplete>
+                    </div>
+                  </div>
+                  <div
+                    class="col-lg-6 col-md-6 col-sm-6"
+                    *ngIf="isRequestedByProviderEnable"
+                  >
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Requested By Provider</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-autoComplete
+                        placeholder="Type here to search"
+                        emptyMessage="No records found!"
+                        [dropdown]="true"
+                        [forceSelection]="true"
+                        field="providerName"
+                        (completeMethod)="getMetaData($event, 'provider')"
+                        [suggestions]="metaData"
+                        name="requestedByTypeProvider"
+                        [(ngModel)]="disruptionEditProviderType"
+                        formControlName="requestedByProvider"
+                      >
+                        <ng-template let-provider pTemplate="item">
+                          <div
+                            class="ui-helper-clearfix"
+                            style="border-bottom: 1px solid #d5d5d5"
+                          >
+                            <table width="100%">
+                              <tr>
+                                <th>Provider Name</th>
+                                <th>Provider Type</th>
+                                <th>Address</th>
+                                <th>Phone</th>
+                                <th>Sponsor Name</th>
+                                <th>IsResidential</th>
+                                <th>IS SFCS Sponsor</th>
+                              </tr>
+                              <tr>
+                                <td>{{ provider?.providerName }}</td>
+                                <td>
+                                  {{ provider?.providerTypeID?.providerType }}
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td>{{ provider?.isSponsor }}</td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                            </table>
+                          </div>
+                        </ng-template>
+                      </p-autoComplete>
+                    </div>
+                  </div>
+                  <div
+                    class="col-lg-6 col-md-6 col-sm-6"
+                    *ngIf="!isRequestedByProviderEnable"
+                  >
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <span>Requested By Staff</span>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                      <p-autoComplete
+                        emptyMessage="No records found!"
+                        [dropdown]="true"
+                        [forceSelection]="true"
+                        (completeMethod)="
+                          getNotificationTypeStaffDropDownData($event)
+                        "
+                        [suggestions]="metaData"
+                        field="StaffName"
+                        name="editrequestedByStaff"
+                        formControlName="editRequestedByStaff"
+                        [(ngModel)]="disruption.staffID"
+                      >
+                        <ng-template let-staff pTemplate="item">
+                          <div
+                            class="ui-helper-clearfix"
+                            style="border-bottom: 1px solid #d5d5d5"
+                          >
+                            <table width="100%">
+                              <tr>
+                                <th>Staff Name</th>
+                                <th>Gender</th>
+                                <th>Cell Phone</th>
+                                <th>Office</th>
+                              </tr>
+                              <tr>
+                                <td>{{ staff?.StaffName }}</td>
+                                <td>{{ staff?.Gender }}</td>
+                                <td>{{ staff?.CellPhone }}</td>
+                                <td>{{ staff?.Office }}</td>
+                              </tr>
+                            </table>
+                          </div>
+                        </ng-template>
+                      </p-autoComplete>
+                    </div>
+                  </div>
+                </div>
+                <div class="row margin-top-20">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <span
+                        >If disruption due to child's behaviors, what behaviors
+                        was child displaying that caused
+                        disruption[Behaviors:(PR)]
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row margin-top-20">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <textarea
+                        formControlName="editBehaviorsPR"
+                        [(ngModel)]="behaviors"
+                        [disabled]="isDetailsPage"
+                        pInputTextarea
+                        style="width: 100%; height: 100%"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- Section 6 -->
+          <div
+            *ngIf="isPlacementDetailFetched"
+            class="tab-pane"
+            id="nav-edit8"
+            role="tabpanel"
+            aria-labelledby="nav-fis-tab"
+          >
+            <strong class="margin-left-bold">DCF Outcomes Reporting</strong>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Plan End Date</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar
+                    hourFormat="12"
+                    [showTime]="false"
+                    [showIcon]="true"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    [(ngModel)]="placementEditDates.dCFPlanEndDate"
+                    name="placementEventEditPlanEndDate"
+                    yearRange="1900:2030"
+                    formControlName="editSectionSixPlanEndDate"
+                  >
+                  </p-calendar>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>New DCF Referral</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-checkbox
+                    binary="true"
+                    name="dcfnewReferral"
+                    formControlName="editNewDCFReferral"
+                    [(ngModel)]="placementEditMode.dcfnewReferral"
+                  >
+                  </p-checkbox>
+                </div>
+              </div>
+            </div>
+            <strong class="margin-left-bold">Overrides</strong>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Override ROC Reason</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-autoComplete
+                    emptyMessage="No records found!"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    (completeMethod)="filterdOverrideROC($event)"
+                    [suggestions]="filteredOverrideROC"
+                    field="DCFReleasedOfCustodyOverride"
+                    name="dcfreleasedOfCustodyOverrideID"
+                    formControlName="editOverrideROCReason"
+                    [(ngModel)]="
+                      placementEditMode.dcfreleasedOfCustodyOverrideID
+                    "
+                  >
+                  </p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Override ROC</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar
+                    hourFormat="12"
+                    [showTime]="false"
+                    showButtonBar="true"
+                    [showIcon]="true"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    yearRange="1900:2030"
+                    name="dcfreleasedOfCustodyOverrideDate"
+                    formControlName="editOverrideROC"
+                    [(ngModel)]="
+                      placementEditMode.dcfreleasedOfCustodyOverrideDate
+                    "
+                  ></p-calendar>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Override PED Reason</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-autoComplete
+                    emptyMessage="No records found!"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    (completeMethod)="filterdOverridePED($event)"
+                    [suggestions]="filteredOverridePED"
+                    field="PlanEndDateOverride"
+                    name="dcfplanEndDateOverrideID"
+                    formControlName="editOverridePEDReason"
+                    [(ngModel)]="placementEditMode.dcfplanEndDateOverrideID"
+                  >
+                  </p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Override PED</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar
+                    hourFormat="12"
+                    [showTime]="false"
+                    showButtonBar="true"
+                    [showIcon]="true"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    yearRange="1900:2030"
+                    name="dcfplanEndDateOverride"
+                    formControlName="editOverridePED"
+                    [(ngModel)]="placementEditMode.dcfplanEndDateOverride"
+                  >
+                  </p-calendar>
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Released of Custody</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-autoComplete
+                    emptyMessage="No records found!"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    (completeMethod)="filterdReleaseOfCustody($event)"
+                    [suggestions]="filteredReleaseOfCustody"
+                    field="DCFReleasedOfCustody"
+                    name="dcfreleasedOfCustodyID"
+                    formControlName="editReleasedOfCustody"
+                    [(ngModel)]="placementEditMode.dcfreleasedOfCustodyID"
+                  >
+                  </p-autoComplete>
+                  <span
+                    class="fa fa-times-circle icon-red icon-clear cursor-pointer"
+                    (click)="onRemoveReleaseOfCustody('edit')"
+                    pTooltip="Clear current selection"
+                  ></span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Released of Custody</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar
+                    hourFormat="12"
+                    showButtonBar="true"
+                    [disabled]="isDetailsPage"
+                    [showTime]="false"
+                    [showIcon]="true"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    yearRange="1900:2030"
+                    name="dcfreleasedOfCustodyDate"
+                    formControlName="editReleasedOfCustodyDate"
+                    [(ngModel)]="placementEditMode.dcfreleasedOfCustodyDate"
+                  >
+                  </p-calendar>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Returned Home and NOT Released from DCF Custody</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-checkbox
+                    binary="true"
+                    (onChange)="dcfCustody()"
+                    name="retHomeWOCustodyEdit"
+                    [ngModelOptions]="{ standalone: true }"
+                    [(ngModel)]="placementEditMode.retHomeWCustody"
+                  >
+                  </p-checkbox>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Returned Home and NOT Released from DCF Custody</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar
+                    hourFormat="12"
+                    showButtonBar="true"
+                    [showTime]="false"
+                    [showIcon]="true"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    yearRange="1900:2030"
+                    name="retHomeWCustodyDate"
+                    [ngModelOptions]="{ standalone: true }"
+                    [(ngModel)]="placementEditMode.retHomeWCustodyDate"
+                  >
+                  </p-calendar>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Transfer to JJA</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-checkbox
+                    binary="true"
+                    (onChange)="jjaStatus()"
+                    name="jja"
+                    formControlName="editTransferToJJA"
+                    [(ngModel)]="placementEditMode.jja"
+                  >
+                  </p-checkbox>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Transfer to JJA</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar
+                    hourFormat="12"
+                    [showTime]="false"
+                    showButtonBar="true"
+                    [showIcon]="true"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    yearRange="1900:2030"
+                    name="jjaDate"
+                    formControlName="editTransferToJJADate"
+                    [(ngModel)]="placementEditMode.jjaDate"
+                  >
+                  </p-calendar>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Venue Change</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-checkbox
+                    binary="true"
+                    (onChange)="valueChangeStatus()"
+                    name="changeOfVenue"
+                    formControlName="editVenueChange"
+                    [(ngModel)]="placementEditMode.changeOfVenue"
+                  >
+                  </p-checkbox>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Venue Change</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar
+                    hourFormat="12"
+                    showButtonBar="true"
+                    [showTime]="false"
+                    [showIcon]="true"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    yearRange="1900:2030"
+                    name="changeOfVenueDate"
+                    formControlName="editVenueChangeDate"
+                    [(ngModel)]="placementEditMode.changeOfVenueDate"
+                  >
+                  </p-calendar>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Section 7-->
+          <div
+            *ngIf="isPlacementDetailFetched"
+            class="tab-pane"
+            id="nav-edit9"
+            role="tabpanel"
+            aria-labelledby="nav-fis-tab"
+          >
+            <div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Name</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete
+                      placeholder="Type here to search"
+                      [(ngModel)]="sibs_data.name"
+                      name="sibsEditName"
+                      emptyMessage="No records found!"
+                      [dropdown]="true"
+                      [forceSelection]="true"
+                      (completeMethod)="onFilterPlacementSiblingsList($event)"
+                      [suggestions]="filteredSiblingsList"
+                      field="clientName"
+                      (onSelect)="onSelectSiblings($event)"
+                      formControlName="editSectionSevenName"
+                      [disabled]="isEdit"
+                    >
+                    </p-autoComplete>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>DOB</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      [showIcon]="true"
+                      [(ngModel)]="sibs_data.dob"
+                      name="sibsEditDoB"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      yearRange="1900:2030"
+                      formControlName="editSectionSevenDOB"
+                      [disabled]="isEdit"
+                    ></p-calendar>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>ClientId</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input
+                      type="text"
+                      name="sibsEditClientID"
+                      [(ngModel)]="sibs_data.client_id"
+                      pInputText
+                      formControlName="editSectionSevenClientId"
+                      [disabled]="isEdit"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Effective Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar
+                      [showIcon]="true"
+                      [(ngModel)]="sibs_data.eff_date"
+                      name="sibsEditRff_date"
+                      [monthNavigator]="true"
+                      [yearNavigator]="true"
+                      yearRange="1900:2030"
+                      formControlName="editSectionSevenEffectiveDate"
+                      [disabled]="isEdit"
+                    ></p-calendar>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Adds</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="sibs_data.adds"
+                      name="sibsEditAdds"
+                      formControlName="editSectionSevenAdds"
+                      [disabled]="isEdit"
+                    ></p-checkbox>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Removes</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="sibs_data.remove"
+                      name="sibsEditRemove"
+                      formControlName="editSectionSevenRemoves"
+                      [disabled]="isEdit"
+                    ></p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row"></div>
+            </div>
+            <br />
+            <button
+              type="button"
+              class="sf-positive-btn pull-right margin-right-82"
+              (click)="addSibisData()"
+            >
+              <span>Add/Update</span>
+            </button>
+            <br />
+            <table class="fisMember-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>DOB</th>
+                  <th>Client Id</th>
+                  <th>Effective Date</th>
+                  <th>Adds?</th>
+                  <th>Remove?</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let alone of sibis_list; let i = index">
+                  <td>{{ alone?.name?.clientName }}</td>
+                  <td>{{ alone.dob | date: "MM/dd/yyyy" }}</td>
+                  <td>{{ alone.client_id }}</td>
+                  <td>{{ alone.eff_date | date: "MM/dd/yyyy" }}</td>
+                  <td>
+                    <span *ngIf="!alone.adds" class="negative-mark"
+                      >&#10006;</span
+                    >
+                    <span *ngIf="alone.adds" class="positive-mark"
+                      >&#10004;</span
+                    >
+                  </td>
+                  <td>
+                    <span *ngIf="!alone.remove" class="negative-mark"
+                      >&#10006;</span
+                    >
+                    <span *ngIf="alone.remove" class="positive-mark"
+                      >&#10004;</span
+                    >
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      class="sf-positive-btn ac"
+                      (click)="viewSibisData(alone, i)"
+                    >
+                      <em class="fa fa-eye" aria-hidden="true"></em>
+                    </button>
+                    <button
+                      type="button"
+                      class="sf-negative-btn ac"
+                      (click)="deleteSibsDet(i, alone)"
+                    >
+                      <em class="fa fa-trash-o" aria-hidden="true"></em>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!--  -->
+        </div>
+        <!--Space for placement authorization-->
+        <div>
+          <div>
+            <strong>Authorization</strong>
+            <table border="1" style="width: 100%">
+              <tr>
+                <th>Status</th>
+                <th>Units Auth</th>
+                <th>Units Remaining</th>
+                <th>Payor Rate</th>
+                <th>Provider Rate</th>
+                <th>Begin Date</th>
+                <th>End Date</th>
+                <th>DoNotPay</th>
+                <th>PaySponsor</th>
+                <th>Notes</th>
+              </tr>
+              <tr
+                *ngFor="let auth of this.placementEdit.placementAuthorization"
+                (click)="getClaimsList(auth.authorizationID)"
+              >
+                <td>{{ auth.status }}</td>
+                <td>{{ auth.unitsAuth }}</td>
+                <td>{{ auth.unitsRemaining }}</td>
+                <td>{{ auth.payorRate }}</td>
+                <td>{{ auth.providerRate }}</td>
+                <td>{{ auth.beginDate | date: "MM/dd/yyyy" }}</td>
+                <td>{{ auth.endDate | date: "MM/dd/yyyy" }}</td>
+                <td>{{ auth.doNotPay }}</td>
+                <td>{{ auth.paySponsor }}</td>
+                <td>{{ auth.notes }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="margin-top-20">
+          <strong>Claims</strong>
+          <table>
+            <tr>
+              <th>ClaimID</th>
+              <th>Status</th>
+              <th>Paid Agency</th>
+              <th>Units</th>
+              <th>Payor Rate</th>
+              <th>Total Payor Rate</th>
+              <th>Provider Rate</th>
+              <th>Total Provider Rate</th>
+              <th>Begin Date</th>
+              <th>End Date</th>
+              <th>Received Date</th>
+              <th>Expected Payment Date</th>
+              <th>Posted Date</th>
+              <th>Recoup claimID</th>
+              <th>Claim Payment Batch ID</th>
+            </tr>
+            <tr *ngFor="let claim of this.placementEdit.placementClaims">
+              <td>{{ claim.claimID }}</td>
+              <td>{{ claim.status }}</td>
+              <td>{{ claim.paidAgency }}</td>
+              <td>{{ claim.units }}</td>
+              <td>{{ claim.payorRate }}</td>
+              <td>{{ claim.totalPayorRate }}</td>
+              <td>{{ claim.providerRate }}</td>
+              <td>{{ claim.totalProviderRate }}</td>
+              <td>{{ claim.beginDate | date: "MM/dd/yyyy" }}</td>
+              <td>{{ claim.endDate | date: "MM/dd/yyyy" }}</td>
+              <td>{{ claim.receivedDate | date: "MM/dd/yyyy" }}</td>
+              <td>{{ claim.expectedPaymentDate | date: "MM/dd/yyyy" }}</td>
+              <td>{{ claim.postedDate | date: "MM/dd/yyyy" }}</td>
+              <td>{{ claim.recoupClaimID }}</td>
+              <td>{{ claim.claimPaymentBatchID }}</td>
+            </tr>
+          </table>
+        </div>
+      </form>
+
+      <app-form-footer
+        (deleteRecord)="deleteRecord()"
+        [isPrintNavigation]="isPrintNavigation"
+        [attachmentControll]="isAttachmentRequired"
+        [isAttachmentDisabled]="false"
+        (attachDoc)="navigateTo()"
+        (save)="formAction(placement)"
+        (edit)="editReleaseMode()"
+        [editControll]="isEdit"
+        [currentNodeValue]="placementEventReq"
+        (discard)="discardTo()"
+        [isFormLog]="isFormLog"
+        [formLogInfo]="formLogInfo"
+      >
+      </app-form-footer>
+    </div>
+  </div>
+</div>
+
+<p-dialog
+  [contentStyle]="{ 'min-width': '106rem' }"
+  header="Attending School"
+  [(visible)]="isAttendingSchool"
+  [modal]="true"
+  [responsive]="true"
+  [minY]="70"
+  [baseZIndex]="10000"
+  [closable]="true"
+>
+  <form class="sf-form" [formGroup]="attendingSchoolForm">
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Begin date</span><span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-calendar
+            hourFormat="12"
+            name="attendingSchoolBeginDate"
+            [(ngModel)]="attendingSchool.beginDate"
+            formControlName="attendingSchoolBeginDate"
+            [showIcon]="true"
+            showTime="true"
+            [yearNavigator]="true"
+            [monthNavigator]="true"
+            yearRange="2000:2030"
+            (onSelect)="onChangeAttendingSchoolBeginDate()"
+            (onInput)="onChangeAttendingSchoolBeginDate()"
+          ></p-calendar>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>End date</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-calendar
+            hourFormat="12"
+            name="attendingSchoolEndDate"
+            [(ngModel)]="attendingSchool.endDate"
+            showButtonBar="true"
+            (onClearClick)="endDateCleared($event)"
+            formControlName="attendingSchoolEndDate"
+            [showIcon]="true"
+            showTime="true"
+            [yearNavigator]="true"
+            [monthNavigator]="true"
+            yearRange="2000:2030"
+          >
+          </p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>School</span><span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete
+            formControlName="schoolID"
+            [(ngModel)]="attendingSchool.schoolID"
+            [suggestions]="metaData"
+            (completeMethod)="getMetaData($event, 'school')"
+            [dropdown]="true"
+            field="schoolName"
+            size="23"
+          >
+            <ng-template let-schoolID pTemplate="item">
+              <table>
+                <tr>
+                  <td><b>Name</b></td>
+                  <td>:</td>
+                  <td>{{ schoolID?.schoolName }}</td>
+                </tr>
+                <tr>
+                  <td><b>USD</b></td>
+                  <td>:</td>
+                  <td>{{ schoolID?.usd }}</td>
+                </tr>
+                <tr>
+                  <td><b>Address</b></td>
+                  <td>:</td>
+                  <td>{{ schoolID?.address }}</td>
+                </tr>
+                <tr>
+                  <td><b>City</b></td>
+                  <td>:</td>
+                  <td>{{ schoolID?.cityID?.city }}</td>
+                </tr>
+                <tr>
+                  <td><b>State</b></td>
+                  <td>:</td>
+                  <td>{{ schoolID?.stateID?.state }}</td>
+                </tr>
+              </table>
+            </ng-template>
+          </p-autoComplete>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Enrolled Begin Date</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-calendar
+            hourFormat="12"
+            name="enrolledBeginDate"
+            [(ngModel)]="attendingSchool.enrolledBeginDate"
+            formControlName="attendingSchoolEnrolledBeginDate"
+            [showIcon]="true"
+            showTime="true"
+            [yearNavigator]="true"
+            [monthNavigator]="true"
+            yearRange="2000:2030"
+          ></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Enrolled End Date</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-calendar
+            hourFormat="12"
+            name="enrolledEndDate"
+            [(ngModel)]="attendingSchool.enrolledEndDate"
+            showButtonBar="true"
+            (onClearClick)="endDateCleared($event)"
+            formControlName="attendingSchoolenrolledEndDate"
+            [showIcon]="true"
+            showTime="true"
+            [yearNavigator]="true"
+            [monthNavigator]="true"
+            yearRange="2000:2030"
+          ></p-calendar>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Change Reason</span><span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete
+            formControlName="attendingSchoolChangeReasonID"
+            [(ngModel)]="attendingSchool.changeReasonID"
+            [suggestions]="metaData"
+            (completeMethod)="getMetaData($event, 'change_reason')"
+            [dropdown]="true"
+            field="changeReason"
+            size="23"
+          ></p-autoComplete>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Notes</span></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-sm-12 col-md-12">
+        <div class="col-lg-12 col-sm-12 col-md-12">
+          <textarea
+            pInputTextarea
+            formControlName="notes"
+            name="inputTextarea"
+            [(ngModel)]="attendingSchool.notes"
+            style="width: 100%; height: 100%"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+  </form>
+  <button
+    (click)="addAttendingSchoolRecord()"
+    class="wizard-action-btn wizard-btn-save"
+  >
+    {{ attendingSchoolBtnLabel }}
+  </button>
+  <button
+    (click)="restWizards('attendingSchool')"
+    class="wizard-action-btn wizard-btn-reset"
+  >
+    Reset
+  </button>
+</p-dialog>
+
+<p-dialog
+  [contentStyle]="{ 'min-width': '106rem' }"
+  header="Home School"
+  [(visible)]="isHomeSchool"
+  [modal]="true"
+  [responsive]="true"
+  [minY]="70"
+  [baseZIndex]="10000"
+  [closable]="true"
+>
+  <form class="sf-form" [formGroup]="homeSchoolForm">
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin Date</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-calendar
+            hourFormat="12"
+            name="homeSchoolBeginDate"
+            [(ngModel)]="homeSchool.beginDate"
+            formControlName="beginDate"
+            [showIcon]="true"
+            showTime="true"
+            [yearNavigator]="true"
+            [monthNavigator]="true"
+            yearRange="2000:2030"
+          >
+          </p-calendar>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-calendar
+            hourFormat="12"
+            name="homeSchoolEndDate"
+            [(ngModel)]="homeSchool.endDate"
+            showButtonBar="true"
+            (onClearClick)="endDateCleared($event)"
+            formControlName="endDate"
+            [showIcon]="true"
+            showTime="true"
+            [yearNavigator]="true"
+            [monthNavigator]="true"
+            yearRange="2000:2030"
+          >
+          </p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>School</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete
+            name="school"
+            formControlName="schoolID"
+            [(ngModel)]="homeSchool.schoolID"
+            [suggestions]="metaData"
+            (completeMethod)="getMetaData($event, 'school')"
+            placeholder="Type here to search"
+            [dropdown]="true"
+            field="schoolName"
+            size="23"
+          ></p-autoComplete>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Change Reason</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete
+            name="changeReasonID"
+            formControlName="changeReasonID"
+            [(ngModel)]="homeSchool.changeReasonID"
+            [suggestions]="metaData"
+            (completeMethod)="getMetaData($event, 'change_reason')"
+            placeholder="Type here to search"
+            [dropdown]="true"
+            field="changeReason"
+            size="23"
+          ></p-autoComplete>
+        </div>
+      </div>
+    </div>
+  </form>
+  <button
+    (click)="restWizards('homeSchool')"
+    class="wizard-action-btn wizard-btn-reset"
+  >
+    Reset
+  </button>
+  <button
+    (click)="addHomeSchoolRecord()"
+    class="wizard-action-btn wizard-btn-save"
+  >
+    {{ homeSchoolBtnLabel }}
+  </button>
+</p-dialog>
+
+<p-dialog
+  [contentStyle]="{ 'min-width': '120rem' }"
+  header="Home School List"
+  [(visible)]="isHomeSchoolList"
+  [modal]="true"
+  [responsive]="true"
+  [minY]="100"
+  [baseZIndex]="10000"
+  [closable]="true"
+  [maximizable]="true"
+>
+  <button
+    (click)="schoolListViewWizardActions('homeSchool')"
+    class="wizard-add-btn"
+  >
+    Add
+  </button>
+  <table class="wizard-table" style="text-align: left" border="1">
+    <th *ngFor="let heading of homeSchoolListHeaders">
+      <tr>
+        <td>{{ heading }}</td>
+      </tr>
+    </th>
+    <tr *ngFor="let data of homeSchoolList" (click)="homeSchoolEditMode(data)">
+      <td>{{ data.homeSchoolID }}</td>
+      <td>{{ getUTCDateStringFormate(data.beginDate) }}</td>
+      <td>{{ data.schoolName }}</td>
+      <td><span class="fa fa-edit"></span></td>
+    </tr>
+  </table>
+</p-dialog>
+
+<p-dialog
+  [contentStyle]="{ 'min-width': '120rem' }"
+  header="Attending School List"
+  [(visible)]="isAttendingSchoolList"
+  [modal]="true"
+  [responsive]="true"
+  [minY]="100"
+  [baseZIndex]="10000"
+  [closable]="true"
+  [maximizable]="true"
+>
+  <button
+    (click)="schoolListViewWizardActions('attendingSchool')"
+    class="wizard-add-btn"
+  >
+    Add
+  </button>
+  <table class="wizard-table" style="text-align: left" border="1">
+    <th *ngFor="let heading of attendinSchoolListHeaders">
+      <tr>
+        <td>{{ heading }}</td>
+      </tr>
+    </th>
+    <tr *ngFor="let data of attendingSchoolList">
+      <td>{{ data.clientSchoolID }}</td>
+      <td>{{ getUTCDateStringFormate(data.BeginDate) }}</td>
+      <td>{{ getUTCDateStringFormate(data.EndDate) }}</td>
+      <td>{{ getUTCDateStringFormate(data.EnrolledBeginDate) }}</td>
+      <td>{{ getUTCDateStringFormate(data.EnrolledEndDate) }}</td>
+      <td>{{ data.schoolName }}</td>
+      <td>{{ data.changeReason }}</td>
+      <td (click)="attendingSchoolEditMode(data)">
+        <span class="fa fa-edit"></span>
+      </td>
+      <td (click)="openingDeleteConfirmation(data)">
+        <span class="fa fa-trash"></span>
+      </td>
+    </tr>
+  </table>
+</p-dialog>
+<p-dialog
+  [contentStyle]="{ 'min-width': '120rem' }"
+  header="Authorization"
+  [(visible)]="isAuthException"
+  [modal]="true"
+  [responsive]="true"
+  [minY]="100"
+  [baseZIndex]="10000"
+  [closable]="true"
+  [maximizable]="true"
+>
+  <form class="sf-form">
+    <div class="margin-top-20 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <span><strong>Authorization</strong></span>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Payor Rate</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner
+              [(ngModel)]="authException.originalPayorRate"
+              [step]="0.25"
+              [min]="0"
+              name="payorRate"
+              (onChange)="onChangeExceptionRateAutofecth()"
+            ></p-spinner>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Provider Rate</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner
+              [min]="0"
+              [(ngModel)]="authException.originalProviderRate"
+              [step]="0.25"
+              name="payorRate"
+              (onChange)="onChangeExceptionRateAutofecth()"
+            ></p-spinner>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <span><strong>Exception</strong></span>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Payor Rate</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner
+              [step]="0.25"
+              [min]="0"
+              [disabled]="true"
+              name="payorRateExce"
+              [(ngModel)]="authException.exceptionPayorRate"
+            ></p-spinner>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Provider Rate</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner
+              [min]="0"
+              [step]="0.25"
+              [disabled]="true"
+              name="providerRate"
+              [(ngModel)]="authException.exceptionProviderRate"
+            ></p-spinner>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Approved By</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete
+              placeholder="Type here to search"
+              emptyMessage="No records found!"
+              [dropdown]="true"
+              [forceSelection]="true"
+              (completeMethod)="getMetaData($event, 'staff')"
+              [suggestions]="metaData"
+              field="fullName"
+              name="approvedBy"
+              [(ngModel)]="authException.approvedBy_StaffID"
+            >
+              <ng-template let-staff pTemplate="item">
+                <div
+                  class="ui-helper-clearfix"
+                  style="border-bottom: 1px solid #d5d5d5"
+                >
+                  <table width="100%">
+                    <tr>
+                      <th>Staff Name</th>
+                      <th>Gender</th>
+                      <th>Cell Phone</th>
+                      <th>Office</th>
+                    </tr>
+                    <tr>
+                      <td>{{ staff?.lastName }}, {{ staff?.firstName }}</td>
+                      <td>{{ staff?.genderID?.gender }}</td>
+                      <td>{{ staff?.cellPh }}</td>
+                      <td>{{ staff?.sfaofficeID?.officeName }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Exception Reason</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete
+              placeholder="Type here to search"
+              emptyMessage="No records found!"
+              [dropdown]="true"
+              [forceSelection]="true"
+              (completeMethod)="getMetaData($event, 'expectionReason')"
+              [suggestions]="metaData"
+              field="authorizationExceptionReason"
+              name="authorizationExceptionReasonID"
+              [(ngModel)]="authException.authorizationExceptionReasonID"
+            >
+            </p-autoComplete>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <span>Explanation of need</span>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <textarea
+            pInputTextarea
+            style="width: 100%; height: 100%"
+            name="explanationOfneed"
+            [(ngModel)]="authException.explanationOfNeed"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+  </form>
+  <button
+    class="wizard-action-btn wizard-btn-save"
+    (click)="isAuthException = false"
+  >
+    Save
+  </button>
+</p-dialog>
+
+<p-dialog
+  [header]="printAckHeader"
+  [(visible)]="isAckOptions"
+  [responsive]="true"
+  showEffect="fade"
+  [modal]="true"
+  [width]="1000"
+  [minWidth]="400"
+  [minY]="80"
+  [baseZIndex]="10000"
+  [maximizable]="true"
+>
+  <app-ack-options
+    (disableAck)="disableAck()"
+    [moduleName]="moduleName"
+    [caseTeamList]="caseManagerList"
+    [caseManagerChangeReasnonList]="caseManagerChangeReasonList"
+    [judgeList]="judgeList"
+    [openSchoolList]="schoolList"
+    [attendingHomeSchoolReasonList]="attendingHomeSchoolReasonList"
+    [reasonLateList]="reasonLateList"
+    *ngIf="isAckOptions"
+  ></app-ack-options>
+</p-dialog>
+
+<p-dialog header="Corrected Copy" [(visible)]="isCorrectCopyConfirmationOpen">
+  <div>
+    <span>Corrected Copy is not checked. Are you sure want to continue?</span>
+  </div>
+  <div
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      margin-top: 20px;
+    "
+  >
+    <button
+      (click)="onClickPlacementUpdateValidation()"
+      class="sf-positive-btn"
+    >
+      OK
+    </button>
+    <button
+      (click)="isCorrectCopyConfirmationOpen = false"
+      class="sf-negative-btn"
+    >
+      No
+    </button>
+  </div>
+</p-dialog>
+
+<p-dialog
+  header="Attending School Delete Confirmation"
+  [(visible)]="isAtteningSchoolDeleteConfirmation"
+  [responsive]="true"
+  showEffect="fade"
+  [modal]="true"
+  [width]="1000"
+  [minWidth]="400"
+  [minY]="80"
+  [baseZIndex]="10000"
+  [maximizable]="false"
+>
+  <div>
+    <span>Are you sure want to delete this record ?</span>
+  </div>
+  <div style="display: flex; align-items: flex-end">
+    <button class="sf-positive-btn" (click)="onClickAttendingSchoolDelete()">
+      Yes
+    </button>
+    <button
+      class="sf-negative-btn"
+      (click)="isAtteningSchoolDeleteConfirmation = false"
+    >
+      No
+    </button>
+  </div>
+</p-dialog>
+<p-dialog
+  header="Placement Date Validation"
+  [(visible)]="isPlacementDateValidationOpen"
+>
+  <app-placement-date-validation
+    (exitValidation)="placementEventDateValidationExitOut($event)"
+    (overallValidationOut)="placementOverallValidationStatus($event)"
+  ></app-placement-date-validation>
+</p-dialog>
+<p-dialog
+  header="Payment Dates"
+  [(visible)]="isOpenPaymentDates"
+  [responsive]="true"
+  showEffect="fade"
+  [baseZIndex]="10000"
+  [maximizable]="true"
+>
+  <div *ngIf="paymentEndDateHistory === undefined">
+    <h3>Please wait...</h3>
+  </div>
+  <div *ngIf="paymentEndDateHistory">
+    <table style="width: 100%">
+      <th>Payment Begin Date</th>
+      <th>Payment End Date</th>
+      <tr *ngFor="let date of paymentEndDateHistory">
+        <td>{{ date?.PaymentBeginDate }}</td>
+        <td>
+          <span *ngIf="date.PaymentEndDate !== null">{{
+            date?.PaymentEndDate
+          }}</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+</p-dialog>
+<p-dialog header="Claims Exist" [(visible)]="isClaimValidation">
+  <p>
+    There are claims that exist for this Placement Event and if you change the
+    procode these claims wil need to be recouped. Are you sure you want
+    continue?
+  </p>
+  <div>
+    <button class="sf-positive-btn" (click)="isClaimValidation = false">
+      Yes
+    </button>
+    <button class="sf-negative-btn" (click)="onclickNoInClaimValidation()">
+      No
+    </button>
+  </div>
+</p-dialog>

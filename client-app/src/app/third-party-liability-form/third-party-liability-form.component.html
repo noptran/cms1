@@ -1,0 +1,159 @@
+<!-- <div style="margin-top:60px"> -->
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<!-- <div class="container-fluid"> -->
+<app-form-header [title]="title" [breadcrumbs]="breadcrumbs"></app-form-header>
+<div class="container-background">
+  <div class="container-foreground">
+    <form [formGroup]="tplForm" class="sf-form">
+      <div class="sf-default-form scroll-height">
+        <nav class="nav-fill">
+          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link" *ngFor="let main of mainTabs;let i = index" [class.active]="sIndex  === i"
+              (click)="setIndex(i,$event)" data-toggle="tab" href="{{main.href}}" role="tab">{{main.label}}</a>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane margin-left-45  active in" id="nav-1" role="tabpanel" aria-labelledby="nav-general-tab">
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Insurance</span> <span class="mandatory">*</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-autoComplete formControlName="insurance" [(ngModel)]="tpl.tplid" [suggestions]="metadata"
+                    (completeMethod)="getMetadata($event,'insurance')" [dropdown]="true" field="company" size="23"></p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Group No</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input type="text" pInputText formControlName="groupNo" name="inputText" [(ngModel)]="tpl.groupNo"
+                    size="27" maxlength="15" />
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Policy No</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input type="text" pInputText formControlName="policyNo" name="inputText" [(ngModel)]="tpl.policyNo"
+                    size="27" maxlength="15"/>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin Date</span> <span class="mandatory">*</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar name="dateInput" [(ngModel)]="tpl.beginDate" formControlName="beginDate" [showIcon]="true"
+                    [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-calendar name="dateInput" [(ngModel)]="tpl.endDate" formControlName="endDate" [showIcon]="true"
+                    [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Contact FName</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input type="text" pInputText formControlName="contact_FirstName" name="inputText" [(ngModel)]="tpl.contact_FirstName"
+                    size="27 "maxlength="25" />
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Contact LName</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input type="text" pInputText formControlName="contact_LastName" name="inputText" [(ngModel)]="tpl.contact_LastName"
+                    size="27" maxlength="25" />
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Contact MI</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input type="text" pInputText formControlName="contact_MI" name="inputText" [(ngModel)]="tpl.contact_MI"
+                    size="27" maxlength="2" />
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Phone</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-inputMask mask="(999) 999-9999" formControlName="phone" name="tpl" [(ngModel)]="tpl.phone"></p-inputMask>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Subscriber FName</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input type="text" pInputText formControlName="subscriber_FirstName" name="inputText" [(ngModel)]="tpl.subscriber_FirstName"
+                    size="27" maxlength="25" />
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Subscriber LName</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input type="text" pInputText formControlName="subscriber_LastName" name="inputText" [(ngModel)]="tpl.subscriber_LastName"
+                    size="27" maxlength="25" />
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Subscriber MI</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input type="text" pInputText formControlName="subscriber_mi" name="inputText" [(ngModel)]="tpl.subscriber_MI"
+                    size="27" maxlength="2" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane margin-left-45 " id="nav-2" role="tabpanel" aria-labelledby="nav-test-tab">
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Subscriber SSN</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-inputMask mask="999-99-9999" formControlName="ssn" name="ssn" [(ngModel)]="tpl.subscriber_SSN"></p-inputMask>
+
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Terminate Reason</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input type="text" pInputText formControlName="terminateReason" name="inputText" [(ngModel)]="tpl.terminateReason"
+                    size="27" />
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Notes</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <textarea pInputTextarea style="width:100%;height:100%" formControlName="notes" name="inputTextarea"
+                    [(ngModel)]="tpl.notes" rows="2" cols="28"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer [attachmentControll]="isAttachmentRequired" [isAttachmentDisabled]="false"
+    (attachDoc)="navigateTo()" (save)="save(tpl)" (reset)="resetForm()" (discard)="discardForm()" (edit)="editForm()"
+      [editControll]="isEditForm" [discardTo]="discardTo" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+      <app-quick-menu [module]="quickMenu"></app-quick-menu>
+    </div>
+</div>

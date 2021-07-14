@@ -1,0 +1,107 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-backgorund">
+  <div class="container-foreground">
+    <form class="sf-form form-container" [formGroup]="providerLicenseException">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" hourFormat="12" [yearNavigator]="true" [(ngModel)]="licenseExcep.beginDate"
+              [monthNavigator]="true" formControlName="beginDate" yearRange="2000:2030" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" hourFormat="12" [yearNavigator]="true" [(ngModel)]="licenseExcep.endDate"
+              [monthNavigator]="true" yearRange="2000:2030" formControlName="endDate" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Reason</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText name="inputText" formControlName="reason" [(ngModel)]="licenseExcep.reason"
+              size="27" />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Child Name</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText name="inputText" formControlName="childName"
+              [(ngModel)]="licenseExcep.childName" ptooltip="licenseExcep.childName" />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Response Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" hourFormat="24" [yearNavigator]="true" [(ngModel)]="licenseExcep.DCFResponse"
+              [monthNavigator]="true" yearRange="2000:2030" formControlName="DCFResponse" [showIcon]="true">
+            </p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Sent To DCF</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" hourFormat="24" [yearNavigator]="true" [(ngModel)]="licenseExcep.sentToDCF"
+              [monthNavigator]="true" yearRange="2000:2030" formControlName="sentToDCF" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>SFCS Status</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="statusType" [(ngModel)]="licenseExcep.statusTypeID"
+              [forceSelection]="true" placeholder="Type here to search" field="statusType"
+              (completeMethod)="sfcsStatus($event)" formControlName="statusTypeID" [suggestions]="metaData" size="23">
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>DCF Approval</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="dcfApprovalID" [(ngModel)]="licenseExcep.approval_YesNoPendingID"
+              [forceSelection]="true" placeholder="Type here to search" field="yesNoPending"
+              formControlName="approval_YesNoPendingID" (completeMethod)="getMetaData($event,'yesNoPending')"
+              [suggestions]="metaData" size="23"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Inactive Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" hourFormat="24" formControlName="inactiveDate" [yearNavigator]="true"
+              [(ngModel)]="licenseExcep.inactiveDate" [monthNavigator]="true" yearRange="2000:2030" [showIcon]="true">
+            </p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea pInputTextarea name="inputTextarea" formControlName="notes" [(ngModel)]="licenseExcep.notes"
+              style="width:100%;height:100%"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer [attachmentControll]="isAttachmentRequired" (attachDoc)="navigateTo()" [discardTo]="discardTo"
+      (save)="save(licenseExcep)" (edit)="editForm()" [editControll]="isEdit" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+    </app-form-footer>
+  </div>
+</div>

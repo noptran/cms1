@@ -1,0 +1,59 @@
+<div *ngIf="isOpenForm">
+    <form class="sf-form" [formGroup]="treatmentForm">
+        <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Person Table</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete [dropdown]="true" [forceSelection]="true" field="personAssignmentType"
+                        name="personTable" (completeMethod)="onFilterPersonTable($event)" [suggestions]=" metaData"
+                        (onSelect)="onSelectPersonTable($event)" formControlName="personAssignmentTypeID"
+                        [(ngModel)]="treatment.personAssignmentTypeID">
+                    </p-autoComplete>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Person Name</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete [dropdown]="true" [forceSelection]="true" [field]="personNameField"
+                        name="personName" (completeMethod)="onFilterPersonName($event)" [suggestions]="metaData"
+                        [(ngModel)]="treatment.personID" formControlName="personID">
+                    </p-autoComplete>
+                </div>
+            </div>
+        </div>
+        <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin date</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar name="beginDate" [showIcon]="true" showTime="true" hourFormat="24"
+                        [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" formControlName="beginDate"
+                        [(ngModel)]="treatment.beginDate">
+                    </p-calendar>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>End date</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar name="endDate" [showIcon]="true" showTime="true" hourFormat="24" [yearNavigator]="true"
+                        [monthNavigator]="true" yearRange="2000:2030" formControlName="endDate"
+                        [(ngModel)]="treatment.endDate">
+                    </p-calendar>
+                </div>
+            </div>
+        </div>
+        <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+            </div>
+        </div>
+        <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea style="width: 100%;height: 100%;" formControlName="notes" name="notes"
+                        [(ngModel)]="treatment.notes"></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+    <app-form-footer (save)="onFormAction()" (edit)="editForm()" [editControll]="isEdit" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+</div>

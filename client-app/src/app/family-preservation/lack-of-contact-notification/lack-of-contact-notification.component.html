@@ -1,0 +1,157 @@
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="lackOfContactForm" class="sf-form">
+      <div class="flex-container header">
+          <div>
+    
+          </div>
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+          <div>
+    
+          </div>
+        </div>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <tr>
+          <th colspan="4" class="active">
+            Section I
+          </th>
+        </tr>
+        <tr>
+          <th>To: DCF Social Worker</th>
+          <td>
+            <input [(ngModel)]="fpLackOfContact.socialWorker" formControlName="socialWorker" name="socialWorker"  type="text" pInputText size="20" />
+          </td>
+          <th>Staff name and Agency</th>
+          <td>
+            <input [(ngModel)]="fpLackOfContact.staffName" formControlName="staffName" name="staffName"  type="text" pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <th> Date:</th>
+          <td colspan="3">
+            <p-calendar [(ngModel)]="fpLackOfContact.date" formControlName="date" name="date"  showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <th colspan="4" class="active">
+            Section II
+          </th>
+        </tr>
+        <tr>
+          <th> Case head</th>
+          <td colspan="3">
+            <input [(ngModel)]="fpLackOfContact.caseHead" formControlName="caseHead" name="caseHead"  type="text" pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <th>Case head FACTS no.</th>
+          <td>
+            <input [(ngModel)]="fpLackOfContact.factsNo" formControlName="factsNo" name="factsNo"  type="text" pInputText size="20" />
+          </td>
+          <th>Date of Referral</th>
+          <td>
+            <p-calendar [(ngModel)]="fpLackOfContact.dateOfReferral" formControlName="dateOfReferral" name="dateOfReferral"  showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <th colspan="4" class="active">
+            Section III
+          </th>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="flex-container">
+              <div>
+                Intensive phase
+              </div>
+              <div>
+                <p-checkbox binary="true" [(ngModel)]="fpLackOfContact.isIntensivePhase" formControlName="isIntensivePhase" name="isIntensivePhase"  name="phase"></p-checkbox>
+              </div>
+            </div>
+          </td>
+          <td colspan="2">
+            <div class="flex-container">
+              <div>
+                Non-Intensive phase
+              </div>
+              <div>
+                <p-checkbox binary="true" [(ngModel)]="fpLackOfContact.isNonIntensivePhase" formControlName="isNonIntensivePhase" name="isNonIntensivePhase"  name="phase"></p-checkbox>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th> Date Family last seen</th>
+          <td colspan="3">
+            <p-calendar [(ngModel)]="fpLackOfContact.dateFamily" formControlName="dateFamily" name="dateFamily"  showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr>
+          <th colspan="4" class="active">
+            Section IV
+          </th>
+        </tr>
+        <tr>
+          <td colspan="4">
+            Summary of attempts to locate and case progress: (Please include any new/updated contact information)
+            <textarea [(ngModel)]="fpLackOfContact.summaryOfAttempts" formControlName="summaryOfAttempts" name="summaryOfAttempts"  pInputTextarea autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <th colspan="4" class="active">
+            Section V
+          </th>
+        </tr>
+        <tr>
+          <td colspan="2">Safety Concerns</td>
+          <td>
+            <div class="flex-container">
+              <div> Yes </div>
+              <div>
+                <p-checkbox binary="true" [(ngModel)]="fpLackOfContact.isSafetyConcernsYes" formControlName="isSafetyConcernsYes" name="isSafetyConcernsYes"></p-checkbox>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="flex-container">
+              <div>No</div>
+              <div>
+                <p-checkbox binary="true" [(ngModel)]="fpLackOfContact.isSafetyConcernsNo" formControlName="isSafetyConcernsNo" name="isSafetyConcernsNo"></p-checkbox>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">
+            If yes, please describe (if there are safety concerns, consider whether a critical incident and/or KPRC
+            report is needed)
+            <textarea [(ngModel)]="fpLackOfContact.describe" formControlName="describe" name="describe"  pInputTextarea autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <th colspan="4"  class="active">
+            Section VI
+          </th>
+        </tr>
+        <tr>
+          <td>Signature of Provider Staff</td>
+          <td colspan="3"> <input [(ngModel)]="fpLackOfContact.signatureProviderStaff" formControlName="signatureProviderStaff" name="signatureProviderStaff"  type="text" pInputText size="20" /></td>
+        </tr>
+        <tr>
+          <td>Signature of Provider Supervisor</td>
+          <td colspan="3"> <input [(ngModel)]="fpLackOfContact.signatureProviderSupervisor" formControlName="signatureProviderSupervisor" name="signatureProviderSupervisor"  type="text" pInputText size="20" /></td>
+        </tr>
+      </table>
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm(fpLackOfContact)" 
+[editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"
+[isEmail]="isEmail" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>

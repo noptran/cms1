@@ -1,0 +1,351 @@
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="mail-attachments" id="attachForm">
+  <form style="margin: 2rem;">
+    <div style="text-align:center;font-weight:bold;margin:3rem 3rem 1rem 3rem;">
+      <div>Family Preservation</div>
+      <div>Acknowledgement of Referral/Change</div>
+    </div>
+    <div style="display: grid;grid-template-columns: 5% 19% 20% 40%;padding: 1rem;">
+      <div class="itemJustifyEnd margin-right-1rem" style="margin-right:1rem;">
+        <b>To:</b>
+      </div>
+      <div>
+        <u>{{ackForm?.toPerson}}</u>
+      </div>
+      <div>
+        <b>Provider Case Manager/Agency</b>
+      </div>
+      <div>
+        <u>{{ackForm?.providerStaff}}</u>
+      </div>
+    </div>
+    <div style="display: grid;
+                    grid-template-columns: 9% 14% 15% 17%;">
+      <div>
+        <input style="margin:1rem" [(ngModel)]="ackForm.initial" [ngModelOptions]="{standalone: true}" type="checkbox"
+          disabled>Initial</div>
+      <div>
+        <input style="margin:1rem" [(ngModel)]="ackForm.reOpen" value="true" name="reOpen" type="checkbox"
+          disabled>Reinstatement</div>
+      <div>
+        <input style="margin:1rem" [(ngModel)]="ackForm.correctedCopy" [ngModelOptions]="{standalone: true}"
+          type="checkbox" disabled>Corrected
+        Copy
+      </div>
+      <div>
+        <input style="margin:1rem" type="checkbox" [(ngModel)]="ackForm.isPWSChild"
+          [ngModelOptions]="{standalone: true}" disabled>Drug
+        Toxicology Results</div>
+    </div>
+    <div style="border:1px solid black;margin-top:2rem;padding-left:1rem;">
+      <b>
+        <u>Section I:</u>
+      </b>
+      <div style="display: grid;
+                    grid-template-columns: 16% 22% 9% 12%;padding: 1rem;">
+        <div>
+          <b>Name of Case Head</b>
+        </div>
+        <div>
+          <u>{{ackForm?.caseHead}}</u>
+        </div>
+        <div>
+          <b>DOB</b>
+        </div>
+        <div>
+          <u>{{ackForm?.hohDob | date:"MM/dd/yyyy"}}</u>
+        </div>
+      </div>
+      <div style="display: grid;
+                    grid-template-columns: 16% 22% 9% 15% 11% 15%;padding: 1rem;">
+        <div>
+          <b>Client ID</b>
+        </div>
+        <div>
+          <u>{{ackForm?.factsCase}}</u>
+        </div>
+        <div>
+          <b>FACTS Case #</b>
+        </div>
+        <div>
+          <u>{{ackForm?.facts}}</u>
+        </div>
+        <div>
+          <b>Court Case #</b>
+        </div>
+        <div>
+
+        </div>
+      </div>
+    </div>
+    <div style="border:1px solid black;margin-top:2rem;padding-left:1rem;">
+      <b>
+        <u>Section II:</u>
+      </b>
+      <div style="display: grid;
+                    grid-template-columns: 26% 12%;padding: 1rem;">
+        <div>
+          <b>Date/Time Referral Received by Provider</b>
+        </div>
+        <div>
+          <u>{{ackForm?.referralDate | date:"MM/dd/yyyy HH:MM"}}</u>
+        </div>
+      </div>
+    </div>
+    <div style="border:1px solid black;margin-top:2rem;padding-left:1rem;">
+      <b>
+        <u>Section III:</u>
+      </b>
+      <div style="display: grid;
+                    grid-template-columns: 14% 74%;padding: 1rem;">
+        <div class="itemJustifyEnd margin-right-1rem" style="margin-right:1rem;">
+          <b>Provider Staff Assigned</b>
+        </div>
+        <div>
+          <u>{{ackForm?.providerStaff}}</u>
+        </div>
+      </div>
+      <div style="display: grid;
+                    grid-template-columns: 14% 10%;padding: 1rem;">
+        <div class="itemJustifyEnd margin-right-1rem" style="margin-right:1rem;">
+          <b>Address</b>
+        </div>
+        <div>
+          <u>{{ackForm?.address}}</u>
+        </div>
+      </div>
+      <div style="display: grid;
+                    grid-template-columns: 14% 15% 9% 9% 8% 16%;padding: 1rem;">
+        <div class="itemJustifyEnd margin-right-1rem" style="margin-right:1rem;">
+          <b>City</b>
+        </div>
+        <div>
+          <u>{{ackForm?.city}}</u>
+        </div>
+        <div>
+          <b>State</b>
+        </div>
+        <div>
+          <u>{{ackForm?.state}}</u>
+        </div>
+        <div>
+          <b>Zip</b>
+        </div>
+        <div>
+          <u>{{ackForm?.zip}}</u>
+        </div>
+      </div>
+      <div style="display: grid;
+                    grid-template-columns:14% 14% 21% 15%;padding: 1rem;">
+        <div class="itemJustifyEnd margin-right-1rem" style="margin-right:1rem;">
+          <b>Worker Phone</b>
+        </div>
+        <div>
+          <u>{{ackForm?.workPhone}}</u>
+        </div>
+        <div>
+          <b>Twenty-four Hour Access Phone</b>
+        </div>
+        <div>
+          <u>1-888-732-4297</u>
+        </div>
+      </div>
+    </div>
+    <div class="border-black padding-left-1rem" style="border:1px solid black;margin-top:2rem;padding-left:1rem;">
+      <b>
+        <u>Section IV </u>(Pregnant Woman Using Substance)
+      </b>
+      <div style="display: grid;
+                    grid-template-columns: 11% 17% 11% 15% 12%;padding: 1rem;">
+        <div>
+          <b>Client's Name</b>
+        </div>
+        <div>
+          {{ackForm?.pwsChild[0]?.clientName}}
+        </div>
+        <div>
+          <b>DOB</b>
+        </div>
+        <div>
+          {{ackForm?.pwsChild[0]?.dob | date:"MM/dd/yyyy HH:MM" }}
+        </div>
+        <div>
+          <b>Not Live Birth</b>
+        </div>
+        <div>
+          {{ackForm?.pwsChild[0]?.notLiveBirth}}
+        </div>
+      </div>
+      <div style="display: grid;
+                    grid-template-columns: 4% 8% 4% 6% 9% 10%;padding: 1rem;">
+        <div>
+          <b>Sex</b>
+        </div>
+        <div>
+          <u> {{ackForm?.pwsChild[0]?.genderID?.gender}}</u>
+        </div>
+        <div>
+          <b>Race</b>
+        </div>
+        <div>
+          {{ackForm?.pwsChild[0]?.raceID?.race}}
+        </div>
+        <div>
+          <b>Ethnicity</b>
+        </div>
+        <div>
+          {{ackForm?.pwsChild[0]?.ethnicityID?.ethnicity}}
+        </div>
+      </div>
+      <div style="padding: 1rem;">
+        <b>Tribe</b>
+      </div>
+      <div>
+        {{ackForm?.pwsChild[0]?.tribeID?.tribe}}
+      </div>
+      <div style="margin: 2px 0px; padding: 1rem;">
+
+        <b>Drug Toxicology and Results:</b>
+
+      </div>
+      <div style="display: grid;
+                    grid-template-columns: 11% 7% 20%;padding: 1rem;">
+        <div>
+          <b>Test Date</b>
+        </div>
+        <div>
+          {{ackForm?.pwsChild[0]?.drugTestDate | date:"MM/dd/yyyy" }}
+        </div>
+        <div>
+          <input style="margin:1rem" [(ngModel)]="negative" [ngModelOptions]="{standalone: true}" type="checkbox"
+            disabled>
+          <b>Negative For Drugs</b>
+        </div>
+      </div>
+      <div style="display: grid;
+                    grid-template-columns: 28% 23% 49%;padding: 1rem;">
+        <div>
+          <input style="margin:1rem" [(ngModel)]="notTested" [ngModelOptions]="{standalone: true}" disabled
+            type="checkbox">
+          <b>Not Tested</b>
+        </div>
+        <div>
+          <input style="margin:1rem" [(ngModel)]="positive" [ngModelOptions]="{standalone: true}" disabled
+            type="checkbox">
+          <b>Positive for drugs (specify type):</b>
+        </div>
+        <div style="margin:1rem">
+          {{ackForm?.pwsChild[0]?.drugsPositive}}
+        </div>
+      </div>
+    </div>
+    <div style="border:1px solid black;margin-top:2rem;padding-left:1rem;">
+      <u>
+        <b>Section V</b>
+      </u> (Cessation of Monthly Payment and/or Closure)
+      <div style="display: grid;
+                    grid-template-columns: 30% 20%;">
+        <div>
+          <input style="margin:1rem" [(ngModel)]="ackForm.initial" [ngModelOptions]="{standalone: true}" disabled
+            type="checkbox">Released
+          from DCF Custody
+        </div>
+        <div>
+          <u>{{ackForm?.initialVal | date:"MM/dd/yyyy"}}</u>
+        </div>
+      </div>
+      <div style="margin-left: 1.3rem;">
+
+      </div>
+      <div style="display: grid;
+                    grid-template-columns: 32% 11%;">
+        <div>
+          <input style="margin:1rem" [(ngModel)]="ackForm.isPhaseClosure" [ngModelOptions]="{standalone: true}" disabled
+            type="checkbox">Conclusion
+          of Initial Intensive Phase
+        </div>
+        <div>
+          <u *ngIf="ackForm.isPhaseClosure">{{ackForm?.phaseEndDate | date:"MM/dd/yyyy"}}</u>
+        </div>
+      </div>
+      <div style="display: grid;
+      grid-template-columns: 32% 11%;">
+        <div>
+          <u *ngIf="ackForm.isPhaseClosure">{{ackForm?.phaseClosure}}</u>
+        </div>
+      </div>
+      <div style="display: grid;
+                    grid-template-columns: 30% 20%;">
+        <div>
+          <input style="margin:1rem" disabled type="checkbox">Conclusion of Subsequent Intensive Phase
+        </div>
+        <div>
+
+        </div>
+      </div>
+      <div class="margin-left-1rem" style="margin-left: 1.3rem;">
+
+      </div>
+      <div style="display: grid;
+                    grid-template-columns: 30% 20%;">
+        <div>
+          <input style="margin:1rem" [(ngModel)]="ackForm.isCaseClosureSectionfive"
+            [ngModelOptions]="{standalone: true}" disabled type="checkbox">Conclusion of 12 Month Case Responsibility
+        </div>
+        <div>
+          <u *ngIf="ackForm.isCaseClosureSectionfive">{{ackForm?.closureDate | date:"MM/dd/yyyy"}}</u>
+        </div>
+      </div>
+      <div style="display: grid;
+      grid-template-columns: 30% 20%;">
+        <u *ngIf="ackForm.isCaseClosureSectionfive">{{ackForm?.caseClosureSectionfive}}</u>
+      </div>
+      <div class="margin-left-1rem" style="margin-left: 1.3rem;">
+
+      </div>
+      <div style="display: grid;
+                    grid-template-columns: 30% 20%;">
+        <div>
+          <input style="margin:1rem" type="checkbox" disabled>Venue Change (custody only)
+        </div>
+        <div>
+
+        </div>
+      </div>
+      <div style="display: grid;
+                    grid-template-columns: 33% 20%;">
+        <div>
+          <input style="margin:1rem" type="checkbox" disabled>FP Services Ended Due to Referral for OOH Placement
+        </div>
+        <div>
+
+        </div>
+      </div>
+    </div>
+    <div style="display: grid;grid-template-columns:4% 13% 7% 38% 6%;padding: 1rem;">
+      <div class="itemJustifyEnd margin-right-1rem" style="margin-right:1rem;">
+        <b>Date:</b>
+      </div>
+      <div>
+        <u>{{date | date:"MM/dd/yyyy HH:MM"}}</u>
+      </div>
+      <div>
+        <b>Printed by:</b>
+      </div>
+      <div>
+        <u>{{enteredBy}}</u>
+      </div>
+      <div>
+        <b>GAL:</b>
+      </div>
+      <div>
+        <u></u>
+      </div>
+    </div>
+  </form>
+</div>
+<app-mail-footer (discard)="discard()" (sendMail)="sendMails($event)"></app-mail-footer>

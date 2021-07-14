@@ -1,0 +1,305 @@
+<p-toast position="center"></p-toast>
+<div *ngIf="isList" class="list-table">
+  <p>Assessment List</p>
+  <div class="add-btn">
+    <button class="sf-positive-btn" (click)="onClickAddForm()">
+      <span>Add</span>
+    </button>
+  </div>
+  <table style="width: 100%">
+    <th scope="asssessmentType">Assessment Type</th>
+    <th scope="asssessmentCategory">Assessment Category</th>
+    <th scope="dueDate">Due Date</th>
+    <th scope="completedDate">Completed Date</th>
+    <th scope="assessmentValue">Assessment Value</th>
+    <th scope="isOnTime">Is On Time</th>
+    <th scope="isAccurate">Is Accurate</th>
+    <th scope="isNA">Is NA</th>
+    <th scope="actions">Actions</th>
+    <tr *ngFor="let assessment of assessmentList">
+      <td>{{ assessment?.assessmentType }}</td>
+      <td>{{ assessment?.assessmentCategory }}</td>
+      <td>{{ assessment?.dueDate }}</td>
+      <td>{{ assessment?.completedDate }}</td>
+      <td>{{ assessment?.assessmentValue }}</td>
+      <td>{{ assessment?.isOnTime }}</td>
+      <td>{{ assessment?.isAccurate }}</td>
+      <td>{{ assessment?.isNA }}</td>
+      <td>
+        <div>
+          <span
+            class="fa fa-edit action-icon"
+            (click)="onClickEditForm(assessment)"
+          ></span>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+<div *ngIf="isForm">
+  <div *ngIf="isAppHeader">
+    <app-form-header
+      [title]="title"
+      [status]="status"
+      [breadcrumbs]="breadcrumbs"
+      [formstatus]="formStatus"
+      [formNavigation]=""
+      [subtitle]="subtitle"
+    ></app-form-header>
+  </div>
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+    </p>
+  </div>
+  <div class="container-background">
+    <div class="container-foreground">
+      <form [formGroup]="assessmentForm" class="sf-form">
+        <div class="margin-left-45 sf-form-size">
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Assessment Category</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  formControlName="assessmentCategory"
+                  name="groupName"
+                  [(ngModel)]="fpassess.assessmentCat"
+                  (completeMethod)="getMetaData($event, 'asssessCat')"
+                  [suggestions]="metaData"
+                  field="groupName"
+                  (onSelect)="generateAssessmentType($event)"
+                >
+                </p-autoComplete>
+                <!-- (onSelect)="generateAssessmentType($event)" -->
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Assessment Type </span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  [dropdown]="true"
+                  formControlName="assessmentTypeID"
+                  [forceSelection]="true"
+                  name="assessmentTypeID"
+                  [(ngModel)]="fpassess.assessmentTypeID"
+                  (completeMethod)="searchAssessmentType($event)"
+                  [suggestions]="filteredAssessmentType"
+                  field="assessmentType"
+                  (onSelect)="dueDateCalculation($event)"
+                  emptyMessage="No records found!"
+                >
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Due Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  [disabled]="true"
+                  [showIcon]="true"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  yearRange="1900:2030"
+                  name="dueDate"
+                  [(ngModel)]="fpassess.dueDate"
+                  formControlName="dueDate"
+                  [readonlyInput]="true"
+                ></p-calendar>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Completed Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  [showIcon]="true"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  yearRange="1900:2030"
+                  name="completedDate"
+                  [(ngModel)]="fpassess.completedDate"
+                  formControlName="completedDate"
+                >
+                </p-calendar>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Date Sent To {{ dcfLabel }}</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  [showIcon]="true"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  yearRange="1900:2030"
+                  name="dateSentToSRS"
+                  [(ngModel)]="fpassess.dateSentToSRS"
+                  formControlName="dateSentToSRS"
+                >
+                </p-calendar>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Assessment Value</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  type="number"
+                  formControlName="assessmentValue"
+                  pInputText
+                  name="assessmentValue"
+                  [(ngModel)]="fpassess.assessmentValue"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>On Time</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-checkbox
+                  name="isOnTime"
+                  [(ngModel)]="fpassess.isOnTime"
+                  formControlName="isOnTime"
+                  binary="true"
+                >
+                </p-checkbox>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Accurate</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-checkbox
+                  name="isAccurate"
+                  [(ngModel)]="fpassess.isAccurate"
+                  formControlName="isAccurate"
+                  binary="true"
+                ></p-checkbox>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>N/A</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-checkbox
+                  name="isNA"
+                  [(ngModel)]="fpassess.isNA"
+                  formControlName="isNA"
+                  binary="true"
+                ></p-checkbox>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="isPdfFormData">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Attached Documents</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span (click)="viewAttachment()" class="document-link"
+                  >View</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Notes</span>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <textarea
+                  name="notes"
+                  pInputTextarea
+                  style="width: 100%; height: 100%"
+                  cols="60"
+                  rows="5"
+                  formControlName="notes"
+                  [(ngModel)]="fpassess.notes"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <!-- <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-md-12">
+          <button class="document-link" routerLink="/reintegration/referral/opencard/assessments/attachment"
+            class="btn btn-primary">View Attachment Catagories</button>
+        </div>
+
+      </div> -->
+          <!-- <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-md-3">
+          <button (click)=navigateTo() class="opencard-attachment btn btn-primary">Attachment Document</button>
+        </div>
+
+      </div> -->
+        </div>
+        <!-- <div class="margin-top-20 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <button (click)=navigateTo() class="opencard-attachment btn btn-primary">Attachment Document</button>
+        </div>
+      </div>
+    </div> -->
+      </form>
+      <app-form-footer
+        [isFormLog]="isFormLog"
+        [formLogInfo]="formLogInfo"
+        [attachmentControll]="isAttachmentRequired"
+        [isAttachmentDisabled]="false"
+        (attachDoc)="navigateTo()"
+        (save)="saveForm(fpassess)"
+        (reset)="resetForm()"
+        (discard)="discardForm()"
+        (edit)="editForm()"
+        [editControll]="editControll"
+        [currentNodeValue]="req"
+        [isPopUp]="isPopUp"
+        (deleted)="onDelete($event)"
+      ></app-form-footer>
+    </div>
+
+    <!-- <p-dialog header="Progress Report" [(visible)]="isProgressReport" [modal]="true" [responsive]="true"
+      [style]="{width: '350px', minWidth: '200px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+      <app-progress-report (prFormOutInitial)="getFormValue($event)" [prFormIn]="prFormInput"></app-progress-report>
+    </p-dialog>
+
+    <p-dialog header="Initial Assessment Form" [(visible)]="isIFA" [modal]="true" [responsive]="true"
+      [style]="{width: '350px', minWidth: '200px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+      <app-initial-family-assessment (ifaFormOut)="getFormValue($event)"></app-initial-family-assessment>
+    </p-dialog>
+
+    <p-dialog header="Mental Health Assessment completed by Therapist and Family- Exceptions"
+      [(visible)]="isMentalHealth" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}"
+      [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+      <app-mental-health-assessment-by-therapist-and-family (mhaFormOut)="getFormValue($event)">
+      </app-mental-health-assessment-by-therapist-and-family>
+      </p-dialog> -->
+  </div>
+</div>

@@ -1,0 +1,915 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="caregiverResponseForm" lass="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        REINTEGRATION FOSTER CARE
+        <br> CAREGIVER RESPONSE TOOL
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Client’s Name</span>
+          <input [(ngModel)]="riCaregiverResponse.clientName" formControlName="clientName" name="clientName" type="text" pInputText
+            size="20" />
+        </div>
+        <div>
+          <span>Caregiver’s Name:</span>
+          <input [(ngModel)]="riCaregiverResponse.caregiverName" formControlName="caregiverName" name="caregiverName" type="text" pInputText
+            size="20" />
+        </div>
+        <div>
+          <span>Sponsoring Agency</span>
+          <input [(ngModel)]="riCaregiverResponse.sponsoringAgency" formControlName="sponsoringAgency" name="sponsoringAgency" type="text"
+            pInputText size="20" />
+        </div>
+        <div>
+          <span>Home’s Worker</span>
+          <input [(ngModel)]="riCaregiverResponse.homeWorker" formControlName="homeWorker" name="homeWorker" type="text" pInputText
+            size="20" />
+        </div>
+        <div>
+          <span>Client’s Office</span>
+          <input [(ngModel)]="riCaregiverResponse.clientOffice" formControlName="clientOffice" name="clientOffice" type="text" pInputText
+            size="20" />
+        </div>
+        <div>
+          <span>Date:</span>
+          <p-calendar [(ngModel)]="riCaregiverResponse.date" formControlName="date" name="date" [inputStyle]="{'width':'170px'}" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <p class="bold center">
+      ***To be Completed in Consultation with the placement provider. Mark all that apply in each category – Please only mark what
+      pertains to the child identified for review. Please score the last 90 days unless otherwise noted in the responses.***
+    </p>
+    <div class="space-down">
+      <table>
+        <tr>
+          <td class="table-td">
+            <div>
+              <div class="space-right">
+                <p class="bold">School Concerns (during summer, score last 30 days of school)</p>
+                <div class="flex-container space-down">
+                  <div class="space-right">
+                    <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isMinimal" formControlName="isMinimal" name="isMinimal" class="space-right"></p-checkbox>0.
+                  </div>
+                  <div class="space-right">
+                    Minimal/None
+                  </div>
+                </div>
+                <div class="flex-container space-down">
+                  <div class="space-right">
+                    <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isAttendsIep" formControlName="isAttendsIep" name="isAttendsIep"
+                      class="space-right"></p-checkbox>1.
+                  </div>
+                  <div class="space-right">
+                    Attends IEP and ensures student is following it
+                  </div>
+                </div>
+                <div class="flex-container space-down">
+                  <div class="space-right">
+                    <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isAddressesAttendance" formControlName="isAddressesAttendance"
+                      name="isAddressesAttendance" class="space-right"></p-checkbox>2.
+                  </div>
+                  <div class="space-right">
+                    <span>
+                      Addresses attendance/tardy issues and provides supports to help
+                      <br> client achieve passing grades
+                    </span>
+                  </div>
+                </div>
+                <div class="flex-container space-down">
+                  <div class="space-right">
+                    <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isMaintainsInvolvement" formControlName="isMaintainsInvolvement"
+                      name="isMaintainsInvolvement" class="space-right"></p-checkbox>3.
+                  </div>
+                  <div class="space-right">
+                    <span> Maintains weekly involvement with school staff to address truancy
+                      <br> concerns/provides oversight of class assignments to
+                      <br> ensure client passes grade level/meets educational needs</span>
+                  </div>
+                </div>
+                <div class="flex-container space-down">
+                  <div class="space-right">
+                    <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isWorksWithSchool" formControlName="isWorksWithSchool" name="isWorksWithSchool"
+                      class="space-right"></p-checkbox>4.
+                  </div>
+                  <div class="space-right">
+                    <span> Works with school to develop and maintain a plan for managing disruptive
+                      <br> behavior requiring attention
+                    </span>
+                  </div>
+                </div>
+                <div class="flex-container space-down">
+                  <div class="space-right">
+                    <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isFollowsUpDaily" formControlName="isFollowsUpDaily" name="isFollowsUpDaily"
+                      class="space-right"></p-checkbox>4.
+                  </div>
+                  <div class="space-right">
+                    Follows up daily/weekly on alternative school progress
+                  </div>
+                </div>
+                <div class="flex-container space-down">
+                  <div class="space-right">
+                    <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isFollowsUpMultiple" formControlName="isFollowsUpMultiple" name="isFollowsUpMultiple"
+                      class="space-right"></p-checkbox>5.
+                  </div>
+                  <div class="space-right">
+                    Follows up multiple times a week on school concerns
+                  </div>
+                </div>
+                <div class="flex-container space-down">
+                  <div class="space-right">
+                    <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isProvidesActivity" formControlName="isProvidesActivity" name="isProvidesActivity"
+                      class="space-right"></p-checkbox>6.
+                  </div>
+                  <div class="space-right">
+                    Provides activity/supervision for suspended student
+                  </div>
+                </div>
+                <div class="space-right space-down">
+                  <div class="space-right space-down">Explanation:</div>
+                  <div class="space-right">
+                    <textarea [(ngModel)]="riCaregiverResponse.providesActivityExplanation" formControlName="providesActivityExplanation" name="providesActivityExplanation"
+                      pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+                  </div>
+                </div>
+                <p class="bold">Aggressive/Destructive/Defiant Behavior</p>
+                <div class="flex-container space-down">
+                  <div class="space-right">
+                    <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isRedirection" formControlName="isRedirection" name="isRedirection"
+                      class="space-right"></p-checkbox>0.
+                  </div>
+                  <div class="space-right">
+                    <span> Redirection/expected consequences for age appropriate behavior. Doesn’t provide direct
+                      <br> care/supervision of child to manage aggressive/destructive behavior healthily</span>
+                  </div>
+                </div>
+                <div class="flex-container space-down">
+                  <div class="space-right">
+                    <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isConstructivelyReinforces" formControlName="isConstructivelyReinforces"
+                      name="isConstructivelyReinforces" class="space-right"></p-checkbox>1.
+                  </div>
+                  <div class="space-right">
+                    <span> Constructively reinforces to child, appropriate verbal communication
+                      <br> with peers and provides opportunities to form healthy,
+                      <br> appropriate relationships with peers</span>
+                  </div>
+                </div>
+                <div class="flex-container space-down">
+                  <div class="space-right">
+                    <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isConstructivelyReinforcesAdults" formControlName="isConstructivelyReinforcesAdults"
+                      name="isConstructivelyReinforcesAdults" class="space-right"></p-checkbox>2.
+                  </div>
+                  <div class="space-right">
+                    <span> Constructively reinforces to child, appropriate verbal communication with
+                      <br> adults and models appropriate skills</span>
+                  </div>
+                </div>
+                <div class="flex-container space-down">
+                  <div class="space-right">
+                    <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isDisplaysEmpathy" formControlName="isDisplaysEmpathy" name="isDisplaysEmpathy"
+                      class="space-right"></p-checkbox>3.
+                  </div>
+                  <div class="space-right">
+                    <span> Displays empathy and understanding behind child’s defiant/demanding
+                      <br> behavior and provides assistance with planning
+                      <br> and adapting activities to model coaching social skills and use
+                      <br> approved intervention strategies</span>
+                  </div>
+                </div>
+                <div class="flex-container space-down">
+                  <div class="space-right">
+                    <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isProvidesRoutine" formControlName="isProvidesRoutine" name="isProvidesRoutine"
+                      class="space-right"></p-checkbox>4.
+                  </div>
+                  <div class="space-right">
+                    <span>
+                      Provides routine direct care and supervision of child to assist child in learning
+                      <br> appropriate self-control and problem solving strategies. Follows
+                      <br> through with acceptable consequences to child when damage to property/theft occurs
+                    </span>
+                  </div>
+                </div>
+                <div class="flex-container space-down">
+                  <div class="space-right">
+                    <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isProvidesSupervision" formControlName="isProvidesSupervision"
+                      name="isProvidesSupervision" class="space-right"></p-checkbox>5.
+                  </div>
+                  <div class="space-right">
+                    <span>
+                      Provides supervision of child/youth to ensure no contact with animals will occur,
+                      <br> in caregivers home/community
+                    </span>
+                  </div>
+                </div>
+                <div class="flex-container space-down">
+                  <div class="space-right">
+                    <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isParticipatesTraining" formControlName="isParticipatesTraining"
+                      name="isParticipatesTraining" class="space-right"></p-checkbox>6.
+                  </div>
+                  <div class="space-right">
+                    <span> Participates in/maintains training for approved intervention strategy of
+                      <br> assaulting behavior and provides adapting activities to model coaching social skills</span>
+                  </div>
+                </div>
+                <div class="flex-container space-down">
+                  <div class="space-right">
+                    <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isProvidesBeyondAge" formControlName="isProvidesBeyondAge" name="isProvidesBeyondAge"
+                      class="space-right"></p-checkbox>6.
+                  </div>
+                  <div class="space-right">
+                    <span>
+                      Provides beyond age and developmentally appropriate supervision, structure, and
+                      <br> behavioral and/or emotional support.
+                    </span>
+                  </div>
+                </div>
+                <div class="flex-container space-down">
+                  <div class="space-right">
+                    <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isProvidesDirectCare" formControlName="isProvidesDirectCare" name="isProvidesDirectCare"
+                      class="space-right"></p-checkbox>6.
+                  </div>
+                  <div class="space-right">
+                    <span>
+                      Provides direct care/supervision to intervene with behavior that put the child,
+                      <br> others or property in danger or at risk.
+                    </span>
+                  </div>
+                </div>
+                <div class="flex-container space-down">
+                  <div class="space-right">
+                    <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isEnsuresChild" formControlName="isEnsuresChild" name="isEnsuresChild"
+                      class="space-right"></p-checkbox>6.
+                  </div>
+                  <div class="space-right">
+                    <span>
+                      Ensures child follows all legal requirements to meet the expectations of the court
+                      <br> overseeing criminal activity case; including transporting to
+                      <br>all needed activities to fulfill the sentence.
+                    </span>
+                  </div>
+                </div>
+                <div class="flex-container space-down">
+                  <div class="space-right">
+                    <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isProvidesDirectCareProvision" formControlName="isProvidesDirectCareProvision"
+                      name="isProvidesDirectCareProvision" class="space-right"></p-checkbox>8.
+                  </div>
+                  <div class="space-right">
+                    <span>
+                      Provides direct care & supervision that involves provision of highly structured interventions
+                      <br> such as using specialized equipment/techniques (alarms)
+                      <br> to intervene with behavior that put the child/others in imminent danger/risk of serious harm
+                    </span>
+                  </div>
+                </div>
+
+                <div class="flex-container space-down">
+                  <div class="space-right">
+                    <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isSupervision" formControlName="isSupervision" name="isSupervision"
+                      class="space-right"></p-checkbox>6.
+                  </div>
+                  <div class="space-right">
+                    Provides activity/supervision for suspended student
+                  </div>
+                </div>
+                <div class="space-right space-down">
+                  <div class="space-right space-down">Explanation:</div>
+                  <div class="space-right">
+                    <textarea [(ngModel)]="riCaregiverResponse.providesDirectCareProvisionExplanation" formControlName="providesDirectCareProvisionExplanation"
+                      name="providesDirectCareProvisionExplanation" pInputTextarea autoResize="autoResize" rows="3" cols="150"
+                      style="width: 100%;height: auto;"></textarea>
+                  </div>
+                </div>
+                <p class="bold">Substance Use (cont)</p>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isParticipatesTraining1" formControlName="isParticipatesTraining1"
+                    name="isParticipatesTraining1" class="space-right"></p-checkbox>5.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Participates in/maintains training for approved intervention strategy of assisting/supporting child struggling with substance
+                    abuse; provides adapting activities to model coaching social skills Monitors child’s environment (including
+                    bedroom) to maintain an alcohol/drug free home. Support child in d/a treatment, including transporting
+                    to meetings/treatment
+                  </span>
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isMonitorsChildEnvironment" formControlName="isMonitorsChildEnvironment"
+                    name="isMonitorsChildEnvironment" class="space-right"></p-checkbox>6.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Monitors child’s environment (including bedroom) to maintain an alcohol/drug free home. Support child in D/A treatment, including
+                    transporting to meetings/ treatment.
+                  </span>
+                </div>
+              </div>
+              <div class="space-right space-down">
+                <div class="space-right space-down">Explanation:</div>
+                <div class="space-right">
+                  <textarea [(ngModel)]="riCaregiverResponse.monitorsChildEnvironmentExplanation" formControlName="monitorsChildEnvironmentExplanation"
+                    name="monitorsChildEnvironmentExplanation" pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+                </div>
+              </div>
+              <p class="bold">Mental Health Concerns (last 90 days)</p>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isNoExtraSupports" formControlName="isNoExtraSupports" name="isNoExtraSupports"
+                    class="space-right"></p-checkbox>0.
+                </div>
+                <div class="space-right">
+                  No extra supports needed/doesn’t support plans
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isProvidesNurturing" formControlName="isProvidesNurturing" name="isProvidesNurturing"
+                    class="space-right"></p-checkbox>1.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Provides nurturing and caring to build the child’s healthy self-image; engages the child in constructive, positive family
+                    living experiences by maintaining a safe home environment
+                  </span>
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isArrangesAndTransports" formControlName="isArrangesAndTransports"
+                    name="isArrangesAndTransports" class="space-right"></p-checkbox>2.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Arranges and transports child for mental health intake and participates in assessment by providing feedback to therapist/intake
+                    counselor
+                  </span>
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isConsultsMentalHealth" formControlName="isConsultsMentalHealth"
+                    name="isConsultsMentalHealth" class="space-right"></p-checkbox>2.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Consults with mental health professions to implement specific strategies of interacting with the child in a therapeutic manner
+                    to promote emotional well-being, healing, understanding, and a sense of safety
+                  </span>
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isArrangesChildMedicine" formControlName="isArrangesChildMedicine"
+                    name="isArrangesChildMedicine" class="space-right"></p-checkbox>3.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Arranges and transports child to medicine management appointments; participates in appointment by providing feedback of child’s
+                    status to the medical professional
+                  </span>
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isParticipatesTrainingPathology" formControlName="isParticipatesTrainingPathology"
+                    name="isParticipatesTrainingPathology" class="space-right"></p-checkbox>4.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Participates in/maintains training to understand pathology of reasons for resistance to medication, standard hygiene practices,
+                    enuresis and/or encopresis. Provides adapting activities to model healthy life choices and supports/positively
+                    encourages mental health treatment.
+                  </span>
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isProvidesBeyondAge1" formControlName="isProvidesBeyondAge1" name="isProvidesBeyondAge1"
+                    class="space-right"></p-checkbox>4.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Provides, beyond age and developmentally appropriate, nighttime supervision and structure for non-medical sleep disturbances.
+                  </span>
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isPreviouslyHospitalized" formControlName="isPreviouslyHospitalized"
+                    name="isPreviouslyHospitalized" class="space-right"></p-checkbox>6.
+                </div>
+                <div class="space-right">
+                  <span>
+                    If previously hospitalized, follows established treatment plan to ensure child’s safety and well-being are addressed. Maintains
+                    regular communication with team and reports concerns immediately. Keeps regular contact with MH professionals
+                    and participates in MH services for child.
+                  </span>
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isChildSelfHarms" formControlName="isChildSelfHarms" name="isChildSelfHarms"
+                    class="space-right"></p-checkbox>8.
+                </div>
+                <div class="space-right">
+                  <span>
+                    If child has self-harms/suicide ideations, safety of environment is ensured by locking up all sharp objects. Monitors therapeutic
+                    wellbeing and reports concerns immediately. Transports child to and participates in MH screening, if
+                    child needs screened for acute care/hospitalization.
+                  </span>
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isChildAttemptsSuicide" formControlName="isChildAttemptsSuicide"
+                    name="isChildAttemptsSuicide" class="space-right"></p-checkbox>10.
+                </div>
+                <div class="space-right">
+                  <span>
+                    If child attempts suicide, placement calls placement support worker/child’s worker immediately to report incident and follows
+                    directions of worker.
+                  </span>
+                </div>
+              </div>
+
+              <div class="space-right space-down">
+                <div class="space-right space-down">Explanation:</div>
+                <div class="space-right">
+                  <textarea [(ngModel)]="riCaregiverResponse.childAttemptsSuicideExplanation" formControlName="childAttemptsSuicideExplanation"
+                    name="childAttemptsSuicideExplanation" pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <div class="flex-container space-down">
+                <p class="bold">School Concerns (during summer, score last 30 days of school)</p>
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isSexuallyAbusedYes" formControlName="isSexuallyAbusedYes" name="isSexuallyAbusedYes"
+                    class="space-right"></p-checkbox>Yes
+                </div>
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isSexuallyAbusedNo" formControlName="isSexuallyAbusedNo" name="isSexuallyAbusedNo"
+                    class="space-right"></p-checkbox>No
+                </div>
+                <div class="space-right">
+                  Has this child been sexually abused?
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isSexuallyActYes" formControlName="isSexuallyActYes" name="isSexuallyActYes"
+                    class="space-right"></p-checkbox>Yes
+                </div>
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isSexuallyActNo" formControlName="isSexuallyActNo" name="isSexuallyActNo"
+                    class="space-right"></p-checkbox>No
+                </div>
+                <div class="space-right">
+                  Does this child sexually act out?
+                </div>
+              </div>
+              <p>If you answered no to both questions, move on to the next section.</p>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isNoExtraSupports1" formControlName="isNoExtraSupports1" name="isNoExtraSupports1"
+                    class="space-right"></p-checkbox>0.
+                </div>
+                <div class="space-right">
+                  No extra supports needed/doesn’t support plans
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isProvidesNurturingCaring" formControlName="isProvidesNurturingCaring"
+                    name="isProvidesNurturingCaring" class="space-right"></p-checkbox>1.
+                </div>
+                <div class="space-right">
+                  Provides nurturing/caring to build the child’s self-esteem
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isEngagesChildConstructive" formControlName="isEngagesChildConstructive"
+                    name="isEngagesChildConstructive" class="space-right"></p-checkbox>1.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Engages child in constructive, positive family living experiences; maintains a safe home environment
+                  </span>
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isProvidesExtraGuidance" formControlName="isProvidesExtraGuidance"
+                    name="isProvidesExtraGuidance" class="space-right"></p-checkbox>3.
+                </div>
+                <div class="space-right">
+                  <span></span>
+                  Provides extra guidance to the child to enable successful participation in home and community, as well as, enrichment activities.
+                  Models and coaches social skills.
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isParticipatesTraining2" formControlName="isParticipatesTraining2"
+                    name="isParticipatesTraining2" class="space-right"></p-checkbox>4.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Participates in training to understand trauma in sex abuse victims, including human trafficking victims and displays the
+                    understanding through appropriate reaction to/expectations of child. Provides extra guidance to child
+                    to enable the child be successful in the home and out in the community, as well as, enrichment activities.
+                    Models and coaches appropriate social skills for the child.
+                  </span>
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isProvidesSupervisionChild" formControlName="isProvidesSupervisionChild"
+                    name="isProvidesSupervisionChild" class="space-right"></p-checkbox>6.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Provides supervision of child to ensure no contact with animals will occur, in caregivers home or in community.
+                  </span>
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isProvidesSupervisionStructure" formControlName="isProvidesSupervisionStructure"
+                    name="isProvidesSupervisionStructure" class="space-right"></p-checkbox>7.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Provides supervision and structure to ensure safety and prevent client from engaging in human trafficking
+                  </span>
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isFollowsTreatmentPlan" formControlName="isFollowsTreatmentPlan"
+                    name="isFollowsTreatmentPlan" class="space-right"></p-checkbox>8.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Follows established treatment plan, utilizing the developed strategies & interventions, to ensure safety and well-being
+                  </span>
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isServicesProgramsImplemented" formControlName="isServicesProgramsImplemented"
+                    name="isServicesProgramsImplemented" class="space-right"></p-checkbox>10.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Works with services and programs to implement intensive child-specific in-home strategies of interacting in a therapeutic
+                    manner to promote emotional well-being, healing, and understanding, and sense of safety on a constant
+                    basis.
+                  </span>
+                </div>
+              </div>
+              <div class="space-right space-down">
+                <div class="space-right space-down">Explanation:</div>
+                <div class="space-right">
+                  <textarea [(ngModel)]="riCaregiverResponse.servicesProgramsExplanation" formControlName="servicesProgramsExplanation" name="servicesProgramsExplanation"
+                    pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+                </div>
+              </div>
+              <p class="bold">Substance Use (alcohol and drugs)</p>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isChildHaveDocumentsYes" formControlName="isChildHaveDocumentsYes"
+                    name="isChildHaveDocumentsYes" class="space-right"></p-checkbox>Yes
+                </div>
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isChildHaveDocumentsNo" formControlName="isChildHaveDocumentsNo"
+                    name="isChildHaveDocumentsNo" class="space-right"></p-checkbox>No
+                </div>
+                <div class="space-right">
+                  Does this child have documented substance use concerns?
+                </div>
+              </div>
+              <p>If you answered no, move onto the next section</p>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isDoesntSupportPlan" formControlName="isDoesntSupportPlan" name="isDoesntSupportPlan"
+                    class="space-right"></p-checkbox>0.
+                </div>
+                <div class="space-right">
+                  No extra supports needed/doesn’t support plans
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isBehavioralEmotional" formControlName="isBehavioralEmotional"
+                    name="isBehavioralEmotional" class="space-right"></p-checkbox>1.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Provides supervision, structure and behavioral/emotional support to child; reports any confirmed use to case team
+                  </span>
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isReinforceDangers" formControlName="isReinforceDangers" name="isReinforceDangers"
+                    class="space-right"></p-checkbox>2.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Educate & constructively reinforce the dangers of tobacco/ vaping; utilize constructive consequences for infractions & model
+                    healthy life choices by not using tobacco/vaping. Provide nurturing/caring to build self-esteem
+                  </span>
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isDangersOfDrug" formControlName="isDangersOfDrug" name="isDangersOfDrug"
+                    class="space-right"></p-checkbox>2.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Educate/constructively reinforces to child the dangers of drug use; utilize constructive consequences for infractions/models
+                    healthy life choices by not using d/a
+                  </span>
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isRoutineDirectCare" formControlName="isRoutineDirectCare" name="isRoutineDirectCare"
+                    class="space-right"></p-checkbox>4.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Provides routine direct care and supervision of child to assist child in learning appropriate self-control and problem solving
+                    strategies. Supports d/a treatment plan and transports to required meetings/treatment
+                  </span>
+                </div>
+              </div>
+              <p class="bold">Physical/Health Concerns</p>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isDocumentedMedicalYes" formControlName="isDocumentedMedicalYes"
+                    name="isDocumentedMedicalYes" class="space-right"></p-checkbox>Yes
+                </div>
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isDocumentedMedicalNo" formControlName="isDocumentedMedicalNo"
+                    name="isDocumentedMedicalNo" class="space-right"></p-checkbox>No
+                </div>
+                <div class="space-right">
+                  Does the child have a documented medical condition?
+                </div>
+              </div>
+              <p>If you answered no, please move on to the next section.</p>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isParticipatesRoutineMedical" formControlName="isParticipatesRoutineMedical"
+                    name="isParticipatesRoutineMedical" class="space-right"></p-checkbox>0.
+                </div>
+                <div class="space-right">
+                  <span></span>
+                  Arranges and participates in routine medical, vision and dental appointments; provides basic healthcare and responds to illness
+                  or injury promptly. Doesn’t support required medical plans.
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isEstablishedMedicalProfessional" formControlName="isEstablishedMedicalProfessional"
+                    name="isEstablishedMedicalProfessional" class="space-right"></p-checkbox>3.
+                </div>
+                <div class="space-right">
+                  <span></span>
+                  Follows established medical professional’s recommendations to ensure child’s physical health needs are met. Monitors & participates
+                  in medical specialists appointments to ensure ongoing health needs are met
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isNighttimeSupervision" formControlName="isNighttimeSupervision"
+                    name="isNighttimeSupervision" class="space-right"></p-checkbox>4.
+                </div>
+                <div class="space-right">
+                  Provides beyond age and developmentally appropriate nighttime supervision and structure
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isProvidesCleaning" formControlName="isProvidesCleaning" name="isProvidesCleaning"
+                    class="space-right"></p-checkbox>4.
+                </div>
+                <div class="space-right">
+                  Provides extraordinary cleaning and laundry to maintain body hygiene and control of the child’s bodily waste
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isParticipatesAdditionalVisits" formControlName="isParticipatesAdditionalVisits"
+                    name="isParticipatesAdditionalVisits" class="space-right"></p-checkbox>5.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Arranges, transports, & participates in additional visits to medical specialists/assists with treatment/monitoring of specific
+                    health concerns. Manage personal care needs
+                  </span>
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isProvidesSpecializedInterventions" formControlName="isProvidesSpecializedInterventions"
+                    name="isProvidesSpecializedInterventions" class="space-right"></p-checkbox>10.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Provides hands-on specialized interventions to manage the child’s chronic health and/or personal care needs related to a
+                    documented medical condition
+                  </span>
+                </div>
+              </div>
+              <div class="space-right space-down">
+                <div class="space-right space-down">Explanation:</div>
+                <div class="space-right">
+                  <textarea [(ngModel)]="riCaregiverResponse.providesSpecializedExplanation" formControlName="providesSpecializedExplanation"
+                    name="providesSpecializedExplanation" pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+                </div>
+              </div>
+              <p class="bold">Developmental Concerns </p>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isDevelopmentalDelaysYes" formControlName="isDevelopmentalDelaysYes"
+                    name="isDevelopmentalDelaysYes" class="space-right"></p-checkbox>Yes
+                </div>
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isDevelopmentalDelaysNo" formControlName="isDevelopmentalDelaysNo"
+                    name="isDevelopmentalDelaysNo" class="space-right"></p-checkbox>No
+                </div>
+                <div class="space-right">
+                  Does this child have documented/suspected developmental delays?
+                </div>
+              </div>
+              <p> If you answered no, please move on to the next section.</p>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isDevelopmentalNoSupports" formControlName="isDevelopmentalNoSupports"
+                    name="isDevelopmentalNoSupports" class="space-right"></p-checkbox>0.
+                </div>
+                <div class="space-right">
+                  No extra supports needed/doesn’t support plans
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isWorksWithClient" formControlName="isWorksWithClient" name="isWorksWithClient"
+                    class="space-right"></p-checkbox>3.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Works with client for further assessment and/or to meet delayed developmental milestones (social, emotional, cognitive and
+                    physical).
+                  </span>
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isDisabilities" formControlName="isDisabilities" name="isDisabilities"
+                    class="space-right"></p-checkbox>8.
+                </div>
+                <div class="space-right">
+                  <span>
+                    Documents delays/disabilities; participates with agency supports/ follows recs of Developmental Plans.
+                  </span>
+                </div>
+              </div>
+              <div class="space-right space-down">
+                <div class="space-right space-down">Explanation:</div>
+                <div class="space-right">
+                  <textarea [(ngModel)]="riCaregiverResponse.disabilitiesExplanation" formControlName="disabilitiesExplanation" name="disabilitiesExplanation"
+                    pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+                </div>
+              </div>
+              <p>Runaway (last 90 days)</p>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isRunawayNoSupports" formControlName="isRunawayNoSupports" name="isRunawayNoSupports"
+                    class="space-right"></p-checkbox>0.
+                </div>
+                <div class="space-right">
+                  No extra supports needed/doesn’t support plans
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isOpenCommunication" formControlName="isOpenCommunication" name="isOpenCommunication"
+                    class="space-right"></p-checkbox>1.
+                </div>
+                <div class="space-right">
+                  Provides elevated supervision of child/open communication with the team regarding adjustment to placement.
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isMonitorsSpecialized" formControlName="isMonitorsSpecialized"
+                    name="isMonitorsSpecialized" class="space-right"></p-checkbox>2.
+                </div>
+                <div class="space-right">
+                  Implements & monitors specialized behavior management/intervention strategies for running behavior
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isPlanToEnsureSafety" formControlName="isPlanToEnsureSafety" name="isPlanToEnsureSafety"
+                    class="space-right"></p-checkbox>4.
+                </div>
+                <div>
+                  Follows plan to ensure safety and wellbeing, including immediate & ongoing monitoring of/interaction with child
+                </div>
+              </div>
+              <div class="space-right space-down">
+                <div class="space-right space-down">Explanation:</div>
+                <div class="space-right">
+                  <textarea [(ngModel)]="riCaregiverResponse.planToEnsureSafetyExplanation" formControlName="planToEnsureSafetyExplanation"
+                    name="planToEnsureSafetyExplanation" pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+                </div>
+              </div>
+              <p class="bold">Partnership</p>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isPartnershipYes" formControlName="isPartnershipYes" name="isPartnershipYes"
+                    class="space-right"></p-checkbox>Yes
+                </div>
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isPartnershipNo" formControlName="isPartnershipNo" name="isPartnershipNo"
+                    class="space-right"></p-checkbox>No
+                </div>
+                <div class="space-right">
+                  Is working w/bio family/perm option
+                </div>
+              </div>
+              <div class="flex-container space-down">
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isPartnershipLifeYes" formControlName="isPartnershipLifeYes" name="isPartnershipLifeYes"
+                    class="space-right"></p-checkbox>Yes
+                </div>
+                <div class="space-right">
+                  <p-checkbox binary="true" [(ngModel)]="riCaregiverResponse.isPartnershipLifeNo" formControlName="isPartnershipLifeNo" name="isPartnershipLifeNo"
+                    class="space-right"></p-checkbox>No
+                </div>
+                <div class="space-right">
+                  Working on life skills with child
+                </div>
+              </div>
+              <div class="space-right space-down">
+                <div class="space-right space-down">If either are marked yes, give specific interactions:</div>
+                <div class="space-right">
+                  <textarea [(ngModel)]="riCaregiverResponse.specificInteractions" formControlName="specificInteractions" name="specificInteractions"
+                    pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+                </div>
+              </div>
+              <div class="flex-container space-right space-down">
+                <div class="space-right">Completed By:</div>
+                <div class="space-right">
+                  <input [(ngModel)]="riCaregiverResponse.completedBy" formControlName="completedBy" name="completedBy" type="text" pInputText
+                    size="20" />
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <p class="bold center">** Once Completed, please submit to
+      <a href="LOS.Review@st-francis.org">LOS.Review@st-francis.org</a>
+      **</p>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,riCaregiverResponse)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

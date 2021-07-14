@@ -1,0 +1,374 @@
+<app-form-header [title]="title" [status]="status" [subtitle]="subtitle" [breadcrumbs]="breadcrumbs"></app-form-header>
+
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <div *ngIf="caseTeamPersonJumptoTree" class="jump-to-tree-row">
+      <div class="jump-to-tree-container" pTooltip="Click here to open" (click)="onClickJumptoPlacement()">
+        <span><b>Jump to Tree</b></span>
+      </div>
+    </div>
+    <p-toast position="center"></p-toast>
+    <div *ngIf="isCasesOpencardsVisible" class="row">
+      <div class="col-lg-2 col-md-2 col-sm-2">
+        <div class="card-header-row">
+          <div class="opencard-menu-container rfcOpencard">
+            <div class="dropdown border-none">
+              <span class="fa fa-th opencard-menu" data-toggle="dropdown" pTooltip="OpenCards"></span>
+              <div class="dropdown-menu opencard-box">
+                <div class="card-container">
+                  <div class="opencard" pTooltip="Click here to open" (click)=navigateTo(item.title)
+                    *ngFor="let item of refcOpencards">
+                    <img src={{item.icon}} alt="{{tip}}">
+                    <div class="opencard-info">
+                      <span class="title">{{item.title}}</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <form class="margin-top-20 sf-form" [formGroup]="orgForm" autocomplete="off">
+      <div class="sf-default-form scroll-height">
+        <nav class="nav-fill">
+          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link" *ngFor="let main of mainTabs;let i = index" [class.active]="sIndex  === i"
+              (click)="setIndex(i,$event)" data-toggle="tab" href="{{main.href}}" role="tab">{{main.label}}</a>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane margin-left-45 active in" id="nav-1" role="tabpanel" aria-labelledby="nav-general-tab">
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">First Name
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <input type="text" name="firstName" formControlName="firstName" [(ngModel)]="casaOfficer.firstName"
+                    maxlength="25" pInputText />
+                  <div class="alert"
+                    *ngIf="!orgForm.controls['firstName'].valid && orgForm.controls['firstName'].touched">Enter a valid
+                    name/div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Last Name
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <input type="text" name="lastName" formControlName="lastName" [(ngModel)]="casaOfficer.lastName"
+                    maxlength="25" pInputText />
+                  <div class="alert"
+                    *ngIf="!orgForm.controls['lastName'].valid && orgForm.controls['lastName'].touched">Enter a valid
+                    name</div>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Acronym
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <p-inputSwitch name="acronym" formControlName="acronym" [(ngModel)]="casaOfficer.acronym">
+                  </p-inputSwitch>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Middle initial(MI)
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <input type="text" name="mi" formControlName="mi" [(ngModel)]="casaOfficer.mi" maxlength="2"
+                    pInputText />
+                  <div class="alert" *ngIf="!orgForm.controls['mi'].valid && orgForm.controls['mi'].touched">Enter a
+                    valid mi</div>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Suffix
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <input type="text" name="suffix" formControlName="suffix" [(ngModel)]="casaOfficer.suffix"
+                    maxlength="3" pInputText />
+                  <div class="alert" *ngIf="!orgForm.controls['suffix'].valid && orgForm.controls['suffix'].touched">
+                    Enter a valid name</div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Con.ST
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete [(ngModel)]="casaOfficer.contract_StateID" formControlName="contract_StateID"
+                    [suggestions]="results" field="state" [dropdown]="true" [forceSelection]="true"
+                    (completeMethod)="getState($event)"></p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">SSN
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-inputMask mask="999-99-9999" formControlName="ssn" name="ssn" [(ngModel)]="casaOfficer.ssn">
+                  </p-inputMask>
+                  <!-- <div class="alert" *ngIf="!orgForm.controls['ssn'].valid && orgForm.controls['ssn'].touched">Enter a valid ssn</div> -->
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Deceased
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <input type="text" name="deceased" formControlName="deceased" [(ngModel)]="casaOfficer.deceased"
+                    maxlength="25" pInputText />
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Gender</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete formControlName="genderID" [(ngModel)]="casaOfficer.genderID"
+                    [suggestions]="searchResults" class="low-option-autos" field="gender" [dropdown]="true"
+                    [forceSelection]="true" (completeMethod)="getGender($event)"></p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Ethnicity</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete formControlName="ethnicityID" [(ngModel)]="casaOfficer.ethnicityID"
+                    [suggestions]="searchResults" field="ethnicity" [dropdown]="true" [forceSelection]="true"
+                    (completeMethod)="getEthnicity($event)"></p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Tribe</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete formControlName="tribeID" [(ngModel)]="casaOfficer.tribeID"
+                    [suggestions]="searchResults" field="tribe" [dropdown]="true" [forceSelection]="true"
+                    (completeMethod)="getTribe($event)"></p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Email address
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <input type="email" name="email" formControlName="email" [(ngModel)]="casaOfficer.email" class="input"
+                    maxlength="75" pInputText />
+                  <div class="alert" *ngIf="!orgForm.controls['email'].valid && orgForm.controls['email'].touched">Enter
+                    a valid email</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane margin-left-45 " id="nav-2" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Cell Phone</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <p-inputMask mask="(999) 999-9999" formControlName="cellPh" [(ngModel)]="casaOfficer.cellPh"
+                    class="input"></p-inputMask>
+                  <div class="alert" *ngIf="!orgForm.controls['cellPh'].valid && orgForm.controls['cellPh'].touched">
+                    Enter a valid number</div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Pager</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <p-inputMask mask="(999) 999-9999" formControlName="pager" [(ngModel)]="casaOfficer.pager"
+                    class="input"></p-inputMask>
+                  <div class="alert" *ngIf="!orgForm.controls['pager'].valid && orgForm.controls['pager'].touched">Enter
+                    a valid number</div>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Fax</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <p-inputMask mask="(999) 999-9999" formControlName="fax" [(ngModel)]="casaOfficer.fax" class="input">
+                  </p-inputMask>
+                  <div class="alert" *ngIf="!orgForm.controls['fax'].valid && orgForm.controls['fax'].touched">Enter a
+                    valid number</div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Work Phone
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <p-inputMask mask="(999) 999-9999" formControlName="workPh" [(ngModel)]="casaOfficer.workPh"
+                    class="input"></p-inputMask>
+                  <div class="alert" *ngIf="!orgForm.controls['workPh'].valid && orgForm.controls['workPh'].touched">
+                    Enter a valid number</div>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Ext
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <p-spinner [formatInput]="false" [maxlength]="5" formControlName="ext" [(ngModel)]="casaOfficer.ext"
+                    name="ext" [min]="0"></p-spinner>
+                  <div class="alert" *ngIf="!orgForm.controls['ext'].valid && orgForm.controls['ext'].touched">Enter a
+                    valid extension</div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Address
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <input type="text" name="address" formControlName="address" class="input" maxlength="75" pInputText
+                    size="27" [(ngModel)]="casaOfficer.address" />
+                  <div class="alert" *ngIf="!orgForm.controls['address'].valid && orgForm.controls['address'].touched">
+                    Enter a valid Address</div>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">State
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete formControlName="stateID" field="state" [suggestions]="results"
+                    (completeMethod)="getState($event)" [(ngModel)]="casaOfficer.stateID" (onClear)="onClearingState()"
+                    [dropdown]="true" [forceSelection]="true" (onSelect)="getSelectedState($event)"></p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">City
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete formControlName="cityID" [suggestions]="results" field="city"
+                    [(ngModel)]="casaOfficer.cityID" [dropdown]="true" [forceSelection]="true" (onClear)="onClearing()"
+                    (onSelect)="getSelectedCity($event)" (completeMethod)="filterCity($event)"></p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">County</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete formControlName="countyID" [suggestions]="results" field="countyName"
+                    [dropdown]="true" [forceSelection]="true" [(ngModel)]="casaOfficer.countyID"
+                    (completeMethod)="getCounty($event)"></p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">ZIP/Pincode</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete formControlName="zipcodeID" [suggestions]="results" field="zipcode"
+                    [(ngModel)]="casaOfficer.zipcodeID" (completeMethod)="getZipcode($event)"></p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Unknown
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <p-inputSwitch></p-inputSwitch>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane margin-left-45 " id="nav-3" role="tabpanel" aria-labelledby="nav-notes-tab">
+            <div class="row margin-top-20">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <span class="sf-labels">
+                    Notes
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-11 col-md-11 col-sm-11">
+                  <textarea class="sf-width-100" name="notes" formControlName="notes" [(ngModel)]="casaOfficer.notes"
+                    rows="5"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-footer">
+        <div>
+          <button class="sf-positive-btn margin-left-0" *ngIf="sIndex !== 0" (click)="goPrevious()"><i
+              class="fa fa-angle-double-left"></i> Previous</button>
+        </div>
+        <div class="push">
+          <button class="sf-positive-btn margin-left-0" *ngIf="sIndex !== mainTabs.length - 1" (click)="goNext()">Next
+            <i class="fa fa-angle-double-right"></i></button>
+        </div>
+      </div>
+      <footer>
+        <app-form-footer *ngIf="sIndex == mainTabs.length - 1" (save)="addPost(casaOfficer)" (reset)="resetForm()"
+          (discard)="discardForm()" (edit)="edit()" [editControll]="editForm" [isFormLog]="isFormLog"
+          [formLogInfo]="formLogInfo"></app-form-footer>
+      </footer>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,1416 @@
+<div id="pdf-content">
+  <h2 class="heading">CHILD AND ADOLESCENT FUNCTIONAL ASSESSMENT SCALE - CAFAS</h2>
+  <h4 class="client-info-head">Client's Information</h4>
+  <div class="client-info">
+    <div class="child-info">
+      <div>
+        <client-search [ClientName]='displayClientName()' (setClientAction)="setClient($event)"></client-search>
+      </div>
+      <div>
+        <span class="pad-right">Child ID#:</span>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.clientId" readonly></mat-form-field>
+      </div>
+      <div>
+        <span class="pad-right">Gender:</span>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.Gender.value"></mat-form-field>
+      </div>
+    </div>
+    <div class="child-info-section">
+      <div class="pad-right">
+        <span>Today's Date:</span>
+        <mat-form-field floatLabel="never">
+          <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose a date" class="date"
+            [(ngModel)]="model.CompletionDate.value" value="{{date}}">
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div>
+        <span class="pad-right">Admission Date:</span>
+        <mat-form-field floatLabel="never">
+          <input matInput [matDatepicker]="AdmissionDate" (click)="AdmissionDate.open()" placeholder="Choose a date" class="date"
+            [(ngModel)]="model.AdmissionDate.value">
+          <mat-datepicker #AdmissionDate></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="pad-right">
+        <span class="pad-right">Date Of Birth:</span>
+        <mat-form-field>
+          <input [(ngModel)]="model.DateOfBirth.value" matInput class="input-xs" readonly></mat-form-field>
+      </div>
+    </div>
+    <div>
+      <span class="pad-right">Age:</span>
+      <mat-form-field>
+        <input matInput class="input-xxs" [(ngModel)]="model.Age.value"></mat-form-field>
+    </div>
+  </div>
+  <div class="space-padding">
+    <mat-checkbox (change)="disableValidationProcess()" [(ngModel)]="model.disableValidate">Unable to Assess
+    </mat-checkbox>
+  </div>
+  <div class="text-section space-padding" *ngIf="model.disableValidate">
+    <p>Remarks:</p>
+    <mat-form-field *ngIf="!isFinalize">
+      <textarea [(ngModel)]="model.remarks.value" class="textarea" autosize matInput></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.remarks.value}}</span>
+  </div>
+  <hr *ngIf="isFinalize">
+  <div [ngClass]="model.disableValidate?'disableValidation':'non-disableValidation'">
+    <h3>TIME PERIOD RATED FOR CAFAS:</h3>
+    <div>
+      <input class="rad" type="radio" value="0" name="TimePeriod" [(ngModel)]="model.TimePeriod.fieldOptionIndex">Last
+      Month
+      <input class="rad" type="radio" value="1" name="TimePeriod" [(ngModel)]="model.TimePeriod.fieldOptionIndex">Last 3
+      Months
+      <input class="rad" type="radio" value="2" name="TimePeriod" [(ngModel)]="model.TimePeriod.fieldOptionIndex">Other
+      <!-- <div> -->
+      <mat-form-field> <input matInput class="input-sm" [(ngModel)]="model.OtherTimePeriodTextBox.value">
+      </mat-form-field>
+      <!-- </div> -->
+      <span class="pad-right">Rater name:</span>
+      <mat-form-field>
+        <input matInput class="input-sm" [(ngModel)]="model.StaffName.value" value={{staffName}} readonly>
+      </mat-form-field>
+    </div>
+    <h3>YOUTH’S PLACEMENT:</h3>
+    <input class="rad" type="radio" value="0" name="Placement"
+      [(ngModel)]="model.Placement.fieldOptionIndex">Family/Relative Home
+    <input class="rad" type="radio" value="1" name="Placement" [(ngModel)]="model.Placement.fieldOptionIndex">Foster
+    Home
+    <input class="rad" type="radio" value="2" name="Placement"
+      [(ngModel)]="model.Placement.fieldOptionIndex">Therapeutic Foster Home
+    <input class="rad" type="radio" value="3" name="Placement" [(ngModel)]="model.Placement.fieldOptionIndex">Detention
+    <input class="rad" type="radio" value="4" name="Placement" [(ngModel)]="model.Placement.fieldOptionIndex">Other
+    Residential
+
+    <h3>CAFAS ADMINISTRATION:</h3>
+    <div>
+      <input class="rad" type="radio" value="0" name="CAFASAdmin" [(ngModel)]="model.CAFASAdmin.fieldOptionIndex">1 st
+      Evaluation
+      <input class="rad" type="radio" value="1" name="CAFASAdmin" [(ngModel)]="model.CAFASAdmin.fieldOptionIndex">2 nd
+      Evaluation
+      <input class="rad" type="radio" value="2" name="CAFASAdmin" [(ngModel)]="model.CAFASAdmin.fieldOptionIndex">3
+      Months
+      <input class="rad" type="radio" value="3" name="CAFASAdmin" [(ngModel)]="model.CAFASAdmin.fieldOptionIndex">6
+      Months
+      <input class="rad" type="radio" value="4" name="CAFASAdmin" [(ngModel)]="model.CAFASAdmin.fieldOptionIndex">9
+      Months
+      <br>
+      <input class="rad" type="radio" value="5" name="CAFASAdmin" [(ngModel)]="model.CAFASAdmin.fieldOptionIndex">12
+      Months
+      <input class="rad" type="radio" value="6" name="CAFASAdmin" [(ngModel)]="model.CAFASAdmin.fieldOptionIndex">15
+      Months
+      <input class="rad" type="radio" value="7" name="CAFASAdmin" [(ngModel)]="model.CAFASAdmin.fieldOptionIndex">18
+      Months
+      <input class="rad" type="radio" value="8" name="CAFASAdmin" [(ngModel)]="model.CAFASAdmin.fieldOptionIndex">21
+      Months
+      <input class="rad" type="radio" value="9" name="CAFASAdmin" [(ngModel)]="model.CAFASAdmin.fieldOptionIndex">24
+      Months
+      <br>
+      <input class="rad" type="radio" value="10" name="CAFASAdmin" [(ngModel)]="model.CAFASAdmin.fieldOptionIndex">Exit
+      from Service
+      <input class="rad" type="radio" value="11" name="CAFASAdmin"
+        [(ngModel)]="model.CAFASAdmin.fieldOptionIndex">Change in intensity
+      of Service
+      <input class="rad" type="radio" value="12" name="CAFASAdmin"
+        [(ngModel)]="model.CAFASAdmin.fieldOptionIndex">Unknown
+      <input class="rad" type="radio" value="13" name="CAFASAdmin" [(ngModel)]="model.CAFASAdmin.fieldOptionIndex">Other
+      <mat-form-field> <input matInput [(ngModel)]="model.OtherReasonTextBox.value"></mat-form-field>
+    </div>
+
+    <div>
+      <table class="cafas-tab">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Severe Impairment
+              <br> 30
+            </th>
+            <th>Moderate Impairment
+              <br> 20
+            </th>
+            <th>Mild Impairment
+              <br> 10
+            </th>
+            <th>Minimal or
+              <br> No Impairment
+              <br> 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="11" class="bold"> SCHOOL/ <br> WORK
+              <br> SUBSCALE
+              <br>Role Performance
+              <br>
+              <mat-form-field> <input matInput class="input-s" [(ngModel)]="model.CAF_SCHOOL.value"></mat-form-field>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School1.fieldOptionIndex">001 Not attending school
+                <br> or going to a job</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School12.fieldOptionIndex">012 Severe and/or
+                <br> chronic non-compliant
+                <br> behavior</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School22.fieldOptionIndex">022 Preventive
+                <br> strategies implemented
+                <br> due to non-
+                <br> compliant behavior</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School28.fieldOptionIndex">028 Comfort and
+                <br>competent in roles</mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School2.fieldOptionIndex">002 Expelled or
+                <br>equivalent – from school
+                <br>or placed in
+                <br>an alternative school</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School13.fieldOptionIndex">013 Severe and/or
+                <br>chronic inappropriate
+                <br>behavior</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School23.fieldOptionIndex">023 Preventive
+                <br>strategies implemented
+                <br>due to
+                <br> inappropriate behavior</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School29.fieldOptionIndex">029 Resolves minor
+                <br> problems
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School3.fieldOptionIndex">003 Suspended from
+                <br>school or under
+                <br> monitoring
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School14.fieldOptionIndex">014 Frequently truant</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School24.fieldOptionIndex">024 Occasionally
+                <br>disobeys rules
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School30.fieldOptionIndex">030 Functions even
+                <br> with distrations </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School4.fieldOptionIndex">004 Serious threat or
+                <br>has harmed a
+                <br> teacher/peer/co-
+                <br>worker/supervisor </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School15.fieldOptionIndex">015 Frequently absent</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School25.fieldOptionIndex">025 Poor attention
+                <br>or high activity level
+                <br>but is not
+                <br> disruptive to group</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School31.fieldOptionIndex">031 Average or above
+                <br>school grades</mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School5.fieldOptionIndex">005 Receives special
+                <br> accommodations to
+                <br>meet minimum
+                <br>requirements</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School16.fieldOptionIndex">016 Reprimanded at
+                <br> work due to
+                <br>tardiness or missed
+                <br> days</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School26.fieldOptionIndex">026 School/work
+                <br> productivity is less than
+                <br> ability </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School32.fieldOptionIndex">032 School achievement
+                <br> consistent with cognitive
+                <br>ability (MR)</mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School6.fieldOptionIndex">006 Chronic truancy</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School17.fieldOptionIndex">017 Poor attention
+                <br>and/or high activity
+                <br>level resulting
+                <br>in disruptive behavior</mat-checkbox>
+            </td>
+            <td></td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School33.fieldOptionIndex">033 School achievement
+                <br> consistent with learning
+                <br>ability (LD)</mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School7.fieldOptionIndex">007 Chronic absences</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School18.fieldOptionIndex">018 Reprimanded or
+                <br>warned
+              </mat-checkbox>
+            </td>
+            <td></td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School34.fieldOptionIndex">034 Slow learner but
+                <br> school achievement
+                <br>consistent
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School8.fieldOptionIndex">008 Despite special
+                <br> learning environment or
+                <br> specialized treatment
+                <br> program, disruptive
+                <br> behavior persists (poor
+                <br>attention or high activity
+                <br> level)
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School19.fieldOptionIndex">019 Grade average
+                <br> below “C”
+              </mat-checkbox>
+            </td>
+            <td></td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School35.fieldOptionIndex">035 School achievement
+                <br> consistent with FAS/FAE
+                <br>impairment
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School9.fieldOptionIndex">009 Failing most or all
+                <br> classes
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School20.fieldOptionIndex">020 Failing at least half of
+                <br>classes
+              </mat-checkbox>
+            </td>
+            <td></td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School36.fieldOptionIndex">036 Achievement in
+                <br>vocational programs</mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School10.fieldOptionIndex">010 Does not have a job or
+                <br> has dropped out of school</mat-checkbox>
+            </td>
+            <td></td>
+            <td></td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School37.fieldOptionIndex">037 High school diploma
+                <br> or GED</mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School38.fieldOptionIndex">038 Did not finish school
+                <br> but working or looking for
+                <br>work</mat-checkbox>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea [disabled]="model.disableValidate === true" matInput autosize
+          [(ngModel)]="model.Comment1.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Comment1.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div>
+      <table class="cafas-tab">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Severe Impairment
+              <br> 30
+            </th>
+            <th>Moderate Impairment
+              <br> 20
+            </th>
+            <th>Mild Impairment
+              <br> 10
+            </th>
+            <th>Minimal or
+              <br> No Impairment
+              <br> 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="9" class="bold"> HOME SUBSCALE
+              <br>Role Performance
+              <br>
+              <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.CAF_HOME.value"></mat-form-field>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home41.fieldOptionIndex">041 Not in home</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home51.fieldOptionIndex">051 Persistent failure
+                <br> to comply with rules
+                <br> & expectation
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home57.fieldOptionIndex">057 Fails to comply
+                <br> with rules &
+                <br>expectations frequently
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home62.fieldOptionIndex">062 Typically
+                <br> compliant</mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home42.fieldOptionIndex">042 Maintained in home
+                <br>by extensive management
+                <br>by others</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home52.fieldOptionIndex">052 Vulgar & profane
+                <br>language toward
+                <br>household members</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home58.fieldOptionIndex">058 compliance
+                <br> requires “prodding”
+                <br> and watching</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home63.fieldOptionIndex">063 Minor problems
+                <br>– easily resolved
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home43.fieldOptionIndex">043 Serious & deliberate
+                <br> threats to household
+                <br> members
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home53.fieldOptionIndex">053 Potentially
+                <br>dangerous, irresponsible
+                <br>behavior</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home59.fieldOptionIndex">059 Compliant with
+                <br>requests but complains,
+                <br> resists
+              </mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home44.fieldOptionIndex">044 Repeated
+                <br>intimidation toward
+                <br> household members
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home54.fieldOptionIndex">054 Leaves without
+                <br> permission but
+                <br>whereabouts are known</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home60.fieldOptionIndex">060 Intentionally
+                <br>annoying/frustrating
+                <br>behavior frequently</mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home45.fieldOptionIndex">045 Caregiver unable
+                <br>to control child/youth’s
+                <br> behaviors and activities</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home55.fieldOptionIndex">055 Deliberate damage
+                <br> to the home</mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home46.fieldOptionIndex">046 Constant monitoring
+                <br>of behaviors & activities
+                <br>to maintain safety</mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home47.fieldOptionIndex">047 Supervision required
+                <br>interferes with caregiver’s
+                <br> work and/or other
+                <br> roles</mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home48.fieldOptionIndex">048 AWOL without
+                <br>permission more than
+                <br> once
+              </mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home49.fieldOptionIndex">049 Severe &
+                <br> deliberate damage
+                <br>to property</mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea [disabled]="model.disableValidate === true" matInput autosize
+          [(ngModel)]="model.Comment2.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Comment2.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div>
+      <table class="cafas-tab">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Severe Impairment
+              <br> 30
+            </th>
+            <th>Moderate Impairment
+              <br> 20
+            </th>
+            <th>Mild Impairment
+              <br> 10
+            </th>
+            <th>Minimal or
+              <br> No Impairment
+              <br> 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="6" class="bold"> COMMUNITY SUBSCALE
+              <br>Role Performance
+              <br>
+              <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.CAF_COMMUNITY.value">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community66.fieldOptionIndex">066 Serious violation
+                <br>of the law resulting
+                <br> in confinement
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community73.fieldOptionIndex">073 Persistent &
+                <br> serious delinquent
+                <br> behavior
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community80.fieldOptionIndex">080 Minor legal
+                <br> violations
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community84.fieldOptionIndex">084 No negative impact on
+                <br> community
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community67.fieldOptionIndex">067 Substantial evidence
+                <br>or conviction of serious
+                <br> law violation</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community74.fieldOptionIndex">074 On probation
+                <br> or under court
+                <br>supervision – offense
+                <br>within last 3 months</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community81.fieldOptionIndex">081 Single incident
+                <br> of minor offense</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community85.fieldOptionIndex">085 Generally able
+                <br>to resolve minor
+                <br>problems
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community68.fieldOptionIndex">068 Legal diversion
+                <br> to mental health or
+                <br> social services due
+                <br>to physical assault or
+                <br> threat with a weapon
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community75.fieldOptionIndex">075 On probation or
+                <br>under court
+                <br>supervision – offense
+                <br> more than 3 months
+                <br>ago</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community82.fieldOptionIndex">082 Aware of dangers
+                <br>of episodes of
+                <br> playing with fire
+              </mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community69.fieldOptionIndex">069 Legal diversion
+                <br>to mental health
+                <br>or social services
+                <br>due to inappropriate
+                <br>sexual behavior or
+                <br>sexual assault
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community76.fieldOptionIndex">076 At risk of
+                <br>confinement due to
+                <br>serious violations of
+                <br> the law</mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community70.fieldOptionIndex">070 Severe & deliberate
+                <br> property damage
+                <br>outside of home</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community77.fieldOptionIndex">077 Sexually
+                <br>inappropriate causing
+                <br> concern about contact
+                <br> with other children
+              </mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community71.fieldOptionIndex">071 Malicious firesetting</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community78.fieldOptionIndex">078 Intentionally plays
+                <br> with fire - repeatedly</mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea [disabled]="model.disableValidate === true" matInput autosize
+          [(ngModel)]="model.Comment3.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Comment3.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div>
+      <table class="cafas-tab">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Severe Impairment
+              <br> 30
+            </th>
+            <th>Moderate Impairment
+              <br> 20
+            </th>
+            <th>Mild Impairment
+              <br> 10
+            </th>
+            <th>Minimal or
+              <br> No Impairment
+              <br> 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="9" class="bold"> BEHAVIOR TOWARD
+              <br> OTHERS
+              <br>
+              <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.CAF_BEHAVIOR.value"></mat-form-field>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior88.fieldOptionIndex">088 Consistently odd or
+                <br> bizarre behavior</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior93.fieldOptionIndex">093 Typically
+                <br> inappropriate behavior
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior103.fieldOptionIndex">103 Annoying,
+                <br> quarrelsome &
+                <br> argumentative toward
+                <br> others
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior111.fieldOptionIndex">111 Relates well to
+                <br> others</mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior89.fieldOptionIndex">089 Harm to others likely
+                <br> due to
+                <br> disruptive/dangerous
+                <br> behavior
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior94.fieldOptionIndex">094 Inappropriate sexual
+                <br> behavior toward others</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior104.fieldOptionIndex">104 Age-inappropriate
+                <br> impulsive behavior or poor
+                <br> judgment
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior112.fieldOptionIndex">112 Makes & keeps
+                <br> friends
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior90.fieldOptionIndex">090 Attempted or
+                <br> accomplished sexual abuse
+                <br> or assault of another
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior95.fieldOptionIndex">095 Vindictive or spiteful</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior105.fieldOptionIndex">105 Easily upset/temper
+                <br> tantrums
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior113.fieldOptionIndex">113 Able to resolve
+                <br> disagreements
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior91.fieldOptionIndex">091 Severely &
+                <br> deliberately cruel to
+                <br> animals
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior96.fieldOptionIndex">096 Impulsive/poor
+                <br> judgment leads to
+                <br> dangerous behavior</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior106.fieldOptionIndex">106 Annoyed by
+                <br> others/quick tempered</mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior97.fieldOptionIndex">097 Angry outbursts</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior107.fieldOptionIndex">107 Ignored or rejected by
+                <br> peers
+              </mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior98.fieldOptionIndex">098 Mean to others or
+                <br> animals
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior108.fieldOptionIndex">108 Difficulty making
+                <br> friends
+              </mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior99.fieldOptionIndex">099 Exploitive or
+                <br> manipulative toward
+                <br> others
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior109.fieldOptionIndex">109 Immature
+                <br> behavior/younger friends</mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior100.fieldOptionIndex">100 Intimidates, harasses,
+                <br> bullies others</mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior101.fieldOptionIndex">101 Persistent relational
+                <br> problems
+              </mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea [disabled]="model.disableValidate === true" matInput autosize
+          [(ngModel)]="model.Comment4.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Comment4.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div>
+      <table class="cafas-tab">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Severe Impairment
+              <br> 30
+            </th>
+            <th>Moderate Impairment
+              <br> 20
+            </th>
+            <th>Mild Impairment
+              <br> 10
+            </th>
+            <th>Minimal or
+              <br> No Impairment
+              <br> 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="7" class="bold"> MOODS/<br>EMOTIONS
+              <br> SUBSCALE
+              <br>
+              <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.CAF_MOODS.value"></mat-form-field>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods116.fieldOptionIndex">116 Mostly viewed as odd
+                <br> or strange</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods121.fieldOptionIndex">121 Intense and abrupt
+                <br> changes in mood
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods128.fieldOptionIndex">128 Anxious, fearful or sad
+                <br> often
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods136.fieldOptionIndex">136 Normal
+                <br>experiences of
+                <br> distress
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods117.fieldOptionIndex">117 Fears, worries or
+                <br> anxiety negatively impacts
+                <br> social, home, school/work
+                <br> involvement
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods122.fieldOptionIndex">122 Persistent depressed
+                <br> mood or sadness</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods129.fieldOptionIndex">129 Irritable, fearful,
+                <br> worried more often than
+                <br> not
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods137.fieldOptionIndex">137 self-worth –
+                <br> “OK” person
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods118.fieldOptionIndex">118 Depression impacts
+                <br> social, home, school/work
+                <br> involvement
+                <br>
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods123.fieldOptionIndex">123 Excessive worry</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods130.fieldOptionIndex">130 Very low self-esteem </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods138.fieldOptionIndex">138 Can express
+                <br> strong emotions
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods119.fieldOptionIndex">119 Suicidal intent </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods124.fieldOptionIndex">124 Intense anxiety over
+                <br> separation from
+                <br> parents/home
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods131.fieldOptionIndex">131 Easily distressed by
+                <br> mistakes
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods139.fieldOptionIndex">139 Age-appropriate
+                <br> anxiety and sadness
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods125.fieldOptionIndex">125 Special
+                <br> accommodations needed
+                <br> for school-aged child due
+                <br> to excessive anxiety/worry</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods132.fieldOptionIndex">132 Anxious, hurt, sad,
+                <br> withdrawn if criticized</mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods126.fieldOptionIndex">126 Flat/blunted
+                <br> emotional expression
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods133.fieldOptionIndex">133 sad or anxious more
+                <br> than 1 day at a time
+              </mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods134.fieldOptionIndex">134 Noticeable emotional
+                <br> restriction
+              </mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea [disabled]="model.disableValidate === true" matInput autosize
+          [(ngModel)]="model.Comment5.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Comment5.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div>
+      <table class="cafas-tab">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Severe Impairment
+              <br> 30
+            </th>
+            <th>Moderate Impairment
+              <br> 20
+            </th>
+            <th>Mild Impairment
+              <br> 10
+            </th>
+            <th>Minimal or
+              <br> No Impairment
+              <br> 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="3" class="bold"> SELF-HARMFUL
+              <br> BEHAVIOR
+              <br> SUBSCALE
+              <br>
+              <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.CAF_SELFHARM.value"></mat-form-field>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.SelfHarm142.fieldOptionIndex">142 Self-destructive, non-
+                <br> accidental behavior</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.SelfHarm146.fieldOptionIndex">146 Self-harm, non-
+                <br> accidental, not life-
+                <br> threatening
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.SelfHarm149.fieldOptionIndex">149 Repeated, non-
+                <br> accidental self-harm
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.SelfHarm151.fieldOptionIndex">151 No self-harm behavior</mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.SelfHarm143.fieldOptionIndex">143 Self-destructive, non-
+                <br> intentional behavior
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.SelfHarm147.fieldOptionIndex">147 Repeatedly talks or
+                <br> thinks about dying or
+                <br> hurting self</mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.SelfHarm144.fieldOptionIndex">144 Clear plan to hurt self,
+                <br> desire to die
+              </mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea [disabled]="model.disableValidate === true" matInput autosize
+          [(ngModel)]="model.Comment6.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Comment6.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div>
+      <table class="cafas-tab">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Severe Impairment
+              <br> 30
+            </th>
+            <th>Moderate Impairment
+              <br> 20
+            </th>
+            <th>Mild Impairment
+              <br> 10
+            </th>
+            <th>Minimal or
+              <br> No Impairment
+              <br> 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="9" class="bold"> SUBSTANCE USE
+              <br> SUBSCALE
+              <br>
+              <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.CAF_SUBSTANCE_USE.value">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Substance154.fieldOptionIndex">154 Preoccupied with
+                <br> access and use</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Substance165.fieldOptionIndex">165 Substance use
+                <br> interferes with role
+                <br> functions
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Substance172.fieldOptionIndex">172 Infrequent excess use </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Substance176.fieldOptionIndex">176 No use of
+                <br>substances</mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Substance155.fieldOptionIndex">155 Dependent on
+                <br> continued use
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Substance166.fieldOptionIndex">166 Gets into trouble as a
+                <br> result of use</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Substance173.fieldOptionIndex">173 Regular use but not
+                <br> intoxicated
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Substance177.fieldOptionIndex">177 Unable to confirm
+                <br> substance use
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Substance156.fieldOptionIndex">156 Expelled or failing
+                <br> school due to use
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Substance167.fieldOptionIndex">167 Endangers self and
+                <br> others due to use</mat-checkbox>
+            </td>
+            <td> </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Substance178.fieldOptionIndex">178 Has "tried"
+                <br> substances </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Substance157.fieldOptionIndex">157 Losing job or fired due
+                <br> to use
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Substance168.fieldOptionIndex">168 Friendships/
+                <br> associates have changed</mat-checkbox>
+            </td>
+            <td> </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Substance179.fieldOptionIndex">179 Occasional use, no
+                <br> negative consequences</mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Substance158.fieldOptionIndex">158 Intoxicated or high
+                <br> more than 2 times per week
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Substance169.fieldOptionIndex">169 Intoxicated or high 1
+                <br> to 2 times per week
+              </mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Substance159.fieldOptionIndex">159 Negative
+                <br> consequences due to use
+              </mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Substance160.fieldOptionIndex">160 Parenting or pregnant
+                <br> and using drugs
+              </mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Substance161.fieldOptionIndex">161 Parenting or pregnant
+                <br> and using alcohol
+              </mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Substance162.fieldOptionIndex">162 Cannot stop drinking,
+                <br> drinks alone, has blackouts
+              </mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea [disabled]="model.disableValidate === true" matInput autosize
+          [(ngModel)]="model.Comment7.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Comment7.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div>
+      <table class="cafas-tab">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Severe Impairment
+              <br> 30
+            </th>
+            <th>Moderate Impairment
+              <br> 20
+            </th>
+            <th>Mild Impairment
+              <br> 10
+            </th>
+            <th>Minimal or
+              <br> No Impairment
+              <br> 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="5" class="bold">THINKING
+              <br>
+              <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.CAF_COMMUNICATION.value">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking182.fieldOptionIndex">182 Incoherent thought
+                <br> or language impairs
+                <br> communications
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking187.fieldOptionIndex">187 Disorganized,
+                <br> irrelevant communications
+                <br>
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking193.fieldOptionIndex">193 Odd or eccentric
+                <br> speech </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking198.fieldOptionIndex">198 No distortions or
+                <br> eccentric thoughts</mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking183.fieldOptionIndex">183 Odd or
+                <br> non-communicative
+                <br> speech or non-verbal
+                <br> communication
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking188.fieldOptionIndex">188 Distorted thinking</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking194.fieldOptionIndex">194 Distorted thoughts</mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking184.fieldOptionIndex">184 Strange or bizarre
+                <br> behavior
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking189.fieldOptionIndex">189 Intermittent
+                <br> hallucinations
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking195.fieldOptionIndex">195 Odd beliefs </mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking185.fieldOptionIndex">185 Short-term memory
+                <br> loss/disorientation
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking190.fieldOptionIndex">190 Frequent, marked
+                <br> confusion
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking196.fieldOptionIndex">196 Unusual perceptual
+                <br> experiences
+              </mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking191.fieldOptionIndex">191 Preoccupied with
+                <br> bizarre or odd thoughts or
+                <br> fantasies
+              </mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput [disabled]="model.disableValidate === true" autosize
+          [(ngModel)]="model.Comment8.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Comment8.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div>
+      <span class="bold pad-right">Total Score</span>
+      <mat-form-field *ngIf="!isFinalize"> <input matInput [(ngModel)]="model.CAF_TOTAL.value"></mat-form-field>
+      <span class="pad-right" *ngIf="isFinalize">{{model.CAF_TOTAL.value}}</span>
+    </div>
+  </div>
+</div>
+<form-footer (resetAction)='resetForm()' (calculateAction)='calculateForm()'
+  (saveAction)='saveForm()' (finalizeAction)='finalize()' [disableCalculate]="'false'">
+</form-footer>

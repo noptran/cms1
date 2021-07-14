@@ -1,0 +1,363 @@
+<div id="pdf-content">
+  <form id="print-form-content" class="sf-form" [formGroup]="workerParentVisit">
+    <div class="flex-container header">
+      <div class="heading">
+        WORKER PARENT VISIT <br>
+        ACTIVITY LOG
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Children’s Name(s): </span>
+          <input type="text" pInputText size="20" [(ngModel)]="workerParent.ClientName.value" formControlName="ClientName"
+            name="ClientName" />
+        </div>
+        <div>
+          <span>Parent’s Name(s):</span>
+          <input type="text" [(ngModel)]="workerParent.parentName.value" formControlName="parentName" name="parentName"
+            pInputText size="20" />
+        </div>
+        <div>
+          <span>FACTS:</span>
+          <input type="text" [(ngModel)]="workerParent.fact.value" formControlName="fact" name="fact" pInputText size="20" />
+        </div>
+        <div>
+          <span>Date:</span>
+          <p-calendar [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [(ngModel)]="workerParent.CompletionDate.value" formControlName="CompletionDate" name="CompletionDate"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="flex-container">
+          <div>
+            <span>Time/Length:</span>
+          </div>
+          <div>
+            <div class="space-right">From:</div>
+            <p-calendar [inputStyle]="{'width':'70px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [(ngModel)]="workerParent.FromTime.value" formControlName="FromTime" name="FromTime" [timeOnly]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+          <div>
+            <div class="space-right">To:</div>
+            <p-calendar [inputStyle]="{'width':'70px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [(ngModel)]="workerParent.ToTime.value" formControlName="ToTime" name="ToTime" [timeOnly]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="procode" value="CF069.1" label="CF069.1 Visit in residence"
+          [(ngModel)]="workerParent.proCode" formControlName="proCode"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="procode" value="CF069.2" label="CF069.2 Visit not in residence"
+          [(ngModel)]="workerParent.proCode" formControlName="proCode"></p-radioButton>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">Location of visit:</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerParent.LocationOfVisit.value" formControlName="LocationOfVisit"
+          name="LocationOfVisit" /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerParent.LocationOfVisit.value)}} cols="150" [(ngModel)]="workerParent.LocationOfVisit.value" formControlName="LocationOfVisit"
+          name="LocationOfVisit" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">List those present at visit:</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerParent.ListThosePresentAtVisit.value"
+          formControlName="ListThosePresentAtVisit" name="ListThosePresentAtVisit" /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerParent.ListThosePresentAtVisit.value)}} cols="150" [(ngModel)]="workerParent.ListThosePresentAtVisit.value"
+          formControlName="ListThosePresentAtVisit" name="ListThosePresentAtVisit" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">Children Living in the Removal Home:</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerParent.ChildrenLivingInTheRemovalHome.value"
+          formControlName="ChildrenLivingInTheRemovalHome" name="ChildrenLivingInTheRemovalHome" /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerParent.ChildrenLivingInTheRemovalHome.value)}} cols="150" [(ngModel)]="workerParent.ChildrenLivingInTheRemovalHome.value"
+          formControlName="ChildrenLivingInTheRemovalHome" name="ChildrenLivingInTheRemovalHome" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">Others Living in Home:</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerParent.OthersLivingInHome.value" formControlName="OthersLivingInHome"
+          name="OthersLivingInHome" /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerParent.OthersLivingInHome.value)}} cols="150" [(ngModel)]="workerParent.OthersLivingInHome.value"
+          formControlName="OthersLivingInHome" name="OthersLivingInHome" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Case Plan Goal:</div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="CasePlanGoals" value="0" label="Reintegration" [(ngModel)]="workerParent.CasePlanGoals.fieldOptionIndex"
+          formControlName="CasePlanGoals"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="CasePlanGoals" value="1" label="Adoption" [(ngModel)]="workerParent.CasePlanGoals.fieldOptionIndex"
+          formControlName="CasePlanGoals"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="CasePlanGoals" value="2" label="APPLA" [(ngModel)]="workerParent.CasePlanGoals.fieldOptionIndex"
+          formControlName="CasePlanGoals"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="CasePlanGoals" value="3" label="Custodianship" [(ngModel)]="workerParent.CasePlanGoals.fieldOptionIndex"
+          formControlName="CasePlanGoals"></p-radioButton>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-down"> Case Plan Tasks, Services and/or Additional Concerns addressed at this Visit: (Limit to
+        3 Tasks) </div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerParent.casePlanLimit.value)}} cols="150" [(ngModel)]="workerParent.casePlanLimit.value" formControlName="casePlanLimit"
+          name="casePlanLimit" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-down"> Progress since last W/P Visit: </div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerParent.progress.value)}} cols="150" [(ngModel)]="workerParent.progress.value" formControlName="progress"
+          name="progress" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="flex-container">
+        <div class="flex-container space-right">
+          <div class="space-right">Tasks for the parent before the next W/P visit:</div>
+          <div class="space-right">
+            <input type="text" pInputText size="20" [(ngModel)]="workerParent.Tasksparentnextvisit.value"
+              formControlName="Tasksparentnextvisit" name="Tasksparentnextvisit" />
+          </div>
+        </div>
+        <div class="flex-container space-right">
+          <div class="space-right">Due Date:</div>
+          <div class="space-right">
+            <p-calendar [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [(ngModel)]="workerParent.duedate1.value" formControlName="duedate1" name="duedate1"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="flex-container">
+        <div class="flex-container space-right">
+          <div class="space-right">Tasks for the worker before the next W/P visit:</div>
+          <div class="space-right">
+            <input type="text" pInputText size="20" [(ngModel)]="workerParent.Tasksworker.value" formControlName="Tasksworker"
+              name="Tasksworker" />
+          </div>
+        </div>
+        <div class="flex-container space-down">
+          <div class="space-right">Due Date:</div>
+          <div class="space-right">
+            <p-calendar [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [(ngModel)]="workerParent.duedate2.value" formControlName="duedate2" name="duedate2"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-down">What family members/kin have a connection to the child? </div>
+      <div class="space-down">
+        <div class="space-right">Name:</div>
+        <div class="space-right">
+          <!-- <input type="text" pInputText size="20" [(ngModel)]="workerParent.WhatFamilyMembersKinHaveaConnectionToTheChildAndProvideSupportToTheFamily.value"
+            formControlName="WhatFamilyMembersKinHaveaConnectionToTheChildAndProvideSupportToTheFamily" name="WhatFamilyMembersKinHaveaConnectionToTheChildAndProvideSupportToTheFamily" /> -->
+          <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerParent.WhatFamilyMembersKinHaveaConnectionToTheChildAndProvideSupportToTheFamily.value)}} cols="150" [(ngModel)]="workerParent.WhatFamilyMembersKinHaveaConnectionToTheChildAndProvideSupportToTheFamily.value"
+            formControlName="WhatFamilyMembersKinHaveaConnectionToTheChildAndProvideSupportToTheFamily" name="WhatFamilyMembersKinHaveaConnectionToTheChildAndProvideSupportToTheFamily"
+            style="width: 100%;height: auto;"></textarea>
+        </div>
+      </div>
+    </div>
+    <p>Safety Assessment (for all family members living in the home):</p>
+    <p>Safety is the potential for serious maltreatment which is imminent. It determines the need for immediate
+      protection action or controlling interventions to protect the child from imminent danger.</p>
+    <div class="flex-container space-down">
+      <div class="space-right">Have additional safety concerns been identified since last visit?</div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeeting" value="0"
+          label="Yes" [(ngModel)]="workerParent.WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeeting.fieldOptionIndex"
+          formControlName="WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeeting"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeeting" value="1"
+          label="No" [(ngModel)]="workerParent.WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeeting.fieldOptionIndex"
+          formControlName="WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeeting"></p-radioButton>
+      </div>
+    </div>
+    <p>If yes, please answer the following</p>
+    <div class="space-down">
+      <div class="space-down"> What safety concerns have been identified? </div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerParent.WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeetingDescription.value)}} cols="150" [(ngModel)]="workerParent.WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeetingDescription.value"
+          formControlName="WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeetingDescription" name="WereAnySafetyRiskConcernsObservedOrDiscussedDuringThisMeetingDescription"
+          style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-down"> What are the family’s strengths and resources mitigating safety concerns? </div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerParent.HowWereSafetyRiskConcernsAddressed.value)}} cols="150" [(ngModel)]="workerParent.HowWereSafetyRiskConcernsAddressed.value"
+          formControlName="HowWereSafetyRiskConcernsAddressed" name="HowWereSafetyRiskConcernsAddressed" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-down"> What are the contributing factors directly related to the safety concern? </div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerParent.contributingfactors.value)}} cols="150" [(ngModel)]="workerParent.contributingfactors.value"
+          formControlName="contributingfactors" name="contributingfactors" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Has a safety plan been developed or reviewed?</div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="safetyplandevelopedorreviewed" value="0" label="Yes" [(ngModel)]="workerParent.safetyplandevelopedorreviewed.fieldOptionIndex"
+          formControlName="safetyplandevelopedorreviewed"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="safetyplandevelopedorreviewed" value="1" label="No" [(ngModel)]="workerParent.safetyplandevelopedorreviewed.fieldOptionIndex"
+          formControlName="safetyplandevelopedorreviewed"></p-radioButton>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-down"> If reviewed, what progress has been made to follow the safety plan? </div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerParent.reviewprogressfollow.value)}} cols="150" [(ngModel)]="workerParent.reviewprogressfollow.value"
+          formControlName="reviewprogressfollow" name="reviewprogressfollow" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <p> Risk Assessment (for all family members living in the home):</p>
+    <p>Risk is potential maltreatment in the future. It determines the need for services to address potential future maltreatment.
+    </p>
+    <div class="flex-container space-down">
+      <div class="space-right">Have additional risk concerns been identified since last visit?</div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="additionalriskconcernidentified" value="0" label="Yes" [(ngModel)]="workerParent.additionalriskconcernidentified.fieldOptionIndex"
+          formControlName="additionalriskconcernidentified"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="additionalriskconcernidentified" value="1" label="No" [(ngModel)]="workerParent.additionalriskconcernidentified.fieldOptionIndex"
+          formControlName="additionalriskconcernidentified"></p-radioButton>
+      </div>
+    </div>
+    <p>If yes, please answer the following:</p>
+    <div class="space-down">
+      <div class="space-down">What risk concerns have been identified?</div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerParent.risk_concern_identified.value)}} cols="150" [(ngModel)]="workerParent.risk_concern_identified.value"
+          formControlName="risk_concern_identified" name="risk_concern_identified" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-down"> What are the family’s strengths and resources mitigating the risks?</div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerParent.family_mitigate_risk.value)}} cols="150" [(ngModel)]="workerParent.family_mitigate_risk.value"
+          formControlName="family_mitigate_risk" name="family_mitigate_risk" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-down"> What services are needed or have taken place to mitigate the concerns? </div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerParent.service_mitigate_concern.value)}} cols="150" [(ngModel)]="workerParent.service_mitigate_concern.value"
+          formControlName="service_mitigate_concern" name="service_mitigate_concern" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Has a service plan been developed or reviewed?</div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="service_plan_reviewed" value="0" label="Yes" [(ngModel)]="workerParent.service_plan_reviewed.fieldOptionIndex"
+          formControlName="service_plan_reviewed"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="service_plan_reviewed" value="1" label="No" [(ngModel)]="workerParent.service_plan_reviewed.fieldOptionIndex"
+          formControlName="service_plan_reviewed"></p-radioButton>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-down"> If reviewed, what progress has been made to follow the service plan? </div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerParent.CasePlanTasks.value)}} cols="150" [(ngModel)]="workerParent.CasePlanTasks.value" formControlName="CasePlanTasks"
+          name="CasePlanTasks" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-down">Additional Remarks, Positives, and/or Concerns: </div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerParent.NarrativeSummary.value)}} cols="150" [(ngModel)]="workerParent.NarrativeSummary.value" formControlName="NarrativeSummary"
+          name="NarrativeSummary" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <!-- <div class="flex-container space-down"> -->
+    <div class="space-down">
+      <div class="space-right">Next W/P Visit Scheduled For:</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerParent.TasksForSFCSBeforeNextVisit.value"
+          formControlName="TasksForSFCSBeforeNextVisit" name="TasksForSFCSBeforeNextVisit" /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerParent.TasksForSFCSBeforeNextVisit.value)}} cols="150" [(ngModel)]="workerParent.TasksForSFCSBeforeNextVisit.value"
+          formControlName="TasksForSFCSBeforeNextVisit" name="TasksForSFCSBeforeNextVisit" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <p>I received a copy of this form and understand what is expected of me. </p>
+    <div class="flex-container space-down">
+      <div class="space-down">
+        <div class="space-right">
+          <input type="text" pInputText size="20" [(ngModel)]="workerParent.parent_Signature1.value" formControlName="parent_Signature1"
+            name="parent_Signature1" />
+        </div>
+        <div class="space-right">Parent Signature</div>
+      </div>
+      <div class="space-down">
+        <div class="space-right">
+          <p-calendar [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [(ngModel)]="workerParent.date1.value" formControlName="date1" name="date1" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-right">Date:</div>
+      </div>
+      <div class="space-down">
+        <div class="space-right">
+          <input type="text" pInputText size="20" [(ngModel)]="workerParent.parent_Signature2.value" formControlName="parent_Signature2"
+            name="parent_Signature2" />
+        </div>
+        <div class="space-right">Parent Signature</div>
+      </div>
+      <div class="space-down">
+        <div class="space-right">
+          <p-calendar [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [(ngModel)]="workerParent.date2.value" formControlName="date2" name="date2" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-right">Date:</div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-down">
+        <div class="space-right">
+          <input type="text" pInputText size="20" [(ngModel)]="workerParent.Worker_Signature.value" formControlName="Worker_Signature"
+            name="Worker_Signature" readonly />
+        </div>
+        <div class="space-right">Worker Signature/Title</div>
+      </div>
+      <div class="space-down">
+        <div class="space-right">
+          <p-calendar [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [(ngModel)]="workerParent.date3.value" formControlName="date3" name="date3" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-right">Date:</div>
+      </div>
+    </div>
+  </form>
+  <app-form-footer (save)="saveForm(workerParent)" (print)="printForm()" (finalize)="finalizeForm(workerParent)"
+    [isPrint]="isPrint" [isFinalize]="isFinalize" (edit)="editForm()" [editControll]="editControll" (discard)="discardForm()" [isDisabled]="isDisable"></app-form-footer>
+</div>

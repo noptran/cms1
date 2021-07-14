@@ -1,0 +1,443 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="nonTherapyForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        FAMILY PRESERVATION
+        <br> NON-THERAPY/FACE TO
+        <br>FACE CONTACT
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Case Name:</span>
+          <input readonly [(ngModel)]="fpNonTherapyFTF.caseName" formControlName="caseName" name="caseName" type="text" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>Case Number:</span>
+          <input readonly [(ngModel)]="fpNonTherapyFTF.caseNumber" formControlName="caseNumber" name="caseNumber" type="text" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>Date of Referral:</span>
+          <p-calendar [(ngModel)]="fpNonTherapyFTF.dateOfReferral" formControlName="dateOfReferral" name="dateOfReferral" class="date-picker"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>Date:</span>
+          <p-calendar [(ngModel)]="fpNonTherapyFTF.caseDate" formControlName="caseDate" name="caseDate" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          End Time:
+        </div>
+        <div>
+          <p-calendar [(ngModel)]="fpNonTherapyFTF.endTime" formControlName="endTime" name="endTime" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [timeOnly]="true" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Start Time:
+        </div>
+        <div>
+          <p-calendar [(ngModel)]="fpNonTherapyFTF.startTime" formControlName="startTime" name="startTime" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [timeOnly]="true" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Duration:
+        </div>
+        <div>
+          <p-calendar [(ngModel)]="fpNonTherapyFTF.duration" formControlName="duration" name="duration" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [timeOnly]="true" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin-top-2-rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Location:
+        </div>
+        <div>
+          <input [(ngModel)]="fpNonTherapyFTF.location" formControlName="location" name="location" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="d-flex">
+          <div class="p-2">
+            <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isCaseSupervised" formControlName="isCaseSupervised" name="isCaseSupervised"></p-checkbox>
+          </div>
+          <div class="p-2">
+            CF054.1 – Case Supervision
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <div class="d-flex">
+          <div class="p-2">
+            <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isFamilySupported" formControlName="isFamilySupported" name="isFamilySupported"></p-checkbox>
+          </div>
+          <div class="p-2">
+            CF011 – Family Support Services
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 margin-3-rem border-black">
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <b>I. List all present and if a family member is not present explain why:</b>
+          </div>
+        </div>
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <textarea [(ngModel)]="fpNonTherapyFTF.presentFamilyMembers" formControlName="presentFamilyMembers" name="presentFamilyMembers"
+              pInputTextarea autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;"></textarea>
+          </div>
+        </div>
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <b> Alone time with Child:</b>
+          </div>
+        </div>
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <textarea [(ngModel)]="fpNonTherapyFTF.timeWithChild" formControlName="timeWithChild" name="timeWithChild" pInputTextarea
+              autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;"></textarea>
+          </div>
+        </div>
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <b> Alone time with Child - Exceptions:</b>
+          </div>
+        </div>
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <textarea [(ngModel)]="fpNonTherapyFTF.timeWithChildExceptions" formControlName="timeWithChildExceptions" name="timeWithChildExceptions"
+              pInputTextarea autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 margin-3-rem border-black">
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <b>II. Describe specific interactions with family members and their input or response:
+            </b>
+          </div>
+        </div>
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <textarea [(ngModel)]="fpNonTherapyFTF.interactionsFamilyMembers" formControlName="interactionsFamilyMembers" name="interactionsFamilyMembers"
+              pInputTextarea autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 margin-3-rem border-black">
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <b>III. Which case plan task or non-intensive plan task did your visit relate to:
+            </b>
+          </div>
+        </div>
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <textarea [(ngModel)]="fpNonTherapyFTF.planTaskRelateTo" formControlName="planTaskRelateTo" name="planTaskRelateTo" pInputTextarea
+              autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 margin-3-rem border-black">
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <b>IV. Community Resources Update (What community resources have the family utilized since last home visit?):
+            </b>
+          </div>
+        </div>
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <textarea [(ngModel)]="fpNonTherapyFTF.communityResourcesUpdate" formControlName="communityResourcesUpdate" name="communityResourcesUpdate"
+              pInputTextarea autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="html2pdf__page-break"></div>
+      <div class="col-xs-12 margin-3-rem border-black">
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <b>V. Review of case plan or non-intensive plan and progress towards completing tasks (must be done at least monthly):
+            </b>
+          </div>
+        </div>
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <textarea [(ngModel)]="fpNonTherapyFTF.reviewPlanProgress" formControlName="reviewPlanProgress" name="reviewPlanProgress"
+              pInputTextarea autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 margin-3-rem border-black">
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <b>VI. Observations</b>
+          </div>
+        </div>
+        <div class="d-flex">
+          <div class="col-xs-3 flex-fill">
+            Home is free of safety concerns
+          </div>
+          <div class="col-xs-3 d-flex">
+            <div class="p-2 flex-fill">
+              <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isHomeFreeYes" formControlName="isHomeFreeYes" name="isHomeFreeYes"></p-checkbox>
+            </div>
+            <div class="p-2 flex-fill">
+              Yes
+            </div>
+            <div class="p-2 flex-fill">
+              <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isHomeFreeNo" formControlName="isHomeFreeNo" name="isHomeFreeNo"></p-checkbox>
+            </div>
+            <div class="p-2 flex-fill">
+              No
+            </div>
+            <div class="p-2 flex-fill">
+              <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isHomeFreeNa" formControlName="isHomeFreeNa" name="isHomeFreeNa"></p-checkbox>
+            </div>
+            <div class="p-2 flex-fill">
+              NA
+            </div>
+          </div>
+
+          <div class="col-xs-3  flex-fill">
+            Child’s appearance is healthy
+          </div>
+          <div class="col-xs-3 d-flex">
+            <div class="p-2 flex-fill">
+              <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isChildHealthyYes" formControlName="isChildHealthyYes" name="isChildHealthyYes"></p-checkbox>
+            </div>
+            <div class="p-2 flex-fill">
+              Yes
+            </div>
+            <div class="p-2 flex-fill">
+              <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isChildHealthyNo" formControlName="isChildHealthyNo" name="isChildHealthyNo"></p-checkbox>
+            </div>
+            <div class="p-2 flex-fill">
+              No
+            </div>
+            <div class="p-2 flex-fill">
+              <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isChildHealthyNa" formControlName="isChildHealthyNa" name="isChildHealthyNa"></p-checkbox>
+            </div>
+            <div class="p-2 flex-fill">
+              NA
+            </div>
+          </div>
+
+        </div>
+        <div class="d-flex">
+          <div class="col-xs-3 flex-fill">
+            Home is relatively clean
+          </div>
+          <div class="col-xs-3 d-flex">
+            <div class="p-2 flex-fill">
+              <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isHomeCleanYes" formControlName="isHomeCleanYes" name="isHomeCleanYes"></p-checkbox>
+            </div>
+            <div class="p-2 flex-fill">
+              Yes
+            </div>
+            <div class="p-2 flex-fill">
+              <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isHomeCleanNo" formControlName="isHomeCleanNo" name="isHomeCleanNo"></p-checkbox>
+            </div>
+            <div class="p-2 flex-fill">
+              No
+            </div>
+            <div class="p-2 flex-fill">
+              <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isHomeCleanNa" formControlName="isHomeCleanNa" name="isHomeCleanNa"></p-checkbox>
+            </div>
+            <div class="p-2 flex-fill">
+              NA
+            </div>
+          </div>
+
+          <div class="col-xs-3  flex-fill">
+            Height and Weight appear normal
+          </div>
+          <div class="col-xs-3 d-flex">
+            <div class="p-2 flex-fill">
+              <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isHeightNormalYes" formControlName="isHeightNormalYes" name="isHeightNormalYes"></p-checkbox>
+            </div>
+            <div class="p-2 flex-fill">
+              Yes
+            </div>
+            <div class="p-2 flex-fill">
+              <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isHeightNormalNo" formControlName="isHeightNormalNo" name="isHeightNormalNo"></p-checkbox>
+            </div>
+            <div class="p-2 flex-fill">
+              No
+            </div>
+            <div class="p-2 flex-fill">
+              <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isHeightNormalNa" formControlName="isHeightNormalNa" name="isHeightNormalNa"></p-checkbox>
+            </div>
+            <div class="p-2 flex-fill">
+              NA
+            </div>
+          </div>
+
+        </div>
+        <div class="d-flex">
+          <div class="col-xs-3 flex-fill">
+            Child is clean, neatly groomed
+
+          </div>
+          <div class="col-xs-3 d-flex">
+            <div class="p-2 flex-fill">
+              <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isChildCleanYes" formControlName="isChildCleanYes" name="isChildCleanYes"></p-checkbox>
+            </div>
+            <div class="p-2 flex-fill">
+              Yes
+            </div>
+            <div class="p-2 flex-fill">
+              <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isChildCleanNo" formControlName="isChildCleanNo" name="isChildCleanNo"></p-checkbox>
+            </div>
+            <div class="p-2 flex-fill">
+              No
+            </div>
+            <div class="p-2 flex-fill">
+              <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isChildCleanNa" formControlName="isChildCleanNa" name="isChildCleanNa"></p-checkbox>
+            </div>
+            <div class="p-2 flex-fill">
+              NA
+            </div>
+          </div>
+
+          <div class="col-xs-3  flex-fill">
+            Unusual marks or bruising
+
+          </div>
+          <div class="col-xs-3 d-flex">
+            <div class="p-2 flex-fill">
+              <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isUnusualMarksYes" formControlName="isUnusualMarksYes" name="isUnusualMarksYes"></p-checkbox>
+            </div>
+            <div class="p-2 flex-fill">
+              Yes
+            </div>
+            <div class="p-2 flex-fill">
+              <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isUnusualMarksNo" formControlName="isUnusualMarksNo" name="isUnusualMarksNo"></p-checkbox>
+            </div>
+            <div class="p-2 flex-fill">
+              No
+            </div>
+            <div class="p-2 flex-fill">
+              <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isUnusualMarksNa" formControlName="isUnusualMarksNa" name="isUnusualMarksNa"></p-checkbox>
+            </div>
+            <div class="p-2 flex-fill">
+              NA
+            </div>
+          </div>
+
+        </div>
+
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            Additional Comments (explain any no answer to the above; any unusual marks/bruises; any comments made by child or caregiver;
+            observed interaction)
+          </div>
+        </div>
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <textarea [(ngModel)]="fpNonTherapyFTF.additionalComments" formControlName="additionalComments" name="additionalComments"
+              pInputTextarea autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 margin-3-rem border-black">
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <b>VII. Next appointment: Plan for client until next appointment:</b>
+          </div>
+        </div>
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <textarea [(ngModel)]="fpNonTherapyFTF.nextAppointment" formControlName="nextAppointment" name="nextAppointment" pInputTextarea
+              autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 margin-top-2-rem">
+        <div class="d-flex">
+          <div class="col-xs-4 p-2 flex-fill">
+            <div class="d-flex justify-content-center">
+              <input [(ngModel)]="fpNonTherapyFTF.fpStaffName" formControlName="fpStaffName" name="fpStaffName" type="text" pInputText
+                size="20" />
+            </div>
+            <div class="d-flex justify-content-center">
+              <div>FP Staff Name (print)</div>
+            </div>
+          </div>
+          <div class="col-xs-4 p-2 flex-fill">
+            <div class="d-flex justify-content-center">
+              <input [(ngModel)]="fpNonTherapyFTF.fpStaffSignature" formControlName="fpStaffSignature" name="fpStaffSignature" type="text"
+                pInputText size="20" />
+            </div>
+            <div class="d-flex justify-content-center">
+              <div>FP Staff Signature</div>
+            </div>
+          </div>
+          <div class="col-xs-4 p-2 flex-fill">
+            <div class="d-flex justify-content-center">
+              <p-calendar [(ngModel)]="fpNonTherapyFTF.date" formControlName="date" name="date" class="date-picker" showTime="true" hourFormat="24"
+                [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </div>
+
+            <div class="d-flex justify-content-center">
+              <div>Date</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <div class="d-flex">
+          <div class="p-2 flex-fill">
+            <p-checkbox binary="true" [(ngModel)]="fpNonTherapyFTF.isCertified" formControlName="isCertified" name="isCertified"></p-checkbox>
+          </div>
+          <div class="p-2 flex-fill">
+            By checking this box, I certify that I have entered the information in this log and that, as of this date, it is true, accurate
+            and complete to the best of my knowledge, information and beliefs.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm(fpNonTherapyFTF)" [editControll]="editControll" (edit)="editForm()" [discardTo]="discardTo"
+  (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

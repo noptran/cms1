@@ -1,0 +1,701 @@
+<app-form-header
+  [title]="title"
+  [status]="status"
+  [subtitle]="subtitle"
+  [breadcrumbs]="breadcrumbs"
+  [formstatus]="formStatus"
+></app-form-header>
+
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+
+<div [ngClass]="isComponent ? 'rfc-wizard' : ''" class="container-background">
+  <p-toast position="center"></p-toast>
+  <div class="container-foreground">
+    <div style="text-align: end">
+      <button
+        class="sf-positive-btn"
+        (click)="navigateToExtendedFamily()"
+        style="width: auto"
+      >
+        Jump to extended family
+      </button>
+    </div>
+    <div *ngIf="!isComponent" class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card-header-row">
+          <div class="opencard-menu-container rfcOpencard">
+            <div class="dropdown border-none">
+              <span
+                class="fa fa-th opencard-menu"
+                data-toggle="dropdown"
+                pTooltip="OpenCards"
+              ></span>
+              <div class="dropdown-menu opencard-box">
+                <div class="card-container">
+                  <div
+                    class="opencard"
+                    pTooltip="Click here to open"
+                    (click)="navigateTo(item.title)"
+                    *ngFor="let item of opencards"
+                  >
+                    <img src="{{ item.icon }}" alt="{{ tip }}" />
+                    <div class="opencard-info">
+                      <span class="title">{{ item.title }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav-fill">
+      <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+        <a
+          class="nav-item nav-link"
+          *ngFor="let main of mainTabs; let i = index"
+          [class.active]="sIndex === i"
+          (click)="setIndex(i, $event)"
+          data-toggle="tab"
+          href="{{ main.href }}"
+          role="tab"
+          >{{ main.label }}</a
+        >
+      </div>
+    </nav>
+
+    <form [formGroup]="familMemberForm" class="sf-form form-height">
+      <div class="tab-content padding-15" id="nav-tabContent">
+        <div
+          class="tab-pane margin-left-45 active in sf-form-max"
+          id="nav-1"
+          role="tabpanel"
+          aria-labelledby="nav-general-tab"
+        >
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>First Name </span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                pInputText
+                formControlName="firstName"
+                name="firstName"
+                [(ngModel)]="familMember.firstName"
+                size="27"
+                maxlength="25"
+              />
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Last Name</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                pInputText
+                formControlName="lastName"
+                name="lastName"
+                [(ngModel)]="familMember.lastName"
+                size="27"
+                maxlength="25"
+              />
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Acronym</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputSwitch name="inputtoggle"></p-inputSwitch>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>MI</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                pInputText
+                formControlName="mi"
+                name="mi"
+                [(ngModel)]="familMember.mi"
+                size="27"
+                maxlength="2"
+              />
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Suffix</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                pInputText
+                formControlName="suffix"
+                name="suffix"
+                [(ngModel)]="familMember.suffix"
+                size="27"
+                maxlength="3"
+              />
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Con.ST</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                formControlName="contract_StateID"
+                [(ngModel)]="familMember.contract_StateID"
+                [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'state')"
+                [dropdown]="true"
+                [forceSelection]="true"
+                field="state"
+                size="23"
+              ></p-autoComplete>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>SSN</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <!-- <p-inputMask mask="999-99-9999" formControlName="ssn" name="ssn" [(ngModel)]="familMember.ssn">
+              </p-inputMask> -->
+              <input
+                type="text"
+                pInputText
+                formControlName="ssn"
+                name="ssn"
+                [(ngModel)]="familMember.ssn"
+                size="27"
+              />
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>DOB</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar
+                name="dob"
+                [(ngModel)]="familMember.dob"
+                formControlName="dob"
+                [showIcon]="true"
+                [yearNavigator]="true"
+                [monthNavigator]="true"
+                yearRange="1930:2030"
+              ></p-calendar>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Deceased</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar
+                name="deceasedDate"
+                [(ngModel)]="familMember.deceasedDate"
+                formControlName="deceasedDate"
+                [showIcon]="true"
+                [yearNavigator]="true"
+                [monthNavigator]="true"
+                yearRange="1930:2030"
+              ></p-calendar>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Gender</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                formControlName="genderID"
+                name="genderID"
+                [(ngModel)]="familMember.genderID"
+                [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'gender')"
+                [dropdown]="true"
+                [forceSelection]="true"
+                class="low-option-autos"
+                field="gender"
+                size="23"
+              ></p-autoComplete>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Race</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                formControlName="raceID"
+                [(ngModel)]="familMember.raceID"
+                [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'race')"
+                [dropdown]="true"
+                [forceSelection]="true"
+                field="race"
+                size="23"
+              ></p-autoComplete>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Ethinicity</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                formControlName="ethnicityID"
+                [(ngModel)]="familMember.ethnicityID"
+                [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'ethnicity')"
+                [dropdown]="true"
+                [forceSelection]="true"
+                field="ethnicity"
+                size="23"
+              ></p-autoComplete>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="tab-pane margin-left-45 sf-form-max"
+          id="nav-2"
+          role="tabpanel"
+          aria-labelledby="nav-general-tab"
+        >
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Tribe</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                formControlName="tribeID"
+                [(ngModel)]="familMember.tribeID"
+                [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'tribe')"
+                [dropdown]="true"
+                [forceSelection]="true"
+                field="tribe"
+                size="23"
+              ></p-autoComplete>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Email address</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                pInputText
+                formControlName="email"
+                name="email"
+                [(ngModel)]="familMember.email"
+                size="27"
+                maxlength="75"
+              />
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Home Phone</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputMask
+                mask="(999) 999-9999"
+                formControlName="homePh"
+                name="homePh"
+                [(ngModel)]="familMember.homePh"
+              ></p-inputMask>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Cell phone</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputMask
+                mask="(999) 999-9999"
+                formControlName="cellPh"
+                name="cellPh"
+                [(ngModel)]="familMember.cellPh"
+              ></p-inputMask>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Pager</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputMask
+                mask="(999) 999-9999"
+                formControlName="pager"
+                name="pager"
+                [(ngModel)]="familMember.pager"
+              >
+              </p-inputMask>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Fax</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputMask
+                mask="(999) 999-9999"
+                formControlName="fax"
+                name="fax"
+                [(ngModel)]="familMember.fax"
+              >
+              </p-inputMask>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Work Phone</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputMask
+                mask="(999) 999-9999"
+                formControlName="workPh"
+                name="workPh"
+                [(ngModel)]="familMember.workPh"
+              ></p-inputMask>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Ext</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                pInputText
+                formControlName="ext"
+                name="ext"
+                [(ngModel)]="familMember.ext"
+                size="27"
+                maxlength="5"
+              />
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Address</span><span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                pInputText
+                formControlName="address"
+                name="address"
+                [(ngModel)]="familMember.address"
+                size="27"
+                maxlength="75"
+              />
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Unknown</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <!-- <p-inputSwitch  formControlName="unknownAddress" name="inputtoggle" [(ngModel)]="familyMember.unknownAddress "></p-inputSwitch> -->
+              <p-inputSwitch
+                formControlName="acronym"
+                name="inputtoggle"
+                [(ngModel)]="familMember.unknownAddress"
+              >
+              </p-inputSwitch>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>State</span
+              ><span *ngIf="!familMember.unknownAddress" class="mandatory"
+                >*</span
+              >
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                formControlName="stateID"
+                [(ngModel)]="familMember.stateID"
+                [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'state')"
+                [dropdown]="true"
+                [forceSelection]="true"
+                field="state"
+                size="23"
+                (onSelect)="generateCityFromSelectedSatate($event)"
+              ></p-autoComplete>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>City</span
+              ><span *ngIf="!familMember.unknownAddress" class="mandatory"
+                >*</span
+              >
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                formControlName="cityID"
+                [(ngModel)]="familMember.cityID"
+                [suggestions]="filteredCities"
+                (completeMethod)="getMetaData($event, 'city')"
+                [dropdown]="true"
+                [forceSelection]="true"
+                field="city"
+                size="23"
+                (onSelect)="selectedCity($event)"
+              ></p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div
+          class="tab-pane margin-left-45 sf-form-max"
+          id="nav-3"
+          role="tabpanel"
+          aria-labelledby="nav-general-tab"
+        >
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Zip</span
+              ><span *ngIf="!familMember.unknownAddress" class="mandatory"
+                >*</span
+              >
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                formControlName="zipcodeID"
+                [(ngModel)]="familMember.zipcodeID"
+                [suggestions]="filteredZipcodes"
+                (completeMethod)="getMetaData($event, 'zipcode')"
+                [dropdown]="true"
+                [forceSelection]="true"
+                field="zipcode"
+                size="23"
+              ></p-autoComplete>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>County</span
+              ><span *ngIf="!familMember.unknownAddress" class="mandatory"
+                >*</span
+              >
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                formControlName="countyID"
+                [(ngModel)]="familMember.countyID"
+                [suggestions]="filteredCounties"
+                (completeMethod)="getMetaData($event, 'county')"
+                [dropdown]="true"
+                [forceSelection]="true"
+                field="countyName"
+                size="23"
+              ></p-autoComplete>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Employer</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                pInputText
+                formControlName="employer"
+                name="employer"
+                [(ngModel)]="familMember.employer"
+                size="27"
+                maxlength="50"
+              />
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Occupation/Job title</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                pInputText
+                formControlName="occupation"
+                name="occupation"
+                [(ngModel)]="familMember.occupation"
+                size="27"
+                maxlength="50"
+              />
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Employment Status</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                formControlName="employmentStatusID"
+                [(ngModel)]="familMember.employmentStatusID"
+                [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'employmentStatus')"
+                [dropdown]="true"
+                [forceSelection]="true"
+                field="employmentStatusName"
+                size="23"
+              ></p-autoComplete>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Length of Employment</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                formControlName="tenureID"
+                [(ngModel)]="familMember.tenureID"
+                [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'primary_ref_reason')"
+                [dropdown]="true"
+                [forceSelection]="true"
+                field="tenure"
+                size="23"
+              ></p-autoComplete>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Primary Language</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                formControlName="primaryLanguageID"
+                [(ngModel)]="familMember.primaryLanguageID"
+                [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'language')"
+                [dropdown]="true"
+                [forceSelection]="true"
+                field="language"
+                size="23"
+              ></p-autoComplete>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Secondary Language</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                formControlName="secondaryLanguageID"
+                [(ngModel)]="familMember.secondaryLanguageID"
+                [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'language')"
+                [dropdown]="true"
+                [forceSelection]="true"
+                field="language"
+                size="23"
+              ></p-autoComplete>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Level of Education</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                formControlName="educationLevelID"
+                [(ngModel)]="familMember.educationLevelID"
+                [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'educationLevel')"
+                [dropdown]="true"
+                [forceSelection]="true"
+                field="educationLevel"
+                size="23"
+              ></p-autoComplete>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>United States Citizen</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputSwitch
+                formControlName="isUSCitizen"
+                name="inputtoggle"
+                [(ngModel)]="familMember.isUSCitizen"
+              >
+              </p-inputSwitch>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>If No, Where is citizenship</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                pInputText
+                formControlName="citizenship"
+                name="isCitizenship"
+                [(ngModel)]="familMember.citizenship"
+                size="27"
+                maxlength="20"
+              />
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Religion</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete
+                formControlName="religionID"
+                [(ngModel)]="familMember.religionID"
+                [suggestions]="metaData"
+                (completeMethod)="getMetaData($event, 'religion')"
+                [dropdown]="true"
+                [forceSelection]="true"
+                field="religion"
+                size="23"
+              ></p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div
+          class="tab-pane margin-left-45 sf-form-max"
+          id="nav-4"
+          role="tabpanel"
+          aria-labelledby="nav-general-tab"
+        >
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Denomination</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                pInputText
+                formControlName="citizenship"
+                name="denomiation"
+                [(ngModel)]="familMember.denomination"
+                size="27"
+                maxlength="20"
+              />
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6"><span>Notes</span></div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea
+                formControlName="notes"
+                name="notes"
+                [(ngModel)]="familMember.notes"
+                pInputTextarea
+                style="width: 100%; height: 100%"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="tab-footer">
+      <div>
+        <button
+          class="sf-positive-btn margin-left-0"
+          *ngIf="sIndex !== 0"
+          (click)="goPrevious()"
+        >
+          <i class="fa fa-angle-double-left"></i> Previous
+        </button>
+      </div>
+      <div class="push">
+        <button
+          class="sf-positive-btn margin-left-0"
+          *ngIf="sIndex !== mainTabs.length - 1"
+          (click)="goNext()"
+        >
+          Next <i class="fa fa-angle-double-right"></i>
+        </button>
+      </div>
+    </div>
+    <app-form-footer
+      (save)="save(familMember)"
+      (discard)="discard()"
+      (edit)="update()"
+      [editControll]="editBtnCntrl"
+      [isFormLog]="isFormLog"
+      [formLogInfo]="formLogInfo"
+    >
+    </app-form-footer>
+  </div>
+</div>

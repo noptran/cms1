@@ -1,0 +1,109 @@
+<div class="dashboard-container">
+  <div class="stats">
+    <mat-card class="form-stats">
+      <div class="title">
+        <span class="text">Total forms</span>
+        <div class="blue-circle"></div>
+      </div>
+      <mat-card-content class="content">
+        {{docCount.STATUS.TOTAL}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="form-stats">
+      <div class="title">
+        <span class="text">Draft</span>
+        <div class="yellow-circle"></div>
+      </div>
+      <mat-card-content class="content">
+        {{docCount.STATUS.DRAFT}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="form-stats">
+      <div class="title">
+        <span class="text">Pending</span>
+        <div class="black-circle"></div>
+      </div>
+      <mat-card-content class="content">
+        {{docCount.STATUS.PENDING}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="form-stats">
+      <div class="title">
+        <span class="text">Synced</span>
+        <div class="purple-circle"></div>
+      </div>
+      <mat-card-content class="content">
+        {{docCount.STATUS.SYNCED}}
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="form-stats">
+      <div class="title">
+        <span class="text">Submission Error</span>
+        <div class="green-circle"></div>
+      </div>
+      <mat-card-content class="content">
+        {{docCount.STATUS.ERROR}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="secondary-content">
+    <mat-card class="add-form">
+      <div class="title">
+        <span class="text">Add a new form</span>
+      </div>
+      <div class="form-link-container">
+        <div class="form-link" *ngIf='showReintegration === true'>
+          <a routerLink="/home/forms/list/:reintegration">
+            <briefcase-icon></briefcase-icon>
+            <div class="name">Reintegration ({{docCount.REINTEGRATION}})</div>
+          </a>
+        </div>
+        <div class="form-link" *ngIf='showBehavior === true'>
+          <a routerLink="/home/forms/list/:behavior">
+            <briefcase-icon></briefcase-icon>
+            <div class="name">Behavior ({{docCount.BEHAVIORAL_ASSESSMENTS}})</div>
+          </a>
+        </div>
+        <div class="form-link" *ngIf='showFamilyPreservation === true'>
+          <a routerLink="/home/forms/list/:familyPreservation">
+            <briefcase-icon></briefcase-icon>
+            <div class="name">Family Preservation ({{docCount.FAMILY_PRESERVATION}})</div>
+          </a>
+        </div>
+        <div class="form-link" *ngIf='showFosterCare === true'>
+          <a routerLink="/home/forms/list/:fosterCare">
+            <briefcase-icon></briefcase-icon>
+            <div class="name">Foster Care ({{docCount.FOSTER_CARE_HOMES}})</div>
+          </a>
+        </div>
+        <div class="form-link" *ngIf='showOklahoma === true'>
+          <a routerLink="/home/forms/list/:oklahoma">
+            <briefcase-icon></briefcase-icon>
+            <div class="name">Oklahoma ({{docCount.OKLAHOMA_FOSTER_CARE_HOME}})</div>
+          </a>
+        </div>
+      </div>
+    </mat-card>
+    <mat-card class="internet-status">
+      <div>
+        <span class="text">Internet Status</span>
+      </div>
+      <div class="status">
+        <div [ngSwitch]="internetStatus">
+          <div *ngSwitchCase="'Online'" class="big-green-circle"></div>
+          <div *ngSwitchCase="'Offline'" class="big-yellow-circle"></div>
+        </div>
+      </div>
+      <h1>{{internetStatus}}</h1>
+      <div class="footer-text">
+        You cannot submit forms when offline. However, you can create new forms and save them for submission later. Turn on Internet
+        and the finalized forms that were created while you were offline, will automatically start to submit.
+      </div>
+    </mat-card>
+  </div>
+</div>
+<footer>
+  <div>
+    <p class="version">CIS V1.7 @ Saint Francis Ministries </p>
+  </div>
+</footer>

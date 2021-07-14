@@ -1,0 +1,752 @@
+<div id="pdf-content">
+  <div class="header-crops">
+    <div class="logo">
+      <!-- <img src="assets/images/logo.svg" /> -->
+    </div>
+    <div>
+      <h2>CROPS Youth Form – 3.2
+        <br> KAPP (Ages 6-18)
+      </h2>
+    </div>
+    <div class="staff-details">
+      <div class="person-data">
+        <div class="field-name">Administered by</div>
+        <div>
+          <mat-form-field>
+            <input [(ngModel)]="model.StaffName.value" matInput value={{staffName}} readonly></mat-form-field>
+        </div>
+      </div>
+      <div class="person-data">
+        <div class="field-name">ID #</div>
+        <div>
+          <mat-form-field>
+            <input [(ngModel)]="model.StaffID.value" matInput value={{staffId}} readonly>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h2>PART A – Demographic Information</h2>
+  <hr>
+  <div class="event-section person-data">
+    <div class="field-name">
+      <client-search [ClientName]='displayClientName()' (setClientAction)="setClient($event)"></client-search>
+    </div>
+    <div class="field-name">
+      <span class="pad-right">Child ID:</span>
+      <mat-form-field><input class="input-sm" matInput [(ngModel)]="model.kaecses.value" readonly></mat-form-field>
+    </div>
+    <div class="field-name">
+      <span class="pad-right">Age:</span>
+      <mat-form-field> <input matInput class="input-sm" [(ngModel)]="model.Age.value" readonly></mat-form-field>
+    </div>
+  </div>
+  <div class="event-section">
+    <div class="field-name">
+      <span class="pad-right">Case ID:</span>
+      <mat-form-field> <input matInput class="input-sm" [(ngModel)]="model.clientId" readonly></mat-form-field>
+    </div>
+    <div class="field-name-2">
+      <span>Date of Completion:</span>
+      <mat-form-field  floatLabel="never">
+        <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose a date" class="date" [(ngModel)]="model.CompletionDate.value"
+        value="{{date}}">
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="space-padding">
+    <mat-checkbox (change)="disableValidationProcess()" [(ngModel)]="model.disableValidate">Unable to Assess
+    </mat-checkbox>
+  </div>
+  <div class="text-section space-padding" *ngIf="model.disableValidate">
+    <p>Remarks:</p>
+    <mat-form-field *ngIf="!isFinalize">
+      <textarea [(ngModel)]="model.remarks.value" class="textarea" autosize matInput></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.remarks.value}}</span>
+  </div>
+  <hr *ngIf="isFinalize">
+  <div [ngClass]="model.disableValidate?'disableValidation':'non-disableValidation'">
+    <h2>PART B – CROPS</h2>
+    <hr>
+    <p>Mark how true each statement feels for you
+      <span class="bold">in the past week</span>.
+      <br> Don't skip any, even if you're not sure. There is no right or wrong answer.
+      <br> Answer by circling
+      <span class="bold">0 for none, 1 for some, 2 for lots</span>.</p>
+    <table class="cropsdata">
+      <tr>
+        <th>None</th>
+        <th>Some</th>
+        <th>Lots</th>
+        <th></th>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question1" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question1.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question1" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question1.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question1" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question1.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>1) I daydream (I have dreamlike thoughts while awake).</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question2" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question2.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question2" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question2.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question2" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question2.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>2) I "space out" when people are talking to me (I get distracted when people are talking to me).</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question3" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question3.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question3" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question3.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question3" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question3.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>3) I find it hard to concentrate.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question4" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question4.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question4" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question4.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question4" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question4.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>4) I think about bad things that have happened.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question5" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question5.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question5" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question5.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question5" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question5.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>5) I try to forget about bad things that have happened.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question6" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question6.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question6" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question6.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question6" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question6.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>6) I avoid reminders of bad things that have happened.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question7" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question7.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question7" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question7.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question7" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question7.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>7) I worry that bad things will happen.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question8" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question8.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question8" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question8.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question8" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question8.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>8) I do special things to make sure nothing bad happens.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question9" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question9.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question9" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question9.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question9" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question9.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>9) I do some things that I'm probably too old for.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question10" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question10.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question10" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question10.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question10" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question10.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>10) Things make me upset or mad.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question11" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question11.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question11" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question11.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question11" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question11.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>11) It is hard for me to go to sleep at night.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question12" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question12.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question12" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question12.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question12" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question12.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>12) I have bad dreams or nightmares.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question13" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question13.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question13" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question13.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question13" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question13.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>13) I get headaches.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question14" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question14.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question14" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question14.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question14" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question14.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>14) I get stomach aches.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question15" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question15.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question15" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question15.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question15" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question15.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>15) I feel sick or have pains.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question16" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question16.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question16" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question16.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question16" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question16.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>16) I feel tired or low energy.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question17" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question17.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question17" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question17.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question17" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question17.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>17) I feel all alone.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question18" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question18.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question18" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question18.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question18" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question18.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>18) I feel strange or different than other kids.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question19" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question19.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question19" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question19.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question19" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question19.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>19) I feel like there’s something wrong with me.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question20" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question20.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question20" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question20.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question20" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question20.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>20) I feel like it’s my fault when bad things happen.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question21" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question21.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question21" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question21.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question21" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question21.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>21) I’m a jinx, or bad-luck charm (bad things happen because I’m around).</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question22" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question22.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question22" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question22.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question22" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question22.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>22) I feel sad or depressed.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question23" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question23.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question23" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question23.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question23" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question23.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>23) I don’t feel like doing much.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question24" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question24.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question24" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question24.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question24" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question24.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>24) My future looks bad.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question25" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question25.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question25" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question25.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question25" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question25.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>25) I’m on the lookout for bad things that might happen.</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="radio" name="Question26" value="0" class="radio"
+            [(ngModel)]="model.CROPS_Question26.fieldOptionIndex">
+          <label for="">0</label>
+        </td>
+        <td>
+          <input type="radio" name="Question26" value="1" class="radio"
+            [(ngModel)]="model.CROPS_Question26.fieldOptionIndex">
+          <label for="">1</label>
+        </td>
+        <td>
+          <input type="radio" name="Question26" value="2" class="radio"
+            [(ngModel)]="model.CROPS_Question26.fieldOptionIndex">
+          <label for="">2</label>
+        </td>
+        <td>26) I am nervous or jumpy.</td>
+      </tr>
+    </table>
+    <div>
+      <mat-form-field> <input matInput [(ngModel)]="model.BTotal.value"></mat-form-field>
+      <span>Total Score: 1-26 (except for item 24)</span>
+    </div>
+    <h2>PART C – Exposure to Events- CSDC-KS</h2>
+    <hr>
+    <p>
+      <span class="bold">Instructions to Youth:</span> I want to make sure that I know as much about you as I can so
+      that
+      I can understand you better and you have all the help you need. Sometimes it’s difficult to talk about things that
+      are bad memories for us or make us sad or angry. But it can also make us feel better to have someone to talk to
+      that
+      we trust. This piece of paper helps me remember some of the things children have gone through.</p>
+    <table class="csdcdata">
+      <tr class="mark">
+        <th>
+          <h2>Have you ever...</h2>
+        </th>
+        <th class="check-section">
+          <h2>YES or NO</h2>
+        </th>
+      </tr>
+      <tr>
+        <td>1. been in a storm, tornado, flood or fire that destroyed your house or school?</td>
+        <td>
+          <input class="rad" type="radio" value="0" name="CROPS_Question27"
+            [(ngModel)]="model.CROPS_Question27.fieldOptionIndex">Yes
+          <input class="rad" type="radio" value="1" name="CROPS_Question27"
+            [(ngModel)]="model.CROPS_Question27.fieldOptionIndex">No
+        </td>
+      </tr>
+      <tr>
+        <td>2. seen or been in an accident or were you hurt really badly?</td>
+        <td>
+          <input class="rad" type="radio" value="0" name="CROPS_Question28"
+            [(ngModel)]="model.CROPS_Question28.fieldOptionIndex">Yes
+          <input class="rad" type="radio" value="1" name="CROPS_Question28"
+            [(ngModel)]="model.CROPS_Question28.fieldOptionIndex">No
+        </td>
+      </tr>
+      <tr>
+        <td>3. had to go to the hospital because you were really sick or hurt?</td>
+        <td>
+          <input class="rad" type="radio" value="0" name="CROPS_Question29"
+            [(ngModel)]="model.CROPS_Question29.fieldOptionIndex">Yes
+          <input class="rad" type="radio" value="1" name="CROPS_Question29"
+            [(ngModel)]="model.CROPS_Question29.fieldOptionIndex">No
+        </td>
+      </tr>
+      <tr>
+        <td>4. been threatened or hit, punched, kicked or choked by another child or an adult?</td>
+        <td>
+          <input class="rad" type="radio" value="0" name="CROPS_Question30"
+            [(ngModel)]="model.CROPS_Question30.fieldOptionIndex">Yes
+          <input class="rad" type="radio" value="1" name="CROPS_Question30"
+            [(ngModel)]="model.CROPS_Question30.fieldOptionIndex">No
+        </td>
+      </tr>
+      <tr>
+        <td>5. had anyone threatened to or touched, looked at or take pictures of your private parts? Has anyone ever
+          asked you
+          to touch or look at their private parts?</td>
+        <td>
+          <input class="rad" type="radio" value="0" name="CROPS_Question31"
+            [(ngModel)]="model.CROPS_Question31.fieldOptionIndex">Yes
+          <input class="rad" type="radio" value="1" name="CROPS_Question31"
+            [(ngModel)]="model.CROPS_Question31.fieldOptionIndex">No
+        </td>
+      </tr>
+      <tr>
+        <td>6. seen one of your parents punch, beat, shove, kick, or hurt your other parent in any way?</td>
+        <td>
+          <input class="rad" type="radio" value="0" name="CROPS_Question32"
+            [(ngModel)]="model.CROPS_Question32.fieldOptionIndex">Yes
+          <input class="rad" type="radio" value="1" name="CROPS_Question32"
+            [(ngModel)]="model.CROPS_Question32.fieldOptionIndex">No
+        </td>
+      </tr>
+      <tr>
+        <td>7. watched someone in your neighborhood get really hurt or die?</td>
+        <td>
+          <input class="rad" type="radio" value="0" name="CROPS_Question33"
+            [(ngModel)]="model.CROPS_Question33.fieldOptionIndex">Yes
+          <input class="rad" type="radio" value="1" name="CROPS_Question33"
+            [(ngModel)]="model.CROPS_Question33.fieldOptionIndex">No
+        </td>
+      </tr>
+      <tr>
+        <td>8. been removed from your home and had to live with another family or in another home?</td>
+        <td>
+          <input class="rad" type="radio" value="0" name="CROPS_Question34"
+            [(ngModel)]="model.CROPS_Question34.fieldOptionIndex">Yes
+          <input class="rad" type="radio" value="1" name="CROPS_Question34"
+            [(ngModel)]="model.CROPS_Question34.fieldOptionIndex">No
+        </td>
+      </tr>
+      <tr>
+        <td>9. been left alone for long periods of time, had to go without enough food and/or had to miss a lot of days
+          of school?</td>
+        <td>
+          <input class="rad" type="radio" value="0" name="CROPS_Question35"
+            [(ngModel)]="model.CROPS_Question35.fieldOptionIndex">Yes
+          <input class="rad" type="radio" value="1" name="CROPS_Question35"
+            [(ngModel)]="model.CROPS_Question35.fieldOptionIndex">No
+        </td>
+      </tr>
+      <tr>
+        <td>10. been bullied (called names, pushed, stole your things, or threatened) by others? or treated badly
+          because of
+          your skin color, religion, money/ clothes, LGBTQ, or because you were in foster care?</td>
+        <td>
+          <input class="rad" type="radio" value="0" name="CROPS_Question36"
+            [(ngModel)]="model.CROPS_Question36.fieldOptionIndex">Yes
+          <input class="rad" type="radio" value="1" name="CROPS_Question36"
+            [(ngModel)]="model.CROPS_Question36.fieldOptionIndex">No
+        </td>
+      </tr>
+      <tr>
+        <td>11. seen one of your parents struggle with depression (very sad) or other mental illness (very angry or
+          seeing/hearing
+          voices when nothing was there) or with their use of street or prescription drugs or alcohol?</td>
+        <td>
+          <input class="rad" type="radio" value="0" name="CROPS_Question37"
+            [(ngModel)]="model.CROPS_Question37.fieldOptionIndex">Yes
+          <input class="rad" type="radio" value="1" name="CROPS_Question37"
+            [(ngModel)]="model.CROPS_Question37.fieldOptionIndex">No
+        </td>
+      </tr>
+      <tr>
+        <td>12. had someone who was close to you (e.g., parent, caregiver, sibling, friend) that is not there anymore
+          maybe because
+          they are in jail, in college, in the army, or they died or were deported?</td>
+        <td>
+          <input class="rad" type="radio" value="0" name="CROPS_Question38"
+            [(ngModel)]="model.CROPS_Question38.fieldOptionIndex">Yes
+          <input class="rad" type="radio" value="1" name="CROPS_Question38"
+            [(ngModel)]="model.CROPS_Question38.fieldOptionIndex">No
+        </td>
+      </tr>
+      <tr>
+        <td>13. felt that no one really loved or cared for you or felt that you were all alone?</td>
+        <td>
+          <input class="rad" type="radio" value="0" name="CROPS_Question39"
+            [(ngModel)]="model.CROPS_Question39.fieldOptionIndex">Yes
+          <input class="rad" type="radio" value="1" name="CROPS_Question39"
+            [(ngModel)]="model.CROPS_Question39.fieldOptionIndex">No
+        </td>
+      </tr>
+      <tr>
+        <td>14. Did I forget to ask you about anything that may have happened to you? (please specify)
+          <br>
+          <mat-form-field> <input matInput [(ngModel)]="model.CROPS_Question42.value"></mat-form-field>
+        </td>
+        <td>
+          <input class="rad" type="radio" value="0" name="CROPS_Question40"
+            [(ngModel)]="model.CROPS_Question40.fieldOptionIndex">Yes
+          <input class="rad" type="radio" value="1" name="CROPS_Question40"
+            [(ngModel)]="model.CROPS_Question40.fieldOptionIndex">No
+        </td>
+      </tr>
+    </table>
+    <p>
+      <span class="bold">Instructions to Youth:</span> Thank you for sharing what you have experienced. From what you
+      shared
+      with me, what was the
+      <span class="bold">most hurtful or upsetting thing that happen to you?</span> Can you tell me all about that?</p>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput [disabled]="model.disableValidate === true" class="textarea" autosize
+          [(ngModel)]="model.CTotal.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.CTotal.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <!-- <div>
+      <span class="pad-right">Most stressful event identified:</span>
+      <mat-form-field> <input matInput class="input-xm" [(ngModel)]="model.StressfulEventID.value"></mat-form-field>
+    </div> -->
+    <div>
+      <!-- <div>
+        <span class="pad-right">How old were you at the time of the event?</span>
+        <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.CROPS_Question43.value"></mat-form-field>
+      </div> -->
+      <div>
+        <span class="pad-right">Administered by</span>
+        <mat-form-field> <input matInput class="input-sm" [(ngModel)]="model.StaffName.value" value={{staffName}}
+            readonly></mat-form-field>
+      </div>
+      <div>
+        <span class="pad-right">ID#_</span>
+        <mat-form-field> <input matInput class="input-sm" [(ngModel)]="model.StaffID.value" value={{staffId}} readonly>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+<form-footer  (resetAction)='resetForm()' (calculateAction)='calculateForm()'
+  (saveAction)='saveForm()' (finalizeAction)='finalize()' [disableCalculate]="'false'">
+</form-footer>

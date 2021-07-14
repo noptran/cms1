@@ -1,0 +1,653 @@
+<div id="pdf-content">
+  <h2 class="heading">Parent Stress Index – Short Form 4</h2>
+  <h3 class="heading">Filled by the parent</h3>
+  <div [ngClass]="model.disableValidate?'disableValidation':'non-disableValidation'">
+    <div class="filled-parent">
+      <div class="child-info-section">
+        <div>
+          <span>Name:</span>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.ParentName.value"></mat-form-field>
+        </div>
+        <div>
+          <span>Gender:</span>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.ParentGender.value"></mat-form-field>
+        </div>
+        <div>
+          <span>Date of Birth:</span>
+          <mat-form-field floatLabel="never">
+            <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose a date" class="date"
+              [(ngModel)]="model.ParentDOB.value">
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="child-info-section">
+        <div>
+          <span>Ethnic Group:</span>
+          <mat-form-field>
+            <input matInput class="input-sm" [(ngModel)]="model.ParentEthnicGroup.value"></mat-form-field>
+        </div>
+        <div>
+          <mat-form-field floatLabel="never">
+            <mat-select placeholder="Marital status" [(ngModel)]="model.MaritalStatus.fieldOptionIndex">
+              <mat-option value="0"> Married </mat-option>
+              <mat-option value="1"> Widowed </mat-option>
+              <mat-option value="2"> Separated</mat-option>
+              <mat-option value="3"> Divorced </mat-option>
+              <mat-option value="4"> Single </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div>
+          <span>Today's Date:</span>
+          <mat-form-field floatLabel="never">
+            <input matInput [matDatepicker]="date" (click)="date.open()" placeholder="Choose a date" class="date"
+              [(ngModel)]="model.date.value">
+            <mat-datepicker #date></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h3 class="heading">Filled by the staff</h3>
+  <div class="child-info-section filled-child">
+    <div>
+      <client-search [ClientName]='displayClientName()' (setClientAction)="setClient($event)"></client-search>
+    </div>
+    <div>
+      <span>Child's gender:</span>
+      <mat-form-field>
+        <input matInput class="input-sm" [(ngModel)]="model.Gender.value" readonly></mat-form-field>
+    </div>
+    <div>
+      <span>Child's date of birth:</span>
+      <mat-form-field>
+        <input matInput [(ngModel)]="model.DateOfBirth.value" class="input-xs" readonly></mat-form-field>
+    </div>
+  </div>
+  <div class="space-padding">
+    <mat-checkbox (change)="disableValidationProcess()" [(ngModel)]="model.disableValidate">Unable to Assess
+    </mat-checkbox>
+  </div>
+  <div class="text-section space-padding" *ngIf="model.disableValidate">
+    <p>Remarks:</p>
+    <mat-form-field *ngIf="!isFinalize">
+      <textarea [(ngModel)]="model.remarks.value" class="textarea" autosize matInput></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.remarks.value}}</span>
+  </div>
+  <hr *ngIf="isFinalize">
+  <div [ngClass]="model.disableValidate?'disableValidation':'non-disableValidation'">
+    <div class="parent-section">
+      <div class="visitTypeInput">
+        <input type="radio" value="0" name="CareGiverRelationToClient"
+          [(ngModel)]="model.CareGiverRelationToClient.fieldOptionIndex">Biological
+        Parent
+        <input type="radio" value="1" name="CareGiverRelationToClient"
+          [(ngModel)]="model.CareGiverRelationToClient.fieldOptionIndex">Step
+        parent
+        <input type="radio" value="2" name="CareGiverRelationToClient"
+          [(ngModel)]="model.CareGiverRelationToClient.fieldOptionIndex">Foster
+        parent
+        <input type="radio" value="3" name="CareGiverRelationToClient"
+          [(ngModel)]="model.CareGiverRelationToClient.fieldOptionIndex">Guardian
+        <input type="radio" value="4" name="CareGiverRelationToClient"
+          [(ngModel)]="model.CareGiverRelationToClient.fieldOptionIndex">Adoptive
+        Parent
+        <input type="radio" value="5" name="CareGiverRelationToClient"
+          [(ngModel)]="model.CareGiverRelationToClient.fieldOptionIndex">Other
+      </div>
+      <mat-form-field> <input matInput class="input-sm" [(ngModel)]="model.RelationToClientOther.value">
+      </mat-form-field>
+      <span>(specify)</span>
+    </div>
+    <table class="instruction">
+      <tr>
+        <td>
+          <span class="bold">SA</span> = Strongly Agree</td>
+        <td>
+          <span class="bold">A</span> = Agree</td>
+        <td>
+          <span class="bold">NS</span> = Not Sure</td>
+        <td>
+          <span class="bold">D</span> = Disagree</td>
+        <td>
+          <span class="bold">SD</span> = Strongly Disagree</td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td class="bold">1. I often have the feeling that I cannot handle things very well</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question1" [(ngModel)]="model.Question1.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question1" [(ngModel)]="model.Question1.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question1" [(ngModel)]="model.Question1.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question1" [(ngModel)]="model.Question1.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question1" [(ngModel)]="model.Question1.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">2. I find myself giving up more of my life to meet my children's needs than I ever expected
+        </td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question2" [(ngModel)]="model.Question2.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question2" [(ngModel)]="model.Question2.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question2" [(ngModel)]="model.Question2.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question2" [(ngModel)]="model.Question2.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question2" [(ngModel)]="model.Question2.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">3. I feel trapped by my responsibilities as a parent</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question3" [(ngModel)]="model.Question3.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question3" [(ngModel)]="model.Question3.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question3" [(ngModel)]="model.Question3.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question3" [(ngModel)]="model.Question3.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question3" [(ngModel)]="model.Question3.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">4. Since having this child, I have been unable to do new and different things</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question4" [(ngModel)]="model.Question4.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question4" [(ngModel)]="model.Question4.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question4" [(ngModel)]="model.Question4.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question4" [(ngModel)]="model.Question4.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question4" [(ngModel)]="model.Question4.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">5. Since having this child, I feel that I am almost never able to do things that I like to do
+        </td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question5" [(ngModel)]="model.Question5.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question5" [(ngModel)]="model.Question5.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question5" [(ngModel)]="model.Question5.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question5" [(ngModel)]="model.Question5.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question5" [(ngModel)]="model.Question5.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">6. I am unhappy with the last purchase of clothing I made for myself</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question6" [(ngModel)]="model.Question6.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question6" [(ngModel)]="model.Question6.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question6" [(ngModel)]="model.Question6.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question6" [(ngModel)]="model.Question6.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question6" [(ngModel)]="model.Question6.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">7. There are quite a few things that bother me about my life</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question7" [(ngModel)]="model.Question7.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question7" [(ngModel)]="model.Question7.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question7" [(ngModel)]="model.Question7.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question7" [(ngModel)]="model.Question7.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question7" [(ngModel)]="model.Question7.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">8. Having a child has caused more problems than I expected in my relationship with my
+          spouse/parenting partner</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question8" [(ngModel)]="model.Question8.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question8" [(ngModel)]="model.Question8.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question8" [(ngModel)]="model.Question8.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question8" [(ngModel)]="model.Question8.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question8" [(ngModel)]="model.Question8.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">9. I feel alone and without friends</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question9" [(ngModel)]="model.Question9.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question9" [(ngModel)]="model.Question9.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question9" [(ngModel)]="model.Question9.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question9" [(ngModel)]="model.Question9.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question9" [(ngModel)]="model.Question9.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">10. When I go to a party, I usually expect not to enjoy myself</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question10" [(ngModel)]="model.Question10.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question10" [(ngModel)]="model.Question10.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question10" [(ngModel)]="model.Question10.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question10" [(ngModel)]="model.Question10.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question10" [(ngModel)]="model.Question10.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">11. I am not as interested in people as I used to be</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question11" [(ngModel)]="model.Question11.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question11" [(ngModel)]="model.Question11.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question11" [(ngModel)]="model.Question11.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question11" [(ngModel)]="model.Question11.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question11" [(ngModel)]="model.Question11.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">12. I don't enjoy things as I used to</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question12" [(ngModel)]="model.Question12.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question12" [(ngModel)]="model.Question12.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question12" [(ngModel)]="model.Question12.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question12" [(ngModel)]="model.Question12.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question12" [(ngModel)]="model.Question12.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">13. My child rarely does things for me that make me feel good</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question13" [(ngModel)]="model.Question13.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question13" [(ngModel)]="model.Question13.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question13" [(ngModel)]="model.Question13.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question13" [(ngModel)]="model.Question13.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question13" [(ngModel)]="model.Question13.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">14. When I do things for my child, I get the feeling that my efforts are not appreciated very
+          much SA</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question14" [(ngModel)]="model.Question14.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question14" [(ngModel)]="model.Question14.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question14" [(ngModel)]="model.Question14.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question14" [(ngModel)]="model.Question14.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question14" [(ngModel)]="model.Question14.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">15. My child smiles at me much less than I expected</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question15" [(ngModel)]="model.Question15.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question15" [(ngModel)]="model.Question15.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question15" [(ngModel)]="model.Question15.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question15" [(ngModel)]="model.Question15.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question15" [(ngModel)]="model.Question15.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">16. Sometimes I feel my child doesn't like me and doesn't want to be close to me</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question16" [(ngModel)]="model.Question16.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question16" [(ngModel)]="model.Question16.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question16" [(ngModel)]="model.Question16.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question16" [(ngModel)]="model.Question16.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question16" [(ngModel)]="model.Question16.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">17. My child is very emotional and gets upset easily</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question17" [(ngModel)]="model.Question17.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question17" [(ngModel)]="model.Question17.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question17" [(ngModel)]="model.Question17.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question17" [(ngModel)]="model.Question17.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question17" [(ngModel)]="model.Question17.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">18. My child doesn't seem to learn as quickly as most children</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question18" [(ngModel)]="model.Question18.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question18" [(ngModel)]="model.Question18.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question18" [(ngModel)]="model.Question18.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question18" [(ngModel)]="model.Question18.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question18" [(ngModel)]="model.Question18.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">19. My child doesn't seem to smile as much as most children</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question19" [(ngModel)]="model.Question19.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question19" [(ngModel)]="model.Question19.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question19" [(ngModel)]="model.Question19.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question19" [(ngModel)]="model.Question19.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question19" [(ngModel)]="model.Question19.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">20. My child is not able to do as much as I expected</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question20" [(ngModel)]="model.Question20.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question20" [(ngModel)]="model.Question20.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question20" [(ngModel)]="model.Question20.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question20" [(ngModel)]="model.Question20.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question20" [(ngModel)]="model.Question20.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">21. It takes a long time and it is very hard for my child to get used to new things</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question21" [(ngModel)]="model.Question21.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question21" [(ngModel)]="model.Question21.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question21" [(ngModel)]="model.Question21.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question21" [(ngModel)]="model.Question21.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question21" [(ngModel)]="model.Question21.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">
+          22. I feel that I am: (choose a response from the choices below)
+          <br> 1. a very good parent
+          <br> 2. a better-than-average parentg
+          <br> 3. an average parent
+          <br> 4. a person who has some trouble being a parent
+          <br> 5. not very good at being a parent
+        </td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="1" name="Question22" [(ngModel)]="model.Question22.fieldOptionIndex">1
+            <input type="radio" value="2" name="Question22" [(ngModel)]="model.Question22.fieldOptionIndex">2
+            <input type="radio" value="3" name="Question22" [(ngModel)]="model.Question22.fieldOptionIndex">3
+            <input type="radio" value="4" name="Question22" [(ngModel)]="model.Question22.fieldOptionIndex">4
+            <input type="radio" value="5" name="Question22" [(ngModel)]="model.Question22.fieldOptionIndex">5
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">23. I expected to have closer and warmer feelings for my child than I do, and this bothers me
+        </td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question23" [(ngModel)]="model.Question23.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question23" [(ngModel)]="model.Question23.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question23" [(ngModel)]="model.Question23.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question23" [(ngModel)]="model.Question23.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question23" [(ngModel)]="model.Question23.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">24. Sometimes my child does things that bother me just to be mean</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question24" [(ngModel)]="model.Question24.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question24" [(ngModel)]="model.Question24.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question24" [(ngModel)]="model.Question24.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question24" [(ngModel)]="model.Question24.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question24" [(ngModel)]="model.Question24.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">25. My child seems to cry or fuss more often than most children</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question25" [(ngModel)]="model.Question25.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question25" [(ngModel)]="model.Question25.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question25" [(ngModel)]="model.Question25.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question25" [(ngModel)]="model.Question25.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question25" [(ngModel)]="model.Question25.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">26. My child generally wakes up in a bad mood</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question26" [(ngModel)]="model.Question26.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question26" [(ngModel)]="model.Question26.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question26" [(ngModel)]="model.Question26.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question26" [(ngModel)]="model.Question26.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question26" [(ngModel)]="model.Question26.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">27. I feel that my child is very moody and easily upset</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question27" [(ngModel)]="model.Question27.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question27" [(ngModel)]="model.Question27.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question27" [(ngModel)]="model.Question27.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question27" [(ngModel)]="model.Question27.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question27" [(ngModel)]="model.Question27.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">28. Compared to the average child, my child has a great deal of difficulty in getting used to
+          changes in schedules
+          or changes around the house</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question28" [(ngModel)]="model.Question28.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question28" [(ngModel)]="model.Question28.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question28" [(ngModel)]="model.Question28.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question28" [(ngModel)]="model.Question28.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question28" [(ngModel)]="model.Question28.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">29. My child reacts very strongly when something happens that my child doesn't like</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question29" [(ngModel)]="model.Question29.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question29" [(ngModel)]="model.Question29.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question29" [(ngModel)]="model.Question29.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question29" [(ngModel)]="model.Question29.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question29" [(ngModel)]="model.Question29.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">30. When playing, my child doesn't often giggle or laugh</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question30" [(ngModel)]="model.Question30.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question30" [(ngModel)]="model.Question30.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question30" [(ngModel)]="model.Question30.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question30" [(ngModel)]="model.Question30.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question30" [(ngModel)]="model.Question30.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">31.My child's sleeping or eating schedule was much harder to establish than I expected</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question31" [(ngModel)]="model.Question31.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question31" [(ngModel)]="model.Question31.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question31" [(ngModel)]="model.Question31.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question31" [(ngModel)]="model.Question31.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question31" [(ngModel)]="model.Question31.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">
+          32. I have found that getting my child to do something or stop doing something is: (choose a response from the
+          choices below)
+          <br> 1. much harder than I expected
+          <br> 2. somewhat harder than I expected
+          <br> 3. about as hard as I expected
+          <br> 4. somewhat easier than I expected
+          <br> 5. much easier than I expected
+        </td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="5" name="Question32" [(ngModel)]="model.Question32.fieldOptionIndex">5
+            <input type="radio" value="4" name="Question32" [(ngModel)]="model.Question32.fieldOptionIndex">4
+            <input type="radio" value="3" name="Question32" [(ngModel)]="model.Question32.fieldOptionIndex">3
+            <input type="radio" value="2" name="Question32" [(ngModel)]="model.Question32.fieldOptionIndex">2
+            <input type="radio" value="1" name="Question32" [(ngModel)]="model.Question32.fieldOptionIndex">1
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">
+          33. Think carefully and count the number of things which your child does that bothers you. For example,
+          dawdles, refuses
+          to listen, overactive, cries, interrupts, fights, whines, etc. (choose a response from the choices below)
+          <br> 1. 1-3
+          <br> 2. 4-5
+          <br> 3. 6-7
+          <br> 4. 8-9
+          <br> 5. 10+
+        </td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="1" name="Question33" [(ngModel)]="model.Question33.fieldOptionIndex">1
+            <input type="radio" value="2" name="Question33" [(ngModel)]="model.Question33.fieldOptionIndex">2
+            <input type="radio" value="3" name="Question33" [(ngModel)]="model.Question33.fieldOptionIndex">3
+            <input type="radio" value="4" name="Question33" [(ngModel)]="model.Question33.fieldOptionIndex">4
+            <input type="radio" value="5" name="Question33" [(ngModel)]="model.Question33.fieldOptionIndex">5
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">34. There are some things my child does that really bothers me a lot</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question34" [(ngModel)]="model.Question34.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question34" [(ngModel)]="model.Question34.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question34" [(ngModel)]="model.Question34.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question34" [(ngModel)]="model.Question34.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question34" [(ngModel)]="model.Question34.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">35. My child's behavior is more of a problem than I expected</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question35" [(ngModel)]="model.Question35.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question35" [(ngModel)]="model.Question35.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question35" [(ngModel)]="model.Question35.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question35" [(ngModel)]="model.Question35.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question35" [(ngModel)]="model.Question35.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">36. My child makes more demands on me than most children</td>
+        <td>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Question36" [(ngModel)]="model.Question36.fieldOptionIndex">SA
+            <input type="radio" value="1" name="Question36" [(ngModel)]="model.Question36.fieldOptionIndex">A
+            <input type="radio" value="2" name="Question36" [(ngModel)]="model.Question36.fieldOptionIndex">NS
+            <input type="radio" value="3" name="Question36" [(ngModel)]="model.Question36.fieldOptionIndex">D
+            <input type="radio" value="4" name="Question36" [(ngModel)]="model.Question36.fieldOptionIndex">SD
+          </div>
+        </td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <th>Score Domain</th>
+        <th>Percentile Score</th>
+        <th>Interpretation</th>
+      </tr>
+      <tr>
+        <td>Defensive Responding</td>
+        <td>
+          <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.DefensiveResponding.value" readonly>
+          </mat-form-field>
+        </td>
+        <td>&gt;10 indicates parent is responding truthfully</td>
+      </tr>
+      <tr>
+        <td>Parental Distress</td>
+        <td>
+          <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.ParentDomain.value" readonly>
+          </mat-form-field>
+        </td>
+        <td> &lt; 86%tile = normal stress 86%time to 89%tile = moderate stress &gt;= 89%tile = high stress Related to
+          stressors
+          other than their parenting</td>
+      </tr>
+      <tr>
+        <td>Parent-Child Dysfunction</td>
+        <td>
+          <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.ParentChild.value" readonly>
+          </mat-form-field>
+        </td>
+        <td>&lt; 86%tile = normal stress 86%time to 89%tile = moderate stress &gt;= 89%tile = high stress Related to
+          stress in
+          the parent-child relationship</td>
+      </tr>
+      <tr>
+        <td>Difficult Child</td>
+        <td>
+          <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.DifficultChild.value" readonly>
+          </mat-form-field>
+        </td>
+        <td>&lt; 86%tile = normal stress 86%time to 89%tile = moderate stress &gt;= 89%tile = high stress Related to the
+          stress
+          in parenting this particular child</td>
+      </tr>
+      <tr>
+        <td>Total Stress Score</td>
+        <td>
+          <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.totalStress.value" readonly>
+          </mat-form-field>
+        </td>
+        <td>
+          &lt; 86%tile = normal stress 86%time to 89%tile = moderate stress &gt;= 89%tile = high stress Related to
+          parent's overall
+          stress
+        </td>
+      </tr>
+    </table>
+    <footer class="bold">
+      Adapted and reproduced by special permission of the Publisher, Psychological Assessment Resources, Inc. (PAR),
+      16204 North
+      Florida Avenue, Lutz, Florida 33549, from the Parenting Stress Index Fourth Edition Short Form by Richard R.
+      Abidin,
+      EdD. Copyright 1990, 1995, 2012 by PAR. Further reproduction is prohibited without permission of PAR.
+    </footer>
+  </div>
+</div>
+<form-footer (resetAction)='resetForm()' (calculateAction)='calculateForm()' (saveAction)='saveForm()'
+  (finalizeAction)='finalize()' [disableCalculate]="'false'">
+</form-footer>

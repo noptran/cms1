@@ -1,0 +1,660 @@
+<div *ngIf="showPro">
+  <app-form-header
+    [title]="title"
+    [status]="status"
+    [subtitle]="subtitle"
+    [breadcrumbs]="breadcrumbs"
+    [formstatus]="formStatus"
+  ></app-form-header>
+</div>
+
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+
+<div [ngClass]="isComponent ? 'rfc-wizard' : ''" class="container-background">
+  <p-toast position="center"></p-toast>
+  <app-staff-position
+    [get_StaffID]="staffId"
+    (closeModel)="closeModelComp($event, 'Position')"
+    *ngIf="showPosition"
+  >
+  </app-staff-position>
+
+  <app-staff-notification-tranfer
+    [get_StaffID]="staffId"
+    (closeModel)="closeModelComp($event, 'Notification transfer')"
+    *ngIf="showNotificationTransfer"
+  ></app-staff-notification-tranfer>
+
+  <div *ngFor="let data of dialogList">
+    <app-draggable-dialog
+      [title]="data.title"
+      [height]="data.height"
+      [width]="data.width"
+      (closeDialog)="closeDraggableDialog(data)"
+    >
+      <app-staff-team-leader
+        (jumpToTree)="intialize()"
+        [teamType]="teamType"
+        (closeModel)="closeModelComp($event, 'TeamLeader')"
+      ></app-staff-team-leader>
+    </app-draggable-dialog>
+  </div>
+  <app-compliance-tech
+    (jumpToTree)="intialize()"
+    [teamType]="teamType"
+    (closeModel)="closeModelComp($event, 'Compliance')"
+    *ngIf="showComplianceTech"
+  ></app-compliance-tech>
+  <app-sfm-office
+    (jumpToTree)="intialize()"
+    [teamType]="teamType"
+    (closeModel)="closeModelComp($event, 'Office')"
+    *ngIf="showOffice"
+  ></app-sfm-office>
+  <app-family-change-approval
+    (closeModel)="closeModelComp($event, 'Family Change Approval')"
+    *ngIf="showFamilyChangeApproval"
+  ></app-family-change-approval>
+  <app-staff-card
+    (jumpToTree)="intialize()"
+    [card]="cardName"
+    (closeModel)="closeModelComp($event, 'Staff Card')"
+    *ngIf="showStaffCard"
+  ></app-staff-card>
+  <!--  -->
+  <div class="container-foreground" *ngIf="showForm || isComponent">
+    <div *ngIf="caseTeamPersonJumptoTree" class="jump-to-tree-row">
+      <div
+        class="jump-to-tree-container"
+        pTooltip="Click here to open"
+        (click)="onClickJumptoPlacement()"
+      >
+        <span><b>Jump to Tree</b></span>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="updateUser && !isComponent">
+      <div class="col-lg-2 col-md-2 col-sm-2">
+        <div class="card-header-row">
+          <div class="opencard-menu-container rfcOpencard">
+            <div class="dropdown border-none">
+              <span
+                class="fa fa-th opencard-menu"
+                data-toggle="dropdown"
+                pTooltip="OpenCards"
+              ></span>
+              <div class="dropdown-menu opencard-box">
+                <div class="card-container">
+                  <div
+                    class="opencard"
+                    pTooltip="Click here to open"
+                    (click)="navigateTo(item.title)"
+                    *ngFor="let item of opencards"
+                  >
+                    <img src="{{ item.icon }}" alt="{{ tip }}" />
+                    <div class="opencard-info">
+                      <span class="title">{{ item.title }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form
+      class="margin-top-20 sf-form"
+      [formGroup]="orgForm"
+      autocomplete="off"
+    >
+      <div class="sf-default-form scroll-height">
+        <nav class="nav-fill">
+          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a
+              class="nav-item nav-link"
+              *ngFor="let main of mainTabs; let i = index"
+              [class.active]="sIndex === i"
+              (click)="setIndex(i, $event)"
+              data-toggle="tab"
+              href="{{ main.href }}"
+              role="tab"
+              >{{ main.label }}</a
+            >
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div
+            class="tab-pane margin-left-45 active in"
+            id="nav-1"
+            role="tabpanel"
+            aria-labelledby="nav-general-tab"
+          >
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >First Name
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <input
+                    type="text"
+                    name="firstName"
+                    formControlName="firstName"
+                    maxlength="25"
+                    pInputText
+                  />
+                  <div
+                    class="alert"
+                    *ngIf="
+                      !orgForm.controls['firstName'].valid &&
+                      orgForm.controls['firstName'].touched
+                    "
+                  >
+                    Enter a valid name upto 25 characters
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >Last Name
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <input
+                    type="text"
+                    name="lastName"
+                    formControlName="lastName"
+                    maxlength="25"
+                    pInputText
+                  />
+                  <div
+                    class="alert"
+                    *ngIf="
+                      !orgForm.controls['lastName'].valid &&
+                      orgForm.controls['lastName'].touched
+                    "
+                  >
+                    Enter a valid name upto 25 characters
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Acronym </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-inputSwitch formControlName="acronym"></p-inputSwitch>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Middle Initial(mi)</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <input
+                    type="text"
+                    name="mi"
+                    formControlName="mi"
+                    maxlength="2"
+                    pInputText
+                  />
+                  <div
+                    class="alert"
+                    *ngIf="
+                      !orgForm.controls['mi'].valid &&
+                      orgForm.controls['mi'].touched
+                    "
+                  >
+                    Enter a valid mi upto 2 characters
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Suffix</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <input
+                    type="text"
+                    name="suffix"
+                    formControlName="suffix"
+                    maxlength="3"
+                    pInputText
+                  />
+                  <div
+                    class="alert"
+                    *ngIf="
+                      !orgForm.controls['suffix'].valid &&
+                      orgForm.controls['suffix'].touched
+                    "
+                  >
+                    Enter a valid suffix upto 3 characters
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Gender</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete
+                    formControlName="genderID"
+                    [suggestions]="results"
+                    class="low-option-autos"
+                    field="gender"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    (completeMethod)="getGender($event)"
+                  >
+                  </p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Race</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete
+                    formControlName="raceID"
+                    [suggestions]="results"
+                    field="race"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    (completeMethod)="getRace($event)"
+                  ></p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Credentials</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <input
+                    type="text"
+                    name="credentials"
+                    formControlName="credentials"
+                    maxlength="50"
+                    pInputText
+                  />
+                  <!-- <p-autoComplete formControlName="raceID" [suggestions]="results" field="race" [dropdown]="true" [forceSelection]="true" (completeMethod)="getRace($event)"></p-autoComplete> -->
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">KHS Provider# </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-spinner
+                    [formatInput]="false"
+                    [maxlength]="10"
+                    formControlName="KHSProviderNum"
+                    [min]="0"
+                  >
+                  </p-spinner>
+                  <div
+                    class="alert"
+                    *ngIf="
+                      !orgForm.controls['KHSProviderNum'].valid &&
+                      orgForm.controls['KHSProviderNum'].touched
+                    "
+                  >
+                    Enter a valid KHSProviderNum upto 10 characters
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >Email
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <input
+                    type="email"
+                    name="email"
+                    formControlName="email"
+                    maxlength="75"
+                    pInputText
+                  />
+                  <div
+                    class="alert"
+                    *ngIf="
+                      !orgForm.controls['email'].valid &&
+                      orgForm.controls['email'].touched
+                    "
+                  >
+                    Enter a valid email
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Cell Phone</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-inputMask
+                    mask="(999) 999-9999"
+                    formControlName="cellPh"
+                  ></p-inputMask>
+                  <div
+                    class="alert"
+                    *ngIf="
+                      !orgForm.controls['cellPh'].valid &&
+                      orgForm.controls['cellPh'].touched
+                    "
+                  >
+                    Enter a valid cellPhoneOverOfficePhone with 10 characters
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Pager</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-inputMask
+                    mask="(999) 999-999"
+                    formControlName="pager"
+                  ></p-inputMask>
+                  <div
+                    class="alert"
+                    *ngIf="
+                      !orgForm.controls['pager'].valid &&
+                      orgForm.controls['pager'].touched
+                    "
+                  >
+                    Enter a valid pager with 10 characters
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tab-pane margin-left-45"
+            id="nav-2"
+            role="tabpanel"
+            aria-labelledby="nav-contact-tab"
+          >
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Home Phone</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-inputMask
+                    mask="(999) 999-9999"
+                    formControlName="homePh"
+                  ></p-inputMask>
+                  <div
+                    class="alert"
+                    *ngIf="
+                      !orgForm.controls['homePh'].valid &&
+                      orgForm.controls['homePh'].touched
+                    "
+                  >
+                    Enter a valid homePh with 10 characters
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Office Extension</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <input
+                    type="text"
+                    name="extension"
+                    formControlName="extension"
+                    maxlength="25"
+                    pInputText
+                  />
+                  <div
+                    class="alert"
+                    *ngIf="
+                      !orgForm.controls['extension'].valid &&
+                      orgForm.controls['extension'].touched
+                    "
+                  >
+                    Enter a valid extension upto 25 characters
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Separation Date</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-calendar
+                    formControlName="separationDate"
+                    [showIcon]="true"
+                    [showIcon]="true"
+                    showTime="true"
+                    hourFormat="24"
+                    [yearNavigator]="true"
+                    [monthNavigator]="true"
+                    yearRange="1930:2030"
+                  ></p-calendar>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">UI Training Completed Date</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-calendar
+                    formControlName="uITrainingCompletedDate"
+                    [showIcon]="true"
+                    [showIcon]="true"
+                    showTime="true"
+                    hourFormat="24"
+                    [yearNavigator]="true"
+                    [monthNavigator]="true"
+                    yearRange="1930:2030"
+                  ></p-calendar>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Cell Phone Over Office Phone</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-inputSwitch
+                    formControlName="cellPhoneOverOfficePhone"
+                  ></p-inputSwitch>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Home County Over Office County</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-inputSwitch
+                    formControlName="homeCountyOverOfficeCounty"
+                  ></p-inputSwitch>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Choose County</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete
+                    formControlName="homeCounty_CountyID"
+                    [suggestions]="results"
+                    field="countyName"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    (completeMethod)="getCounty($event)"
+                  ></p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="!updateUser">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >Begin Date for All <span class="mandatory"> *</span></span
+                  >
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-calendar
+                    formControlName="beginDateForAll"
+                    [showIcon]="true"
+                    [showIcon]="true"
+                    showTime="true"
+                    hourFormat="24"
+                    [yearNavigator]="true"
+                    [monthNavigator]="true"
+                    yearRange="1930:2030"
+                  ></p-calendar>
+                  <!-- <p-inputSwitch formControlName="beginDateForAll"></p-inputSwitch> -->
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20" *ngIf="!updateUser">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >SFCS Office <span class="mandatory"> *</span></span
+                  >
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete
+                    formControlName="sfcsOfficeID"
+                    [suggestions]="results"
+                    field="officeName"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    (completeMethod)="getSFCSOffice($event)"
+                  ></p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >Person Type <span class="mandatory"> *</span></span
+                  >
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete
+                    formControlName="personTypeID"
+                    [suggestions]="results"
+                    field="personType"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    (completeMethod)="getPersonType($event)"
+                  ></p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20" *ngIf="!updateUser">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >Team Leader <span class="mandatory"> *</span></span
+                  >
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete
+                    formControlName="teamLeaderID"
+                    [suggestions]="allTeamLeasdes"
+                    field="StaffName"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    (completeMethod)="getsearcTeamLeadr($event)"
+                  >
+                  </p-autoComplete>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tab-pane margin-left-45"
+            id="nav-3"
+            role="tabpanel"
+            aria-labelledby="nav-contact-tab"
+          >
+            <div class="row margin-top-20">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <span class="sf-labels"> Notes </span>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-11 col-md-11 col-sm-11">
+                  <textarea
+                    class="sf-width-100"
+                    name="notes"
+                    pInputTextarea
+                    style="width: 100%; height: 100%"
+                    formControlName="notes"
+                    rows="5"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="tab-footer">
+      <div>
+        <button
+          class="sf-positive-btn margin-left-0"
+          *ngIf="sIndex !== 0"
+          (click)="goPrevious()"
+        >
+          <i class="fa fa-angle-double-left"></i> Previous
+        </button>
+      </div>
+      <div class="push">
+        <button
+          class="sf-positive-btn margin-left-0"
+          *ngIf="sIndex !== mainTabs.length - 1"
+          (click)="goNext()"
+        >
+          Next <i class="fa fa-angle-double-right"></i>
+        </button>
+      </div>
+    </div>
+    <app-form-footer
+      *ngIf="sIndex == mainTabs.length - 1"
+      (save)="addPost(orgForm.value)"
+      (reset)="resetForm()"
+      (discard)="discardForm()"
+      (edit)="editForm()"
+      (back)="formBack()"
+      [editControll]="isEditForm"
+      [isFormLog]="isFormLog"
+      [formLogInfo]="formLogInfo"
+    ></app-form-footer>
+  </div>
+</div>
+<app-family-change></app-family-change>

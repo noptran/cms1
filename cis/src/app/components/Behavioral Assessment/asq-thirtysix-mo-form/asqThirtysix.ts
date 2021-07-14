@@ -1,0 +1,50 @@
+export class AsqThirtySix {
+    valueArr: any[] = [
+        { CompletionDate: 'Date ASQ-SE-2 Completed' },
+        { CaregiverName: 'Respondent' },
+        { Question38Description: 'What do you enjoy about your baby please explain' }
+    ]
+
+    optionIndex = [
+        { Relationship: 'Relationship to Baby' },
+        { Question1: 'Does your child look at you when you talk to him' },
+        { Question2: 'Does your child like to be hugged or cuddled' },
+        { Question3: 'Does your child talk or play with adults he knows well' },
+        { Question4: 'Does your child cling to you more than you expect' },
+        { Question5: 'When upset, can your child calm down within 15 minutes' },
+        { Question6: 'Does your child seem too friendly with strangers' },
+        { Question7: 'Does your child settle herself down after exciting activities' },
+        { Question8: 'Does your child move from one activity to the next with little difficulty (for example, from playtime to mealtime)' },
+        { Question9: 'Does your child seem happy' },
+        { Question10: 'Is your child interested in things around him, such as people, toys, and foods' },
+        { Question11: 'Does your child do what you ask her to do' },
+        { Question12: 'Does your child seem more active than other children his age' },
+        { Question13: 'Does your child stay with activities she enjoys for at least 15 minutes (other than watching shows or videos, or playing with electronics)' },
+        { Question14: 'Do you and your child enjoy mealtimes together' },
+        { Question15: 'Does your child have any eating problems? For example, does he stuff food, vomit eat things that are not food' },
+        { Question16: 'Does your child sleep at least 8 hours in a 24- hour period' },
+        { Question17: 'Does your child use words to tell you what she wants or needs' },
+        { Question18: 'Does your child follow routine directions? For example, does he come to the table or help clean up his toys when asked?' },
+        { Question19: 'Does your child cry, scream, or have tantrums for long periods of time' },
+        { Question20: 'Does your child check to make sure you are near when exploring new places, such as a park or a friend’s home' },
+        { Question21: 'Does your child do things over and over and get upset when you try to stop her? For example, does she rock, flap her hands, spin' },
+        { Question22: 'Does your child hurt himself on purpose' },
+        { Question23: 'Does your child stay away from dangerous things, such as fire and moving cars' },
+        { Question24: 'Does your child destroy or damage things on purpose' },
+        { Question25: 'Does your child use words to describe her feelings and the feelings of others? For example, does she say,  “I’m happy,” “I don’t like that.” Or “She’s sad”' },
+        { Question26: 'Can your child name a friend?' },
+        { Question27: 'Do other children like to play with your child' },
+        { Question28: 'Does your child like to play with other children' },
+        { Question29: 'Does your child try to hurt other children, adults, or animals (for example, by kicking or biting)?”' },
+        { Question30: 'Does your child show an unusual interest in or knowledge of sexual language and activity?' },
+        { Question31: 'Does your child try to show you things by pointing at them and looking back at you' },
+        { Question32: 'Does your child pretend objects are something else? For example, does he pretend a banana is a phone?' },
+        { Question33: 'Does your child wake three or more times during the night' },
+        { Question34: 'Is your child too worried or fearful? If “sometimes” or “often or always,”' },
+        { Question35: 'Has anyone shared concerns about your child’s behaviors? If “sometimes” or “often or always”' },
+        { ConcernsSleep: 'Do you have concerns about your baby’s eating or sleeping behaviors' },
+        { Worry: 'Does anything about your baby worry you' },
+        { Enjoy: 'What do you enjoy about your baby' },
+        { Concerns1_16: '1-35. Any concerns marked on scored items' }
+    ]
+}

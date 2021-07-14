@@ -1,0 +1,58 @@
+<div class="Report">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 main" [ngClass]="Sidenav?'main-class':'width-100'">
+        <div class="container home" style="padding-bottom: 40px;margin:15px;">
+          <div *ngIf="!showForm">
+            <div class="row">
+              <div class="col-lg-5">
+                <h2 class="margin-top-20">UserRoles
+                </h2>
+              </div>
+              <!-- <div class="margin-top-20 col-lg-6 text-align-right">
+                <button class="btn sf-primary-btn font-600 add" (click)="addForm()">+ Add Roles</button>
+                <div class="dropdow" *ngIf="hideLoader">
+                  <button class="export-button">
+                    <img class="export-img" src='../../assets/image/export.svg'> Export
+                  </button>
+                  <div class="dropdow-content" style="margin-top:-9px">
+                    <a (click)="exportToExcel()">Export as Excel</a>
+                    <a (click)="exportAsCsv()">Export as CSV</a>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+            <!-- <div [hidden]="hideLoader" class="loader"></div> -->
+            <div class="margin-top-20">
+              <div class="margin-top-20 row-cursor">
+                <h2 class="margin-top-20">Roles</h2>
+                <div class="card">
+                  <div class="row">
+                    <div class="col-lg-2">
+                      <h5 class="Role">Role Name:</h5>
+                    </div>
+                    <div class="col-lg-4">
+                      <input class="text-field" type="text" [(ngModel)]="userName">
+                    </div>
+                  </div>
+                  <div class="row margin-top-20">
+                    <div class="col-lg-2">
+                      <h5 class="Role">User Rights:</h5>
+                    </div>
+                    <div class="col-lg-4">
+                      <!-- <input class="form-control width-30 text-field" type="text"> -->
+                      <angular2-multiselect [data]="moduleList" [(ngModel)]="moduleSelected" [settings]="settings" (onSelect)="onItemSelect($event)"
+                        (onDeSelect)="OnItemDeSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                      </angular2-multiselect>
+                    </div>
+                  </div>                
+                  <button class="btn sf-primary-btn font-600 add" (click)="save()">Save</button>
+              </div>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

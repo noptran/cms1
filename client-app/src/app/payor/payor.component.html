@@ -1,0 +1,109 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <div class="nav">
+      <div routerLink="/reports/payor/detail/cases">
+        <span>Cases</span>
+      </div>
+      <div routerLink="/reports/payor/detail/placement-authorization">
+        <span>Placement Authorization</span>
+      </div>
+    </div>
+    <form class="sf-form" [formGroup]="payorForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Payor Name</span> <span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText  formControlName="payorName" name="inputText" [(ngModel)]="payor.payorName" size="27"/>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Acronym</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-inputSwitch  formControlName="acronym" name="inputtoggle" [(ngModel)]="payor.acronym"></p-inputSwitch>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Alias</span> <span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText  formControlName="alias" name="inputText" [(ngModel)]="payor.alias" size="27"/>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Address</span> <span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText  formControlName="address1" name="inputText" [(ngModel)]="payor.address1" size="27"/>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Address2</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText  formControlName="address2" name="inputText" [(ngModel)]="payor.address2" size="27"/>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Sate</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete  formControlName="stateID" [(ngModel)]="payor.stateID" [suggestions]="metaData" (completeMethod)="getMetaData($event,'state')"
+                 (onSelect)="generateCity($event)"   [dropdown]="true" placeholder="Type here to search" emptyMessage="No records found" field="state" size="23"></p-autoComplete> 
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>City</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete  formControlName="cityID" [(ngModel)]="payor.cityID" [suggestions]="metaData" (completeMethod)="filteredCity($event)"
+                 (onSelect)="generateZipcode($event)"   [dropdown]="true" placeholder="Type here to search" emptyMessage="No records found" field="city" size="23"></p-autoComplete> 
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Zip</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete  formControlName="zipcodeID" [(ngModel)]="payor.zipcodeID" [suggestions]="metaData"
+               [dropdown]="true" placeholder="Type here to search" emptyMessage="No records found" field="zipcode" size="23"></p-autoComplete> 
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Contract State</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete  formControlName="contract_StateID" [(ngModel)]="payor.contract_StateID" [suggestions]="metaData" (completeMethod)="getMetaData($event,'cont_state')"
+                    [dropdown]="true" placeholder="Type here to search" emptyMessage="No records found" field="state" size="23"></p-autoComplete> 
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Phone</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-inputMask mask="(999) 999-9999" formControlName="phone"  name="homePh" [(ngModel)]="payor.phone"  ></p-inputMask>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Fax</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-inputMask mask="(999) 999-9999" formControlName="fax"  name="homePh" [(ngModel)]="payor.fax" ></p-inputMask>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Emergency Phone</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-inputMask mask="(999) 999-9999" formControlName="emergencyPhone"  name="homePh"  [(ngModel)]="payor.emergencyPhone" ></p-inputMask>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer (save)="formActions(payor)" [editControll]="isEdit" (edit)="editForm()" [discardTo]="discardTo" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+  </div>
+</div>

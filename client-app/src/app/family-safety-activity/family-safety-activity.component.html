@@ -1,0 +1,90 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+    <p class="loader-text">
+        <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form class="sf-form" [formGroup]="fsaForm">
+      <p style="text-align: center;color:red;" *ngIf="isadditionalLoader">Please wait form still loading...</p>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Alleged Victim Type</span> <span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete   [dropdown]="true" name="allegedVictimType"   emptyMessage="No results found!" field="personAssignmentType"
+              (onSelect)="generateAllegedVictim($event)" [forceSelection]="true" placeholder="Type here to search" (completeMethod)="filterAllegedTypes($event)"
+              formControlName= "allegedVictim_PersonAssignmentTypeID" field="personAssignmentType" size="23" 
+              [(ngModel)] = "fsa.allegedVictim_PersonAssignmentTypeID" [suggestions]="filterAlleged"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Alleged Victim</span> <span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete   [dropdown]="true" name="allegedVictim"   emptyMessage="No results found!" (completeMethod)="filterVicitms($event)"
+              [forceSelection]="true" placeholder="Type here to search"  size="23" [suggestions]="filteredVictims"
+              formControlName= "personId"  [(ngModel)] = "fsa.personId" field="clientName"></p-autoComplete>
+          </div>
+          </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Alleged Perpetrator</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText formControlName= "allegedPerpetrator"  name="inputText" [(ngModel)]="fsa.allegedPerpetrator" size="27"/>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Relationship of Perpetrator to Victim</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete   [dropdown]="true" name="allegedPerpetratorToVictim"   emptyMessage="No results found!"
+              [forceSelection]="true" placeholder="Type here to search" field="personType" size="23"
+              formControlName= "relationship_PersonTypeID" [(ngModel)] = "fsa.relationship_PersonTypeID" [suggestions]="metaData" (completeMethod)="getMetaData($event,'personType')"></p-autoComplete>        
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Finding Date</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="findingDate" showTime="true" hourFormat="24"  [yearNavigator]="true" 
+              formControlName= "findingDate"  [monthNavigator]="true" yearRange="2000:2030" [showIcon]="true" 
+              [(ngModel)]="fsa.findingDate"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Finding Type</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete   [dropdown]="true" name="findingType"  emptyMessage="No results found!"
+              [forceSelection]="true" placeholder="Type here to search" field="familySafetyFindingType" size="23"
+              formControlName= "familySafetyFindingTypeID" [(ngModel)] = "fsa.familySafetyFindingTypeID" [suggestions]="metaData" (completeMethod)="getMetaData($event,'findingSafetyType')"></p-autoComplete>   
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Finding</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete   [dropdown]="true" name="finding"   emptyMessage="No results found!"
+              [forceSelection]="true" placeholder="Type here to search" field="statusType" size="23"
+              formControlName= "findingResult_StatusTypeID" [(ngModel)] = "fsa.findingResult_StatusTypeID"
+               [suggestions]="metaData" (completeMethod)="getMetaData($event,'findingType')"></p-autoComplete>   
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                  <textarea pInputTextarea  name="notes" formControlName="notes" style="width:100%;height:100%" [(ngModel)]="fsa.notes"></textarea>
+              </div>
+            </div>
+          </div>
+      <app-form-footer (save)="formAction(fsa)" [editControll]="isEdit" (edit)="editForm()" [discardTo]="discardTo"></app-form-footer>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+
+<div class="drag">
+  <a class="quick_float" id="menu-share" (click)="showBar()">
+    <i class="fa fa-share my-float"></i>
+  </a>
+  <h1 hidden>{{ barShow }}</h1>
+  <div>
+    <ul class="ul_menu_node" *ngIf="barShow">
+      <li *ngFor="let item of menuList; let i = index" pTooltip="{{ item.name }}" tooltipPosition="top"
+        (click)="navigateToNode(item.url, item.sub, i)">
+        <a>
+          <button class="btn" value="{{item.name}}">{{item.name}}</button>
+          <!-- <img src="{{item.icon}}" alt=""> -->
+          <!-- <span [ngClass]="item.icon" style="font-size: 20px;margin: 10px;"></span> -->
+        </a>
+      </li>
+    </ul>
+    <ul class="ul_sub_node" *ngIf="barNodeShow">
+      <li *ngFor="let item of subNodeList" pTooltip="{{ item.name }}" tooltipPosition="top"
+        (click)="navigateToNode(item.url, item.sub)">
+        <a>   
+          <button class="btn" value="{{item.name}}">{{item.name}}</button>
+          <!-- <img src="{{item.icon}}" alt=""> -->
+          <!-- <span [ngClass]="item.icon" style="font-size: 24px;"></span> -->
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- <span style="font-size:30px;cursor:pointer;right: 10px;
+position: fixed;" (click)="openNav()"><i class="fa fa-arrow-circle-left" style="font-size:36px"></i></span> -->
+<!-- <div id="mySidenav_qui" class="sidenav_qui">
+  <a href="javascript:void(0)" class="closebtn" (click)="showBar()"><i class="fa fa-share my-float"></i></a> -->
+<!-- <a href="#">About</a>
+  <a href="#">Services</a>
+  <a href="#">Clients</a>
+  
+  <a href="#">Contact</a> -->
+<!-- <a class="float" id="menu-share" (click)="showBar()" *ngIf="!barShow_float">
+    <i class="fa fa-share my-float"></i>
+  </a>
+  <h1 hidden>{{ barShow }}</h1>
+  <div style="columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;">
+    <ul
+      *ngIf="barShow">
+      <li
+        *ngFor="let item of menuList; let i = index"
+        pTooltip="{{ item.name }}"
+        tooltipPosition="top"
+        (click)="navigateToNode(item.url, item.sub, i)">
+        <a [ngStyle]="{ 'background-color': item.color }">
+            <img src="{{item.icon}}" alt=""> -->
+<!-- <span [ngClass]="item.icon" style="font-size: 20px;margin: 10px;"></span> -->
+<!-- </a>
+      </li>
+    </ul>
+    <ul *ngIf="barNodeShow">
+      <li
+        *ngFor="let item of subNodeList"
+        pTooltip="{{ item.name }}"
+        tooltipPosition="top"
+        (click)="navigateToNode(item.url, item.sub)"
+      >
+        <a [ngStyle]="{ 'background-color': item.color }">
+            <img src="{{item.icon}}" alt=""> -->
+<!-- <span [ngClass]="item.icon" style="font-size: 20px; margin: 10px;"></span> -->
+<!-- </a>
+      </li>
+    </ul>
+  </div>
+</div> -->

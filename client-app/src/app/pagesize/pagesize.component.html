@@ -1,0 +1,69 @@
+<span class="page">
+  <span class="page-title">Pages: </span>
+  <span pTooltip="First">
+    <!-- <span class="fa fa-angle-left sf-click-cursor"(click)="navigation('first')" id="first"></span> -->
+    <img
+      src="/assets/icons/double arrow.svg"
+      class="sf-click-cursor first-icon"
+      (click)="navigation('first')"
+      id="user-pre"
+      alt="first"
+    />
+  </span>
+  <span pTooltip="Previous">
+    <!-- <span class="fa fa-angle-double-left sf-click-cursor"  (click)="navigation('previous')" id="user-pre" alt="previous"></span> -->
+
+    <img
+      src="/assets/icons/arrow.svg"
+      class="sf-click-cursor pre-icon"
+      (click)="navigation('previous')"
+      id="first"
+      alt="first"
+    />
+  </span>
+  <span>
+    <input
+      type="text"
+      name="current-page"
+      id="currentPage"
+      class="input"
+      pTooltip="Click enter to jump to a page"
+      tooltipPosition="top"
+      tooltipEvent="focus"
+      showDelay="1000"
+      hideDelay="500"
+      [(ngModel)]="currentPage"
+      (keyup)="pageNavigation($event)"
+    />
+    of
+    <span pTooltip="Total pages">{{ totalPage | number }}</span>
+  </span>
+  <span pTooltip="Next" *ngIf="!nonextBtnDisable">
+    <!-- <span class="fa fa-angle-right" (click)="navigation('next')" id="user-next"  alt="next"></span> -->
+    <img
+      src="/assets/icons/arrow - right.svg"
+      (click)="navigation('next')"
+      id="user-next"
+      alt="next"
+      class="last-icon sf-click-cursor"
+    />
+  </span>
+  <span pTooltip="Last" *ngIf="!nonextBtnDisable">
+    <!-- <span class="fa fa-angle-double-right" (click)="navigation('last')" id="last" alt="last" ></span> -->
+    <img
+      src="/assets/icons/double arrow.svg"
+      (click)="navigation('last')"
+      id="last"
+      class="rotate-180 sf-click-cursor"
+      alt="last"
+      width="12px"
+    />
+  </span>
+</span>
+<span id="user-initial-count" class="highlights" style="margin-left: 10px">{{
+  initial | number
+}}</span>
+<span class="highlights"> to </span>
+<span id="user-des-count" class="highlights">{{ end | number }}</span>
+<span class="highlights"> of </span>
+<span class="highlights"> {{ totalCount | number }} </span>

@@ -1,0 +1,681 @@
+<div id="pdf-content" class="materl">
+  <div class="header">
+    <div class="title">
+      <h2>REINTEGRATION FOSTER CARE
+        <br> ADOPTION
+        <br> MATERNAL & PATERNAL
+        <br> RELATIVE FORM</h2>
+    </div>
+    <div class="logo">
+      <img src="assets/images/logo.svg" />
+    </div>
+    <div class="form-info">
+      <div>
+        <client-search [ClientName]='displayClientName()' (setClientAction)="setClient($event)"></client-search>
+      </div>
+      <div>
+        <span>FACTS #:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.Facts.value"></mat-form-field>
+      </div>
+      <div>
+        <span>KAECSES #:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.Kaecses.value" readonly></mat-form-field>
+      </div>
+      <div>
+        <span>Client's DOB:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.DateOfBirth.value" readonly></mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div *ngIf='model.showMultiClient === true' class="hideOnPdf">
+    <span class="spanMulticlient">Select the option for multi client</span>
+    <mat-form-field>
+      <mat-select placeholder="Select the option for multi client" [(ngModel)]="model.multiClientValue">
+        <mat-option (click)="client()" value="By Facts">By Facts</mat-option>
+        <mat-option (click)="allClient()" value="By All clients">By All clients</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf='showClient === true' class="hideOnPdf">
+    <mat-form-field  floatLabel="never">
+      <input matInput [(ngModel)]="search" placeholder="Enter the last name" name="search" class="date">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="client()" class="search">Select Client</button>
+  </div>
+
+  <div class="column">
+    <div *ngFor="let clients of model.multiClient; let i = index;" class="multiClient">
+      <span class="pad-right">Child{{i + 1}}</span>
+      <mat-form-field>
+        <input matInput [(ngModel)]="model.multiClient[i]" [ngModelOptions]="{standalone: true}" readonly />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="assessment">
+    <div>
+      <span>Initial Assessment:</span>
+      <mat-form-field>
+        <input matInput [(ngModel)]="model.InitialAssessment.value"></mat-form-field>
+    </div>
+    <div>
+      <span>Assessment Review Date:</span>
+      <mat-form-field  floatLabel="never">
+        <input matInput [matDatepicker]="ReviewDate" (click)="ReviewDate.open()" placeholder="Choose a date" class="date"
+          [(ngModel)]="model.ReviewDate.value">
+        <mat-datepicker #ReviewDate></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div>
+    <table class="table-width">
+      <tr>
+        <th style="width:17%">Relationship Maternal/Paternal Needs to be indicated: Grandparent, Sibling, Aunt/Uncle, Cousin, Etc.</th>
+        <th style="width:7%">Maternal/ Paternal</th>
+        <th style="width:16%">Name</th>
+        <th style="width:16%">Address
+          <br> City, State, Zip</th>
+        <th style="width:16%">Phone #</th>
+        <th style="width:7%">Can child live with relative?</th>
+        <th style="width:16%">SFCS Use ONLY
+          <hr> If yes, efforts to place with relatives. If no, why are they not an option for placement? Please include
+          the date
+          and type of documentation in file</th>
+      </tr>
+      <tr>
+        <td>
+          <div>
+            <mat-form-field *ngIf="!isFinalize">
+              <textarea matInput autosize [(ngModel)]="model.Relation1.value"></textarea>
+            </mat-form-field>
+            <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Relation1.value}}</span>
+          </div>
+        </td>
+        <td>
+          <input type="radio" value="0" name="MaternalPaternal1"
+            [(ngModel)]="model.MaternalPaternal1.fieldOptionIndex">M
+          <input type="radio" value="1" name="MaternalPaternal1"
+            [(ngModel)]="model.MaternalPaternal1.fieldOptionIndex">P
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Name1.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Name1.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Address1.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Address1.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <div>
+            <mat-form-field *ngIf="!isFinalize"> 
+              <textarea matInput autosize [(ngModel)]="model.phone1.value"></textarea>
+            </mat-form-field>
+            <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.phone1.value}}</span>
+            <hr *ngIf="isFinalize">
+          </div>
+        </td>
+        <td>
+          <input type="radio" value="0" name="LiveWithRelative1"
+            [(ngModel)]="model.LiveWithRelative1.fieldOptionIndex">Y
+          <input type="radio" value="1" name="LiveWithRelative1"
+            [(ngModel)]="model.LiveWithRelative1.fieldOptionIndex">N
+        </td>
+        <td>
+          <div>
+            <mat-form-field *ngIf="!isFinalize">
+              <textarea matInput autosize [(ngModel)]="model.Comment1.value"></textarea>
+            </mat-form-field>
+            <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Comment1.value}}</span>
+            <hr *ngIf="isFinalize">
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Relation2.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Relation2.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <input type="radio" value="0" name="MaternalPaternal2"
+            [(ngModel)]="model.MaternalPaternal2.fieldOptionIndex">M
+          <input type="radio" value="1" name="MaternalPaternal2"
+            [(ngModel)]="model.MaternalPaternal2.fieldOptionIndex">P
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Name2.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Name2.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Address2.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Address2.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <div>
+            <mat-form-field *ngIf="!isFinalize">
+              <textarea matInput autosize [(ngModel)]="model.phone2.value"></textarea>
+            </mat-form-field>
+            <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.phone2.value}}</span>
+            <hr *ngIf="isFinalize">
+          </div>
+        </td>
+        <td>
+          <input type="radio" value="0" name="LiveWithRelative2"
+            [(ngModel)]="model.LiveWithRelative2.fieldOptionIndex">Y
+          <input type="radio" value="1" name="LiveWithRelative2"
+            [(ngModel)]="model.LiveWithRelative2.fieldOptionIndex">N
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Comment2.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Comment2.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Relation3.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Relation3.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <input type="radio" value="0" name="MaternalPaternal3"
+            [(ngModel)]="model.MaternalPaternal3.fieldOptionIndex">M
+          <input type="radio" value="1" name="MaternalPaternal3"
+            [(ngModel)]="model.MaternalPaternal3.fieldOptionIndex">P
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Name3.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Name3.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Address3.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Address3.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <div>
+            <mat-form-field *ngIf="!isFinalize">
+              <textarea matInput autosize [(ngModel)]="model.phone3.value"></textarea>
+            </mat-form-field>
+            <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.phone3.value}}</span>
+            <hr *ngIf="isFinalize">
+          </div>
+        </td>
+        <td>
+          <input type="radio" value="0" name="LiveWithRelative3"
+            [(ngModel)]="model.LiveWithRelative3.fieldOptionIndex">Y
+          <input type="radio" value="1" name="LiveWithRelative3"
+            [(ngModel)]="model.LiveWithRelative3.fieldOptionIndex">N
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Comment3.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Comment3.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Relation4.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Relation4.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+            <input type="radio" value="0" name="MaternalPaternal4"
+            [(ngModel)]="model.MaternalPaternal4.fieldOptionIndex">M
+          <input type="radio" value="1" name="MaternalPaternal4"
+            [(ngModel)]="model.MaternalPaternal4.fieldOptionIndex">P
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Name4.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Name4.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Address4.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Address4.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <div>
+            <mat-form-field *ngIf="!isFinalize">
+              <textarea matInput autosize [(ngModel)]="model.phone4.value"></textarea>
+            </mat-form-field>
+            <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.phone4.value}}</span>
+            <hr *ngIf="isFinalize">
+          </div>
+        </td>
+        <td>
+            <input type="radio" value="0" name="LiveWithRelative4"
+            [(ngModel)]="model.LiveWithRelative4.fieldOptionIndex">Y
+          <input type="radio" value="1" name="LiveWithRelative4"
+            [(ngModel)]="model.LiveWithRelative4.fieldOptionIndex">N
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Comment4.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Comment4.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Relation5.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Relation5.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+            <input type="radio" value="0" name="MaternalPaternal5"
+            [(ngModel)]="model.MaternalPaternal5.fieldOptionIndex">M
+          <input type="radio" value="1" name="MaternalPaternal5"
+            [(ngModel)]="model.MaternalPaternal5.fieldOptionIndex">P
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Name5.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Name5.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Address5.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Address5.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <div>
+            <mat-form-field *ngIf="!isFinalize">
+              <textarea matInput autosize [(ngModel)]="model.phone5.value"></textarea>
+            </mat-form-field>
+            <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.phone5.value}}</span>
+            <hr *ngIf="isFinalize">
+          </div>
+        </td>
+        <td>
+          <input type="radio" value="0" name="LiveWithRelative5"
+          [(ngModel)]="model.LiveWithRelative5.fieldOptionIndex">Y
+        <input type="radio" value="1" name="LiveWithRelative5"
+          [(ngModel)]="model.LiveWithRelative5.fieldOptionIndex">N
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Comment5.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Comment5.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Relation6.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Relation6.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+            <input type="radio" value="0" name="MaternalPaternal6"
+            [(ngModel)]="model.MaternalPaternal6.fieldOptionIndex">M
+          <input type="radio" value="1" name="MaternalPaternal6"
+            [(ngModel)]="model.MaternalPaternal6.fieldOptionIndex">P
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Name6.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Name6.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Address6.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Address6.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <div>
+            <mat-form-field *ngIf="!isFinalize">
+              <textarea matInput autosize [(ngModel)]="model.phone6.value"></textarea>
+            </mat-form-field>
+            <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.phone6.value}}</span>
+            <hr *ngIf="isFinalize">
+          </div>
+        </td>
+        <td>
+            <input type="radio" value="0" name="LiveWithRelative6"
+            [(ngModel)]="model.LiveWithRelative6.fieldOptionIndex">Y
+          <input type="radio" value="1" name="LiveWithRelative6"
+            [(ngModel)]="model.LiveWithRelative6.fieldOptionIndex">N
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Comment6.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Comment6.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Relation7.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Relation7.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+            <input type="radio" value="0" name="MaternalPaternal7"
+            [(ngModel)]="model.MaternalPaternal7.fieldOptionIndex">M
+          <input type="radio" value="1" name="MaternalPaternal7"
+            [(ngModel)]="model.MaternalPaternal7.fieldOptionIndex">P
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Name7.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Name7.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Address7.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Address7.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <div>
+            <mat-form-field *ngIf="!isFinalize">
+              <textarea matInput autosize [(ngModel)]="model.phone7.value"></textarea>
+            </mat-form-field>
+            <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.phone7.value}}</span>
+            <hr *ngIf="isFinalize">
+          </div>
+        </td>
+        <td>
+          <input type="radio" value="0" name="LiveWithRelative7"
+          [(ngModel)]="model.LiveWithRelative7.fieldOptionIndex">Y
+        <input type="radio" value="1" name="LiveWithRelative7"
+          [(ngModel)]="model.LiveWithRelative7.fieldOptionIndex">N
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Comment7.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Comment7.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Relation8.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Relation8.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+            <input type="radio" value="0" name="MaternalPaternal8"
+            [(ngModel)]="model.MaternalPaternal8.fieldOptionIndex">M
+          <input type="radio" value="1" name="MaternalPaternal8"
+            [(ngModel)]="model.MaternalPaternal8.fieldOptionIndex">P
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Name8.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Name8.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Address8.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Address8.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <div>
+            <mat-form-field *ngIf="!isFinalize">
+              <textarea matInput autosize [(ngModel)]="model.phone8.value"></textarea>
+            </mat-form-field>
+            <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.phone8.value}}</span>
+            <hr *ngIf="isFinalize">
+          </div>
+        </td>
+        <td>
+            <input type="radio" value="0" name="LiveWithRelative8"
+            [(ngModel)]="model.LiveWithRelative8.fieldOptionIndex">Y
+          <input type="radio" value="1" name="LiveWithRelative8"
+            [(ngModel)]="model.LiveWithRelative8.fieldOptionIndex">N
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Comment8.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Comment8.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Relation9.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Relation9.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+            <input type="radio" value="0" name="MaternalPaternal9"
+            [(ngModel)]="model.MaternalPaternal9.fieldOptionIndex">M
+          <input type="radio" value="1" name="MaternalPaternal9"
+            [(ngModel)]="model.MaternalPaternal9.fieldOptionIndex">P
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Name9.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Name9.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Address9.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Address9.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <div>
+            <mat-form-field *ngIf="!isFinalize">
+              <textarea matInput autosize [(ngModel)]="model.phone9.value"></textarea>
+            </mat-form-field>
+            <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.phone9.value}}</span>
+            <hr *ngIf="isFinalize">
+          </div>
+        </td>
+        <td>
+            <input type="radio" value="0" name="LiveWithRelative9"
+            [(ngModel)]="model.LiveWithRelative9.fieldOptionIndex">Y
+          <input type="radio" value="1" name="LiveWithRelative9"
+            [(ngModel)]="model.LiveWithRelative9.fieldOptionIndex">N
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Comment9.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Comment9.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Relation10.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Relation10.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <input type="radio" value="0" name="MaternalPaternal10"
+            [(ngModel)]="model.MaternalPaternal10.fieldOptionIndex">M
+          <input type="radio" value="1" name="MaternalPaternal10"
+            [(ngModel)]="model.MaternalPaternal10.fieldOptionIndex">P
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Name10.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Name10.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Address10.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Address10.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <div>
+            <mat-form-field *ngIf="!isFinalize">
+              <textarea matInput autosize [(ngModel)]="model.phone10.value"></textarea>
+            </mat-form-field>
+            <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.phone10.value}}</span>
+            <hr *ngIf="isFinalize">
+          </div>
+        </td>
+        <td>
+            <input type="radio" value="0" name="LiveWithRelative10"
+            [(ngModel)]="model.LiveWithRelative10.fieldOptionIndex">Y
+          <input type="radio" value="1" name="LiveWithRelative10"
+            [(ngModel)]="model.LiveWithRelative10.fieldOptionIndex">N
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Comment10.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Comment10.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Relation11.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Relation11.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <input type="radio" value="0" name="MaternalPaternal11"
+          [(ngModel)]="model.MaternalPaternal11.fieldOptionIndex">M
+        <input type="radio" value="1" name="MaternalPaternal11"
+          [(ngModel)]="model.MaternalPaternal11.fieldOptionIndex">P
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Name11.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Name11.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Address11.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Address11.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+        <td>
+          <div>
+            <mat-form-field *ngIf="!isFinalize">
+              <textarea matInput autosize [(ngModel)]="model.phone11.value"></textarea>
+            </mat-form-field>
+            <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.phone11.value}}</span>
+            <hr *ngIf="isFinalize">
+          </div>
+        </td>
+        <td>
+            <input type="radio" value="0" name="LiveWithRelative11"
+            [(ngModel)]="model.LiveWithRelative11.fieldOptionIndex">Y
+          <input type="radio" value="1" name="LiveWithRelative11"
+            [(ngModel)]="model.LiveWithRelative11.fieldOptionIndex">N
+        </td>
+        <td>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea matInput autosize [(ngModel)]="model.Comment11.value"></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Comment11.value}}</span>
+          <hr *ngIf="isFinalize">
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="assessment">
+    <div>
+      <span>Completed By:</span>
+      <mat-form-field>
+        <input matInput [(ngModel)]="model.StaffName.value" readonly></mat-form-field>
+    </div>
+    <div>
+      <span>Date:</span>
+      <mat-form-field  floatLabel="never">
+        <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose a date" class="date"
+          [(ngModel)]="model.CompletionDate.value" value="{{date}}">
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<form-footer  (resetAction)='resetForm()' (calculateAction)='calculateForm()'
+  (saveAction)='saveForm()' (finalizeAction)='finalize()'>
+</form-footer>
+<style>
+.mat-form-field-infix {
+        width: 100% !important;
+    }
+    input{
+        min-width: 0rem !important;
+    }
+</style>

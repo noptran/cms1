@@ -1,0 +1,121 @@
+<p-toast position="center"></p-toast>
+<div *ngIf="isList" class="list-table">
+  <p>Home School List</p>
+  <div class="add-btn">
+    <button class="sf-positive-btn" (click)="onAddForm()"><span>Add</span></button>
+  </div>
+  <table style="width: 100%;">
+    <th scope="beginDate"><span>Begin Date</span></th>
+    <th scope="schoolName"><span>School Name</span></th>
+    <th scope="actions"><span>Actions</span></th>
+    <tr *ngFor="let homeSchool of homeSchoolList">
+      <td>{{homeSchool?.beginDate}}</td>
+      <td>{{homeSchool?.schoolName}}</td>
+      <td>
+        <div>
+          <span class="fa fa-edit action-icon" (click)="onEditForm(homeSchool)"></span>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+<div *ngIf="isForm">
+  <div *ngIf="isAppHeader">
+    <app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+  </div>
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+  <div class="container-background">
+    <div class="container-foreground">
+      <form class="sf-form" [formGroup]="homeSchoolForm">
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="homeSchoolBeginDate" [(ngModel)]="homeSchool.beginDate" formControlName="beginDate"
+                [showIcon]="true" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="homeSchoolEndDate" [(ngModel)]="homeSchool.endDate" formControlName="endDate"
+                [showIcon]="true" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030">
+              </p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>School</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete name="schoolID" formControlName="schoolID" [(ngModel)]="homeSchool.schoolID"
+                [suggestions]="metaData" (completeMethod)="getMetaData($event,'school')"
+                placeholder="Type here to search" [dropdown]="true" field="schoolName" size="23">
+                <ng-template let-schoolID pTemplate="item">
+                  <table>
+                    <tr>
+                      <td><b>Name</b></td>
+                      <td>:</td>
+                      <td>{{schoolID?.schoolName}}</td>
+                    </tr>
+                    <tr>
+                      <td><b>USD</b></td>
+                      <td>:</td>
+                      <td>{{schoolID?.usd}}</td>
+                    </tr>
+                    <tr>
+                      <td><b>Address</b></td>
+                      <td>:</td>
+                      <td>{{schoolID?.address}}</td>
+                    </tr>
+                    <tr>
+                      <td><b>City</b></td>
+                      <td>:</td>
+                      <td>{{schoolID?.cityID?.city}}</td>
+                    </tr>
+                    <tr>
+                      <td><b>State</b></td>
+                      <td>:</td>
+                      <td>{{schoolID?.stateID?.state}}</td>
+                    </tr>
+                  </table>
+                </ng-template>
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Change Reason</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete name="changeReasonID" formControlName="changeReasonID"
+                [(ngModel)]="homeSchool.changeReasonID" [suggestions]="metaData"
+                (completeMethod)="getMetaData($event,'change_reason')" placeholder="Type here to search"
+                [dropdown]="true" field="changeReason" size="23"></p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <button class="sf-attachment-btn margin-left-3rem" pTooltip="School" (click)="onViewSchoolSelect()"
+            *ngIf="isAttachmentRequired">
+            <span class="attach-text">View School Info</span>
+          </button>
+        </div>
+      </form>
+      <app-form-footer [attachmentControll]="isAttachmentRequired" [isAttachmentDisabled]="false"
+        (attachDoc)="navigateTo()" (save)="formAction(homeSchool)" [editControll]="isEdit" (edit)="editForm()"
+        (discard)="discard()" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+      </app-form-footer>
+      <!-- <app-quick-menu [module]="quickMenu"></app-quick-menu> -->
+    </div>
+  </div>
+</div>
+
+<p-dialog [contentStyle]="{'min-width':'106rem','height':'unset'}" header="School" [(visible)]="isSchoolVisible"
+  [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="999" [closable]="true">
+  <app-school-list *ngIf="isSchoolVisible"></app-school-list>
+</p-dialog>

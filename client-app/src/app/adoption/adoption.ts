@@ -1,0 +1,30 @@
+export class Adoption {
+        adoptionID: any;
+        birthRecordsReceived: any;
+        birthRecordsRequested: any;
+        inquiryForm: any;
+        legallyAvailable: any;
+        legalReview: any;
+        motionFiled: any;
+        notes: string;
+        parentalStatusID_Father: any;
+        parentalStatusID_Father_Other: any;
+        parentalStatusID_Mother: any;
+        parentalStatusID_Mother_Other: any;
+        permanencyStaffing: any;
+        pointsToCourtDate: any;
+        referralID: any;
+        referred_To_Adopt_Cont: any;
+        reunificationNoLogerViable_CourtApproved: any;
+        reunificationNoLogerViable_SFCSRecommended: any;
+        socialHistory: any;
+        statusApprovedDate_Father: any;
+        statusApprovedDate_Father_Other: any;
+        statusApprovedDate_Mother: any;
+        statusApprovedDate_Mother_Other: any;
+        statusDate_Father: any;
+        statusDate_Father_Other: any;
+        statusDate_Mother: any;
+        statusDate_Mother_Other: any;
+        transferToAdoption: any;
+}

@@ -1,0 +1,335 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="domesticViolenceForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        FAMILY PRESERVATION <br>
+        DOMESTIC VIOLENCE <br> SCREENING TOOL
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Case Name:</span>
+          <input readonly [(ngModel)]="fpDomesticViolence.caseName" formControlName="caseName" name="caseName" type="text"
+            pInputText size="20" />
+        </div>
+        <div>
+          <span>Case Number:</span>
+          <input readonly [(ngModel)]="fpDomesticViolence.caseNumber" formControlName="caseNumber" name="caseNumber" type="text"
+            pInputText size="20" />
+        </div>
+        <div>
+          <span>Date of Referral:</span>
+          <p-calendar [(ngModel)]="fpDomesticViolence.dateOfReferral" formControlName="dateOfReferral" name="dateOfReferral"
+            [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>Date:</span>
+          <p-calendar [(ngModel)]="fpDomesticViolence.date" formControlName="date" name="date" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <p class="bold"> Information contained on this form is strictly confidential</p>
+    <p class="bold">Instructions: Complete for each client head of household that has been identified as a victim of
+      domestic
+      violence, or when domestic violence is suspected in the referral of the home. Complete the form with the victim
+      while in a safe, private location, without the batterer or other family members present.</p>
+    <div class="flex-container table-td">
+      <div class="space-right">Name</div>
+      <div>
+        <input [(ngModel)]="fpDomesticViolence.name" formControlName="name" name="name" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container table-td">
+      <div class="space-right">Safe Contact Information:</div>
+      <div>
+        <input [(ngModel)]="fpDomesticViolence.safeContactInformation" formControlName="safeContactInformation" name="safeContactInformation"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>
+      Is there someone (friend, relative, child, spouse, or intimate partner) who has ever physically, sexually, or
+      emotionally hurt you? For example, has anyone ever:
+    </p>
+    <div class="table-td">
+      <table>
+        <tr>
+          <td class="table-td">Pushed, grabbed, slapped, kicked or hit you? </td>
+          <td class="table-td">
+            <div>
+              <span>Yes</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isPushedYes" formControlName="isPushedYes" name="isPushedYes"></p-checkbox>
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <span>No</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isPushedNo" formControlName="isPushedNo" name="isPushedNo"></p-checkbox>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Kept you away from family and friends, or prevented you from leaving your home or going
+            where you wanted
+            to go?</td>
+          <td class="table-td">
+            <div>
+              <span>Yes</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isKeptYouAwayYes" formControlName="isKeptYouAwayYes"
+                name="isKeptYouAwayYes"></p-checkbox>
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <span>No</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isKeptYouAwayNo" formControlName="isKeptYouAwayNo"
+                name="isKeptYouAwayNo"></p-checkbox>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Consistently put you down or told you that you were worthless?</td>
+          <td class="table-td">
+            <div>
+              <span>Yes</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isPutYouDownYes" formControlName="isPutYouDownYes"
+                name="isPutYouDownYes"></p-checkbox>
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <span>No</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isPutYouDownNo" formControlName="isPutYouDownNo"
+                name="isPutYouDownNo"></p-checkbox>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Followed or kept check on you?</td>
+          <td class="table-td">
+            <div>
+              <span>Yes</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isKeptCheckYes" formControlName="isKeptCheckYes"
+                name="isKeptCheckYes"></p-checkbox>
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <span>No</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isKeptCheckNo" formControlName="isKeptCheckNo"
+                name="isKeptCheckNo"></p-checkbox>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Threatened to harm you, other family members, or pets? </td>
+          <td class="table-td">
+            <div>
+              <span>Yes</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isThreatenedPetsYes" formControlName="isThreatenedPetsYes"
+                name="isThreatenedPetsYes"></p-checkbox>
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <span>No</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isThreatenedPetsNo" formControlName="isThreatenedPetsNo"
+                name="isThreatenedPetsNo"></p-checkbox>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Threatened to harm, take away, or have someone take away, your children?</td>
+          <td class="table-td">
+            <div>
+              <span>Yes</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isThreatenedChildrenYes" formControlName="isThreatenedChildrenYes"
+                name="isThreatenedChildrenYes"></p-checkbox>
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <span>No</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isThreatenedChildrenNo" formControlName="isThreatenedChildrenNo"
+                name="isThreatenedChildrenNo"></p-checkbox>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Withheld food, clothing, or other needs?</td>
+          <td class="table-td">
+            <div>
+              <span>Yes</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isWithheldFoodYes" formControlName="isWithheldFoodYes"
+                name="isWithheldFoodYes"></p-checkbox>
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <span>No</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isWithheldFoodNo" formControlName="isWithheldFoodNo"
+                name="isWithheldFoodNo"></p-checkbox>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Caused problems for you at work by showing up to your place of employment or
+            persistently calling you
+            while at work? </td>
+          <td class="table-td">
+            <div>
+              <span>Yes</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isCausedProblemsYes" formControlName="isCausedProblemsYes"
+                name="isCausedProblemsYes"></p-checkbox>
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <span>No</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isCausedProblemsNo" formControlName="isCausedProblemsNo"
+                name="isCausedProblemsNo"></p-checkbox>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Are any of these happening currently?</td>
+          <td class="table-td">
+            <div>
+              <span>Yes</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isHappeningCurrentlyYes" formControlName="isHappeningCurrentlyYes"
+                name="isHappeningCurrentlyYes"></p-checkbox>
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <span>No</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isHappeningCurrentlyNo" formControlName="isHappeningCurrentlyNo"
+                name="isHappeningCurrentlyNo"></p-checkbox>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Is there anyone that you are afraid of?</td>
+          <td class="table-td">
+            <div>
+              <span>Yes</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isAfraidYes" formControlName="isAfraidYes" name="isAfraidYes"></p-checkbox>
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <span>No</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isAfraidNo" formControlName="isAfraidNo" name="isAfraidNo"></p-checkbox>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">If yes to any of the above, who hurt you and what was their relationship to you? </td>
+          <td colspan="2" class="table-td">
+            <div>
+              <input [(ngModel)]="fpDomesticViolence.whoHurts" formControlName="whoHurts" name="whoHurts" type="text"
+                pInputText size="20" />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Do you feel in danger now?</td>
+          <td class="table-td">
+            <div>
+              <span>Yes</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isDangerYes" formControlName="isDangerYes" name="isDangerYes"></p-checkbox>
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <span>No</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isDangerNo" formControlName="isDangerNo" name="isDangerNo"></p-checkbox>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" class="table-td">
+            <p class="bold center">
+              If any of the above were answered “yes”, develop the Family Safety Plan.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Do you have a current PFA/Restraining Order? </td>
+          <td class="table-td">
+            <div>
+              <span>Yes</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isPfaYes" formControlName="isPfaYes" name="isPfaYes"></p-checkbox>
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <span>No</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isPfaNo" formControlName="isPfaNo" name="isPfaNo"></p-checkbox>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Are you interested in an emergency shelter?</td>
+          <td class="table-td">
+            <div>
+              <span>Yes</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isEmergencyShelterYes" formControlName="isEmergencyShelterYes"
+                name="isEmergencyShelterYes"></p-checkbox>
+            </div>
+          </td>
+          <td class="table-td">
+            <div>
+              <span>No</span>
+              <p-checkbox binary="true" [(ngModel)]="fpDomesticViolence.isEmergencyShelterNo" formControlName="isEmergencyShelterNo"
+                name="isEmergencyShelterNo"></p-checkbox>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" class="table-td">
+            <p class="bold center">If either are yes, document plan to assist client.</p>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">Signature:</div>
+        <div> <input [(ngModel)]="fpDomesticViolence.signature" formControlName="signature" name="signature" type="text"
+            pInputText size="20" /></div>
+      </div>
+      <div class="flex-container">
+        <div class="space-right">Date:</div>
+        <div>
+          <p-calendar [(ngModel)]="fpDomesticViolence.endDate" formControlName="endDate" name="endDate" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+        <div class="space-right space-down">
+          <div class="space-right">
+            <b>Printed Date:</b>
+          </div>
+          <div class="space-right">
+            <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="space-right space-down margin-left-66rem">
+          <div class="space-right">
+            <b>Printed By:</b>
+          </div>
+          <div class="space-right">
+            <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+          </div>
+        </div>
+  
+      </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,fpDomesticViolence)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

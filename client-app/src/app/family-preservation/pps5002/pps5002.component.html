@@ -1,0 +1,237 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="ppsForm" class="sf-form">
+    <div class="flex-container header">
+      <div>
+
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div>
+
+      </div>
+    </div>
+    <h3 class="bold center">
+      Request for Retraction of a
+      <br> Family Preservation Referral
+    </h3>
+    <p class="bold">Section One (Completed by CW Case Management Provider)</p>
+    <div class="flex-container space-down">
+      <div class="space-right">Date of Request:</div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="fpPps.dateOfRequest" formControlName="dateOfRequest" name="dateOfRequest" [inputStyle]="{'width':'170px'}"
+          showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">Request made by (Name and title):</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpPps.requestMade" formControlName="requestMade" name="requestMade" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">CW Case Management Provider:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpPps.managementProvider" formControlName="managementProvider" name="managementProvider" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">Phone number:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpPps.phoneNumber" formControlName="phoneNumber" name="phoneNumber" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">DCF Region:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpPps.dcfRegion" formControlName="dcfRegion" name="dcfRegion" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">CW Case Management Worker:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpPps.managementWorker" formControlName="managementWorker" name="managementWorker" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">DCF Regional Contract Specialist: </div>
+        <div class="space-right">
+          <input [(ngModel)]="fpPps.contractSpecialist" formControlName="contractSpecialist" name="contractSpecialist" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <hr>
+    <p class="bold">Section Two (Completed by CW Case Management Provider)</p>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">Case Head name: </div>
+        <div class="space-right">
+          <input [(ngModel)]="fpPps.caseHeadName" formControlName="caseHeadName" name="caseHeadName" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">FACTS #: </div>
+        <div class="space-right">
+          <input [(ngModel)]="fpPps.facts" formControlName="facts" name="facts" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Date of Referral to CW Case Management Provider:</div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="fpPps.dateOfReferral" formControlName="dateOfReferral" name="dateOfReferral" [inputStyle]="{'width':'170px'}"
+          showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Names and ages of children in the home: </div>
+      <div class="space-right">
+        <input [(ngModel)]="fpPps.namesOfChildren" formControlName="namesOfChildren" name="namesOfChildren" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Names of other adults in the home: </div>
+      <div class="space-right">
+        <input [(ngModel)]="fpPps.namesOfAdults" formControlName="namesOfAdults" name="namesOfAdults" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Reason for referral (complete with information from the PPS 5000 or attach the PPS 5000 to the request):</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpPps.reasonForReferral" formControlName="reasonForReferral" name="reasonForReferral" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Rationale for Request: </div>
+      <div class="space-right">
+        <input [(ngModel)]="fpPps.rationaleForRequest" formControlName="rationaleForRequest" name="rationaleForRequest" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Steps taken by CW Case Management Provider to prevent request: </div>
+      <div class="space-right">
+        <input [(ngModel)]="fpPps.stepsTaken" formControlName="stepsTaken" name="stepsTaken" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <input [(ngModel)]="fpPps.electronicSignature" formControlName="electronicSignature" name="electronicSignature" type="text"
+            pInputText size="20" />
+        </div>
+        <div class="space-down">Electronic Signature </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="fpPps.electronicSignatureDate" formControlName="electronicSignatureDate" name="electronicSignatureDate"
+            [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date</div>
+      </div>
+    </div>
+    <hr>
+    <p class="bold">Section Three (Completed by DCF Regional Contract Specialist)</p>
+    <div class="flex-container space-down">
+      <div class="space-right">Date request received from the CW Case Management Provider:</div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="fpPps.dateRequestReceived" formControlName="dateRequestReceived" name="dateRequestReceived" [inputStyle]="{'width':'170px'}"
+          showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Does the DCF Regional Contract Specialist agree with the request for retraction? </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpPps.isSpecialistAgreeYes" formControlName="isSpecialistAgreeYes" name="isSpecialistAgreeYes"
+          class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpPps.isSpecialistAgreeNo" formControlName="isSpecialistAgreeNo" name="isSpecialistAgreeNo"
+          class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Rationale for Decision/Additional Comments</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpPps.additionalComments" formControlName="additionalComments" name="additionalComments" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        Retraction Request Approved?
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpPps.isRequestApprovedYes" formControlName="isRequestApprovedYes" name="isRequestApprovedYes"
+          class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpPps.isRequestApprovedNo" formControlName="isRequestApprovedNo" name="isRequestApprovedNo"
+          class="space-right"></p-checkbox>No
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">Date of Decision: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpPps.dateOfDecision" formControlName="dateOfDecision" name="dateOfDecision" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <input [(ngModel)]="fpPps.electronicSignature1" formControlName="electronicSignature1" name="electronicSignature1" type="text"
+            pInputText size="20" />
+        </div>
+        <div class="space-down">Electronic Signature </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="fpPps.electronicSignatureDate1" formControlName="electronicSignatureDate1" name="electronicSignatureDate1"
+            [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date</div>
+      </div>
+    </div>
+    <hr>
+    <p>CC: Case file</p>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,fpPps)" [editControll]="editControll" (edit)="editForm()"
+  (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

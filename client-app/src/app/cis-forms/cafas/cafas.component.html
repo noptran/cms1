@@ -1,0 +1,1471 @@
+<div class="padding-2rem pdf-content-new">
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+  <p-toast position="center" [baseZIndex]="99999999"></p-toast>
+  <div id="print-form-content">
+    <h2 class="heading">CHILD AND ADOLESCENT FUNCTIONAL ASSESSMENT SCALE - CAFAS</h2>
+    <h3 class="margin-top-2rem">Client's Information</h3>
+    <div class="client-info">
+      <div class="child-info">
+        <div>
+          <!-- <client-search [ClientName]='displayClientName()' (setClientAction)="setClient($event)"></client-search> -->
+        </div>
+        <div class="margin-right-2rem">
+          <span class="margin-right-2rem">Child ID#:</span>
+          <input formControlName="clientId" name="clientId" [(ngModel)]="cisCafas.clientId" type="text" pInputText size="20" readonly
+          />
+          <!-- <input formControlName="CompletionDate" name="CompletionDate" class="input-sm" [(ngModel)]="cisCafas.clientId" readonly> -->
+        </div>
+        <div class="margin-right-2rem">
+          <span class="margin-right-gender">Gender:</span>
+          <!-- <input formControlName="CompletionDate" name="CompletionDate" class="input-sm" [(ngModel)]="cisCafas.Gender.value"> -->
+          <input formControlName="Gender" name="Gender" type="text" [(ngModel)]="cisCafas.Gender.value" pInputText size="20" />
+        </div>
+      </div>
+      <div class="child-info-section margin-top">
+        <div class="child-info-div margin-right-2rem">
+          <span>Today's Date:</span>
+          <!-- <mat-form-field>
+          <input formControlName="CompletionDate" name="CompletionDate" matInput [matDatepicker]="picker" [max]="date" placeholder="Choose a date" class="date" [(ngModel)]="cisCafas.CompletionDate.value"
+            value="{{date}}">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field> -->
+          <p-calendar [(ngModel)]="cisCafas.CompletionDate.value" formControlName="CompletionDate" name="CompletionDate" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="child-info-div margin-right-2rem">
+          <span>Admission Date:</span>
+          <!-- <mat-form-field>
+          <input formControlName="CompletionDate" name="CompletionDate" matInput [matDatepicker]="AdmissionDate" [max]="date" placeholder="Choose a date" class="date" [(ngModel)]="cisCafas.AdmissionDate.value">
+          <mat-datepicker-toggle matSuffix [for]="AdmissionDate"></mat-datepicker-toggle>
+          <mat-datepicker #AdmissionDate></mat-datepicker>
+        </mat-form-field> -->
+          <p-calendar [(ngModel)]="cisCafas.AdmissionDate.value" formControlName="AdmissionDate" name="AdmissionDate" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+
+        </div>
+        <div class="child-info-div margin-right-2rem">
+          <span>Date Of Birth:</span>
+          <!-- <input formControlName="CompletionDate" name="CompletionDate" [(ngModel)]="cisCafas.DateOfBirth.value" class="input-xs" readonly> -->
+          <!-- <input [(ngModel)]="cisCafas.DateOfBirth.value" formControlName="DateOfBirth" name="DateOfBirth" type="text" pInputText size="20"
+            readonly /> -->
+
+          <p-calendar [(ngModel)]="cisCafas.DateOfBirth.value" formControlName="DateOfBirth" name="DateOfBirth" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" readonly></p-calendar>
+
+        </div>
+        <div class="child-info-div margin-right-2rem">
+          <span>Age:</span>
+          <!-- <input formControlName="CompletionDate" name="CompletionDate" class="input-xxs" [(ngModel)]="cisCafas.Age.value"> -->
+          <input [(ngModel)]="cisCafas.Age.value" formControlName="Age" name="Age" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+
+    <form id="form-content" [formGroup]="unableToAccesForm" class="sf-form">
+      <p-checkbox (onChange)="handleDataField(cisCafas.disableValidate)" formControlName="disableValidate" binary="true" name="disableValidate"
+        [(ngModel)]="cisCafas.disableValidate"></p-checkbox>Unable to Access
+    </form>
+    <div *ngIf="cisCafas.disableValidate">
+      <p>Remarks:</p>
+      <textarea [(ngModel)]="cisCafas.remarks.value" name="remarks" pInputTextarea autoResize="autoResize" rows={{rowMethod(cisCafas.remarks.value)}}
+        cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <form id="form-content" [formGroup]="cafasForm" class="sf-form">
+
+      <div *ngIf="cisCafas.disableValidate">
+        <p>Remarks:</p>
+        <textarea [(ngModel)]="cisCafas.remarks.value" name="remarks" pInputTextarea autoResize="autoResize" rows={{rowMethod(cisCafas.remarks.value)}}
+          cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+
+      <h3 class="margin-top">TIME PERIOD RATED FOR CAFAS:</h3>
+      <div class="child-info">
+        <!-- <mat-radio-group [(ngModel)]="cisCafas.TimePeriod.fieldOptionIndex">
+      <mat-radio-button value="0">Last Month</mat-radio-button>
+      <mat-radio-button value="1">Last 3 Months</mat-radio-button>
+      <mat-radio-button value="2">Other:</mat-radio-button>
+      <input formControlName="CompletionDate" name="CompletionDate" class="input-sm" [(ngModel)]="cisCafas.OtherTimePeriodTextBox.value">
+    </mat-radio-group> -->
+        <div class="visitTypeInput time-margin">
+          <p-radioButton value="0" [(ngModel)]="cisCafas.TimePeriod.fieldOptionIndex" formControlName="TimePeriod" name="TimePeriod"></p-radioButton>Last Month
+          <p-radioButton value="1" [(ngModel)]="cisCafas.TimePeriod.fieldOptionIndex" formControlName="TimePeriod" name="TimePeriod"></p-radioButton>Last 3 Months
+
+
+        </div>
+        <div class="margin-right-2rem">
+          <p-radioButton value="2" [(ngModel)]="cisCafas.TimePeriod.fieldOptionIndex" formControlName="TimePeriod" name="TimePeriod"></p-radioButton>Other:
+          <input [(ngModel)]="cisCafas.OtherTimePeriodTextBox.value" formControlName="OtherTimePeriodTextBox" name="OtherTimePeriodTextBox"
+            class="input-sm" type="text" pInputText size="20" />
+        </div>
+
+        <div>
+          <span>Rater name:</span>
+          <!-- <input formControlName="CompletionDate" name="CompletionDate" class="input-sm" [(ngModel)]="cisCafas.StaffName.value" value={{staffName}} readonly> -->
+          <input [(ngModel)]="cisCafas.StaffName.value" formControlName="StaffName" name="StaffName" class="input-sm" type="text" pInputText
+            size="20" readonly />
+        </div>
+      </div>
+      <h3 class="margin-top">YOUTH’S PLACEMENT:</h3>
+      <!-- <mat-radio-group [(ngModel)]="cisCafas.Placement.fieldOptionIndex">
+    <mat-radio-button value="0">Family/Relative Home</mat-radio-button>
+    <mat-radio-button value="1">Foster Home</mat-radio-button>
+    <mat-radio-button value="2">Therapeutic Foster Home</mat-radio-button>
+    <mat-radio-button value="3">Detention/Jail</mat-radio-button>
+    <mat-radio-button value="4">Other Residential</mat-radio-button>
+  </mat-radio-group> -->
+      <div class="visitTypeInput">
+        <p-radioButton value="0" [(ngModel)]="cisCafas.Placement.fieldOptionIndex" formControlName="Placement" name="Placement"></p-radioButton>Family/Relative Home
+        <p-radioButton value="1" [(ngModel)]="cisCafas.Placement.fieldOptionIndex" formControlName="Placement" name="Placement"></p-radioButton>Foster Home
+        <p-radioButton value="2" [(ngModel)]="cisCafas.Placement.fieldOptionIndex" formControlName="Placement" name="Placement"></p-radioButton>Therapeutic Foster Home
+        <p-radioButton value="3" [(ngModel)]="cisCafas.Placement.fieldOptionIndex" formControlName="Placement" name="Placement"></p-radioButton>Detention/Jail
+        <p-radioButton value="4" [(ngModel)]="cisCafas.Placement.fieldOptionIndex" formControlName="Placement" name="Placement"></p-radioButton>Other Residential
+      </div>
+      <h3 class="margin-top">CAFAS ADMINISTRATION:</h3>
+      <!-- <mat-radio-group [(ngModel)]="cisCafas.CAFASAdmin.fieldOptionIndex">
+    <mat-radio-button value="0">1 st Evaluation</mat-radio-button>
+    <mat-radio-button value="1">2 nd Evaluation</mat-radio-button>
+    <mat-radio-button value="2">3 Months</mat-radio-button>
+    <mat-radio-button value="3">6 Months</mat-radio-button>
+    <mat-radio-button value="4">9 Months</mat-radio-button>
+
+    <br>
+    <mat-radio-button value="5">12 Months</mat-radio-button>
+    <mat-radio-button value="6">15 Months</mat-radio-button>
+    <mat-radio-button value="7">18 Months</mat-radio-button>
+    <mat-radio-button value="8">21 Months</mat-radio-button>
+    <mat-radio-button value="9">24 Months</mat-radio-button>
+    <br>
+    <mat-radio-button value="10">Exit from Service</mat-radio-button>
+    <mat-radio-button value="11">Change in intensity of Service</mat-radio-button>
+    <mat-radio-button value="12">Unknown</mat-radio-button>
+    <mat-radio-button value="13">Other</mat-radio-button>
+    <input formControlName="CompletionDate" name="CompletionDate" [(ngModel)]="cisCafas.OtherReasonTextBox.value">
+  </mat-radio-group> -->
+      <div class="visitTypeInput">
+        <p-radioButton value="0" [(ngModel)]="cisCafas.CAFASAdmin.fieldOptionIndex" formControlName="CAFASAdmin" name="CAFASAdmin"></p-radioButton>1 st Evaluation
+        <p-radioButton value="1" [(ngModel)]="cisCafas.CAFASAdmin.fieldOptionIndex" formControlName="CAFASAdmin" name="CAFASAdmin"></p-radioButton>2 nd Evaluation
+        <p-radioButton value="2" [(ngModel)]="cisCafas.CAFASAdmin.fieldOptionIndex" formControlName="CAFASAdmin" name="CAFASAdmin"></p-radioButton>3 Months
+        <p-radioButton value="3" [(ngModel)]="cisCafas.CAFASAdmin.fieldOptionIndex" formControlName="CAFASAdmin" name="CAFASAdmin"></p-radioButton>6 Months
+        <p-radioButton value="4" [(ngModel)]="cisCafas.CAFASAdmin.fieldOptionIndex" formControlName="CAFASAdmin" name="CAFASAdmin"></p-radioButton>9 Months
+        <br>
+        <p-radioButton value="5" [(ngModel)]="cisCafas.CAFASAdmin.fieldOptionIndex" formControlName="CAFASAdmin" name="CAFASAdmin"></p-radioButton>12 Months
+        <p-radioButton value="6" [(ngModel)]="cisCafas.CAFASAdmin.fieldOptionIndex" formControlName="CAFASAdmin" name="CAFASAdmin"></p-radioButton>15 Months
+        <p-radioButton value="7" [(ngModel)]="cisCafas.CAFASAdmin.fieldOptionIndex" formControlName="CAFASAdmin" name="CAFASAdmin"></p-radioButton>18 Months
+        <p-radioButton value="8" [(ngModel)]="cisCafas.CAFASAdmin.fieldOptionIndex" formControlName="CAFASAdmin" name="CAFASAdmin"></p-radioButton>21 Months
+        <p-radioButton value="9" [(ngModel)]="cisCafas.CAFASAdmin.fieldOptionIndex" formControlName="CAFASAdmin" name="CAFASAdmin"></p-radioButton>24 Months
+        <br>
+        <p-radioButton value="10" [(ngModel)]="cisCafas.CAFASAdmin.fieldOptionIndex" formControlName="CAFASAdmin" name="CAFASAdmin"></p-radioButton>Exit from Service
+        <p-radioButton value="11" [(ngModel)]="cisCafas.CAFASAdmin.fieldOptionIndex" formControlName="CAFASAdmin" name="CAFASAdmin"></p-radioButton>Change in intensity of Service
+        <p-radioButton value="12" [(ngModel)]="cisCafas.CAFASAdmin.fieldOptionIndex" formControlName="CAFASAdmin" name="CAFASAdmin"></p-radioButton>Unknown
+        <p-radioButton value="13" [(ngModel)]="cisCafas.CAFASAdmin.fieldOptionIndex" formControlName="CAFASAdmin" name="CAFASAdmin"></p-radioButton>Other
+        <input [(ngModel)]="cisCafas.OtherReasonTextBox.value" formControlName="OtherReasonTextBox" name="OtherReasonTextBox" class="input-sm"
+          type="text" pInputText size="20" readonly />
+      </div>
+
+      <div class="margin-top-2rem">
+        <table class="table-width-98">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Severe Impairment
+                <br> 30
+              </th>
+              <th>Moderate Impairment
+                <br> 20
+              </th>
+              <th>Mild Impairment
+                <br> 10
+              </th>
+              <th>Minimal or
+                <br> No Impairment
+                <br> 0
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="11" class="bold"> SCHOOL/WORK
+                <br> SUBSCALE
+                <br>Role Performance
+                <br>
+                <!-- <input formControlName="CompletionDate" name="CompletionDate" class="input-xs" [(ngModel)]="cisCafas.CAF_SCHOOL.value"> -->
+                <input [(ngModel)]="cisCafas.CAF_SCHOOL.value" formControlName="CAF_SCHOOL" name="CAF_SCHOOL" class="input-xs" type="text"
+                  pInputText size="20" />
+              </td>
+              <td>
+                <!-- <mat-checkbox [(ngModel)]="cisCafas.School1.fieldOptionIndex">001 Not attending school
+              <br> or going to a job</mat-checkbox> -->
+                <p-checkbox binary="true" [(ngModel)]="cisCafas.School1.fieldOptionIndex" formControlName="School1" name="School1">
+                </p-checkbox>001 Not attending school
+                <br>or going to a job
+              </td>
+              <td>
+                <!-- <mat-checkbox [(ngModel)]="cisCafas.School12.fieldOptionIndex">012 Severe and/or
+              <br> chronic non-compliant
+              <br> behavior</mat-checkbox> -->
+                <p-checkbox binary="true" [(ngModel)]="cisCafas.School12.fieldOptionIndex" formControlName="School12" name="School12">
+                </p-checkbox>012 Severe and/or
+                <br> chronic non-compliant
+                <br> behavior
+              </td>
+              <td>
+                <!-- <mat-checkbox [(ngModel)]="cisCafas.School22.fieldOptionIndex">022 Preventive
+              <br> strategies implemented
+              <br> due to non-
+              <br> compliant behavior</mat-checkbox> -->
+                <p-checkbox binary="true" [(ngModel)]="cisCafas.School22.fieldOptionIndex" formControlName="School22" name="School22">022 Preventive
+                  <br> strategies implemented
+                  <br> due to non-
+                  <br> compliant behavior
+                </p-checkbox>
+              </td>
+              <td>
+                <!-- <mat-checkbox [(ngModel)]="cisCafas.School28.fieldOptionIndex">028 Comfort and
+              <br>competent in roles</mat-checkbox> -->
+                <p-checkbox binary="true" [(ngModel)]="cisCafas.School28.fieldOptionIndex" formControlName="School28" name="School28">
+                </p-checkbox>028 Comfort and
+                <br>competent in roles
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <!-- <mat-checkbox [(ngModel)]="cisCafas.School2.fieldOptionIndex">002 Expelled or
+              <br>equivalent – from school
+              <br>or placed in
+              <br>an alternative school</mat-checkbox> -->
+                <p-checkbox binary="true" [(ngModel)]="cisCafas.School2.fieldOptionIndex" formControlName="School2" name="School2"> </p-checkbox>002 Expelled or
+                <br>equivalent – from school
+                <br>or placed in
+                <br>an alternative school
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="School13" name="School13" [(ngModel)]="cisCafas.School13.fieldOptionIndex"></p-checkbox>013 Severe and/or
+                <br>chronic inappropriate
+                <br>behavior
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="School23" name="School23" [(ngModel)]="cisCafas.School23.fieldOptionIndex"></p-checkbox>023 Preventive
+                <br>strategies implemented
+                <br>due to
+                <br> inappropriate behavior
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="School29" name="School29" [(ngModel)]="cisCafas.School29.fieldOptionIndex"></p-checkbox>029 Resolves minor
+                <br> problems
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="School3" name="School3" [(ngModel)]="cisCafas.School3.fieldOptionIndex"></p-checkbox>003 Suspended from
+                <br>school or under
+                <br> monitoring
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="School14" name="School14" [(ngModel)]="cisCafas.School14.fieldOptionIndex"></p-checkbox>014 Frequently truant
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="School24" name="School24" [(ngModel)]="cisCafas.School24.fieldOptionIndex"></p-checkbox>024 Occasionally
+                <br>disobeys rules
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="School30" name="School30" [(ngModel)]="cisCafas.School30.fieldOptionIndex"></p-checkbox>030 Functions even
+                <br> with distrations
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="School4" name="School4" [(ngModel)]="cisCafas.School4.fieldOptionIndex"></p-checkbox>004 Serious threat or
+                <br>has harmed a
+                <br> teacher/peer/co-
+                <br>worker/supervisor
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="School15" name="School15" [(ngModel)]="cisCafas.School15.fieldOptionIndex"></p-checkbox>015 Frequently absent
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="School25" name="School25" [(ngModel)]="cisCafas.School25.fieldOptionIndex"></p-checkbox>025 Poor attention
+                <br>or high activity level
+                <br>but is not
+                <br> disruptive to group
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="School31" name="School31" [(ngModel)]="cisCafas.School31.fieldOptionIndex"></p-checkbox>031 Average or above
+                <br>school grades
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="School5" name="School5" [(ngModel)]="cisCafas.School5.fieldOptionIndex"></p-checkbox>005 Receives special
+                <br> accommodations to
+                <br>meet minimum
+                <br>requirements
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="School16" name="School16" [(ngModel)]="cisCafas.School16.fieldOptionIndex"></p-checkbox>016 Reprimanded at
+                <br> work due to
+                <br>tardiness or missed
+                <br> days
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="School26" name="School26" [(ngModel)]="cisCafas.School26.fieldOptionIndex"></p-checkbox>026 School/work
+                <br> productivity is less than
+                <br> ability
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="School32" name="School32" [(ngModel)]="cisCafas.School32.fieldOptionIndex"></p-checkbox>032 School achievement
+                <br> consistent with cognitive
+                <br>ability (MR)
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="School6" name="School6" [(ngModel)]="cisCafas.School6.fieldOptionIndex"></p-checkbox>006 Chronic truancy
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="School17" name="School17" [(ngModel)]="cisCafas.School17.fieldOptionIndex"></p-checkbox>017 Poor attention
+                <br>and/or high activity
+                <br>level resulting
+                <br>in disruptive behavior
+              </td>
+              <td></td>
+              <td>
+                <p-checkbox binary="true" formControlName="School33" name="School33" [(ngModel)]="cisCafas.School33.fieldOptionIndex"></p-checkbox>033 School achievement
+                <br> consistent with learning
+                <br>ability (LD)
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="School7" name="School7" [(ngModel)]="cisCafas.School7.fieldOptionIndex"></p-checkbox>007 Chronic absences
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="School18" name="School18" [(ngModel)]="cisCafas.School18.fieldOptionIndex"></p-checkbox>018 Reprimanded or
+                <br>warned
+
+              </td>
+              <td></td>
+              <td>
+                <p-checkbox binary="true" formControlName="School34" name="School34" [(ngModel)]="cisCafas.School34.fieldOptionIndex"></p-checkbox>034 Slow learner but
+                <br> school achievement
+                <br>consistent
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="School8" name="School8" [(ngModel)]="cisCafas.School8.fieldOptionIndex"></p-checkbox>008 Despite special
+                <br> learning environment or
+                <br> specialized treatment
+                <br> program, disruptive
+                <br> behavior persists (poor
+                <br>attention or high activity
+                <br> level)
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="School19" name="School19" [(ngModel)]="cisCafas.School19.fieldOptionIndex"></p-checkbox>019 Grade average
+                <br> below “C”
+
+              </td>
+              <td></td>
+              <td>
+                <p-checkbox binary="true" formControlName="School35" name="School35" [(ngModel)]="cisCafas.School35.fieldOptionIndex"></p-checkbox>035 School achievement
+                <br> consistent with FAS/FAE
+                <br>impairment
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="School9" name="School9" [(ngModel)]="cisCafas.School9.fieldOptionIndex"></p-checkbox>009 Failing most or all
+                <br> classes
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="School20" name="School20" [(ngModel)]="cisCafas.School20.fieldOptionIndex"></p-checkbox>020 Failing at least half of
+                <br>classes
+
+              </td>
+              <td></td>
+              <td>
+                <p-checkbox binary="true" formControlName="School36" name="School36" [(ngModel)]="cisCafas.School36.fieldOptionIndex"></p-checkbox>036 Achievement in
+                <br>vocational programs
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="School10" name="School10" [(ngModel)]="cisCafas.School10.fieldOptionIndex"></p-checkbox>010 Does not have a job or
+                <br> has dropped out of school
+              </td>
+              <td></td>
+              <td></td>
+              <td>
+                <p-checkbox binary="true" formControlName="School37" name="School37" [(ngModel)]="cisCafas.School37.fieldOptionIndex"></p-checkbox>037 High school diploma
+                <br> or GED
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <p-checkbox binary="true" formControlName="School38" name="School38" [(ngModel)]="cisCafas.School38.fieldOptionIndex"></p-checkbox>038 Did not finish school
+                <br> but working or looking for
+                <br>work
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-section">
+        <!-- <mat-form-field>
+      <textarea formControlName="CompletionDate" name="CompletionDate" matInput autosize [(ngModel)]="cisCafas.Comment1.value"></textarea>
+    </mat-form-field> -->
+        <textarea formControlName="Comment1" name="Comment1" [(ngModel)]="cisCafas.Comment1.value" pInputTextarea autoResize="autoResize"
+          rows={{rowMethod(cisCafas.Comment1.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+      <div>
+        <table class="table-width-98">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Severe Impairment
+                <br> 30
+              </th>
+              <th>Moderate Impairment
+                <br> 20
+              </th>
+              <th>Mild Impairment
+                <br> 10
+              </th>
+              <th>Minimal or
+                <br> No Impairment
+                <br> 0
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="9" class="bold"> HOME SUBSCALE
+                <br>Role Performance
+                <br>
+                <input formControlName="CAF_HOME" name="CAF_HOME" class="input-xs" [(ngModel)]="cisCafas.CAF_HOME.value">
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Home41" name="Home41" [(ngModel)]="cisCafas.Home41.fieldOptionIndex"></p-checkbox>041 Not in home
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Home51" name="Home51" [(ngModel)]="cisCafas.Home51.fieldOptionIndex"></p-checkbox>051 Persistent failure
+                <br> to comply with rules
+                <br> & expectation
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Home57" name="Home57" [(ngModel)]="cisCafas.Home57.fieldOptionIndex"></p-checkbox>057 Fails to comply
+                <br> with rules &
+                <br>expectations frequently
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Home62" name="Home62" [(ngModel)]="cisCafas.Home62.fieldOptionIndex"></p-checkbox>062 Typically
+                <br> compliant
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Home42" name="Home42" [(ngModel)]="cisCafas.Home42.fieldOptionIndex"></p-checkbox>042 Maintained in home
+                <br>by extensive management
+                <br>by others
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Home52" name="Home52" [(ngModel)]="cisCafas.Home52.fieldOptionIndex"></p-checkbox>052 Vulgar & profane
+                <br>language toward
+                <br>household members
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Home58" name="Home58" [(ngModel)]="cisCafas.Home58.fieldOptionIndex"></p-checkbox>058 compliance
+                <br> requires “prodding”
+                <br> and watching
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Home63" name="Home63" [(ngModel)]="cisCafas.Home63.fieldOptionIndex"></p-checkbox>063 Minor problems
+                <br>– easily resolved
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Home43" name="Home43" [(ngModel)]="cisCafas.Home43.fieldOptionIndex"></p-checkbox>043 Serious & deliberate
+                <br> threats to household
+                <br> members
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Home53" name="Home53" [(ngModel)]="cisCafas.Home53.fieldOptionIndex"></p-checkbox>053 Potentially
+                <br>dangerous, irresponsible
+                <br>behavior
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Home59" name="Home59" [(ngModel)]="cisCafas.Home59.fieldOptionIndex"></p-checkbox>059 Compliant with
+                <br>requests but complains,
+                <br> resists
+
+              </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Home44" name="Home44" [(ngModel)]="cisCafas.Home44.fieldOptionIndex"></p-checkbox>044 Repeated
+                <br>intimidation toward
+                <br> household members
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Home54" name="Home54" [(ngModel)]="cisCafas.Home54.fieldOptionIndex"></p-checkbox>054 Leaves without
+                <br> permission but
+                <br>whereabouts are known
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Home60" name="Home60" [(ngModel)]="cisCafas.Home60.fieldOptionIndex"></p-checkbox>060 Intentionally
+                <br>annoying/frustrating
+                <br>behavior frequently
+              </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Home45" name="Home45" [(ngModel)]="cisCafas.Home45.fieldOptionIndex"></p-checkbox>045 Caregiver unable
+                <br>to control child/youth’s
+                <br> behaviors and activities
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Home55" name="Home55" [(ngModel)]="cisCafas.Home55.fieldOptionIndex"></p-checkbox>055 Deliberate damage
+                <br> to the home
+              </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Home46" name="Home46" [(ngModel)]="cisCafas.Home46.fieldOptionIndex"></p-checkbox>046 Constant monitoring
+                <br>of behaviors & activities
+                <br>to maintain safety
+              </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Home47" name="Home47" [(ngModel)]="cisCafas.Home47.fieldOptionIndex"></p-checkbox>047 Supervision required
+                <br>interferes with caregiver’s
+                <br> work and/or other
+                <br> roles
+              </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Home48" name="Home48" [(ngModel)]="cisCafas.Home48.fieldOptionIndex"></p-checkbox>048 AWOL without
+                <br>permission more than
+                <br> once
+
+              </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Home49" name="Home49" [(ngModel)]="cisCafas.Home49.fieldOptionIndex"></p-checkbox>049 Severe &
+                <br> deliberate damage
+                <br>to property
+              </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-section">
+        <!-- <mat-form-field>
+      <textarea formControlName="CompletionDate" name="CompletionDate" matInput autosize [(ngModel)]="cisCafas.Comment2.value"></textarea>
+    </mat-form-field> -->
+        <textarea formControlName="Comment2" name="Comment2" [(ngModel)]="cisCafas.Comment2.value" pInputTextarea autoResize="autoResize"
+          rows={{rowMethod(cisCafas.Comment2.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+      <div>
+        <table class="table-width-98">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Severe Impairment
+                <br> 30
+              </th>
+              <th>Moderate Impairment
+                <br> 20
+              </th>
+              <th>Mild Impairment
+                <br> 10
+              </th>
+              <th>Minimal or
+                <br> No Impairment
+                <br> 0
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="6" class="bold"> COMMUNITY SUBSCALE
+                <br>Role Performance
+                <br>
+                <input formControlName="CAF_COMMUNITY" name="CAF_COMMUNITY" class="input-xs" [(ngModel)]="cisCafas.CAF_COMMUNITY.value">
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Community66" name="Community66" [(ngModel)]="cisCafas.Community66.fieldOptionIndex"></p-checkbox>066 Serious violation
+                <br>of the law resulting
+                <br> in confinement
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Community73" name="Community73" [(ngModel)]="cisCafas.Community73.fieldOptionIndex"></p-checkbox>073 Persistent &
+                <br> serious delinquent
+                <br> behavior
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Community80" name="Community80" [(ngModel)]="cisCafas.Community80.fieldOptionIndex"></p-checkbox>080 Minor legal
+                <br> violations
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Community84" name="Community84" [(ngModel)]="cisCafas.Community84.fieldOptionIndex"></p-checkbox>084 No negative impact on
+                <br> community
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Community67" name="Community67" [(ngModel)]="cisCafas.Community67.fieldOptionIndex"></p-checkbox>067 Substantial evidence
+                <br>or conviction of serious
+                <br> law violation
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Community74" name="Community74" [(ngModel)]="cisCafas.Community74.fieldOptionIndex"></p-checkbox>074 On probation
+                <br> or under court
+                <br>supervision – offense
+                <br>within last 3 months
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Community81" name="Community81" [(ngModel)]="cisCafas.Community81.fieldOptionIndex"></p-checkbox>081 Single incident
+                <br> of minor offense
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Community85" name="Community85" [(ngModel)]="cisCafas.Community85.fieldOptionIndex"></p-checkbox>085 Generally able
+                <br>to resolve minor
+                <br>problems
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Community68" name="Community68" [(ngModel)]="cisCafas.Community68.fieldOptionIndex"></p-checkbox>068 Legal diversion
+                <br> to mental health or
+                <br> social services due
+                <br>to physical assault or
+                <br> threat with a weapon
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Community75" name="Community75" [(ngModel)]="cisCafas.Community75.fieldOptionIndex"></p-checkbox>075 On probation or
+                <br>under court
+                <br>supervision – offense
+                <br> more than 3 months
+                <br>ago
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Community82" name="Community82" [(ngModel)]="cisCafas.Community82.fieldOptionIndex"></p-checkbox>082 Aware of dangers
+                <br>of episodes of
+                <br> playing with fire
+
+              </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Community69" name="Community69" [(ngModel)]="cisCafas.Community69.fieldOptionIndex"></p-checkbox>069 Legal diversion
+                <br>to mental health
+                <br>or social services
+                <br>due to inappropriate
+                <br>sexual behavior or
+                <br>sexual assault
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Community76" name="Community76" [(ngModel)]="cisCafas.Community76.fieldOptionIndex"></p-checkbox>076 At risk of
+                <br>confinement due to
+                <br>serious violations of
+                <br> the law
+              </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Community70" name="Community70" [(ngModel)]="cisCafas.Community70.fieldOptionIndex"></p-checkbox>070 Severe & deliberate
+                <br> property damage
+                <br>outside of home
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Community77" name="Community77" [(ngModel)]="cisCafas.Community77.fieldOptionIndex"></p-checkbox>077 Sexually
+                <br>inappropriate causing
+                <br> concern about contact
+                <br> with other children
+
+              </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Community71" name="Community71" [(ngModel)]="cisCafas.Community71.fieldOptionIndex"></p-checkbox>071 Malicious firesetting
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Community78" name="Community78" [(ngModel)]="cisCafas.Community78.fieldOptionIndex"></p-checkbox>078 Intentionally plays
+                <br> with fire - repeatedly
+              </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-section">
+        <!-- <mat-form-field>
+      <textarea formControlName="CompletionDate" name="CompletionDate" matInput autosize [(ngModel)]="cisCafas.Comment3.value"></textarea>
+    </mat-form-field> -->
+        <textarea formControlName="Comment3" name="Comment3" [(ngModel)]="cisCafas.Comment3.value" pInputTextarea autoResize="autoResize"
+          rows={{rowMethod(cisCafas.Comment3.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+      <div>
+        <table class="table-width-98">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Severe Impairment
+                <br> 30
+              </th>
+              <th>Moderate Impairment
+                <br> 20
+              </th>
+              <th>Mild Impairment
+                <br> 10
+              </th>
+              <th>Minimal or
+                <br> No Impairment
+                <br> 0
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="9" class="bold"> BEHAVIOR TOWARD
+                <br> OTHERS
+                <br>
+                <input formControlName="CAF_BEHAVIOR" name="CAF_BEHAVIOR" class="input-xs" [(ngModel)]="cisCafas.CAF_BEHAVIOR.value">
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior88" name="Behavior88" [(ngModel)]="cisCafas.Behavior88.fieldOptionIndex"></p-checkbox>088 Consistently odd or
+                <br> bizarre behavior
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior93" name="Behavior93" [(ngModel)]="cisCafas.Behavior93.fieldOptionIndex"></p-checkbox>093 Typically
+                <br> inappropriate behavior
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior103" name="Behavior103" [(ngModel)]="cisCafas.Behavior103.fieldOptionIndex"></p-checkbox>103 Annoying,
+                <br> quarrelsome &
+                <br> argumentative toward
+                <br> others
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior111" name="Behavior111" [(ngModel)]="cisCafas.Behavior111.fieldOptionIndex"></p-checkbox>111 Relates well to
+                <br> others
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior89" name="Behavior89" [(ngModel)]="cisCafas.Behavior89.fieldOptionIndex"></p-checkbox>089 Harm to others likely
+                <br> due to
+                <br> disruptive/dangerous
+                <br> behavior
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior94" name="Behavior94" [(ngModel)]="cisCafas.Behavior94.fieldOptionIndex"></p-checkbox>094 Inappropriate sexual
+                <br> behavior toward others
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior104" name="Behavior104" [(ngModel)]="cisCafas.Behavior104.fieldOptionIndex"></p-checkbox>104 Age-inappropriate
+                <br> impulsive behavior or poor
+                <br> judgment
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior112" name="Behavior112" [(ngModel)]="cisCafas.Behavior112.fieldOptionIndex"></p-checkbox>112 Makes & keeps
+                <br> friends
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior90" name="Behavior90" [(ngModel)]="cisCafas.Behavior90.fieldOptionIndex"></p-checkbox>090 Attempted or
+                <br> accomplished sexual abuse
+                <br> or assault of another
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior95" name="Behavior95" [(ngModel)]="cisCafas.Behavior95.fieldOptionIndex"></p-checkbox>095 Vindictive or spiteful
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior105" name="Behavior105" [(ngModel)]="cisCafas.Behavior105.fieldOptionIndex"></p-checkbox>105 Easily upset/temper
+                <br> tantrums
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior113" name="Behavior113" [(ngModel)]="cisCafas.Behavior113.fieldOptionIndex"></p-checkbox>113 Able to resolve
+                <br> disagreements
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior91" name="Behavior91" [(ngModel)]="cisCafas.Behavior91.fieldOptionIndex"></p-checkbox>091 Severely &
+                <br> deliberately cruel to
+                <br> animals
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior96" name="Behavior96" [(ngModel)]="cisCafas.Behavior96.fieldOptionIndex"></p-checkbox>096 Impulsive/poor
+                <br> judgment leads to
+                <br> dangerous behavior
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior106" name="Behavior106" [(ngModel)]="cisCafas.Behavior106.fieldOptionIndex"></p-checkbox>106 Annoyed by
+                <br> others/quick tempered
+              </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td> </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior97" name="Behavior97" [(ngModel)]="cisCafas.Behavior97.fieldOptionIndex"></p-checkbox>097 Angry outbursts
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior107" name="Behavior107" [(ngModel)]="cisCafas.Behavior107.fieldOptionIndex"></p-checkbox>107 Ignored or rejected by
+                <br> peers
+
+              </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td> </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior98" name="Behavior98" [(ngModel)]="cisCafas.Behavior98.fieldOptionIndex"></p-checkbox>098 Mean to others or
+                <br> animals
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior108" name="Behavior108" [(ngModel)]="cisCafas.Behavior108.fieldOptionIndex"></p-checkbox>108 Difficulty making
+                <br> friends
+
+              </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td> </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior99" name="Behavior99" [(ngModel)]="cisCafas.Behavior99.fieldOptionIndex"></p-checkbox>099 Exploitive or
+                <br> manipulative toward
+                <br> others
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior109" name="Behavior109" [(ngModel)]="cisCafas.Behavior109.fieldOptionIndex"></p-checkbox>109 Immature
+                <br> behavior/younger friends
+              </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td> </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior100" name="Behavior100" [(ngModel)]="cisCafas.Behavior100.fieldOptionIndex"></p-checkbox>100 Intimidates, harasses,
+                <br> bullies others
+              </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td> </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Behavior101" name="Behavior101" [(ngModel)]="cisCafas.Behavior101.fieldOptionIndex"></p-checkbox>101 Persistent relational
+                <br> problems
+
+              </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-section">
+        <!-- <mat-form-field>
+      <textarea formControlName="CompletionDate" name="CompletionDate" matInput autosize [(ngModel)]="cisCafas.Comment4.value"></textarea>
+    </mat-form-field> -->
+        <textarea formControlName="Comment4" name="Comment4" [(ngModel)]="cisCafas.Comment4.value" pInputTextarea autoResize="autoResize"
+          rows={{rowMethod(cisCafas.Comment4.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+      <div>
+        <table class="table-width-98">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Severe Impairment
+                <br> 30
+              </th>
+              <th>Moderate Impairment
+                <br> 20
+              </th>
+              <th>Mild Impairment
+                <br> 10
+              </th>
+              <th>Minimal or
+                <br> No Impairment
+                <br> 0
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="7" class="bold"> MOODS/EMOTIONS
+                <br> SUBSCALE
+                <br>
+                <input formControlName="CAF_MOODS" name="CAF_MOODS" class="input-xs" [(ngModel)]="cisCafas.CAF_MOODS.value">
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods116" name="Moods116" [(ngModel)]="cisCafas.Moods116.fieldOptionIndex"></p-checkbox>116 Mostly viewed as odd
+                <br> or strange
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods121" name="Moods121" [(ngModel)]="cisCafas.Moods121.fieldOptionIndex"></p-checkbox>121 Intense and abrupt
+                <br> changes in mood
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods128" name="Moods128" [(ngModel)]="cisCafas.Moods128.fieldOptionIndex"></p-checkbox>128 Anxious, fearful or sad
+                <br> often
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods136" name="Moods136" [(ngModel)]="cisCafas.Moods136.fieldOptionIndex"></p-checkbox>136 Normal
+                <br>experiences of
+                <br> distress
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods117" name="Moods117" [(ngModel)]="cisCafas.Moods117.fieldOptionIndex"></p-checkbox>117 Fears, worries or
+                <br> anxiety negatively impacts
+                <br> social, home, school/work
+                <br> involvement
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods122" name="Moods122" [(ngModel)]="cisCafas.Moods122.fieldOptionIndex"></p-checkbox>122 Persistent depressed
+                <br> mood or sadness
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods129" name="Moods129" [(ngModel)]="cisCafas.Moods129.fieldOptionIndex"></p-checkbox>129 Irritable, fearful,
+                <br> worried more often than
+                <br> not
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods137" name="Moods137" [(ngModel)]="cisCafas.Moods137.fieldOptionIndex"></p-checkbox>137 self-worth –
+                <br> “OK” person
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods118" name="Moods118" [(ngModel)]="cisCafas.Moods118.fieldOptionIndex"></p-checkbox>118 Depression impacts
+                <br> social, home, school/work
+                <br> involvement
+                <br>
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods123" name="Moods123" [(ngModel)]="cisCafas.Moods123.fieldOptionIndex"></p-checkbox>123 Excessive worry
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods130" name="Moods130" [(ngModel)]="cisCafas.Moods130.fieldOptionIndex"></p-checkbox>130 Very low self-esteem
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods138" name="Moods138" [(ngModel)]="cisCafas.Moods138.fieldOptionIndex"></p-checkbox>138 Can express
+                <br> strong emotions
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods119" name="Moods119" [(ngModel)]="cisCafas.Moods119.fieldOptionIndex"></p-checkbox>119 Suicidal intent
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods124" name="Moods124" [(ngModel)]="cisCafas.Moods124.fieldOptionIndex"></p-checkbox>124 Intense anxiety over
+                <br> separation from
+                <br> parents/home
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods131" name="Moods131" [(ngModel)]="cisCafas.Moods131.fieldOptionIndex"></p-checkbox>131 Easily distressed by
+                <br> mistakes
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods139" name="Moods139" [(ngModel)]="cisCafas.Moods139.fieldOptionIndex"></p-checkbox>139 Age-appropriate
+                <br> anxiety and sadness
+
+              </td>
+            </tr>
+            <tr>
+              <td> </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods125" name="Moods125" [(ngModel)]="cisCafas.Moods125.fieldOptionIndex"></p-checkbox>125 Special
+                <br> accommodations needed
+                <br> for school-aged child due
+                <br> to excessive anxiety/worry
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods132" name="Moods132" [(ngModel)]="cisCafas.Moods132.fieldOptionIndex"></p-checkbox>132 Anxious, hurt, sad,
+                <br> withdrawn if criticized
+              </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td> </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods126" name="Moods126" [(ngModel)]="cisCafas.Moods126.fieldOptionIndex"></p-checkbox>126 Flat/blunted
+                <br> emotional expression
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods133" name="Moods133" [(ngModel)]="cisCafas.Moods133.fieldOptionIndex"></p-checkbox>133 sad or anxious more
+                <br> than 1 day at a time
+
+              </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td> </td>
+              <td> </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Moods134" name="Moods134" [(ngModel)]="cisCafas.Moods134.fieldOptionIndex"></p-checkbox>134 Noticeable emotional
+                <br> restriction
+
+              </td>
+              <td> </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-section">
+        <!-- <mat-form-field>
+      <textarea formControlName="CompletionDate" name="CompletionDate" matInput autosize [(ngModel)]="cisCafas.Comment5.value"></textarea>
+    </mat-form-field> -->
+        <textarea formControlName="Comment5" name="Comment5" [(ngModel)]="cisCafas.Comment5.value" pInputTextarea autoResize="autoResize"
+          rows={{rowMethod(cisCafas.Comment5.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+      <div>
+        <table class="table-width-98">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Severe Impairment
+                <br> 30
+              </th>
+              <th>Moderate Impairment
+                <br> 20
+              </th>
+              <th>Mild Impairment
+                <br> 10
+              </th>
+              <th>Minimal or
+                <br> No Impairment
+                <br> 0
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="3" class="bold"> SELF-HARMFUL
+                <br> BEHAVIOR
+                <br> SUBSCALE
+                <br>
+                <input formControlName="CAF_SELFHARM" name="CAF_SELFHARM" class="input-xs" [(ngModel)]="cisCafas.CAF_SELFHARM.value">
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="SelfHarm142" name="SelfHarm142" [(ngModel)]="cisCafas.SelfHarm142.fieldOptionIndex"></p-checkbox>142 Self-destructive, non-
+                <br> accidental behavior
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="SelfHarm146" name="SelfHarm146" [(ngModel)]="cisCafas.SelfHarm146.fieldOptionIndex"></p-checkbox>146 Self-harm, non-
+                <br> accidental, not life-
+                <br> threatening
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="SelfHarm149" name="SelfHarm149" [(ngModel)]="cisCafas.SelfHarm149.fieldOptionIndex"></p-checkbox>149 Repeated, non-
+                <br> accidental self-harm
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="SelfHarm151" name="SelfHarm151" [(ngModel)]="cisCafas.SelfHarm151.fieldOptionIndex"></p-checkbox>151 No self-harm behavior
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="SelfHarm143" name="SelfHarm143" [(ngModel)]="cisCafas.SelfHarm143.fieldOptionIndex"></p-checkbox>143 Self-destructive, non-
+                <br> intentional behavior
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="SelfHarm147" name="SelfHarm147" [(ngModel)]="cisCafas.SelfHarm147.fieldOptionIndex"></p-checkbox>147 Repeatedly talks or
+                <br> thinks about dying or
+                <br> hurting self
+              </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="SelfHarm144" name="SelfHarm144" [(ngModel)]="cisCafas.SelfHarm144.fieldOptionIndex"></p-checkbox>144 Clear plan to hurt self,
+                <br> desire to die
+
+              </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-section">
+        <!-- <mat-form-field>
+      <textarea formControlName="CompletionDate" name="CompletionDate" matInput autosize [(ngModel)]="cisCafas.Comment6.value"></textarea>
+    </mat-form-field> -->
+        <textarea formControlName="Comment6" name="Comment6" [(ngModel)]="cisCafas.Comment6.value" pInputTextarea autoResize="autoResize"
+          rows={{rowMethod(cisCafas.Comment6.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+      <div>
+        <table class="table-width-98">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Severe Impairment
+                <br> 30
+              </th>
+              <th>Moderate Impairment
+                <br> 20
+              </th>
+              <th>Mild Impairment
+                <br> 10
+              </th>
+              <th>Minimal or
+                <br> No Impairment
+                <br> 0
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="9" class="bold"> SUBSTANCE USE
+                <br> SUBSCALE
+                <br>
+                <input formControlName="CAF_SUBSTANCE_USE" name="CAF_SUBSTANCE_USE" class="input-xs" [(ngModel)]="cisCafas.CAF_SUBSTANCE_USE.value">
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Substance154" name="Substance154" [(ngModel)]="cisCafas.Substance154.fieldOptionIndex"></p-checkbox>154 Preoccupied with
+                <br> access and use
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Substance165" name="Substance165" [(ngModel)]="cisCafas.Substance165.fieldOptionIndex"></p-checkbox>165 Substance use
+                <br> interferes with role
+                <br> functions
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Substance172" name="Substance172" [(ngModel)]="cisCafas.Substance172.fieldOptionIndex"></p-checkbox>172 Infrequent excess use
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Substance176" name="Substance176" [(ngModel)]="cisCafas.Substance176.fieldOptionIndex"></p-checkbox>176 No use of
+                <br>substances
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Substance155" name="Substance155" [(ngModel)]="cisCafas.Substance155.fieldOptionIndex"></p-checkbox>155 Dependent on
+                <br> continued use
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Substance166" name="Substance166" [(ngModel)]="cisCafas.Substance166.fieldOptionIndex"></p-checkbox>166 Gets into trouble as a
+                <br> result of use
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Substance173" name="Substance173" [(ngModel)]="cisCafas.Substance173.fieldOptionIndex"></p-checkbox>173 Regular use but not
+                <br> intoxicated
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Substance177" name="Substance177" [(ngModel)]="cisCafas.Substance177.fieldOptionIndex"></p-checkbox>177 Unable to confirm
+                <br> substance use
+
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Substance156" name="Substance156" [(ngModel)]="cisCafas.Substance156.fieldOptionIndex"></p-checkbox>156 Expelled or failing
+                <br> school due to use
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Substance167" name="Substance167" [(ngModel)]="cisCafas.Substance167.fieldOptionIndex"></p-checkbox>167 Endangers self and
+                <br> others due to use
+              </td>
+              <td> </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Substance178" name="Substance178" [(ngModel)]="cisCafas.Substance178.fieldOptionIndex"></p-checkbox>178 Has "tried"
+                <br> substances
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Substance157" name="Substance157" [(ngModel)]="cisCafas.Substance157.fieldOptionIndex"></p-checkbox>157 Losing job or fired due
+                <br> to use
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Substance168" name="Substance168" [(ngModel)]="cisCafas.Substance168.fieldOptionIndex"></p-checkbox>168 Friendships/
+                <br> associates have changed
+              </td>
+              <td> </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Substance179" name="Substance179" [(ngModel)]="cisCafas.Substance179.fieldOptionIndex"></p-checkbox>179 Occasional use, no
+                <br> negative consequences
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Substance158" name="Substance158" [(ngModel)]="cisCafas.Substance158.fieldOptionIndex"></p-checkbox>158 Intoxicated or high
+                <br> more than 2 times per week
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Substance169" name="Substance169" [(ngModel)]="cisCafas.Substance169.fieldOptionIndex"></p-checkbox>169 Intoxicated or high 1
+                <br> to 2 times per week
+
+              </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Substance159" name="Substance159" [(ngModel)]="cisCafas.Substance159.fieldOptionIndex"></p-checkbox>159 Negative
+                <br> consequences due to use
+
+              </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Substance160" name="Substance160" [(ngModel)]="cisCafas.Substance160.fieldOptionIndex"></p-checkbox>160 Parenting or pregnant
+                <br> and using drugs
+
+              </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Substance161" name="Substance161" [(ngModel)]="cisCafas.Substance161.fieldOptionIndex"></p-checkbox>161 Parenting or pregnant
+                <br> and using alcohol
+
+              </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Substance162" name="Substance162" [(ngModel)]="cisCafas.Substance162.fieldOptionIndex"></p-checkbox>162 Cannot stop drinking,
+                <br> drinks alone, has blackouts
+
+              </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-section">
+        <!-- <mat-form-field>
+      <textarea formControlName="CompletionDate" name="CompletionDate" matInput autosize [(ngModel)]="cisCafas.Comment7.value"></textarea>
+    </mat-form-field> -->
+        <textarea formControlName="Comment7" name="Comment7" [(ngModel)]="cisCafas.Comment7.value" pInputTextarea autoResize="autoResize"
+          rows={{rowMethod(cisCafas.Comment7.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+      <div>
+        <table class="table-width-98">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Severe Impairment
+                <br> 30
+              </th>
+              <th>Moderate Impairment
+                <br> 20
+              </th>
+              <th>Mild Impairment
+                <br> 10
+              </th>
+              <th>Minimal or
+                <br> No Impairment
+                <br> 0
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="5" class="bold">THINKING
+                <br>
+                <input formControlName="CAF_COMMUNICATION" name="CAF_COMMUNICATION" class="input-xs" [(ngModel)]="cisCafas.CAF_COMMUNICATION.value">
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Thinking182" name="Thinking182" [(ngModel)]="cisCafas.Thinking182.fieldOptionIndex"></p-checkbox>182 Incoherent thought
+                <br> or language impairs
+                <br> communications
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Thinking187" name="Thinking187" [(ngModel)]="cisCafas.Thinking187.fieldOptionIndex"></p-checkbox>187 Disorganized,
+                <br> irrelevant communications
+                <br>
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Thinking193" name="Thinking193" [(ngModel)]="cisCafas.Thinking193.fieldOptionIndex"></p-checkbox>193 Odd or eccentric
+                <br> speech
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Thinking198" name="Thinking198" [(ngModel)]="cisCafas.Thinking198.fieldOptionIndex"></p-checkbox>198 No distortions or
+                <br> eccentric thoughts
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Thinking183" name="Thinking183" [(ngModel)]="cisCafas.Thinking183.fieldOptionIndex"></p-checkbox>183 Odd or
+                <br> non-communicative
+                <br> speech or non-verbal
+                <br> communication
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Thinking188" name="Thinking188" [(ngModel)]="cisCafas.Thinking188.fieldOptionIndex"></p-checkbox>188 Distorted thinking
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Thinking194" name="Thinking194" [(ngModel)]="cisCafas.Thinking194.fieldOptionIndex"></p-checkbox>194 Distorted thoughts
+              </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Thinking184" name="Thinking184" [(ngModel)]="cisCafas.Thinking184.fieldOptionIndex"></p-checkbox>184 Strange or bizarre
+                <br> behavior
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Thinking189" name="Thinking189" [(ngModel)]="cisCafas.Thinking189.fieldOptionIndex"></p-checkbox>189 Intermittent
+                <br> hallucinations
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Thinking195" name="Thinking195" [(ngModel)]="cisCafas.Thinking195.fieldOptionIndex"></p-checkbox>195 Odd beliefs
+              </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>
+                <p-checkbox binary="true" formControlName="Thinking185" name="Thinking185" [(ngModel)]="cisCafas.Thinking185.fieldOptionIndex"></p-checkbox>185 Short-term memory
+                <br> loss/disorientation
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Thinking190" name="Thinking190" [(ngModel)]="cisCafas.Thinking190.fieldOptionIndex"></p-checkbox>190 Frequent, marked
+                <br> confusion
+
+              </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Thinking196" name="Thinking196" [(ngModel)]="cisCafas.Thinking196.fieldOptionIndex"></p-checkbox>196 Unusual perceptual
+                <br> experiences
+
+              </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td> </td>
+              <td>
+                <p-checkbox binary="true" formControlName="Thinking191" name="Thinking191" [(ngModel)]="cisCafas.Thinking191.fieldOptionIndex"></p-checkbox>191 Preoccupied with
+                <br> bizarre or odd thoughts or
+                <br> fantasies
+
+              </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-section">
+
+        <textarea formControlName="Comment8" name="Comment8" [(ngModel)]="cisCafas.Comment8.value" pInputTextarea autoResize="autoResize"
+          rows={{rowMethod(cisCafas.Comment8.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+      <div class="margin-top">
+        <span class="bold margin-right-gender">Total Score:</span>
+        <input formControlName="CAF_TOTAL" name="CAF_TOTAL" [(ngModel)]="cisCafas.CAF_TOTAL.value">
+      </div>
+      <button (click)="calculate()" type="button" class="btn btn-block btn-add margin-top">Calculate</button>
+    </form>
+  </div>
+
+  <app-form-footer (print)="printForm()" [isPrint]="true" (save)="saveForm(cisCafas)" (edit)="editForm()" [isDisabled]="isDisable"
+    [editControll]="editControll" (finalize)="finalizeForm(cisCafas)" [isFinalize]="isFinalize" (discard)="discardForm()" [isDisabled]="isDisable" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+</div>

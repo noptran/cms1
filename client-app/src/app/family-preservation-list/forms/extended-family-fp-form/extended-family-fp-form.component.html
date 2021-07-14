@@ -1,0 +1,347 @@
+<div *ngIf="isList" class="list-table">
+  <p>Extended Family List</p>
+  <div style="display: flex; justify-content: flex-end; margin: 5px">
+    <button (click)="addForm()" class="sf-positive-btn">Add</button>
+  </div>
+  <table style="width: 100%" border="1">
+    <th scope="beginDate">Family Member</th>
+    <th scope="personType">Person Type</th>
+    <th scope="endDate">Begin Date</th>
+    <th scope="personType">End Date</th>
+    <th scope="name">Family Referral Id</th>
+    <th scope="actions">Actions</th>
+    <tr *ngFor="let family of extendedFamilyList">
+      <td>{{ family.familyMember }}</td>
+      <td>{{ family.personType }}</td>
+      <td>{{ family.beginDate }}</td>
+      <td>{{ family.endDate }}</td>
+      <td>{{ family.familyMemberReferralID }}</td>
+      <td>
+        <div>
+          <span
+            class="fa fa-edit"
+            (click)="onEdit(family)"
+            style="font-size: 14px; cursor: pointer"
+          ></span>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div *ngIf="isForm">
+  <div *ngIf="isAppHeader">
+    <app-form-header
+      [title]="title"
+      [status]="status"
+      [breadcrumbs]="breadcrumbs"
+      [formstatus]="formStatus"
+      [formNavigation]=""
+      [subtitle]="subtitle"
+    ></app-form-header>
+  </div>
+
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+    </p>
+  </div>
+  <div class="container-background">
+    <div class="container-foreground">
+      <div style="text-align: end">
+        <button
+          class="sf-positive-btn"
+          (click)="onNavigateToFamilyMember()"
+          style="width: auto"
+        >
+          Jump to family member
+        </button>
+      </div>
+      <form [formGroup]="extendedFamilyForm" class="sf-form">
+        <div class="margin-left-45 sf-form-size">
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Family Member </span><span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  [(ngModel)]="fpExtendedFamily.familyMemberID"
+                  formControlName="familyMemberID"
+                  name="familyMemberID"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  [suggestions]="metaData"
+                  (completeMethod)="getMetaData($event, 'familyMember')"
+                  field="name"
+                >
+                </p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Begin Date</span><span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  [(ngModel)]="fpExtendedFamily.beginDate"
+                  formControlName="beginDate"
+                  name="beginDate"
+                  [showTime]="true"
+                  [showIcon]="true"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  yearRange="1900:2030"
+                  (onSelect)="generatePersonTypes(fpExtendedFamily.beginDate)"
+                ></p-calendar>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>End Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  [(ngModel)]="fpExtendedFamily.endDate"
+                  formControlName="endDate"
+                  name="endDate"
+                  [showTime]="true"
+                  [showIcon]="true"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  yearRange="1900:2030"
+                ></p-calendar>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Relationship</span><span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  [(ngModel)]="fpExtendedFamily.personTypeID"
+                  formControlName="personTypeID"
+                  name="personTypeID"
+                  [dropdown]="true"
+                  [suggestions]="metaData"
+                  [forceSelection]="true"
+                  (completeMethod)="getMetaData($event, 'relationship')"
+                  field="personType"
+                >
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Family Member Type</span><span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  [(ngModel)]="fpExtendedFamily.familyMemberTypeID"
+                  formControlName="familyMemberTypeID"
+                  name="familyMemberTypeID"
+                  [suggestions]="metaData"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  (completeMethod)="getMetaData($event, 'memberType')"
+                  field="familyMemberType"
+                >
+                </p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Restriction Type</span><span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  [(ngModel)]="fpExtendedFamily.restrictionTypeID"
+                  formControlName="restrictionTypeID"
+                  name="restrictionTypeID"
+                  [dropdown]="true"
+                  [suggestions]="metaData"
+                  [forceSelection]="true"
+                  (completeMethod)="getMetaData($event, 'restrictionType')"
+                  field="restrictionType"
+                >
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Restriction Court Ordered</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-checkbox
+                  binary="true"
+                  [(ngModel)]="fpExtendedFamily.IsCourtOrderedRestriction"
+                  name="IsCourtOrderedRestriction"
+                  formControlName="IsCourtOrderedRestriction"
+                ></p-checkbox>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Frequency</span><span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  [(ngModel)]="fpExtendedFamily.frequencyTypeID"
+                  formControlName="frequencyTypeID"
+                  name="frequencyTypeID"
+                  [dropdown]="true"
+                  [suggestions]="metaData"
+                  [forceSelection]="true"
+                  (completeMethod)="getMetaData($event, 'frequency')"
+                  field="frequencyType"
+                >
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Frequency Court Ordered</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-checkbox
+                  binary="true"
+                  [(ngModel)]="fpExtendedFamily.isCourtOrderedFrequency"
+                  name="isCourtOrderedFrequency"
+                  formControlName="isCourtOrderedFrequency"
+                ></p-checkbox>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="isShowRFCFields">
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Deceased Date</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input type="text" readonly />
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Removal Parent</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-checkbox
+                    binary="true"
+                    name="removalParent"
+                    formControlName="isRemovalParent"
+                    [(ngModel)]="fpExtendedFamily.isRemovalParent"
+                  ></p-checkbox>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Annual Household Income</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input
+                    type="text"
+                    pInputText
+                    name="annualHouseholdIncome"
+                    size="27"
+                    formControlName="annualHouseholdIncome"
+                    [(ngModel)]="fpExtendedFamily.annualHouseholdIncome"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Number Living In Household</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <input
+                    type="text"
+                    pInputText
+                    name="numberLivingInHousehold"
+                    [(ngModel)]="fpExtendedFamily.numberLivingInHousehold"
+                    size="27"
+                    formControlName="numberLivingInHousehold"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20 row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Single Parent Household</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-checkbox
+                    binary="true"
+                    name="singleParentHousehold"
+                    formControlName="isSingleParentHousehold"
+                    [(ngModel)]="fpExtendedFamily.isSingleParentHousehold"
+                  ></p-checkbox>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <span>Family Refused</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-checkbox
+                    binary="true"
+                    name="familyRefused"
+                    formControlName="familyRefused"
+                    [(ngModel)]="fpExtendedFamily.familyRefused"
+                  ></p-checkbox>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Notes</span>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <textarea
+                  [(ngModel)]="fpExtendedFamily.notes"
+                  formControlName="notes"
+                  name="notes"
+                  pInputTextarea
+                  style="width: 100%; height: 100%"
+                  cols="60"
+                  rows="5"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- [discardTo]="discardTo" -->
+      <app-form-footer
+        [attachmentControll]="isAttachmentRequired"
+        [isAttachmentDisabled]="false"
+        (attachDoc)="navigateTo()"
+        (save)="saveForm(fpExtendedFamily)"
+        (reset)="resetForm()"
+        (discard)="discardForm()"
+        (edit)="editForm()"
+        [editControll]="editControll"
+        [currentNodeValue]="req"
+      >
+      </app-form-footer>
+    </div>
+  </div>
+</div>

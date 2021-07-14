@@ -1,0 +1,266 @@
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+<div class="noDataFound" *ngIf="isData">
+  <div class="text-center">
+    <h3>
+      <b>{{ formTitle }}</b>
+    </h3>
+  </div>
+
+  <p>No Data Found</p>
+</div>
+
+<div *ngIf="!isData" class="pdf-content">
+  <div class="water-mark" *ngIf="isWatermarkerEnable">
+    <p>{{ waterMarkContent }}</p>
+  </div>
+
+  <div id="pdf-content-print" class="sf-form">
+    <div class="flex-container header">
+      <div></div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="" />
+      </div>
+      <div></div>
+    </div>
+    <div class="text-center">
+      <h3>
+        <b>{{ formTitle }}</b>
+      </h3>
+    </div>
+    <p>
+      {{ placementAgreementSFAClause }}
+    </p>
+    <p *ngIf="placementAgreementProviderClause"><strong>AND</strong></p>
+    <p>
+      {{ placementAgreementProviderClause }}
+    </p>
+    <div [innerHTML]="placementAgreementStaticContent"></div>
+    <div [innerHTML]="placementAgreementTextElecSign"></div>
+    <!--Footer for placement agreement and placement agreement elecsign form-->
+    <div *ngIf="!isFosterCareHomePlacementFooter">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <span class="col-md-5 margin-top-10"><b>Placement Provider</b></span>
+            <div class="col-md-7">
+              <input type="text" class="remove-borders" pInputText size="20" name="placementProviderName"
+                [(ngModel)]="providerMemberName" />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <span class="col-md-5 margin-top-10"> <b>Date</b></span>
+            <div class="col-md-7">
+              <input type="text" class="remove-borders" name="placementProviderDate" [(ngModel)]="providerElecSignDate"
+                pInputText size="20" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <span class="col-md-5 margin-top-10"><b>SFM Admissions</b></span>
+            <div class="col-md-7">
+              <input type="text" class="remove-borders" name="sfmAdmissionCCStaffName"
+                [(ngModel)]="sfmAdmissionCCStaffName" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <span class="col-md-5 margin-top-10"> <b>Date</b></span>
+            <div class="col-md-7">
+              <input type="text" class="remove-borders" name="sfmAdmissionCCStaffDate"
+                [(ngModel)]="sfmAdmissionCCStaffDate" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Footer for foster care home placement forms-->
+    <div *ngIf="isFosterCareHomePlacementFooter">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <span class="col-md-5 margin-top-10"><b>Foster Care Provider</b></span>
+            <div class="col-md-7">
+              <input type="text" class="remove-borders" pInputText size="20" name="fosterCareProviderMemberName"
+                [(ngModel)]="providerMemberName" />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <span class="col-md-5 margin-top-10"> <b>Date</b></span>
+            <div class="col-md-7">
+              <input type="text" class="remove-borders" pInputText size="20" [(ngModel)]="providerElecSignDate"
+                name="providerElecSignDate" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <span class="col-md-5 margin-top-10"><b>Foster Home Programs, Foster Care Admissions Director</b></span>
+            <div class="col-md-7">
+              <input type="text" class="remove-borders" name="sfmAdmissionCCStaffName"
+                [(ngModel)]="sfmAdmissionCCStaffName" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <span class="col-md-5 margin-top-10"> <b>Date</b></span>
+            <div class="col-md-7">
+              <input type="text" class="remove-borders" name="sfmAdmissionCCStaffDate"
+                [(ngModel)]="sfmAdmissionCCStaffDate" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr *ngIf="showExport">
+  <!-- <div class="row" *ngIf="showExport" style="border: none;">
+    <div class="col-md-4" style="border: none;">
+
+    </div>
+    <div class="col-md-4 text-center" style="border: none;">
+      <p *ngIf="isLoad" style="font-size: 17px;
+      font-weight: bold;">Loading...</p>
+    </div>
+    <div class="col-md-4" style="border: none;">
+      <button class="sf-positive-btn pull-right" (click)="printAck()">Export</button>
+    </div>
+  </div> -->
+</div>
+
+<!---
+Placement Provider  => ProviderMemberName providerMemberName
+Date => Provider_ElecSignDate providerElecSignDate
+
+SFM Admissions =>CC_StaffName sfmAdmissionCCStaffName
+Date =>CC_ElecSignDate sfmAdmissionCCStaffDate
+====================================================
+Foster Care Provider => ProviderMemberName providerMemberName
+Date => Provider_ElecSignDate providerElecSignDate
+
+Foster Home Programs, Foster Care Admissions Director =>  CC_StaffName sfmAdmissionCCStaffName
+Date => CC_ElecSignDate sfmAdmissionCCStaffDate-->
+<div>
+  <app-placement-email-footer [currentForm]="'AGREEMENT'" *ngIf="isShowEmailFooter"
+    (closeAck_Window)="closeAck_Window($event)" [isNoData]="isData" [isViewHistory]="showExport"
+    [viewHistoryData]="sendFooterReq" [placementAgreementFormData]="formData" deleteForm="placementAgreement">
+  </app-placement-email-footer>
+</div>
+
+<div *ngIf="isElectrilSign">
+  <div class="row">
+    <div class="col-md-4">
+      <p-checkbox [(ngModel)]="agree" name="agree" binary="true"></p-checkbox>
+      <span> I {{staffName}} have reviewed the above document and agree to the terms</span>
+    </div>
+    <div class="col-md-2">
+      <label>SFCS Network Password</label>
+      <input type="text" name="netPass" [(ngModel)]="netPass" pInputText size="20" />
+    </div>
+    <div class="col-md-4">
+      <label>Comments</label>
+      <textarea rows="4" name="comments" [(ngModel)]="comments" cols="50">
+  </textarea>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="sf-positive-btn" (click)="EsignAgree()"
+        style="margin-left: 0px;height:56px;">Electronically Sign My
+        Name</button>
+      <br>
+      <br>
+      <button type="button" class="sf-negative-btn" (click)="clickDisAgree()" style="margin-left: 0px;">I
+        Disagree</button>
+    </div>
+  </div>
+  <hr>
+  <div class="text-center">
+    <button class="sf-positive-btn" (click)="exportEsign()">Export</button>
+    <button class="sf-positive-btn margin-top-2rem" (click)="esignExit()">Exit</button>
+  </div>
+
+</div>
+<div *ngIf="showAccept">
+  <div class="text-center">
+    I have reviewed this entry and I am ready to send it to the Care Center Placement Agreement Approval Group
+    <button type="button" class="sf-positive-btn" (click)="elecsignAccept()" style="margin-left: 0px;">Accept &
+      Send</button>
+    <hr>
+    <button class="sf-positive-btn" (click)="exportEsign()">Export</button>
+    <button class="sf-positive-btn margin-top-2rem" (click)="esignExit()">Exit</button>
+  </div>
+</div>
+<div *ngIf="isApprovalProcess">
+  <div class="row">
+    <div class="col-md-2">
+      <label>Care Center Status</label>
+      <br>
+      <textarea rows="3" name="careCenterStatus" [(ngModel)]="careCenterStatus">
+  </textarea>
+    </div>
+    <div class="col-md-2">
+      <label>Provider Status</label>
+      <br>
+      <textarea rows="3" name="providerStatus" [(ngModel)]="providerStatus">
+  </textarea>
+    </div>
+    <div class="col-md-2">
+      <label>FCH Staff Status</label>
+      <br>
+      <textarea rows="3" name="staffStatus" [(ngModel)]="staffStatus">
+  </textarea>
+    </div>
+    <div class="col-md-2">
+      <label>Current Status</label>
+      <br>
+      <textarea rows="3" name="currentStatus" [(ngModel)]="currentStatus">
+  </textarea>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="sf-positive-btn" style="margin-left: 0px;height: 100%;"
+        (click)="confirmRestartApproval()">Restart Approval
+        Process</button>
+    </div>
+  </div>
+  <hr>
+  <div class="text-center">
+    <button class="sf-positive-btn" (click)="exportEsign()">Export</button>
+    <button class="sf-positive-btn margin-top-2rem" (click)="esignExit()">Exit</button>
+  </div>
+
+
+</div>
+
+<div *ngIf="showAcknowledge">
+  <div class="text-center">
+    I have reviewed this form and I acknowledge that I have reviewed this form.
+    <button type="button" class="sf-positive-btn" (click)="elecsignAcknowledge()" style="margin-left: 0px;">I
+      Acknowledge</button>
+    <hr>
+    <button class="sf-positive-btn" (click)="exportEsign()">Export</button>
+    <button class="sf-positive-btn margin-top-2rem" (click)="esignExit()">Exit</button>
+  </div>
+</div>
+
+<p-dialog [(visible)]="showPrompt" header="Countinue" [responsive]="true"
+  [contentStyle]="{width: '700px', minWidth: '600px'}" [maximizable]="true" [baseZIndex]="10000"
+  (onHide)="promt_close()">
+  <p><b>This will deactivate the reminders for this record for all staff.</b></p>
+  <p><b>Do you want to continue? </b></p>
+  <hr>
+  <button class="sf-positive-btn" (click)="restartApproval()">yes</button>
+  <button class="sf-negative-btn margin-top-2rem" (click)="promt_close()">No</button>
+</p-dialog>

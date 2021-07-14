@@ -1,0 +1,86 @@
+<p-dialog (onHide)="closeModel.emit()" class="pop-up" header="Treatment Decisons" [(visible)]="isPopUpWindow"
+  [contentStyle]="{'min-width':'106rem','width': '100vw'}" [responsive]="true">
+  <div *ngIf="isLoading">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+
+  <div *ngIf="isListView">
+    <button (click)="createRecord()">Create Record</button>
+    <app-prtf-list-view (rowSeleted)="onRowSelected($event)" [tableHeaders]="tableHeaders" [tableRows]="tableRows">
+    </app-prtf-list-view>
+  </div>
+
+  <div *ngIf="isFormView">
+    <div class="container-foreground">
+      <form class="sf-form" [formGroup]="treatmentDecisionForm">
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Person Table
+                <span class="mandatory">*</span>
+              </span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="personAssignmentTypeID"
+                [(ngModel)]="treatmentDecision.personAssignmentTypeID" [suggestions]="metaData"
+                (completeMethod)="getMetaData($event,'person_table')" [forceSelection]="true"
+                emptyMessage="No records found!" name="personAssignmentTypeID" [dropdown]="true"
+                field="personAssignmentType" size="23" (onSelect)="getPeresonDetails($event)"></p-autoComplete>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="beginDate" [(ngModel)]="treatmentDecision.beginDate" formControlName="beginDate"
+                [showIcon]="true" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030">
+              </p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Person Name</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+
+              <p-autoComplete formControlName="personID"
+                [(ngModel)]="treatmentDecision.personID" [suggestions]="metaData"
+                (completeMethod)="getMetaData($event,'person_name')" [forceSelection]="true"
+                emptyMessage="No records found!" name="fullName" [dropdown]="true"
+                field="fullName" size="23"></p-autoComplete>
+
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="endDate" [(ngModel)]="treatmentDecision.endDate" formControlName="endDate"
+                [showIcon]="true" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Notes</span></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea pInputTextarea formControlName="notes" name="notes" [(ngModel)]="treatmentDecision.notes"
+                style="width:100%;height:100%"></textarea>
+            </div>
+          </div>
+        </div>
+      </form>
+      <app-form-footer (save)="formAction(treatmentDecision)" (edit)="editForm()" [editControll]="isEdit"
+        [attachmentControll]="isAttachmentRequired" [isAttachmentDisabled]="false" (attachDoc)="navigateToCMS()"
+        [currentNodeValue]="req" (discard)="discard()" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+      </app-form-footer>
+
+    </div>
+  </div>
+
+</p-dialog>

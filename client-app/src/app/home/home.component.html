@@ -1,0 +1,91 @@
+<!-- -->
+
+
+<div class="view-container">
+  <div class="side-menu">
+    <img src="assets/sidenav/logo-sidenav.svg" class="sidenav-icon" />
+    <p-slideMenu [model]="items" [viewportHeight]="250"></p-slideMenu>
+  </div>
+  <div class="main-area">
+    <app-navbar [sidenavBarMessage]="sidenavBar"></app-navbar>
+    <router-outlet></router-outlet>
+  </div>
+  <div *ngIf="isSfcsFrom" style="height:70vh">
+    <app-sfm-office-form></app-sfm-office-form>
+  </div>
+  <p-dialog header="CMS Remainders" [(visible)]="display" [width]="800" [minWidth]="200" [minY]="80">
+    <div>
+      <p (click)="getEsignature()" style="
+      font-size: 16px;
+      font-weight: bolder;
+  ">Placement Agreement for {{staffName}}</p>
+      <p *ngIf="signatureList.length!==0" style="
+      font-size: 14px;
+  ">{{signatureList[0].FullBeginDate}}</p>
+    </div>
+    <p *ngIf="isLoad" style="text-align: center;color: #48b1f8;">Please Wait...</p>
+    <div class="table-responsive" style="height: 30vh;">
+      <table class="table table-bordered" style="border-top: 1px solid #dddddd;height: 0px;">
+        <thead>
+          <tr>
+            <th style="background: #ebebf2;font-size: 15px;font-weight: bold;">Subject</th>
+            <th style="background: #ebebf2;font-size: 15px;font-weight: bold;">Due In</th>
+            <th style="background: #ebebf2;font-size: 15px;font-weight: bold;
+            width: 28%;
+        ">Action</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let item of signatureList">
+          <tr>
+            <td>{{item.Subject}}</td>
+            <td>{{item.Duein}}</td>
+            <td><button type="button" class="sf-positive-btn" (click)="getEleecPreview(item)"
+                style="margin-left: 0px;    width: 48%;">Open
+                Item</button>
+              <button type="button" (click)="dismiss(item.RemindersID)" class="sf-negative-btn"
+                style="margin-left: 0px;    width: 48%;">Dismiss</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-6"></div>
+      <div class="col-md-2"></div>
+      <div class="col-md-2">
+        <button type="button" (click)="dismiss()" class="sf-negative-btn" style="margin-left: 0px;">Dismiss All</button>
+      </div>
+    </div>
+    <hr>
+    <div>
+      <p>Click Snooze to be remainded again in:</p>
+      <div class="row">
+        <div class="col-md-3">
+          <p-spinner [(ngModel)]="mins" name="units" size="30" [min]="0.0" [step]="1"></p-spinner>
+        </div>
+        <div class="col-md-4">
+          <p-dropdown [options]="delaysList" [(ngModel)]="selectedCity1" optionLabel="name" [showClear]="true">
+          </p-dropdown>
+        </div>
+        <div class="col-md-5">
+          <button type="button" class="sf-positive-btn" (click)="applySnooze(mins)"
+            style="margin-left: 0px;">Snooze</button>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+  <div *ngIf="fchPrintPrompt">
+    <p-dialog [(visible)]="fchPrintPrompt" header="FCH Placement Agreement" [responsive]="true"
+      [contentStyle]="{width: '1200px', minWidth: '600px'}" [maximizable]="true" [baseZIndex]="10000"
+      (onHide)="fch_close()">
+      <app-placement-agreement-form [isRemainderBox]='isRemainderBox' [elecSignData]="elecSignData"
+        [fchPrintID]="fchPrintID" [elecPrintView]="elecPrintView" [fchPrintView]="fchPrintView"
+        [remainElectPrintView]="fchPrintPrompt" [remainElectPrintViewData]="remainElectPrintViewData"
+        (onSigned)="onSigned($event)">
+      </app-placement-agreement-form>
+    </p-dialog>
+  </div>
+
+</div>

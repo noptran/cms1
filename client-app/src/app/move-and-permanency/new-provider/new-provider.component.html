@@ -1,0 +1,224 @@
+<div>
+    <p class="text-center font-size-17">{{componentInfoText}}</p>
+</div>
+<div class="new-provider-form">
+    <p>Use this form to enter provider information that isn't in ekidz </p>
+    <div class="sf-form">
+        <div class="column-3-flex-box">
+            <span>Provider</span>
+            <p-autoComplete (onSelect)="onSelectNewProvider($event)" class="width-autocomplete"
+                placeholder="Type here to search" emptyMessage="No records found!" [dropdown]="true"
+                [forceSelection]="true" field="providerName" (completeMethod)="filteringProviderNames($event)"
+                [suggestions]="metaData" name="newProviderForm" [(ngModel)]="selectedProvider">
+            </p-autoComplete>
+            <p-checkbox binary="true" [(ngModel)]="isNewProviderEdit" label="Edit Provider"
+                [disabled]="!selectedProvider" (onChange)="onEditProvider(selectedProvider)"></p-checkbox>
+            <p-checkbox binary="true" [(ngModel)]="isNewProviderNotList" label="Provider Not Listed"
+                (onChange)="isProviderInfo=!isProviderInfo"></p-checkbox>
+        </div>
+        <div *ngIf="isProviderInfo">
+            <p><b>Provider Information</b></p>
+            <form [formGroup]="providerInfoForm">
+                <div class="margin-top-20 row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-3"><span>Provider Name</span><span
+                                class="mandatory">*</span>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3"> <input type="text" name="providerName"
+                                [(ngModel)]="newProvider.otherProviderName" formControlName="providerName" pInputText />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-3"> <span>Provider Type</span><span
+                                class="mandatory">*</span>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <p-autoComplete [suggestions]="metaData" (completeMethod)="getNewProviderTyes($event)"
+                                name="providerTypeId" emptyMessage="No results found!" [dropdown]="true"
+                                [forceSelection]="true" placeholder="Type here to search" field="ProviderType_MoveForm"
+                                size="23" [(ngModel)]="newProvider.providerTypeID" formControlName="providerTypeID"
+                                (onSelect)="onSelectProviderType($event)">
+                            </p-autoComplete>
+                        </div>
+                    </div>
+                </div>
+                <div class="margin-top-20 row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-3"> <span>Phone</span></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <p-inputMask mask="(999) 999-9999" name="phone" formControlName="phone"
+                                [(ngModel)]="newProvider.phone"></p-inputMask>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-3"> <span>Email</span></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3"> <input type="email" formControlName="email"
+                                name="email" [(ngModel)]="newProvider.email" pInputText /></div>
+                    </div>
+                </div>
+                <div class="margin-top-20 row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-3"> <span>Address</span><span class="mandatory">*</span>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3"> <input type="text" name="providerAddress"
+                                [(ngModel)]="newProvider.serviceAddress" pInputText formControlName="address" /></div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-3"> <span>State</span><span class="mandatory">*</span>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <p-autoComplete field="state" [suggestions]="metaData" name="state"
+                                (completeMethod)="getMetaData($event,'state')" [dropdown]="true" [forceSelection]="true"
+                                (onSelect)="onSelectState($event)" [(ngModel)]="newProvider.stateID"
+                                formControlName="stateID">
+                            </p-autoComplete>
+                        </div>
+                    </div>
+                </div>
+                <div class="margin-top-20 row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-3"> <span>City</span><span class="mandatory">*</span></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <p-autoComplete field="city" [suggestions]="metaData" name="city"
+                                (completeMethod)="filtereingCity($event)" [dropdown]="true"
+                                emptyMessage="No records found!" [forceSelection]="true"
+                                (onSelect)="onSelectCity($event)" [(ngModel)]="newProvider.cityID"
+                                formControlName="cityID">
+                            </p-autoComplete>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-3"> <span>Zip</span><span class="mandatory">*</span></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <p-autoComplete field="zipcode" [suggestions]="metaData" name="zip"
+                                (completeMethod)="filtereingZipcode($event)" emptyMessage="No records found!"
+                                [dropdown]="true" [forceSelection]="true" [(ngModel)]="newProvider.zipcodeID"
+                                formControlName="zipcodeID">
+                            </p-autoComplete>
+                        </div>
+                    </div>
+                </div>
+                <div class="margin-top-20 row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-3"> <span>Relative Type</span></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <p-autoComplete field="state" [suggestions]="metaData" name="relativeType"
+                                field="relativeType" (completeMethod)="filtereingRelativeTypes($event)"
+                                [dropdown]="true" [forceSelection]="true" [(ngModel)]="newProvider.relativeTypeID"
+                                formControlName="relativeTypeID">
+                            </p-autoComplete>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div *ngIf="isProviderAdditionalInfo">
+            <p><b>Primary Provider</b></p>
+            <form [formGroup]="primaryProviderForm">
+                <div class="margin-top-20 row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-3"> <span>Name</span><span class="mandatory">*</span></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3"> <input type="text" name="primaryProviderName"
+                                [(ngModel)]="newProvider.primaryMemberName" formControlName="primaryProviderName"
+                                pInputText />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-3"> <span>DOB</span><span class="mandatory">*</span></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <p-calendar [showIcon]="true" [showIcon]="true" name="primaryProviderDob"
+                                [yearNavigator]="true" [monthNavigator]="true" yearRange="1930:2030"
+                                [(ngModel)]="newProvider.primaryDOB" formControlName="primaryDOB"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+                <div class="margin-top-20 row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-3"> <span>Ethinicity</span><span class="mandatory">*</span>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <p-autoComplete field="race" [suggestions]="metaData" name="primaryProviderEthinicity"
+                                (completeMethod)="getMetaData($event,'race')" [dropdown]="true" [forceSelection]="true"
+                                [(ngModel)]="newProvider.primaryRaceID" formControlName="primaryRaceID">
+                            </p-autoComplete>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-3"> <span>Gender</span><span class="mandatory">*</span>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <p-autoComplete field="gender" [suggestions]="metaData" name="primaryProviderGender"
+                                (completeMethod)="getMetaData($event,'gender')" [dropdown]="true"
+                                [forceSelection]="true" [(ngModel)]="newProvider.primaryGenderID"
+                                formControlName="primaryGenderID">
+                            </p-autoComplete>
+                        </div>
+                    </div>
+                </div>
+                <div class="margin-top-20 row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-3"> <span>SSN</span><span class="mandatory">*</span></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <p-inputMask mask="999-99-9999" name="primaryProviderSSN"
+                                [(ngModel)]="newProvider.primarySSN" formControlName="primarySSN">
+                            </p-inputMask>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <p><b>Secondary Provider</b></p>
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"> <span>Name</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3"> <input type="text" name="secondaryProviderName" pInputText
+                            [(ngModel)]="newProvider.secondaryMemberName" /></div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"> <span>DOB</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-calendar [showIcon]="true" [showIcon]="true" name="secondaryProviderDOB"
+                            [yearNavigator]="true" [monthNavigator]="true" yearRange="1930:2030"
+                            [(ngModel)]="newProvider.secondaryDOB">
+                        </p-calendar>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"> <span>Ethinicity</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-autoComplete field="race" [suggestions]="metaData" name="secondaryEthinicity"
+                            (completeMethod)="getMetaData($event,'race')" [dropdown]="true" [forceSelection]="true"
+                            [(ngModel)]="newProvider.secondaryRaceID">
+                        </p-autoComplete>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"> <span>Gender</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-autoComplete field="gender" [suggestions]="metaData" name="secondaryGender"
+                            (completeMethod)="getMetaData($event,'gender')" [dropdown]="true" [forceSelection]="true"
+                            [(ngModel)]="newProvider.secondaryGenderID">
+                        </p-autoComplete>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-lg-3 col-md-3 col-sm-3"> <span>SSN</span></div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <p-inputMask mask="999-99-9999" name="secondarySsn" [(ngModel)]="newProvider.secondarySSN">
+                        </p-inputMask>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <p-checkbox binary="true" name="removeSecondaryProvider" label="Remove Seconday Provider">
+                    </p-checkbox>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="float-right">
+    <button class="sf-primary-btn" (click)="onSubmit()">Submit</button>
+</div>

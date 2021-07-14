@@ -1,0 +1,536 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="ProgressNoteForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        FAMILY PRESERVATION
+        <br> PROGRESS NOTE
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Case Name:</span>
+          <input [(ngModel)]="fpProgressNote.caseName" formControlName="caseName" name="caseName" type="text" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>Case Number:</span>
+          <input [(ngModel)]="fpProgressNote.caseNumber" formControlName="caseNumber" name="caseNumber" type="text" pInputText
+            size="20" />
+        </div>
+        <div>
+          <span>Referral Date:</span>
+          <p-calendar [(ngModel)]="fpProgressNote.dateOfReferral" formControlName="dateOfReferral" name="dateOfReferral" [inputStyle]="{'width':'170px'}"
+            class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>Date:</span>
+          <p-calendar [(ngModel)]="fpProgressNote.date" formControlName="date" name="date" [inputStyle]="{'width':'170px'}" class="date-picker"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="flex-container">
+          <div class="flex-container">
+            <div class="space-right">Start Time:</div>
+            <!-- <p-calendar [(ngModel)]="fpProgressNote.startTime" formControlName="startTime" name="startTime"  class="space-right" [inputStyle]="{'width':'120px'}" showTime="true" hourFormat="24" [timeOnly]="true"
+              [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar> -->
+            <input [(ngModel)]="fpProgressNote.startTime" formControlName="startTime" name="startTime" class="input-sm" type="time">
+          </div>
+          <div class="flex-container">
+            <div class="space-right">End Time:</div>
+            <!-- <p-calendar [(ngModel)]="fpProgressNote.endTime" formControlName="endTime" name="endTime" class="space-right" [inputStyle]="{'width':'120px'}"
+              showTime="true" hourFormat="24" [timeOnly]="true" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar> -->
+            <input [(ngModel)]="fpProgressNote.endTime" formControlName="endTime" name="endTime" class="input-sm" type="time">
+          </div>
+        </div>
+        <div>
+          <span>Duration:</span>
+          <input [(ngModel)]="fpProgressNote.duration" formControlName="duration" name="duration" type="text" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>Service Provider:</span>
+          <input [(ngModel)]="fpProgressNote.serviceProvider" formControlName="serviceProvider" name="serviceProvider" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="space-right">
+        <div class="flex-container space-right space-down">
+          <div class="space-right"> Office Location:</div>
+          <div class="space-right">
+            <input [(ngModel)]="fpProgressNote.officeLocation" formControlName="officeLocation" name="officeLocation" type="text" pInputText
+              size="20" />
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">Originating Site:</div>
+          <div class="space-right">
+            <input [(ngModel)]="fpProgressNote.originatingSite" formControlName="originatingSite" name="originatingSite" type="text"
+              pInputText size="20" />
+          </div>
+        </div>
+      </div>
+      <div class="space-right">
+        <div class="flex-container space-right space-down">
+          <div class="space-right"> Client Location</div>
+          <div class="space-right">
+            <input [(ngModel)]="fpProgressNote.clientLocation" formControlName="clientLocation" name="clientLocation" type="text" pInputText
+              size="20" />
+          </div>
+        </div>
+        <div class="flex-container space-right space-down">
+          <div class="space-right">Distant Site:</div>
+          <div class="space-right">
+            <input [(ngModel)]="fpProgressNote.distantSite" formControlName="distantSite" name="distantSite" type="text" pInputText size="20"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="space-right">
+        <div class="space-right space-down">
+          <div class="flex-container space-down">
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isIndividualTherapy" formControlName="isIndividualTherapy" name="isIndividualTherapy"
+                class="space-right"></p-checkbox>Individual Therapy
+            </div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isFamilyTherapy" formControlName="isFamilyTherapy" name="isFamilyTherapy"
+                class="space-right"></p-checkbox>Family Therapy in home
+            </div>
+          </div>
+          <div class="flex-container space-down">
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isGroupTherapy" formControlName="isGroupTherapy" name="isGroupTherapy"
+                class="space-right"></p-checkbox>Group Therapy
+            </div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isFamilyTherapyInClinic" formControlName="isFamilyTherapyInClinic"
+                name="isFamilyTherapyInClinic" class="space-right"></p-checkbox>Family Therapy in clinic/community
+            </div>
+          </div>
+          <div class="flex-container space-down">
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isInitialPsych" formControlName="isInitialPsych" name="isInitialPsych"
+                class="space-right"></p-checkbox>Initial Psych Interview
+            </div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isCaseConference" formControlName="isCaseConference" name="isCaseConference"
+                class="space-right"></p-checkbox>Case Conference (Medical Team Conference)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container description space-down">
+      <div>DIAGNOSIS</div>
+      <div>(Principal First)</div>
+    </div>
+    <div class="space-down">
+      <textarea [(ngModel)]="fpProgressNote.diagnosis" formControlName="diagnosis" name="diagnosis" pInputTextarea autoResize="autoResize"
+        rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p class="bold">I. Participant(s) in session and relationship to client:</p>
+    <div class="space-down">
+      <textarea [(ngModel)]="fpProgressNote.participant" formControlName="participant" name="participant" pInputTextarea autoResize="autoResize"
+        rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p>Alone time with Child:</p>
+    <div class="space-down">
+      <textarea [(ngModel)]="fpProgressNote.aloneTimeWithChild" formControlName="aloneTimeWithChild" name="aloneTimeWithChild"
+        pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p>Alone time with Child - Exceptions:</p>
+    <div class="space-down">
+      <textarea [(ngModel)]="fpProgressNote.childExceptions" formControlName="childExceptions" name="childExceptions" pInputTextarea
+        autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p class="bold">II. Goals/Objectives Addressed: (Include progress made)</p>
+    <div class="space-down">
+      <textarea [(ngModel)]="fpProgressNote.objectivesAddressed" formControlName="objectivesAddressed" name="objectivesAddressed"
+        pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p class="bold">III. Community Resources Update (What community resources have the family utilized since last home visit?):
+    </p>
+    <div class="space-down">
+      <textarea [(ngModel)]="fpProgressNote.communityResources" formControlName="communityResources" name="communityResources"
+        pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p class="bold">IV. Client Functioning, Topics Covered, Interventions Used and Client Response:</p>
+    <div class="space-down">
+      <textarea [(ngModel)]="fpProgressNote.clientFunctioning" formControlName="clientFunctioning" name="clientFunctioning" pInputTextarea
+        autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p class="bold">V. Collaborative Changes to TX Plan: (Include goals/objectives for new problem(s) identified in #II.; goals/objectives
+      met or being discontinued and rationale for such; or other changes)</p>
+    <div class="space-down">
+      <textarea [(ngModel)]="fpProgressNote.collaborativeChanges" formControlName="collaborativeChanges" name="collaborativeChanges"
+        pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p class="bold">VI. Changes in Diagnosis(es), including Rationale:</p>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <span>Prognosis </span>
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isGood" formControlName="isGood" name="isGood" class="space-right"></p-checkbox>
+        <span>Good </span>
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isFair" formControlName="isFair" name="isFair" class="space-right"></p-checkbox>
+        <span>Fair </span>
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isGuarded" formControlName="isGuarded" name="isGuarded" class="space-right"></p-checkbox>
+        <span>Guarded</span>
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isPoorGaf" formControlName="isPoorGaf" name="isPoorGaf" class="space-right"></p-checkbox>
+        <span>Poor </span>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right"> GAF</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpProgressNote.poorGaf" formControlName="poorGaf" name="poorGaf" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p class="bold">VII. Meets Medical Necessity for Continued Treatment Due to: (check all that apply)</p>
+    <div class="space-right">
+      <div class="space-right space-down">
+        <div class="flex-container space-down">
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.treatmentNeeded" formControlName="treatmentNeeded" name="treatmentNeeded"
+              class="space-right"></p-checkbox>Treatment Needed to Monitor/Reduce Risk of Violence to Self or Others
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.moodDisorder" formControlName="moodDisorder" name="moodDisorder" class="space-right"></p-checkbox>Mood Disorder
+          </div>
+        </div>
+        <div class="flex-container space-down">
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.continuedImpairment" formControlName="continuedImpairment" name="continuedImpairment"
+              class="space-right"></p-checkbox>Continued Impairment of Reality Testing
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.interpersonal" formControlName="interpersonal" name="interpersonal"
+              class="space-right"></p-checkbox>Interpersonal/Behavioral Difficulties
+          </div>
+        </div>
+        <div class="flex-container space-down">
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.impairmentInSocial" formControlName="impairmentInSocial" name="impairmentInSocial"
+              class="space-right"></p-checkbox>Impairment in Social, Familial, Academic/Work Functioning
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.careCriteria" formControlName="careCriteria" name="careCriteria" class="space-right"></p-checkbox>Meets Continuing Care Criteria
+          </div>
+        </div>
+        <div class="flex-container space-down">
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.servicesNecessary" formControlName="servicesNecessary" name="servicesNecessary"
+              class="space-right"></p-checkbox>Services Necessary to Maintain GAF and Stabilize Gains
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.continuedNeed" formControlName="continuedNeed" name="continuedNeed"
+              class="space-right"></p-checkbox>Continued need to Monitor Medication
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="bold">VIII. Mental Status:</p>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td center">Current Impairment</th>
+          <th class="table-td center">Mood</th>
+          <th class="table-td center">Cognitive Processes</th>
+          <th class="table-td center">Affect</th>
+          <th class="table-td center">Danger to Self/Others</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isSevere" formControlName="isSevere" name="isSevere" class="space-right"></p-checkbox>
+            <span>Severe </span>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isEuthymic" formControlName="isEuthymic" name="isEuthymic" class="space-right"></p-checkbox>
+            <span>Euthymic </span>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isNoImpairment" formControlName="isNoImpairment" name="isNoImpairment"
+              class="space-right"></p-checkbox>
+            <span>No impairment noted </span>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isBlunted" formControlName="isBlunted" name="isBlunted" class="space-right"></p-checkbox>
+            <span>Blunted </span>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isNone" formControlName="isNone" name="isNone" class="space-right"></p-checkbox>
+            <span>None </span>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isModerate" formControlName="isModerate" name="isModerate" class="space-right"></p-checkbox>
+            <span>Moderate </span>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isDepressed" formControlName="isDepressed" name="isDepressed" class="space-right"></p-checkbox>
+            <span>Depressed </span>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isDisorganized" formControlName="isDisorganized" name="isDisorganized"
+              class="space-right"></p-checkbox>
+            <span>Disorganized </span>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isRestricted" formControlName="isRestricted" name="isRestricted" class="space-right"></p-checkbox>
+            <span>Restricted </span>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isIdeation" formControlName="isIdeation" name="isIdeation" class="space-right"></p-checkbox>
+            <span>Ideation </span>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isMild" formControlName="isMild" name="isMild" class="space-right"></p-checkbox>
+            <span>Mild </span>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isIrritable" formControlName="isIrritable" name="isIrritable" class="space-right"></p-checkbox>
+            <span>Irritable </span>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isPoorConcentration" formControlName="isPoorConcentration" name="isPoorConcentration"
+              class="space-right"></p-checkbox>
+            <span>Poor concentration </span>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isIntense" formControlName="isIntense" name="isIntense" class="space-right"></p-checkbox>
+            <span>Intense </span>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isPlan" formControlName="isPlan" name="isPlan" class="space-right"></p-checkbox>
+            <span>Plan </span>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isMinimal" formControlName="isMinimal" name="isMinimal" class="space-right"></p-checkbox>
+            <span>Minimal </span>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isAnxious" formControlName="isAnxious" name="isAnxious" class="space-right"></p-checkbox>
+            <span>Anxious </span>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isImpairedAbstract" formControlName="isImpairedAbstract" name="isImpairedAbstract"
+              class="space-right"></p-checkbox>
+            <span>Impaired abstract thinking </span>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isAppropriate" formControlName="isAppropriate" name="isAppropriate"
+              class="space-right"></p-checkbox>
+            <span>Appropriate </span>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isGestures" formControlName="isGestures" name="isGestures" class="space-right"></p-checkbox>
+            <span>Gestures/Attempts </span>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isImpairmentNone" formControlName="isImpairmentNone" name="isImpairmentNone"
+              class="space-right"></p-checkbox>
+            <span>None </span>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isEuphoric" formControlName="isEuphoric" name="isEuphoric" class="space-right"></p-checkbox>
+            <span>Euphoric </span>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isImpairedJudgment" formControlName="isImpairedJudgment" name="isImpairedJudgment"
+              class="space-right"></p-checkbox>
+            <span>Impaired judgment </span>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isFlat" formControlName="isFlat" name="isFlat" class="space-right"></p-checkbox>
+            <span>Flat </span>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isOngoingConcern" formControlName="isOngoingConcern" name="isOngoingConcern"
+              class="space-right"></p-checkbox>
+            <span>Ongoing concern </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isImpairmentOther" formControlName="isImpairmentOther" name="isImpairmentOther"
+          class="space-right"></p-checkbox>
+        <div class="space-right"> Other</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpProgressNote.impairmentOther" formControlName="impairmentOther" name="impairmentOther" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isDetached" formControlName="isDetached" name="isDetached" class="space-right"></p-checkbox>
+        <div class="space-right"> Detached</div>
+      </div>
+    </div>
+    <p class="bold">IX. Observations</p>
+    <div>
+      <div>
+        <div class="flex-container space-right space-down space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right"> Home is free of safety concerns</div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isSafetyConcernsYes" formControlName="isSafetyConcernsYes" name="isSafetyConcernsYes"></p-checkbox>
+            </div>
+            <div class="space-right"> Yes </div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isSafetyConcernsNo" formControlName="isSafetyConcernsNo" name="isSafetyConcernsNo"></p-checkbox>
+            </div>
+            <div class="space-right"> No </div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isSafetyConcernsNa" formControlName="isSafetyConcernsNa" name="isSafetyConcernsNa"></p-checkbox>
+            </div>
+            <div class="space-right"> NA </div>
+          </div>
+          <div class="flex-container space-right space-down">
+            <div class="space-right"> Home is relatively clean</div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isHomeCleanYes" formControlName="isHomeCleanYes" name="isHomeCleanYes"></p-checkbox>
+            </div>
+            <div class="space-right"> Yes </div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isHomeCleanNo" formControlName="isHomeCleanNo" name="isHomeCleanNo"></p-checkbox>
+            </div>
+            <div class="space-right"> No </div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isHomeCleanNa" formControlName="isHomeCleanNa" name="isHomeCleanNa"></p-checkbox>
+            </div>
+            <div class="space-right"> NA </div>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right"> Height and Weight appear normal</div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isHeightNormalYes" formControlName="isHeightNormalYes" name="isHeightNormalYes"></p-checkbox>
+            </div>
+            <div class="space-right"> Yes </div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isHeightNormalNo" formControlName="isHeightNormalNo" name="isHeightNormalNo"></p-checkbox>
+            </div>
+            <div class="space-right"> No </div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isHeightNormalNa" formControlName="isHeightNormalNa" name="isHeightNormalNa"></p-checkbox>
+            </div>
+            <div class="space-right"> NA </div>
+          </div>
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Child is clean, neatly groomed</div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isChildCleanYes" formControlName="isChildCleanYes" name="isChildCleanYes"></p-checkbox>
+            </div>
+            <div class="space-right"> Yes </div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isChildCleanNo" formControlName="isChildCleanNo" name="isChildCleanNo"></p-checkbox>
+            </div>
+            <div class="space-right"> No </div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isChildCleanNa" formControlName="isChildCleanNa" name="isChildCleanNa"></p-checkbox>
+            </div>
+            <div class="space-right"> NA </div>
+          </div>
+        </div>
+        <div class="flex-container space-right space-down space-between">
+          <div class="flex-container space-right space-down">
+            <div class="space-right">Unusual marks or bruising</div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isUnusualMarksYes" formControlName="isUnusualMarksYes" name="isUnusualMarksYes"></p-checkbox>
+            </div>
+            <div class="space-right"> Yes </div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isUnusualMarksNo" formControlName="isUnusualMarksNo" name="isUnusualMarksNo"></p-checkbox>
+            </div>
+            <div class="space-right"> No </div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isUnusualMarksNa" formControlName="isUnusualMarksNa" name="isUnusualMarksNa"></p-checkbox>
+            </div>
+            <div class="space-right"> NA </div>
+          </div>
+          <div class="flex-container space-right space-down">
+            <div class="space-right"> Child’s appearance is healthy</div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isChildAppearanceYes" formControlName="isChildAppearanceYes" name="isChildAppearanceYes"></p-checkbox>
+            </div>
+            <div class="space-right"> Yes </div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isChildAppearanceNo" formControlName="isChildAppearanceNo" name="isChildAppearanceNo"></p-checkbox>
+            </div>
+            <div class="space-right"> No </div>
+            <div class="space-right">
+              <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isChildAppearanceNa" formControlName="isChildAppearanceNa" name="isChildAppearanceNa"></p-checkbox>
+            </div>
+            <div class="space-right"> NA </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>Additional Comments (explain any no answer to the above; any unusual marks/bruises; any comments made by child or caregiver;
+      observed interaction)</p>
+    <p class="bold">X. Next appointment: </p>
+    <div class="space-down">
+      <textarea [(ngModel)]="fpProgressNote.nextAppointment" formControlName="nextAppointment" name="nextAppointment" pInputTextarea
+        autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Plan for client until next appointment:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpProgressNote.planForClient" formControlName="planForClient" name="planForClient" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <input [(ngModel)]="fpProgressNote.therapistName" formControlName="therapistName" name="therapistName" type="text" pInputText
+            size="20" />
+        </div>
+        <div class="space-down">Therapist Name (print)</div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-right">
+          <input [(ngModel)]="fpProgressNote.therapistSignature" formControlName="therapistSignature" name="therapistSignature" type="text"
+            pInputText size="20" />
+        </div>
+        <div class="space-down">Therapist Signature</div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="fpProgressNote.therapistDate" formControlName="therapistDate" name="therapistDate" [inputStyle]="{'width':'170px'}"
+            class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date</div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpProgressNote.isCertified" formControlName="isCertified" name="isCertified" class="space-right"></p-checkbox>
+      </div>
+      <div class="space-right"> By checking this box, I certify that I have entered the information in this log and that, as of this date, it is true,
+        accurate and
+        <br> complete to the best of my knowledge, information and beliefs.</div>
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,fpProgressNote)" [editControll]="editControll" (edit)="editForm()"
+  (print)="printForm()" [isPrint]="isPrint" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>

@@ -1,0 +1,59 @@
+<app-form-header [title]="title" [status]="status" [subtitle]="subtitle" [breadcrumbs]="breadcrumbs"
+  [formstatus]="formStatus">
+</app-form-header>
+
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+
+<div class="counties-background">
+  <div class="counties-foreground">
+
+    <form autocomplete="off">
+      <div class="counties-head"
+        style="border:1px solid #ad9d9d; display:flex;flex-direction:row;justify-content: flex-start">
+        <div class="counties-head__container" style="display:flex;padding: 1rem 3rem 1rem 1rem;">
+          <div>
+            <p-checkbox binary="true"></p-checkbox>
+          </div>
+          <div>
+            County Director
+          </div>
+        </div>
+
+        <div class="counties-head__container" style="display:flex;padding: 1rem 3rem 1rem 1rem;">
+          <div>
+            <p-checkbox binary="true"></p-checkbox>
+          </div>
+          <div>
+            Receive Notice of Child's Location
+          </div>
+        </div>
+
+        <div class="counties-head__container" style="display:flex;padding: 1rem 3rem 1rem 1rem;">
+          <div class="note">
+            *** Note: Hold "CTRL" key to select multiple counties ***
+          </div>
+        </div>
+      </div>
+
+      <p-pickList class="pick-list-container" [source]="unassignedCounties" [target]="assignedCounties"
+        sourceHeader="Unassigned Counties" targetHeader="Assigned Counties" [responsive]="true" filterBy="countyName"
+        dragdrop="true" sourceFilterPlaceholder="Search by county" targetFilterPlaceholder="Search by county"
+        [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}">
+        <ng-template let-county pTemplate="item">
+          <div class="ui-helper-clearfix">
+            <div style="font-size:14px;margin:15px 5px 0 0">
+              {{county.countyName}}
+            </div>
+          </div>
+        </ng-template>
+      </p-pickList>
+
+
+    </form>
+    <app-form-footer (save)="formAction()" [discardTo]="discardTo"></app-form-footer>
+  </div>
+</div>

@@ -1,0 +1,135 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="requestForConsentForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        REQUEST FOR CONSENT
+        <br>TO ADOPT
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Child Name:</span>
+          <input [(ngModel)]="reRequestForConsent.ChildName" formControlName="ChildName" name="ChildName"  type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Family Name:</span>
+          <input [(ngModel)]="reRequestForConsent.FamilyName" formControlName="FamilyName" name="FamilyName"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p>
+      <b> 1. Description of the child and adoptive family’s adjustment to each other. Include any problems encountered and how
+        the family has responded.</b>
+
+    </p>
+    <p>A. Describe the child’s progress since placement:</p>
+    <div>
+      <textarea [(ngModel)]="reRequestForConsent.ChildProgress" formControlName="ChildProgress" name="ChildProgress"  pInputTextarea autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p>B. Describe the child’s preparation for finalization and understanding of the process (if the child has the cognitive
+      ability to comprehend the process).</p>
+    <div>
+      <textarea [(ngModel)]="reRequestForConsent.PreparationFinalization" formControlName="PreparationFinalization" name="PreparationFinalization"  pInputTextarea autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p>C. Describe any significant changes in the family’s life not previously documented.</p>
+    <div>
+      <textarea [(ngModel)]="reRequestForConsent.ChangesFamilyLife" formControlName="ChangesFamilyLife" name="ChangesFamilyLife"  pInputTextarea autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p>D. What services will the family need after finalization?</p>
+    <div>
+      <textarea [(ngModel)]="reRequestForConsent.Services" formControlName="Services" name="Services"  pInputTextarea autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p>
+      <b>2. Staffing team members participating in the decision to recommend adoption finalization.</b>
+    </p>
+    <p>
+      <b>Name/Relationship:</b>
+    </p>
+    <div class="margin-bottom-2rem">
+      <span>1.</span>
+      <span>
+        <input [(ngModel)]="reRequestForConsent.NameAndRelationship1" formControlName="NameAndRelationship1" name="NameAndRelationship1"  type="text" pInputText size="20" />
+      </span>
+    </div>
+    <div class="margin-bottom-2rem">
+      <span>2.</span>
+      <span>
+        <input [(ngModel)]="reRequestForConsent.NameAndRelationship2" formControlName="NameAndRelationship2" name="NameAndRelationship2"  type="text" pInputText size="20" />
+      </span>
+    </div>
+    <div class="margin-bottom-2rem">
+      <span>3.</span>
+      <span>
+        <input [(ngModel)]="reRequestForConsent.NameAndRelationship3" formControlName="NameAndRelationship3" name="NameAndRelationship3"  type="text" pInputText size="20" />
+      </span>
+    </div>
+    <div class="margin-bottom-2rem">
+      <span>4.</span>
+      <span>
+        <input [(ngModel)]="reRequestForConsent.NameAndRelationship4" formControlName="NameAndRelationship4" name="NameAndRelationship4"  type="text" pInputText size="20" />
+      </span>
+    </div>
+    <div class="margin-bottom-2rem">
+      <span>5.</span>
+      <span>
+        <input [(ngModel)]="reRequestForConsent.NameAndRelationship5" formControlName="NameAndRelationship5" name="NameAndRelationship5"  type="text" pInputText size="20" />
+      </span>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-3">
+        Case Manager Signature:
+      </div>
+      <div class="col-xs-4">
+        <input [(ngModel)]="reRequestForConsent.CaseManagerSignature" formControlName="CaseManagerSignature" name="CaseManagerSignature"  type="text" pInputText size="20" />
+      </div>
+      <div class="col-xs-1">
+        Date:
+      </div>
+      <div class="col-xs-4">
+        <p-calendar [(ngModel)]="reRequestForConsent.Date1" formControlName="Date1" name="Date1"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+          yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-3">
+        Supervisor Signature
+      </div>
+      <div class="col-xs-4">
+        <input [(ngModel)]="reRequestForConsent.SupervisorSignature" formControlName="SupervisorSignature" name="SupervisorSignature"  type="text" pInputText size="20" />
+      </div>
+      <div class="col-xs-1">
+        Date:
+      </div>
+      <div class="col-xs-4">
+        <p-calendar [(ngModel)]="reRequestForConsent.Date2" formControlName="Date2" name="Date2"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+          yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <b>
+      Routing: DCF Social Worker (original) File
+    </b>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,reRequestForConsent)" (edit)="editForm()" [editControll]="editControll" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

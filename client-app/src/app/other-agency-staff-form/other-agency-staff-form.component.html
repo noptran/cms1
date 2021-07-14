@@ -1,0 +1,246 @@
+<app-form-header [title]="title" [status]="status" [subtitle]="subtitle" [breadcrumbs]="breadcrumbs"
+  [formstatus]="formStatus"></app-form-header>
+
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+
+<div class="container-background">
+  <p-toast position="center"></p-toast>
+  <div class="container-foreground">
+    <div class="nav">
+      <div routerLink="/reports/otherAgencyStaff/details/providers">Providers</div>
+    </div>
+    <nav class="nav-fill">
+      <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link" *ngFor="let main of mainTabs;let i = index" [class.active]="sIndex  === i"
+          (click)="setIndex(i,$event)" data-toggle="tab" href="{{main.href}}" role="tab">{{main.label}}</a>
+      </div>
+    </nav>
+    <form [formGroup]="otherAgencyForm" disable="formDisableCntrl" class="sf-form">
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane margin-left-45 active in" id="nav-sec1" role="tabpanel" aria-labelledby="nav-general-tab">
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>First name </span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText formControlName="firstName" name="inputText"
+                [(ngModel)]="otherAgency.firstName" size="27" maxlength="25" />
+              <p-message severity="error"
+                [text]="otherAgencyForm.controls['firstName'].errors['required'] ? 'Field is required' : otherAgencyForm.controls['firstName'].errors['maxlength'] ? 'Must be longer than 6 characters' : ''"
+                *ngIf="!otherAgencyForm.controls['firstName'].valid&&otherAgencyForm.controls['firstName'].dirty">
+              </p-message>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Last name</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText formControlName="lastName" name="inputText"
+                [(ngModel)]="otherAgency.lastName" size="27" maxlength="25" />
+              <p-message severity="error"
+                [text]="otherAgencyForm.controls['lastName'].errors['required'] ? 'Field is required' : otherAgencyForm.controls['lastName'].errors['maxlength'] ? 'Must be longer than 6 characters' : ''"
+                *ngIf="!otherAgencyForm.controls['lastName'].valid&&otherAgencyForm.controls['lastName'].dirty">
+              </p-message>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Acronym</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputSwitch formControlName="acronym" name="inputtoggle" [(ngModel)]="otherAgency.acronym">
+              </p-inputSwitch>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>MI</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText formControlName="mi" name="inputText" [(ngModel)]="otherAgency.mi" size="27"
+                maxlength="2" />
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Suffix</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText formControlName="suffix" name="suffix" [(ngModel)]="otherAgency.suffix"
+                size="27" maxlength="3" />
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Con.ST</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="contract_StateID" [(ngModel)]="otherAgency.contract_StateID"
+                [suggestions]="metaData" (completeMethod)="getMetaData($event,'contractState')" [dropdown]="true"
+                [forceSelection]="true" field="abbreviation" size="23"></p-autoComplete>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Gender</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="genderID" name="genderID" [(ngModel)]="otherAgency.genderID"
+                [suggestions]="metaData" (completeMethod)="getMetaData($event,'gender')" [dropdown]="true"
+                [forceSelection]="true" class="low-option-autos" field="gender" size="23"></p-autoComplete>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Deceased</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <!-- <p-autoComplete formControlName="" [(ngModel)]="" [suggestions]="metaData" (completeMethod)="getMetaData($event,'con_st')"
+                    [dropdown]="true" [forceSelection]="true" field="" size="23"></p-autoComplete> -->
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Race</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="raceID" [(ngModel)]="otherAgency.raceID" [suggestions]="metaData"
+                (completeMethod)="getMetaData($event,'race')" [dropdown]="true" [forceSelection]="true" field="race"
+                size="23"></p-autoComplete>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Ethnicity</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="ethnicityID" [(ngModel)]="otherAgency.ethnicityID"
+                [suggestions]="metaData" (completeMethod)="getMetaData($event,'ethnicity')" [dropdown]="true"
+                [forceSelection]="true" field="ethnicity" size="23"></p-autoComplete>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Tribe</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="tribeID" [(ngModel)]="otherAgency.tribeID" [suggestions]="metaData"
+                (completeMethod)="getMetaData($event,'tribe')" [dropdown]="true" [forceSelection]="true" field="tribe"
+                size="23"></p-autoComplete>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Email address</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText formControlName="email" name="email" [(ngModel)]="otherAgency.email"
+                size="27" maxlength="75" />
+            </div>
+
+          </div>
+        </div>
+
+        <div class="tab-pane margin-left-45" id="nav-sec2" role="tabpanel" aria-labelledby="nav-general-tab">
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Cell phone</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputMask mask="(999) 999-9999" formControlName="cellPh" name="cellPh"
+                [(ngModel)]="otherAgency.cellPh"></p-inputMask>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Pager</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputMask mask="(999) 999-9999" formControlName="pager" name="pager" [(ngModel)]="otherAgency.pager">
+              </p-inputMask>
+            </div>
+
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">Home phone</div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputMask mask="(999) 999-9999" formControlName="homePh" name="homePh"
+                [(ngModel)]="otherAgency.homePh"></p-inputMask>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Notes</span>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea formControlName="notes" name="notes" [(ngModel)]="otherAgency.notes" rows="5"
+                cols="80"></textarea>
+            </div>
+          </div>
+
+          <!-- <div class="margin-top-20 row">
+              <div class="col-lg-3 col-md-3 col-sm-3"><span>Ext</span></div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText formControlName="ext" name="ext" [(ngModel)]="otherAgency.ext" size="27" maxlength="5">
+              </div>
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Address</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText formControlName="address" name="inputText" [(ngModel)]="otherAgency.address" size="27" maxlength="75"
+              />
+            </div>
+            
+          </div> -->
+          <!-- <div class="margin-top-20 row">
+              <div class="col-lg-3 col-md-3 col-sm-3"><span>Unknown</span></div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-inputSwitch  formControlName="" name="inputtoggle" [(ngModel)]="checked"></p-inputSwitch>
+              </div>
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>State</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+
+              <p-autoComplete formControlName="stateID" [(ngModel)]="otherAgency.stateID" [suggestions]="metaData" (completeMethod)="getMetaData($event,'state')"
+                [dropdown]="true" [forceSelection]="true" field="state" size="23" (onSelect)="generateCityFromSelectedSatate($event)"></p-autoComplete>
+
+            </div>
+          </div> -->
+          <!-- <div class="margin-top-20 row">
+              <div class="col-lg-3 col-md-3 col-sm-3"><span>City</span><span class="mandatory">*</span></div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete formControlName="cityID" [(ngModel)]="otherAgency.cityID" [suggestions]="filteredCities" (completeMethod)="getMetaData($event,'city')"
+                  [dropdown]="true" [forceSelection]="true" field="city" size="23" (onSelect)="selectedCity($event)"></p-autoComplete>
+                <p-message severity="error" [text]="otherAgencyForm.controls['cityID'].errors['required'] ? 'Field is required' : otherAgencyForm.controls['city'].errors['maxlength'] ? 'Must be longer than 6 characters' : ''"
+                  *ngIf="!otherAgencyForm.controls['cityID'].valid&&otherAgencyForm.controls['cityID'].dirty"></p-message>
+              </div>
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Zip</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText  formControlName="zipcode" name="inputText" [(ngModel)]="otherAgency.zipcode" size="27"/>
+
+              <p-autoComplete formControlName="zipcodeID" [(ngModel)]="otherAgency.zipcodeID" [suggestions]="filteredZipcodes" (completeMethod)="getMetaData($event,'zipcode')"
+                [dropdown]="true" [forceSelection]="true" field="zipcode" size="23"></p-autoComplete>
+
+            </div>
+          </div> -->
+        </div>
+        <!-- <div class="tab-pane margin-left-45" id="nav-sec3" role="tabpanel" aria-labelledby="nav-general-tab">
+          <div class="margin-top-20 row">
+              <div class="col-lg-3 col-md-3 col-sm-3"><span>County</span></div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete formControlName="countyID" [(ngModel)]="otherAgency.countyID" [suggestions]="filteredCounties" (completeMethod)="getMetaData($event,'county')"
+                  [dropdown]="true" [forceSelection]="true" field="countyName" size="23"></p-autoComplete>
+              </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Notes</span>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea formControlName="notes" name="notes" [(ngModel)]="otherAgency.notes" rows="5" cols="80"></textarea>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </form>
+    <div class="tab-footer">
+      <div>
+        <button class="sf-positive-btn margin-left-0" *ngIf="sIndex !== 0" (click)="goPrevious()"><i
+            class="fa fa-angle-double-left"></i> Previous</button>
+      </div>
+      <div class="push">
+        <button class="sf-positive-btn margin-left-0" *ngIf="sIndex !== mainTabs.length - 1" (click)="goNext()">Next <i
+            class="fa fa-angle-double-right"></i></button>
+      </div>
+    </div>
+    <app-form-footer (save)="save(otherAgency)" [discardTo]="discardTo" (edit)="update()" [editControll]="editBtnCntrl"
+      [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+  </div>
+</div>

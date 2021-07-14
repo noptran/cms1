@@ -1,0 +1,1100 @@
+<!-- isPopWindow -->
+<!-- Family Change List View Order -->
+
+<p-dialog *ngIf="isFCHAdmin" (onHide)="closeRSPrompt()" [(visible)]="showResourceSupervisorListView"
+  header="Family Change Resource Supervisor List" [maximizable]="true" [contentStyle]="{'width': '100vw'}">
+  <button class="sf-positive-btn pull-right new-record-button" (click)="isPopWindow=true">
+    <span>Add new record</span>
+  </button>
+  <br>
+  <br>
+  <h3 class="text-center" *ngIf="isPlesWait"><b>Please Wait...</b></h3>
+  <div class="sf-text-right sf-table-header sf-black" *ngIf="totalCount > 0">
+    <app-pagesize *ngIf="totalCount" [totalCount]="totalCount" [initial]="initial" [end]="end"
+      (keyup)="pagesizeNavResourceSupervisor($event)" (click)="pagesizeResourceSupervisor($event)"></app-pagesize>
+  </div>
+  <br>
+  <ag-grid-angular [gridOptions]="gridOptionsResourceSupervisorList" style="width: 500px; height: 500px;"
+    class="ag-theme-balham" [rowData]="rowData" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef"
+    [enableSorting]="true" [rowDragManaged]="true" [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid
+    style="width: 100%;height: 68vh;" animateRows="true" rowSelection="multiple" (cellClicked)='onRowSelectedRS($event)'>
+  </ag-grid-angular>
+
+</p-dialog>
+
+<p-dialog (onHide)="closeRWFCHPrompt()" [(visible)]="showResourceWorkerFCHListView"
+  header="Family Change Resource Workers List" [maximizable]="true" [contentStyle]="{'width': '100vw'}">
+  <button class="sf-positive-btn pull-right new-record-button" (click)="isPopWindow=true">
+    <span>Add new record</span>
+  </button>
+  <br>
+  <br>
+  <h3 class="text-center" *ngIf="isPlesWait"><b>Please Wait...</b></h3>
+  <div class="sf-text-right sf-table-header sf-black" *ngIf="totalCount > 0">
+    <app-pagesize *ngIf="totalCount" [totalCount]="totalCount" [initial]="initial" [end]="end"
+      (keyup)="pagesizeNav($event)" (click)="pagesize($event)"></app-pagesize>
+  </div>
+  <br>
+  <ag-grid-angular [gridOptions]="gridOptionsChangesList" style="width: 500px; height: 500px;"
+    class="ag-theme-balham" [rowData]="rowDataResourceSupervisor" [columnDefs]="columnDefsResourceSupervisor" [defaultColDef]="defaultColDef"
+    [enableSorting]="true" [rowDragManaged]="true" [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid
+    style="width: 100%;height: 68vh;" animateRows="true" rowSelection="multiple" (cellClicked)='onRowSelected($event)'>
+  </ag-grid-angular>
+
+</p-dialog>
+
+
+<p-dialog (onHide)="closeRWPrompt()" [(visible)]="showResourceWorkerListView"
+  header="Family Change Resource Worker List" [maximizable]="true" [contentStyle]="{'width': '100vw'}">
+  <button class="sf-positive-btn pull-right new-record-button" (click)="isPopWindow=true">
+    <span>Add new record</span>
+  </button>
+  <br>
+  <br>
+  <h3 class="text-center" *ngIf="isPlesWait"><b>Please Wait...</b></h3>
+  <div class="sf-text-right sf-table-header sf-black" *ngIf="totalCount > 0">
+    <app-pagesize *ngIf="totalCount" [totalCount]="totalCount" [initial]="initial" [end]="end"
+      (keyup)="pagesizeNav($event)" (click)="pagesize($event)"></app-pagesize>
+  </div>
+  <br>
+  <ag-grid-angular [gridOptions]="gridOptionsResourcWorkerList" style="width: 500px; height: 500px;"
+    class="ag-theme-balham" [rowData]="rowData" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef"
+    [enableSorting]="true" [rowDragManaged]="true" [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid
+    style="width: 100%;height: 68vh;" animateRows="true" rowSelection="multiple" (cellClicked)='onRowSelected($event)'>
+  </ag-grid-angular>
+
+</p-dialog>
+
+<!-- Resource Home List View -->
+<p-dialog (onHide)="closeRHPrompt()" [(visible)]="showResourceHomeListView" header="Resource Home List"
+  [maximizable]="true" [contentStyle]="{'width': '100vw'}">
+  <button class="sf-positive-btn pull-right new-record-button" (click)="isPopWindow=true">
+    <span>Add new record</span>
+  </button>
+  <br>
+  <br>
+  <h3 class="text-center" *ngIf="isPlesWait"><b>Please Wait...</b></h3>
+  <div class="sf-text-right sf-table-header sf-black" *ngIf="totalCountResourceHome > 0">
+    <app-pagesize *ngIf="totalCountResourceHome" [totalCount]="totalCountResourceHome" [initial]="initialResourceHome"
+      [end]="endResourceHome" (keyup)="pagesizeNavResourceHome($event)" (click)="pagesizeResourceHome($event)">
+    </app-pagesize>
+  </div>
+  <br>
+  <ag-grid-angular [gridOptions]="gridOptionsResourceHomeList" style="width: 500px; height: 500px;"
+    class="ag-theme-balham" [rowData]="rowDataResourceHome" [columnDefs]="columnDefsResourceHome"
+    [defaultColDef]="defaultColDefResourceHome" [enableSorting]="true" [rowDragManaged]="true"
+    [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid style="width: 100%;height: 68vh;"
+    animateRows="true" rowSelection="multiple" (cellClicked)='onRHRowSelected($event)'>
+  </ag-grid-angular>
+
+</p-dialog>
+
+<p-dialog (onHide)="closeRHPrompt()" [(visible)]="showResourceHomeLisSpecialistView" header="Resource Home List"
+  [maximizable]="true" [contentStyle]="{'width': '100vw'}">
+  <button class="sf-positive-btn pull-right new-record-button" (click)="isPopWindow=true">
+    <span>Add new record</span>
+  </button>
+  <br>
+  <br>
+  <h3 class="text-center" *ngIf="isPlesWait"><b>Please Wait...</b></h3>
+  <div class="sf-text-right sf-table-header sf-black" *ngIf="totalCountResourceHome > 0">
+    <app-pagesize *ngIf="totalCount" [totalCount]="totalCount" [initial]="initial" [end]="end"
+    (keyup)="pagesizeNav($event)" (click)="pagesize($event)"></app-pagesize>
+</div>
+<br>
+<ag-grid-angular [gridOptions]="gridOptionsResourcWorkerList" style="width: 500px; height: 500px;"
+  class="ag-theme-balham" [rowData]="rowData" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef"
+  [enableSorting]="true" [rowDragManaged]="true" [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid
+  style="width: 100%;height: 68vh;" animateRows="true" rowSelection="multiple" (cellClicked)='onRHRowSelected($event)'>
+</ag-grid-angular>
+
+</p-dialog>
+
+
+<!-- Resource Home List View -->
+<p-dialog (onHide)="closeWorkerPrompt()" [(visible)]="showWorkerListView" header="Changes List" [maximizable]="true"
+  [contentStyle]="{'width': '100vw'}">
+  <br>
+  <br>
+  <h3 class="text-center" *ngIf="isPlesWait"><b>Please Wait...</b></h3>
+  <div class="sf-text-right sf-table-header sf-black" *ngIf="totalCountChanges > 0">
+    <app-pagesize *ngIf="totalCountChanges" [totalCount]="totalCountChanges" [initial]="initialChanges"
+      [end]="endChanges" (keyup)="pagesizeNavChanges($event)" (click)="pagesizeChanges($event)"></app-pagesize>
+  </div>
+  <br>
+  <ag-grid-angular [gridOptions]="gridOptionsChangesList" style="width: 500px; height: 500px;" class="ag-theme-balham"
+    [rowData]="rowDataChanges" [columnDefs]="columnDefsChanges" [defaultColDef]="defaultColDefChanges"
+    [enableSorting]="true" [rowDragManaged]="true" [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid
+    style="width: 100%;height: 68vh;" animateRows="true" rowSelection="multiple"
+    (cellClicked)='onChangesRowSelected($event)'>
+  </ag-grid-angular>
+
+</p-dialog>
+
+<p-dialog [closable]="true" (onHide)="closeFormPrompt()" [(visible)]="isPopWindow" header="Family Change"
+  [maximizable]="true" [contentStyle]="{'width': '100vw'}">
+  <!-- <button class="sf-positive-btn pull-right new-record-button" (click)="onRHPromptClose()">
+    <span>Close Window</span>
+  </button> -->
+  <br>
+  <br>
+  <p-toast position="center"></p-toast>
+  <div class="row sf-form" style="height: 10vh;">
+    <div style="display: flex;
+        justify-content: space-between;
+        width: 45%;">
+      <div><span>Resource Worker</span></div>
+      <div>
+        <p-autoComplete (onSelect)="onSelectWeek()" name="resourceWorker" [(ngModel)]="selectedResourceWorker"
+          [dropdown]="true" (completeMethod)="filterReosourceWorks($event)" [suggestions]="metaData"
+          field="resourceWorker">
+        </p-autoComplete>
+      </div>
+      <div><span>Week</span></div>
+      <div>
+        <p-autoComplete name="weeklyDateRange" [(ngModel)]="selectedWeeks" [dropdown]="true"
+          (completeMethod)="filterWeekList($event)" [suggestions]="metaData" field="weeklyDateRange"
+          (onSelect)="onSelectWeek()">
+        </p-autoComplete>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="providerGrid.length >0">
+    <table class="provider-grid" style="width: 100%;">
+      <tr>
+        <td><span>Provider Name:</span></td>
+        <td>{{selectedProviderProfile?.providerName}}</td>
+        <td><span>Provider Type:</span></td>
+        <td>{{selectedProviderProfile?.providerType}}</td>
+        <td><span>FCH Office:</span></td>
+        <td>{{selectedProviderProfile?.fchOffice}}</td>
+      </tr>
+      <tr>
+        <td><span>Phone:</span></td>
+        <td>{{selectedProviderProfile?.phone}}</td>
+        <td><span>Sponsor:</span></td>
+        <td>{{selectedProviderProfile?.sponsorName}}</td>
+        <td><span>Status:</span></td>
+        <td>{{selectedProviderProfile?.providerStatusType}}</td>
+        <!-- <td>{{showMoreProfileData?.clientProfile[0]?.Suffix}}</td> -->
+      </tr>
+      <tr>
+        <td><span>Tax No</span></td>
+        <td>{{selectedProviderProfile?.fedTaxNo}}</td>
+        <td><span>SFM Assigned Staff:</span></td>
+        <td>{{selectedProviderProfile?.sfcsAssignedStaff}}</td>
+        <td><span>Vendor ID</span></td>
+        <td>{{selectedProviderProfile?.venderID}}</td>
+      </tr>
+      <tr>
+        <td><span>IS SFM Employee</span></td>
+        <td [innerHTML]="booleanValueCheck(selectedProviderProfile.isEmployee)"></td>
+        <td><span>IS a Sponsor</span></td>
+        <td [innerHTML]="booleanValueCheck(selectedProviderProfile.isSponsor)"></td>
+        <td><span>SM</span></td>
+        <td [innerHTML]="booleanValueCheck(selectedProviderProfile.paySemiMonthly)"></td>
+      </tr>
+      <tr>
+        <td><span>FM</span></td>
+        <td [innerHTML]="booleanValueCheck(selectedProviderProfile.isFamilyMatters)"></td>
+      </tr>
+    </table>
+  </div>
+  <div class="consolidated-view" *ngIf="providerGrid.length >0" style="height: 35vh;overflow: hidden">
+    <div *ngIf="providerGrid.length >0" style="width: 60%; height: 35vh;
+            overflow-y: scroll">
+      <table class="provider-grid" style="width: 100%;">
+        <th>Provider Name</th>
+        <th>No Change</th>
+        <th>Change</th>
+        <tr [ngClass]="{'row-selected': selectedProviderIDFromGrid == provider.providerID}"
+          *ngFor="let provider of providerGrid; let i = index;" (click)="onProviderGridRowClick(provider)">
+          <td>{{provider.providerName}}</td>
+          <td>
+            <span style='font-size:18px;' *ngIf="!provider.noChange">&#9744;</span>
+            <span style='font-size:18px;' *ngIf="provider.noChange">&#9745;</span>
+          </td>
+          <td>
+            <span style='font-size:18px;' *ngIf="!provider.change">&#9744;</span>
+            <span style='font-size:18px;' *ngIf="provider.change">&#9745;</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div *ngIf="providerGrid.length >0" style="margin: 40px;">
+      <p><b>Change Reason:</b></p>
+      <table class="provider-grid" style="width: 100%;">
+        <tr>
+          <td>
+            <p-checkbox [(ngModel)]="changeReasonCheckboxes.isProviderType" label="Provider Type" binary="true"
+              value="1" (onChange)="onSelectChangeReason($event,1)">
+            </p-checkbox>
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="changeReasonCheckboxes.isPreferredCapacity" label="Preferred Capacity"
+              binary="true" value="2" (onChange)="onSelectChangeReason($event,2)">
+            </p-checkbox>
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="changeReasonCheckboxes.isPreferredGender" label="Preferred Gender" binary="true"
+              value="3" (onChange)="onSelectChangeReason($event,3)">
+            </p-checkbox>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p-checkbox [(ngModel)]="changeReasonCheckboxes.isLevelOfCare" label="Level Of Care" binary="true"
+              (onChange)="onSelectCR($event,3)">
+            </p-checkbox>
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="changeReasonCheckboxes.isPreferredAge" label="Preferred Age" binary="true"
+              (onChange)="onSelectCR($event,0)">
+            </p-checkbox>
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="changeReasonCheckboxes.isPreferredDCH" label="Preferred Day Care Hours"
+              binary="true" (onChange)="onSelectCR($event,1)"></p-checkbox>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p-checkbox [(ngModel)]="changeReasonCheckboxes.isProviderStatus" label="Provider Status" binary="true"
+              (onChange)="onSelectCR($event,2)"></p-checkbox>
+          </td>
+          <td>
+            <p-checkbox [(ngModel)]="changeReasonCheckboxes.isPreferredRace" label="Preferred Race" binary="true"
+              (onChange)="onSelectCR($event,4)"></p-checkbox>
+          </td>
+          <td>
+            <!-- (onChange)="onSelectCR($event,5)" -->
+            <p-checkbox [(ngModel)]="changeReasonCheckboxes.isDailyChange" label="Daily Change" binary="true"
+              (onChange)="onSelectCR($event,5)"></p-checkbox>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+  <div style="border-bottom: 1px solid #444444;padding: 3px;text-align: center;" *ngIf="providerGrid.length >0">
+    <span><b>No Change:</b></span>
+    <span style="margin-left: 5px;font-size: 18px;">{{providerGridNoChanges}}</span>
+    <span style="margin-left: 5px;"><b>Change:</b></span>
+    <span style="margin-left: 5px;font-size: 18px;">{{providerGridChanges}}</span>
+  </div>
+  <div *ngIf="isChanges" class="sf-form">
+    <p><b>Change Reason:</b></p>
+
+
+
+    <div style="text-align: right;margin: 5px;" *ngIf="isProviderTypeChange">
+      <button (click)="onClickAdd('providerType')" class="sf-positive-btn">Add</button>
+    </div>
+    <div id="providerType" *ngIf="isProviderTypeChange" style="height: 35vh;
+        overflow-y: scroll;
+        overflow-x: hidden;">
+      <p><b>Provider Type</b>:</p>
+      <table style="width: 100%;" *ngIf="listOfProviderTypeChanges && listOfProviderTypeChanges.length > 0"
+        class="provider-grid">
+        <tr>
+          <th>Provider Name</th>
+          <th>Provider Type</th>
+          <th>Current Value</th>
+          <th>Status</th>
+          <th>Notes</th>
+          <th style="width: 5%;">Action</th>
+        </tr>
+        <tbody>
+          <tr *ngFor="let providerType of listOfProviderTypeChanges; let i = index">
+            <td>{{selectedProviderNameFromGrid}}</td>
+            <td>{{providerType?.providerType?.providerType}}</td>
+            <td>{{providerType?.currentValue}}</td>
+            <td>{{providerType?.status}}</td>
+            <td>{{providerType?.notes}}</td>
+            <td>
+              <div style="display: flex;align-items: center;justify-content: space-between;">
+                <span style="cursor: pointer;font-size: 18px;" class="fa fa-edit"
+                  (click)="onClickEdit('providerType',providerType, i)"></span>
+
+                <span style="cursor: pointer;font-size: 18px;color: red;" class="fa fa-trash"
+                  (click)="onClickDelete('providerType',i)"></span>
+              </div>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="listOfProviderTypeChanges && listOfProviderTypeChanges.length === 0">
+        <p class="text-center"><b>No provider type change reason records found!</b></p>
+      </div>
+    </div>
+
+    <div style="text-align: right;margin: 5px;" *ngIf="isPreferredCapacityChange">
+      <button (click)="onClickAdd('preferredCapacity')" class="sf-positive-btn">Add</button>
+    </div>
+    <div id="preferredCapacity" *ngIf="isPreferredCapacityChange" style="height: 35vh;
+        overflow-y: scroll;
+        overflow-x: hidden;">
+      <p><b>Preferred Capacity</b>:</p>
+      <table style="width: 100%;" *ngIf="listOfPreferredCapacity && listOfPreferredCapacity.length > 0"
+        class="provider-grid">
+        <th>Provider Name</th>
+        <th>Preferred Capacity</th>
+        <th>Current Value</th>
+        <th>Status</th>
+        <th>Notes</th>
+        <th style="width: 5%;">Actions</th>
+        <tr *ngFor="let preferred of listOfPreferredCapacity; let i = index">
+          <td>{{selectedProviderNameFromGrid}}</td>
+          <td>{{preferred?.preferredCapacity}}</td>
+          <td>{{preferred?.currentValue}}</td>
+          <td>{{preferred?.status}}</td>
+          <td>{{preferred?.notes}}</td>
+          <td>
+            <div style="display: flex;align-items: center;justify-content: space-between;">
+              <span style="cursor: pointer;font-size: 18px;" class="fa fa-edit"
+                (click)="onClickEdit('preferredCapacity',preferred, i)"></span>
+
+              <span style="cursor: pointer;font-size: 18px;color: red;" class="fa fa-trash"
+                (click)="onClickDelete('preferredCapacity',i)"></span>
+            </div>
+
+          </td>
+        </tr>
+      </table>
+      <div *ngIf="listOfPreferredCapacity && listOfPreferredCapacity.length === 0">
+        <p class="text-center"><b>No preferred capacity records found!</b></p>
+      </div>
+    </div>
+
+    <div style="text-align: right;margin: 5px;" *ngIf="ispreferredGenderChange">
+      <button (click)="onClickAdd('preferredGender')" class="sf-positive-btn">Add</button>
+    </div>
+    <div id="preferredGender" *ngIf="ispreferredGenderChange" style="height: 35vh;
+        overflow-y: scroll;
+        overflow-x: hidden;">
+      <p><b>Preferred Gender</b>:</p>
+      <table style="width: 100%;" *ngIf="listOfPreferredGender && listOfPreferredGender.length > 0"
+        class="provider-grid">
+        <th>Provider Name</th>
+        <th>Preferred Gender</th>
+        <th>Current Value</th>
+        <th>Status</th>
+        <th>Notes</th>
+        <th style="width: 5%;">Actions</th>
+        <tr *ngFor="let preferredGender of listOfPreferredGender; let i = index">
+          <td>{{selectedProviderNameFromGrid}}</td>
+          <!-- <td>{{preferredGender?.preferredGenderID}}</td> -->
+          <td>{{preferredGender?.preferredGender?.genderGroup}}</td>
+
+          <td>{{preferredGender?.currentValue}}</td>
+          <td>{{preferredGender?.status}}</td>
+          <td>{{preferredGender?.notes}}</td>
+          <td>
+            <div style="display: flex;align-items: center;justify-content: space-between;">
+              <span style="cursor: pointer;font-size: 18px;" class="fa fa-edit"
+                (click)="onClickEdit('preferredGender',preferredGender, i)"></span>
+
+              <span style="cursor: pointer;font-size: 18px;color: red;" class="fa fa-trash"
+                (click)="onClickDelete('preferredGender',i)"></span>
+            </div>
+
+          </td>
+        </tr>
+      </table>
+      <div *ngIf="listOfPreferredGender && listOfPreferredGender.length === 0">
+        <p class="text-center"><b>No preferred gender records found!</b></p>
+      </div>
+    </div>
+
+    <div id="levelOfCare" *ngIf="isLevelOfCareChange">
+      <table style="width: 100%;" *ngIf="listOfLevelOfCare.length > 0">
+        <tr>
+          <th>Level Of Care</th>
+          <th>Current Value</th>
+          <th>Status</th>
+          <th>Notes</th>
+      </table>
+      <div>
+        <button (click)="isLevelOfCareForm	= !isLevelOfCareForm">
+          <span *ngIf="!isLevelOfCareForm">+ Open level of care</span>
+          <span *ngIf="isLevelOfCareForm">- Close level of care</span>
+        </button>
+      </div>
+      <div *ngIf="isLevelOfCareForm">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Level Of Care</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Current Value</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Status</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea name="providerTypeTextArea" style="width: 100%; height: 100%;"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="preferredAge" *ngIf="isPreferredAgeChange">
+      <table style="width: 100%;" *ngIf="listOfPreferredAge.length > 0">
+        <tr>
+          <th>Youngest</th>
+          <th>Oldest</th>
+          <th>Age Is Flexible</th>
+          <th>Current Value</th>
+          <th>Status</th>
+          <th>Notes</th>
+      </table>
+      <div>
+        <button (click)="isPreferredAge	= !isPreferredAge">
+          <span *ngIf="!isPreferredAge">+ Open preferred age</span>
+          <span *ngIf="isPreferredAge">- Close preferred age</span>
+        </button>
+      </div>
+      <div *ngIf="isPreferredAge">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Youngest</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Oldest</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Age Is Flexible</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Current Value</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Status</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea name="providerTypeTextArea" style="width: 100%; height: 100%;"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="preferredDayCareHours" *ngIf="isPreferredDayCareHoursChange">
+      <table style="width: 100%;" *ngIf="listOfDayCareHours.length > 0">
+        <tr>
+          <th>Day Care Hours</th>
+          <th>Current Value</th>
+          <th>Status</th>
+          <th>Notes</th>
+      </table>
+      <div>
+        <button (click)="isDayCareHours	= !isDayCareHours">
+          <span *ngIf="!isDayCareHours">+ Open day care hours</span>
+          <span *ngIf="isDayCareHours">- Close day care hours</span>
+        </button>
+      </div>
+      <div *ngIf="isDayCareHours">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Day Care Hours</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Current Value</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Status</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea name="providerTypeTextArea" style="width: 100%; height: 100%;"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="providerStatus" *ngIf="isProviderStatusChange">
+      <table style="width: 100%;" *ngIf="listOfProviderStatus.length > 0">
+        <tr>
+          <th>Provider Status</th>
+          <th>Current Value</th>
+          <th>Status</th>
+          <th>Begin Date</th>
+          <th>End Date</th>
+          <th>Reason On Hold</th>
+          <th>Notes</th>
+      </table>
+      <div>
+        <button (click)="isProviderStatus	= !isProviderStatus">
+          <span *ngIf="!isProviderStatus">+ Open provider status</span>
+          <span *ngIf="isProviderStatus">- Close provider status</span>
+        </button>
+      </div>
+      <div *ngIf="isProviderStatus">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Provider Status</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Current Value</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Status</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Reason On Hold</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea name="providerTypeTextArea" style="width: 100%; height: 100%;"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="preferredRace" *ngIf="ispreferredRaceChange">
+      <table style="width: 100%;" *ngIf="listOfPreferredRace.length > 0">
+        <tr>
+          <th>Preferred Race</th>
+          <th>Current Value</th>
+          <th>Status</th>
+          <th>Notes</th>
+      </table>
+      <div>
+        <button (click)="isPreferredRaceForm	= !isPreferredRaceForm">
+          <span *ngIf="!isPreferredRaceForm">+ Open preferred gender</span>
+          <span *ngIf="isPreferredRaceForm">- Close preferred gender</span>
+        </button>
+      </div>
+      <div *ngIf="isPreferredRaceForm">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Preferred Race</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Current Value</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Status</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea name="providerTypeTextArea" style="width: 100%; height: 100%;"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="daiyChange" *ngIf="isDailyChange">
+      <table style="width: 100%;" *ngIf="listOfDailyChange.length > 0">
+        <tr>
+          <th>Daily Change</th>
+          <th>Status</th>
+          <th>Begin Date</th>
+          <th>End Date</th>
+          <th>Notes</th>
+      </table>
+      <div>
+        <button (click)="isDailyChange	= !isDailyChange">
+          <span *ngIf="!isDailyChange">+ Open daily change</span>
+          <span *ngIf="isDailyChange">- Close daily change</span>
+        </button>
+      </div>
+      <div *ngIf="isDailyChange">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Daily Change</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Status</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea name="providerTypeTextArea" style="width: 100%; height: 100%;"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- -------------------------------------- -->
+    <div *ngFor="let changeReason of constants.constants.changeReasons; let i = index">
+      <div style="text-align: right;margin: 5px;" *ngIf="changeReason.isVisible">
+        <button (click)="onCrAdd(changeReason.index)" class="sf-positive-btn">Add</button>
+      </div>
+      <!-- id="providerType"  -->
+      <div *ngIf="changeReason.isVisible" style="height: 35vh;
+      overflow-y: scroll;
+      overflow-x: hidden;">
+        <p><b>{{changeReason.header}}</b>:</p>
+        <table style="width: 100%;" *ngIf="changeReason.list.length > 0" class="provider-grid">
+          <tr>
+            <th *ngFor="let tableHeader of changeReason.tableHeaders">{{tableHeader.name}}</th>
+            <th style="width: 5%;">Action</th>
+          </tr>
+          <tbody>
+            <tr *ngFor="let crList of changeReason.list; let tableRowIndex = index">
+              <td *ngFor="let tableHeader of changeReason.tableHeaders">
+                <span *ngIf="tableHeader.isDoubleKey && crList[tableHeader.key]">
+
+                  <span [ngSwitch]="tableHeader.key">
+                    <span *ngSwitchCase="'levelOfCare'">
+                      <!-- [tableHeader.secondaryKey] -->
+                      <span *ngFor="let levelKey of crList[tableHeader.key]">
+                        {{levelKey[tableHeader.secondaryKey]}},
+                      </span>
+                    </span>
+
+                    <span *ngSwitchDefault>{{crList[tableHeader.key][tableHeader.secondaryKey]}}</span>
+                  </span>
+                </span>
+                <span *ngIf="!tableHeader.isDoubleKey">
+                  <span
+                    *ngIf="(changeReason.name=='DAILY_CHANGE' || changeReason.name=='PROVIDER_STATUS') && tableHeader.key.includes('Date');else other_content">
+                    {{crList[tableHeader.key] | date: 'dd/MM/yyyy'}}
+                  </span>
+                  <ng-template #other_content>
+                    {{crList[tableHeader.key]}}
+                  </ng-template>
+                </span>
+
+              </td>
+
+              <td>
+                <div style="display: flex;align-items: center;justify-content: space-between;">
+                  <span style="cursor: pointer;font-size: 18px;" class="fa fa-edit"
+                    (click)="onCRClickEdit(changeReason.index,crList, tableRowIndex)"></span>
+
+                  <span style="cursor: pointer;font-size: 18px;color: red;" class="fa fa-trash"
+                    (click)="onCRDelete(changeReason.index,tableRowIndex)"></span>
+                </div>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="changeReason.list.length === 0">
+          <p class="text-center"><b>No {{changeReason.noRecordLabel}} change reason records found!</b></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pop Up--------------------------------------- -->
+    <p-dialog (onHide)="onCRModelClose()" [(visible)]="isCRPopUpVisible" header="{{selectedCR?.popUpHeader}}"
+      [maximizable]="false" [contentStyle]="{'width': '100vw'}">
+      <div class="sf-form">
+        <!--  -->
+        <div *ngFor="let data of crUiData" class="col-lg-6 col-md-6 col-sm-6 card-container">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>{{data.label}}
+            </span>
+            <span *ngIf="data.isMandatory" class="mandatory">*</span>
+          </div>
+          <!-- accessRights -->
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [ngClass]="{'multipleSelection':data.dropdownAPI.isMultipleSelection}"
+              [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" class="p-autocomplete"
+              [multiple]="data.dropdownAPI.isMultipleSelection" field="{{data.dropdownAPI.fieldName}}"
+              [(ngModel)]="crModel[data.key]" *ngIf="data.fieldType=='DROPDOWN'" [dropdown]="true"
+              emptyMessage="No results found!" [suggestions]="metaData"
+              (completeMethod)="getDropdownMetaData($event,data.dropdownAPI)" [forceSelection]="true"
+              placeholder="Type here to search" size="23">
+            </p-autoComplete>
+
+            <p-checkbox *ngIf="data.fieldType=='CHECKBOX'" binary="true" [(ngModel)]="crModel[data.key]">
+            </p-checkbox>
+
+            <input [disabled]="data.isDisabled" type="{{data.inputType}}" pInputText *ngIf="data.fieldType=='INPUT_BOX'"
+              [(ngModel)]="crModel[data.key]">
+
+            <textarea [(ngModel)]="crModel[data.key]" *ngIf="data.fieldType=='TEXT_AREA'" pInputTextArea
+              style="width:50rem;height:100%"></textarea>
+
+            <p-calendar [(ngModel)]="crModel[data.key]" *ngIf="data.fieldType=='DATE_PICKER'" [showIcon]="true"
+              [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
+            </p-calendar>
+          </div>
+        </div>
+        <!--  -->
+
+        <div class="subform-footer-cr">
+          <button class="sf-negative-btn" (click)="cancelPopUp()">Cancel</button>
+          <button class="sf-positive-btn" (click)="crSave(selectedCR.index)">Save</button>
+        </div>
+      </div>
+    </p-dialog>
+    <!--  ---------------------------------------------->
+
+  </div>
+  <p-footer>
+    <div style="display: flex;justify-content: space-between;">
+      <div>
+        <button (click)="onSave()" class="sf-positive-btn" style="width: max-content;">Complete changes</button>
+        <button class="sf-positive-btn" (click)="getCurrentValues()" [disabled]="isCurrentValuesDisable">Current
+          value</button>
+      </div>
+      <div>
+        <button class="sf-negative-btn" (click)="onClickExit()">Exit</button>
+        <button class="sf-positive-btn" (click)="onSave()">Save</button>
+      </div>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<p-dialog [(visible)]="isProviderTypeFormPopupWinow" header="Family Change - Provider Type" [maximizable]="true"
+  [contentStyle]="{'width': '100vw'}">
+  <div class="sf-form">
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Provider Type</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete name="providerType" (completeMethod)="filterProviderTypes($event)" [suggestions]="metaData"
+            field="providerType" [dropdown]="true" [(ngModel)]="providerTypeChangeReason.selectedProviderType">
+          </p-autoComplete>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6" style="margin-left: 15px;">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Current
+            Value</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3"><input type="text" pInputText name="providerTypeCurrentValue"
+            [(ngModel)]="providerTypeChangeReason.currentValue">
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Status</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input type="text" name="providerTypeStauts" [(ngModel)]="providerTypeChangeReason.status" pInputText
+            readonly>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <textarea name="providerTypeTextArea" style="width: 100%; height: 100%;"
+            [(ngModel)]="providerTypeChangeReason.notes"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="subform-footer">
+      <button class="sf-negative-btn" (click)="providerTypeChangeReset()">Cancel</button>
+      <button class="sf-positive-btn" (click)="providerTypeChangeSave()">Save</button>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog [(visible)]="isPreferredCapacityFormPopupWindow" header="Family Change - Preferred Capacity"
+  [maximizable]="true" [contentStyle]="{'width': '100vw'}">
+  <div class="sf-form">
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Preferred Capacity</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete name="preferredCapacity" (completeMethod)="filterPreferredCapacity($event)"
+            [suggestions]="metaData" field="preferredCapacity" [dropdown]="true"
+            [(ngModel)]="preferredCapactiyChangeReason.preferredCapacity"></p-autoComplete>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6" style="margin-left: 15px;">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Current
+            Value</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3"><input type="text" pInputText name="preferredCapacityCurrentValue"
+            [(ngModel)]="preferredCapactiyChangeReason.currentValue">
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Status</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input type="text" name="preferredCapacityStatus" [(ngModel)]="preferredCapactiyChangeReason.status"
+            pInputText readonly>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <textarea name="preferredCapacityNotes" style="width: 100%; height: 100%;"
+            [(ngModel)]="preferredCapactiyChangeReason.notes"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="subform-footer">
+      <button class="sf-negative-btn" (click)="providerTypeChangeReset()">Cancel</button>
+      <button class="sf-positive-btn" (click)="preferredCapacitySave()">Save</button>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog [(visible)]="isPreferredGenderFormPopupWindow" header="Family Change - Preferred Gender" [maximizable]="true"
+  [contentStyle]="{'width': '100vw'}">
+  <div class="sf-form">
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Preferred Gender</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete name="preferredGender" (completeMethod)="filterPreferredGenderList($event)"
+            [suggestions]="metaData" field="genderGroup" [dropdown]="true"
+            [(ngModel)]="preferredGenderReason.preferredGender"></p-autoComplete>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6" style="margin-left: 15px;">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Current
+            Value</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3"><input type="text" pInputText name="preferredCapacityCurrentValue"
+            [(ngModel)]="preferredGenderReason.currentValue">
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Status</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input type="text" name="preferredCapacityStatus" [(ngModel)]="preferredGenderReason.status" pInputText
+            readonly>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <textarea name="preferredCapacityNotes" style="width: 100%; height: 100%;"
+            [(ngModel)]="preferredGenderReason.notes"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="subform-footer">
+      <button class="sf-negative-btn" (click)="preferredGenderReset()">Cancel</button>
+      <button class="sf-positive-btn" (click)="preferredGenderSave()">Save</button>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog [(visible)]="isCurrentValuesPrompt" header="Family Change - Current Values" [maximizable]="true"
+  [contentStyle]="{'width': '50vw'}">
+  <div class="sf-form">
+    <p class="margin-top-20"><b>Provider:</b></p>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span><b>Provider Type:</b></span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>{{currentValues?.providerType}}</span></div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span><b>Provider Status:</b></span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>{{currentValues?.providerStatusType}}</span></div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span><b>Day Care Hours:</b></span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>{{currentValues?.daycareHoursRequired}}</span></div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span> <b>Level of Care:</b></span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>{{currentValues?.levelOfCare}}</span></div>
+      </div>
+    </div>
+    <p class="margin-top-20"><b>Preferred Age:</b></p>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span><b>Youngest:</b></span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>{{currentValues?.youngestAge}}</span></div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span><b>Oldest:</b></span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>{{currentValues?.oldestAge}}</span></div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span><b>Age is Flexible:</b></span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3"><span
+            [innerHTML]="booleanValueCheck(currentValues?.ageIsFlexible)"></span></div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span><b>Youngest Licensed:</b></span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>{{currentValues?.youngestLicensed}}</span></div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span><b>Oldest Licensed:</b></span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>{{currentValues?.oldestLicensed}}</span></div>
+      </div>
+    </div>
+    <p class="margin-top-20"><b>Race:</b></p>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span><b>Preferred Race:</b></span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>{{currentValues?.race}}</span></div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span><b>Race Is Flexible:</b></span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3"><span
+            [innerHTML]="booleanValueCheck(currentValues?.raceIsFlexible)"></span></div>
+      </div>
+    </div>
+    <p class="margin-top-20"><b>Capacity Gender:</b></p>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span><b>Preferred Capacity:</b></span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>{{currentValues?.capacity}}</span></div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span><b>Licensed Capacity:</b></span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>{{currentValues?.licenseCapacity}}</span></div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span><b>Gender:</b></span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>{{currentValues?.genderGroup}}</span></div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span><b>Gender is Flexible:</b></span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3"><span
+            [innerHTML]="booleanValueCheck(currentValues?.genderIsFlexible)"></span></div>
+      </div>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog (onHide)="onUnsavedPromptClose()" header="Change(s) Made" [(visible)]="showUnsavedPrompt"
+  [style]="{width: '50vw'}" [baseZIndex]="10000">
+  Changes have been made. Do you want to continue without saving?
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" (click)="onYesClosePrompt()" label="Yes"></button>
+    <button type="button" pButton icon="pi pi-times" (click)="showUnsavedPrompt=false" label="No"
+      class="ui-button-secondary"></button>
+  </p-footer>
+</p-dialog>
+
+<p-dialog (onHide)="onUnsavedExitPromptClose()" header="Change(s) Made" [(visible)]="showClosePrompt"
+  [style]="{width: '50vw'}" [baseZIndex]="10000">
+  Changes have been made. Do you want to continue without saving?
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" (click)="onYesCloseExitPrompt()" label="Yes"></button>
+    <button type="button" pButton icon="pi pi-times" (click)="showClosePrompt=false" label="No"
+      class="ui-button-secondary"></button>
+  </p-footer>
+</p-dialog>

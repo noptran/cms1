@@ -1,0 +1,297 @@
+<hr style="margin: 0px !important;">
+<h5 class="head_acces">Transfer between: Team Leader / Team Member
+</h5>
+<hr style="margin: 0px !important;">
+<div class="container-background">
+  <div class="container-foreground">
+    <div id="loading-overlay">
+      <p class="loader-text">
+        <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+      </p>
+    </div>
+    <div class="sf-form client-form">
+      <div style="padding:5px;">
+        <div class="panel panel-default">
+          <div class="panel-heading">Transfer between: Team Leader / Team Member
+          </div>
+          <div class="panel-body">
+            <div class="row margin-top-20">
+
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <p-radioButton name="group1" value="clientToCase" [(ngModel)]="filterData"
+                  label="Add to Team Member to Team Leader" (click)="caseTeamChange()"></p-radioButton>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <p-radioButton name="group1" value="fromCaseToCase"
+                  label="Transfer Team Member from one Team Leader to another" [(ngModel)]="filterData"
+                  (click)="caseTeamChange()"></p-radioButton>
+              </div>
+
+            </div>
+
+            <div class="row  margin-top-20">
+              <div class="col-md-6">
+                <div class="row" *ngIf="filterStatus">
+                  <div class="col-lg-4 col-md-4 col-sm-4">
+                    <span class="sf-labels">Filter</span>
+                  </div>
+                  <div class="col-lg-8 col-md-8 col-sm-8" style="display:flex">
+                    <div>
+                      <input type="text" [disabled]="true" value="SFCS Office" maxlength="25" pInputText />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" *ngIf="!filterStatus">
+                  <div class="col-lg-4 col-md-4 col-sm-4">
+                    <span class="sf-labels">From Team Leader</span>
+                  </div>
+                  <div class="col-lg-8 col-md-8 col-sm-8" style="display:flex">
+                    <div>
+                      <p-autoComplete [suggestions]="filteredFromTeamLeaderList" [(ngModel)]="fromCaseManager"
+                        field="StaffName" [dropdown]="true" [forceSelection]="true"
+                        (completeMethod)="filteredContactTypes($event)" (onSelect)="getFromCaseManagerSubType($event)">
+                      </p-autoComplete>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-4">
+                    <span class="sf-labels">To Team Leader</span>
+                  </div>
+                  <div class="col-lg-8 col-md-8 col-sm-8" style="display:flex">
+                    <div>
+                      <p-autoComplete [suggestions]="filteredToTeamLeaderList" [(ngModel)]="toCaseManager"
+                        field="StaffName" [dropdown]="true" [forceSelection]="true"
+                        (completeMethod)="to_filteredContactTypes($event)" (onSelect)="getToCaseManagerSubType($event)">
+                      </p-autoComplete>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="panel panel-default" *ngIf="filterStatus">
+              <div class="panel-heading">SFM Office:All</div>
+              <div class="panel-body" style="overflow-y: scroll;height: 35vh;padding: 0px;">
+                <input [(ngModel)]="searchTerm" placeholder="Search..." pInputText (ngModelChange)="search()" style="width: 96%;
+                margin: 11px;border: 1px solid #d8d5d5;
+                border-left: 1px solid #d8d5d5" />
+                <div *ngFor="let item of sfa_office_list ; let i=index">
+
+                  <div class="row head_st" style="margin: 4px;" (click)="getClients(item,i);hideme[i] = !hideme[i]">
+                    <div class="col-md-6">
+                      <p class="">{{item.DESC}}</p>
+                    </div>
+                    <div class="col-md-6 text-right"><i [hidden]="!hideme[i]" class="fa fa-chevron-down"></i><i
+                        [hidden]="hideme[i]" class="fa fa-chevron-up"></i></div>
+                  </div>
+
+
+                  <div style="padding-left: 29px;">
+                    <div class="panel panel-default" [hidden]="!hideme[i]">
+                      <div class="panel-heading" style="padding: 7px;">Client</div>
+                      <div class="panel-body" style="overflow-y: scroll;height: 20vh;padding: 0px;">
+                        <p class="text-center" *ngIf="item.client.length==0" style="color: #072a54 !important;
+                        margin: 58px;"><b>No Data Found</b></p>
+                        <div id="sortable1" class='droptrue'>
+                          <p id="{{item_client.caseKey}}" *ngFor="let item_client of item.client" class="head_st-sub"
+                            (click)="dragData(i)">
+                            {{item_client.DESC}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel panel-default" *ngIf="!filterStatus">
+              <div class="panel-heading">From Team Leader</div>
+              <div class="panel-body" style="overflow-y: scroll;
+              height: 35vh;padding: 0px;">
+                <input [(ngModel)]="searchTerm" placeholder="Search..." pInputText (ngModelChange)="search()" style="width: 96%;
+               margin: 11px;border: 1px solid #d8d5d5;
+               border-left: 1px solid #d8d5d5" />
+                <div id="sortable1" class='droptrue' style="width: 100%; border: 1px solid #d2d1d1;  margin: 0 auto;">
+                  <p id="{{item.caseKey}}" *ngFor="let item of from_Case_Manager_list" class="head_st"
+                    (click)="dragData(item_client)">
+                    {{item.DESC}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-md-1"></div> -->
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">To Team Leader</div>
+              <div class="panel-body" style="overflow-y: scroll;
+              height: 35vh;padding: 10px;">
+                <div id="sortable2" class='droptrue' style="width: 100%;
+                height: 43%;
+                border: 1px solid #d2d1d1;position: absolute;
+    z-index: -1;">
+                  DROP HERE
+                </div>
+                <div *ngFor="let item_drag of dragClientList">
+                  <div class="row">
+                    <div class="col-md-10" id="sortable3">
+                      <p class="head_st">
+                        {{item_drag.DESC}}
+                      </p>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="sf-negative-btn" (click)="deleteDragList(item_drag)"><i class="fa fa-trash"
+                          aria-hidden="true"></i></button>
+                    </div>
+                  </div>
+
+
+                </div>
+
+                <hr>
+                <p *ngFor="let item of to_Case_Manager_list" class="head_st" style="pointer-events:none">
+                  {{item.DESC}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <input type="text" id="postOrder" name="postOrder" value="" size="30" hidden />
+        <hr>
+        <!-- <div hidden>dragLists===={{dragLists[0].clientName}}====={{display_save}}
+          
+        </div> -->
+        <button class="sf-positive-btn" id="postOrder" (click)="saveCaseTeam()">
+          Save
+        </button>
+        <button class="sf-negative-btn" (click)="clearData()" style="width: 104.1px;">
+          Clear
+        </button>
+      </div>
+    </div>
+
+
+    <p-dialog header="Team Leader / Team Member (Save)" [(visible)]="dragDet" [modal]="true" [contentStyle]="{'z-index': '1
+  '}" [responsive]="true" [maximizable]="true" [height]="1000" [width]="1000" [minWidth]="300" [minY]="80"
+      [baseZIndex]="10000">
+      <div class="sf-form">
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-4">
+            <div>
+              <div>New</div>
+              <input type="text" [disabled]="true" value="{{personName}}" maxlength="25" pInputText />
+            </div>
+            <br>
+            <div>
+              <p-checkbox binary="true" (ngModelChange)="changeStaffPositionDate($event)"
+                [(ngModel)]="isStaffUsePositionBeginDate" name="isStaffUsePosition_BeginDate"
+                label="Use Staff Position Begin Date?">
+              </p-checkbox>
+
+              <div>Begin Date</div>
+              <p-calendar name="dateInput" [disabled]="isStaffUsePositionBeginDate" [(ngModel)]="applybeginDate"
+                [showIcon]="true" [maxDate]="dateTime" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030" tooltipPosition="top">
+              </p-calendar>
+            </div>
+            <div>
+              <p-checkbox binary="true" [(ngModel)]="isUpdateOfc" name="semi-month" label="Update Office">
+              </p-checkbox>
+              <div>
+                <span>Primary Office</span>
+              </div>
+              <div>
+                <div>
+                  <p-autoComplete [suggestions]="filteredOfficeList" [(ngModel)]="apply_primaryOfcName" field="DESC"
+                    [dropdown]="true" name="ofcList" [forceSelection]="true" (completeMethod)="filteredOffice($event)"
+                    (onSelect)="selecePrimaryOfc($event)">
+                  </p-autoComplete>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-8">
+            <div>
+              <p>Instructions</p>
+              <p>
+                Enter a 'Begin Date' in the grid for each Staff or click 'Apply to All' to enter same 'Begin Date' for
+                all
+                Staff.
+              </p>
+            </div>
+            <br>
+            <button class="sf-positive-btn" (click)="applyToAll()">
+              Apply to All
+            </button>
+          </div>
+        </div>
+        <br>
+        <div class="tableFixHead">
+          <table class="table table-bordered table-striped table-fixed" style="height: 0% !important;">
+            <thead>
+              <tr>
+                <th>Begin Date</th>
+                <th>Staff Name</th>
+                <th>Position</th>
+                <th>Update Primary Office?</th>
+                <th>Office Name</th>
+                <th>Office Begin date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of dragLists; let i1 = index">
+                <td>
+                  <p-calendar name="dateInput" appendTo="body" [(ngModel)]="item.beginDate" [showIcon]="true"
+                    [maxDate]="dateTime" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+                    tooltipPosition="top">
+                  </p-calendar>
+                </td>
+                <td>{{item.staffName}} </td>
+                <td>{{item.position}} </td>
+                <td>
+                  <input type="checkbox" [(ngModel)]="item.updatePrimaryOffice" (change)="changeOfficeNAme(i1)"
+                    [ngModelOptions]="{standalone: true}" /></td>
+                <td>
+                  <p-autoComplete [suggestions]="filteredOfficeList" [disabled]="!item.updatePrimaryOffice"
+                    [(ngModel)]="item.officeName" field="DESC" [dropdown]="true" [forceSelection]="true"
+                    (completeMethod)="filteredOffice($event)">
+                  </p-autoComplete>
+                  <!-- {{item.officeName}} -->
+                </td>
+                <td>
+                  <p-calendar name="dateInput" appendTo="body" [(ngModel)]="item.officeBeginDate" [showIcon]="true"
+                    [inputStyle]="{'border':'none !importent'}" [maxDate]="dateTime" [yearNavigator]="true"
+                    [monthNavigator]="true" yearRange="2000:2030" tooltipPosition="top">
+                  </p-calendar>
+                </td>
+                <td><input type="text" value='{{item.status}}'> </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- <ag-grid-angular style="width: 500px; height: 70vh;" class="ag-theme-balham" [rowData]="dragLists"
+          [columnDefs]="columnDefs" [enableSorting]="true" [rowDragManaged]="true"
+          [suppressDragLeaveHidesColumns]="true" enableColResize="true" [singleClickEdit]="true" #agGrid
+          style="width: 100%;height:300px;" animateRows="true" [components]="components" rowSelection="multiple"
+          (cellDoubleClicked)='onRowSelected($event)' (cellValueChanged)="onCellValueChanged($event)">
+        </ag-grid-angular> -->
+        <hr>
+        <button class="sf-positive-btn" (click)="saveCaseTeamData()">
+          Save
+        </button>
+        <button class="sf-negative-btn" (click)="closeTab()" style="width: 104.1px;">
+          Close
+        </button>
+      </div>
+    </p-dialog>
+  </div>
+</div>

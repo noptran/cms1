@@ -1,0 +1,250 @@
+  <app-form-header [title]="title" [status]="status" [subtitle]="subtitle" [breadcrumbs]="breadcrumbs"
+    [formstatus]="formStatus" [subtitle]="subtitle"></app-form-header>
+
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+  <div class="container-background">
+    <div class="container-foreground">
+
+      <!-- <div>
+        <div routerLink='/reports/dhsStaff/details/cases'>
+          <span>Cases</span>
+        </div>
+        <div routerLink='/reports/dhsStaff/details/dhs-office'>
+          <span>DHS Office</span>
+        </div>
+        <div routerLink='/reports/dhsStaff/details/counties'>
+          <span>Counties</span>
+        </div>
+      </div> -->
+      <form class="margin-top-20 sf-form" [formGroup]="orgForm" id="you" (ngSubmit)="addPost()"
+        autocomplete="off">
+        <div class="sf-default-form scroll-height">
+          <nav class="nav-fill">
+            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link" *ngFor="let main of mainTabs;let i = index" [class.active]="sIndex  === i"
+                (click)="setIndex(i,$event)" data-toggle="tab" href="{{main.href}}" role="tab">{{main.label}}</a>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane margin-left-45 active in" id="nav-1" role="tabpanel" aria-labelledby="nav-general-tab">
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">First Name
+                      <span class="mandatory"> *</span>
+                    </span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                    <input type="text" name="firstName" formControlName="firstName" [(ngModel)]="dhsStaff.firstName"
+                      maxlength="25" pInputText />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Last Name
+                      <span class="mandatory"> *</span>
+                    </span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                    <input type="text" name="lastName" formControlName="lastName" [(ngModel)]="dhsStaff.lastName"
+                      maxlength="25" pInputText />
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Acronym
+                    </span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                    <p-inputSwitch name="acronym" formControlName="acronym" [(ngModel)]="dhsStaff.acronym">
+                    </p-inputSwitch>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">MI
+                    </span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                    <input type="text" name="mi" formControlName="mi" [(ngModel)]="dhsStaff.mi" maxlength="2"
+                      pInputText />
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Con.ST</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                    <p-autoComplete formControlName="contract_StateID" [(ngModel)]="dhsStaff.contract_StateID"
+                      [suggestions]="metaData" field="state" [dropdown]="true" [forceSelection]="true"
+                      name="contract_StateID" (completeMethod)="getMetaData('contractState',$event)"></p-autoComplete>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Gender</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                    <p-autoComplete formControlName="genderID" [(ngModel)]="dhsStaff.genderID"
+                      [suggestions]="metaData" class="low-option-autos" field="gender" [dropdown]="true"
+                      name="genderID" [forceSelection]="true" (completeMethod)="getMetaData('gender',$event)"></p-autoComplete>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Deceased
+                    </span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                    <!-- <input type="text" name="deceased" formControlName="deceased" [(ngModel)]="dhsStaff.deceased" maxlength="25" pInputText />
+                      <div class="alert" *ngIf="!orgForm.controls['deceased'].valid && orgForm.controls['deceased'].touched">Enter a valid name</div> -->
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Ethnicity</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                    <p-autoComplete formControlName="ethnicityID" [(ngModel)]="dhsStaff.ethnicityID"
+                      [suggestions]="metaData" field="ethnicity" [dropdown]="true" [forceSelection]="true"
+                      name="ethnicityID" (completeMethod)="getMetaData('ethnicity',$event)"></p-autoComplete>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Tribe</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                    <p-autoComplete formControlName="tribeID" [(ngModel)]="dhsStaff.tribeID"
+                      [suggestions]="metaData" field="tribe" [dropdown]="true" [forceSelection]="true"
+                      name="tribeID" (completeMethod)="getMetaData('tribe',$event)"></p-autoComplete>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Email
+                      <span class="mandatory"> *</span>
+                    </span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                    <input type="email" name="email" formControlName="email" [(ngModel)]="dhsStaff.email" class="input"
+                      maxlength="75" pInputText />
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Home Phone</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                    <p-inputMask mask="(999) 999-9999" formControlName="homePh" [(ngModel)]="dhsStaff.homePh"
+                      name="homePhone" class="input"></p-inputMask>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Cell Phone</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                    <p-inputMask mask="(999) 999-9999" formControlName="cellPh" [(ngModel)]="dhsStaff.cellPh"
+                      name="cellPhone" class="input"></p-inputMask>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane margin-left-45 " id="nav-2" role="tabpanel" aria-labelledby="nav-contact-tab">
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Pager</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                    <p-inputMask mask="(999) 999-9999" formControlName="pager" [(ngModel)]="dhsStaff.pager"
+                      name="pager" class="input"></p-inputMask>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Fax</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                    <p-inputMask mask="(999) 999-9999" formControlName="fax" [(ngModel)]="dhsStaff.fax" class="input"
+                    name="fax">
+                    </p-inputMask>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Work Phone
+                    </span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                    <p-inputMask mask="(999) 999-9999" formControlName="workPh" [(ngModel)]="dhsStaff.workPh"
+                      class="input" name="workPhone"></p-inputMask>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Ext
+                    </span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                    <p-spinner [formatInput]="false" [maxlength]="5" formControlName="ext" [(ngModel)]="dhsStaff.ext"
+                      name="ext" [min]="0" name="ext"></p-spinner>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">DHS Office
+                      <span class="mandatory"> *</span>
+                    </span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                    <p-autoComplete formControlName="dhsofficeID" [(ngModel)]="dhsStaff.dhsofficeID"
+                      [suggestions]="metaData" field="officeName" [dropdown]="true" [forceSelection]="true"
+                      (completeMethod)="getMetaData('dhsOffice',$event)" name="dhsOffice"></p-autoComplete>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-1 col-md-1 col-sm-1">
+                    <span class="sf-labels">
+                      Notes
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-11 col-md-11 col-sm-11">
+                    <textarea class="sf-width-100" name="notes" formControlName="notes" [(ngModel)]="dhsStaff.notes"
+                      rows="5" name="notes"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <app-form-footer (save)="addPost()" (reset)="resetForm()"
+        (discard)="discardForm()" (back)="formBack()" (edit)="edit()" [editControll]="editForm" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+    </div>
+  </div>

@@ -1,0 +1,160 @@
+<app-form-header
+  [title]="title"
+  [status]="status"
+  [breadcrumbs]="breadcrumbs"
+  [formstatus]="formStatus"
+  [formNavigation]=""
+  [subtitle]="subtitle"
+></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form [formGroup]="evaluationTypeForm" class="sf-form">
+      <div class="margin-left-45 sf-form-size">
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Evaluation Type ID</span> <span class="mandatory">*</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText  formControlName="evaluationTypeID" name="inputText" [(ngModel)]="evaluationType.evaluationTypeID" (completeMethod)="getMetaData($event, 'evaluationType')">
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Changed By</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText  formControlName="changedBy" name="inputText" [(ngModel)]="evaluationType.changedBy" size="27"/>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Changed Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" formControlName="changedDate" [showIcon]="true" showTime="true" [(ngModel)]="evaluationType.changedDate"
+                hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Entered By</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText  formControlName="enteredBy" name="inputText" [(ngModel)]="evaluationType.enteredBy" size="27"/>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Entered Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" formControlName="enteredDate" [showIcon]="true" showTime="true" [(ngModel)]="evaluationType.enteredDate"
+                hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Evaluation Type</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input type="text" pInputText  formControlName="evaluationType" name="inputText" size="27"/>
+            </div>
+          </div>
+        </div>
+  
+        
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Is In Home</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-checkbox name="isInHome" binary="true" formControlName="isInHome"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Is OOH</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-checkbox name="isOOH" binary="true" formControlName="isOOH"></p-checkbox>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>IsOOH_OK</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-checkbox name="isOOH_OK" binary="true" formControlName="isOOH_OK"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>IsProvider_OK</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-checkbox name="isProvider_OK" binary="true" formControlName="isProvider_OK"></p-checkbox>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>IsPRTF</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-checkbox name="isPRTF" binary="true" formControlName="isPRTF"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Created Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" formControlName="createdDate" [showIcon]="true" showTime="true" 
+                hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </div>
+          </div>
+        </div>
+       
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Updated Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" formControlName="updatedDate" [showIcon]="true" showTime="true" 
+                hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Last Modified Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" formControlName="lastModifiedDate" [showIcon]="true" showTime="true" 
+                hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Is Active</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-checkbox name="isActive" binary="true" formControlName="isActive"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Is Deleted</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-checkbox name="isDeleted" binary="true" formControlName="isDeleted"></p-checkbox>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <button (click)=navigateTo() class="opencard-attachment btn btn-primary">Attachment Document</button>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </form>
+    <app-form-footer
+      (save)="save(evaluationType)"
+      (edit)="editForm()"
+      [editControll]="isEditForm"
+      [discardTo]="discardTo"
+      [currentNodeValue]="req"
+      [formLogInfo]="formLogInfo"
+      [isFormLog]="isFormLog"
+      (deleted)="onDelete($event)"
+    ></app-form-footer>
+    <app-quick-menu [module]="quickMenu"></app-quick-menu>
+  </div>
+</div>
+

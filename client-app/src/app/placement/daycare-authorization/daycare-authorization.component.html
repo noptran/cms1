@@ -1,0 +1,453 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+<div class="opencard-container" *ngIf="isAttachment">
+  <span [routerLink]="['/reintegration/referral/placement-authorizations/claims']"
+    queryParamsHandling="merge">Claims</span>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form class="sf-form" [formGroup]="daycareAuthForm" [class.edit-mode]="isAttachment"
+      [class.save-mode]="!isAttachment" [class.claim-view]="claimsList.length > 0">
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span>
+              <b>Authorization Information</b>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Client</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete name="clientName" [dropdown]="true" [forceSelection]="true"
+                (completeMethod)="getFisClient($event)" (onSelect)="getClientId($event)" [(ngModel)]="auth.clientID"
+                field="clientName" formControlName="clientID"></p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Unit Type</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete name="unitType" [dropdown]="true" [forceSelection]="true" field="unitType"
+                [suggestions]="metaData" (completeMethod)="getMetaData('unitType', $event)"
+                [(ngModel)]="auth.unitTypeID" formControlName="unitTypeID"></p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Override Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-checkbox binary="true" name="overrideDate" [(ngModel)]="auth.dateOverride"
+                formControlName="dateOverride"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Begin Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar [showTime]="true" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
+                name="beginDate" yearRange="1900:2030" [(ngModel)]="auth.beginDate" formControlName="beginDate">
+              </p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar [showTime]="true" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
+                name="beginDate" yearRange="1900:2030" [(ngModel)]="auth.endDate" formControlName="endDate"
+                (onSelect)="onEndDateChanges()"></p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Units</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-spinner name="units" size="30" [min]="0" [step]="1" (onChange)="onChangeValues()"
+                [(ngModel)]="auth.unitsAuth" formControlName="unitsAuth"></p-spinner>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Units Remaining</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              {{ auth.unitsRemaining }}
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Frequency (PSA)</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input maxlength="75" name="frequency" pInputText size="27" [(ngModel)]="auth.frequency"
+                formControlName="frequency" />
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Payor Rate</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-spinner size="30" name="payorRate" [min]="0" [step]="1" (onChange)="onChangeValues()"
+                [(ngModel)]="auth.payorRate" formControlName="payorRate">
+              </p-spinner>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Provider Rate</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input maxlength="75" name="providerRate" pInputText size="27" [min]="0" readonly
+                [(ngModel)]="auth.providerRate" formControlName="providerRate" />
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Authorization Payor</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete name="authorizationPayor" [dropdown]="true" [forceSelection]="true" field="fullPayor"
+                [suggestions]="metaData" (completeMethod)="getMetaData('payor', $event)" [(ngModel)]="auth.payorID"
+                formControlName="payorID"></p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Authorization Status</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete name="authorizationStatus" [dropdown]="true" [forceSelection]="true"
+                field="authorizationStatus" [suggestions]="metaData"
+                (completeMethod)="getMetaData('authorizationStatus', $event)" [(ngModel)]="auth.authorizationStatusID"
+                formControlName="authorizationStatusID"></p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span> Authorization Exception</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span (click)="isOpenAuthExcep = true" class="link">Open Authorization</span>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Procedure Code</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete name="procode" [dropdown]="true" [forceSelection]="true" field="fullProcode"
+                [suggestions]="metaData" (completeMethod)="getMetaData('procode', $event)" [(ngModel)]="auth.procodeID"
+                formControlName="procodeID"></p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Who To Pay</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete name="whoToPay" [dropdown]="true" [forceSelection]="true" field="display"
+                [suggestions]="filteredWhoToPayList" (completeMethod)="filteredWhoToPay($event)" [(ngModel)]="whoToPay"
+                (onSelect)="onSelectWhoToPay()" formControlName="whoToPay"></p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="isProvider">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Provider</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete name="provider" [dropdown]="true" [forceSelection]="true" field="providerName"
+                [suggestions]="metaData" (completeMethod)="getMetaData('provider', $event)"
+                [(ngModel)]="auth.providerID" formControlName="providerID" (onSelect)="onProviderSelect($event)">
+                <ng-template let-provider pTemplate="item">
+                  <div class="ui-helper-clearfix" style="border-bottom: 1px solid #d5d5d5">
+                    <table width="100%">
+                      <tr>
+                        <th>Provider Name</th>
+                        <th>Provider Type</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Sponsor Name</th>
+                        <th>IsResidential</th>
+                        <th>IS SFCS Sponsor</th>
+                      </tr>
+                      <tr>
+                        <td>{{ provider?.providerName }}</td>
+                        <td>{{ provider?.providerTypeID?.providerType }}</td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ provider?.isSponsor }}</td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </table>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="isPayee">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Payee</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete name="payee" [dropdown]="true" [forceSelection]="true" field="payeeName"
+                [suggestions]="metaData" (completeMethod)="getMetaData('payee', $event)" [(ngModel)]="auth.payeeID"
+                formControlName="payeeID">
+                <ng-template let-payee pTemplate="item">
+                  <div class="ui-helper-clearfix" style="border-bottom: 1px solid #d5d5d5">
+                    <table width="100%">
+                      <tr>
+                        <th>Payee Name</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Fed Tax No</th>
+                      </tr>
+                      <tr>
+                        <td>{{ payee?.payeeName }}</td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ payee?.fedTaxNo }}</td>
+                      </tr>
+                    </table>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span> Provider Sponsor</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete name="providerSponsor" [dropdown]="true" [forceSelection]="true" field="sponsorName"
+                (onSelect)="getSponsorId($event)" [suggestions]="metaData"
+                (completeMethod)="getMetaData('sponsorName', $event)" [(ngModel)]="auth.sponsorID"
+                formControlName="sponsorID"></p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Pay Sponsor</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-checkbox binary="true" name="paySponsor" [(ngModel)]="auth.paySponsor" formControlName="paySponsor">
+              </p-checkbox>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Note (NA)</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <textarea name="note" pInputTextArea style="width: 100%; height: 100%" [(ngModel)]="auth.notes"
+                formControlName="notes"></textarea>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Additional Info. (PSA)</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <textarea name="additionalInfo" pInputTextArea style="width: 100%; height: 100%"
+                [(ngModel)]="auth.addInfo" formControlName="addInfo"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="delete-btn">
+      <button (click)="deletedAuthorization()" [disabled]="isDeleteBtnDisable">
+        Delete
+      </button>
+    </div>
+    <p-dialog header="Authorization Exception" [(visible)]="isOpenAuthExcep" [responsive]="true" showEffect="fade"
+      [modal]="true" [width]="1000" [minWidth]="400" [minY]="80" [baseZIndex]="10000" [maximizable]="true">
+      <div class="sf-form">
+        <h2>Authorization</h2>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Payor Rate</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-spinner size="30" name="originalPayorRate" [min]="0" [step]="1"
+                [(ngModel)]="authExc.originalPayorRate"></p-spinner>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Provider Rate</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-spinner size="30" name="originalProviderRate" [min]="0" [step]="1"
+                [(ngModel)]="authExc.originalProviderRate"></p-spinner>
+            </div>
+          </div>
+        </div>
+        <h2>Exception</h2>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Payor Rate</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input maxlength="75" name="exceptionPayorRate" pInputText size="27" [min]="0"
+                [(ngModel)]="authExc.exceptionPayorRate" readonly />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Provider Rate</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input maxlength="75" name="exceptionProviderRate" pInputText [min]="0" size="27"
+                [(ngModel)]="authExc.exceptionProviderRate" readonly />
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Requested By</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input maxlength="75" pInputText size="27" name="requestedBy" [(ngModel)]="authExc.requestedBy" />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Exception Reason</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete name="exceptionReason" [dropdown]="true" [forceSelection]="true"
+                field="authorizationExceptionReason" [suggestions]="metaData" (completeMethod)="
+                  getMetaData('authorizationExceptionReason', $event)
+                " [(ngModel)]="authExc.authorizationExceptionReasonID"></p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Explanation of need</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <textarea name="explanationOfNeed" pInputTextArea style="width: 100%; height: 100%"
+                [(ngModel)]="authExc.explanationOfNeed"></textarea>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Approved By</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete name="approvedBy" [dropdown]="true" [forceSelection]="true" field="fullName"
+                (completeMethod)="getMetaData('staff', $event)" [suggestions]="metaData"
+                [(ngModel)]="authExc.approvedBy_StaffID">
+                <ng-template let-staff pTemplate="item">
+                  <div class="ui-helper-clearfix" style="border-bottom: 1px solid #d5d5d5">
+                    <table width="100%">
+                      <tr>
+                        <th>Staff Name</th>
+                        <th>Gender</th>
+                        <th>Cell Phone</th>
+                        <th>Office</th>
+                      </tr>
+                      <tr>
+                        <td>{{ staff?.lastName }}, {{ staff?.firstName }}</td>
+                        <td>{{ staff?.genderID?.gender }}</td>
+                        <td>{{ staff?.cellPh }}</td>
+                        <td>{{ staff?.sfaofficeID?.officeName }}</td>
+                      </tr>
+                    </table>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+          <button class="sf-postive-btn" type="button" (click)="isOpenAuthExcep = false">
+            Save
+          </button>
+        </div>
+      </p-footer>
+    </p-dialog>
+    <!--Only in edit mode-->
+    <div *ngIf="claimsList.length > 0" style="width: 100%; overflow: scroll">
+      <p>
+        <b><i>Claims</i></b>
+      </p>
+      <table>
+        <tr>
+          <th>ClaimsID</th>
+          <th>Status</th>
+          <th>Paid Agency</th>
+          <th>Units</th>
+          <th>Payor Rate</th>
+          <th>Total Payor Rate</th>
+          <th>Provider Rate</th>
+          <th>Total Provider Rate</th>
+          <th>Begin Date</th>
+          <th>End Date</th>
+          <th>Received Date</th>
+          <th>Expected Payment Date</th>
+          <th>Posted Date</th>
+          <th>Recoup ClaimID</th>
+        </tr>
+        <tr *ngFor="let claim of claimsList">
+          <td>{{ claim.claimID }}</td>
+          <td>{{ claim.status }}</td>
+          <td>{{ claim.paidAgency }}</td>
+          <td>{{ claim.units }}</td>
+          <td>{{ claim.payorRate }}</td>
+          <td>{{ claim.totalPayorRate }}</td>
+          <td>{{ claim.providerRate }}</td>
+          <td>{{ claim.totalProviderRate }}</td>
+          <td>{{ showTime(claim.beginDate) }}</td>
+          <td>{{ showTime(claim.endDate) }}</td>
+          <td>{{ showTime(claim.receivedDate) }}</td>
+          <td>{{ showTime(claim.expectedPaymentDate) }}</td>
+          <td>{{ claim.postedDate }}</td>
+          <td>{{ claim.recoupClaimID }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <app-form-footer [attachmentControll]="isAttachment" [isAttachmentDisabled]="false" (attachDoc)="navigateTo()"
+      (edit)="editForm()" [isDisabled]="isDisabled" [editControll]="editControll" (save)="formAction()"
+      (discard)="discardClaim()" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+    </app-form-footer>
+    <!-- <app-quick-menu [module]="quickMenu"></app-quick-menu> -->
+  </div>
+</div>

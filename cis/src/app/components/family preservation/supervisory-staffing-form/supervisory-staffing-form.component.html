@@ -1,0 +1,229 @@
+<div id="pdf-content">
+  <div class="header">
+    <div class="title">
+      <h2>
+        FAMILY PRESERVATION
+        <br> SUPERVISORY
+        <br> STAFFING
+      </h2>
+    </div>
+    <div class="logo">
+      <img src="assets/images/logo.svg" />
+    </div>
+    <div class="form-info">
+      <div>
+        <client-search [ClientName]='displayClientName()' (setClientAction)="setClient($event)"></client-search>
+      </div>
+      <div>
+        <span>Case Number:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.Kaecses.value" readonly></mat-form-field>
+      </div>
+      <div>
+        <span>Date of Referral</span>
+        <mat-form-field  floatLabel="never">
+          <input matInput [matDatepicker]="ReferralDate" (click)="ReferralDate.open()" placeholder="Choose a date" class="date" [(ngModel)]="model.ReferralDate.value">
+          <mat-datepicker #ReferralDate></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div>
+        <span>Date:</span>
+        <mat-form-field  floatLabel="never">
+          <input matInput [matDatepicker]="Date" (click)="Date.open()" placeholder="Choose a date" class="date" [(ngModel)]="model.CaseActivityBeginDate.value">
+          <mat-datepicker #Date></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <p>
+    <span class="bold">List of FIS members:</span>
+    <mat-form-field>
+      <input matInput [(ngModel)]="model.FISMembers.value"></mat-form-field>
+  </p>
+  <p>
+    <span class="bold">Case Plan begin/end date:</span>
+    <mat-form-field>
+      <input matInput type="datetime-local" [(ngModel)]="model.CasePlanDates.value"></mat-form-field>
+  </p>
+  <p>
+    <span class="bold">Safety Plan begin/target date:</span>
+    <mat-form-field>
+      <input matInput type="datetime-local" [(ngModel)]="model.SafetyPlanDates.value"></mat-form-field>
+  </p>
+  <p>
+    <span class="bold">Date and begin time and end time of staffing and log entered by:</span>
+    <mat-form-field>
+      <input matInput [(ngModel)]="model.StaffingDates.value"></mat-form-field>
+  </p>
+  <p>
+    <span class="bold">Reason for Referral:</span>
+    <mat-form-field>
+      <input matInput [(ngModel)]="model.ReasonForReferral.value"></mat-form-field>
+  </p>
+  <p>
+    <span class="bold">Date of previous supervisory staffings and update from that staffing</span>
+    <mat-form-field>
+      <input matInput [(ngModel)]="model.PreviousSupervisoryStaffing.value"></mat-form-field>
+  </p>
+  <p>
+    <span class="bold">Participants:</span>
+    <mat-form-field>
+      <input matInput [(ngModel)]="model.Participants.value"></mat-form-field>
+  </p>
+  <div>
+    <span>Director:</span>
+    <mat-form-field>
+      <input matInput [(ngModel)]="model.Director.value"></mat-form-field>
+  </div>
+  <div>
+    <span>Supervisor:</span>
+    <mat-form-field>
+      <input matInput [(ngModel)]="model.Supervisor.value"></mat-form-field>
+  </div>
+  <div>
+    <span>Therapist/Case Manager:</span>
+    <mat-form-field>
+      <input matInput [(ngModel)]="model.TherapistCaseManager.value"></mat-form-field>
+  </div>
+  <div>
+    <span>FP Case Manager:</span>
+    <mat-form-field>
+      <input matInput [(ngModel)]="model.FPCaseManager.value"></mat-form-field>
+  </div>
+  <div>
+    <span>Family Support Worker:</span>
+    <mat-form-field>
+      <input matInput [(ngModel)]="model.FamilySupportWorker.value"></mat-form-field>
+  </div>
+  <div>
+    <span>Other:</span>
+    <mat-form-field>
+      <input matInput [(ngModel)]="model.OtherParticipants.value"></mat-form-field>
+  </div>
+  <p>
+    <span class="bold">Reason for staffing:</span> (check all that apply)</p>
+  <mat-checkbox [(ngModel)]="model.Monthly_Supervisory_Staffing.fieldOptionIndex">Monthly Supervisory Staffing</mat-checkbox>
+  <mat-checkbox [(ngModel)]="model.Intensive_to_NonIntensive.fieldOptionIndex">Intensive to Non-Intensive</mat-checkbox>
+  <mat-checkbox [(ngModel)]="model.New_Safety_Concern.fieldOptionIndex">New Safety Concern</mat-checkbox>
+  <mat-checkbox [(ngModel)]="model.Case_Closure.fieldOptionIndex">Case Closure</mat-checkbox>
+  <br>
+  <mat-checkbox [(ngModel)]="model.Other_ReasonForStaffing.fieldOptionIndex">Other:</mat-checkbox>
+  <mat-form-field>
+    <input matInput [(ngModel)]="model.Other.value">
+  </mat-form-field>
+  <div class="text-section">
+    <p>
+      <span class="bold">Family Strengths and Needs:</span> (Review reason for referral and assessments completed to determine
+      family’s strengths and needs.)</p>
+    <mat-form-field *ngIf="!isFinalize">
+      <textarea matInput autosize [(ngModel)]="model.FamilysStrengthsAndNeeds.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.FamilysStrengthsAndNeeds.value}}</span>
+    <hr *ngIf="isFinalize">
+    <p>
+      <span class="bold">Barriers and Progress:</span> (Review CP objectives and activities completed and remaining, frequency
+      and duration of visits, community resources utilized, family participation or lack of participation, successes, transition
+      to less intensive services, and any other information pertinent to the family.)</p>
+    <mat-form-field *ngIf="!isFinalize">
+      <textarea matInput autosize [(ngModel)]="model.BarriersAndProgressNotes.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.BarriersAndProgressNotes.value}}</span>
+    <hr *ngIf="isFinalize">
+    <div>
+      <span>Have safety concerns been identified since the last staffing?</span>
+      <input class="rad" type="radio" value="0" name="SafetyConcerns" [(ngModel)]="model.SafetyConcerns.fieldOptionIndex">Yes
+      <input class="rad" type="radio" value="1" name="SafetyConcerns" [(ngModel)]="model.SafetyConcerns.fieldOptionIndex">No
+      <!-- <mat-radio-group [(ngModel)]="model.SafetyConcerns.fieldOptionIndex">
+        <mat-radio-button value="0">Yes</mat-radio-button>
+        <mat-radio-button value="1">No</mat-radio-button>
+      </mat-radio-group> -->
+    </div>
+    <p>
+      <span class="bold">Identify current/new safety concerns:</span> (Review Safety Plan, discuss serious harm, protective
+      capacities, child vulnerability and time are essential concepts for assessing safety. The safety assessment evaluates
+      the family conditions, situations and circumstances to determine whether they have escalated to a point where there
+      is imminent danger threatening serious harm to a child and the caregiver’s protective capacity is insufficient to protect
+      the child.)</p>
+    <!-- for mac comment this stmt -->
+    <div class="html2pdf__page-break"></div>
+    <div class="text-section">
+      <span>Is a safety plan in place to address current or new safety concerns?</span>
+      <input class="rad" type="radio" value="0" name="SafetyPlan" [(ngModel)]="model.SafetyPlan.fieldOptionIndex">Yes
+      <input class="rad" type="radio" value="1" name="SafetyPlan" [(ngModel)]="model.SafetyPlan.fieldOptionIndex">No
+      <input class="rad" type="radio" value="2" name="SafetyPlan" [(ngModel)]="model.SafetyPlan.fieldOptionIndex" matTooltip="Commented [KW1]: Will sups know to address whether or
+      not it is being followed and what steps need to take place to
+      close the concern?">N/A
+      
+      <!-- <mat-radio-group [(ngModel)]="model.SafetyPlan.fieldOptionIndex">
+        <mat-radio-button value="0">Yes</mat-radio-button>
+        <mat-radio-button value="1">No</mat-radio-button>
+        <mat-radio-button value="2" matTooltip="Commented [KW1]: Will sups know to address whether or
+        not it is being followed and what steps need to take place to
+        close the concern?">N/A</mat-radio-button>
+      </mat-radio-group> -->
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.SafetyPlanNotes.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.SafetyPlanNotes.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div>
+      <span>Have additional risk concerns been identified since the last staffing?</span>
+      <input class="rad" type="radio" value="0" name="RiskConcerns" [(ngModel)]="model.RiskConcerns.fieldOptionIndex">Yes
+      <input class="rad" type="radio" value="1" name="RiskConcerns" [(ngModel)]="model.RiskConcerns.fieldOptionIndex">No
+      <!-- <mat-radio-group [(ngModel)]="model.RiskConcerns.fieldOptionIndex">
+        <mat-radio-button value="0">Yes</mat-radio-button>
+        <mat-radio-button value="1">No</mat-radio-button>
+      </mat-radio-group> -->
+    </div>
+    <p>
+      <span class="bold">Identify ongoing or additional risk concerns:</span> (The risk assessment evaluates the family’s
+      conditions, situations and circumstances to determine whether they contribute to the likelihood a child may be abused
+      or neglected in the future. Risk of future maltreatment may be reduced with services and more long-term goals to change
+      the behaviors, perceptions, attitudes, motives, emotions, etc. enhancing the family’s strengths and protective capacities.
+      If risks are addressed by providing services relating to the specific conditions, behaviors, and circumstances and
+      enhancing protective capacities, the escalation of risk to safety may be prevented.)</p>
+    <div class="text-section">
+      <span>Are activities identified on the current case plan or non-intensive plan that address the risk?</span>
+      <input class="rad" type="radio" value="0" name="RiskActivities" [(ngModel)]="model.RiskActivities.fieldOptionIndex">Yes
+      <input class="rad" type="radio" value="1" name="RiskActivities" [(ngModel)]="model.RiskActivities.fieldOptionIndex">No
+      <input class="rad" type="radio" value="2" name="RiskActivities" matTooltip="Commented [KW2]: Same as above" [(ngModel)]="model.RiskActivities.fieldOptionIndex">N/A
+      <!-- <mat-radio-group [(ngModel)]="model.RiskActivities.fieldOptionIndex">
+        <mat-radio-button value="0">Yes</mat-radio-button>
+        <mat-radio-button value="1">No</mat-radio-button>
+        <mat-radio-button value="2" matTooltip="Commented [KW2]: Same as above">N/A</mat-radio-button>
+      </mat-radio-group> -->
+      <p>If no, the case plan or non-intensive plan must to be updated.</p>
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput autosize [(ngModel)]="model.RiskActivitiesNotes.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.RiskActivitiesNotes.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <p>
+      <span class="bold">Next Steps:</span> (This shall include what steps need to be taken, for what purpose, and when they
+      will be completed.)
+    </p>
+    <mat-form-field *ngIf="!isFinalize">
+      <textarea matInput autosize [(ngModel)]="model.NextSteps.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.NextSteps.value}}</span>
+  </div>
+  <hr *ngIf="isFinalize">
+  <div class="footer">
+    <div>FP Supervisor:
+      <mat-form-field>
+        <input matInput [(ngModel)]="model.StaffSignature.value" readonly></mat-form-field>
+    </div>
+    <div>Date:
+      <mat-form-field  floatLabel="never">
+        <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose a date" class="date" [(ngModel)]="model.CompletionDate.value"
+          value="{{date}}">
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<form-footer (resetAction)='resetForm()' (calculateAction)='calculateForm()' [disableCalculate]="'false'"
+  (saveAction)='saveForm()' (finalizeAction)='finalize()'>
+</form-footer>

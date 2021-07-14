@@ -1,0 +1,305 @@
+<div id="pdf-content">
+  <div class="header">
+    <div class="title">
+      <h2>REINTEGRATION
+        <br> FOSTER CARE
+        <br> PLACEMENT SUPPORT
+        <br> PLAN
+      </h2>
+    </div>
+    <div class="logo">
+      <img src="assets/images/logo.svg" />
+    </div>
+    <div class="form-info">
+      <div>
+        <client-search [ClientName]='displayClientName()' (setClientAction)="setClient($event)"></client-search>
+      </div>
+      <div>
+        <p class="pad-right">Case Manager:</p>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.CaseManager.value"></mat-form-field>
+      </div>
+      <div>
+        <p class="pad-right">Date of Placement:</p>
+        <mat-form-field floatLabel="never">
+          <input matInput [matDatepicker]="DateOfPlacement" (click)="DateOfPlacement.open()" placeholder="Choose a date" class="date"
+            [(ngModel)]="model.DateOfPlacement.value">
+          <mat-datepicker #DateOfPlacement></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div>
+        <p class="pad-right">Date of Completion:</p>
+        <mat-form-field floatLabel="never">
+          <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose a date" class="date"
+            [(ngModel)]="model.CompletionDate.value" value="{{date}}">
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="per-data">
+        <p class="pad-right">From:</p>
+        <mat-form-field>
+          <input matInput class="input-s" type="time" [(ngModel)]="model.FromTime.value">
+        </mat-form-field>
+        <p class="pad-right">To:</p>
+        <mat-form-field>
+          <input matInput class="input-s" type="time" [(ngModel)]="model.ToTime.value">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <h3>Foster/Kinship Family Team Contact Information:</h3>
+  <div class="information">
+    <div>
+      <div>
+        <span>Provider Name:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.ProviderID.value"></mat-form-field>
+      </div>
+      <div>
+        <span>Foster Care Worker:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.FosterCareWorker.value"></mat-form-field>
+      </div>
+      <div>
+        <span>Kinship Worker:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.KinshipWorker.value"></mat-form-field>
+      </div>
+      <div>
+        <span>Licensed Permanency Specialist:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.LicensedPermanencySpecialist.value"></mat-form-field>
+      </div>
+    </div>
+    <div>
+      <div>
+        <span>Family Support Worker:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.FamilySupportWorker.value"></mat-form-field>
+      </div>
+      <div>
+        <span>List those present at visit:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.presentAtVisit.value"></mat-form-field>
+      </div>
+      <div>
+        <span>Person Type:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.personTypeField.value"></mat-form-field>
+      </div>
+      <div>
+        <span>Completed By:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.StaffName.value" readonly></mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="instruction text-section">
+    <h3>1. Seven-Day Success Needs</h3>
+    <hr>
+    <p>1. What medications does the child have that need to be refilled?</p>
+    <hr>
+    <mat-form-field>
+      <textarea matInput autosize [(ngModel)]="model.MedicationsNeedToBeFilled.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.MedicationsNeedToBeFilled.value}}</span>
+    <hr *ngIf="isFinalize">
+    <p>2. What needs do you (foster parent/kinship parent) have that SFCS can assist with in the first 7 days of
+      placement?</p>
+    <hr>
+    <mat-form-field>
+      <textarea matInput autosize [(ngModel)]="model.SFCSAssistFirst7Days.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.SFCSAssistFirst7Days.value}}</span>
+    <hr *ngIf="isFinalize">
+    <p>3. Has the child had their KBH, Vision, and Dental Appointments scheduled? (If no, they need to be scheduled in
+      the first
+      7 days)</p>
+    <hr>
+    <mat-form-field>
+      <textarea matInput autosize [(ngModel)]="model.KPHAppointmentsScheduled.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.KPHAppointmentsScheduled.value}}</span>
+    <hr *ngIf="isFinalize">
+  </div>
+  <div class="instruction text-section">
+    <h3>2. Crisis Support Plan</h3>
+    <hr>
+    <p>1. Emergency After Hours Contacts:</p>
+    <hr>
+    <p>Sponsoring Agency on Call, CMHC, etc:</p>
+    <hr>
+    <p>SFCS On-Call Phone Number: 1-(888) SFA-HOPE</p>
+    <hr>
+    <p>2. What are specific de-escalation tactics that work for the child?</p>
+    <hr>
+    <mat-form-field>
+      <textarea matInput autosize [(ngModel)]="model.DeescalationTatics.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.DeescalationTatics.value}}</span>
+    <hr *ngIf="isFinalize">
+    <div class="html2pdf__page-break"></div>
+    <p>3. What community resources are available for the Foster/Kinship Home to utilize in times of crisis?</p>
+    <hr>
+    <mat-form-field>
+      <textarea matInput autosize [(ngModel)]="model.CommunityResources.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.CommunityResources.value}}</span>
+    <hr *ngIf="isFinalize">
+  </div>
+  <table>
+    <tr>
+      <th colspan="4">3. Appointment Plan</th>
+    </tr>
+    <tr>
+      <td>Appointment Type:</td>
+      <td>Child:</td>
+      <td>Day of the Week/Time:</td>
+      <td>Location:</td>
+    </tr>
+    <tr>
+      <td>(Example) Sibling Visit</td>
+      <td></td>
+      <td>Tuesdays, 2pm-3pm</td>
+      <td>Wichita Park</td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.AppointmentType1.value">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.AppointmentChild1.value">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.AppointmentTime1.value">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.AppointmentLocation1.value">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.AppointmentType2.value">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.AppointmentChild2.value">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.AppointmentTime2.value">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.AppointmentLocation2.value">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.AppointmentType3.value">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.AppointmentChild3.value">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.AppointmentTime3.value">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.AppointmentLocation3.value">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.AppointmentType4.value">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.AppointmentChild4.value">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.AppointmentTime4.value">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.AppointmentLocation4.value">
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+  <div class="instruction text-section">
+    <h3>4. Communication and Miscellaneous Information</h3>
+    <p>Saint Francis Community Services is committed to communicate changes to visits, appointments, and court hearings
+      as soon
+      as possible. When there is a cancellation, SFCS will reschedule these within 24 hours and inform you of the
+      changes.
+      In order to do this successfully, we request your preferred method of communication (phone call, text, etc.) and
+      phone
+      number.
+    </p>
+    <hr>
+    <div>
+      <span>1. Preferred method of communication:</span>
+      <mat-form-field>
+        <textarea matInput autosize [(ngModel)]="model.PreferredCommunication.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.PreferredCommunication.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div>
+      <span>2. Preferred Contact Phone Number:</span>
+      <mat-form-field>
+        <textarea matInput autosize [(ngModel)]="model.PhoneNumber.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.PhoneNumber.value}}</span>
+    </div>
+    <hr>
+    <p>As foster parents/kinship parents, you have a right to attend court hearings, case plans, and submit letters to
+      the court.
+      Please contact your foster child’s case manager if you have any questions regarding this process.</p>
+    <hr>
+    <p>1. If you foster children are school aged, when are the days school is not in session due to in-services,
+      vacations,
+      etc., what are the child care plans for those days?</p>
+    <mat-form-field>
+      <textarea matInput autosize [(ngModel)]="model.InServiceDays.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.InServiceDays.value}}</span>
+    <hr *ngIf="isFinalize">
+    <p>2. If your child attends daycare, when does the child have daycare outings, if any?</p>
+    <mat-form-field>
+      <textarea matInput autosize [(ngModel)]="model.DayCareOutings.value"></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.DayCareOutings.value}}</span>
+    <hr *ngIf="isFinalize">
+  </div>
+  
+</div>
+<form-footer  (resetAction)='resetForm()' (calculateAction)='calculateForm()' [disableCalculate]="'false'"
+  (saveAction)='saveForm()' (finalizeAction)='finalize()'>
+</form-footer>

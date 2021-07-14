@@ -1,0 +1,832 @@
+<div style="background-color: rgb(236, 239, 241)">
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+    </p>
+  </div>
+  <app-breadcrumb [data]="breadcrumbs" *ngIf="isBreadcrumbs"></app-breadcrumb>
+  <div *ngIf="isProfileView">
+    <person-types-profile-info
+      [primaryValue]="currentPrimaryValue"
+      [personType]="currentPersonType"
+      *ngIf="isProfileView"
+    ></person-types-profile-info>
+  </div>
+  <div class="container-fluid" style="height: 95vh; overflow-y: auto">
+    <!-- <div class="row" > -->
+    <div class="box margin-bottom-50" *ngIf="personType">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of personTypesMenuItems"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+            <!--            <div class="totalcount">No. of : {{data.count | number}}</div>-->
+          </div>
+          <div style="margin: auto">
+            <span style="float: right">
+              <!-- <button class="btn btn-block btn-add" pTooltip="Add a new record" routerLink="{{data.add}}">
+                  + Add
+                </button> -->
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="batchProcess">
+      <div
+        class="title-card-batch-process"
+        *ngFor="let data of batchProcessMenuItems"
+        pTooltip="Open a list view"
+      >
+        <div class="row">
+          <div class="col-xs-8">
+            <div class="header">{{ data.name }}</div>
+            <div class="totalcount">
+              No. of {{ data.name }}: {{ data.count | number }}
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <div style="margin-bottom: 2rem">
+              <button
+                routerLink="{{ data.view }}"
+                (click)="setBatchType(data.name)"
+                type="button"
+                class="btn btn-block btn-add-batch"
+              >
+                Create Batch
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-block btn-add-batch-outline"
+                routerLink="{{ data.status }}"
+              >
+                View Batch Status
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="opencards">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of opencardsMenuItems"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+            <!--            <div class="totalcount">No. of : {{data.count | number}}</div>-->
+          </div>
+          <div style="margin: auto">
+            <span style="float: right">
+              <!-- <button class="btn btn-block btn-add" pTooltip="Add a new record" routerLink="{{data.add}}">
+                    + Add
+                  </button> -->
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="referralFamily">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of referralFamilyMenuItems"
+      >
+        <!-- <div class="title-card" (click)="openInNewBrowserWindow(data.view)" *ngFor="let data of referralFamilyMenuItems"
+        pTooltip="Open a list view"> -->
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+            <!--            <div class="totalcount">No. of : {{data.count | number}}</div>-->
+          </div>
+          <div style="margin: auto">
+            <span style="float: right">
+              <!-- <button class="btn btn-block btn-add" pTooltip="Add a new record" (click)="navigate(data.view)">
+                    + Add
+                  </button> -->
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box margin-bottom-50" *ngIf="referralPrtfFamily">
+      <div
+        class="title-card"
+        *ngFor="let data of prtf_referralFamilyMenuItems"
+        (click)="showNode(data)"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+            <!--            <div class="totalcount">No. of : {{data.count | number}}</div>-->
+          </div>
+          <div style="margin: auto">
+            <span style="float: right">
+              <!-- <button class="btn btn-block btn-add" pTooltip="Add a new record" (click)="navigate(data.view)">
+                      + Add
+                    </button> -->
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box margin-bottom-50" *ngIf="rfcFamily">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of referralRFCMenuItems"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+            <!--            <div class="totalcount">No. of : {{data.count | number}}</div>-->
+          </div>
+          <div style="margin: auto">
+            <span style="float: right">
+              <!-- <button class="btn btn-block btn-add" pTooltip="Add a new record" (click)="navigate(data.view)">
+                      + Add
+                    </button> -->
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="serviceClaims">
+      <div
+        class="title-card"
+        (click)="navigateTo(data.view)"
+        *ngFor="let data of serviceClaimMenuItems"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+            <!--            <div class="totalcount">No. of : {{data.count | number}}</div>-->
+          </div>
+          <div style="margin: auto">
+            <span style="float: right">
+              <!-- <button class="btn btn-block btn-add" pTooltip="Add a new record" (click)="navigate(data.view)">
+                      + Add
+                    </button> -->
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box margin-bottom-50" *ngIf="rfcAdoption">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of rfcAdoptionMenuItems"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+            <!--            <div class="totalcount">No. of : {{data.count | number}}</div>-->
+          </div>
+          <div style="margin: auto">
+            <span style="float: right">
+              <!-- <button class="btn btn-block btn-add" pTooltip="Add a new record" (click)="navigate(data.view)">
+                      + Add
+                    </button> -->
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box margin-bottom-50" *ngIf="rfcSchool">
+      <div class="title-card" *ngFor="let data of rfcSchoolMenuItems">
+        <!-- <div class="title-card" (click)="openInNewBrowserWindow(data.view)" *ngFor="let data of rfcSchoolMenuItems"
+        pTooltip="Open a list view"> -->
+        <div class="box card-content">
+          <div class="flex-1" (click)="goToRoute(data)">
+            <div class="header">{{ data.name }}</div>
+          </div>
+          <div style="margin: auto">
+            <span
+              class="fa fa-external-link cursor-pointer icon-red"
+              (click)="openInNewBrowserWindow(data.view)"
+              pTooltip="Click here to open {{ data.name }} in new window"
+            ></span>
+          </div>
+        </div>
+        <div style="margin: auto"></div>
+      </div>
+    </div>
+    <div class="box margin-bottom-50" *ngIf="providerMenu">
+      <div class="title-card" *ngFor="let data of providerMenuItems">
+        <!-- <div class="title-card" (click)="openInNewBrowserWindow(data.view)" *ngFor="let data of providerMenuItems"
+        pTooltip="Open a list view"> -->
+        <div class="box card-content">
+          <div class="flex-1" (click)="providerSubnodeNav(data.view)">
+            <div class="header">{{ data.name }}</div>
+          </div>
+          <div style="margin: auto">
+            <span
+              class="fa fa-external-link cursor-pointer icon-red"
+              (click)="openInNewBrowserWindow(data.view)"
+              pTooltip="Click here to open {{ data.name }} in new window"
+            ></span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="title-card"
+        (click)="onFamilyChangeClick()"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">Family Change</div>
+          </div>
+          <div style="margin: auto">
+            <span style="float: right"> </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box margin-bottom-50" *ngIf="inHomeFamilyMembers">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of inHomeFamilyMembersList"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+            <!--            <div class="totalcount">No. of : {{data.count | number}}</div>-->
+          </div>
+          <div style="margin: auto">
+            <span style="float: right">
+              <!-- <button class="btn btn-block btn-add" pTooltip="Add a new record" (click)="navigate(data.view)">
+                      + Add
+                    </button> -->
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box margin-bottom-50" *ngIf="isMoveAndPermenancy">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of moveandpermenancyList"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+            <!--            <div class="totalcount">No. of : {{data.count | number}}</div>-->
+          </div>
+          <div style="margin: auto">
+            <span style="float: right">
+              <!-- <button class="btn btn-block btn-add" pTooltip="Add a new record" (click)="navigate(data.view)">
+                      + Add
+                    </button> -->
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box margin-bottom-50" *ngIf="isRfcMedicalMenu">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of rfcMedicalItems"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+            <!--            <div class="totalcount">No. of : {{data.count | number}}</div>-->
+          </div>
+          <div style="margin: auto">
+            <span style="float: right">
+              <!-- <button class="btn btn-block btn-add" pTooltip="Add a new record" (click)="navigate(data.view)">
+                      + Add
+                    </button> -->
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box margin-bottom-50" *ngIf="isCourtOrderAttachmentMenu">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of courtOrderAttachmentItems"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="isProviderDemoGraphicsSupport">
+      <div
+        class="title-card"
+        *ngFor="let data of providerDemoGraphicsSupport"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1" routerLink="{{ data.view }}">
+            <div class="header">{{ data.name }}</div>
+          </div>
+          <div style="margin: auto">
+            <span
+              class="fa fa-external-link cursor-pointer icon-red"
+              (click)="openInNewBrowserWindow(data.view)"
+              pTooltip="Click here to open {{ data.name }} in new window"
+            ></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="isLicenseSponsorShip">
+      <div
+        class="title-card"
+        *ngFor="let data of licenseSponsorShip"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1" routerLink="{{ data.view }}">
+            <div class="header">{{ data.name }}</div>
+          </div>
+          <div style="margin: auto">
+            <span
+              class="fa fa-external-link cursor-pointer icon-red"
+              (click)="openInNewBrowserWindow(data.view)"
+              pTooltip="Click here to open {{ data.name }} in new window"
+            ></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="isTraining">
+      <div
+        class="title-card"
+        *ngFor="let data of providerTraining"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1" routerLink="{{ data.view }}">
+            <div class="header">{{ data.name }}</div>
+          </div>
+          <div style="margin: auto">
+            <span
+              class="fa fa-external-link cursor-pointer icon-red"
+              (click)="openInNewBrowserWindow(data.view)"
+              pTooltip="Click here to open {{ data.name }} in new window"
+            ></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="isPlacementMatching">
+      <div
+        class="title-card"
+        *ngFor="let data of placementMatching"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1" routerLink="{{ data.view }}">
+            <div class="header">{{ data.name }}</div>
+          </div>
+          <div style="margin: auto">
+            <span
+              class="fa fa-external-link cursor-pointer icon-red"
+              (click)="openInNewBrowserWindow(data.view)"
+              pTooltip="Click here to open {{ data.name }} in new window"
+            ></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="isPlacementsPayments">
+      <div
+        class="title-card"
+        *ngFor="let data of placementsPayments"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1" routerLink="{{ data.view }}">
+            <div class="header">{{ data.name }}</div>
+          </div>
+          <div style="margin: auto">
+            <span
+              class="fa fa-external-link cursor-pointer icon-red"
+              (click)="openInNewBrowserWindow(data.view)"
+              pTooltip="Click here to open {{ data.name }} in new window"
+            ></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="box margin-bottom-50" *ngIf="isFamilyContacts">
+      <div class="title-card" routerLink="{{data.view}}" *ngFor="let data of familyContacts" pTooltip="Open a list view">
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{data.name}}</div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="box margin-bottom-50" *ngIf="isCriticalIncidents">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of criticalIncidents"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="isFamilyPaperWorkOnPlacements">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of familyPaperWorkOnPlacements"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        (click)="openAttachedDocumentPrompt()"
+        class="title-card"
+        pTooltip="Attached Documents view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">Attached Documents</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="isAdoption">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of adoption"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="isRecruitment">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of recruitment"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="isadoptionSubnode">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of adoptionSubnode"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="casaOfficer">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of casaOfficerSubnode"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="communityMember">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of communityMemberSubnode"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="dhsOffice">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of dhsOfficesSubnode"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="providerSponsorClaims">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of providerSponsorclaimsSubnode"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="personTypeFamilyMemberHousehold">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of personTypeFamilyMemberHouseholdSubnode"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="personTypeFamilyMemberExtended">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of personTypeFamilyMemberExtendedSubnode"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="isBhokMedicalItems">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of bhokMedicalItems"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+          </div>
+          <div style="margin: auto">
+            <span style="float: right"> </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="isNCFCHMedicalItems">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of ncfchMedicalItems"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+          </div>
+          <div style="margin: auto">
+            <span style="float: right"> </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-medical-assessment-form
+      (closeModel)="closeModelComp($event, 'Medical Assesment')"
+      *ngIf="showMedicalAssessment"
+    ></app-medical-assessment-form>
+    <app-med-treatment-service
+      (closeModel)="closeModelComp($event, 'Treatment Services')"
+      *ngIf="showMedicalTreatment"
+    >
+    </app-med-treatment-service>
+    <app-medical-condition
+      (closeModel)="closeModelComp($event, 'Medical Condetion')"
+      *ngIf="showMedicalCondition"
+    >
+    </app-medical-condition>
+    <div class="box margin-bottom-50" *ngIf="isPrtfMedicalMenu">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of prtfMedicalItems"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+          </div>
+          <div style="margin: auto">
+            <span style="float: right"> </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="isRecruitmentTrainingMenu">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of recruitmentTrainingItems"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+          </div>
+          <div style="margin: auto">
+            <span style="float: right"> </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="isComplianceMenu">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of complianceTechItems"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+          </div>
+          <div style="margin: auto">
+            <span style="float: right"> </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box margin-bottom-50" *ngIf="isStaffSfmOfficeMenu">
+      <div
+        class="title-card"
+        routerLink="{{ data.view }}"
+        *ngFor="let data of staffSfmOfficeItems"
+        pTooltip="Open a list view"
+      >
+        <div class="box card-content">
+          <div class="flex-1">
+            <div class="header">{{ data.name }}</div>
+          </div>
+          <div style="margin: auto">
+            <span style="float: right"> </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="Attachments" [(visible)]="isProviderAttachments">
+  <app-form-footer
+    (closeProviderDocument)="openAttachedDocumentPrompt()"
+    *ngIf="isProviderAttachments"
+    [createAttachmentMode]="true"
+    [currentNodeValue]="documentPrimaryValue"
+  >
+  </app-form-footer>
+  <div class="attachment-table">
+    <table>
+      <tr>
+        <th>Document Type</th>
+        <th>Description</th>
+        <th>Upload Date</th>
+        <th>Upload By</th>
+        <th>Reupload Date</th>
+        <th>Reupload By</th>
+        <th>File Size</th>
+        <th>Action</th>
+      </tr>
+      <tr *ngFor="let file of scannedDocumentList">
+        <td>{{ file?.documentType }}</td>
+        <td>{{ file?.Description }}</td>
+        <td>{{ file?.UploadDate | date: "MM/dd/yyyy" }}</td>
+        <td>{{ file?.UploadBy }}</td>
+        <td>{{ file?.ReUploadDate | date: "MM/dd/yyyy" }}</td>
+        <td>{{ file?.ReUploadBy }}</td>
+        <td>{{ file?.Filesize }} KB.</td>
+        <td>
+          <div class="attachment-actions">
+            <span
+              class="fa fa-download download-icon"
+              title="Download the record"
+              (click)="
+                uploadDocTypes.downloadAttachedDocument(file.ScannedDocumentID)
+              "
+            ></span>
+            <span
+              class="fa fa-trash delete-icon"
+              title="Delete the record"
+              (click)="onProviderAttachDocDelete(file.ScannedDocumentID)"
+            ></span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</p-dialog>
+
+<p-dialog
+  header="Delete confirmation"
+  [(visible)]="isDeleteProviderConfirmation"
+>
+  <p>Are you sure want to delete records</p>
+  <p-footer>
+    <div class="dialog-footer">
+      <button
+        (click)="this.isDeleteProviderConfirmation = false"
+        [disabled]="isDeleteConfirmationDisable"
+      >
+        Cancel
+      </button>
+      <button
+        (click)="attachProviderDocDelete()"
+        [disabled]="false"
+        class="alert-text"
+      >
+        Confirm
+      </button>
+    </div>
+  </p-footer>
+</p-dialog>
+<app-family-change></app-family-change>

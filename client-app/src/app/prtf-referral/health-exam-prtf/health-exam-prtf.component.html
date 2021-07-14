@@ -1,0 +1,79 @@
+<p-dialog (onHide)="closeModel.emit()" class="pop-up" header="Health Exam" [(visible)]="isPopUpWindow"
+  [contentStyle]="{'min-width':'106rem','width': '100vw'}" [responsive]="true">
+  <div *ngIf="isLoading">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+
+  <div *ngIf="isListView">
+    <button (click)="createRecord()">Create Record</button>
+    <app-prtf-list-view (rowSeleted)="onRowSelected($event)" [tableHeaders]="tableHeaders" [tableRows]="tableRows"></app-prtf-list-view>
+  </div>
+
+  <div *ngIf="isFormView">
+    <div class="container-foreground">
+      <form class="sf-form" [formGroup]="healthForm">
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Health Exam Type
+                <span class="mandatory">*</span>
+              </span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="healthExamTypeID" [(ngModel)]="health.healthExamTypeID"
+                [suggestions]="metaData" (completeMethod)="filteredHealthRecords($event)" [forceSelection]="true"
+                emptyMessage="No records found!" name="healthExamTypeID" [dropdown]="true" field="healthExamType"
+                size="23"></p-autoComplete>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Followup</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-checkbox binary="true" formControlName="followUpRequired" name="inputtoggle"
+                [(ngModel)]="health.followUpRequired">
+              </p-checkbox>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Exam Completed Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" [(ngModel)]="health.examDate" formControlName="examDate" [showIcon]="true"
+                showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030">
+              </p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Next Due Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" [(ngModel)]="health.nextExamDue" formControlName="nextExamDue"
+                [showIcon]="true" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Notes</span></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea pInputTextarea formControlName="notes" name="inputTextarea" [(ngModel)]="health.notes"
+                style="width:100%;height:100%"></textarea>
+            </div>
+          </div>
+        </div>
+      </form>
+      <app-form-footer (save)="formAction(health)" (edit)="editForm()" [editControll]="isEdit"
+        [attachmentControll]="isAttachmentRequired" [isAttachmentDisabled]="false" (attachDoc)="navigateToCMS()"
+        [currentNodeValue]="req" (discard)="discard()" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+      </app-form-footer>
+
+    </div>
+  </div>
+
+</p-dialog>

@@ -1,0 +1,1580 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+
+<div class="container-background">
+  <div class="container-foreground">
+    <div class="color-key-panel">
+      <span>
+        <button class="sf-positive-btn" (click)="expandCollapseCall()">
+          <span>Click To {{accordionTabLabel}}</span>
+        </button>
+      </span>
+      <span class="color-title">Color Key:</span>
+      <span class="system-info">Pulled From System</span>
+      <span class="required">Required/Warnings</span>
+    </div>
+  </div>
+  <form [formGroup]="placementPlanForm" class="form-container sf-form">
+    <p-accordion [multiple]="true">
+      <p-accordionTab [selected]="isTabCollapsed" header="Client Information">
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span class="system-info">Client Name</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>{{(autofetchInfo.clientName) ? autofetchInfo.clientName : 'Information not provided'}}</span></div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span class="system-info">KAECSES</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>{{(autofetchInfo.kaecses) ? autofetchInfo.kaecses : 'Information not provided' }}</span></div>
+          </div>
+        </div>
+
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span class="system-info">DOB</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>{{(autofetchInfo.dob) ? autofetchInfo.dob : 'Information not provided' }}</span></div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span class="system-info">Admission Date</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>{{autofetchOptions(autofetchInfo.admissionDate,'date_conversion')}} </span></div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span class="system-info">Level of Care</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>{{(autofetchInfo.levelOfCare) ? autofetchInfo.levelOfCare : 'Information not provided'}}</span>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span class="system-info">Case Plan Goal</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>{{(autofetchInfo.casePlanGoal) ? autofetchInfo.casePlanGoal : ''}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Is eligible for services at Mental Health Center?</span>
+              <span class="mandatory">*</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-radioButton [(ngModel)]="plan.mentalHealthServices" formControlName="mentalHealthServices" value=1
+                label="Yes">
+              </p-radioButton>
+              <p-radioButton [(ngModel)]="plan.mentalHealthServices" formControlName="mentalHealthServices" value=2
+                label="No">
+              </p-radioButton>
+            </div>
+          </div>
+        </div>
+      </p-accordionTab>
+      <p-accordionTab [selected]="isTabCollapsed" header="Client's Support Team">
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-sm-6 col-md-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Did Parent/Guardian participate in Placement Plan?</span><span
+                class="mandatory">*</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-radioButton (onClick)="onParticipateSelection()" [(ngModel)]="plan.parentGuardianParticipation"
+                formControlName="parentGuardianParticipation" value=1 label="Yes">
+              </p-radioButton>
+              <p-radioButton (onClick)="onParticipateSelection()" [(ngModel)]="plan.parentGuardianParticipation"
+                formControlName="parentGuardianParticipation" value=2 label="no">
+              </p-radioButton>
+            </div>
+          </div>
+        </div>
+        <div class="row-struct">
+          <div><span>Parent/Guardian #1</span></div>
+          <div>
+
+            <p-autoComplete [disabled]="isParentGuardianDisabled" formControlName="parentGuardian1_FamilyMemberID"
+              [(ngModel)]="plan.parentGuardian1_FamilyMemberID" placeholder="Type here to search"
+              emptyMessage="No records found!" [dropdown]="true" [forceSelection]="true" field="familyMember"
+              (completeMethod)="getMetaData($event,'parent_guardian')" [suggestions]="metaData"
+              name="parentGuardian1_FamilyMemberID">
+              <ng-template let-staff pTemplate="item">
+                <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                  <table width="100%">
+                    <tr>
+                      <th>Family Member</th>
+                      <th>Relationship</th>
+                      <th>Gender</th>
+                      <th>Family Member Type</th>
+                      <th>Restriction Type</th>
+                    </tr>
+                    <tr>
+                      <td>{{staff?.familyMember }}</td>
+                      <td>{{staff?.relationship}}</td>
+                      <td>{{staff?.gender}}</td>
+                      <td>{{staff?.familyMemberType}}</td>
+                      <td>{{staff?.restrictionType}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+          <div>Phone</div>
+          <div><input [disabled]="isParentGuardianDisabled" [(ngModel)]="plan.other1_Phone"
+              [ngModelOptions]="{standalone: true}" type="text" name="parent_1_ph" pInputText /></div>
+          <div>
+            <p-radioButton [disabled]="isParentGuardianDisabled"
+              (onClick)="onPhoneModeSelect('parentGuardian1_PhoneTypeID','other1_Phone','parentGuardian1_FamilyMemberID')"
+              [(ngModel)]="plan.parentGuardian1_PhoneTypeID" formControlName="parentGuardian1_PhoneTypeID" value="work"
+              label="Work">
+            </p-radioButton>
+            <p-radioButton [disabled]="isParentGuardianDisabled"
+              (onClick)="onPhoneModeSelect('parentGuardian1_PhoneTypeID','other1_Phone','parentGuardian1_FamilyMemberID')"
+              [(ngModel)]="plan.parentGuardian1_PhoneTypeID" formControlName="parentGuardian1_PhoneTypeID" value="cell"
+              label="Cell">
+            </p-radioButton>
+            <p-radioButton [disabled]="isParentGuardianDisabled"
+              (onClick)="onPhoneModeSelect('parentGuardian1_PhoneTypeID','other1_Phone','parentGuardian1_FamilyMemberID')"
+              [(ngModel)]="plan.parentGuardian1_PhoneTypeID" formControlName="parentGuardian1_PhoneTypeID" value="home"
+              label="Home">
+            </p-radioButton>
+          </div>
+        </div>
+        <div class="row-struct">
+          <div><span>Parent/Guardian #2</span></div>
+          <div>
+            <p-autoComplete [disabled]="isParentGuardianDisabled" formControlName="parentGuardian2_FamilyMemberID"
+              [(ngModel)]="plan.parentGuardian2_FamilyMemberID" placeholder="Type here to search"
+              emptyMessage="No records found!" [dropdown]="true" [forceSelection]="true" field="familyMember"
+              (completeMethod)="getMetaData($event,'parent_guardian')" [suggestions]="metaData"
+              name="parentGuardian2_FamilyMemberID">
+              <ng-template let-staff pTemplate="item">
+                <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                  <table width="100%">
+                    <tr>
+                      <th>Family Member</th>
+                      <th>Relationship</th>
+                      <th>Gender</th>
+                      <th>Family Member Type</th>
+                      <th>Restriction Type</th>
+                    </tr>
+                    <tr>
+                      <td>{{staff?.familyMember }}</td>
+                      <td>{{staff?.relationship}}</td>
+                      <td>{{staff?.gender}}</td>
+                      <td>{{staff?.familyMemberType}}</td>
+                      <td>{{staff?.restrictionType}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+          <div>Phone</div>
+          <div><input [disabled]="isParentGuardianDisabled" [(ngModel)]="plan.other2_Phone"
+              [ngModelOptions]="{standalone: true}" type="text" name="parent_2_ph" pInputText /></div>
+          <div>
+            <p-radioButton [disabled]="isParentGuardianDisabled"
+              (onClick)="onPhoneModeSelect('parentGuardian2_PhoneTypeID','other2_Phone','parentGuardian2_FamilyMemberID')"
+              [(ngModel)]="plan.parentGuardian2_PhoneTypeID" formControlName="parentGuardian2_PhoneTypeID" value="work"
+              label="Work">
+            </p-radioButton>
+            <p-radioButton [disabled]="isParentGuardianDisabled"
+              (onClick)="onPhoneModeSelect('parentGuardian2_PhoneTypeID','other2_Phone','parentGuardian2_FamilyMemberID')"
+              [(ngModel)]="plan.parentGuardian2_PhoneTypeID" formControlName="parentGuardian2_PhoneTypeID" value="cell"
+              label="Cell">
+            </p-radioButton>
+            <p-radioButton [disabled]="isParentGuardianDisabled"
+              (onClick)="onPhoneModeSelect('parentGuardian2_PhoneTypeID','other2_Phone','parentGuardian2_FamilyMemberID')"
+              [(ngModel)]="plan.parentGuardian2_PhoneTypeID" formControlName="parentGuardian2_PhoneTypeID"
+              name="prent_2" value="home" label="Home">
+            </p-radioButton>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>Why did Parent/Guardian not participate?</span></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea [disabled]="!isParentGuardianDisabled" class="width-full"
+                [(ngModel)]="plan.whyDidParentGuardianNotParticipate" [ngModelOptions]="{standalone: true}"
+                name="not_participate_reason" pInputTextArea></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span class="system-info">Contracting Agency (Payor)</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              {{(autofetchInfo.contractingAgency) ? autofetchInfo.contractingAgency : 'Information not provided'}}</div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span class="system-info">Case Mgmt Office</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              {{(autofetchInfo.SFAOffice) ? autofetchInfo.SFAOffice : 'Information not provided'}}
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span class="system-info">Case Mgmt Phone</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              {{(autofetchInfo.caseManager_Phone) ? autofetchInfo.caseManager_Phone : 'Information not provided'}}</div>
+          </div>
+        </div>
+
+        <!--  -->
+        <div class="row-struct">
+          <div class="width-15"><span>Case Manager</span><span class="mandatory">*</span></div>
+          <div>
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="autofetchInfo.caseManager" [disabled]="true"
+              type="text" pInputText />
+          </div>
+          <div>Phone</div>
+          <div><input [disabled]="true" [(ngModel)]="plan.caseManager_Phone" [ngModelOptions]="{standalone: true}"
+              type="text" pInputText />
+          </div>
+          <div>
+            <p-radioButton (onClick)="onPhoneModeSelect('caseManager_PhoneTypeID','caseManager_Phone','staffId')"
+              [(ngModel)]="plan.caseManager_PhoneTypeID" formControlName="caseManager_PhoneTypeID"
+              name="resource_parent_1_work" value="work" label="Work">
+            </p-radioButton>
+            <p-radioButton (onClick)="onPhoneModeSelect('caseManager_PhoneTypeID','caseManager_Phone','staffId')"
+              [(ngModel)]="plan.caseManager_PhoneTypeID" formControlName="caseManager_PhoneTypeID"
+              name="resource_parent_1_work" value="cell" label="Cell">
+            </p-radioButton>
+
+          </div>
+        </div>
+
+        <div class="row-struct">
+          <div class="width-15"><span>Family Support Worker</span><span class="mandatory">*</span></div>
+          <div>
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="autofetchInfo.familySupportWorker"
+              [disabled]="true" type="text" pInputText />
+          </div>
+          <div>Phone</div>
+          <div><input [disabled]="true" [(ngModel)]="plan.familySupportWorker_Phone"
+              [ngModelOptions]="{standalone: true}" type="text" pInputText /></div>
+          <div>
+            <p-radioButton
+              (onClick)="onPhoneModeSelect('familySupportWorker_PhoneTypeID','familySupportWorker_Phone','staffId')"
+              [(ngModel)]="plan.familySupportWorker_PhoneTypeID" formControlName="familySupportWorker_PhoneTypeID"
+              value="work" label="Work">
+            </p-radioButton>
+            <p-radioButton
+              (onClick)="onPhoneModeSelect('familySupportWorker_PhoneTypeID','familySupportWorker_Phone','staffId')"
+              [(ngModel)]="plan.familySupportWorker_PhoneTypeID" formControlName="familySupportWorker_PhoneTypeID"
+              value="cell" label="Cell">
+            </p-radioButton>
+
+          </div>
+        </div>
+
+        <div class="row-struct">
+          <div class="width-15"><span>Supervisor</span><span class="mandatory">*</span></div>
+          <div>
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="autofetchInfo.supervisor" [disabled]="true"
+              type="text" pInputText />
+          </div>
+          <div>Phone</div>
+          <div><input [disabled]="true" [(ngModel)]="plan.supervisor_Phone" [ngModelOptions]="{standalone: true}"
+              type="text" pInputText />
+          </div>
+          <div>
+            <p-radioButton (onClick)="onPhoneModeSelect('supervisor_PhoneTypeID','supervisor_Phone','staffId')"
+              [(ngModel)]="plan.supervisor_PhoneTypeID" formControlName="supervisor_PhoneTypeID" value="work"
+              label="Work">
+            </p-radioButton>
+            <p-radioButton (onClick)="onPhoneModeSelect('supervisor_PhoneTypeID','supervisor_Phone','staffId')"
+              [(ngModel)]="plan.supervisor_PhoneTypeID" formControlName="supervisor_PhoneTypeID" value="cell"
+              label="Cell">
+            </p-radioButton>
+
+          </div>
+        </div>
+        <!--  -->
+      </p-accordionTab>
+      <p-accordionTab [selected]="isTabCollapsed" header="Resource Family Information">
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span class="system-info">Resource Family </span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              {{(autofetchInfo.resourceFamily) ? autofetchInfo.resourceFamily : 'Information not provided'}}</div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span class="system-info">Home Phone</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              {{(autofetchInfo.resourceFamily_Phone) ? autofetchInfo.resourceFamily_Phone : 'Information not provided'}}
+            </div>
+          </div>
+        </div>
+
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span class="system-info">Address</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              {{(autofetchInfo.resourceFamily_Address) ? autofetchInfo.resourceFamily_Address : 'Information not provided'}}
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span class="system-info">City</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              {{(autofetchInfo.resourceFamily_City) ? autofetchInfo.resourceFamily_City : 'Information not provided'}}
+            </div>
+          </div>
+        </div>
+
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span class="system-info">State</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              {{(autofetchInfo.resourceFamily_State) ? autofetchInfo.resourceFamily_State : 'Information not provided'}}
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span class="system-info">Zipcode</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              {{(autofetchInfo.resourceFamily_Zipcode) ? autofetchInfo.resourceFamily_Zipcode : 'Information not provided'}}
+            </div>
+          </div>
+        </div>
+
+        <div class="row-struct">
+          <div><span>Resource Parent #1</span><span class="mandatory">*</span></div>
+          <div>
+            <p-autoComplete formControlName="resourceParent1_ProviderMemberID"
+              [(ngModel)]="plan.resourceParent1_ProviderMemberID" placeholder="Type here to search"
+              emptyMessage="No records found!" [dropdown]="true" [forceSelection]="true" field="providerMember"
+              (completeMethod)="getMetaData($event,'resource_parent')" [suggestions]="metaData">
+            </p-autoComplete>
+          </div>
+          <div>Phone</div>
+          <div><input [(ngModel)]="plan.resourceWorker_Phone" [ngModelOptions]="{standalone: true}" [disabled]="true"
+              type="text" name="resource_parent_1_phone" pInputText /></div>
+          <div>
+            <p-radioButton
+              (onClick)="onPhoneModeSelect('resourceParent1_PhoneTypeID','resourceWorker_Phone','resourceParent1_ProviderMemberID')"
+              formControlName="resourceParent1_PhoneTypeID" [(ngModel)]="plan.resourceParent1_PhoneTypeID"
+              name="resourceParent1_PhoneTypeID" value="work" label="Work">
+            </p-radioButton>
+            <p-radioButton
+              (onClick)="onPhoneModeSelect('resourceParent1_PhoneTypeID','resourceWorker_Phone','resourceParent1_ProviderMemberID')"
+              formControlName="resourceParent1_PhoneTypeID" [(ngModel)]="plan.resourceParent1_PhoneTypeID"
+              name="resource_parent_1_cell" value="cell" label="Cell">
+            </p-radioButton>
+            <p-radioButton
+              (onClick)="onPhoneModeSelect('resourceParent1_PhoneTypeID','resourceWorker_Phone','resourceParent1_ProviderMemberID')"
+              formControlName="resourceParent1_PhoneTypeID" [(ngModel)]="plan.resourceParent1_PhoneTypeID"
+              name="resource_parent_1_home" value="home" label="Home">
+            </p-radioButton>
+          </div>
+        </div>
+
+        <div class="row-struct">
+          <div><span>Resource Parent #2</span></div>
+          <div>
+            <p-autoComplete formControlName="resourceParent2_ProviderMemberID"
+              [(ngModel)]="plan.resourceParent2_ProviderMemberID" placeholder="Type here to search"
+              emptyMessage="No records found!" [dropdown]="true" [forceSelection]="true" field="providerMember"
+              (completeMethod)="getMetaData($event,'resource_parent')" [suggestions]="metaData">
+            </p-autoComplete>
+          </div>
+          <div>Phone</div>
+          <div><input [disabled]="true" type="text" name="resource_parent_2_phone" pInputText /></div>
+          <div>
+            <p-radioButton
+              (onClick)="onPhoneModeSelect('resourceParent2_PhoneTypeID','kaecses','resourceParent2_ProviderMemberID')"
+              formControlName="resourceParent2_PhoneTypeID" [(ngModel)]="plan.resourceParent2_PhoneTypeID"
+              name="resource_parent_2_work" value="work" label="Work">
+            </p-radioButton>
+            <p-radioButton
+              (onClick)="onPhoneModeSelect('resourceParent2_PhoneTypeID','kaecses','resourceParent2_ProviderMemberID')"
+              formControlName="resourceParent2_PhoneTypeID" [(ngModel)]="plan.resourceParent2_PhoneTypeID"
+              name="resource_parent_2_cell" value="cell" label="Cell">
+            </p-radioButton>
+            <p-radioButton
+              (onClick)="onPhoneModeSelect('resourceParent2_PhoneTypeID','kaecses','resourceParent2_ProviderMemberID')"
+              formControlName="resourceParent2_PhoneTypeID" [(ngModel)]="plan.resourceParent2_PhoneTypeID"
+              name="resource_parent_2_home" value="home" label="Home">
+            </p-radioButton>
+          </div>
+        </div>
+
+      </p-accordionTab>
+      <p-accordionTab [selected]="isTabCollapsed" header="Resource Family's Support Team">
+
+        <div class="row-struct">
+          <div>Sponsoring Agency</div>
+          <div class="system-info">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="autofetchInfo.sponsorName" [disabled]="true"
+              [(ngModel)]="plan.other1_Phone" type="text" name="parent_1_ph" pInputText />
+          </div>
+        </div>
+
+        <div class="row-struct">
+
+          <div><span class="system-info">Resource Worker</span></div>
+          <div>
+
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="autofetchInfo.resourceWorker" [disabled]="true"
+              type="text" name="kinship_worker" pInputText />
+          </div>
+          <div>Phone</div>
+          <div><input [ngModelOptions]="{standalone: true}" [(ngModel)]="plan.resourceWorker_Phone" [disabled]="true"
+              type="text" name="kinship_worker" pInputText /></div>
+          <div>
+
+            <p-radioButton (onClick)="onWorkerPhoneSelect('work')" formControlName="resourceWorker_PhoneTypeID"
+              [(ngModel)]="plan.resourceWorker_PhoneTypeID" name="resourceWorker_PhoneTypeID" value="work" label="Work">
+            </p-radioButton>
+            <p-radioButton (onClick)="onWorkerPhoneSelect('cell')" formControlName="resourceWorker_PhoneTypeID"
+              [(ngModel)]="plan.resourceWorker_PhoneTypeID" name="resourceWorker_PhoneTypeID" value="cell" label="Cell">
+            </p-radioButton>
+
+          </div>
+        </div>
+      </p-accordionTab>
+      <p-accordionTab [selected]="isTabCollapsed" header="Please List Current">
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Individual Therapist</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="plan.individualTherapist_Name" type="text"
+                  pInputText />
+              </span>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-2 col-md-2 col-sm-2"><span>Phone</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>
+                <input maxlength="13" [ngModelOptions]="{standalone: true}" [(ngModel)]="plan.individualTherapist_Phone"
+                  type="text" pInputText />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Family Therapist</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="plan.familyTherapist_Name" type="text"
+                  pInputText />
+              </span>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-2 col-md-2 col-sm-2"><span>Phone</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>
+                <input maxlength="13" [ngModelOptions]="{standalone: true}" [(ngModel)]="plan.familyTherapist_Phone"
+                  type="text" pInputText />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Psychiartist (If applicable)</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="plan.psychiatrist_Name" type="text"
+                  pInputText />
+              </span>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-2 col-md-2 col-sm-2"><span>Phone</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>
+                <input maxlength="13" [ngModelOptions]="{standalone: true}" [(ngModel)]="plan.psychiatrist_Phone"
+                  type="text" pInputText />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Physician (If applicable)</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="plan.physician_Name" type="text" pInputText />
+              </span>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-2 col-md-2 col-sm-2"><span>Phone</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>
+                <input maxlength="13" [ngModelOptions]="{standalone: true}" [(ngModel)]="plan.physician_Phone"
+                  type="text" pInputText />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Other #1</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="plan.other1_Name" type="text" pInputText />
+              </span>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-2 col-md-2 col-sm-2"><span>Phone</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>
+                <input maxlength="13" [ngModelOptions]="{standalone: true}" [(ngModel)]="plan.other1_Phone" type="text"
+                  pInputText />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Other #2</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="plan.other2_Name" type="text" pInputText />
+              </span>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-2 col-md-2 col-sm-2"><span>Phone</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>
+                <input maxlength="13" [ngModelOptions]="{standalone: true}" [(ngModel)]="plan.other2_Phone" type="text"
+                  pInputText />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p-checkbox binary="true" label="Acronym"></p-checkbox>
+        </div>
+      </p-accordionTab>
+      <p-accordionTab [selected]="isTabCollapsed" header="Medications (All Known medications prescribed for child)">
+
+        <div style="margin-bottom: 20px;">
+
+          <div class="subnode-header">
+            <button (click)="onExportPromptOpen('medications')">Exports</button>
+          </div>
+          <div class="subnode-table">
+            <table>
+              <tr>
+                <th>Medication</th>
+                <th>Dosage</th>
+                <th>Frequency</th>
+                <th>Begin Date</th>
+                <th>End Date</th>
+                <th>Prescribed For</th>
+                <th>Prescribed By</th>
+                <th>Actions</th>
+              </tr>
+              <tr *ngFor="let medication of medicationsList">
+                <td>{{medication.Medication}}</td>
+                <td>{{medication.Dosage}}</td>
+                <td>{{medication.FrequencyType}}</td>
+                <td>{{showTime(medication.BeginDate)}}</td>
+                <td>{{showTime(medication.EndDate)}}</td>
+                <td>{{medication.PrescribedFor}}</td>
+                <td>{{medication.PrescribedBy}}</td>
+                <td><span class="fa fa-edit" pTooltip="Click here to edit"
+                    (click)="onSubnodeRowclick('medications',medication)"></span></td>
+              </tr>
+            </table>
+          </div>
+          <div class="subnode-footer">
+            <button (click)="isMedicationForm=true">Add</button>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span class="system-info">List of allergies: including foods,
+                medications and pets (from medications and allergies, editable)
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea class="width-full" [disabled]="true" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="autofetchInfo.clientAllergies" name="list_of_allergies" pInputTextArea></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>Relevant history and Reason for placement plan ( Define the
+                concern or problem. Be precise and clear with definition )</span></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea class="width-full" [(ngModel)]="plan.relevantHistory" formControlName="relevantHistory"
+                name="relavnt_history" pInputTextArea></textarea>
+            </div>
+          </div>
+        </div>
+      </p-accordionTab>
+      <p-accordionTab [selected]="isTabCollapsed" header="Client's Strength" class="system-info">
+
+        <div class="subnode-header">
+          <button (click)="onExportPromptOpen('Client Strength')">Exports</button>
+        </div>
+        <div class="subnode-table">
+          <table>
+            <tr>
+              <th>Strength</th>
+              <th>Information Source</th>
+              <th>Current</th>
+              <th>Explanation</th>
+              <th>Actions</th>
+            </tr>
+            <tr *ngFor="let clientStrength of clientStrengthsList">
+              <td>{{clientStrength.Strength}}</td>
+              <td>{{clientStrength.StrengthInformationSource}}</td>
+              <td>
+                <span *ngIf="clientStrength.Current">&#10004;</span>
+                <span *ngIf="!clientStrength.Current">&#10006;</span>
+              </td>
+              <td>{{clientStrength.Explanation}}</td>
+              <td><span class="fa fa-edit" pTooltip="Click here to edit"
+                  (click)="onSubnodeRowclick('client_strength',clientStrength)"></span></td>
+            </tr>
+          </table>
+        </div>
+        <div class="subnode-footer">
+          <button (click)="isClientStrengthForm=true">Add</button>
+        </div>
+      </p-accordionTab>
+
+      <p-accordionTab [selected]="isTabCollapsed" header="Resource Family's Strength">
+        <div style="margin-bottom: 20px;">
+
+          <div class="subnode-header">
+            <button (click)="onExportPromptOpen('providerStrength')">Exports</button>
+          </div>
+          <div class="subnode-table">
+            <table>
+              <tr>
+                <th>Strength</th>
+                <th>Current</th>
+                <th>Explanation</th>
+              </tr>
+              <tr *ngFor="let strength of providerStrengthList">
+                <td>{{strength.strength}}</td>
+                <td>{{strength.iscurrent}}</td>
+                <td>{{strength.explanation}}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="subnode-footer">
+            <button (click)="isProviderStrengthForm=true">Add</button>
+          </div>
+        </div>
+      </p-accordionTab>
+
+      <p-accordionTab [selected]="isTabCollapsed" header="Client's Profile">
+        <div style="margin-bottom: 20px;">
+
+          <div class="subnode-header">
+            <button (click)="onExportPromptOpen('Client Profile')">Exports</button>
+          </div>
+          <div class="subnode-table">
+            <table>
+              <tr>
+                <th>Condition</th>
+                <th>Begin Date</th>
+                <th>Notify Date</th>
+                <th>Last Occurance</th>
+                <th>End Date</th>
+                <th>Frequency Type</th>
+                <th>Notes</th>
+                <th>Actions</th>
+              </tr>
+              <tr *ngFor="let profile of clientsProfileList">
+                <td>{{profile.Condition}}</td>
+                <td>{{showTime(profile.BeginDate) }}</td>
+                <td>{{showTime(profile.NotificationDate)}}</td>
+                <td>{{showTime(profile.NotificationDate)}}</td>
+                <td>{{showTime(profile.EndDate)}}</td>
+                <td>{{profile.FrequencyType}}</td>
+                <td>{{profile.Notes}}</td>
+                <td><span class="fa fa-edit" pTooltip="Click here to edit"
+                    (click)="onSubnodeRowclick('client_profile',profile)"></span></td>
+              </tr>
+            </table>
+          </div>
+          <div class="subnode-footer">
+            <button (click)="isClientProfileForm=true">Add</button>
+          </div>
+        </div>
+      </p-accordionTab>
+      <p-accordionTab [selected]="isTabCollapsed" header="Preventative Measures">
+        <div style="margin-bottom: 20px;">
+
+          <div class="subnode-header">
+            <button (click)="onExportPromptOpen('preventative-measurements')">Exports</button>
+          </div>
+          <div class="subnode-table">
+            <table>
+              <tr>
+                <th>Preventative Measures</th>
+                <th>Begin Date</th>
+                <th>End Date</th>
+                <th>Notes</th>
+                <th>Actions</th>
+              </tr>
+              <tr *ngFor="let pm of preventativeMeasuresList">
+                <td>{{pm.PreventativeMeasure}}</td>
+                <td>{{showTime(pm.BeginDate) }}</td>
+                <td>{{showTime(pm.EndDate)}}</td>
+                <td>{{pm.Notes}}</td>
+                <td><span class="fa fa-edit" pTooltip="Click here to edit"
+                    (click)="onSubnodeRowclick('preventative_measurements',pm)"></span></td>
+              </tr>
+            </table>
+          </div>
+          <div class="subnode-footer">
+            <button (click)="isPreventativeMeasurementForm=true">Add</button>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12"><span>List any actions that have worked in the past
+                (Interventions on PR)</span></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea class="width-full" [(ngModel)]="plan.integererventions" formControlName="integererventions"
+                name="not_participate_reason" pInputTextArea></textarea>
+            </div>
+          </div>
+        </div>
+      </p-accordionTab>
+      <p-accordionTab [selected]="isTabCollapsed" header="Plan For Action">
+        <div style="margin-bottom: 20px;">
+
+          <div class="subnode-header">
+            <button (click)="onExportPromptOpen('planOfAction')">Exports</button>
+          </div>
+          <div class="subnode-table">
+            <table>
+              <tr>
+                <th>Services and Support</th>
+                <th>Person Responsible</th>
+                <th>Date Initiated</th>
+                <th>Notes</th>
+
+              </tr>
+              <tr *ngFor="let plan of planOfActionListInfo">
+
+                <td>{{plan.servicesAndSupport}}</td>
+                <td>{{plan.personType}}</td>
+                <td>{{plan.dateInitiated | date: 'dd/MM/yyyy'}}</td>
+                <td>{{plan.notes}}</td>
+
+              </tr>
+            </table>
+          </div>
+          <div class="subnode-footer">
+            <button (click)="isPlanOfActionForm=true">Add</button>
+          </div>
+        </div>
+      </p-accordionTab>
+      <p-accordionTab [selected]="isTabCollapsed" header="Respite Authorization">
+        <div style="margin-bottom: 20px;">
+
+          <div class="subnode-header">
+            <button (click)="onExportPromptOpen('respiteAuthorization')">Exports</button>
+          </div>
+          <div class="subnode-table">
+            <table *ngIf="isRespiteAuthFetched" border="1" style="width:100%">
+              <tr>
+                <th>Units Per Month</th>
+                <th>Begin Date</th>
+                <th>End Date</th>
+                <th>Respite Payor</th>
+                <th>Respite Notes</th>
+              </tr>
+              <tr *ngFor="let respite of respiteAuthorization">
+                <td>{{respite.unitsPerMonth}}</td>
+                <td>{{respite.beginDate | date: 'dd/MM/yyyy'}}</td>
+                <td>{{respite.endDate | date: 'dd/MM/yyyy'}}</td>
+                <td>{{respite.payor}}</td>
+                <td>{{respite.notes}}</td>
+              </tr>
+            </table>
+          </div>
+
+        </div>
+
+
+      </p-accordionTab>
+      <p-accordionTab [selected]="isTabCollapsed" header="Other Placement Plan Participants">
+        <div style="margin-bottom: 20px;">
+
+          <div class="subnode-header">
+            <button (click)="onExportPromptOpen('otherPlacementPlanParticipants')">Exports</button>
+          </div>
+          <div class="subnode-table">
+            <table>
+              <tr>
+                <th>Name</th>
+                <th>Relationship</th>
+                <th>Phone</th>
+                <th>Participated By</th>
+                <th>Notes</th>
+              </tr>
+              <tr *ngFor="let otherParticipant of otherPlanParticipantsInfo">
+                <td>{{otherParticipant.Name}}</td>
+                <td>{{otherParticipant.personType}}</td>
+                <td>{{otherParticipant.phone}}</td>
+                <td>{{otherParticipant.ContactType}}</td>
+                <td>{{otherParticipant.notes}}</td>
+
+              </tr>
+            </table>
+          </div>
+          <div class="subnode-footer">
+            <button (click)="isOtherParticipantPlanForm=true">Add</button>
+          </div>
+        </div>
+      </p-accordionTab>
+
+      <p-accordionTab [selected]="isTabCollapsed" header="Plan Participate Approvals">
+        <div class="row-struct">
+          <div class="width-15 margin-right-90"><span>Child</span></div>
+          <div>
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="autofetchInfo.clientName" [disabled]="true"
+              type="text" pInputText />
+          </div>
+          <div>
+            <p-radioButton [(ngModel)]="plan.childSignature_ContactTypeID"
+              formControlName="childSignature_ContactTypeID" name="in_person_1" value="76" label="In Person">
+            </p-radioButton>
+            <p-radioButton [(ngModel)]="plan.childSignature_ContactTypeID"
+              formControlName="childSignature_ContactTypeID" name="by_phone_1" value="2" label="By Phone">
+            </p-radioButton>
+            <p-radioButton [(ngModel)]="plan.childSignature_ContactTypeID"
+              formControlName="childSignature_ContactTypeID" name="by_email_1" value="77" label="By Email">
+            </p-radioButton>
+          </div>
+        </div>
+
+        <div class="row-struct">
+          <div class="width-15"><span>Parent/Guardian #1</span></div>
+          <div>
+            <input [ngModel]="fetchInfo(plan.parentGuardian1_FamilyMemberID,'familyMember')"
+              [ngModelOptions]="{standalone: true}" [disabled]="true" type="text" pInputText />
+          </div>
+          <div>
+            <p-radioButton [(ngModel)]="plan.parentGuardian1Signature_ContactTypeID"
+              formControlName="parentGuardian1Signature_ContactTypeID" name="in_person_2" value="76" label="In Person">
+            </p-radioButton>
+            <p-radioButton [(ngModel)]="plan.parentGuardian1Signature_ContactTypeID"
+              formControlName="parentGuardian1Signature_ContactTypeID" name="by_phone_2" value="2" label="By Phone">
+            </p-radioButton>
+            <p-radioButton [(ngModel)]="plan.parentGuardian1Signature_ContactTypeID"
+              formControlName="parentGuardian1Signature_ContactTypeID" name="by_email_2" value="77" label="By Email">
+            </p-radioButton>
+          </div>
+        </div>
+
+        <div class="row-struct">
+          <div class="width-15"><span>Parent/Guardian #2</span></div>
+          <div>
+            <input [ngModel]="fetchInfo(plan.parentGuardian2_FamilyMemberID,'familyMember')"
+              [ngModelOptions]="{standalone: true}" [disabled]="true" type="text" pInputText />
+          </div>
+          <div>
+            <p-radioButton [(ngModel)]="plan.parentGuardian2Signature_ContactTypeID"
+              formControlName="parentGuardian2Signature_ContactTypeID" name="in_person_3" value="76" label="In Person">
+            </p-radioButton>
+            <p-radioButton [(ngModel)]="plan.parentGuardian2Signature_ContactTypeID"
+              formControlName="parentGuardian2Signature_ContactTypeID" name="by_phone_3" value="2" label="By Phone">
+            </p-radioButton>
+            <p-radioButton [(ngModel)]="plan.parentGuardian2Signature_ContactTypeID"
+              formControlName="parentGuardian2Signature_ContactTypeID" name="by_email_3" value="77" label="By Email">
+            </p-radioButton>
+          </div>
+        </div>
+
+        <div class="row-struct">
+          <div class="width-15 margin-right-35"><span>Case Manager</span></div>
+          <div>
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="autofetchInfo.caseManager" [disabled]="true"
+              type="text" pInputText />
+          </div>
+          <div>
+            <p-radioButton [(ngModel)]="plan.caseManagerSignature_ContactTypeID"
+              formControlName="caseManagerSignature_ContactTypeID" name="in_person_4" value="76" label="In Person">
+            </p-radioButton>
+            <p-radioButton [(ngModel)]="plan.caseManagerSignature_ContactTypeID"
+              formControlName="caseManagerSignature_ContactTypeID" name="by_phone_4" value="2" label="By Phone">
+            </p-radioButton>
+            <p-radioButton [(ngModel)]="plan.caseManagerSignature_ContactTypeID"
+              formControlName="caseManagerSignature_ContactTypeID" name="by_email_4" value="77" label="By Email">
+            </p-radioButton>
+          </div>
+        </div>
+
+        <div class="row-struct">
+          <div class="width-15 margin-right-57"><span>Supervisor</span></div>
+          <div>
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="autofetchInfo.supervisor" [disabled]="true"
+              type="text" pInputText />
+          </div>
+          <div>
+            <p-radioButton [(ngModel)]="plan.supervisorSignature_ContactTypeID"
+              formControlName="supervisorSignature_ContactTypeID" name="in_person_5" value="76" label="In Person">
+            </p-radioButton>
+            <p-radioButton [(ngModel)]="plan.supervisorSignature_ContactTypeID"
+              formControlName="supervisorSignature_ContactTypeID" name="by_phone_5" value="2" label="By Phone">
+            </p-radioButton>
+            <p-radioButton [(ngModel)]="plan.supervisorSignature_ContactTypeID"
+              formControlName="supervisorSignature_ContactTypeID" name="by_email_5" value="77" label="By Email">
+            </p-radioButton>
+          </div>
+        </div>
+
+        <div class="row-struct">
+          <div class="width-15"><span>Resource Parent #1</span></div>
+          <div>
+            <input [ngModel]="fetchInfo(plan.resourceParent1_ProviderMemberID,'providerMember')"
+              [ngModelOptions]="{standalone: true}" [disabled]="true" type="text" pInputText />
+          </div>
+          <div>
+            <p-radioButton [(ngModel)]="plan.resourceParent1Signature_ContactTypeID"
+              formControlName="resourceParent1Signature_ContactTypeID" name="in_person_6" value="76" label="In Person">
+            </p-radioButton>
+            <p-radioButton [(ngModel)]="plan.resourceParent1Signature_ContactTypeID"
+              formControlName="resourceParent1Signature_ContactTypeID" name="by_phone_6" value="2" label="By Phone">
+            </p-radioButton>
+            <p-radioButton [(ngModel)]="plan.resourceParent1Signature_ContactTypeID"
+              formControlName="resourceParent1Signature_ContactTypeID" name="by_email_6" value="77" label="By Email">
+            </p-radioButton>
+          </div>
+        </div>
+
+        <div class="row-struct">
+          <div class="width-15"><span>Resource Parent #2</span></div>
+          <div>
+            <input [ngModel]="fetchInfo(plan.resourceParent2_ProviderMemberID,'providerMember')"
+              [ngModelOptions]="{standalone: true}" [disabled]="true" type="text" pInputText />
+          </div>
+          <div>
+            <p-radioButton [(ngModel)]="plan.resourceParent2Signature_ContactTypeID"
+              formControlName="resourceParent2Signature_ContactTypeID" name="in_person_7" value="76" label="In Person">
+            </p-radioButton>
+            <p-radioButton [(ngModel)]="plan.resourceParent2Signature_ContactTypeID"
+              formControlName="resourceParent2Signature_ContactTypeID" name="by_phone_7" value="2" label="By Phone">
+            </p-radioButton>
+            <p-radioButton [(ngModel)]="plan.resourceParent2Signature_ContactTypeID"
+              formControlName="resourceParent2Signature_ContactTypeID" name="by_email_7" value="77" label="By Email">
+            </p-radioButton>
+          </div>
+        </div>
+
+        <div class="row-struct">
+
+          <div class="width-15 margin-right-30"><span>Resource Worker</span></div>
+          <div>
+            <input [(ngModel)]="autofetchInfo.resourceWorker" [ngModelOptions]="{standalone: true}" [disabled]="true"
+              type="text" pInputText />
+          </div>
+          <div>
+            <p-radioButton formControlName="resourceWorker_ContactTypeID"
+              [(ngModel)]="plan.resourceWorker_ContactTypeID" name="in_person_n" value="76" label="In Person">
+            </p-radioButton>
+            <p-radioButton formControlName="resourceWorker_ContactTypeID"
+              [(ngModel)]="plan.resourceWorker_ContactTypeID" name="by_phone_n" value="2" label="By Phone">
+            </p-radioButton>
+            <p-radioButton formControlName="resourceWorker_ContactTypeID"
+              [(ngModel)]="plan.resourceWorker_ContactTypeID" name="by_email_n" value="77" label="By Email">
+            </p-radioButton>
+          </div>
+        </div>
+
+        <div class="row-struct">
+          <div class="width-15 margin-right-30"><span>Date of Completion</span></div>
+          <div>
+
+            <p-calendar [(ngModel)]="plan.dateOfCompletion" formControlName="dateOfCompletion" [showTime]="true"
+              [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
+          </div>
+          <div>
+
+          </div>
+        </div>
+      </p-accordionTab>
+      <p-accordionTab [selected]="isTabCollapsed" header="Other Information">
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Do you want to withdrawal this Placement Plan?</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-radioButton [disabled]="true" name="groupname" value="true" label="Yes"></p-radioButton>
+              <p-radioButton [disabled]="true" name="groupname" value="false" label="No"></p-radioButton>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Is this a Draft?</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-radioButton [ngModelOptions]="{standalone: true}" [(ngModel)]="isDraftChecked" name="groupname"
+                value="13" label="Yes"></p-radioButton>
+              <p-radioButton [ngModelOptions]="{standalone: true}" [(ngModel)]="isDraftChecked" name="groupname"
+                value="9" label="No"></p-radioButton>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Reviewed by Supervisor?</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-radioButton [disabled]="true" name="groupname" value="true" label="Yes"></p-radioButton>
+              <p-radioButton [disabled]="true" name="groupname" value="false" label="No"></p-radioButton>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Reviewed by Care Center?</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-radioButton [disabled]="true" name="groupname" value="true" label="Yes"></p-radioButton>
+              <p-radioButton [disabled]="true" name="groupname" value="false" label="No"></p-radioButton>
+            </div>
+          </div>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+  </form>
+</div>
+<app-form-footer (attachDoc)="navigateTo()" [attachmentControll]="isAttachmentRequired" [discardTo]="discardTo"
+  [isPrintNavigation]="isPrintNavigation" (save)="formAction()" [currentNodeValue]="req" [editControll]="isEditControl"
+  (edit)="editForm()" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+</app-form-footer>
+
+<!--Client strength form-->
+<p-dialog [contentStyle]="{'min-width':'106rem'}" header="Client Strength's - {{clientName}}"
+  [(visible)]="isClientStrengthForm" [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="10000"
+  [closable]="true">
+  <form class="sf-form" [formGroup]="clientStrengthForm">
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Strength</span> <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete [(ngModel)]="strength.strengthID" [suggestions]="metaData" formControlName="StrengthID"
+            emptyMessage="No results found!" placeholder="Type here to search" [forceSelection]="true"
+            (completeMethod)="getMetaData($event,'strength')" field="strength" [dropdown]="true"></p-autoComplete>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Information Source</span> <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete [(ngModel)]="strength.strengthInformationSourceID" [suggestions]="metaData"
+            formControlName="strengthInformationSourceID" (completeMethod)="getMetaData($event,'source')"
+            field="strengthInformationSource" [dropdown]="true"></p-autoComplete>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Current</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-inputSwitch name="strength" [(ngModel)]="strength.current" formControlName="current"></p-inputSwitch>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-3 col-md-3 col-md-3">
+          <span>Explanation</span> <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <textarea name="notes" pInputTextarea style=" width: 100%;     height: 100%;"
+            [(ngModel)]="strength.explanation" cols="60" rows="5" formControlName="explanation"></textarea>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div><button (click)="subNodeFormAction('client_strength',strength)">Save</button></div>
+</p-dialog>
+
+<!--Medications and alergies form-->
+<p-dialog [contentStyle]="{'min-width':'106rem'}" header="Plan For Action" [(visible)]="isMedicationForm" [modal]="true"
+  [responsive]="true" [minY]="70" [baseZIndex]="10000" [closable]="true">
+  <form class="sf-form" [formGroup]="medicationForm">
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Medication</span> <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input type="text" formControlName="medication" pInputText name="medication"
+            [(ngModel)]="medication.medication" maxlength="50" />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Dosage</span> <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-spinner name="Dosage" formControlName="dosage" [(ngModel)]="medication.dosage" [step]="0.1" maxlength="8">
+          </p-spinner>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Dosage Type</span> <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete formControlName="dosage_type" [(ngModel)]="medication.dosageTypeID" [suggestions]="metaData"
+            (completeMethod)="getMetaData($event,'dosage')" field="dosageType" [dropdown]="true"
+            [forceSelection]="true"></p-autoComplete>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Frequency</span> <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete formControlName="frequency" [(ngModel)]="medication.frequencyTypeID" [suggestions]="metaData"
+            (completeMethod)="getMetaData($event,'frequency')" field="frequencyType" [dropdown]="true"
+            [forceSelection]="true">
+          </p-autoComplete>
+
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Begin Date</span> <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-calendar formControlName="beignDate" [(ngModel)]="medication.beginDate" [showTime]="true" [showIcon]="true"
+            [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>End Date</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-calendar formControlName="endDate" [(ngModel)]="medication.endDate" [showTime]="true" [showIcon]="true"
+            [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Prescribed For</span> <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input type="text" formControlName="prescribedFor" pInputText name="prescribed_by" maxlength="40"
+            [(ngModel)]="medication.prescribedBy" />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Prescribed By</span> <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input type="text" formControlName="prescribed_by" pInputText name="prescribed_by" maxlength="40"
+            [(ngModel)]="medication.prescribedFor" />
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Source of Info</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input type="text" formControlName="source_info" pInputText name="source_info" maxlength="40"
+            [(ngModel)]="medication.sourceOfInfo" />
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-3 col-md-3 col-md-3">
+          <span>Frequency Notes</span>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <textarea name="notes" formControlName="frequencyNotes" pInputTextarea style=" width: 100%;     height: 100%;"
+            [(ngModel)]="medication.frequencyNotes" cols="60" rows="5"></textarea>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div><button (click)="subNodeFormAction('medications',medication)">Save</button></div>
+</p-dialog>
+
+<!--Client's profile form-->
+<p-dialog [contentStyle]="{'min-width':'106rem'}" header="Client Profile - {{clientName}}"
+  [(visible)]="isClientProfileForm" [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="10000"
+  [closable]="true">
+  <form class="sf-form" [formGroup]="clientProfileForm">
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Condition</span>
+          <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete formControlName="condition" emptyMessage="No results found!" placeholder="Type here to search"
+            [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'condition')"
+            [(ngModel)]="clientProfile.conditionID" [dropdown]="true" field="condition"></p-autoComplete>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span class="sf-labels">Begin Date</span>
+          <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+          <p-calendar formControlName="beginDate" [showIcon]="true" name="beginDate"
+            [(ngModel)]="clientProfile.beginDate"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span class="sf-labels">End Date</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+          <p-calendar formControlName="endDate" [showIcon]="true" [(ngModel)]="clientProfile.endDate" name="endDate">
+          </p-calendar>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 ">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span class="sf-labels">Notification Date</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+          <p-calendar formControlName="notificationDate" [showIcon]="true" [(ngModel)]="clientProfile.notificationDate"
+            name="notification_date"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span class="sf-labels">Last Occurance
+
+          </span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+          <p-calendar formControlName="lastOccurrence" [showIcon]="true" name="lastOccurrence"
+            [(ngModel)]="clientProfile.lastOccurrence"></p-calendar>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3 ">
+          <span class="sf-labels">Frequency Type</span>
+          <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+          <p-autoComplete formControlName="frequency_type" emptyMessage="No results found!"
+            placeholder="Type here to search" [forceSelection]="true" [suggestions]="metaData"
+            (completeMethod)="getMetaData($event,'frequency_type')" [dropdown]="true" name="frequency_type"
+            [(ngModel)]="clientProfile.frequencyTypeID" field="frequencyType"></p-autoComplete>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span class="sf-labels">Risk</span>
+          <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+          <p-autoComplete formControlName="risk" emptyMessage="No results found!" placeholder="Type here to search"
+            [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'risk')"
+            [dropdown]="true" name="risk" [(ngModel)]="clientProfile.riskID" field="risk"></p-autoComplete>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Note Any Injuries</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input type="text" pInputText formControlName="note_any_injuries" size="27" name="any_injuries"
+            [(ngModel)]="clientProfile.noteAnyInjuries" />
+        </div>
+      </div>
+
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Who Needs To Be Protected</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input type="text" pInputText formControlName="be_protected" size="27" name="be_protected"
+            [(ngModel)]="clientProfile.whoNeedsToBeProtected" />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Triggers</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input type="text" pInputText formControlName="triggers" size="27" name="triggeres"
+            [(ngModel)]="clientProfile.triggers" />
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-1 col-md-1 col-sm-1">
+          <span class="sf-labels">Notes</span>
+          <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-11 col-md-11 col-sm-11 ">
+          <textarea formControlName="notes" class="sf-width-100" rows="4" name="notes"
+            [(ngModel)]="clientProfile.notes"></textarea>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div><button (click)="subNodeFormAction('client_profile',clientProfile)">Save</button></div>
+</p-dialog>
+
+<!--Preventative measurement form-->
+<p-dialog [contentStyle]="{'min-width':'106rem'}" header="Client Preventative Measures - {{clientName}}"
+  [(visible)]="isPreventativeMeasurementForm" [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="10000"
+  [closable]="true">
+  <form class="sf-form" [formGroup]="preventativeMeasurementsForm">
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Preventative Measure</span> <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete name="preventativeMeasureID" formControlName="preventativeMeasureID"
+            [(ngModel)]="pm.preventativeMeasureID" [suggestions]="metaData" [forceSelection]="true"
+            placeholder="Type here to search" emptyMessage="No results found!"
+            (completeMethod)="getMetaData($event,'preventativeMeasure')" [dropdown]="true" field="preventativeMeasure"
+            size="23"></p-autoComplete>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Begin Date</span> <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-calendar name="dateInput" formControlName="beginDate" [(ngModel)]="pm.beginDate" [showIcon]="true"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030">
+          </p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>End Date</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-calendar name="dateInput" formControlName="endDate" [(ngModel)]="pm.endDate" [showIcon]="true"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030">
+          </p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Notes</span> <span class="mandatory">*</span>
+        </div>
+
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <textarea pInputTextArea formControlName="notes" name="notes" [(ngModel)]="pm.notes"
+            style="width:100%;height:100%"></textarea>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div><button (click)="subNodeFormAction('preventative_measurements',pm)">Save</button></div>
+</p-dialog>
+
+
+<!--Plan of Action form-->
+<p-dialog [contentStyle]="{'min-width':'106rem'}" header="Plan of Action" [(visible)]="isPlanOfActionForm"
+  [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="10000" [closable]="true">
+  <form class="sf-form" [formGroup]="planOfActionForm">
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Services and Support</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete formControlName="servicesAndSupportID" [dropdown]="true" [forceSelection]="true"
+            [(ngModel)]="planOfActionInfo.servicesAndSupportID" [suggestions]="serviceSupports"
+            field="servicesAndSupport" (completeMethod)="generateSupportID()">
+          </p-autoComplete>
+
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Person Responsible</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+
+          <p-autoComplete formControlName="personTypeID" [dropdown]="true" [forceSelection]="true"
+            [(ngModel)]="planOfActionInfo.personTypeID" [suggestions]="personTypes" field="personType"
+            (completeMethod)="generatePersonTypes()">
+          </p-autoComplete>
+
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Date Initiated</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-calendar formControlName="dateInitiated" [(ngModel)]="planOfActionInfo.dateInitiated" [showTime]="true"
+            [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row margin-top-20">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-3 col-md-3 col-md-3">
+          <span>Notes</span>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <textarea name="notes" formControlName="notes" pInputTextarea style=" width: 100%;     height: 100%;"
+            [(ngModel)]="planOfActionInfo.notes" cols="60" rows="5"></textarea>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div><button (click)="subNodeFormAction('plan_of_action',planOfActionInfo)">Save</button></div>
+</p-dialog>
+
+<!--Other Placement Plan Participants form-->
+<p-dialog [contentStyle]="{'min-width':'106rem'}" header="Plan of Action" [(visible)]="isOtherParticipantPlanForm"
+  [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="10000" [closable]="true">
+  <form class="sf-form" [formGroup]="otherPlacementPlanForm">
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Name</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input [(ngModel)]="otherParticipantInfo.name" formControlName="name" type="text" pInputText maxlength="50" />
+
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Relationship</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+
+          <p-autoComplete formControlName="personTypeID" [dropdown]="true" [forceSelection]="true"
+            [(ngModel)]="otherParticipantInfo.personTypeID" [suggestions]="personTypes" field="personType"
+            (completeMethod)="generatePersonTypes()">
+          </p-autoComplete>
+
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Phone</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input [(ngModel)]="otherParticipantInfo.phone" formControlName="phone" type="text" pInputText
+            maxlength="50" />
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Participated By</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete formControlName="contactTypeID" [dropdown]="true" [forceSelection]="true"
+            [(ngModel)]="otherParticipantInfo.contactTypeID" [suggestions]="contactTypes" field="contactType"
+            (completeMethod)="getContactType()">
+          </p-autoComplete>
+
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="row margin-top-20">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-3 col-md-3 col-md-3">
+          <span>Notes</span>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <textarea name="notes" formControlName="notes" pInputTextarea style=" width: 100%;     height: 100%;"
+            [(ngModel)]="otherParticipantInfo.notes" cols="60" rows="5"></textarea>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div><button (click)="subNodeFormAction('otherParticipantPlan',otherParticipantInfo)">Save</button></div>
+</p-dialog>
+<!--Exports file name-->
+<p-dialog [contentStyle]="{'min-width':'106rem'}" header="Placement Referral Exports" [(visible)]="isExportsPrompt"
+  [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="10000" [closable]="true">
+  <div class="file-name-input-area">
+    <span>Please enter file name to export:</span>
+    <input type="text" name="exportFile" [(ngModel)]="exportFileName" pInputText />
+    <button (click)="onExportFile()">Submit</button>
+    <button (click)="exportFileName=''">Clear</button>
+  </div>
+  <div *ngIf="isExportTextShow" class="info-text">
+    <p>Please wait. Your export process has initiated</p>
+  </div>
+</p-dialog>
+
+<!--Resource Family Strength form-->
+<p-dialog [contentStyle]="{'min-width':'106rem'}" header="Provider Strength" [(visible)]="isProviderStrengthForm"
+  [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="10000" [closable]="true">
+
+  <!-- <div><button (click)="subNodeFormAction('providerStrength',clientProfile)">Save</button></div> -->
+</p-dialog>

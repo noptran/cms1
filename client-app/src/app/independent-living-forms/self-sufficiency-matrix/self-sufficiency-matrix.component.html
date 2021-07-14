@@ -1,0 +1,599 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="selfSufficiencyMatrixForm" class="sf-form">
+      <div class="flex-container header">
+          <div>
+    
+          </div>
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+          <div>
+    
+          </div>
+        </div>
+    <div>
+      <table class="table table-bordered">
+        <thead>
+          <tr class="grid-container">
+            <th class="text-center">
+              Domain
+            </th>
+            <th class="text-center">
+              1 (In Crisis)
+            </th>
+            <th class="text-center">
+              2 (Vulnerable)
+            </th>
+            <th class="text-center">
+              3 (Safe)
+            </th>
+            <th class="text-center">
+              4 (Stable/Building capacity)
+            </th>
+            <th class="text-center">
+              5 (Empowered)
+            </th>
+            <th class="text-center">
+              Score
+            </th>
+            <th class="text-center">
+              Goal met? (Yes/No)
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="grid-container">
+            <th>
+              Housing/Shelter
+            </th>
+            <td>
+              Homeless or threatened with eviction, including precariously housed, sleeping outside, or couch surfing. Staying in a dwelling
+              not meant for cohabitation.
+            </td>
+            <td>
+              In transitional, temporary or substandard housing; and/or current rent/mortgage payment is unaffordable (over 30% of income).
+            </td>
+            <td>
+              In stable housing that is safe but only marginally adequate.
+            </td>
+            <td>
+              Housing is safe, adequate and subsidized.
+            </td>
+            <td>
+              Housing is safe, adequate, and unsubsidized.
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.score" formControlName="score" name="score" class="width-4rem" type="text" pInputText
+                size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.goalMet" formControlName="goalMet" name="goalMet" class="width-7rem" type="text"
+                pInputText size="20" />
+            </td>
+          </tr>
+
+          <tr class="grid-container">
+            <th>
+              Employment
+            </th>
+            <td>
+              No job.
+            </td>
+            <td>
+              Temporary, part-time or seasonal; inadequate pay, no benefits.
+            </td>
+            <td>
+              Employed full-time; inadequate pay; few or no benefits.
+            </td>
+            <td>
+              Employed full-time with adequate pay and benefits.
+            </td>
+            <td>
+              Maintains permanent employment with adequate income and benefits.
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.score1" formControlName="score1" name="score1" class="width-4rem" type="text" pInputText
+                size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.goalMet1" formControlName="goalMet1" name="goalMet1" class="width-7rem" type="text"
+                pInputText size="20" />
+            </td>
+          </tr>
+          <tr class="grid-container">
+            <th>
+              Income
+            </th>
+            <td>
+              No income.
+            </td>
+            <td>
+              Inadequate income and/or spontaneous or inappropriate spending.
+            </td>
+            <td>
+              Can meet basic needs with subsidy; appropriate spending.
+            </td>
+            <td>
+              Can meet basic needs and manage debt without assistance.
+            </td>
+            <td>
+              Income is sufficient, well- managed; has discretionary income and is able to save.
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.score2" formControlName="score2" name="score2" class="width-4rem" type="text" pInputText
+                size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.goalMet2" formControlName="goalMet2" name="goalMet2" class="width-7rem" type="text"
+                pInputText size="20" />
+            </td>
+          </tr>
+          <tr class="grid-container">
+            <th>
+              Food
+            </th>
+            <td>
+              No food or means to prepare it. Relies to a significant degree on other sources of free or low-cost food.
+            </td>
+            <td>
+              Household receives food stamps/food assistance.
+            </td>
+            <td>
+              Can meet basic food needs, but requires occasional assistance.
+            </td>
+            <td>
+              Can meet basic food needs without assistance.
+            </td>
+            <td>
+              Can choose to purchase any food household desires.
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.score3" formControlName="score3" name="score3" class="width-4rem" type="text" pInputText
+                size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.goalMet3" formControlName="goalMet3" name="goalMet3" class="width-7rem" type="text"
+                pInputText size="20" />
+            </td>
+          </tr>
+          <tr class="grid-container">
+            <th>
+              Childcare (skip if not applicable)
+            </th>
+            <td>
+              Needs childcare, but none is available/accessible and/or child is not eligible.
+            </td>
+            <td>
+              Childcare is unreliable or unaffordable, inadequate supervision is a problem for childcare that is available.
+            </td>
+            <td>
+              Affordable subsidized childcare is available, but limited.
+            </td>
+            <td>
+              Reliable, affordable childcare is available, no need for subsidies.
+            </td>
+            <td>
+              Able to select quality childcare of choice.
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.score4" formControlName="score4" name="score4" class="width-4rem" type="text" pInputText
+                size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.goalMet4" formControlName="goalMet4" name="goalMet4" class="width-7rem" type="text"
+                pInputText size="20" />
+            </td>
+          </tr>
+          <tr class="grid-container">
+            <th>
+              Pregnancy/Parenting (skip if not applicable)
+
+            </th>
+            <td>
+              Expecting a baby/parenting with little to no resources to provide essential needs.
+            </td>
+            <td>
+              Unable to meet daily needs of children and some access to resources to assist with essential needs. </td>
+            <td>
+              Dependent on resources in order to meet children’s essential needs.
+            </td>
+            <td>
+              Able to meet most needs and connected to community resources for parenting needs.
+            </td>
+            <td>
+              Able to meet all needs of children and if pregnant, receiving prenatal care and not lacking resources.
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.score5" formControlName="score5" name="score5" class="width-4rem" type="text" pInputText
+                size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.goalMet5" formControlName="goalMet5" name="goalMet5" class="width-7rem" type="text"
+                pInputText size="20" />
+            </td>
+          </tr>
+          <tr class="grid-container">
+            <th>
+              Adult Education/Literacy
+
+
+            </th>
+            <td>
+              Literacy problems and/or no high school diploma/GED are serious barriers to employment.
+            </td>
+            <td>
+              Enrolled in literacy and/or GED program and/or has sufficient command of English to where language is not a barrier to employment.
+            </td>
+            <td>
+              Has obtained high school diploma/GED.
+            </td>
+            <td>
+              Needs/ is seeking additional education/training to improve employment situation and/or to resolve literacy problems to where
+              they are able to function effectively in society.
+            </td>
+            <td>
+              Has completed education/training needed to become employable. No literacy problems.
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.score6" formControlName="score6" name="score6" class="width-4rem" type="text" pInputText
+                size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.goalMet6" formControlName="goalMet6" name="goalMet6" class="width-7rem" type="text"
+                pInputText size="20" />
+            </td>
+          </tr>
+          <tr class="grid-container">
+            <th>
+              Health Care Coverage
+            </th>
+            <td>
+              No medical coverage with immediate need.
+            </td>
+            <td>
+              No medical coverage and great difficulty accessing medical care when needed. Some household members may be in poor health.
+            </td>
+            <td>
+              Some members (e.g. children) have medical coverage.
+            </td>
+            <td>
+              All members can get medical care when needed, but may strain budget.
+            </td>
+            <td>
+              All members are covered by affordable, adequate health insurance.
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.score7" formControlName="score7" name="score7" class="width-4rem" type="text" pInputText
+                size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.goalMet7" formControlName="goalMet7" name="goalMet7" class="width-7rem" type="text"
+                pInputText size="20" />
+            </td>
+          </tr>
+          <tr class="grid-container">
+            <th>
+              Life Skills
+            </th>
+            <td>
+              Unable to meet basic needs such as hygiene, food, activities of daily living.
+            </td>
+            <td>
+              Can meet a few but not all needs of daily living without assistance.
+            </td>
+            <td>
+              Can meet most but not all daily living needs without assistance.
+            </td>
+            <td>
+              Able to meet all basic needs of daily living without assistance.
+            </td>
+            <td>
+              Able to provide beyond basic needs of daily living for self and family.
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.score8" formControlName="score8" name="score8" class="width-4rem" type="text" pInputText
+                size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.goalMet8" formControlName="goalMet8" name="goalMet8" class="width-7rem" type="text"
+                pInputText size="20" />
+            </td>
+          </tr>
+          <div class="html2pdf__page-break"></div>
+          <tr class="grid-container">
+            <th>
+              Social life/ Supports
+            </th>
+            <td>
+              Lack of necessary support from family or friends. Is being exploited or at considerable risk of being exploited or taken
+              advantage of by others.
+            </td>
+            <td>
+              Family/friends may be supportive, but lack ability or resources to help; family members do not relate well with one another;
+              potential mistreatment or exploitation.
+            </td>
+            <td>
+              Some support from family/friends; family members acknowledge and seek to change negative behaviors; are learning to communicate
+              and support.
+            </td>
+            <td>
+              Strong support from family or friends. Household members support each other’s efforts.
+            </td>
+            <td>
+              Has healthy/expanding support network; household is stable and communication is consistently open.
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.score9" formControlName="score9" name="score9" class="width-4rem" type="text" pInputText
+                size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.goalMet9" formControlName="goalMet9" name="goalMet9" class="width-7rem" type="text"
+                pInputText size="20" />
+            </td>
+          </tr>
+          <tr class="grid-container">
+            <th>
+              Transportation
+            </th>
+            <td>
+              No access to transportation, public or private; may have car that is inoperable.
+            </td>
+            <td>
+              Transportation is available, but unreliable, unpredictable, unaffordable; may have car but no insurance, license, etc. Car
+              in need of repairs.
+            </td>
+            <td>
+              Transportation is available and reliable, but limited and/or inconvenient; drivers are licensed and minimally insured.
+            </td>
+            <td>
+              Transportation is generally accessible to meet basic travel needs.
+            </td>
+            <td>
+              Transportation is readily available and affordable; car is adequately insured.
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.score10" formControlName="score10" name="score10" class="width-4rem" type="text" pInputText
+                size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.goalMet10" formControlName="goalMet10" name="goalMet10" class="width-7rem" type="text"
+                pInputText size="20" />
+            </td>
+          </tr>
+          <tr class="grid-container">
+            <th>
+              Community Involvement
+            </th>
+            <td>
+              Not applicable due to crisis situation; in “survival” mode.
+            </td>
+            <td>
+              Socially isolated and/or no social skills and/or needs to improve social skills or barriers exist to becoming involved.
+            </td>
+            <td>
+              Has the capacity and knowledge to become involved but not interested or motivated at this time and/or has barriers such as
+              transportation, childcare issues etc.
+            </td>
+            <td>
+              Some community involvement (advisory group, campus group, support group and/or church group).
+            </td>
+            <td>
+              Actively involved in community. (multiple levels of involvement and/or taken on leadership roles)
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.score11" formControlName="score11" name="score11" class="width-4rem" type="text" pInputText
+                size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.goalMet11" formControlName="goalMet11" name="goalMet11" class="width-7rem" type="text"
+                pInputText size="20" />
+            </td>
+          </tr>
+          <tr class="grid-container">
+            <th>
+              Legal
+            </th>
+            <td>
+              Current outstanding tickets, warrants or unresolved legal issues.
+            </td>
+            <td>
+              Current charges/trial pending, noncompliance with probation/parole.
+            </td>
+            <td>
+              Fully compliant with probation/parole terms.
+            </td>
+            <td>
+              Has successfully completed probation/parole within past 12 months, no new charges filed.
+            </td>
+            <td>
+              No active criminal justice involvement in more than 12 months and/or no felony criminal history.
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.score12" formControlName="score12" name="score12" class="width-4rem" type="text" pInputText
+                size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.goalMet12" formControlName="goalMet12" name="goalMet12" class="width-7rem" type="text"
+                pInputText size="20" />
+            </td>
+          </tr>
+          <tr class="grid-container">
+            <th>
+              Mental Health
+            </th>
+            <td>
+              Danger to self or others; recurring suicidal ideation; experiencing severe difficulty in day-to-day life due to psychological
+              problems.
+            </td>
+            <td>
+              Recurrent mental health symptoms that may affect behavior, but not a danger to self/others; persistent problems with functioning
+              due to mental health symptoms.
+            </td>
+            <td>
+              Mild symptoms may be present but are transient; only moderate difficulty in functioning due to mental health problems.
+            </td>
+            <td>
+              Minimal symptoms that are expectable responses to life stressors; only slight impairment in functioning.
+            </td>
+            <td>
+              Symptoms are absent or rare; good or superior functioning in wide range of activities; no more than everyday problems or
+              concerns.
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.score13" formControlName="score13" name="score13" class="width-4rem" type="text" pInputText
+                size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.goalMet13" formControlName="goalMet13" name="goalMet13" class="width-7rem" type="text"
+                pInputText size="20" />
+            </td>
+          </tr>
+          <tr class="grid-container">
+            <th>
+              Substance Abuse
+            </th>
+            <td>
+              Meets criteria for severe abuse/dependence; resulting problems so severe that institutional living or hospitalization may
+              be necessary.
+            </td>
+            <td>
+              Meets criteria for dependence; preoccupation with use and/or obtaining drugs/alcohol; withdrawal or withdrawal avoidance
+              behaviors evident; use results in avoidance or neglect of essential life activities.
+            </td>
+            <td>
+              Use within last 6 months; evidence of persistent or recurrent social, occupational, emotional or physical problems related
+              to use (such as disruptive behavior or housing problems); problems have persisted for at least one month.
+            </td>
+            <td>
+              Client has used during last 6 months, but no evidence of persistent or recurrent social, occupational, emotional, or physical
+              problems related to use; no evidence of recurrent dangerous use.
+            </td>
+            <td>
+              No drug use/alcohol abuse in last 6 months.
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.score14" formControlName="score14" name="score14" class="width-4rem" type="text" pInputText
+                size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.goalMet14" formControlName="goalMet14" name="goalMet14" class="width-7rem" type="text"
+                pInputText size="20" />
+            </td>
+          </tr>
+          <tr class="grid-container">
+            <th>
+              Safety
+            </th>
+            <td>
+              Home or residence is not safe; immediate level of danger/harm is extremely high; possible CPS involvement. Domestic violence
+              or abuse/neglect present in the home.
+            </td>
+            <td>
+              Safety is threatened/temporary protection is available; level of danger/harm is high. Domestic violence, abuse/neglect potentially
+              being experienced in home.
+            </td>
+            <td>
+              Current level of safety is minimally adequate; ongoing safety planning is essential.
+            </td>
+            <td>
+              Environment is safe, however, future of such is uncertain; safety planning is important.
+            </td>
+            <td>
+              Environment is apparently safe and stable.
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.score15" formControlName="score15" name="score15" class="width-4rem" type="text" pInputText
+                size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.goalMet15" formControlName="goalMet15" name="goalMet15" class="width-7rem" type="text"
+                pInputText size="20" />
+            </td>
+          </tr>
+          <tr class="grid-container">
+            <th>
+              Disabilities
+            </th>
+            <td>
+              Acute or chronic symptoms affecting housing, employment, social interactions, etc.
+            </td>
+            <td>
+              Sometimes or periodically has acute or chronic symptoms affecting housing, employment, social interactions, etc.
+            </td>
+            <td>
+              Rarely has acute or chronic symptoms affecting housing, employment, social interactions, etc.
+            </td>
+            <td>
+              Asymptomatic – condition controlled by services or medication.
+            </td>
+            <td>
+              No identified disability.
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.score16" formControlName="score16" name="score116" class="width-4rem" type="text" pInputText
+                size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.goalMet16" formControlName="goalMet16" name="goalMet16" class="width-7rem" type="text"
+                pInputText size="20" />
+            </td>
+          </tr>
+          <tr class="grid-container">
+            <th>
+              Credit
+            </th>
+            <td>
+              Bankruptcies/Foreclosures/Evictions/pawn shop or gambling debt.
+            </td>
+            <td>
+              Outstanding judgements/garnishments; unable to pay current bills.
+            </td>
+            <td>
+              Needs a credit repair/rebuilding credit, minimal outstanding debts, payday loans.
+            </td>
+            <td>
+              Rebuilding credit. Paying bills on time, credit is building.
+            </td>
+            <td>
+              Manageable budget, credit is intact and no issues with creditors/debt.
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.score17" formControlName="score17" name="score17" class="width-4rem" type="text" pInputText
+                size="20" />
+            </td>
+            <td>
+              <input [(ngModel)]="indSelfSufficiencyMatrix.goalMet17" formControlName="goalMet17" name="goalMet17" class="width-7rem" type="text"
+                pInputText size="20" />
+            </td>
+          </tr>
+
+          <tr class="grid-container-1">
+            <th>
+              High Risk Housing Barriers (Circle all that apply):
+            </th>
+            <td>
+              Sex Offender Bankruptcy Person Felony Child in OOH Placement Drug Charges Felony Convictions Credit Issues Civil Judgements
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="grid-container-2">
+        <div>
+
+        </div>
+        <div>
+          Total Matrix Score:
+        </div>
+        <div>
+          <input [(ngModel)]="indSelfSufficiencyMatrix.totalMatrixScore" formControlName="totalMatrixScore" name="totalMatrixScore"
+            class="score-box" type="text" pInputText size="20" />
+        </div>
+        <div>
+          <input [(ngModel)]="indSelfSufficiencyMatrix.totalMatrixGoalMet" formControlName="totalMatrixGoalMet" name="totalMatrixGoalMet"
+            class="score-box" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,indSelfSufficiencyMatrix)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

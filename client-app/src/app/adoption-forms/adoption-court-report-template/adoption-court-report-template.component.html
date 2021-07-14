@@ -1,0 +1,541 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="adoptionCourtReportTempForm" class="sf-form">
+      <div class="flex-container header">
+          <div>
+    
+          </div>
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+          <div>
+    
+          </div>
+        </div>
+    <div class="text-center">
+      <h3>
+        <b>Use Letter Head for 1st Page</b>
+      </h3>
+    </div>
+    <div class="row text-center margin-bottom-2rem">
+      <div class="col-xs-4">
+
+      </div>
+      <div class="col-xs-4">
+        <h3>
+          <b>COURT REPORT
+            <input [(ngModel)]="adopCourtReportTemp.Hearing" formControlName="Hearing" name="Hearing" type="text" pInputText size="20"
+            /> HEARING </b>
+          Saint Francis Community Services Adoption Program
+        </h3>
+      </div>
+      <div class="col-xs-4">
+
+      </div>
+    </div>
+    <p>
+      <b>FOR: </b>Juvenile Department of District Court,
+      <input [(ngModel)]="adopCourtReportTemp.For" formControlName="For" name="For" type="text" pInputText size="20" /> County, Kansas
+    </p>
+    <p>
+      <b>COURT DATE and TIME:</b>
+      <p-calendar [(ngModel)]="adopCourtReportTemp.CourtDate" formControlName="CourtDate" name="CourtDate" showTime="true" hourFormat="24"
+        [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+    </p>
+    <p>
+      <b>CASE NAME:</b>
+      <input [(ngModel)]="adopCourtReportTemp.CaseName" formControlName="CaseName" name="CaseName" type="text" pInputText size="20"
+      />
+    </p>
+    <p>(Name each child and list each DOB/AGE)</p>
+    <p>
+      <b>DOB/AGE: </b>
+      <p-calendar [(ngModel)]="adopCourtReportTemp.Dob" formControlName="Dob" name="Dob" showTime="true" hourFormat="24" [yearNavigator]="true"
+        [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+    </p>
+    <p>When will youth be 14?
+      <p-calendar [(ngModel)]="adopCourtReportTemp.DateFor14Age" formControlName="DateFor14Age" name="DateFor14Age" showTime="true"
+        hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      NA
+      <p-calendar [(ngModel)]="adopCourtReportTemp.Na" formControlName="Na" name="Na" showTime="true" hourFormat="24" [yearNavigator]="true"
+        [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+    </p>
+    <p>
+      <b>DATE PREPARED: </b>
+      <p-calendar [(ngModel)]="adopCourtReportTemp.DatePrepared" formControlName="DatePrepared" name="DatePrepared" showTime="true"
+        hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+    </p>
+    <p>
+      <b>COURT CASE #: </b>
+      <input [(ngModel)]="adopCourtReportTemp.CourtCase" formControlName="CourtCase" name="CourtCase" type="text" pInputText size="20"
+      /> </p>
+    <p>
+      <b>I. FAMILY INFORMATION:</b>
+    </p>
+    <div class="row">
+      <div class="col-xs-3">
+        A. PARENT OR CARETAKER
+      </div>
+      <div>
+        <input [(ngModel)]="adopCourtReportTemp.Caretaker" formControlName="Caretaker" name="Caretaker" type="text" pInputText size="20"
+        />
+      </div>
+      <div class="col-xs-3">
+        RELATIONSHIP
+      </div>
+      <div>
+        <input [(ngModel)]="adopCourtReportTemp.Relationship" formControlName="Relationship" name="Relationship" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-3">
+        B. CHILD/CHILDREN INVOLVED IN COURT ACTION
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-1">
+        NAME
+      </div>
+      <div>
+        <input [(ngModel)]="adopCourtReportTemp.Name" formControlName="Name" name="Name" type="text" pInputText size="20" />
+      </div>
+      <div class="col-xs-2">
+        LOCATION
+      </div>
+      <div>
+        <input [(ngModel)]="adopCourtReportTemp.Location" formControlName="Location" name="Location" type="text" pInputText size="20"
+        />
+      </div>
+      <div class="col-xs-1">
+        DATE PLACED
+      </div>
+      <div>
+        <p-calendar [(ngModel)]="adopCourtReportTemp.DatePlaced" formControlName="DatePlaced" name="DatePlaced" showTime="true" hourFormat="24"
+          [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <p>
+      <b>INDIAN HERITAGE: Yes
+        <p-checkbox [(ngModel)]="adopCourtReportTemp.IsHeritageYes" formControlName="IsHeritageYes" name="IsHeritageYes" binary="true"></p-checkbox>Friend No
+        <p-checkbox [(ngModel)]="adopCourtReportTemp.IsHeritageNo" formControlName="IsHeritageNo" name="IsHeritageNo" binary="true"></p-checkbox>Friend If yes:
+      </b>
+    </p>
+    <p>Details on how information was obtained (JE’s, ICWA Affidavit, CSO, Parents)</p>
+    <p>Name of Tribe</p>
+    <p>Family Member where heritage exists</p>
+    <p>Efforts in including Tribe in case decisions such as invite to case plans, meetings, and all communication</p>
+    <p>
+      <b>II. PROFESSIONALS INVOLVED:</b>
+    </p>
+    <div class="row">
+      <div class="col-xs-1">
+        NAME
+      </div>
+      <div>
+        <input [(ngModel)]="adopCourtReportTemp.ProfessionalsName" formControlName="ProfessionalsName" name="ProfessionalsName" type="text"
+          pInputText size="20" />
+      </div>
+      <div class="col-xs-1">
+        AGENCY
+      </div>
+      <div>
+        <input [(ngModel)]="adopCourtReportTemp.ProfessionalsAgency" formControlName="ProfessionalsAgency" name="ProfessionalsAgency"
+          type="text" pInputText size="20" />
+      </div>
+      <div class="col-xs-1">
+        TITLE
+      </div>
+      <div>
+        <input [(ngModel)]="adopCourtReportTemp.ProfessionalsTitle" formControlName="ProfessionalsTitle" name="ProfessionalsTitle"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>• SFCS Adoption Social Worker</p>
+    <p>• SFCS Adoption Family Support Worker</p>
+    <p>• SFCS Adoption Supervisor</p>
+    <p>• DCF Liaison</p>
+    <p>• Judge</p>
+    <p>• GAL</p>
+    <p>
+      • CSO
+    </p>
+    <p>• CASA, if assigned</p>
+    <p>• Child(ren)’s therapist</p>
+    <p>
+      <b>III. REASON FOR REFERRAL</b>
+    </p>
+    <p>• Do not copy and paste from 5110</p>
+    <p>• Brief summary including date referred to SFCS</p>
+    <p>
+      <b>IV. ATTENTION SHOULD BE GIVEN TO THE DIAGNOSIS OF THE FOLLOWING PARTY/PARTIES</b>
+    </p>
+    <div class="row">
+      <div class="col-xs-1">
+        NAME
+      </div>
+      <div>
+        <input [(ngModel)]="adopCourtReportTemp.Name1" formControlName="Name1" name="Name1" type="text" pInputText size="20" />
+      </div>
+      <div class="col-xs-1">
+        Diagnosis
+      </div>
+      <div>
+        <input [(ngModel)]="adopCourtReportTemp.Diagnosis" formControlName="Diagnosis" name="Diagnosis" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <p>• Child (need to provide date, mental health agency, and who gave the diagnosis)</p>
+    <p>• Be sure to update if there are changes between court hearings</p>
+    <p>
+      <b>V. MENTAL HEALTH</b>
+    </p>
+    <p>• Date services began</p>
+    <p>• Dates of services</p>
+    <p>• Mental Health Center & Therapist</p>
+    <p>• Discuss what the sessions are focusing on and progress being made.</p>
+    <p>• Medication appointments & dosages</p>
+    <p>• Progress with medication</p>
+    <p>• Report on mental health case management, attendant care, groups, drug and alcohol services</p>
+    <p>• Must request reports from providers 4 weeks before a court hearing. If a report is not provided, need to include attempts
+      to obtain through the mental health center. </p>
+    <p>• All specific to the child</p>
+    <p>• All specific to the child</p>
+    <p>
+      <b>VI. PLACEMENT SINCE LAST COURT HEARING</b>
+    </p>
+    <div>
+      <table class="table table-bordered">
+        <tr class="row-height-1rem">
+          <th>Dates</th>
+          <th>Placement</th>
+          <th>City</th>
+        </tr>
+        <tr class="row-height-1rem">
+          <td>
+            <p-calendar [(ngModel)]="adopCourtReportTemp.Dates" formControlName="Dates" name="Dates" showTime="true" hourFormat="24"
+              [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td>
+            <input [(ngModel)]="adopCourtReportTemp.Placement" formControlName="Placement" name="Placement" type="text" pInputText size="20"
+            />
+          </td>
+          <td>
+            <input [(ngModel)]="adopCourtReportTemp.City" formControlName="City" name="City" type="text" pInputText size="20" />
+          </td>
+        </tr>
+        <tr class="row-height-1rem">
+          <td>
+            <p-calendar [(ngModel)]="adopCourtReportTemp.Dates1" formControlName="Dates1" name="Dates1" showTime="true" hourFormat="24"
+              [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td>
+            <input [(ngModel)]="adopCourtReportTemp.Placement1" formControlName="Placement1" name="Placement1" type="text" pInputText
+              size="20" />
+          </td>
+          <td>
+            <input [(ngModel)]="adopCourtReportTemp.City1" formControlName="City1" name="City1" type="text" pInputText size="20" />
+          </td>
+        </tr>
+
+      </table>
+    </div>
+    <p>• Placement’s address should not be included in any court report</p>
+    <p>• If safety concerns, provide generic information ie. Foster Home, Facility, Kansas</p>
+    <p>• Should be new and updated information between court hearings
+    </p>
+    <p>
+      <b>VII. STATUS OF CHILD</b>
+    </p>
+    <p>• If the child moved at any time during the review period, need to give reasons for each of the moves. For those that
+      are in ER placements, need to provide information as to the agency’s attempts to locate a long term placement.</p>
+    <p>• How is the child doing in the current placement?</p>
+    <p>• What is the placement working on with the child?</p>
+    <p>• How does the child feel about the placement?</p>
+    <p>• Mention any critical incidents that occurred in placement</p>
+    <p>• Should summarize information from monthly worker/child visits and monthly foster care reports</p>
+    <p>• Report on updated KBH, Dental, Vision & Developmental Assessments</p>
+    <p>• For youth with a goal of OPPLA, summarize their progress of IL skills</p>
+    <p>• For youth with a goal of OPPLA – age appropriate activities must be listed along with the permanency outcome child
+      desires
+    </p>
+    <p>• Should be new and updated information between court hearings</p>
+    <p>• List all efforts to locate a youth who is currently AWOL.</p>
+    <p>
+      <b>VIII. REASONABLE AND PRUDENT PARENTING STANDARD</b>
+    </p>
+    <p>• For all youth, describe ongoing opportunities to engage in age or developmentally appropriate activities. This should
+      be addressed through each worker/child visit.</p>
+    <p>• For all youth, describe how placement/caregiver supporting ongoing opportunities to engage in age or developmentally
+      appropriate activities. This should be addressed through each worker/child visit.</p>
+    <p>
+      <b>IX. SCHOOL PROGRESS</b>
+    </p>
+    <p>• Current School & Grade</p>
+    <p>• Current grades & attendance</p>
+    <p>• Are they on an IEP and if so, what is the reason for the IEP?</p>
+    <p>• What services is the school providing to meet the needs of the IEP?</p>
+    <p>• Behaviors in School and how they are being addressed</p>
+    <p>• Should be new and updated information between court hearings</p>
+    <p>
+      <b>X. SUMMARY OF VISITATION</b>
+    </p>
+    <p>• List and clearly identify who the child is visiting (grandparents, siblings, etc.)</p>
+    <p>• Frequency and location of visit</p>
+    <p>• List any safety concerns that may exist or have been observed</p>
+    <p>• Should be new and updated information between court hearings </p>
+    <p>
+      <b>
+        XI. ATTEMPTS TO IDENTIFY AND PLACE CHILD WITH RELATIVES
+      </b>
+    </p>
+    <p>• Maternal Grandmother: Name, Address, Attempts to Locate, Relative Placement exploration – if they are not a placement
+      option need to provide detail as to why. Level of involvement in the case. Include whether or not the relative is an
+      adoptive resource.</p>
+    <p>• Maternal Grandfather: Name, Address, Attempts to Locate, Relative Placement exploration – if they are not a placement
+      option need to provide detail as to why. Level of involvement in the case. Include whether or not the relative is an
+      adoptive resource.</p>
+    <p>• Paternal Grandmother: Name, Address, Attempts to Locate, Relative Placement exploration – if they are not a placement
+      option need to provide detail as to why. Level of involvement in the case. Include whether or not the relative is an
+      adoptive resource.</p>
+    <p>• Paternal Grandfather: Name, Address, Attempts to Locate, Relative Placement exploration – if they are not a placement
+      option need to provide detail as to why. Level of involvement in the case. Include whether or not the relative is an
+      adoptive resource.</p>
+    <p>
+      • Other Relatives: Name, Address, Relationship to Child, Attempts to Locate, Relative Placement Exploration – if they are
+      not a placement option need to provide detail as to why. Level of involvement in the case. Include whether or not the
+      relative is an adoptive resource. List all known relatives using information from CINC Affidavit, CSO information sheet,
+      Maternal/Paternal Relative forms, or information gleaned from Extreme Recruitment. Be sure to summarize kinship assessments
+      and ICPC requests. SHOULD BE A RUNNING REPORT OF ALL OF THE ATTEMPTS FOR THE LIFE OF THE CASE
+
+    </p>
+    <p>• This section must be completed for OPPLA youth, along with efforts to place child with any of the above. Also for OPPLA
+      youth, document all Social Media efforts to locate relatives.</p>
+    <p>
+      <b>Tips:</b>
+    </p>
+    <p>• Conversations about the identity and location of relatives should occur and should be documented in eKidz. Extended
+      family members, friends, and others involved in the case should also be questioned (including child/ren, if appropriate).</p>
+    <p>• All identified relatives that are involved in the case should be invited to every case plan, unless there is concern
+      by the parents.</p>
+    <p>• The ICPC process should be started as soon as an out of state relative has been identified and has been deemed appropriate.</p>
+    <p>• If appropriate, all attempts to facilitate visitation/communication with out of state relatives should be explored
+      and documented in eKidz.
+    </p>
+    <p>
+      <b>XII. CASE PLAN/COURT ORDERS</b>
+    </p>
+    <p>Permanency Goal: </p>
+    <div>
+      <table class="table table-bordered">
+        <tr class="grid-container">
+          <th>
+            Initiated Date
+          </th>
+          <th>Task</th>
+          <th>Court Ordered by Judge
+          </th>
+          <th>Responsible Person</th>
+          <th>Target Date</th>
+          <th>Achieved Date</th>
+        </tr>
+        <tr class="grid-container">
+          <td>
+            <p-calendar [inputStyle]="{'width':'150px'}" [(ngModel)]="adopCourtReportTemp.InitiatedDate" formControlName="InitiatedDate" name="InitiatedDate" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td>
+            <input class="width-178px" [(ngModel)]="adopCourtReportTemp.Task" formControlName="Task" name="Task" type="text" pInputText size="20" />
+          </td>
+          <td>
+            <input class="width-178px" [(ngModel)]="adopCourtReportTemp.CourtOrdered" formControlName="CourtOrdered" name="CourtOrdered" type="text" pInputText
+              size="20" />
+          </td>
+          <td>
+            <input class="width-178px" [(ngModel)]="adopCourtReportTemp.ResponsiblePerson" formControlName="ResponsiblePerson" name="ResponsiblePerson" type="text"
+              pInputText size="20" />
+          </td>
+          <td>
+            <p-calendar [inputStyle]="{'width':'150px'}" [(ngModel)]="adopCourtReportTemp.TargetDate" formControlName="TargetDate" name="TargetDate" showTime="true" hourFormat="24"
+              [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td>
+            <p-calendar [inputStyle]="{'width':'150px'}" [(ngModel)]="adopCourtReportTemp.AchievedDate" formControlName="AchievedDate" name="AchievedDate" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr class="grid-container">
+          <td>
+            <p-calendar [inputStyle]="{'width':'150px'}" [(ngModel)]="adopCourtReportTemp.InitiatedDate1" formControlName="InitiatedDate1" name="InitiatedDate1" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td>
+            <input class="width-178px" [(ngModel)]="adopCourtReportTemp.Task1" formControlName="Task1" name="Task1" type="text" pInputText size="20" />
+          </td>
+          <td>
+            <input class="width-178px" [(ngModel)]="adopCourtReportTemp.CourtOrdered1" formControlName="CourtOrdered1" name="CourtOrdered1" type="text" pInputText
+              size="20" />
+          </td>
+          <td>
+            <input class="width-178px" [(ngModel)]="adopCourtReportTemp.ResponsiblePerson1" formControlName="ResponsiblePerson1" name="ResponsiblePerson1"
+              type="text" pInputText size="20" />
+          </td>
+          <td>
+            <p-calendar [inputStyle]="{'width':'150px'}" [(ngModel)]="adopCourtReportTemp.TargetDate1" formControlName="TargetDate1" name="TargetDate1" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td>
+            <p-calendar [inputStyle]="{'width':'150px'}" [(ngModel)]="adopCourtReportTemp.AchievedDate1" formControlName="AchievedDate1" name="AchievedDate1" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr class="grid-container">
+          <td>
+            <p-calendar [inputStyle]="{'width':'150px'}" [(ngModel)]="adopCourtReportTemp.InitiatedDate2" formControlName="InitiatedDate2" name="InitiatedDate2" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td>
+            <input class="width-178px" [(ngModel)]="adopCourtReportTemp.Task2" formControlName="Task2" name="Task2" type="text" pInputText size="20" />
+          </td>
+          <td>
+            <input class="width-178px" [(ngModel)]="adopCourtReportTemp.CourtOrdered2" formControlName="CourtOrdered2" name="CourtOrdered2" type="text" pInputText
+              size="20" />
+          </td>
+          <td>
+            <input class="width-178px" [(ngModel)]="adopCourtReportTemp.ResponsiblePerson2" formControlName="ResponsiblePerson2" name="ResponsiblePerson2"
+              type="text" pInputText size="20" />
+          </td>
+          <td>
+            <p-calendar [inputStyle]="{'width':'150px'}" [(ngModel)]="adopCourtReportTemp.TargetDate2" formControlName="TargetDate2" name="TargetDate2" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td>
+            <p-calendar [inputStyle]="{'width':'150px'}" [(ngModel)]="adopCourtReportTemp.AchievedDate2" formControlName="AchievedDate2" name="AchievedDate2" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+        <tr class="grid-container">
+          <td>
+            <p-calendar [inputStyle]="{'width':'150px'}" [(ngModel)]="adopCourtReportTemp.InitiatedDate3" formControlName="InitiatedDate3" name="InitiatedDate3" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td>
+            <input class="width-178px" [(ngModel)]="adopCourtReportTemp.Task3" formControlName="Task3" name="Task3" type="text" pInputText size="20" />
+          </td>
+          <td>
+            <input class="width-178px" [(ngModel)]="adopCourtReportTemp.CourtOrdered3" formControlName="CourtOrdered3" name="CourtOrdered3" type="text" pInputText
+              size="20" />
+          </td>
+          <td>
+            <input class="width-178px" [(ngModel)]="adopCourtReportTemp.ResponsiblePerson3" formControlName="ResponsiblePerson3" name="ResponsiblePerson3"
+              type="text" pInputText size="20" />
+          </td>
+          <td>
+            <p-calendar [inputStyle]="{'width':'150px'}" [(ngModel)]="adopCourtReportTemp.TargetDate3" formControlName="TargetDate3" name="TargetDate3" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+          <td>
+            <p-calendar [inputStyle]="{'width':'150px'}" [(ngModel)]="adopCourtReportTemp.AchievedDate3" formControlName="AchievedDate3" name="AchievedDate3" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <p>
+      <b>XIII. SFCS PLAN FOR PERMANENCY</b>
+    </p>
+    <p>• For youth 14 and over, reference if they were a part of the development of the case plan</p>
+    <p>• Timeline for adoption including specific projected dates for each task</p>
+    <p>• If no identified adoptive resource, provide detailed information about recruitment efforts</p>
+    <p>
+      <b>XIV. RECOMMENDATIONS:</b>
+    </p>
+    <p>• For children to remain in out of home placement.</p>
+    <p>• Remain in DCF custody or released (if for older youth aging out of the system)</p>
+    <p>• Change in goal</p>
+    <p>• For youth 16 or older with a goal of OPPLA, provide the rationale/compelling reasons why it would not be in the child’s
+      best interest for a permanent placement through reintegration, adoption or permanent custodianship. Summarize the intensive,
+      ongoing, and unsuccessful efforts to return the child home or secure a placement with a fit and willing relative, legal
+      guardian, or adoptive parent. </p>
+    <p>• For youth 14 and older, recommend when a Permanency Hearing should be scheduled. The hearing must be held within 12
+      months of out of home placement. For example, if the youth came in on 7/1/16, the Permanency Hearing would need to
+      be held by 7/1/17.</p>
+    <p>• Recommendation for next court date</p>
+    <div class="row">
+      <div class="col-xs-2">
+        Respectfully submitted,
+      </div>
+      <div class="col-xs-7">
+
+      </div>
+      <div class="col-xs-2">
+        Approved by,
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-2">
+
+      </div>
+      <div class="col-xs-7">
+
+      </div>
+      <div class="col-xs-2">
+        <input [(ngModel)]="adopCourtReportTemp.ApprovedBy" formControlName="ApprovedBy" name="ApprovedBy" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-2">
+        <input [(ngModel)]="adopCourtReportTemp.AdoptionSocialWorker" formControlName="AdoptionSocialWorker" name="AdoptionSocialWorker"
+          type="text" pInputText size="20" />
+      </div>
+      <div class="col-xs-7">
+
+      </div>
+      <div class="col-xs-2">
+        <input [(ngModel)]="adopCourtReportTemp.AdoptionSupervisor" formControlName="AdoptionSupervisor" name="AdoptionSupervisor"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-2">
+        (Type Name)
+        <div>
+          SFCS Adoption Social Worker
+        </div>
+      </div>
+      <div class="col-xs-7">
+
+      </div>
+      <div class="col-xs-2">
+        (Type Name)
+        <div>
+          SFCS Adoption Supervisor
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,adopCourtReportTemp)" (edit)="editForm()" [editControll]="editControll" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

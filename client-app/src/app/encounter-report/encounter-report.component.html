@@ -1,0 +1,156 @@
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loader" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="encounter-proceess-contanier">
+    <div class="process-dropdowns-container">
+      <div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin Date</span><span class="mandatory">*</span> </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" [(ngModel)]="report.beginDate" [showIcon]="true" showTime="true"
+                hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+                placeholder="Begin Date" pTooltip="Begin Date" tooltipPosition="top"></p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span><span class="mandatory">*</span> </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" [(ngModel)]="report.endDate" [showIcon]="true" showTime="true"
+                hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+                placeholder="End Date" pTooltip="End Date" tooltipPosition="top"></p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row flex-container space-between">
+          <div>Program Type<span class="mandatory">*</span> </div>
+          <div class="space-left">
+            <p-autoComplete name="payorID" emptyMessage="No results found!" [forceSelection]="true"
+              (completeMethod)="filterPayor($event)" [dropdown]="true" [suggestions]="metaData" field="payorName"
+              placeholder="Type here to search" size="23" [(ngModel)]="report.payorID" (onSelect)="getPayorId($event)">
+            </p-autoComplete>
+          </div>
+          <div class="space">Submit Date</div>
+          <div>
+            <p-calendar name="dateInput" [(ngModel)]="report.submitDate" [showIcon]="true" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+              placeholder="Submit Date" pTooltip="Submit Date" tooltipPosition="top"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="process-option-2">
+        <p-checkbox label="Recreate Submission"></p-checkbox>
+        <p-checkbox label="Check for Errors Only"></p-checkbox>
+      </div> -->
+      <!-- <div class="process-option-3">
+        <button type="button" class="sf-negative-btn">Reload</button>
+        <button type="button" class="sf-positive-btn" (click)="processingReport(report)">Process</button>
+      </div> -->
+    </div>
+    <div class="process-filter">
+      <span> <b>Processing Filter</b></span>
+      <p-checkbox label="Placement" binary="true" name="checkbox" [(ngModel)]="report.isCreatePlacement"></p-checkbox>
+      <p-checkbox label="Case Activity" binary="true" name="checkbox" [(ngModel)]="report.isCreateCaseActivity">
+      </p-checkbox>
+      <p-checkbox label="Living Arrangement" binary="true" name="checkbox"
+        [(ngModel)]="report.isCreateLivingArrangement"></p-checkbox>
+      <p-checkbox label="Claim" name="checkbox" binary="true" [(ngModel)]="report.isCreateClaim"></p-checkbox>
+    </div>
+    <div class="process-input">
+      <span>AuthorizationID</span>
+      <input type="text" pInputText name="inputText" [(ngModel)]="report.authorizationFilter" size="27" />
+      <span>KAECSES Filter</span>
+      <input type="text" pInputText name="inputText" [(ngModel)]="report.kAECSESFilter" size="27" />
+    </div>
+    <div class="process-button">
+      <div class="checkbox">
+        <p-checkbox label="Recreate Submission" binary="true" (onChange)="getSubmissionValue($event)"></p-checkbox>
+        <p-checkbox label="Check for Errors Only" binary="true" [(ngModel)]="isErrorOnly"></p-checkbox>
+      </div>
+      <div class="process-option-3">
+        <button type="button" (click)="reload()" class="reload-btn">Reload</button>
+        <button type="button" (click)="processingReport(report)" class="procees-btn">Process</button>
+      </div>
+    </div>
+  </div>
+  <div class="report-section">
+    <nav class="nav-fill" *ngIf="!isReloadSubmissionTable">
+      <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link" *ngFor="let main of mainTabs;let i = index" [class.active]="sIndex  === i"
+          (click)="setIndex(i,$event)" data-toggle="tab" href="{{main.href}}" role="tab">{{main.label}}</a>
+      </div>
+    </nav>
+    <div class="tab-content padding-15 report-height" id="nav-tabContent" *ngIf="!isReloadSubmissionTable">
+      <div class="tab-pane  active in" id="nav-sec1" role="tabpanel" aria-labelledby="nav-fis-tab">
+
+        <ag-grid-angular style="width: 500px; height: 500px;" class="ag-theme-balham" [rowData]="actualRowData"
+          [columnDefs]="actualColumnDefs" [defaultColDef]="actualDefaultColDef" [enableSorting]="true"
+          [rowDragManaged]="true" [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid
+          style="width: 100%;height: 48vh;" animateRows="true" rowSelection="multiple">
+        </ag-grid-angular>
+        <div class="total-count-panel"><label>Total Count</label> <span>{{encounterReportActualTotalCount}}</span></div>
+      </div>
+      <div class="tab-pane" id="nav-sec2" role="tabpanel" aria-labelledby="nav-fis-tab">
+
+        <ag-grid-angular style="width: 500px; height: 500px;" class="ag-theme-balham" [rowData]="errorRowData"
+          [columnDefs]="errorColumnDefs" [defaultColDef]="errorDefaultColDef" [enableSorting]="true"
+          [rowDragManaged]="true" [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid
+          style="width: 100%;height: 48vh;" animateRows="true" rowSelection="multiple">
+        </ag-grid-angular>
+        <div class="total-count-panel"><label>Total Count</label> <span>{{encounterReportErrorTotalCount}}</span></div>
+      </div>
+    </div>
+
+    <ag-grid-angular *ngIf="isReloadSubmissionTable" style="width: 500px; height: 500px;" class="ag-theme-balham"
+      [rowData]="reloadSubmissionRowData" [columnDefs]="reloadSubmissionColumnDefs"
+      [defaultColDef]="reloadSubmissionDefaultColDef" [enableSorting]="true" [rowDragManaged]="true"
+      [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid style="width: 100%;height: 50vh;"
+      animateRows="true" rowSelection="multiple">
+    </ag-grid-angular>
+    <div class="report-footer">
+      <span>Reports:</span>
+      <p-autoComplete [forceSelection]="true" name="property" (completeMethod)="runReport($event)"
+        [suggestions]="metaData" field="reportName" placeholder="Type here to search" (onSelect)="getReportSp($event)"
+        [dropdown]="true" size="23" [(ngModel)]="property"></p-autoComplete>
+      <button type="button" class="report-txt-btn" (click)="generateRunReport()">Run Report</button>
+      <span *ngIf="isSubmissionCheck && isPayor">Submission: </span>
+      <p-autoComplete *ngIf="isSubmissionCheck && isPayor" [forceSelection]="true" name="submission"
+        (completeMethod)="submission($event)" [suggestions]="metaData" field="Display" placeholder="Type here to search"
+        (onSelect)="getScriptBatchID($event)" [dropdown]="true" size="23" [(ngModel)]="property"></p-autoComplete>
+      <p-checkbox *ngIf="!isSubmissionCheck && !isPayor" label="Submit Partial"></p-checkbox>
+      <button type="button" class="sf-negative-btn">Exit</button>
+      <button type="button" class="report-txt-btn" (click)="createTxtFile()">Create TXT File Only</button>
+      <button type="button" class="report-post-txt-btn" (click)="postCreate()">Post/Create TXT File</button>
+    </div>
+  </div>
+</div>
+<p-dialog header="Run Report" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+  [width]="800" [minWidth]="500" [minY]="80" [baseZIndex]="10000" [maximizable]="true">
+
+  <ag-grid-angular style="width: 500%;" class="ag-theme-balham" [rowData]="runReportRowData"
+    [columnDefs]="runReportColumnDefs" [defaultColDef]="runReportDefaultColDef" [enableSorting]="true"
+    [rowDragManaged]="true" [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid
+    style="width: 100%;height: 80vh;" animateRows="true" rowSelection="multiple">
+  </ag-grid-angular>
+
+</p-dialog>
+
+<p-dialog header="Report view" [(visible)]="displayPostCreateTxt" [responsive]="true" showEffect="fade" [modal]="true"
+  [width]="800" [minWidth]="200" [minY]="80" [baseZIndex]="10000" [maximizable]="true">
+  <table class="reportTable" *ngIf="displayPostCreateTxt === true">
+    <tr>
+      <th class="table-td" *ngFor="let arr of head">{{arr}}</th>
+    </tr>
+    <tr *ngFor="let arr of postCreateFiletActual; let i = index;">
+      <td class="table-td" *ngFor="let data of postCreateFiletActual; let i = index;">{{arr[head[i]]}}</td>
+    </tr>
+  </table>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" pButton label="Download CSV File" (click)="downloadCsv()"></button>
+    </div>
+  </p-footer>
+</p-dialog>

@@ -1,0 +1,53 @@
+
+
+
+<div class="main-container">
+    <div class="width-90">
+        <div class="primary-info">
+            <span class="sub-title"><b>Staff Name:</b> {{ staffName_profileDatas.DESC}}</span>
+            <span class="sub-title"> <b>Address:</b> {{ staff_profileDatas.address }} </span>
+            <span class="sub-title"> <b>Email:</b> {{ staff_profileDatas.email  }} </span>
+            <span class="sub-title"> <b>Cell Phone:</b> {{ staff_profileDatas.cellPh }} </span>
+        </div>
+    </div>
+    <div class="component-btn-container">
+        <button (click)="onShowMoreClick()" [disabled]="componentBtnDisable">{{componentBtnLabel}}</button>
+    </div>
+</div>
+
+<p-dialog header="More details" [(visible)]="isMoreDetails" [contentStyle]="{'width': '80vw','height': '50vh'}">
+    <div class="more-info">
+        <div class="profile-info-container">
+            <table>
+                <tr>
+                    <td><span>Staff Name</span></td>
+                    <td>{{staffName_profileDatas.DESC}}</td>
+                    <td><span>Address</span></td>
+                    <td>{{staff_profileDatas?.address}}</td>
+                    <td><span>Email</span></td>
+                    <td>{{staff_profileDatas?.email}}</td>
+                </tr>
+                <tr>
+                    <td><span>Cell Phone</span></td>
+                    <td>{{staff_profileDatas?.cellPh}}</td>
+                    <td><span>City</span></td>
+                    <td>{{staff_profileDatas?.city}}</td>
+                    <td><span>State</span></td>
+                    <td>{{staff_profileDatas?.state}}</td>
+                </tr>
+                <tr>
+                    <td><span>Zipcode</span></td>
+                    <td>{{staff_profileDatas?.zipcode}}</td>
+                    <td><span>Fax</span></td>
+                    <td>{{staff_profileDatas?.fax}}</td>
+                    <td><span>Work Phone</span></td>
+                    <td>{{staff_profileDatas?.workPh}}</td>
+                </tr>
+                <tr>
+                    <td><span>Extension</span></td>
+                    <td>{{staff_profileDatas?.extension}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</p-dialog>

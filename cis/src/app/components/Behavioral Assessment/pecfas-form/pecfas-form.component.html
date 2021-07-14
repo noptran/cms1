@@ -1,0 +1,1498 @@
+<div id="pdf-content">
+  <h2 class="heading">PECFAS: PRESCHOOL AND EARLY CHILDHOOD FUNCTIONAL ASSESSMENT SCALE</h2>
+  <div class="child-info">
+    <div>
+      <client-search [ClientName]='displayClientName()' (setClientAction)="setClient($event)"></client-search>
+    </div>
+    <div>
+      <span>Child ID#:</span>
+      <mat-form-field> <input matInput [(ngModel)]="model.clientId" readonly></mat-form-field>
+    </div>
+    <div>
+      <span>Gender:</span>
+      <mat-form-field> <input matInput class="input-sm" [(ngModel)]="model.Gender.value"></mat-form-field>
+    </div>
+  </div>
+  <div class="child-info-section">
+    <div>
+      <span class="pad-right">Today's Date:</span>
+      <mat-form-field floatLabel="never">
+        <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose a date" class="date"
+          [(ngModel)]="model.CompletionDate.value" value="{{date}}">
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div>
+      <span class="pad-right">Admission Date:</span>
+      <mat-form-field floatLabel="never">
+        <input matInput [matDatepicker]="AdmissionDate" (click)="AdmissionDate.open()" placeholder="Choose a date"
+          class="date" [(ngModel)]="model.AdmissionDate.value">
+        <mat-datepicker #AdmissionDate></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div>
+      <span class="pad-right">Date Of Birth:</span>
+      <mat-form-field> <input matInput [(ngModel)]="model.DateOfBirth.value" class="input-xs" readonly></mat-form-field>
+    </div>
+  </div>
+  <div>
+    <span class="pad-right">Age:</span>
+    <mat-form-field> <input matInput class="input-xxs" [(ngModel)]="model.Age.value"></mat-form-field>
+  </div>
+  <div class="space-padding">
+    <mat-checkbox (change)="disableValidationProcess()" [(ngModel)]="model.disableValidate">Unable to Assess
+    </mat-checkbox>
+  </div>
+  <div class="text-section space-padding" *ngIf="model.disableValidate">
+    <p>Remarks:</p>
+    <mat-form-field *ngIf="!isFinalize">
+      <textarea [(ngModel)]="model.remarks.value" class="textarea" autosize matInput></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.remarks.value}}</span>
+  </div>
+  <hr *ngIf="isFinalize">
+  <div [ngClass]="model.disableValidate?'disableValidation':'non-disableValidation'">
+    <div class="assessment-section">
+      <div>
+        <h3>TIME PERIOD RATED:</h3>
+        <input class="rad" type="radio" value="Last Month" name="TimePeriod"
+          [(ngModel)]="model.TimePeriod.fieldOptionIndex">Last Month
+        <input class="rad" type="radio" value="Last 3 Months" name="TimePeriod"
+          [(ngModel)]="model.TimePeriod.fieldOptionIndex">Last 3 Months
+        <input class="rad" type="radio" value="Other" name="TimePeriod"
+          [(ngModel)]="model.TimePeriod.fieldOptionIndex">Other
+      </div>
+      <div>
+        <h3>Rater Name</h3>
+        <input class="rad" type="radio" value="0" name="Rater" [(ngModel)]="model.Rater.fieldOptionIndex">Case Manager
+        <input class="rad" type="radio" value="1" name="Rater" [(ngModel)]="model.Rater.fieldOptionIndex">Treating
+        Therapist
+        <input class="rad" type="radio" value="2" name="Rater" [(ngModel)]="model.Rater.fieldOptionIndex">Intake Worker
+        <input class="rad" type="radio" value="3" name="Rater" [(ngModel)]="model.Rater.fieldOptionIndex">Non-Treating
+        Clinician
+        <input class="rad" type="radio" value="4" name="Rater" [(ngModel)]="model.Rater.fieldOptionIndex">Lay
+        Interviewer/Researcher
+        <input class="rad" type="radio" value="5" name="Rater" [(ngModel)]="model.Rater.fieldOptionIndex">Other
+      </div>
+      <div>
+        <h3>ADMINISTRATION:</h3>
+        <input class="rad" type="radio" value="0" name="PEFASAdmin" [(ngModel)]="model.PEFASAdmin.fieldOptionIndex">1 st
+        Evaluation
+        <input class="rad" type="radio" value="1" name="PEFASAdmin" [(ngModel)]="model.PEFASAdmin.fieldOptionIndex">3
+        Months
+        <input class="rad" type="radio" value="2" name="PEFASAdmin" [(ngModel)]="model.PEFASAdmin.fieldOptionIndex">6
+        Months
+        <input class="rad" type="radio" value="3" name="PEFASAdmin" [(ngModel)]="model.PEFASAdmin.fieldOptionIndex">9
+        Months
+        <input class="rad" type="radio" value="4" name="PEFASAdmin" [(ngModel)]="model.PEFASAdmin.fieldOptionIndex">12
+        Months
+        <input class="rad" type="radio" value="5" name="PEFASAdmin" [(ngModel)]="model.PEFASAdmin.fieldOptionIndex">Exit
+        from Service
+        <input class="rad" type="radio" value="6" name="PEFASAdmin"
+          [(ngModel)]="model.PEFASAdmin.fieldOptionIndex">Change in intensity of Service <br>
+        <input class="rad" type="radio" value="7" name="PEFASAdmin"
+          [(ngModel)]="model.PEFASAdmin.fieldOptionIndex">Other
+        <input class="rad" type="radio" value="8" name="PEFASAdmin" [(ngModel)]="model.PEFASAdmin.fieldOptionIndex">15
+        Months
+        <input class="rad" type="radio" value="9" name="PEFASAdmin" [(ngModel)]="model.PEFASAdmin.fieldOptionIndex">18
+        Months
+        <input class="rad" type="radio" value="10" name="PEFASAdmin" [(ngModel)]="model.PEFASAdmin.fieldOptionIndex">21
+        Months
+        <input class="rad" type="radio" value="11" name="PEFASAdmin" [(ngModel)]="model.PEFASAdmin.fieldOptionIndex">24
+        Months
+      </div>
+    </div>
+    <div class="assessment-section">
+      <div>
+        <h3>CHILD’S LIVING ARRANGEMENT:</h3>
+        <input class="rad" type="radio" value="0" name="LivingArrangement"
+          [(ngModel)]="model.LivingArrangement.fieldOptionIndex">Family/Relative Home (parent/guardian)<br>
+        <input class="rad" type="radio" value="1" name="LivingArrangement"
+          [(ngModel)]="model.LivingArrangement.fieldOptionIndex">Private Home (other relative)<br>
+        <input class="rad" type="radio" value="2" name="LivingArrangement"
+          [(ngModel)]="model.LivingArrangement.fieldOptionIndex">Private Home (non-relative)<br>
+        <input class="rad" type="radio" value="3" name="LivingArrangement"
+          [(ngModel)]="model.LivingArrangement.fieldOptionIndex">Out of Home
+        <br>
+        <div class="out-of-home">
+          <input class="rad" type="radio" value="0" name="OutOfHome"
+            [(ngModel)]="model.OutOfHome.fieldOptionIndex">Regular Foster Care <br>
+          <input class="rad" type="radio" value="1" name="OutOfHome"
+            [(ngModel)]="model.OutOfHome.fieldOptionIndex">Therapeutic Foster Care<br>
+          <input class="rad" type="radio" value="2" name="OutOfHome"
+            [(ngModel)]="model.OutOfHome.fieldOptionIndex">Group Home<br>
+          <input class="rad" type="radio" value="3" name="OutOfHome"
+            [(ngModel)]="model.OutOfHome.fieldOptionIndex">Psychiatric Group Home<br>
+          <input class="rad" type="radio" value="4" name="OutOfHome"
+            [(ngModel)]="model.OutOfHome.fieldOptionIndex">Psychiatric Inpatient<br>
+          <input class="rad" type="radio" value="5" name="OutOfHome"
+            [(ngModel)]="model.OutOfHome.fieldOptionIndex">Residential Treatment Center<br>
+          <input class="rad" type="radio" value="6" name="OutOfHome" [(ngModel)]="model.OutOfHome.fieldOptionIndex">Drug
+          and/or Alcohol Program <br>
+          <input class="rad" type="radio" value="7" name="OutOfHome"
+            [(ngModel)]="model.OutOfHome.fieldOptionIndex">Juvenile Detention/Jail/Correctional <br>
+          <input class="rad" type="radio" value="8" name="OutOfHome"
+            [(ngModel)]="model.OutOfHome.fieldOptionIndex">Youth Crisis Residential <br>
+          <input class="rad" type="radio" value="9" name="OutOfHome"
+            [(ngModel)]="model.OutOfHome.fieldOptionIndex">Other Residential
+        </div>
+      </div>
+      <div>
+        <h3>SOURCES OF INFORMATION:</h3>
+        <div class="assessment-section">
+          <div>
+            <p>In person contact:</p>
+            <mat-checkbox [(ngModel)]="model.ContactPersonParent.fieldOptionIndex">Parent </mat-checkbox>
+            <mat-checkbox [(ngModel)]="model.ContactPersonChild.fieldOptionIndex">Child</mat-checkbox>
+            <mat-checkbox [(ngModel)]="model.ContactPersonSchoolDaycare.fieldOptionIndex">School/Daycare Personnel
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="model.ContactPersonFoster.fieldOptionIndex">Foster (surrogate) Parent
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="model.ContactPersonJuvenile.fieldOptionIndex">Juvenile Justice/Police
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="model.ContactPersonSocial.fieldOptionIndex">Social Worker (Services)
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="model.ContactPersonMental.fieldOptionIndex">Mental Health Worker </mat-checkbox>
+            <mat-checkbox [(ngModel)]="model.ContactPersonPublic.fieldOptionIndex">Public Health Worker </mat-checkbox>
+            <mat-checkbox [(ngModel)]="model.ContactPersonOther.fieldOptionIndex">Other </mat-checkbox>
+            <mat-form-field> <input matInput [(ngModel)]="model.ContactPersonOtherText.value"></mat-form-field>
+
+            <!-- <input class="rad" type="radio" value="0" name="ContactPerson"
+              [(ngModel)]="model.ContactPerson.fieldOptionIndex">Parent
+            <input class="rad" type="radio" value="1" name="ContactPerson"
+              [(ngModel)]="model.ContactPerson.fieldOptionIndex">Child
+            <input class="rad" type="radio" value="2" name="ContactPerson"
+              [(ngModel)]="model.ContactPerson.fieldOptionIndex">School/Daycare Personnel
+            <input class="rad" type="radio" value="3" name="ContactPerson"
+              [(ngModel)]="model.ContactPerson.fieldOptionIndex">Foster (surrogate) Parent
+            <input class="rad" type="radio" value="4" name="ContactPerson"
+              [(ngModel)]="model.ContactPerson.fieldOptionIndex">Juvenile Justice/Police
+            <input class="rad" type="radio" value="5" name="ContactPerson"
+              [(ngModel)]="model.ContactPerson.fieldOptionIndex">Social Worker (Services)
+            <input class="rad" type="radio" value="6" name="ContactPerson"
+              [(ngModel)]="model.ContactPerson.fieldOptionIndex">Mental Health Worker
+            <input class="rad" type="radio" value="7" name="ContactPerson"
+              [(ngModel)]="model.ContactPerson.fieldOptionIndex">Public Health Worker
+            <input class="rad" type="radio" value="8" name="ContactPerson"
+              [(ngModel)]="model.ContactPerson.fieldOptionIndex">Other -->
+          </div>
+          <div>
+            <p>Phone Contact:</p>
+            <mat-checkbox [(ngModel)]="model.PhoneContactParent.fieldOptionIndex">Parent </mat-checkbox>
+            <mat-checkbox [(ngModel)]="model.PhoneContactChild.fieldOptionIndex">Child </mat-checkbox>
+            <mat-checkbox [(ngModel)]="model.PhoneContactSchoolDaycare.fieldOptionIndex">School/Daycare Personnel
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="model.PhoneContactFoster.fieldOptionIndex">Foster (surrogate) Parent
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="model.PhoneContactJuvenile.fieldOptionIndex">Juvenile Justice/Police
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="model.PhoneContactSocial.fieldOptionIndex">Social Worker (Services)
+            </mat-checkbox>
+            <mat-checkbox [(ngModel)]="model.PhoneContactMental.fieldOptionIndex">Mental Health Worker </mat-checkbox>
+            <mat-checkbox [(ngModel)]="model.PhoneContactPublic.fieldOptionIndex">Public Health Worker </mat-checkbox>
+            <mat-checkbox [(ngModel)]="model.PhoneContactOther.fieldOptionIndex">Other </mat-checkbox>
+            <mat-form-field> <input matInput [(ngModel)]="model.PhoneContactOtherText.value"></mat-form-field>
+
+            <!-- <input class="rad" type="radio" value="0" name="PhoneContact"
+              [(ngModel)]="model.PhoneContact.fieldOptionIndex">Parent
+            <input class="rad" type="radio" value="1" name="PhoneContact"
+              [(ngModel)]="model.PhoneContact.fieldOptionIndex">Child
+            <input class="rad" type="radio" value="2" name="PhoneContact"
+              [(ngModel)]="model.PhoneContact.fieldOptionIndex">School/Daycare Personnel
+            <input class="rad" type="radio" value="3" name="PhoneContact"
+              [(ngModel)]="model.PhoneContact.fieldOptionIndex">Foster (surrogate) Parent
+            <input class="rad" type="radio" value="4" name="PhoneContact"
+              [(ngModel)]="model.PhoneContact.fieldOptionIndex">Juvenile Justice/Police
+            <input class="rad" type="radio" value="5" name="PhoneContact"
+              [(ngModel)]="model.PhoneContact.fieldOptionIndex">Social Worker (Services)
+            <input class="rad" type="radio" value="6" name="PhoneContact"
+              [(ngModel)]="model.PhoneContact.fieldOptionIndex">Mental Health Worker
+            <input class="rad" type="radio" value="7" name="PhoneContact"
+              [(ngModel)]="model.PhoneContact.fieldOptionIndex">Public Health Worker
+            <input class="rad" type="radio" value="8" name="PhoneContact"
+              [(ngModel)]="model.PhoneContact.fieldOptionIndex">Other -->
+          </div>
+        </div>
+        <div>
+          <p>Review of Documentation:</p>
+          <mat-checkbox [(ngModel)]="model.ReviewofDocumentationSchoolDaycare.fieldOptionIndex">School/Daycare Personnel
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="model.ReviewofDocumentationJuvenile.fieldOptionIndex">Juvenile Justice/Police
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="model.ReviewofDocumentationSocial.fieldOptionIndex">Social Worker (Services)
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="model.ReviewofDocumentationMental.fieldOptionIndex">Mental Health Worker
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="model.ReviewofDocumentationPublic.fieldOptionIndex">Public Health Worker
+          </mat-checkbox>
+          <mat-checkbox [(ngModel)]="model.ReviewofDocumentationOther.fieldOptionIndex">Other </mat-checkbox>
+          <mat-form-field> <input matInput [(ngModel)]="model.ReviewofDocumentationOtherText.value"></mat-form-field>
+
+          <!-- <input class="rad" type="radio" value="0" name="ReviewofDocumentation"
+            [(ngModel)]="model.ReviewofDocumentation.fieldOptionIndex">School/Daycare Personnel
+          <input class="rad" type="radio" value="1" name="ReviewofDocumentation"
+            [(ngModel)]="model.ReviewofDocumentation.fieldOptionIndex">Juvenile Justice/Police
+          <input class="rad" type="radio" value="2" name="ReviewofDocumentation"
+            [(ngModel)]="model.ReviewofDocumentation.fieldOptionIndex">Social Worker (Services)
+          <input class="rad" type="radio" value="3" name="ReviewofDocumentation"
+            [(ngModel)]="model.ReviewofDocumentation.fieldOptionIndex">Mental Health Worker
+          <input class="rad" type="radio" value="4" name="ReviewofDocumentation"
+            [(ngModel)]="model.ReviewofDocumentation.fieldOptionIndex">Public Health Worker
+          <input class="rad" type="radio" value="5" name="ReviewofDocumentation"
+            [(ngModel)]="model.ReviewofDocumentation.fieldOptionIndex">Other -->
+        </div>
+      </div>
+    </div>
+    <br>
+    <div>
+      <table class="pecfas-tab">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Severe Impairment
+              <br> 30
+            </th>
+            <th>Moderate Impairment
+              <br> 20
+            </th>
+            <th>Mild Impairment
+              <br> 10
+            </th>
+            <th>Minimal or
+              <br> No Impairment
+              <br> 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="8" class="bold">
+              <h3>
+                SCHOOL/
+                <br>DAYCARE
+                <br>Role Performance
+              </h3>
+              <mat-form-field> <input class="input-xs" matInput [(ngModel)]="model.PEC_SCHOOL.value"></mat-form-field>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School1.fieldOptionIndex">001 Asked to leave
+                <br> daycare/school
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School10.fieldOptionIndex">010 Severe and/or chronic
+                <br> disobedience
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School17.fieldOptionIndex">017 Disobedience results
+                <br> in frequent attention from
+                <br> teacher
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School23.fieldOptionIndex">023 Competent and
+                <br> comfortable at school</mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School2.fieldOptionIndex">002 Refuses to attend
+                <br> school/daycare
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School11.fieldOptionIndex">011 Chronic inappropriate
+                <br> behavior
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School18.fieldOptionIndex">018 Inappropriate
+                <br> behavior results in
+                <br> frequent attention from
+                <br> teacher
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School24.fieldOptionIndex">024 Minor problems are
+                <br> easily resolved
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School3.fieldOptionIndex">003 Actions &
+                <br> statements
+                <br> considered potentially
+                <br> harmful to others
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School12.fieldOptionIndex">012 Frequently misses
+                <br> school/daycare
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School19.fieldOptionIndex">019 Occasional
+                <br> disobedience
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School25.fieldOptionIndex">025 Average or above
+                <br> learning
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School4.fieldOptionIndex">004 Has harmed
+                <br>or made threats
+                <br>to hurt others</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School13.fieldOptionIndex">013 Special
+                <br> accommodations are
+                <br> recommended or
+                <br> implemented due to
+                <br> disruptive behavior</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School20.fieldOptionIndex">020 Problems are due
+                <br> to poor attention
+                <br> or high
+                <br> activity level; not
+                <br> disruptive to others</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School26.fieldOptionIndex">026 Learning
+                <br>achievement consistent
+                <br>with skills &
+                <br> abilities , and cognitive
+                <br> disability
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School5.fieldOptionIndex">005 Unable to meet
+                <br> minimum behavior
+                <br> standards for
+                <br> school/daycare
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School14.fieldOptionIndex">014 Poor achievement;
+                <br> special accommodations
+                <br> are recommended or
+                <br> implemented
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School21.fieldOptionIndex">021 fails to follow
+                <br> instructions or listen</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School27.fieldOptionIndex">027 Learning
+                <br>achievement consistent
+                <br>with skills &
+                <br> abilities, and physical
+                <br> disability
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School6.fieldOptionIndex">006 Special
+                <br> accommodations
+                <br>do not mediate
+                <br>disruptive behavior
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School15.fieldOptionIndex">015 Learning is below
+                <br> average; no learning
+                <br> problem
+              </mat-checkbox>
+            </td>
+            <td></td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School28.fieldOptionIndex">028 Behavior is generally
+                <br> age appropriate</mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School7.fieldOptionIndex">007 Learning impaired
+                <br> by poor attention
+                <br>or high activity
+                <br> level</mat-checkbox>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.School8.fieldOptionIndex">008 Learning impaired
+                <br> by learning
+                <br>disability
+              </mat-checkbox>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea [disabled]="model.disableValidate === true" matInput autosize
+          [(ngModel)]="model.TextBox1.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.TextBox1.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div>
+      <table class="pecfas-tab">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Severe Impairment
+              <br> 30
+            </th>
+            <th>Moderate Impairment
+              <br> 20
+            </th>
+            <th>Mild Impairment
+              <br> 10
+            </th>
+            <th>Minimal or
+              <br> No Impairment
+              <br> 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="7" class="bold">
+              <h3>
+                HOME SUBSCALE
+                <br>Role Performance
+              </h3>
+              <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.PEC_HOME.value"></mat-form-field>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home31.fieldOptionIndex">031 Child’s behavior has
+                <br> resulted in placement
+                <br> outside of home
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home39.fieldOptionIndex">039 Persistently
+                <br> uncooperative or
+                <br> disobedient
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home46.fieldOptionIndex">046 Frequently refuses
+                <br> to follow rules
+                <br>at home
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home54.fieldOptionIndex">054 Typically
+                <br>cooperative</mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home32.fieldOptionIndex">032 Extensive
+                <br> management required to
+                <br> keep child at home
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home40.fieldOptionIndex">040 Fails to follow
+                <br> instructions
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home47.fieldOptionIndex">047 Compliance requires
+                <br> prodding & being watched
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home55.fieldOptionIndex">055 Minor problems
+                <br>are easily resolved
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home33.fieldOptionIndex">033 High level of
+                <br> supervision required
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home41.fieldOptionIndex">041 Refuses to perform
+                <br> age-appropriate
+                <br> chores/activities
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home48.fieldOptionIndex">048 Often frustrates
+                <br> caregiver with behavior
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home56.fieldOptionIndex">056 Behavior typically
+                <br> age appropriate
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home34.fieldOptionIndex">034 Constant attention
+                <br> has not resolved
+                <br> problem behavior
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home42.fieldOptionIndex">042 Markedly
+                <br> uncooperative or
+                <br> disobedient lasting
+                <br> several days</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home49.fieldOptionIndex">049 Insists on help
+                <br>from caregiver for
+                <br> mastered tasks
+              </mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home35.fieldOptionIndex">035 Constant attention,
+                <br> clinginess, demanded of
+                <br> caregiver
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home43.fieldOptionIndex">043 Consistently
+                <br> demanding
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home50.fieldOptionIndex">050 Will comply if
+                <br> caregiver insists</mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home36.fieldOptionIndex">036 Runs away on
+                <br> purpose
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home44.fieldOptionIndex">044 Must be coaxed
+                <br>to eat </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home51.fieldOptionIndex">051 Gets upset if
+                <br>caregiver is not
+                <br>giving them attention
+              </mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home37.fieldOptionIndex">037 Mealtime difficulties,
+                <br> refuses to eat</mat-checkbox>
+            </td>
+            <td></td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Home52.fieldOptionIndex">052 Very picky eater</mat-checkbox>
+            </td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea [disabled]="model.disableValidate === true" matInput autosize
+          [(ngModel)]="model.TextBox2.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.TextBox2.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div>
+      <table class="pecfas-tab">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Severe Impairment
+              <br> 30
+            </th>
+            <th>Moderate Impairment
+              <br> 20
+            </th>
+            <th>Mild Impairment
+              <br> 10
+            </th>
+            <th>Minimal or
+              <br> No Impairment
+              <br> 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="6" class="bold">
+              <h3>
+                COMMUNITY
+                <br> SUBSCALE
+                <br>Role Performance
+              </h3>
+              <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.PEC_COMMUNITY.value">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community59.fieldOptionIndex">059 Hangs out with
+                <br>older children involved in
+                <br>illegal activities
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community67.fieldOptionIndex">067 Behavior would
+                <br>be considered delinqu
+                <br>-ent if older
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community72.fieldOptionIndex">072 Minor behavior
+                <br> problems not easily
+                <br> resolved
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community76.fieldOptionIndex">076 No negative impact
+                <br> on community</mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community60.fieldOptionIndex">060 Influenced to do
+                <br> things for older children;
+                <br> may be involved in
+                <br> illegal activity
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community68.fieldOptionIndex">068 Chooses to play
+                <br>with older children
+                <br>who engage in
+                <br>delinquent behavior
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community73.fieldOptionIndex">073 Plays with children
+                <br> who get into serious
+                <br> trouble sometimes
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community77.fieldOptionIndex">077 Minor problems
+                <br> easily resolved
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community61.fieldOptionIndex">061 Repeatedly stolen
+                <br> money/property outside
+                <br> of home
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community69.fieldOptionIndex">069 Has been sexually
+                <br> inappropriate
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community74.fieldOptionIndex">074 Has played with
+                <br>fire on more than
+                <br>1 occasion
+              </mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community62.fieldOptionIndex">062 Inappropriate sexual
+                <br> acts attempted or
+                <br> accomplished with other
+                <br> children
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community70.fieldOptionIndex">070 Repeatedly and
+                <br> intentionally plays
+                <br>with fire
+              </mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community63.fieldOptionIndex">063 Violates the law
+                <br> but not confined
+              </mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Community64.fieldOptionIndex">064 Deliberate
+                <br>firesetting</mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea [disabled]="model.disableValidate === true" matInput autosize
+          [(ngModel)]="model.TextBox3.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.TextBox3.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div>
+      <table class="pecfas-tab">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Severe Impairment
+              <br> 30
+            </th>
+            <th>Moderate Impairment
+              <br> 20
+            </th>
+            <th>Mild Impairment
+              <br> 10
+            </th>
+            <th>Minimal or
+              <br> No Impairment
+              <br> 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="13" class="bold">
+              <h3>
+                BEHAVIOR <br> TOWARD
+                <br> OTHERS
+              </h3>
+              <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.PEC_BEHAVIOR.value"></mat-form-field>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior80.fieldOptionIndex">080 Consistently
+                <br>inappropriate or
+                <br>bizarre behavior
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior86.fieldOptionIndex">086 Typically
+                <br>inappropriate behavior
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior95.fieldOptionIndex">095 Argumentative or
+                <br> annoying to others
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior109.fieldOptionIndex">109 Appropriate
+                <br>interactions with
+                <br> others</mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior81.fieldOptionIndex">081 Behavior is dangerous
+                <br> enough to cause
+                <br> harm to others
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior87.fieldOptionIndex">087 Inappropriate sexual
+                <br> behavior toward others
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior96.fieldOptionIndex">096 Anger outbursts or
+                <br>temper tantrums when
+                <br> can’t get what
+                <br> they want
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior110.fieldOptionIndex">110 Occasional problems
+                <br> are easily resolved
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior82.fieldOptionIndex">082 Intentional sexually-
+                <br> inappropriate behavior
+                <br>toward another child
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior88.fieldOptionIndex">088 Intentionally
+                <br> annoys others
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior97.fieldOptionIndex">097 Quick-tempered,
+                <br> annoyed by others
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior111.fieldOptionIndex">111 Typically behaves
+                <br> appropriately
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior83.fieldOptionIndex">083 Cruel to
+                <br>animals – intentional
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior89.fieldOptionIndex">089 Angry outbursts/
+                <br>temper tantrums
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior98.fieldOptionIndex">098 Poor peer
+                <br>interactions due
+                <br> to behavior</mat-checkbox>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior84.fieldOptionIndex">084 No age-appropriate
+                <br> peer interactions
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior90.fieldOptionIndex">090 Often mean
+                <br>toward others
+                <br> or animals
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior99.fieldOptionIndex">099 Immature behavior
+                <br> with peers</mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior91.fieldOptionIndex">091 Engages in
+                <br>bullying and harassment
+                <br> with others
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior100.fieldOptionIndex">100 Overreacts to
+                <br>teasing</mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior92.fieldOptionIndex">092 Antagonizes other
+                <br> children
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior101.fieldOptionIndex">101 Pouts and
+                <br>stubborn a lot
+              </mat-checkbox>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior93.fieldOptionIndex">093 Plays alone,
+                <br> prefers to be alone
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior102.fieldOptionIndex">102 Does not like
+                <br>to share
+              </mat-checkbox>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior103.fieldOptionIndex">103 Bossy with
+                <br>other children
+              </mat-checkbox>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior104.fieldOptionIndex">104 Plays rough
+              </mat-checkbox>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior105.fieldOptionIndex">105 Upset for long
+                <br> periods when don’t
+                <br>get their way
+              </mat-checkbox>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior106.fieldOptionIndex">106 Rejected by peers
+              </mat-checkbox>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Behavior107.fieldOptionIndex">107 Timid or withdrawn
+                <br> limiting peer interactions
+              </mat-checkbox>
+            </td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea [disabled]="model.disableValidate === true" matInput autosize
+          [(ngModel)]="model.TextBox4.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.TextBox4.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div>
+      <table class="pecfas-tab">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Severe Impairment
+              <br> 30
+            </th>
+            <th>Moderate Impairment
+              <br> 20
+            </th>
+            <th>Mild Impairment
+              <br> 10
+            </th>
+            <th>Minimal or
+              <br> No Impairment
+              <br> 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="10" class="bold">
+              <h3>
+                MOODS/EMOTIONS
+              </h3>
+              <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.PEC_MOODS.value"></mat-form-field>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods114.fieldOptionIndex">114 Incongruous emotional
+                <br>responses, viewed are
+                <br>strange or odd
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods123.fieldOptionIndex">123 Overreacts when
+                <br> away from caregiver
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods131.fieldOptionIndex">131 some symptoms
+                <br> related to anxiety,
+                <br> fear or sadness
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods142.fieldOptionIndex">142 Normal
+                <br>experience of
+                <br> life stress</mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods115.fieldOptionIndex">115 Marked distress
+                <br> when apart from
+                <br>caregiver, inconsolable
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods124.fieldOptionIndex">124 Overreacts to
+                <br>sounds or noise
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods132.fieldOptionIndex">132 Overreacts, irritable,
+                <br> fearful or worried
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods143.fieldOptionIndex">143 “OK” person;
+                <br> Self- esteem
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods116.fieldOptionIndex">116 Poor school
+                <br> attendance due to
+                <br> extreme anxiety being
+                <br> away from caregiver
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods125.fieldOptionIndex">125 Excessive and
+                <br> persistent worry
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods133.fieldOptionIndex">133 Easily distressed
+                <br> by mistakes
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods144.fieldOptionIndex">144 Can express
+                <br> strong emotion
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods117.fieldOptionIndex">117 Atypical emotional
+                <br> expression associated
+                <br> with failure, interest in
+                <br> others, or interest
+                <br> in eating
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods126.fieldOptionIndex">126 Persistent sadness
+                <br>or unhappiness
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods134.fieldOptionIndex">134 Feelings are
+                <br>easily hurt
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods145.fieldOptionIndex">145 Generally
+                <br>behavior
+                <br> appropriately
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods118.fieldOptionIndex">118 Suicidal wishes
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods127.fieldOptionIndex">127 Feelings of
+                <br> worthlessness
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods135.fieldOptionIndex">135 Depressed or
+                <br> anxious for several
+                <br>days at a time</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods146.fieldOptionIndex">146 Generally
+                <br> happy
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods119.fieldOptionIndex">119 Hard to please
+                <br> or comfort most of
+                <br>the time, sad
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods128.fieldOptionIndex">128 Frequent emotional
+                <br> outbursts
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods136.fieldOptionIndex">136 Never expresses
+                <br> joy or delight</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods147.fieldOptionIndex">147 Sadness and
+                <br>anxiety are age-
+                <br>appropriate</mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods120.fieldOptionIndex">120 Cries a lot</mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods129.fieldOptionIndex">129 Difficulty expressing
+                <br> emotions
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods137.fieldOptionIndex">137 worries about
+                <br> neatness, cleanliness</mat-checkbox>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods121.fieldOptionIndex">121 Little emotional
+                <br> expression
+              </mat-checkbox>
+            </td>
+            <td></td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods138.fieldOptionIndex">138 Nervous habits
+              </mat-checkbox>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td></td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods139.fieldOptionIndex">139 frequent nightmares
+              </mat-checkbox>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td></td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Moods140.fieldOptionIndex">140 Does not handle
+                <br> changes to schedule
+                <br> or routine
+              </mat-checkbox>
+            </td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea [disabled]="model.disableValidate === true" matInput autosize
+          [(ngModel)]="model.TextBox5.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.TextBox5.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div>
+      <table class="pecfas-tab">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Severe Impairment
+              <br> 30
+            </th>
+            <th>Moderate Impairment
+              <br> 20
+            </th>
+            <th>Mild Impairment
+              <br> 10
+            </th>
+            <th>Minimal or
+              <br> No Impairment
+              <br> 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="3" class="bold">
+              <h3>
+                SELF-HARM
+                <br> BEHAVIOR
+              </h3>
+              <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.PEC_SELFHARM.value"></mat-form-field>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.SelfHarm150.fieldOptionIndex">150 Non-accidental
+                <br>self- injurious
+                <br> behavior
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.SelfHarm154.fieldOptionIndex">154 Non-accidental
+                <br>self- mutilation or injury,
+                <br> not life threatening
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.SelfHarm157.fieldOptionIndex">157 Repeated, non-
+                <br> accidental behavior
+                <br> resulting in injury
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.SelfHarm159.fieldOptionIndex">159 No tendency toward
+                <br>self-harm
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.SelfHarm151.fieldOptionIndex">151 Seemingly accidental
+                <br> self-harm behavior
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.SelfHarm155.fieldOptionIndex">155 Repeatedly thinks
+                <br> about or talks about
+                <br>dying, suicide, self-harm
+              </mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.SelfHarm152.fieldOptionIndex">152 Plan to harm self
+              </mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea [disabled]="model.disableValidate === true" matInput autosize
+          [(ngModel)]="model.TextBox6.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.TextBox6.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div>
+      <table class="pecfas-tab">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Severe Impairment
+              <br> 30
+            </th>
+            <th>Moderate Impairment
+              <br> 20
+            </th>
+            <th>Mild Impairment
+              <br> 10
+            </th>
+            <th>Minimal or
+              <br> No Impairment
+              <br> 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="7" class="bold">
+              <h3>
+                THINKING
+                <br> COMMUNICATION </h3>
+              <mat-form-field> <input matInput class="input-xs" [(ngModel)]="model.PEC_COMMUNICATION.value">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking162.fieldOptionIndex">162 Incoherent thought
+                <br> or language results in
+                <br> impossible communication
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking170.fieldOptionIndex">170 Disorganized or
+                <br> irrelevant communication
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking177.fieldOptionIndex">177 Odd speech or
+                <br> eccentric communication
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking182.fieldOptionIndex">182 No sign of
+                <br> disordered though
+                <br>-t
+              </mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking163.fieldOptionIndex">163 Odd or
+                <br> noncommunicative speech
+                <br> or nonverbal behavior
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking171.fieldOptionIndex">171 Frequent strange
+                <br>or odd behavior
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking178.fieldOptionIndex">178 Expresses unnatural
+                <br> or strange idea
+              </mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking164.fieldOptionIndex">164 Bizarre or strange
+                <br> behavior; fantasy vs.
+                <br> reality
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking172.fieldOptionIndex">172 Intermittent
+                <br> hallucinations that
+                <br> interfere with functioning
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking179.fieldOptionIndex">179 Unusual perceptions,
+                <br> not hallucinations
+              </mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking165.fieldOptionIndex">165 Aimless,
+                <br> nonpurposeful behavior
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking173.fieldOptionIndex">173 Frequent aimless or
+                <br> nonpurposeful behavior
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking180.fieldOptionIndex">180 Limited ability for
+                <br> verbal expression
+              </mat-checkbox>
+            </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking166.fieldOptionIndex">166 Selective mute or
+                <br> refuses to talk
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking174.fieldOptionIndex">174 Bizarre, odd
+                <br> thoughts or fantasies
+              </mat-checkbox>
+            </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking167.fieldOptionIndex">167 Does not respond
+                <br> when spoken to
+              </mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking175.fieldOptionIndex">175 Extremely limited
+                <br> verbal expression
+              </mat-checkbox>
+            </td>
+            <td> </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <mat-checkbox [(ngModel)]="model.Thinking168.fieldOptionIndex">168 Repetitive movement
+                <br> or speech</mat-checkbox>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea [disabled]="model.disableValidate === true" matInput autosize
+          [(ngModel)]="model.TextBox7.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.TextBox7.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div>
+      <span class="bold">Total Score:</span>
+      <mat-form-field> <input matInput [(ngModel)]="model.PEC_TOTAL.value"></mat-form-field>
+    </div>
+    <p>This is not your official copy. Attach this to the signed copy of the assessment.</p>
+  </div>
+</div>
+<form-footer (resetAction)='resetForm()' (calculateAction)='calculateForm()' (saveAction)='saveForm()'
+  (finalizeAction)='finalize()' [disableCalculate]="'false'">
+</form-footer>

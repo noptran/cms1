@@ -1,0 +1,1048 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground" [ngClass]="{ 'edit-mode': isEditMode }">
+    <div *ngIf="isEditMode" class="opencard-container">
+      <span
+        [routerLink]="['/reintegration/referral/placement-authorizations/list']"
+        [queryParams]="{ module: 'livingArrangment', sub: 'authorization' }"
+        queryParamsHandling="merge"
+        >Authorizations</span
+      >
+    </div>
+    <div *ngIf="_localValues.currentClientID" class="menu navigation">
+      <div pTooltip="Click here to open" (click)="onClickJumptoClient()">
+        <span><b>Jump to Client</b></span>
+      </div>
+    </div>
+    <form class="sf-form" [formGroup]="orgForm">
+      <!-- <div class="delete-auth-view-btn">
+        <button (click)="openDeletedAuthorizat  ion()">View Deleted Authorization</button>
+      </div> -->
+      <nav class="nav-fill">
+        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+          <a
+            class="nav-item nav-link"
+            *ngFor="let main of mainTabs; let i = index"
+            [class.active]="sIndex === i"
+            (click)="setIndex(i, $event)"
+            data-toggle="tab"
+            href="{{ main.href }}"
+            role="tab"
+            >{{ main.label }}</a
+          >
+        </div>
+      </nav>
+      <div
+        class="tab-content padding-15"
+        id="nav-tabContent"
+        style="height: 65vh; overflow-y: scroll"
+      >
+        <!-- /////////First Tab/////// -->
+        <div
+          class="tab-pane active in"
+          id="nav-sec1"
+          role="tabpanel"
+          aria-labelledby="nav-fis-tab"
+        >
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Begin Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  [(ngModel)]="livingArrangment.beginDate"
+                  hourFormat="12"
+                  (onSelect)="
+                    unitCalculation()
+                  "
+                  formControlName="beginDate"
+                  name="beginDate"
+                  [readonlyInput]="true"
+                  [showTime]="true"
+                  [showIcon]="true"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  yearRange="1900:2030"
+                ></p-calendar>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>End Date</span>
+                <span class="mandatory" *ngIf="isEndDateMandatory">*</span>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <!-- <p-checkbox [(ngModel)]="isEndDate" [ngModelOptions]="{standalone: true}"  binary="true"
+                    name="isEndDate"(change)="showEndDate($event)"></p-checkbox> [disabled]="!isEndDate" -->
+                <p-calendar
+                  [(ngModel)]="livingArrangment.endDate"
+                  hourFormat="12"
+                  (onSelect)="unitCalculation()"
+                  formControlName="endDate"
+                  name="endDate"
+                  [showTime]="true"
+                  [showIcon]="true"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  yearRange="1900:2030"
+                ></p-calendar>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Received Form date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  [(ngModel)]="livingArrangment.formReceivedDate"
+                  formControlName="formReceivedDate"
+                  name="formReceivedDate"
+                  [showTime]="true"
+                  [showIcon]="true"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  yearRange="1900:2030"
+                ></p-calendar>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Provider</span> <span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  [(ngModel)]="livingArrangment.providerID"
+                  formControlName="providerID"
+                  name="providerID"
+                  placeholder="Type here to search"
+                  emptyMessage="No records found!"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  (completeMethod)="getProviderList($event)"
+                  field="providerName"
+                  [suggestions]="metaData"
+                  (onSelect)="onSelectProvider($event)"
+                >
+                  <ng-template let-provider pTemplate="item">
+                    <div
+                      class="ui-helper-clearfix"
+                      style="border-bottom: 1px solid #d5d5d5"
+                    >
+                      <table width="100%">
+                        <tr>
+                          <th>Provider Name</th>
+                          <th>Provider Type</th>
+                          <th>Address</th>
+                          <th>Phone</th>
+                          <th>Sponsor Name</th>
+                          <th>IsResidential</th>
+                          <th>IS SFM Sponsor</th>
+                        </tr>
+                        <tr>
+                          <td>{{ provider?.providerName }}</td>
+                          <td>{{ provider?.providerType }}</td>
+                          <td></td>
+                          <td></td>
+                          <td>{{ provider?.sponsorName }}</td>
+                          <td></td>
+                          <td></td>
+                          <td>{{ provider?.paySponsor }}</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </ng-template>
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Procedure code</span> <span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  [(ngModel)]="livingArrangment.procodeID"
+                  formControlName="procodeID"
+                  name="procodeID"
+                  class="width-autocomplete"
+                  placeholder="Type here to search"
+                  emptyMessage="No records found!"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  (completeMethod)="filteredLivingArrangmentProcodes($event)"
+                  field="fullProcode"
+                  [suggestions]="filteredProcodes"
+                  (onSelect)="onProcodeSelect($event)"
+                >
+                </p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Respite FACTS</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  class="width-autocomplete"
+                  placeholder="Type here to search"
+                  emptyMessage="No records found!"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  (completeMethod)="getMetaData('respiteType', $event)"
+                  [suggestions]="metaData"
+                  field="respiteType"
+                  name="respiteType"
+                  [(ngModel)]="livingArrangment.respiteTypeID"
+                  formControlName="respiteTypeID"
+                  [disabled]="isRespiteFactsDisabled"
+                >
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Frequency (PSA)</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  [(ngModel)]="livingArrangment.frequency"
+                  formControlName="frequency"
+                  type="text"
+                  name="frequency"
+                  class="input"
+                  pInputText
+                />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Pay Placement</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-checkbox
+                  [(ngModel)]="livingArrangment.payPlacement"
+                  formControlName="payPlacement"
+                  binary="true"
+                  name="payPlacement"
+                ></p-checkbox>
+              </div>
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Corrected</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-checkbox
+                  [(ngModel)]="livingArrangment.correctedCopy"
+                  formControlName="correctedCopy"
+                  binary="true"
+                  name="correctedCopy"
+                ></p-checkbox>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Medical Card</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-checkbox
+                  [(ngModel)]="livingArrangment.medicalCard"
+                  formControlName="medicalCard"
+                  binary="true"
+                  name="medicalCard"
+                ></p-checkbox>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Service Provider in Home</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-checkbox
+                  [(ngModel)]="livingArrangment.inHome"
+                  formControlName="inHome"
+                  binary="true"
+                  name="inHome"
+                  (onChange)="onChangeServiceProviderinHome($event)"
+                ></p-checkbox>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <span>Clarifications: (ACK)</span>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <textarea
+                  [(ngModel)]="livingArrangment.clarification"
+                  formControlName="clarification"
+                  name="clarification"
+                  pInputTextarea
+                  style="width: 100%; height: 100%"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <span>Addtional Information: (PSA, NOCL)</span>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <textarea
+                  [(ngModel)]="livingArrangment.addInfo"
+                  formControlName="addInfo"
+                  name="addInfo"
+                  pInputTextarea
+                  style="width: 100%; height: 100%"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <span>SFCS Notes (NA)</span>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <textarea
+                  [(ngModel)]="livingArrangment.sfaNotes"
+                  formControlName="sfaNotes"
+                  pInputTextarea
+                  name="sfaNotes"
+                  style="width: 100%; height: 100%"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- //////////Second Tab/////////// -->
+        <div
+          class="tab-pane"
+          id="nav-sec2"
+          role="tabpanel"
+          aria-labelledby="nav-fis-tab"
+        >
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Units</span> <span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-spinner
+                  [min]="0"
+                  [(ngModel)]="authorization.unitsAuth"
+                  formControlName="unitsAuth"
+                  size="30"
+                  [step]="0.5"
+                  name="unitsAuth"
+                  (onChange)="onChangeAuthoInfoUnits()"
+                ></p-spinner>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Units Paid By Placement</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-spinner
+                  [(ngModel)]="authorization.unitsPaidByPlacement"
+                  formControlName="unitsPaidByPlacement"
+                  size="30"
+                  [step]="0.5"
+                  name="unitsPaidByPlacement"
+                  [disabled]="true"
+                ></p-spinner>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Override Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-checkbox
+                  [(ngModel)]="authorization.dateOverride"
+                  formControlName="dateOverride"
+                  binary="true"
+                  name="dateOverride"
+                  (onChange)="onChangeOverRide($event)"
+                ></p-checkbox>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Authorization End Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  [(ngModel)]="authorization.endDate"
+                  formControlName="endAuthorizationEndDateDate"
+                  name="endAuthorizationEndDateDate"
+                  [showTime]="true"
+                  hourFormat="12"
+                  [showIcon]="true"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  yearRange="1900:2030"
+                  *ngIf="authorization.dateOverride"
+                ></p-calendar>
+
+                <p-calendar
+                  name="endAuthorizationEndDateDate"
+                  [showTime]="true"
+                  [showIcon]="true"
+                  [monthNavigator]="true"
+                  [yearNavigator]="true"
+                  yearRange="1900:2030"
+                  [disabled]="true"
+                  *ngIf="!authorization.dateOverride"
+                ></p-calendar>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Payor Rate</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-spinner
+                  [(ngModel)]="authorization.payorRate"
+                  formControlName="payorRate"
+                  size="30"
+                  [step]="0.5"
+                  name="payorRate"
+                  [min]="0"
+                  (onChange)="onChangeAuthoInfoPayor()"
+                >
+                </p-spinner>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Provider Rate</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-spinner
+                  [(ngModel)]="authorization.providerRate"
+                  formControlName="providerRate"
+                  size="30"
+                  [step]="0.5"
+                  [min]="0"
+                  (onChange)="onChangeAuthoInfoProv()"
+                  name="providerRate"
+                ></p-spinner>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Pay Sponsor</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-checkbox
+                  [(ngModel)]="authorization.paySponsor"
+                  formControlName="paySponsor"
+                  binary="true"
+                  name="paySponsor"
+                ></p-checkbox>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Authorization Payor</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  [(ngModel)]="authorization.payorID"
+                  formControlName="payorID"
+                  placeholder="Type here to search"
+                  emptyMessage="No records found!"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  name="payorID"
+                  [suggestions]="metaData"
+                  (completeMethod)="getMetaData('payor', $event)"
+                  field="payorName"
+                >
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Authorization Status</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  [(ngModel)]="authorization.authorizationStatusID"
+                  formControlName="authorizationStatusID"
+                  placeholder="Type here to search"
+                  emptyMessage="No records found!"
+                  [dropdown]="true"
+                  name="authorizationStatusID"
+                  [forceSelection]="true"
+                  [suggestions]="metaData"
+                  (completeMethod)="getMetaData('authorizationStatus', $event)"
+                  field="authorizationStatus"
+                >
+                </p-autoComplete>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span> Authorization Exception</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span
+                  (click)="authException()"
+                  class="link"
+                  pTooltip="Click here to open"
+                >
+                  Open authorization exception</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Hold Bed Units</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-spinner
+                  [(ngModel)]="authorization.holdBedUnits"
+                  formControlName="holdBedUnits"
+                  size="30"
+                  [step]="0.5"
+                  name="holdBedUnits"
+                ></p-spinner>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Hold Bed Payor</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  [(ngModel)]="authorization.holdBedPayorID"
+                  formControlName="holdBedPayorID"
+                  placeholder="Type here to search"
+                  emptyMessage="No records found!"
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  name="holdBedPayorID"
+                  [suggestions]="metaData"
+                  (completeMethod)="getMetaData('payor', $event)"
+                  field="fullPayor"
+                >
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Notes</span>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <textarea pInputTextarea style=" width: 100%; height: 100%;" cols="30" rows="5"></textarea>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </form>
+
+    <!--Edit mode-->
+
+    <div *ngIf="isEditMode">
+      <p>
+        <b><i>Authorizations</i></b>
+      </p>
+      <table>
+        <tr>
+          <th>Status</th>
+          <th>Units Auth</th>
+          <th>Units Paid By Placement</th>
+          <th>Units Remaining</th>
+          <th>Payor Rate</th>
+          <th>Provider Rate</th>
+          <th>Begin Date</th>
+          <th>End Date</th>
+          <th>DoNotPay</th>
+          <th>PaySponsor</th>
+          <th>Notes</th>
+          <th>Actions</th>
+        </tr>
+        <tr *ngFor="let auth of authorizationList">
+          <td>{{ auth.status }}</td>
+          <td>{{ auth.unitsAuth }}</td>
+          <td>{{ auth.unitsPaidByPlacement }}</td>
+          <td>{{ auth.unitsRemaining }}</td>
+          <td>{{ auth.payorRate }}</td>
+          <td>{{ auth.providerRate }}</td>
+          <td>{{ showTime(auth.beginDate) }}</td>
+          <td>{{ showTime(auth.endDate) }}</td>
+          <td>{{ auth.doNotPay }}</td>
+          <td>{{ auth.paySponsor }}</td>
+          <td>{{ auth.notes }}</td>
+          <td (click)="onClickAuthEditView(auth)">
+            <span
+              style="text-decoration: underline; color: blue; cursor: pointer"
+              >Edit</span
+            >
+          </td>
+        </tr>
+      </table>
+      <div class="table-actions-btn">
+        <button (click)="onClickAuthNewView()" class="sf-positive-btn">
+          Add New
+        </button>
+        <button class="sf-negative-btn">Cancel</button>
+      </div>
+      <p>
+        <b><i>Claims</i></b>
+      </p>
+      <table>
+        <tr>
+          <th>ClaimsID</th>
+          <th>Status</th>
+          <th>Paid Agency</th>
+          <th>Units</th>
+          <th>Payor Rate</th>
+          <th>Total Payor Rate</th>
+          <th>Provider Rate</th>
+          <th>Total Provider Rate</th>
+          <th>Begin Date</th>
+          <th>End Date</th>
+          <th>Received Date</th>
+          <th>Expected Payment Date</th>
+          <th>Posted Date</th>
+          <th>Recoup ClaimID</th>
+          <th>Claim Payment Batch ID</th>
+        </tr>
+        <tr *ngFor="let claim of claimsList">
+          <td>{{ claim.claimID }}</td>
+          <td>{{ claim.status }}</td>
+          <td>{{ claim.paidAgency }}</td>
+          <td>{{ claim.units }}</td>
+          <td>{{ claim.payorRate }}</td>
+          <td>{{ claim.totalPayorRate }}</td>
+          <td>{{ claim.providerRate }}</td>
+          <td>{{ claim.totalProviderRate }}</td>
+          <td>{{ showTime(claim.beginDate) }}</td>
+          <td>{{ showTime(claim.endDate) }}</td>
+          <td>{{ showTime(claim.receivedDate) }}</td>
+          <td>{{ showTime(claim.expectedPaymentDate) }}</td>
+          <td>{{ claim.postedDate }}</td>
+          <td>{{ claim.recoupClaimID }}</td>
+          <td>{{ claim.claimPaymentBatchID }}</td>
+        </tr>
+      </table>
+    </div>
+    <app-form-footer
+      (save)="formActions()"
+      [attachmentControll]="isAttachmentRequired"
+      [discardTo]="discardTo"
+      [editControll]="isEdit"
+      (edit)="onClickEditActions()"
+      [isAttachmentDisabled]="false"
+      (attachDoc)="navigateTo()"
+      [currentNodeValue]="req"
+      [isPrintNavigation]="isPrintNavigation"
+      [isFormLog]="isFormLog"
+      [formLogInfo]="formLogInfo"
+    >
+    </app-form-footer>
+  </div>
+</div>
+<p-dialog
+  header="Authorization Exception"
+  [(visible)]="isAuthExcepFormOpen"
+  [responsive]="true"
+  showEffect="fade"
+  [modal]="true"
+  [width]="1000"
+  [minWidth]="400"
+  [minY]="80"
+  [baseZIndex]="10000"
+  [maximizable]="true"
+>
+  <form class="sf-form">
+    <h2>Authorization</h2>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Payor Rate</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-spinner
+            size="30"
+            [min]="0"
+            [step]="0.5"
+            name="payorRate"
+            [(ngModel)]="authExcep.originalPayorRate"
+          >
+          </p-spinner>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Provider Rate</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-spinner
+            size="30"
+            [min]="0"
+            [step]="0.5"
+            name="providerRate"
+            [(ngModel)]="authExcep.originalProviderRate"
+          >
+          </p-spinner>
+        </div>
+      </div>
+    </div>
+    <h2>Exception</h2>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Payor Rate</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-spinner
+            size="30"
+            [min]="0"
+            [step]="0.5"
+            name="exceptionPayorRate"
+            [(ngModel)]="authExcep.exceptionPayorRate"
+            [disabled]="true"
+          ></p-spinner>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Provider Rate</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-spinner
+            size="30"
+            [min]="0"
+            [step]="0.5"
+            name="exceptionProviderRate"
+            [(ngModel)]="authExcep.exceptionProviderRate"
+            [disabled]="true"
+          ></p-spinner>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Requested By</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input
+            maxlength="75"
+            pInputText
+            size="27"
+            name="requestedBy"
+            [(ngModel)]="authExcep.requestedBy"
+          />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Exception Reason</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete
+            [dropdown]="true"
+            [forceSelection]="true"
+            name="exceptionReason"
+            (completeMethod)="
+              getMetaData('authorizationExceptionReason', $event)
+            "
+            [suggestions]="metaData"
+            field="authorizationExceptionReason"
+            [(ngModel)]="authExcep.authorizationExceptionReasonID"
+          >
+          </p-autoComplete>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Explanation of need</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <textarea
+            pInputTextArea
+            style="width: 100%; height: 100%"
+            name="explanationNeed"
+            [(ngModel)]="authExcep.explanationOfNeed"
+          ></textarea>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Approved By</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete
+            [dropdown]="true"
+            [forceSelection]="true"
+            name="approvedBy"
+            (completeMethod)="getMetaData('staff', $event)"
+            field="fullName"
+            [suggestions]="metaData"
+            [(ngModel)]="authExcep.approvedBy_StaffID"
+          >
+            <ng-template let-staff pTemplate="item">
+              <div
+                class="ui-helper-clearfix"
+                style="border-bottom: 1px solid #d5d5d5"
+              >
+                <table width="100%">
+                  <tr>
+                    <th>Staff Name</th>
+                    <th>Gender</th>
+                    <th>Cell Phone</th>
+                    <th>Office</th>
+                  </tr>
+                  <tr>
+                    <td>{{ staff?.lastName }}, {{ staff?.firstName }}</td>
+                    <td>{{ staff?.genderID?.gender }}</td>
+                    <td>{{ staff?.cellPh }}</td>
+                    <td>{{ staff?.sfaofficeID?.officeName }}</td>
+                  </tr>
+                </table>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+        </div>
+      </div>
+    </div>
+
+    <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix">
+        <button
+          type="button"
+          class="sf-positive-btn pull-right margin-right-82"
+          (click)="getAuthExceptionValues()"
+        >
+          Save
+        </button>
+      </div>
+    </p-footer>
+  </form>
+</p-dialog>
+<p-dialog
+  [header]="printAckHeader"
+  [(visible)]="isAckOptions"
+  [responsive]="true"
+  showEffect="fade"
+  [modal]="true"
+  [width]="1000"
+  [minWidth]="400"
+  [minY]="80"
+  [baseZIndex]="10000"
+  [maximizable]="true"
+>
+  <!-- <form class="sf-form"> -->
+
+  <!-- <p><b>Case Manager</b></p>
+      <p><i>Multiple case managers/supervisors possible for this acknowledgement</i></p>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Case Manager</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete [dropdown]="true" [forceSelection]="true" name="approvedBy"
+              (completeMethod)="getMetaData('staff',$event)" field="fullName" [suggestions]="metaData"
+              [(ngModel)]="authExcep.approvedBy_StaffID" placeholder="Type here to search">
+              <ng-template let-staff pTemplate="item">
+                <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                  <table width="100%">
+                    <tr>
+                      <th>Staff Name</th>
+                      <th>Gender</th>
+                      <th>Cell Phone</th>
+                      <th>Office</th>
+                    </tr>
+                    <tr>
+                      <td>{{staff?.lastName }}, {{staff?.firstName }}</td>
+                      <td>{{staff?.genderID?.gender}}</td>
+                      <td>{{staff?.cellPh}}</td>
+                      <td>{{staff?.sfaofficeID?.officeName}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Case Manager Change Reason</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete [dropdown]="true" [forceSelection]="true" name="exceptionReason"
+                (completeMethod)="getMetaData('authorizationExceptionReason',$event)" [suggestions]="metaData"
+                field="authorizationExceptionReason" [(ngModel)]="authExcep.authorizationExceptionReasonID" placeholder="Type here to search">
+              </p-autoComplete>
+            </div>
+          </div>
+      </div>
+
+      <p><b>Judge</b></p>
+      <p><i>Multiple judge possible for this acknowledgement</i></p>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Judge</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete [dropdown]="true" [forceSelection]="true" name="approvedBy"
+              (completeMethod)="getMetaData('staff',$event)" field="fullName" [suggestions]="metaData"
+              [(ngModel)]="authExcep.approvedBy_StaffID" placeholder="Type here to search">
+              <ng-template let-staff pTemplate="item">
+                <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                  <table width="100%">
+                    <tr>
+                      <th>Staff Name</th>
+                      <th>Gender</th>
+                      <th>Cell Phone</th>
+                      <th>Office</th>
+                    </tr>
+                    <tr>
+                      <td>{{staff?.lastName }}, {{staff?.firstName }}</td>
+                      <td>{{staff?.genderID?.gender}}</td>
+                      <td>{{staff?.cellPh}}</td>
+                      <td>{{staff?.sfaofficeID?.officeName}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+      </div>
+
+      <p><b>School</b></p>
+      <p><i>School change</i></p>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>School</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete [dropdown]="true" [forceSelection]="true" name="approvedBy"
+              (completeMethod)="getMetaData('staff',$event)" field="fullName" [suggestions]="metaData"
+              [(ngModel)]="authExcep.approvedBy_StaffID" placeholder="Type here to search">
+              <ng-template let-staff pTemplate="item">
+                <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                  <table width="100%">
+                    <tr>
+                      <th>Staff Name</th>
+                      <th>Gender</th>
+                      <th>Cell Phone</th>
+                      <th>Office</th>
+                    </tr>
+                    <tr>
+                      <td>{{staff?.lastName }}, {{staff?.firstName }}</td>
+                      <td>{{staff?.genderID?.gender}}</td>
+                      <td>{{staff?.cellPh}}</td>
+                      <td>{{staff?.sfaofficeID?.officeName}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Attending Same Home School Reason</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete [dropdown]="true" [forceSelection]="true" name="exceptionReason"
+                (completeMethod)="getMetaData('authorizationExceptionReason',$event)" [suggestions]="metaData"
+                field="authorizationExceptionReason" [(ngModel)]="authExcep.authorizationExceptionReasonID"
+                placeholder="Type here to search">
+              </p-autoComplete>
+            </div>
+          </div>
+      </div>
+
+      <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Reason Late</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete [dropdown]="true" [forceSelection]="true" name="exceptionReason"
+                (completeMethod)="getMetaData('authorizationExceptionReason',$event)" [suggestions]="metaData"
+                field="authorizationExceptionReason" [(ngModel)]="authExcep.authorizationExceptionReasonID" placeholder="Type here to search">
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3"><span>Corrected Copy</span></div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-checkbox [(ngModel)]="livingArrangment.correctedCopy" formControlName="correctedCopy" binary="true"
+                  name="correctedCopy"></p-checkbox>
+              </div>
+            </div>
+        </div>
+
+    </form>
+    <p-footer>
+      <button class="sf-negative-btn" (click)="onClickAckPrintOptions('cancel')">Cancel</button>
+      <button class="sf-positive-btn" (click)="onClickAckPrintOptions('ok')">OK</button>
+
+    </p-footer> -->
+  <app-ack-options
+    [moduleName]="moduleName"
+    [caseTeamList]="caseManagerList"
+    [caseManagerChangeReasnonList]="caseManagerChangeReasonList"
+    [judgeList]="judgeList"
+    [openSchoolList]="schoolList"
+    [attendingHomeSchoolReasonList]="attendingHomeSchoolReasonList"
+    [reasonLateList]="reasonLateList"
+    *ngIf="isAckOptions"
+  ></app-ack-options>
+</p-dialog>

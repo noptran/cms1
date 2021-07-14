@@ -1,0 +1,287 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="maternalPaternalForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        REINTEGRATION FOSTER CARE ADOPTION <br>
+        MATERNAL & PATERNAL RELATIVE FORM
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Client(s):</span>
+          <input [(ngModel)]="reMaternalPaternal.Client" formControlName="Client" name="Client"  type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>FACTS:</span>
+          <input [(ngModel)]="reMaternalPaternal.Facts" formControlName="Facts" name="Facts"  type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>KAECSES #:</span>
+          <input [(ngModel)]="reMaternalPaternal.Kaecses" formControlName="Kaecses" name="Kaecses"  type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Client’s DOB:</span>
+          <p-calendar [(ngModel)]="reMaternalPaternal.Dob" formControlName="Dob" name="Dob"  [inputStyle]="{'width':'200px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Initial Assessment:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reMaternalPaternal.InitialAssessment" formControlName="InitialAssessment" name="InitialAssessment"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Assessment Review Date:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reMaternalPaternal.ReviewDate" formControlName="ReviewDate" name="ReviewDate"  [inputStyle]="{'width':'200px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <table class="center">
+        <tr>
+          <th class="table-td">
+            Relationship
+            Maternal/Paternal Needs to be indicated: Grandparent, Sibling, Aunt/Uncle, Cousin, Etc.
+          </th>
+          <th class="table-td">Name</th>
+          <th class="table-td">Address
+            City, State, Zip
+          </th>
+          <th class="table-td">Phone #</th>
+          <th class="table-td">Can child live with relative?</th>
+          <th class="table-td">
+            <div>
+              SFCS USE ONLY
+              <hr>
+              If yes, efforts to place with relatives.
+              If no, why are they not an option for placement? Please include the date and type of documentation in
+              file.
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Relationship" formControlName="Relationship" name="Relationship"  type="text" pInputText size="20" /></td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Name" formControlName="Name" name="Name"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMaternalPaternal.Address" formControlName="Address" name="Address"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Phone" formControlName="Phone" name="Phone"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reMaternalPaternal.IsAbleRelativeYes" formControlName="IsAbleRelativeYes" name="IsAbleRelativeYes"  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reMaternalPaternal.IsAbleRelativeNo" formControlName="IsAbleRelativeNo" name="IsAbleRelativeNo"  class="space-right"></p-checkbox>N
+              </div>
+            </div>
+          </td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Efforts" formControlName="Efforts" name="Efforts"  type="text" pInputText size="20" /></td>
+        </tr>
+        <tr>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Relationship1" formControlName="Relationship1" name="Relationship1"  type="text" pInputText size="20" /></td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Name1" formControlName="Name1" name="Name1"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMaternalPaternal.Address1" formControlName="Address1" name="Address1"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Phone1" formControlName="Phone1" name="Phone1"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reMaternalPaternal.IsAbleRelativeYes1" formControlName="IsAbleRelativeYes1" name="IsAbleRelativeYes1"  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reMaternalPaternal.IsAbleRelativeNo1" formControlName="IsAbleRelativeNo1" name="IsAbleRelativeNo1"  class="space-right"></p-checkbox>N
+              </div>
+            </div>
+          </td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Efforts1" formControlName="Efforts1" name="Efforts1"  type="text" pInputText size="20" /></td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Relationship2" formControlName="Relationship2" name="Relationship2"  type="text" pInputText size="20" /></td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Name2" formControlName="Name2" name="Name2"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMaternalPaternal.Address2" formControlName="Address2" name="Address2"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Phone2" formControlName="Phone2" name="Phone2"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reMaternalPaternal.IsAbleRelativeYes2" formControlName="IsAbleRelativeYes2" name="IsAbleRelativeYes2"  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reMaternalPaternal.IsAbleRelativeNo2" formControlName="IsAbleRelativeNo2" name="IsAbleRelativeNo2"  class="space-right"></p-checkbox>N
+              </div>
+            </div>
+          </td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Efforts2" formControlName="Efforts2" name="Efforts2"  type="text" pInputText size="20" /></td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Relationship3" formControlName="Relationship3" name="Relationship3"  type="text" pInputText size="20" /></td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Name3" formControlName="Name3" name="Name3"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMaternalPaternal.Address3" formControlName="Address3" name="Address3"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Phone3" formControlName="Phone3" name="Phone3"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reMaternalPaternal.IsAbleRelativeYes3" formControlName="IsAbleRelativeYes3" name="IsAbleRelativeYes3"  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reMaternalPaternal.IsAbleRelativeNo3" formControlName="IsAbleRelativeNo3" name="IsAbleRelativeNo3"  class="space-right"></p-checkbox>N
+              </div>
+            </div>
+          </td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Efforts3" formControlName="Efforts3" name="Efforts3"  type="text" pInputText size="20" /></td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Relationship4" formControlName="Relationship4" name="Relationship4"  type="text" pInputText size="20" /></td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Name4" formControlName="Name4" name="Name4"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMaternalPaternal.Address4" formControlName="Address4" name="Address4"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Phone4" formControlName="Phone4" name="Phone4"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reMaternalPaternal.IsAbleRelativeYes4" formControlName="IsAbleRelativeYes4" name="IsAbleRelativeYes4"  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reMaternalPaternal.IsAbleRelativeNo4" formControlName="IsAbleRelativeNo4" name="IsAbleRelativeNo4"  class="space-right"></p-checkbox>N
+              </div>
+            </div>
+          </td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Efforts4" formControlName="Efforts4" name="Efforts4"  type="text" pInputText size="20" /></td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Relationship5" formControlName="Relationship5" name="Relationship5"  type="text" pInputText size="20" /></td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Name5" formControlName="Name5" name="Name5"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMaternalPaternal.Address5" formControlName="Address5" name="Address5"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Phone5" formControlName="Phone5" name="Phone5"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reMaternalPaternal.IsAbleRelativeYes5" formControlName="IsAbleRelativeYes5" name="IsAbleRelativeYes5"  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reMaternalPaternal.IsAbleRelativeNo5" formControlName="IsAbleRelativeNo5" name="IsAbleRelativeNo5"  class="space-right"></p-checkbox>N
+              </div>
+            </div>
+          </td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Efforts5" formControlName="Efforts5" name="Efforts5"  type="text" pInputText size="20" /></td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Relationship6" formControlName="Relationship6" name="Relationship6"  type="text" pInputText size="20" /></td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Name6" formControlName="Name6" name="Name6"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMaternalPaternal.Address6" formControlName="Address6" name="Address6"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Phone6" formControlName="Phone6" name="Phone6"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reMaternalPaternal.IsAbleRelativeYes6" formControlName="IsAbleRelativeYes6" name="IsAbleRelativeYes6"  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reMaternalPaternal.IsAbleRelativeNo6" formControlName="IsAbleRelativeNo6" name="IsAbleRelativeNo6"  class="space-right"></p-checkbox>N
+              </div>
+            </div>
+          </td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Efforts6" formControlName="Efforts6" name="Efforts6"  type="text" pInputText size="20" /></td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Relationship7" formControlName="Relationship7" name="Relationship7"  type="text" pInputText size="20" /></td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Name7" formControlName="Name7" name="Name7"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMaternalPaternal.Address7" formControlName="Address7" name="Address7"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Phone7" formControlName="Phone7" name="Phone7"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reMaternalPaternal.IsAbleRelativeYes7" formControlName="IsAbleRelativeYes7" name="IsAbleRelativeYes7"  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reMaternalPaternal.IsAbleRelativeNo7" formControlName="IsAbleRelativeNo7" name="IsAbleRelativeNo7"  class="space-right"></p-checkbox>N
+              </div>
+            </div>
+          </td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Efforts7" formControlName="Efforts7" name="Efforts7"  type="text" pInputText size="20" /></td>
+        </tr>
+
+        <tr>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Relationship8" formControlName="Relationship8" name="Relationship8"  type="text" pInputText size="20" /></td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Name8" formControlName="Name8" name="Name8"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMaternalPaternal.Address8" formControlName="Address8" name="Address8"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Phone8" formControlName="Phone8" name="Phone8"  type="text" pInputText size="20" /></td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reMaternalPaternal.IsAbleRelativeYes8" formControlName="IsAbleRelativeYes8" name="IsAbleRelativeYes8"  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reMaternalPaternal.IsAbleRelativeNo8" formControlName="IsAbleRelativeNo8" name="IsAbleRelativeNo8"  class="space-right"></p-checkbox>N
+              </div>
+            </div>
+          </td>
+          <td class="table-td"><input [(ngModel)]="reMaternalPaternal.Efforts8" formControlName="Efforts8" name="Efforts8"  type="text" pInputText size="20" /></td>
+        </tr>
+
+      </table>
+    </div>
+    <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Completed By:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reMaternalPaternal.CompletedBy" formControlName="CompletedBy" name="CompletedBy"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reMaternalPaternal.Date" formControlName="Date" name="Date"  [inputStyle]="{'width':'200px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,reMaternalPaternal)"  (edit)="editForm()" [editControll]="editControll" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

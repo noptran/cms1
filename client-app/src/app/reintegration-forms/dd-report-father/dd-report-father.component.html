@@ -1,0 +1,346 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="ddReportFatherForm" class="sf-form">
+      <div class="flex-container header">
+          <div>
+    
+          </div>
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+          <div>
+    
+          </div>
+        </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name(s) of child(ren): </div>
+      <div class="space-right">
+        <input [(ngModel)]="reDdReportFather.ChildName" formControlName="ChildName" name="ChildName" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Court Case #: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reDdReportFather.CourtCase" formControlName="CourtCase" name="CourtCase" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Attorney: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reDdReportFather.Attorney" formControlName="Attorney" name="Attorney" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Hearing Date: </div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="reDdReportFather.HearingDate" formControlName="HearingDate" name="HearingDate" [inputStyle]="{'width':'170px'}"
+          showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">CSO: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reDdReportFather.Cso" formControlName="Cso" name="Cso" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Prepared by: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reDdReportFather.PreparedBy" formControlName="PreparedBy" name="PreparedBy" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Date Prepared: </div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="reDdReportFather.DatePrepared" formControlName="DatePrepared" name="DatePrepared" [inputStyle]="{'width':'170px'}"
+          showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Date Report Due: </div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="reDdReportFather.DateDue" formControlName="DateDue" name="DateDue" [inputStyle]="{'width':'170px'}"
+          showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        Father Identified?
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reDdReportFather.IsFatherIdentifiedYes" formControlName="IsFatherIdentifiedYes" name="IsFatherIdentifiedYes"
+          class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reDdReportFather.IsFatherIdentifiedNo" formControlName="IsFatherIdentifiedNo" name="IsFatherIdentifiedNo"
+          class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        Father Located?
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reDdReportFather.IsFatherLocatedYes" formControlName="IsFatherLocatedYes" name="IsFatherLocatedYes"
+          class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reDdReportFather.IsFatherLocatedNo" formControlName="IsFatherLocatedNo" name="IsFatherLocatedNo"
+          class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <p>The following efforts were made to identify/locate/contact “Father”: </p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">NAME: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reDdReportFather.EffortsName" formControlName="EffortsName" name="EffortsName" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+
+    <p>Note: Do not list DOB & SS# information on this report. Provide DOB, SS# and address to ADA and CSO by e-mail ASAP.
+    </p>
+    <div class="space-right space-down">
+      <div class="space-down">1. Mother reported the following information (list by date): </div>
+      <p>Note: If Mother was questioned in court, please document by date along with information reported.</p>
+      <div class="space-down">
+        <textarea [(ngModel)]="reDdReportFather.MotherReport" formControlName="MotherReport" name="MotherReport" pInputTextarea autoResize="autoResize"
+          rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">2. The child(ren) reported the following information (list by date): </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reDdReportFather.ChildReport" formControlName="ChildReport" name="ChildReport" pInputTextarea autoResize="autoResize"
+          rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">3. The following extended family members/individuals were contacted and the following information was provided in return
+        (list by date): </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reDdReportFather.ExtendedFamilyMembers" formControlName="ExtendedFamilyMembers" name="ExtendedFamilyMembers"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">4. The following Child Support Enforcement (CSE) paternity information was requested and the following information
+        was provided in return (list by date): </div>
+      <p>Note: Attach CSE paternity confirmation and/or birth certificate, as applicable. </p>
+      <div class="space-down">
+        <textarea [(ngModel)]="reDdReportFather.Cse" formControlName="Cse" name="Cse" pInputTextarea autoResize="autoResize" rows="3"
+          cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">CSE reported that the following individual was ruled-out through paternity testing: </div>
+      <p>Note: Attach CSE documentation. </p>
+      <div class="space-down">
+        <textarea [(ngModel)]="reDdReportFather.CseDocumentation" formControlName="CseDocumentation" name="CseDocumentation" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">5. The following Economic and Employment Services (EES) information was requested and the following information was
+        provided in return (list by date): </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reDdReportFather.Ees" formControlName="Ees" name="Ees" pInputTextarea autoResize="autoResize" rows="3"
+          cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">6. The following telephone services providers were contacted, the following information was requested and following
+        information was provided in return (list by date): </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reDdReportFather.TelephoneServices" formControlName="TelephoneServices" name="TelephoneServices" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">7. The clerk of the court and/or court services officer (CSO) was/were contacted, the following information was requested
+        and the following information was provided in return (list by date):</div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reDdReportFather.Cso1" formControlName="Cso1" name="Cso1" pInputTextarea autoResize="autoResize" rows="3"
+          cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">8. The following law enforcement authorities were contacted and provided the following information in return (list
+        by date):</div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reDdReportFather.EnforcementAuthorities" formControlName="EnforcementAuthorities" name="EnforcementAuthorities"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">9. The following information was obtained from the Kansas Department of Corrections (list by date):</div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reDdReportFather.KansasDepartment" formControlName="KansasDepartment" name="KansasDepartment" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">10. The following information was obtained from the Department of Corrections for the following States outside Kansas
+        (list by date):</div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reDdReportFather.DepartmentOfCorrections" formControlName="DepartmentOfCorrections" name="DepartmentOfCorrections"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">11. The following information was obtained from municipal probation (list by date):</div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reDdReportFather.MunicipalProbation" formControlName="MunicipalProbation" name="MunicipalProbation"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">12. The following information was obtained from district court probation (list by date):</div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reDdReportFather.DistrictCourtProbation" formControlName="DistrictCourtProbation" name="DistrictCourtProbation"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">13. The following searches were performed on the Internet on the following dates with the following results (list by
+        date):</div>
+      <p>Parent name was searched on MO/DATE/YEAR on the following website: </p>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Result: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reDdReportFather.Result" formControlName="Result" name="Result" type="text" pInputText size="20" />
+        </div>
+        <div class="space-right">(No returns or list number of returns)</div>
+      </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reDdReportFather.Searches" formControlName="Searches" name="Searches" pInputTextarea autoResize="autoResize"
+          rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">14. Correspondence by regular mail was sent to the following possible addresses with the following results:</div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">a. Letter mailed to </div>
+        <div class="space-right">
+          <input [(ngModel)]="reDdReportFather.RegularMailResult" formControlName="RegularMailResult" name="RegularMailResult" type="text"
+            pInputText size="20" />
+        </div>
+        <div class="space-right">on MO/DATE/YEAR. Result: </div>
+      </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reDdReportFather.RegularMailAddresses" formControlName="RegularMailAddresses" name="RegularMailAddresses"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">15. Correspondence by certified mail was sent to the following possible addresses with the following results:</div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">a. Letter mailed to</div>
+        <div class="space-right">
+          <input [(ngModel)]="reDdReportFather.CertifiedMailResult" formControlName="CertifiedMailResult" name="CertifiedMailResult"
+            type="text" pInputText size="20" />
+        </div>
+        <div class="space-right">on MO/DATE/YEAR. Result: </div>
+      </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reDdReportFather.CertifiedMailAddresses" formControlName="CertifiedMailAddresses" name="CertifiedMailAddresses"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <p>The due diligence inquiry and diligent attempts by this worker to locate Alleged Father did not produce any additional
+      information as to his whereabouts. </p>
+    <h3>ALLEGED FATHER:</h3>
+    <ul>
+      <li>Has not contacted DCF or the agency’s contract providers regarding the well-being of said child(ren). </li>
+      <li> Has not make claim to be the father of said child(ren). </li>
+      <li> Has not requested services.</li>
+      <li> Has not offered to send money to help pay for the care of said child(ren).</li>
+      <li> Has not requested visitation of said child(ren).</li>
+      <li> Has not requested information regarding court orders nor provided verification of completing any court orders.
+      </li>
+      <li> Has not inquired about educational and/or medical matters of said child(ren).</li>
+      <li> Has not sent letters, cards, gifts, etc, to give to said child(ren).</li>
+    </ul>
+    <p>The agency and its contractors are willing and able to provide services to Alleged Father for the purpose of reintegration
+      should he come forward and avail himself for case participation. </p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">
+        <input [(ngModel)]="reDdReportFather.DcfSocialWorker" formControlName="DcfSocialWorker" name="DcfSocialWorker" type="text"
+          pInputText size="20" />
+      </div>
+      <div class="space-right">, DCF SOCIAL WORKER, CUSTODIAN OF SAID CHILD(REN) HAS ATTEMPTED TO LOCATE</div>
+      <div class="space-right">
+        <input [(ngModel)]="reDdReportFather.CustodianAddress" formControlName="CustodianAddress" name="CustodianAddress" type="text"
+          pInputText size="20" />
+      </div>
+      <div class="space-right">AND HAS BEEN UNSUCCESSFUL.</div>
+    </div>
+    <p class="center">OR</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">THE DUE DILIGENCE INQUIRY OR DILIGENT ATTEMPTS BY THIS WORKER DID NOT LOCATE AN ADDRESS FOR </div>
+      <div class="space-right">
+        <input [(ngModel)]="reDdReportFather.DiligenceInquiryAddress" formControlName="DiligenceInquiryAddress" name="DiligenceInquiryAddress"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        PUBLICATION NOTICE
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reDdReportFather.IsPublicationNoticeNecessary" formControlName="IsPublicationNoticeNecessary"
+          name="IsPublicationNoticeNecessary" class="space-right"></p-checkbox>IS
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reDdReportFather.IsPublicationNoticeNotNecessary" formControlName="IsPublicationNoticeNotNecessary"
+          name="IsPublicationNoticeNotNecessary" class="space-right"></p-checkbox>IS NOT
+      </div>
+      <div class="space-right">
+        NECESSARY
+      </div>
+    </div>
+    <p>(Please circle correct answer or delete incorrect answer)</p>
+    <div class="flex-container space-right space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reDdReportFather.Signature" formControlName="Signature" name="Signature" type="text" pInputText size="20"
+          />
+        </div>
+        <div class="space-down">Signature
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="reDdReportFather.Date" formControlName="Date" name="Date" [inputStyle]="{'width':'170px'}" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,reDdReportFather)" (edit)="editForm()" [editControll]="editControll" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

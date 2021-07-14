@@ -1,0 +1,190 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="parentChildInteractForm" class="sf-form">
+      <div class="flex-container header">
+          <div>
+    
+          </div>
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+          <div>
+    
+          </div>
+        </div>
+    <div class="flex-container header">
+      <div class="heading">
+        Parent/Child
+        <br>Interaction Schedule
+      </div>
+    </div>
+    <p>
+      Note: This is a stand-alone document that can be updated between case planning conferences. Each visit shall be documented
+      on a visit log and an encounter code submitted to DCF.
+    </p>
+    <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right"> Child’s Name: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reParentChildInteract.ChildName" formControlName="ChildName" name="ChildName" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">FACTS Case # </div>
+        <div class="space-right">
+          <input [(ngModel)]="reParentChildInteract.Facts" formControlName="Facts" name="Facts" type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Parent(s) Name: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reParentChildInteract.ParentName" formControlName="ParentName" name="ParentName" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Parent-Child Interaction Frequency: No less than 1 x week if Reintegration is the goal
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reParentChildInteract.Frequency" formControlName="Frequency" name="Frequency" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <p class="bold center">RESTRICTIONS:</p>
+    <div class="flex-container">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">1. Effective Date: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reParentChildInteract.EffectiveDate" formControlName="EffectiveDate" name="EffectiveDate" [inputStyle]="{'width':'170px'}"
+            class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reParentChildInteract.IsSupervised" formControlName="IsSupervised" name="IsSupervised"
+          class="space-right"></p-checkbox>Supervised
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reParentChildInteract.IsUnSupervised" formControlName="IsUnSupervised" name="IsUnSupervised"
+          class="space-right"></p-checkbox>Unsupervised
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reParentChildInteract.IsOther" formControlName="IsOther" name="IsOther" class="space-right"></p-checkbox>Other (specify below)
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reParentChildInteract.other" formControlName="other" name="other" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">Arrangements: (transport, location, time, duration)
+      </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reParentChildInteract.Arrangements" formControlName="Arrangements" name="Arrangements" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">If interactions are not occurring (i.e. deceased, PRT, therapeutic, court order) or are not in-person (i.e. by phone,
+        mail electronic) explain why:
+      </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reParentChildInteract.InteractionsNotOccurring" formControlName="InteractionsNotOccurring" name="InteractionsNotOccurring"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">If interactions are supervised provide explanation and indicate what would need to occur to move to unsupervised:
+      </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reParentChildInteract.MoveUnsupervised" formControlName="MoveUnsupervised" name="MoveUnsupervised"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Parent(s) Name: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reParentChildInteract.ParentName1" formControlName="ParentName1" name="ParentName1" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Parent-Child Interaction Frequency: No less than 1 x week if Reintegration is the goal
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reParentChildInteract.Frequency1" formControlName="Frequency1" name="Frequency1" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <p class="bold center">RESTRICTIONS:</p>
+    <div class="flex-container">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">2. Effective Date: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reParentChildInteract.EffectiveDate1" formControlName="EffectiveDate1" name="EffectiveDate1" [inputStyle]="{'width':'170px'}"
+            class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reParentChildInteract.IsSupervised1" formControlName="IsSupervised1" name="IsSupervised1"
+          class="space-right"></p-checkbox>Supervised
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reParentChildInteract.IsUnSupervised1" formControlName="IsUnSupervised1" name="IsUnSupervised1"
+          class="space-right"></p-checkbox>Unsupervised
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reParentChildInteract.IsOther1" formControlName="IsOther1" name="IsOther1" class="space-right"></p-checkbox>Other (specify below)
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="reParentChildInteract.other1" formControlName="other1" name="other1" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">Arrangements: (transport, location, time, duration)
+      </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reParentChildInteract.Arrangements1" formControlName="Arrangements1" name="Arrangements1" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">If interactions are not occurring (i.e. deceased, PRT, therapeutic, court order) or are not in-person (i.e. by phone,
+        mail electronic) explain why:
+      </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reParentChildInteract.InteractionsNotOccurring1" formControlName="InteractionsNotOccurring1" name="InteractionsNotOccurring1"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">If interactions are supervised provide explanation and indicate what would need to occur to move to unsupervised:
+      </div>
+      <div class="space-down">
+        <textarea [(ngModel)]="reParentChildInteract.MoveUnsupervised1" formControlName="MoveUnsupervised1" name="MoveUnsupervised1"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,reParentChildInteract)" (edit)="editForm()" [editControll]="editControll"  (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

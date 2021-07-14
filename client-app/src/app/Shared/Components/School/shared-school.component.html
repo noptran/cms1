@@ -1,0 +1,76 @@
+<div *ngIf="isOpenForm">
+    <form class="sf-form" [formGroup]="sharedSchoolForm">
+        <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin date</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar name="beginDate" [showIcon]="true" showTime="true" hourFormat="24"
+                        [yearNavigator]="true" [monthNavigator]="true" formControlName="beginDate" yearRange="2000:2030"
+                        [(ngModel)]="school.beginDate">
+                    </p-calendar>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>End date</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar name="endDate" [showIcon]="true" showTime="true" hourFormat="24" [yearNavigator]="true"
+                        [monthNavigator]="true" formControlName="endDate" yearRange="2000:2030"
+                        [(ngModel)]="school.endDate">
+                    </p-calendar>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>School</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete [dropdown]="true" [forceSelection]="true" field="schoolName"
+                        (completeMethod)="getMetaData($event,'school')" [suggestions]="metaData"
+                        [(ngModel)]="school.schoolID" formControlName="schoolID" name="school">
+                    </p-autoComplete>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Enrolled Begin date</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar name="enrolledBeginDate" [showIcon]="true" showTime="true" hourFormat="24"
+                        [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+                        [(ngModel)]="school.enrolledBeginDate" formControlName="enrolledBeginDate">
+                    </p-calendar>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Enrolled End date</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar name="enrolledEndDate" [showIcon]="true" showTime="true" hourFormat="24"
+                        [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+                        [(ngModel)]="school.enrolledEndDate" formControlName="enrolledEndDate">
+                    </p-calendar>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3"><span>Change reason</span></div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete [dropdown]="true" [forceSelection]="true" field="changeReason"
+                        (completeMethod)="getMetaData($event,'change_reason')" [suggestions]="metaData"
+                        [(ngModel)]="school.changeReasonID" name="changeReason" formControlName="changeReasonID">
+                    </p-autoComplete>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top-20">
+            <div class="col-lg-12 col-sm-12 col-md-12">
+                <div class="col-lg-12 col-sm-12 col-md-12"><span>Notes</span></div>
+            </div>
+        </div>
+        <div class="row margin-top-20">
+            <div class="col-lg-12 col-sm-12 col-md-12">
+                <div class="col-lg-12 col-sm-12 col-md-12"><textarea style="width: 100%;height: 100%;" name="notes"
+                        [(ngModel)]="school.notes" formControlName="notes"></textarea></div>
+            </div>
+        </div>
+    </form>
+    <app-form-footer (save)="onFormActions()" [editControll]="isEdit" (edit)="editForm()"></app-form-footer>
+</div>

@@ -1,0 +1,248 @@
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div id="pdf-content" class="prForm">
+  <form id="form-content" [formGroup]="progressReportForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        FAMILY
+        <br> PRESERVATION
+        <br> PROGRESS REPORT
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Case Name:</span>
+          <input readonly type="text" pInputText size="20" name="caseName" formControlName="caseName" [(ngModel)]="progressReport.caseName"
+          />
+        </div>
+        <div>
+          <span>Case Number:</span>
+          <input readonly type="text" pInputText size="20" name="caseNumber" formControlName="caseNumber" [(ngModel)]="progressReport.caseNumber"
+          />
+        </div>
+        <div>
+          <span>Date of Referral:</span>
+          <p-calendar class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+            name="referralDate" formControlName="referralDate" [(ngModel)]="progressReport.referralDate"></p-calendar>
+        </div>
+        <div>
+          <span>Date:</span>
+          <p-calendar class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+            name="initialDate" formControlName="initialDate" [(ngModel)]="progressReport.initialDate"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container checklist">
+      <div>
+        <p-checkbox name="is90Day" formControlName="is90Day" [(ngModel)]="progressReport.is90Day" binary="true"></p-checkbox>
+        <span>90 Day</span>
+      </div>
+      <div>
+        <p-checkbox name="is180Day" formControlName="is180Day" [(ngModel)]="progressReport.is180Day" binary="true"></p-checkbox>
+        <span>180 Day</span>
+      </div>
+      <div>
+        <p-checkbox name="is270Day" formControlName="is270Day" [(ngModel)]="progressReport.is270Day" binary="true"></p-checkbox>
+        <span>270 Day</span>
+      </div>
+      <div>
+        <p-checkbox name="is365Day" formControlName="is365Day" [(ngModel)]="progressReport.is365Day" binary="true"></p-checkbox>
+        <span>365 or Case Closure</span>
+      </div>
+      <div>
+        <p-checkbox name="isOtherDay" formControlName="isOtherDay" [(ngModel)]="progressReport.isOtherDay" binary="true"></p-checkbox>
+        <span>Other </span>
+      </div>
+    </div>
+    <hr>
+    <div class="flex-container">
+      <h5 class="sub-heading">FAMILY INFORMATION:</h5>
+    </div>
+    <div class="flex-container family-info">
+      <div>
+        <span>Parent/
+          <br> Caregivers:
+        </span>
+      </div>
+      <div class="parent-section">
+        <div>
+          <input type="text" pInputText size="20" name="parentOrCaregivers_1" formControlName="parentOrCaregivers_1" [(ngModel)]="progressReport.parentOrCaregivers_1"
+          />
+          <input type="text" pInputText size="20" name="parentOrCaregivers_2" formControlName="parentOrCaregivers_2" [(ngModel)]="progressReport.parentOrCaregivers_2"
+          />
+          <span>Report for Time Period:</span>
+          <p-calendar showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" name="reportPeriodFrom"
+            formControlName="reportPeriodFrom" [(ngModel)]="progressReport.reportPeriodFrom"></p-calendar>
+          <span>to</span>
+          <p-calendar showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" name="reportPeriodTo"
+            formControlName="reportPeriodTo" [(ngModel)]="progressReport.reportPeriodTo"></p-calendar>
+        </div>
+        <div>
+          <input type="text" pInputText size="20" name="parentOrCaregivers_3" formControlName="parentOrCaregivers_3" [(ngModel)]="progressReport.parentOrCaregivers3"
+          />
+          <input type="text" pInputText size="20" name="parentOrCaregivers_4" formControlName="parentOrCaregivers_4" [(ngModel)]="progressReport.parentOrCaregivers4"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container family-info">
+      <div>
+        <span>Children:</span>
+      </div>
+      <div class="parent-section">
+        <div>
+          <input type="text" pInputText size="20" name="childeren_1" formControlName="childeren_1" [(ngModel)]="progressReport.childeren_1"
+          />
+          <input type="text" pInputText size="20" name="childeren_2" formControlName="childeren_2" [(ngModel)]="progressReport.childeren_2"
+          />
+          <span>Case Plan Developed on:</span>
+          <p-calendar showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" name="casePlanDevelopedOn"
+            formControlName="casePlanDevelopedOn" [(ngModel)]="progressReport.casePlanDevelopedOn"></p-calendar>
+        </div>
+        <div>
+          <input type="text" pInputText size="20" name="childeren_3" formControlName="childeren_3" [(ngModel)]="progressReport.childeren_3"
+          />
+          <input type="text" pInputText size="20" name="childeren_4" formControlName="childeren_4" [(ngModel)]="progressReport.childeren_4"
+          />
+          <span>Expires on: </span>
+          <p-calendar showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" name="expiresOn"
+            formControlName="expiresOn" [(ngModel)]="progressReport.expiresOn"></p-calendar>
+        </div>
+        <div>
+          <input type="text" pInputText size="20" name="childeren_5" formControlName="childeren_5" [(ngModel)]="progressReport.childeren_5"
+          />
+          <input type="text" pInputText size="20" name="childeren_6" formControlName="childeren_6" [(ngModel)]="progressReport.childeren_6"
+          />
+        </div>
+      </div>
+    </div>
+    <hr>
+    <h5 class="sub-heading">CASE SUMMARY:</h5>
+    <div class="flex-container case-closure">
+      <div>
+        <p>Reason for Case Closure:</p>
+      </div>
+      <div>
+        <div>
+          <p-checkbox name="isGoalsMet" formControlName="isGoalsMet" [(ngModel)]="progressReport.isGoalsMet" binary="true"></p-checkbox>
+          <span>Goals Met</span>
+        </div>
+        <div>
+          <p-checkbox name="isMovedOut" formControlName="isMovedOut" [(ngModel)]="progressReport.isMovedOut" binary="true"></p-checkbox>
+          <span>Unable to locate/moved out of state</span>
+        </div>
+        <div>
+          <p-checkbox name="isCustody" formControlName="isCustody" [(ngModel)]="progressReport.isCustody" binary="true"></p-checkbox>
+          <span>Child(ren) moved with other bio-parent who has custody</span>
+        </div>
+      </div>
+      <div>
+        <div>
+          <p-checkbox name="isfamilyRefusedService" formControlName="isfamilyRefusedService" [(ngModel)]="progressReport.isfamilyRefusedService"
+            binary="true"></p-checkbox>
+          <span>Family refused services</span>
+        </div>
+        <div>
+          <p-checkbox name="ischildRemovedFromHome" formControlName="ischildRemovedFromHome" [(ngModel)]="progressReport.ischildRemovedFromHome"
+            binary="true"></p-checkbox>
+          <span>Child(ren) removed from home</span>
+        </div>
+        <div>
+          <p-checkbox name="isEndOfReferralYear" formControlName="isEndOfReferralYear" [(ngModel)]="progressReport.isEndOfReferralYear"
+            binary="true"></p-checkbox>
+          <span>End of referral year</span>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <h5 class="sub-heading">CASE INFORMATION:</h5>
+    <div class="case-information">
+      <div>
+        <p>Initial Reason For Referral (Per Synopsis on PPS 5000):</p>
+        <textarea pInputTextarea autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;" name="initialReferralReason"
+          formControlName="initialReferralReason" [(ngModel)]="progressReport.initialReferralReason"></textarea>
+      </div>
+      <div>
+        <span>All Assessments Completed? </span>
+        <p-checkbox name="isYesAssessment" formControlName="isYesAssessment" [(ngModel)]="progressReport.isYesAssessment" binary="true"></p-checkbox>
+        <span>Yes</span>
+        <p-checkbox name="isNoAssessment" formControlName="isNoAssessment" [(ngModel)]="progressReport.isNoAssessment" binary="true"></p-checkbox>
+        <span>No</span>
+      </div>
+      <div>
+        <p>
+          Progress Toward Case Plan Objectives (List CPO’s and tasks with progress/lack of):
+        </p>
+        <textarea pInputTextarea autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;" name="casePlanActitvites"
+          formControlName="casePlanActitvites" [(ngModel)]="progressReport.casePlanActitvites"></textarea>
+      </div>
+      <div>
+        <p>
+          Court Orders And Progress (Include: date and type of next hearing, county, Judge, case #) Or Dismissal Date:</p>
+        <textarea pInputTextarea autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;" name="courtOrders"
+          formControlName="courtOrders" [(ngModel)]="progressReport.courtOrders"></textarea>
+      </div>
+      <div class="html2pdf__page-break"></div>
+      <div>
+
+        <p>
+          Services Provided To Family (Include community resources utilized, children’s health, mental health, education needs addressed,
+          therapeutic interventions, FSW services provided, etc)</p>
+        <textarea pInputTextarea autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;" name="FSW" formControlName="FSW"
+          [(ngModel)]="progressReport.FSW"></textarea>
+      </div>
+      <div>
+        <p>
+          Services To Non Custodial Parent (Include attempts to identify/locate, contact/assess, and engagement and all services provided
+          for this report period) </p>
+        <textarea pInputTextarea autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;" name="servicesToNonCustodial"
+          formControlName="servicesToNonCustodial" [(ngModel)]="progressReport.servicesToNonCustodial"></textarea>
+      </div>
+      <div>
+        <p>
+          Discharge Summary and Recommendations (Include family’s current needs and what services should continue, if any): </p>
+        <textarea pInputTextarea autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;" name="dischargeSummary"
+          formControlName="dischargeSummary" [(ngModel)]="progressReport.dischargeSummary"></textarea>
+      </div>
+    </div>
+    <hr>
+    <div class="flex-container signature">
+      <div>
+        <input type="text" pInputText size="20" name="signature" formControlName="signature" [(ngModel)]="progressReport.signature"
+        />
+        <p>Signature/Credentials</p>
+      </div>
+      <div>
+        <p-calendar showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" name="signatureDate"
+          formControlName="signatureDate" [(ngModel)]="progressReport.signatureDate"></p-calendar>
+        <p> Date</p>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm(progressReport)" (edit)="editForm()" [editControll]="isEdit" (print)="printForm()" [isPrint]="isPrint" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>

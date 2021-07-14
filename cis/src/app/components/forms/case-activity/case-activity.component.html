@@ -1,0 +1,160 @@
+<div id="pdf-content">
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <span>Loading...</span>
+    </p>
+  </div>
+  <div class="flex-container header-details">
+    <div>
+      <img src="assets/images/logo.svg" />
+    </div>
+    <div>
+      <h2>Saint Francis Community Services Case Activity Notes</h2>
+    </div>
+  </div>
+  <div class="flex-container header-details">
+    <div class="header-staff">
+      <div>
+        <span id="Staff Name" class="space-right">Staff Name:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.Signature.value" name="Signature" readonly>
+        </mat-form-field>
+      </div>
+    </div>
+    <div>
+      <div>
+        <client-search [ClientName]='displayClientName()' (setClientAction)="setClient($event)"></client-search>
+      </div>
+    </div>
+  </div>
+  <div *ngIf='model.showMultiClient === true' class="hideOnPdf">
+    <span class="spanMulticlient">Select the option for multi client</span>
+    <mat-form-field floatLabel="never">
+      <mat-select placeholder="Select the option for multi client" [ngModelOptions]="{standalone: true}"
+        [(ngModel)]="model.multiClientValue">
+        <mat-option (click)="client()" value="By Facts">By Facts</mat-option>
+        <mat-option (click)="allClient()" value="By All clients">By All clients</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf='showClient === true' class="hideOnPdf">
+    <mat-form-field floatLabel="never">
+      <input matInput [(ngModel)]="search" [ngModelOptions]="{standalone: true}" placeholder="Enter the last name"
+        name="search" class="date pad-right">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="client()" class="search">Select
+      Client</button>
+  </div>
+
+  <div class="column">
+    <div *ngFor="let clients of model.multiClient; let i = index;" class="multiClient">
+      <div class="pad-right auto-margin">Child{{i + 1}}</div>
+      <mat-form-field>
+        <input matInput [(ngModel)]="model.multiClient[i]" [ngModelOptions]="{standalone: true}" readonly />
+      </mat-form-field>
+    </div>
+  </div>
+  <form>
+    <div>
+      <div class="flex-container header-details">
+        <div></div>
+        <div class="space-right" style="color:red" *ngIf="showTimeValidate">From time and To Time should not be same
+        </div>
+        <div class="space-right" style="color:red" *ngIf="showTimeValidate_greater">The To Time should be greater than
+          From Time</div>
+      </div>
+      <div class="flex-container header-details">
+        <div class="date-container">
+          <span class="space-right">Begin Date:</span>
+          <mat-form-field floatLabel="never" class="hideOnPdf">
+            <input matInput type="datetime-local" placeholder="Choose a date" name="begindate"
+              [(ngModel)]="model.begindate.value">
+          </mat-form-field>
+          <span class="showOnPdf">{{getFormatedDateTime(model.begindate.value)}}</span>
+        </div>
+        <div class="date-container">
+          <span class="space-right">End Date:</span>
+          <mat-form-field floatLabel="never" class="hideOnPdf">
+            <input matInput type="datetime-local" (ngModelChange)="timeValidate($event)" placeholder="Choose a date"
+              name="enddate" [(ngModel)]="model.enddate.value">
+          </mat-form-field>
+
+          <span class="showOnPdf">{{getFormatedDateTime(model.enddate.value)}}</span>
+        </div>
+
+      </div>
+
+      <div class="flex-container header-details">
+        <div>
+          <span class="space-right">Kaecses:</span>
+          <mat-form-field>
+            <input matInput [(ngModel)]="model.Kaecses.value" name="Kaecses" readonly>
+          </mat-form-field>
+        </div>
+        <div>
+          <span class="space-right">FACTS:</span>
+          <mat-form-field>
+            <input matInput [(ngModel)]="model.facts.value" name="facts" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container header-type">
+      <div>
+        <span class="space-right">Person Type:</span>
+        <mat-form-field floatLabel="never">
+          <input type="text" placeholder="Type to search" aria-label="Number" name="personType"
+            [formControl]="personType" (input)="getPersonType($event.target.value)" matInput
+            [(ngModel)]="model.personTypeField.value" [matAutocomplete]="person">
+        </mat-form-field>
+
+        <mat-autocomplete #person="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </div>
+      <div>
+        <span class="space-right">Contact Type:</span>
+        <mat-form-field floatLabel="never">
+          <input type="text" placeholder="Type to search" aria-label="Number" name="contactTypeField"
+            [formControl]="contactTypeField" (input)="getContactType($event.target.value)" matInput
+            [(ngModel)]="model.contactTypeField.value" [matAutocomplete]="auto">
+        </mat-form-field>
+
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let contact of contactTypeOptions" [value]="contact">
+            {{contact}}
+          </mat-option>
+        </mat-autocomplete>
+      </div>
+      <div>
+        <span class="space-right">Pro-code:</span>
+        <mat-form-field floatLabel="never" class="hideOnPdf pro-code">
+          <mat-select placeholder="Select for procode" (click)="getProcode()" name="procodeTypeField"
+            [formControl]="procodeTypeField" [(ngModel)]="model.procodeTypeField.value">
+            <mat-option *ngFor="let option of procodeOptions" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <p class="showOnPdf">{{model.procodeTypeField.value}}</p>
+
+      </div>
+    </div>
+    <p>Staff Notes:</p>
+    <div class="tab-width" *ngIf='!ispdfStarts'>
+      <mat-form-field>
+        <textarea matInput autosize [(ngModel)]="model.staffNotes.value" name="staffNotes"></textarea>
+      </mat-form-field>
+    </div>
+    <span [ngClass]="ispdfStarts ? show : hide" *ngFor="let data of model.printVal"> {{data}} <br> </span>
+    <div class="signature">
+      <input class="input-signature" [(ngModel)]="model.Signature.value" name="Signature" readonly>
+    </div>
+  </form>
+</div>
+<form-footer (resetAction)='resetForm()' (calculateAction)='calculateForm()' (saveAction)='saveForm()'
+  (finalizeAction)='finalize()'>
+</form-footer>

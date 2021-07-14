@@ -1,0 +1,104 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+    <p class="loader-text">
+        <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+</div>
+<div class="container-background">
+    <div class="container-foreground">
+        <form class="sf-form" [formGroup]="serviceAgreementForm">
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-sm-3 col-md-3 col-lg-3"><span>Referral Event Type</span><span
+                            class="mandatory">*</span></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <p-autoComplete [dropdown]="true" name="referralEventTypeID" emptyMessage="No results found!"
+                            formControlName="referralEventTypeID" [(ngModel)]="agreement.referralEventTypeID"
+                            [suggestions]="metaData" (completeMethod)="getMetaData('referralEventType', $event)"
+                            [forceSelection]="true" placeholder="Type here to search" field="referralEventType"
+                            size="23">
+                        </p-autoComplete>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-sm-3 col-md-3 col-lg-3"><span>Begin Date</span><span class="mandatory">*</span>
+                    </div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <p-calendar name="beginDate" showTime="true" hourFormat="24" [yearNavigator]="true"
+                            formControlName="beginDate" [(ngModel)]="agreement.beginDate" [monthNavigator]="true"
+                            yearRange="2000:2030" [showIcon]="true"></p-calendar>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-sm-3 col-md-3 col-lg-3"><span>End Date</span></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <p-calendar name="endDate" showTime="true" hourFormat="24" [yearNavigator]="true"
+                            formControlName="endDate" [(ngModel)]="agreement.endDate" [monthNavigator]="true"
+                            yearRange="2000:2030" [showIcon]="true"></p-calendar>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-sm-3 col-md-3 col-lg-3"><span>Closure Reason</span></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <p-autoComplete [dropdown]="true" name="eventClosureReasonID" emptyMessage="No results found!"
+                            formControlName="eventClosureReasonID" [(ngModel)]="agreement.eventClosureReasonID"
+                            [suggestions]="metaData" (completeMethod)="getMetaData('eventClosure', $event)"
+                            [forceSelection]="true" placeholder="Type here to search" field="eventClosureReason"
+                            size="23">
+                        </p-autoComplete>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-sm-3 col-md-3 col-lg-3"><span>Procode</span></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <p-autoComplete [dropdown]="true" name="procodeID" emptyMessage="No results found!"
+                            formControlName="procodeID" [(ngModel)]="agreement.procodeID" [forceSelection]="true"
+                            [suggestions]="metaData" (completeMethod)="filteredProcodes($event)"
+                            placeholder="Type here to search" field="ProcodeName" size="23"></p-autoComplete>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-sm-3 col-md-3 col-lg-3"><span>Units</span></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <p-spinner name="units" formControlName="units" [(ngModel)]="agreement.units" [step]="0.25"
+                            [min]="0">
+                        </p-spinner>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-sm-3 col-md-3 col-lg-3"><span>Unit Rate</span></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <p-spinner name="unitRate" formControlName="unitRate" [(ngModel)]="agreement.unitRate"
+                            [step]="1" [min]="0"></p-spinner>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="col-sm-3 col-md-3 col-lg-3"><span>Payor</span></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3">
+                        <p-autoComplete [dropdown]="true" name="payorID" emptyMessage="No results found!"
+                            formControlName="payorID" [(ngModel)]="agreement.payorID" [forceSelection]="true"
+                            [suggestions]="metaData" (completeMethod)="getMetaData('payor', $event)"
+                            placeholder="Type here to search" field="payorDisplay" size="23"></p-autoComplete>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+            </div>
+            <div class="margin-top-20 row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea pInputTextarea name="notes" formControlName="notes" [(ngModel)]="agreement.notes"
+                        style="width:100%;height:100%"></textarea>
+                </div>
+            </div>
+        </form>
+        <app-form-footer [attachmentControll]="false" [currentNodeValue]="req" [isAttachmentDisabled]="false" (save)="formAction()"
+            (edit)="editForm()" [editControll]="editControll" [discardTo]="discardTo" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+    </div>
+</div>

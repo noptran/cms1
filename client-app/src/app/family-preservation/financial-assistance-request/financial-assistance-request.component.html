@@ -1,0 +1,115 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="financialAssistanceForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        FAMILY
+        PRESERVATION <br>
+        FINANCIAL
+        ASSISTANCE REQUEST <br>
+        FORM
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Case Name:</span>
+          <input readonly [(ngModel)]="fpFinancialAssistanceReq.caseName" formControlName="caseName" name="caseName"  type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Case Number:</span>
+          <input readonly [(ngModel)]="fpFinancialAssistanceReq.caseNumber" formControlName="caseNumber" name="caseNumber"  type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Referral Date:</span>
+          <p-calendar [(ngModel)]="fpFinancialAssistanceReq.dateOfReferral" formControlName="dateOfReferral" name="dateOfReferral"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>Date:</span>
+          <p-calendar [(ngModel)]="fpFinancialAssistanceReq.caseDate" formControlName="caseDate" name="caseDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <p>Prior amount spent on Concrete Supports (Hardgoods) (call Hays office if unknown):</p>
+      <textarea [(ngModel)]="fpFinancialAssistanceReq.priorAmount" formControlName="priorAmount" name="priorAmount"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="space-down">
+      <p>List the community resources explored:</p>
+      <textarea [(ngModel)]="fpFinancialAssistanceReq.communityResources" formControlName="communityResources" name="communityResources"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Amount requested:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpFinancialAssistanceReq.amountRequested" formControlName="amountRequested" name="amountRequested"  type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="space-down">
+      <p>Reason needed:</p>
+      <textarea [(ngModel)]="fpFinancialAssistanceReq.reasonNeeded" formControlName="reasonNeeded" name="reasonNeeded"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-down">
+        <div class="space-right">Date:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpFinancialAssistanceReq.dateEndSign" formControlName="dateEndSign" name="dateEndSign"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">Signature of Staff:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpFinancialAssistanceReq.signatureOfStaff" formControlName="signatureOfStaff" name="signatureOfStaff"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <hr>
+    <p class="bold">Authorization:</p>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox [(ngModel)]="fpFinancialAssistanceReq.isApproved" formControlName="isApproved" name="isApproved"  class="space-right"></p-checkbox>Approved
+      </div>
+      <div class="space-right">
+        <p-checkbox [(ngModel)]="fpFinancialAssistanceReq.isNotApproved" formControlName="isNotApproved" name="isNotApproved"  class="space-right"></p-checkbox>Not Approved
+      </div>
+    </div>
+    <div class="flex-container">
+      <div class="flex-container space-down">
+        <div class="space-right">Date:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpFinancialAssistanceReq.dateVerbalApproval" formControlName="dateVerbalApproval" name="dateVerbalApproval"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">Signed or verbal approval of Area Supervisor:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpFinancialAssistanceReq.verbalApproval" formControlName="verbalApproval" name="verbalApproval"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+        <div class="space-right space-down">
+          <div class="space-right">
+            <b>Printed Date:</b>
+          </div>
+          <div class="space-right">
+            <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="space-right space-down margin-left-66rem">
+          <div class="space-right">
+            <b>Printed By:</b>
+          </div>
+          <div class="space-right">
+            <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+          </div>
+        </div>
+  
+      </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,fpFinancialAssistanceReq)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

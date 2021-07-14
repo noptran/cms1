@@ -1,0 +1,43 @@
+<!--Icon Only-->
+<!-- Icon with text-->
+<div>
+    <button *ngIf="isRead" (click)="onRead()">
+        <i class="fa fa-eye"></i>
+        <span> {{readBtnLabel}}</span>
+    </button>
+    <button *ngIf="isNavigate">
+        <i class="fa fa-external-link"></i>
+        <span>{{navigateBtnLabel}}</span>
+    </button>
+    <button *ngIf="isTrash">
+        <i class="fa fa-trash"></i>
+        <span>{{trashBtnLabel}}</span>
+    </button>
+    <button *ngIf="isEdit">
+        <i class="fa fa-pencil-square-o"></i>
+        <span>{{editBtnLabel}}</span>
+    </button>
+    <button *ngIf="isDownload" (click)="onDownload()">
+        <i class="fa fa-download"></i>
+        <span>{{downloadBtnLabel}}</span>
+    </button>
+    <button *ngIf="isUpload">
+        <i class="fa fa-upload"></i>
+        <span>{{uploadBtnLabel}}</span>
+    </button>
+    <button *ngIf="isCreate">
+        <i class="fa fa-plus"></i>
+        <span>{{createBtnLabel}}</span>
+    </button>
+</div>
+
+<!--Read prompt-->
+<p-dialog [(visible)]="isReadPromptOpen" header="Download Attachments">
+    <action-list-view [listViewData]="CISFormDownloadList" [actions]="CISFormDowloadActions" [module]="currentModule"
+        *ngIf="isDataReady"></action-list-view>
+</p-dialog>
+
+<!--Download prompt-->
+<p-dialog [(visible)]="isDownloadPromptOpen">
+    <p>Your'download will ready to initate</p>
+</p-dialog>

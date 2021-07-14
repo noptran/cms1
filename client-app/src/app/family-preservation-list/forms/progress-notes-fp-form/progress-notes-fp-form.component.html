@@ -1,0 +1,3430 @@
+<app-form-header *ngIf="!isCaseActivityLogCreated" [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<!-- class="container-background" -->
+<div [ngClass]="{'container-background': !isCaseActivityLogCreated}">
+  <div class="container-foreground">
+
+    <form *ngIf="!isCaseActivityLogCreated" class="sf-form" [formGroup]="progressNoteForm">
+      <nav class="nav-fill">
+        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link" *ngFor="let main of mainTabs;let i = index" [class.active]="sIndex  === i"
+            (click)="setIndex(i,$event)" data-toggle="tab" href="{{main.href}}" role="tab">{{main.label}}</a>
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane margin-left-45  active in" id="nav-1" role="tabpanel" aria-labelledby="nav-general-tab">
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Client</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete name="autocomplete" [(ngModel)]="progressNote.clientID"
+                  (completeMethod)="getMetaData($event,'client')" formControlName="clientID" [dropdown]="true"
+                  field="clientName" size="23" [suggestions]="metaData" emptyMessage="No records found!"
+                  [forceSelection]="true"></p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Begin Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar name="dateInput" formControlName="beginDate" [(ngModel)]="progressNote.beginDate"
+                  [showIcon]="true" showTime="true" hourFormat="12" [yearNavigator]="true" [monthNavigator]="true"
+                  yearRange="2000:2030"></p-calendar>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>End Date</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar name="dateInput" [(ngModel)]="progressNote.endDate" formControlName="endDate"
+                  [showIcon]="true" showTime="true" hourFormat="12" [yearNavigator]="true" [monthNavigator]="true"
+                  yearRange="2000:2030"></p-calendar>
+
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Therapist</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete name="threapist" [(ngModel)]="progressNote.therapist_StaffID"
+                  (completeMethod)="getMetaData($event,'therapist_StaffID')" [dropdown]="true" field="fullName"
+                  size="23" formControlName="therapist_StaffID" [suggestions]="metaData"
+                  emptyMessage="No records found!" [forceSelection]="true"></p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Location</span> <span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input type="text" pInputText name="inputText" formControlName="location"
+                  [(ngModel)]="progressNote.location" size="27" />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Therapy Type</span> <span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete name="therapyTypeID" formControlName="therapyTypeID"
+                  [(ngModel)]="progressNote.therapyTypeID" (completeMethod)="getTherapyType($event)" [dropdown]="true"
+                  field="therapyType" size="23" [suggestions]="metaData" emptyMessage="No records found!"
+                  [forceSelection]="true"></p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="checkbox-container">
+            <div class="flex">
+              <div>
+                <p-radioButton name="isFaceToFace" value="true" label="Face To Face" formControlName="isFaceToFace"
+                  [(ngModel)]="progressNote.isFaceToFace"></p-radioButton>
+              </div>
+              <div>
+                <p-radioButton name="isFaceToFace" value="false" label="Telemedicine" formControlName="isFaceToFace"
+                  [(ngModel)]="progressNote.isFaceToFace"></p-radioButton>
+              </div>
+            </div>
+            <p-checkbox binary="true" name="checkbox" formControlName="isInteractiveComplexity"
+              label="Interactive Complexity" [(ngModel)]="progressNote.isInteractiveComplexity"></p-checkbox>
+          </div>
+        </div>
+        <div class="tab-pane margin-left-45" id="nav-2" role="tabpanel" aria-labelledby="nav-section2-tab" style="height: 62vh;
+        overflow-y: scroll;
+        overflow-x: hidden;">
+          <div class="marigin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6 ">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>
+                  Diagnosis Code
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="maring-top-20 row top">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12 overflow">
+                <table class="fisMember-table print-table">
+                  <thead>
+                    <tr>
+                      <th *ngFor="let item of columnNames" width="10%">{{item.COLUMN_NAME}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let data of diagnosisList;let i = index">
+                      <td>{{data.progressNoteDiagnosisID}}</td>
+                      <td>{{data.IsPrimary}}</td>
+                      <td>{{data.clientName}}</td>
+                      <td>{{data.dob}}</td>
+                      <td>{{data.DiagnosisCode}}</td>
+                      <td>{{data.beginDate}}</td>
+                      <td>{{data.endDate}}</td>
+                      <td>{{data.clarification}}</td>
+                      <td>{{data.referralID}}</td>
+                      <td>{{data.diagnosisCodeID}}</td>
+                      <td>{{data.isActive}}</td>
+                      <td>
+                        <button type="button" class="sf-positive-btn ac" (click)="viewDiagnosis(data,i)">
+                          <i class="fa fa-edit" aria-hidden="true" pTooltip="view"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="maring-top-20 row top">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <span (click)="showDiagnosisCode()" class="click">Click to create diagnosis code <i
+                    class="fa fa-long-arrow-right arrow1" aria-hidden="true"></i></span>
+              </div>
+            </div>
+          </div>
+          <p-dialog [contentStyle]="{'min-width':'106rem'}" header="Progress Diagnosis" [(visible)]="showDiagnosis"
+            [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="999" [closable]="true">
+            <form [formGroup]="pnDiagnosisForm" class="sf-form">
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Client <span class="mandatory">*</span> </span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete name="client" [(ngModel)]="progressNoteDiagnosis.clientID"
+                      formControlName="clientID" [suggestions]="metaData" placeholder="Type here to search"
+                      field="clientName" (completeMethod)="getDiagnosisMetaData($event,'client')" [dropdown]="true">
+                    </p-autoComplete>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Begin Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar name="dateInput" [(ngModel)]="progressNoteDiagnosis.beginDate"
+                      formControlName="beginDate" [showIcon]="true" showTime="true" hourFormat="24"
+                      [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>End Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar name="dateInput" [(ngModel)]="progressNoteDiagnosis.endDate" formControlName="endDate"
+                      [showIcon]="true" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                      yearRange="2000:2030"></p-calendar>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Principal</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox name="principal" formControlName="principal" binary="true"
+                      [(ngModel)]="progressNoteDiagnosis.isPrimary"></p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20 left">
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                  <span>Classification</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                  <p-autoComplete name="classificationID" [(ngModel)]="progressNoteDiagnosis.classificationID"
+                    formControlName="classificationID" [suggestions]="metaData" field="classification"
+                    (completeMethod)="getDiagnosisMetaData($event,'classification')" [dropdown]="true">
+                  </p-autoComplete>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                  <span>Diagnosis Code <span class="mandatory">*</span> </span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="progressNoteDiagnosis.isCode === 'code'">
+                  <p-autoComplete name="diagnosisCodeID" [(ngModel)]="progressNoteDiagnosis.diagnosisCodeID"
+                    formControlName="diagnosisCodeID" placeholder="Type here to search" [suggestions]="metaData"
+                    field="diagnosisCodeDescription" (completeMethod)="getDiagnosisMetaData($event,'diagnosisCode')"
+                    [dropdown]="true" (onSelect)="getSpecifiers($event)">
+                  </p-autoComplete>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="progressNoteDiagnosis.isCode === 'description'">
+                  <p-autoComplete name="diagnosisCodeID" [(ngModel)]="progressNoteDiagnosis.diagnosisCodeID"
+                    formControlName="diagnosisCodeID" placeholder="Type here to search" [suggestions]="metaData"
+                    field="description" (completeMethod)="getDiagnosisMetaData($event,'diagnosisCode')"
+                    [dropdown]="true" (onSelect)="getSpecifiers($event)">
+                  </p-autoComplete>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                  <p-radioButton class="right" name="isCode" value="code" label="Code" formControlName="isCode"
+                    [(ngModel)]="progressNoteDiagnosis.isCode"></p-radioButton>
+                  <p-radioButton name="obsA" value="description" label="Description" formControlName="isCode"
+                    [(ngModel)]="progressNoteDiagnosis.isCode"></p-radioButton>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3"> <span>Specifiers</span>
+                    <span hidden *ngFor="let city of seleceSpec" style="margin-right:10px">{{city}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20 case-border-diago">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12" *ngFor="let data of updatedVal; let i = index">
+                    <!-- <textarea pInputTextarea formControlName="specifiers" name="inputTextarea" [(ngModel)]="property" rows="2" cols="28"></textarea> -->
+                    <b>{{data.specifier}}</b>
+                    <br>
+                    <p-checkbox *ngFor="let item of data.severity; let i1 = index" value="{{item.severityID}}"
+                      label="{{item.severity}}" [ngModelOptions]="{standalone: true}"
+                      [(ngModel)]="seleceSpec[item.severityID+item.specifierID+i1+i+item.randomKey]"
+                      (onChange)="getSeverityStatus($event, item, i1,i)" binary="true"></p-checkbox>
+
+
+
+                    <!-- <div *ngFor="let item of mentalStatusAffectList; let i = index">
+                      <p-checkbox binary="true" value="{{updatedMentalStatusAffectList[i]}}" label="{{item.MentalStatus}}"
+                        [(ngModel)]="updatedMentalStatusAffectList[i]" [ngModelOptions]="{standalone: true}"
+                        (onChange)="getMentalStatus($event, item, 'Affect', i)" [disabled]="isEdit">
+                      </p-checkbox>
+                    </div> -->
+
+
+
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3"> <span>Clarification</span> <span class="mandatory">*</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea pInputTextarea formControlName="clarification" name="inputTextarea"
+                      [(ngModel)]="progressNoteDiagnosis.clarification"
+                      style=" width: 100%;     height: 100%;"></textarea>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <app-form-footer (discard)="closeModalBox()" (save)="saveDiagnosisCode(progressNoteDiagnosis)">
+            </app-form-footer>
+          </p-dialog>
+          <br>
+          <div class="row maring-top-20" *ngIf="!showOpsField">
+            <div class="col-md-4">
+              <div class="row">
+                <span class="col-md-5 margin-top-10">Originating Site:</span>
+                <div class="col-md-7">
+                  <input type="text" pInputText name="inputText" formControlName="originatingSite"
+                    [(ngModel)]="progressNote.originatingSite" size="27" />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="row">
+                <span class="col-md-5 margin-top-10">Distant Site:</span>
+                <div class="col-md-7">
+                  <input type="text" pInputText name="inputText" formControlName="distantSite"
+                    [(ngModel)]="progressNote.distantSite" size="27" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <!-- <div class="row">
+            <div class="col-md-4">
+              <span class="margin-top-10">
+                <p-checkbox formControlName="psychInterview" binary="true" [(ngModel)]="progressNote.psychInterview">
+                </p-checkbox>&nbsp;Initial Psych Interview
+              </span>
+            </div>
+            <div class="col-md-4">
+              <span class="margin-top-10">
+                <p-checkbox binary="true" name="checkbox" formControlName="individualTherapy"
+                  [(ngModel)]="progressNote.individualTherapy"></p-checkbox>&nbsp;Individual Therapy
+              </span>
+            </div>
+            <div class="col-md-4">
+              <span class="margin-top-10">
+                <p-checkbox formControlName="therapyInHome" binary="true" [(ngModel)]="progressNote.therapyInHome">
+                </p-checkbox>&nbsp;Family Therapy in home
+              </span>
+            </div>
+
+          </div>
+          <br>
+
+          <div class="row">
+            <div class="col-md-4">
+
+              <span class="margin-top-10">
+                <p-checkbox formControlName="groupTherapy" binary="true" [(ngModel)]="progressNote.groupTherapy">
+                </p-checkbox>&nbsp;Group Therapy
+              </span>
+
+            </div>
+            <div class="col-md-4">
+
+              <span class="margin-top-10">
+                <p-checkbox formControlName="therapyInClinic" binary="true" [(ngModel)]="progressNote.therapyInClinic">
+                </p-checkbox>&nbsp;Family Therapy in Clinic/Community
+              </span>
+
+            </div>
+            <div class="col-md-4">
+              <span class="margin-top-10">
+                <p-checkbox formControlName="caseConference" binary="true" [(ngModel)]="progressNote.caseConference">
+                </p-checkbox>&nbsp;Case Conference (Medical Team Conference)
+              </span>
+            </div>
+
+          </div> -->
+          <div class="marigin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <span>Participant(s) In Session and relationship to client</span> <span class="mandatory">*</span>
+              </div>
+            </div>
+          </div>
+          <div class="maring-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <textarea pInputTextarea style="width:100%;height:100%" formControlName="participants"
+                  name="inputTextarea" [(ngModel)]="progressNote.participants" rows="2" cols="28"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20" *ngIf="!showOpsField">
+            <div>
+              <span class="sf-labels sf-heading-3">Alone Time with child (Notes is for conversation relating to case
+                plan tasks/assessing/risk/safety concerns/location of visit/child's appearance):</span>
+            </div>
+            <table class="fisMember-table" *ngIf="alone_list.length > 0">
+              <thead>
+                <tr>
+                  <th>Client</th>
+                  <th>Alone Time</th>
+                  <th>Exception</th>
+                  <th>Exception Reason</th>
+                  <th>Length</th>
+                  <th>Notes</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let alone of alone_list; let i = index">
+                  <td>{{ alone.clientID?.clientName }}</td>
+                  <td>
+                    <span *ngIf="!alone.isAloneTime" class="negative-mark">&#10006;</span>
+                    <span *ngIf="alone.isAloneTime" class="positive-mark">&#10004;</span>
+                  </td>
+                  <td>
+                    <span *ngIf="!alone.isAloneTimeException" class="negative-mark">&#10006;</span>
+                    <span *ngIf="alone.isAloneTimeException" class="positive-mark">&#10004;</span>
+                  </td>
+                  <td>{{ alone.aloneTimeExceptionID?.aloneTimeException }}</td>
+                  <td>{{ alone.aloneTimeLength }}</td>
+                  <td>{{ alone.aloneTimeNotes }}</td>
+                  <td>
+
+                    <button type="button" class="sf-positive-btn ac" (click)="viewAloneTime(alone,i)">
+                      <i class="fa fa-edit" aria-hidden="true" pTooltip="view"></i>
+                    </button>
+                    <button type="button" class="sf-negative-btn ac"
+                      (click)="deleteAloneTime(i, alone.caseActivityFaceToFaceID)">
+                      <i class="fa fa-trash-o" aria-hidden="true" pTooltip="Delete"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <hr />
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Client</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-autoComplete name="client" [(ngModel)]="alone_ntff.clientID" [dropdown]="true"
+                    [ngModelOptions]="{standalone: true}" [suggestions]="filteredFISMembers"
+                    (completeMethod)="filteredFISMember($event)" field="clientName">
+                  </p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Alone Time?</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-checkbox binary="true" name="a_time" [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="alone_ntff.isAloneTime"></p-checkbox>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Exception</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-checkbox binary="true" name="endDate" [ngModelOptions]="{standalone: true}" name="exp"
+                    [(ngModel)]="alone_ntff.isAloneTimeException"></p-checkbox>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Exception Reason</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-autoComplete name="alone_time_exception" [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="alone_ntff.aloneTimeExceptionID" [suggestions]="filteredAloneTimeExceptions"
+                    field="aloneTimeException" (completeMethod)="filterAloneTimeExceptions($event)" [dropdown]="true">
+                  </p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Length(min)</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <input type="text" class="input" maxlength="25" [(ngModel)]="alone_ntff.aloneTimeLength" name="length"
+                    [ngModelOptions]="{standalone: true}" pInputText size="27" (keypress)="numericValidation($event)" />
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-12 col-lg-12">
+                <span>Notes</span>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-12 col-md-12 col-xs-12">
+                <textarea style=" width: 100%; height: 100%;" cols="60" rows="5" [(ngModel)]="alone_ntff.aloneTimeNotes"
+                  name="notes" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+            <br />
+            <div class="alone-time-actions">
+              <button type="button" (click)="clearAloneTime()"> Cancel </button>
+              <button type="button" (click)="addAloneTime()"> {{ isAloneTimeUpdate ? 'Update' : 'Add' }} </button>
+            </div>
+            <br />
+
+          </div>
+          <div class="marigin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <span>Goals/Objective Addressed:(Include progress made)</span> <span class="mandatory">*</span>
+              </div>
+            </div>
+          </div>
+          <div class="maring-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <textarea pInputTextarea style="width:100%;height:100%" formControlName="objectiveAddressed"
+                  name="inputTextarea" [(ngModel)]="progressNote.objectiveAddressed" rows="2" cols="28"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="marigin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <span *ngIf="!showOpsField">Community Resource Update (What Community resources have the family utilized
+                  since last home
+                  visit)</span>
+                <span *ngIf="showOpsField">New Problem (s) in Session</span>
+              </div>
+            </div>
+          </div>
+          <div class="maring-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <textarea pInputTextarea style="width:100%;height:100%" [ngModelOptions]="{standalone: true}"
+                  name="newProblems" rows="2" cols="28" [(ngModel)]="progressNote.newProblems"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="marigin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12 margin-top-1rem">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <span>Client Functioning, Topics Covered, Interventions Used and Client Response:</span>
+                <span class="mandatory">*</span>
+              </div>
+            </div>
+          </div>
+          <div class="maring-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <textarea pInputTextarea style="width:100%;height:100%" formControlName="topicsCovered"
+                  [(ngModel)]="progressNote.topicsCovered" name="topicsCovered" rows="2" cols="28"></textarea>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!showOpsField">
+            <h3 class="center bold">SAFETY ASSESSMENT</h3> <br>
+            <p>*Safety is the potential for serious maltreatment which is imminent. It determines the need for immediate
+              protective action or controlling interventions to protect the child from imminent danger.</p> <br>
+            <div class="row">
+              <div class="col-md-3">
+                <p>Home is free of safety concerns</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="obsA" value="1" label="Yes" formControlName="homeSafetyConcerns_YesNoPendingID"
+                      [(ngModel)]="progressNote.homeSafetyConcerns_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="obsA" value="2" label="No" formControlName="homeSafetyConcerns_YesNoPendingID"
+                      [(ngModel)]="progressNote.homeSafetyConcerns_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="obsA" value="5" label="N/A" formControlName="homeSafetyConcerns_YesNoPendingID"
+                      [(ngModel)]="progressNote.homeSafetyConcerns_YesNoPendingID"></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <p>Suicidal thoughts or gestures made by any person in the home
+                </p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="gesturesSuicidal" value="1" label="Yes"
+                      formControlName="suicidalThoughtsOrGestures_YesNoPendingID"
+                      [(ngModel)]="progressNote.suicidalThoughtsOrGestures_YesNoPendingID">
+                    </p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="gesturesSuicidal" value="2" label="No"
+                      formControlName="suicidalThoughtsOrGestures_YesNoPendingID"
+                      [(ngModel)]="progressNote.suicidalThoughtsOrGestures_YesNoPendingID">
+                    </p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="gesturesSuicidal" value="5" label="NA"
+                      formControlName="suicidalThoughtsOrGestures_YesNoPendingID"
+                      [(ngModel)]="progressNote.suicidalThoughtsOrGestures_YesNoPendingID">
+                    </p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <p>Home is relatively clean</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="obsC" value="1" label="Yes" formControlName="homeIsClean_YesNoPendingID"
+                      [(ngModel)]="progressNote.homeIsClean_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="obsC" value="2" label="No" formControlName="homeIsClean_YesNoPendingID"
+                      [(ngModel)]="progressNote.homeIsClean_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="obsC" value="5" label="N/A" formControlName="homeIsClean_YesNoPendingID"
+                      [(ngModel)]="progressNote.homeIsClean_YesNoPendingID"></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <p>Violent thoughts or gestures made by or to any person in the home
+                </p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="gestures" value="1" label="Yes"
+                      formControlName="violentThoughtsOrGestures_YesNoPendingID"
+                      [(ngModel)]="progressNote.violentThoughtsOrGestures_YesNoPendingID">
+                    </p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="gestures" value="2" label="No"
+                      formControlName="violentThoughtsOrGestures_YesNoPendingID"
+                      [(ngModel)]="progressNote.violentThoughtsOrGestures_YesNoPendingID">
+                    </p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="gestures" value="5" label="NA"
+                      formControlName="violentThoughtsOrGestures_YesNoPendingID"
+                      [(ngModel)]="progressNote.violentThoughtsOrGestures_YesNoPendingID">
+                    </p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <p>Weapons observed in the home</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="Weapons" value="1" label="Yes" formControlName="weaponsObserved_YesNoPendingID"
+                      [(ngModel)]="progressNote.weaponsObserved_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="Weapons" value="2" label="No" formControlName="weaponsObserved_YesNoPendingID"
+                      [(ngModel)]="progressNote.weaponsObserved_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="Weapons" value="5" label="NA" formControlName="weaponsObserved_YesNoPendingID"
+                      [(ngModel)]="progressNote.weaponsObserved_YesNoPendingID"></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <p>
+                  Caregiver has the protective capacity ability to care for the child
+                </p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="protective" value="1" label="Yes"
+                      formControlName="caregiverforTheChild_YesNoPendingID"
+                      [(ngModel)]="progressNote.caregiverforTheChild_YesNoPendingID">
+                    </p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="protective" value="2" label="No"
+                      formControlName="caregiverforTheChild_YesNoPendingID"
+                      [(ngModel)]="progressNote.caregiverforTheChild_YesNoPendingID">
+                    </p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="protective" value="5" label="NA"
+                      formControlName="caregiverforTheChild_YesNoPendingID"
+                      [(ngModel)]="progressNote.caregiverforTheChild_YesNoPendingID">
+                    </p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <p>Child’s appearance is healthy</p>
+              </div>
+
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="obsB" value="1" label="Yes"
+                      formControlName="childAppearsHealthy_YesNoPendingID"
+                      [(ngModel)]="progressNote.childAppearsHealthy_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="obsB" value="2" label="No" formControlName="childAppearsHealthy_YesNoPendingID"
+                      [(ngModel)]="progressNote.childAppearsHealthy_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="obsB" value="5" label="N/A"
+                      formControlName="childAppearsHealthy_YesNoPendingID"
+                      [(ngModel)]="progressNote.childAppearsHealthy_YesNoPendingID"></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <p>
+                  Caregiver showing signs of being under the influence of substances </p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="Caregiver" value="1" label="Yes"
+                      formControlName="caregiverInfluenceOfSubstances_YesNoPendingID"
+                      [(ngModel)]="progressNote.caregiverInfluenceOfSubstances_YesNoPendingID">
+                    </p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="Caregiver" value="2" label="No"
+                      formControlName="caregiverInfluenceOfSubstances_YesNoPendingID"
+                      [(ngModel)]="progressNote.caregiverInfluenceOfSubstances_YesNoPendingID">
+                    </p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="Caregiver" value="5" label="NA"
+                      formControlName="caregiverInfluenceOfSubstances_YesNoPendingID"
+                      [(ngModel)]="progressNote.caregiverInfluenceOfSubstances_YesNoPendingID">
+                    </p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <p>Unusual marks or bruising</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="obsF" value="1" label="Yes" formControlName="unusualMarks_YesNoPendingID"
+                      [(ngModel)]="progressNote.unusualMarks_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="obsF" value="2" label="No" formControlName="unusualMarks_YesNoPendingID"
+                      [(ngModel)]="progressNote.unusualMarks_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="obsF" value="5" label="N/A" formControlName="unusualMarks_YesNoPendingID"
+                      [(ngModel)]="progressNote.unusualMarks_YesNoPendingID"></p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <p>Have new safety concerns been identified since your last visit?</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="concerns" value="1" label="Yes"
+                      formControlName="newSafetyConcerns_YesNoPendingID"
+                      [(ngModel)]="progressNote.newSafetyConcerns_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="concerns" value="2" label="No"
+                      formControlName="newSafetyConcerns_YesNoPendingID"
+                      [(ngModel)]="progressNote.newSafetyConcerns_YesNoPendingID"></p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <p>Was the Family Safety Plan developed or reviewed? </p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="Family" value="1" label="Yes"
+                      formControlName="developedORreviewed_YesNoPendingID"
+                      [(ngModel)]="progressNote.developedORreviewed_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="Family" value="2" label="No"
+                      formControlName="developedORreviewed_YesNoPendingID"
+                      [(ngModel)]="progressNote.developedORreviewed_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="Family" value="5" label="NA"
+                      formControlName="developedORreviewed_YesNoPendingID"
+                      [(ngModel)]="progressNote.developedORreviewed_YesNoPendingID"></p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="maring-top-20 row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <p>
+                  Progress towards Family Safety Plan:
+                </p>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <textarea pInputTextarea style="width:100%;height:100%" rows="2" cols="28"
+                    formControlName="familySafetyPlan" [(ngModel)]="progressNote.familySafetyPlan"
+                    name="familySafetyPlan"></textarea>
+                </div>
+              </div>
+            </div>
+            <p>
+              What services or supports are in place to meet safety needs?
+            </p>
+            <div class="maring-top-20 row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <textarea pInputTextarea style="width:100%;height:100%" rows="2" cols="28"
+                    formControlName="safetyNeeds" [(ngModel)]="progressNote.safetyNeeds" name="safetyNeeds"></textarea>
+                </div>
+              </div>
+            </div>
+            <p>
+              Explain answers to the questions above, any comments made by child or caregiver, observed
+              interactions:
+            </p>
+            <div class="maring-top-20 row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <textarea pInputTextarea style="width:100%;height:100%" rows="2" cols="28"
+                    formControlName="safetyComments" [(ngModel)]="progressNote.safetyComments"
+                    name="safetyComments"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div *ngIf="!showOpsField">
+            <h3 class="center bold">RISK ASSESSMENT</h3> <br>
+            <p>*Risk is potential maltreatment in the future. It determines the need for services to address potential
+              future maltreatment.</p> <br>
+            <div class="row">
+              <div class="col-md-3">
+                <p>Change in household members</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="household" value="1" label="Yes"
+                      formControlName="householdMembers_YesNoPendingID"
+                      [(ngModel)]="progressNote.householdMembers_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="household" value="2" label="No"
+                      formControlName="householdMembers_YesNoPendingID"
+                      [(ngModel)]="progressNote.householdMembers_YesNoPendingID"></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <p>Child’s height and weight appear normal
+                </p>
+              </div>
+
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="obsD" value="1" label="Yes" formControlName="heightWeight_YesNoPendingID"
+                      [(ngModel)]="progressNote.heightWeight_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="obsD" value="2" label="No" formControlName="heightWeight_YesNoPendingID"
+                      [(ngModel)]="progressNote.heightWeight_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="obsD" value="5" label="N/A" formControlName="heightWeight_YesNoPendingID"
+                      [(ngModel)]="progressNote.heightWeight_YesNoPendingID"></p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <p>Caregiver has natural and community supports</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="community" value="1" label="Yes"
+                      formControlName="naturalAndCommunitySupports_YesNoPendingID"
+                      [(ngModel)]="progressNote.naturalAndCommunitySupports_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="community" value="2" label="No"
+                      formControlName="naturalAndCommunitySupports_YesNoPendingID"
+                      [(ngModel)]="progressNote.naturalAndCommunitySupports_YesNoPendingID"></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <p>Child has appropriate hygiene and dress
+                </p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="appropriate" value="1" label="Yes"
+                      formControlName="hygieneAndDress_YesNoPendingID"
+                      [(ngModel)]="progressNote.hygieneAndDress_YesNoPendingID">
+                    </p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="appropriate" value="2" label="No"
+                      formControlName="hygieneAndDress_YesNoPendingID"
+                      [(ngModel)]="progressNote.hygieneAndDress_YesNoPendingID">
+                    </p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="appropriate" value="5" label="NA"
+                      formControlName="hygieneAndDress_YesNoPendingID"
+                      [(ngModel)]="progressNote.hygieneAndDress_YesNoPendingID">
+                    </p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <p>Caregiver demonstrates the ability to provide adequate care for the child (child’s physical and
+                  emotional needs are being met)</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="demonstrates" value="1" label="Yes"
+                      formControlName="caregiverDemonstrates_YesNoPendingID"
+                      [(ngModel)]="progressNote.caregiverDemonstrates_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="demonstrates" value="2" label="No"
+                      formControlName="caregiverDemonstrates_YesNoPendingID"
+                      [(ngModel)]="progressNote.caregiverDemonstrates_YesNoPendingID"></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <p>
+                  Child has displayed self-harming behaviors
+                </p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="harming" value="1" label="Yes"
+                      formControlName="selfHarmingBehaviors_YesNoPendingID"
+                      [(ngModel)]="progressNote.selfHarmingBehaviors_YesNoPendingID">
+                    </p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="harming" value="2" label="No"
+                      formControlName="selfHarmingBehaviors_YesNoPendingID"
+                      [(ngModel)]="progressNote.selfHarmingBehaviors_YesNoPendingID">
+                    </p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <p>Child has adequate space</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="adequate" value="1" label="Yes" formControlName="adequateSpace_YesNoPendingID"
+                      [(ngModel)]="progressNote.adequateSpace_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="adequate" value="2" label="No" formControlName="adequateSpace_YesNoPendingID"
+                      [(ngModel)]="progressNote.adequateSpace_YesNoPendingID"></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <p>
+                  Child has displayed aggressive behaviors </p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="aggressive" value="1" label="Yes"
+                      formControlName="aggressiveBehaviors_YesNoPendingID"
+                      [(ngModel)]="progressNote.aggressiveBehaviors_YesNoPendingID">
+                    </p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="aggressive" value="2" label="No"
+                      formControlName="aggressiveBehaviors_YesNoPendingID"
+                      [(ngModel)]="progressNote.aggressiveBehaviors_YesNoPendingID">
+                    </p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <p>Have additional risk concerns been identified since last visit? </p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="concerns_risk" value="1" label="Yes"
+                      formControlName="additionalRiskConcerns_YesNoPendingID"
+                      [(ngModel)]="progressNote.additionalRiskConcerns_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="concerns_risk" value="2" label="No"
+                      formControlName="additionalRiskConcerns_YesNoPendingID"
+                      [(ngModel)]="progressNote.additionalRiskConcerns_YesNoPendingID"></p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <p>Does the case plan or non-intensive plan need to be updated to address risk concerns? </p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-radioButton name="Family_risk" value="1" label="Yes"
+                      formControlName="casePlanOrNonIntensive_YesNoPendingID"
+                      [(ngModel)]="progressNote.casePlanOrNonIntensive_YesNoPendingID"></p-radioButton>
+                  </div>
+                  <div class="col-md-4">
+                    <p-radioButton name="Family_risk" value="2" label="No"
+                      formControlName="casePlanOrNonIntensive_YesNoPendingID"
+                      [(ngModel)]="progressNote.casePlanOrNonIntensive_YesNoPendingID"></p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="marigin-top-20 row">
+              <div class="col-lg-12 col-md-12 col-sm-12 margin-top-1rem">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <span>What are the family’s strengths and resources mitigating the risk concerns?</span>
+                </div>
+              </div>
+            </div>
+            <div class="maring-top-20 row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <textarea pInputTextarea style="width:100%;height:100%" rows="2" cols="28"
+                    formControlName="familyStrengthsAndResources"
+                    [(ngModel)]="progressNote.familyStrengthsAndResources"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="marigin-top-20 row">
+              <div class="col-lg-12 col-md-12 col-sm-12 margin-top-1rem">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <span>Explain answers to the questions above, any comments made by child or caregiver, observed
+                    interactions:</span>
+                </div>
+              </div>
+            </div>
+            <div class="maring-top-20 row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <textarea pInputTextarea style="width:100%;height:100%" rows="2" cols="28"
+                    formControlName="riskComments" [(ngModel)]="progressNote.riskComments"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="marigin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6 margin-top-1rem">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Collaborative Changes to TX Plan:</span> <span class="mandatory">*</span>
+              </div>
+            </div>
+          </div>
+          <div class="maring-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <textarea pInputTextarea style="width:100%;height:100%" formControlName="changeTXPlan"
+                  [(ngModel)]="progressNote.changeTXPlan" name="changeTXPlan" rows="2" cols="28"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="marigin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12 margin-top-1rem">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <p><b>Note:</b>(Include goals/objectives for new problem(s) identified in #II.;
+                  goals/objectives
+                  met or being discontinued and rationale for such ; or other changes)</p>
+              </div>
+            </div>
+          </div>
+          <div class="marigin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12 margin-top-1rem">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <span>Changes in Diagnosis(es), including Rationale:</span> <span class="mandatory">*</span>
+              </div>
+            </div>
+          </div>
+          <div class="maring-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <textarea pInputTextarea style="width:100%;height:100%" formControlName="diagnosisChange"
+                  [(ngModel)]="progressNote.diagnosisChange" name="diagnosisChange" rows="2" cols="28"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Prognosis</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete name="therapyTypeID" formControlName="prognosisTypeID"
+                  [(ngModel)]="progressNote.prognosisTypeID" (completeMethod)="getMetaData($event,'prognosisType')"
+                  [dropdown]="true" field="prognosisType" size="23" [suggestions]="metaData"
+                  emptyMessage="No records found!" [forceSelection]="true"></p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>GAF:</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-spinner name="gafValue" formControlName="gafValue" [(ngModel)]="progressNote.gafValue" [step]="1">
+                </p-spinner>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane margin-left-45" id="nav-3" role="tabpanel" aria-labelledby="nav-section3-tab" style="    height: 62vh;
+        overflow-y: scroll;
+        overflow-x: hidden;">
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Meets Medical Necessity for Continued Treatment Due to: (Check all that apply)</span> <span class="mandatory">*</span>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div style="display:flex;flex-direction: column;    margin-left: 15px;">
+              <!-- <p-checkbox binary="true" *ngFor="let item of medicalNecessityList" label="{{item.label}}" (onChange)="getMedicalNecessity($event, item)"></p-checkbox> -->
+
+              <p-checkbox formControlName="isTreatmentNeeded" [(ngModel)]="medicalNecessaryValues.isTreatmentNeeded"
+                name="isTreatmentNeeded" binary="true"
+                label="Treatment Needed to Monitor/Reduce Risk of Violence to Self or Others"
+                (onChange)="getMedicalNecessity($event, 1)"></p-checkbox>
+              <p-checkbox formControlName="isContinuedImpairment"
+                [(ngModel)]="medicalNecessaryValues.isContinuedImpairment" name="isContinuedImpairment" binary="true"
+                label="Continued Impairment of Reality Testing" (onChange)="getMedicalNecessity($event, 2)">
+              </p-checkbox>
+              <p-checkbox formControlName="isImpairmentInSocial"
+                [(ngModel)]="medicalNecessaryValues.isImpairmentInSocial" name="isImpairmentInSocial" binary="true"
+                label="Impairment in Social, Familial, Academic/Work Functioning"
+                (onChange)="getMedicalNecessity($event, 3)"></p-checkbox>
+              <p-checkbox formControlName="isServicesNecessary" [(ngModel)]="medicalNecessaryValues.isServicesNecessary"
+                name="isServicesNecessary" binary="true" label="Services Necessary to Maintain GAF and Stabilize Gains"
+                (onChange)="getMedicalNecessity($event, 4)"></p-checkbox>
+              <p-checkbox formControlName="isMoodDisordered" [(ngModel)]="medicalNecessaryValues.isMoodDisordered"
+                name="isMoodDisordered" binary="true" label="Mood Disorder" (onChange)="getMedicalNecessity($event, 5)">
+              </p-checkbox>
+              <p-checkbox formControlName="isInterpersonalImpairment"
+                [(ngModel)]="medicalNecessaryValues.isInterpersonalImpairment" name="isInterpersonalImpairment"
+                binary="true" label="Interpersonal/Behavioral Difficulties" (onChange)="getMedicalNecessity($event, 6)">
+              </p-checkbox>
+              <p-checkbox formControlName="isMeetsContinue" [(ngModel)]="medicalNecessaryValues.isMeetsContinue"
+                name="isMeetsContinue" binary="true" label="Meets Continuing Care Criteria"
+                (onChange)="getMedicalNecessity($event, 7)"></p-checkbox>
+              <p-checkbox formControlName="isMonitorMedication" [(ngModel)]="medicalNecessaryValues.isMonitorMedication"
+                name="isMonitorMedication" binary="true" label="Continued need to Monitor Medication"
+                (onChange)="getMedicalNecessity($event, 8)"></p-checkbox>
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span>Mental Status</span>
+            </div>
+          </div>
+
+          <div class="magin-top-20 row" style="display:flex;">
+            <div style="width: 15vw;flex-direction: column;display: flex; margin-left: 15px;">
+              <span>
+                <b>Affect</b>
+              </span>
+              <div *ngFor="let item of mentalStatusAffectList; let i = index">
+                <p-checkbox binary="true" value="{{updatedMentalStatusAffectList[i]}}" label="{{item.MentalStatus}}"
+                  [(ngModel)]="updatedMentalStatusAffectList[i]" [ngModelOptions]="{standalone: true}"
+                  (onChange)="getMentalStatus($event, item, 'Affect', i)" [disabled]="isEdit">
+                </p-checkbox>
+              </div>
+            </div>
+            <div style="width: 15vw;flex-direction: column;display: flex;">
+              <span>
+                <b>Cognitive Processes</b>
+              </span>
+              <div *ngFor="let item of mentalStatusCognitiveProcessesList; let i = index">
+                <p-checkbox binary="true" label="{{item.MentalStatus}}" [disabled]="isEdit"
+                  (onChange)="getMentalStatus($event, item,'Cognitive Processes', i)"
+                  [(ngModel)]="updatedMentalStatusCognitiveProcessesList[i]" [ngModelOptions]="{standalone: true}">
+                </p-checkbox>
+              </div>
+            </div>
+            <div style="width: 15vw;flex-direction: column;display: flex;">
+              <span>
+                <b>Current Impairment</b>
+              </span>
+              <div *ngFor="let item of mentalStatusCurrentImpairmentList; let i = index">
+                <p-checkbox binary="true" value="{{item.MentalStatus}}" [disabled]="isEdit"
+                  (onChange)="getMentalStatus($event, item,'Current Impairment', i)"
+                  [(ngModel)]="updatedMentalStatusCurrentImpairmentList[i]" [ngModelOptions]="{standalone: true}"
+                  label="{{item.MentalStatus}}">
+                </p-checkbox>
+              </div>
+            </div>
+            <div style="width: 15vw;flex-direction: column;display: flex;">
+              <span>
+                <b>Danger to Self/Others</b>
+              </span>
+              <div *ngFor="let item of mentalStatusDangerList; let i = index">
+                <p-checkbox binary="true" label="{{item.MentalStatus}}" [disabled]="isEdit"
+                  [(ngModel)]="updatedMentalStatusDangerList[i]" [ngModelOptions]="{standalone: true}"
+                  (onChange)="getMentalStatus($event, item,'Danger', i)">
+                </p-checkbox>
+              </div>
+            </div>
+            <div style="width: 15vw;flex-direction: column;display: flex;">
+              <span>
+                <b>Mood</b>
+              </span>
+              <div *ngFor="let item of mentalStatusMoodList; let i = index">
+                <p-checkbox binary="true" label="{{item.MentalStatus}}" [disabled]="isEdit"
+                  [(ngModel)]="updatedMentalStatusMoodList[i]" [ngModelOptions]="{standalone: true}"
+                  (onChange)="getMentalStatus($event, item,'Mood', i)">
+                </p-checkbox>
+              </div>
+            </div>
+          </div>
+          <div class="marigin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6 margin-top-1rem">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Remarks:</span>
+              </div>
+            </div>
+          </div>
+          <div class="maring-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <textarea pInputTextarea style="width:100%;height:100%" formControlName="remarks"
+                  [(ngModel)]="progressNote.remarks" name="remarks" rows="2" cols="28"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="marigin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6 margin-top-1rem">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Mood Other:</span>
+              </div>
+            </div>
+          </div>
+          <div class="maring-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <textarea pInputTextarea style="width:100%;height:100%" formControlName="mentalStatusOther"
+                  [(ngModel)]="progressNote.mentalStatusOther" name="mentalStatusOther"
+                  [disabled]="!mentalStatusValues.isOther" rows="2" cols="28"></textarea>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="tab-pane margin-left-45 " id="nav-4" role="tabpanel" aria-labelledby="nav-section4-tab">
+          <div class="margin-top-20 row" *ngIf="!showOpsField">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <span>Additional Comments (explain any no answer to the above: any unusual marks/bruises; any comments
+                  made by child or caregiver, observed interaction):</span>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="!showOpsField">
+            <div class="col-lg-12 col-sm-12 col-md-12">
+              <div class="col-lg-12 col-sm-12 col-md-12">
+                <textarea pInputTextarea style="width:100%;height:100%" name="additionalComments"
+                  formControlName="additionalComments" [(ngModel)]="progressNote.additionalComments" rows="2"
+                  cols="28"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Next Appoinment</span><span class="mandatory" *ngIf="isLastAppointmentRequired">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar name="nextAppointmentDate" [(ngModel)]="progressNote.nextAppointmentDate" [showIcon]="true"
+                  showTime="true" hourFormat="12" formControlName="nextAppointmentDate" [yearNavigator]="true"
+                  [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <p-checkbox binary="true" name="checkbox"
+                label="This was the last appointment (Next Appointment not required)"
+                formControlName="isLastAppointment" [(ngModel)]="progressNote.isLastAppointment" (onChange)="onChangeLastAppointmentCheckbox($event)"></p-checkbox>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-12 col-sm-12 col-md-12">
+              <div class="col-lg-12 col-sm-12 col-md-12">
+                <span>Plan For Client Until Next Appoinment</span> <span class="mandatory">*</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-sm-12 col-md-12">
+              <div class="col-lg-12 col-sm-12 col-md-12">
+                <textarea pInputTextarea style="width:100%;height:100%" name="inputTextarea"
+                  formControlName="planTillNextAppointment" [(ngModel)]="progressNote.planTillNextAppointment" rows="2"
+                  cols="28"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-sm-6 col-md-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Status Type</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete name="statusTypeID" [(ngModel)]="progressNote.statusTypeID"
+                  (completeMethod)="getStatusType($event)" [suggestions]="metaData" emptyMessage="No records found!"
+                  formControlName="statusTypeID" [forceSelection]="true" [dropdown]="true" field="statusType" size="23"
+                  (onSelect)="disableCheck($event)"></p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <span class="mandatory">*</span>
+            <p-checkbox binary="true" formControlName="isAgreementStatementChecked" [disabled]="isInProgress"
+              [(ngModel)]="progressNote.isAgreementStatementChecked" name="isAgreementStatementChecked"
+              label="By Checking this box, I certify that I have entered the information in this log and that, as of this date, it is true, accurate and complete to the best of my knowledge, information and beliefs.">
+            </p-checkbox>
+          </div>
+          <!-- <div class="margin-top-20 row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <button (click)=navigateToCMS() class="opencard-attachment btn btn-primary">Attachment Document</button>
+              </div>
+            </div>
+          </div> -->
+
+        </div>
+      </div>
+    </form>
+    <app-form-footer *ngIf="!isCaseActivityLogCreated" [isEmail]="isEmail" (print)="printPreview()" [isPrintNavigation]="isPrint"
+      [attachmentControll]="isAttachmentRequired" [isAttachmentDisabled]="false"
+      (attachDoc)="navigateTo()" (save)="formAction(progressNote)" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"  [discardTo]="discardTo" [editControll]="isEdit"
+      (edit)="editForm()" [currentNodeValue]="req">
+    </app-form-footer>
+    <app-quick-menu *ngIf="!isCaseActivityLogCreated" [module]="quickMenu"></app-quick-menu>
+  </div>
+
+  <div id="pdf-content" style="display: none">
+    <form id="form-content" class="sf-form" [formGroup]="encounterFormGroup">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="heading">
+            OUTPATIENT SERVICES
+            ENCOUNTER FORM
+            MENTAL HEALTH SERVICES – DSM 5
+          </div>
+        </div>
+        <div class="col-md-3 text-center">
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="case-info">
+            <div>
+              <span>Name:</span> {{encounterForm.caseName}}
+            </div>
+            <div>
+              <span>Record Number:</span> {{encounterForm.caseNumber}}
+            </div>
+            <div>
+              <span>Date of Birth:</span> {{encounterForm.dob}}
+            </div>
+            <div>
+              <span>Program:</span> {{encounterForm.program}}
+            </div>
+            <div>
+              <span>Date:</span> {{encounterForm.date}}
+            </div>
+
+            <div class="flex-container">
+              <span>Start Time:</span>{{progressNotePrint.startTime}}
+              <span>End Time:</span>{{progressNotePrint.endTime}}
+            </div>
+            <div>
+              <span>
+                Name of Contract Client (if different then above):</span>{{encounterForm.contractClient}}
+            </div>
+            <div>
+              <span>Location:</span>{{encounterForm.location}}
+            </div>
+            <div>
+              <span>Kancare MCO:</span>{{kancare_mco}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <span class="margin-top-10">
+            <p-checkbox binary="true" name="checkbox" formControlName="isFaceToFace"
+              [(ngModel)]="encounterForm.isFaceToFace"></p-checkbox>&nbsp;Face To Face
+          </span>
+        </div>
+        <div class="col-md-4">
+          <span class="margin-top-10">
+            <p-checkbox binary="true" name="checkbox" formControlName="isTelemedicine"
+              [(ngModel)]="encounterForm.isTelemedicine"></p-checkbox>&nbsp;Telemedicine (add GT Modifier)
+          </span>
+        </div>
+        <div class="col-md-4">
+          <span class="margin-top-10">
+            <p-checkbox binary="true" name="checkbox" formControlName="isInteractiveComplexity"
+              [(ngModel)]="encounterForm.isInteractiveComplexity"></p-checkbox>&nbsp;Interactive Complexity(+90785) Used
+          </span>
+        </div>
+      </div>
+      <br>
+      <p class="center"> <b>Outpatient Therapy</b> </p>
+      <table>
+        <tr>
+          <th class="table-td" width="10%"> <b>CPT</b> </th>
+          <th class="table-td"> <b>DESCRIPTION</b> </th>
+          <th class="table-td" width="10%"> <b>Unit Value</b> </th>
+          <th class="table-td" width="10%"> <b>Time</b> </th>
+          <th class="table-td" width="10%"> <b>Units</b> </th>
+          <th class="table-td" width="10%"> <b>Charge</b> </th>
+        </tr>
+        <tr *ngFor="let item of encounterArr">
+          <td class="table-td">{{item.CPT}} </td>
+          <td class="table-td">{{item.DESCRIPTION}} </td>
+          <td class="table-td">{{item.UnitValue}} </td>
+          <td class="table-td">{{item.Time}} </td>
+          <td class="table-td">{{item.Units}} </td>
+          <td class="table-td">{{item.Charge}} </td>
+        </tr>
+      </table>
+      <p>*Interactive Complexity (Interactive, using play equipment, physical devices, language interpreter, or other
+        mechanisms of non-verbal communication, in an inpatient hospital, partial hospital or residential cure
+        setting)</p>
+      <div class="case-info-diag">
+        <div class="row">
+          <div class="col-md-4">
+            <h3>
+              <b>DIAGNOSIS</b>
+            </h3>
+          </div>
+          <div class="col-md-8">
+            <h3>
+              <b>(Principal First)</b>
+            </h3>
+          </div>
+        </div>
+        <div *ngFor="let data of diagnosisList">
+          <div class="row" style="margin-bottom: -17px;" *ngIf="data.IsPrimary">
+            <div class="col-md-2">
+              <p><b>Principal</b></p>
+              <p><b>Clarification</b></p>
+            </div>
+            <div class="col-md-10">
+              <p>:{{data.DiagnosisCode}}</p>
+              <p>:{{data.clarification}}</p>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: -17px;" *ngIf="!data.IsPrimary">
+            <div class="col-md-2">
+              <p><b>Other diagnosis</b></p>
+              <p><b>Clarification</b></p>
+            </div>
+            <div class="col-md-10">
+              <p>:{{data.DiagnosisCode}}</p>
+              <p>:{{data.clarification}}</p>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-6">
+          <span>Name of the provider: </span>{{encounterForm.therapist}}
+        </div>
+        <div class="col-md-6">
+          <span>Charge Amount: </span>{{encounterForm.chargeAmount}}
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- To be removed -->
+
+  <div *ngIf="isCaseActivityLogCreated" id="print-content-1">
+    <form id="form-content" class="sf-form" [formGroup]="progressNotePrintForm">
+      <div class="row">
+        <div class="col-md-3" style="margin: auto">
+          <div class="heading">
+            {{referralName}}
+            <!-- FAMILY PRESERVATION PROGRESS NOTES -->
+          </div>
+        </div>
+        <div class="col-md-4 text-center" style="margin: auto">
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="case-info">
+            <!-- <div>
+              <span>Case Name:</span>
+              <div class="remove-borders">{{progressNotePrint.caseName}}</div>
+
+            </div> -->
+            <!-- <div>
+              <span>Case Number:</span>
+              <div class="remove-borders">{{progressNotePrint.caseNumber}}</div>
+
+            </div> -->
+            <!-- Dont Remove -->
+            <!-- <div>
+              <span>Referral Date:</span>
+              <div class="remove-borders">{{progressNotePrint.dateOfReferral}}</div>
+            </div> -->
+            <div>
+              <span>Date:</span>
+              <div class="remove-borders">{{progressNotePrint.date}}</div>
+
+            </div>
+
+            <div class="flex-container">
+              <span>Start Time:</span>
+              <div class="remove-borders">{{progressNotePrint.startTime}}</div>
+
+
+              <span>End Time:</span>
+              <div class="remove-borders">{{progressNotePrint.endTime}}</div>
+
+            </div>
+
+            <div>
+              <span>Duration:</span>
+              <p class="remove-borders" style="width: 41%;">{{duration}}</p>
+            </div>
+            <div>
+              <span>Service Provider:</span>
+              <div class="remove-borders">SFM</div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="row">
+            <span class="col-md-5 margin-top-10">Office Location:</span>
+            <div class="col-md-7">
+              <div class="remove-borders">{{progressNotePrint.officeLocation}}</div>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <span class="col-md-5 margin-top-10">Client Location:</span>
+            <div class="col-md-5">
+              <div class="remove-borders">{{progressNotePrint.clientLocation}}</div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="!showOpsField">
+        <div class="col-md-4">
+          <div class="row">
+            <span class="col-md-5 margin-top-10">Originating Site:</span>
+            <div class="col-md-7">
+              <div class="remove-borders">{{progressNotePrint.originatingSite}}</div>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <span class="col-md-5 margin-top-10">Distant Site:</span>
+            <div class="col-md-7">
+              <div class="remove-borders">{{progressNotePrint.distantSite}}</div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <span class="margin-top-10">
+            <p-checkbox name="therapyType" [ngModelOptions]="{standalone: true}" value="Initial Psych Interview"
+              [(ngModel)]="progressNotePrint.therapyType">
+            </p-checkbox>&nbsp;Initial Psych Interview
+          </span>
+        </div>
+        <div class="col-md-4">
+          <span class="margin-top-10">
+            <p-checkbox value="Individual Therapy" [ngModelOptions]="{standalone: true}" name="therapyType"
+              [(ngModel)]="progressNotePrint.therapyType"></p-checkbox>&nbsp;Individual Therapy
+          </span>
+        </div>
+        <div class="col-md-4">
+          <span class="margin-top-10">
+            <p-checkbox name="therapyType" [ngModelOptions]="{standalone: true}" value="Family Therapy in home"
+              [(ngModel)]="progressNotePrint.therapyType"></p-checkbox>&nbsp;Family Therapy in home
+          </span>
+        </div>
+
+      </div>
+      <br>
+
+      <div class="row">
+        <div class="col-md-4">
+
+          <span class="margin-top-10">
+            <p-checkbox value="Group Therapy" [ngModelOptions]="{standalone: true}" name="therapyType"
+              [(ngModel)]="progressNotePrint.therapyType "></p-checkbox>&nbsp;Group Therapy
+          </span>
+
+        </div>
+        <div class="col-md-4">
+
+          <span class="margin-top-10">
+            <p-checkbox value="Family Therapy in clinic/community" [ngModelOptions]="{standalone: true}"
+              name="therapyType" [(ngModel)]="progressNotePrint.therapyType"></p-checkbox>&nbsp;Family Therapy in
+            Clinic/Community
+          </span>
+
+        </div>
+        <div class="col-md-4">
+          <span class="margin-top-10">
+            <p-checkbox value="Case Conference (Medical Team Conference)" [ngModelOptions]="{standalone: true}"
+              name="therapyType" [(ngModel)]="progressNotePrint.therapyType"></p-checkbox>&nbsp;Case Conference
+            (Medical Team
+            Conference)
+          </span>
+        </div>
+
+      </div>
+
+      <br>
+      <div class="case-info-diag">
+        <div class="row">
+          <div class="col-md-4">
+            <h3>
+              <b>DIAGNOSIS CODE</b>
+            </h3>
+          </div>
+
+        </div>
+        <div *ngFor="let data of diagnosisList">
+          <div class="row" style="margin-bottom: -17px;" *ngIf="data.IsPrimary">
+            <div class="col-md-2">
+              <p><b>Principal</b></p>
+              <p><b>Clarification</b></p>
+            </div>
+            <div class="col-md-10">
+              <p>:{{data.DiagnosisCode}}</p>
+              <p>:{{data.clarification}}</p>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: -17px;" *ngIf="!data.IsPrimary">
+            <div class="col-md-2">
+              <p><b>Other diagnosis</b></p>
+              <p><b>Clarification</b></p>
+            </div>
+            <div class="col-md-10">
+              <p>:{{data.DiagnosisCode}}</p>
+              <p>:{{data.clarification}}</p>
+            </div>
+          </div>
+          <hr>
+        </div>
+
+      </div>
+      <br>
+      <div class="case-info">
+        <p>
+          <b>I. Participant(s) in Session and relationship to client</b>
+        </p>
+
+        <pre>{{progressNotePrint.sessionParticipants}}</pre>
+        <div>
+          <span class="sf-labels sf-heading-3">Alone Time with child:</span>
+        </div>
+        <table class="fisMember-table print-table" *ngIf="alone_list.length > 0">
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>Alone Time</th>
+              <th>Exception</th>
+              <th>Exception Reason</th>
+              <th>Length</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let alone of alone_list; let i = index">
+              <td>{{ alone.clientID?.clientName }}</td>
+              <td>
+                <span *ngIf="!alone.isAloneTime" class="negative-mark">&#10006;</span>
+                <span *ngIf="alone.isAloneTime" class="positive-mark">&#10004;</span>
+              </td>
+              <td>
+                <span *ngIf="!alone.isAloneTimeException" class="negative-mark">&#10006;</span>
+                <span *ngIf="alone.isAloneTimeException" class="positive-mark">&#10004;</span>
+              </td>
+              <td>{{ alone.aloneTimeExceptionID?.aloneTimeException }}</td>
+              <td>{{ alone.aloneTimeLength }}</td>
+              <td>{{ alone.aloneTimeNotes }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <div class="case-info">
+        <p>
+          <b>II. Goals/Objective Addressed:</b>
+          <i>(Include progress made)</i>
+        </p>
+
+        <pre>{{progressNotePrint.goalsObjectives}}</pre>
+      </div>
+      <br>
+      <div class="case-info" *ngIf="showOpsField">
+        <p>
+          <b>II. New Problem (s) in Session</b>
+        </p>
+
+        <pre>{{progressNote.newProblems}}</pre>
+      </div>
+      <br>
+      <div class="case-info">
+        <p>
+          <b>III. Client Functioning, Topics Covered, Interventions Used and Client Response:</b>
+        </p>
+
+        <pre>{{progressNotePrint.topicsCovered}}</pre>
+      </div>
+      <br>
+      <div class="case-border" *ngIf="!showOpsField">
+        <h3 class="center bold">SAFETY ASSESSMENT</h3> <br>
+        <p>*Safety is the potential for serious maltreatment which is imminent. It determines the need for immediate
+          protective action or controlling interventions to protect the child from imminent danger.</p> <br>
+        <div class="row">
+          <div class="col-md-3">
+            <p>Home is free of safety concerns</p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="homesafety" value="1" label="Yes"
+                  formControlName="homeSafetyConcerns_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.homeSafetyConcerns_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="homesafety" value="2" label="No"
+                  formControlName="homeSafetyConcerns_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.homeSafetyConcerns_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="homesafety" value="5" label="NA"
+                  formControlName="homeSafetyConcerns_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.homeSafetyConcerns_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <p>Suicidal thoughts or gestures made by any person in the home
+            </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="gesturesSuicidal" value="1" label="Yes"
+                  formControlName="suicidalThoughtsOrGestures_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.suicidalThoughtsOrGestures_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="gesturesSuicidal" value="2" label="No"
+                  formControlName="suicidalThoughtsOrGestures_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.suicidalThoughtsOrGestures_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="gesturesSuicidal" value="5" label="NA"
+                  formControlName="suicidalThoughtsOrGestures_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.suicidalThoughtsOrGestures_YesNoPendingID">
+                </p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Home is relatively clean</p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="home" value="1" label="Yes" formControlName="homeIsClean_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.homeIsClean_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="home" value="2" label="No" formControlName="homeIsClean_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.homeIsClean_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="home" value="5" label="NA" formControlName="homeIsClean_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.homeIsClean_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <p>Violent thoughts or gestures made by or to any person in the home
+            </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="gestures" value="1" label="Yes"
+                  formControlName="violentThoughtsOrGestures_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.violentThoughtsOrGestures_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="gestures" value="2" label="No"
+                  formControlName="violentThoughtsOrGestures_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.violentThoughtsOrGestures_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="gestures" value="5" label="NA"
+                  formControlName="violentThoughtsOrGestures_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.violentThoughtsOrGestures_YesNoPendingID">
+                </p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Weapons observed in the home</p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="Weapons" value="1" label="Yes" formControlName="weaponsObserved_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.weaponsObserved_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="Weapons" value="2" label="No" formControlName="weaponsObserved_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.weaponsObserved_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="Weapons" value="5" label="NA" formControlName="weaponsObserved_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.weaponsObserved_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <p>
+              Caregiver has the protective capacity ability to care for the child
+            </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="protective" value="1" label="Yes"
+                  formControlName="caregiverforTheChild_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.caregiverforTheChild_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="protective" value="2" label="No"
+                  formControlName="caregiverforTheChild_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.caregiverforTheChild_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="protective" value="5" label="NA"
+                  formControlName="caregiverforTheChild_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.caregiverforTheChild_YesNoPendingID">
+                </p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Child’s appearance is healthy</p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="healthy" value="1" label="Yes" formControlName="childAppearsHealthy_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.childAppearsHealthy_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="healthy" value="2" label="No" formControlName="childAppearsHealthy_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.childAppearsHealthy_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="healthy" value="5" label="NA" formControlName="childAppearsHealthy_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.childAppearsHealthy_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <p>
+              Caregiver showing signs of being under the influence of substances </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="Caregiver" value="1" label="Yes"
+                  formControlName="caregiverInfluenceOfSubstances_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.caregiverInfluenceOfSubstances_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="Caregiver" value="2" label="No"
+                  formControlName="caregiverInfluenceOfSubstances_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.caregiverInfluenceOfSubstances_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="Caregiver" value="5" label="NA"
+                  formControlName="caregiverInfluenceOfSubstances_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.caregiverInfluenceOfSubstances_YesNoPendingID">
+                </p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Unusual marks or bruising</p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="bruising" value="1" label="Yes" formControlName="unusualMarks_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.unusualMarks_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="bruising" value="2" label="No" formControlName="unusualMarks_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.unusualMarks_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="bruising" value="5" label="NA" formControlName="unusualMarks_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.unusualMarks_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Have new safety concerns been identified since your last visit?</p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="concerns_print" value="1" label="Yes"
+                  formControlName="newSafetyConcerns_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.newSafetyConcerns_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="concerns_print" value="2" label="No"
+                  formControlName="newSafetyConcerns_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.newSafetyConcerns_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Was the Family Safety Plan developed or reviewed? </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="Family_print" value="1" label="Yes"
+                  formControlName="developedORreviewed_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.developedORreviewed_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="Family_print" value="2" label="No"
+                  formControlName="developedORreviewed_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.developedORreviewed_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="Family_print" value="5" label="NA"
+                  formControlName="developedORreviewed_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.developedORreviewed_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p>
+          <b>Progress towards Family Safety Plan:</b>
+        </p>
+
+        <pre>{{progressNotePrint.familySafetyPlan}}</pre>
+        <p>
+          <b>What services or supports are in place to meet safety needs?</b>
+        </p>
+
+        <pre>{{progressNotePrint.safetyNeeds}}</pre>
+        <p>
+          <b>Explain answers to the questions above, any comments made by child or caregiver, observed
+            interactions:</b>
+        </p>
+
+        <pre>{{progressNotePrint.safetyComments}}</pre>
+      </div>
+      <br>
+      <div class="case-border" *ngIf="!showOpsField">
+        <h3 class="center bold">RISK ASSESSMENT</h3> <br>
+        <p>*Risk is potential maltreatment in the future. It determines the need for services to address potential
+          future maltreatment.</p> <br>
+        <div class="row">
+          <div class="col-md-3">
+            <p>Change in household members</p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="household" value="1" label="Yes" formControlName="householdMembers_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.householdMembers_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="household" value="2" label="No" formControlName="householdMembers_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.householdMembers_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <p>Child’s height and weight appear normal
+            </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="height" value="1" label="Yes" formControlName="heightWeight_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.heightWeight_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="height" value="2" label="No" formControlName="heightWeight_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.heightWeight_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="height" value="5" label="NA" formControlName="heightWeight_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.heightWeight_YesNoPendingID">
+                </p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Caregiver has natural and community supports</p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="community" value="1" label="Yes"
+                  formControlName="naturalAndCommunitySupports_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.naturalAndCommunitySupports_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="community" value="2" label="No"
+                  formControlName="naturalAndCommunitySupports_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.naturalAndCommunitySupports_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <p>Child has appropriate hygiene and dress
+            </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="appropriate" value="1" label="Yes" formControlName="hygieneAndDress_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.hygieneAndDress_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="appropriate" value="2" label="No" formControlName="hygieneAndDress_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.hygieneAndDress_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="appropriate" value="5" label="NA" formControlName="hygieneAndDress_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.hygieneAndDress_YesNoPendingID">
+                </p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Caregiver demonstrates the ability to provide adequate care for the child (child’s physical and
+              emotional needs are being met)</p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="demonstrates" value="1" label="Yes"
+                  formControlName="caregiverDemonstrates_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.caregiverDemonstrates_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="demonstrates" value="2" label="No"
+                  formControlName="caregiverDemonstrates_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.caregiverDemonstrates_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <p>
+              Child has displayed self-harming behaviors
+            </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="harming" value="1" label="Yes"
+                  formControlName="selfHarmingBehaviors_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.selfHarmingBehaviors_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="harming" value="2" label="No" formControlName="selfHarmingBehaviors_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.selfHarmingBehaviors_YesNoPendingID">
+                </p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Child has adequate space</p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="adequate" value="1" label="Yes" formControlName="adequateSpace_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.adequateSpace_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="adequate" value="2" label="No" formControlName="adequateSpace_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.adequateSpace_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <p>
+              Child has displayed aggressive behaviors </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="aggressive" value="1" label="Yes"
+                  formControlName="aggressiveBehaviors_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.aggressiveBehaviors_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="aggressive" value="2" label="No"
+                  formControlName="aggressiveBehaviors_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.aggressiveBehaviors_YesNoPendingID">
+                </p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Have additional risk concerns been identified since last visit? </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="concerns_print_risk" value="1" label="Yes"
+                  formControlName="additionalRiskConcerns_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.additionalRiskConcerns_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="concerns_print_risk" value="2" label="No"
+                  formControlName="additionalRiskConcerns_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.additionalRiskConcerns_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Does the case plan or non-intensive plan need to be updated to address risk concerns? </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="Family_print_risk" value="1" label="Yes"
+                  formControlName="casePlanOrNonIntensive_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.casePlanOrNonIntensive_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="Family_print_risk" value="2" label="No"
+                  formControlName="casePlanOrNonIntensive_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.casePlanOrNonIntensive_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p>
+          <b>What are the family’s strengths and resources mitigating the risk concerns?</b>
+        </p>
+
+        <pre>{{progressNotePrint.familyStrengthsAndResources}}</pre>
+        <p>
+          <b>Explain answers to the questions above, any comments made by child or caregiver, observed
+            interactions:</b>
+        </p>
+
+        <pre>{{progressNotePrint.riskComments}}</pre>
+      </div>
+      <br>
+      <div class="case-info">
+        <p>
+          <b>IV. Collaborative Change to TX Plan:(Include goals/objectives for new problem(s) identified in #II.;
+            goals/objectives
+            met or being discontinued and rationale for such ; or other changes)</b>
+        </p>
+
+        <pre>{{progressNotePrint.changeTXPlan}}</pre>
+      </div>
+      <br>
+      <div>
+        <p>
+          <b>V. Changes in Diagnosis(es), including Rationale:</b>
+        </p>
+
+        <pre>{{progressNotePrint.diagnosisChange}}</pre>
+        <div class="flex-container space-down Initial" style="display:flex; justify-content: space-between;;">
+          <div class="space-right Initial">
+            <span>Prognosis </span>
+          </div>
+          <div class="space-right Initial">
+            <p-checkbox formControlName="isGood" [(ngModel)]="progressNotePrint.isGood" name="isGood" binary="true">
+            </p-checkbox>
+            <span>Good </span>
+          </div>
+          <div class="space-right Initial">
+            <p-checkbox formControlName="isFair" [(ngModel)]="progressNotePrint.isFair" name="isFair" binary="true"
+              class="space-right"></p-checkbox>
+            <span>Fair </span>
+          </div>
+          <div class="space-right Initial">
+            <p-checkbox binary="true" formControlName="isGuarded" [(ngModel)]="progressNotePrint.isGuarded"
+              name="isGuarded" class="space-right"></p-checkbox>
+            <span>Guarded</span>
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" formControlName="isPoor" [(ngModel)]="progressNotePrint.isPoor" name="isPoor"
+              class="space-right"></p-checkbox>
+            <span>Poor </span>
+          </div>
+          <div class="flex-container space-right space-down">
+            <div class="space-right"> GAF</div>
+            <div class="space-right">
+              <div class="remove-borders">{{progressNotePrint.gafValue}}</div>
+
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <br>
+      <div class="case-border">
+        <p>
+          <b>VI. Meets Medical Necessity for Continued Treatment Due to:</b>
+          <i>(check all that apply):</i>
+        </p>
+        <div class="margin-top-20 row">
+          <div style="display:flex;flex-direction: column;    margin-left: 15px;">
+
+
+            <p-checkbox formControlName="isTreatmentNeeded" [(ngModel)]="medicalNecessaryValues.isTreatmentNeeded"
+              name="isTreatmentNeeded" binary="true"
+              label="Treatment Needed to Monitor/Reduce Risk of Violence to Self or Others"></p-checkbox>
+            <p-checkbox formControlName="isContinuedImpairment"
+              [(ngModel)]="medicalNecessaryValues.isContinuedImpairment" name="isContinuedImpairment" binary="true"
+              label="Continued Impairment of Reality Testing">
+            </p-checkbox>
+            <p-checkbox formControlName="isImpairmentInSocial" [(ngModel)]="medicalNecessaryValues.isImpairmentInSocial"
+              name="isImpairmentInSocial" binary="true"
+              label="Impairment in Social, Familial, Academic/Work Functioning"></p-checkbox>
+            <p-checkbox formControlName="isServicesNecessary" [(ngModel)]="medicalNecessaryValues.isServicesNecessary"
+              name="isServicesNecessary" binary="true" label="Services Necessary to Maintain GAF and Stabilize Gains">
+            </p-checkbox>
+            <p-checkbox formControlName="isMoodDisordered" [(ngModel)]="medicalNecessaryValues.isMoodDisordered"
+              name="isMoodDisordered" binary="true" label="Mood Disorder">
+            </p-checkbox>
+            <p-checkbox formControlName="isInterpersonalImpairment"
+              [(ngModel)]="medicalNecessaryValues.isInterpersonalImpairment" name="isInterpersonalImpairment"
+              binary="true" label="Interpersonal/Behavioral Difficulties">
+            </p-checkbox>
+            <p-checkbox formControlName="isMeetsContinue" [(ngModel)]="medicalNecessaryValues.isMeetsContinue"
+              name="isMeetsContinue" binary="true" label="Meets Continuing Care Criteria"></p-checkbox>
+            <p-checkbox formControlName="isMonitorMedication" [(ngModel)]="medicalNecessaryValues.isMonitorMedication"
+              name="isMonitorMedication" binary="true" label="Continued need to Monitor Medication"></p-checkbox>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="case-border">
+        <p>
+          <b>VII. Mental Status:</b>
+        </p>
+        <div class="magin-top-20" style="display:flex;justify-content: space-between;">
+          <div style="flex-direction: column;display: flex; margin-left: 15px;">
+            <span>
+              <b>Affect</b>
+            </span>
+            <div *ngFor="let item of mentalStatusAffectList; let i = index">
+              <p-checkbox binary="true" value="{{updatedMentalStatusAffectList[i]}}" label="{{item.MentalStatus}}"
+                [(ngModel)]="updatedMentalStatusAffectList[i]" [ngModelOptions]="{standalone: true}">
+              </p-checkbox>
+            </div>
+          </div>
+          <div style="flex-direction: column;display: flex;">
+            <span>
+              <b>Cognitive Processes</b>
+            </span>
+            <div *ngFor="let item of mentalStatusCognitiveProcessesList; let i = index">
+              <p-checkbox binary="true" label="{{item.MentalStatus}}"
+                [(ngModel)]="updatedMentalStatusCognitiveProcessesList[i]" [ngModelOptions]="{standalone: true}">
+              </p-checkbox>
+            </div>
+          </div>
+          <div style="flex-direction: column;display: flex;">
+            <span>
+              <b>Current Impairment</b>
+            </span>
+            <div *ngFor="let item of mentalStatusCurrentImpairmentList; let i = index">
+              <p-checkbox binary="true" value="{{item.MentalStatus}}"
+                [(ngModel)]="updatedMentalStatusCurrentImpairmentList[i]" [ngModelOptions]="{standalone: true}"
+                label="{{item.MentalStatus}}">
+              </p-checkbox>
+            </div>
+          </div>
+          <div style="flex-direction: column;display: flex;">
+            <span>
+              <b>Danger to Self/Others</b>
+            </span>
+            <div *ngFor="let item of mentalStatusDangerList; let i = index">
+              <p-checkbox binary="true" label="{{item.MentalStatus}}" [(ngModel)]="updatedMentalStatusDangerList[i]"
+                [ngModelOptions]="{standalone: true}">
+              </p-checkbox>
+            </div>
+          </div>
+          <div style="flex-direction: column;display: flex;">
+            <span>
+              <b>Mood</b>
+            </span>
+            <div *ngFor="let item of mentalStatusMoodList; let i = index">
+              <p-checkbox binary="true" label="{{item.MentalStatus}}" [(ngModel)]="updatedMentalStatusMoodList[i]"
+                [ngModelOptions]="{standalone: true}">
+              </p-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+      <div class="case-info">
+        <p>
+          <b>VIII.Next appointment:
+            <span>
+
+              <div class="remove-borders">{{progressNotePrint.nextAppointmentDate}}</div>
+            </span> Plan for client until next appointment:</b>
+        </p>
+        <div class="row">
+          <div class="col-lg-12 col-sm-12 col-md-12">
+
+            <pre>{{progressNotePrint.planTillNextAppointment}}</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5">
+          <div class="remove-borders">{{encounterForm.therapist}}</div>
+
+          <br> Therapist Name (print)
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="remove-borders" pInputText size="20" />
+          <br>Therapist Signature
+        </div>
+        <div class="col-md-3">
+          <input type="text" class="remove-borders" pInputText size="20" />
+          <br>Date</div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <span>
+            <p-checkbox binary="true" formControlName="isAgreementStatementChecked" [disabled]="isInProgress"
+              [(ngModel)]="progressNotePrint.isAgreementStatementChecked" name="isAgreementStatementChecked">
+            </p-checkbox>By checking this box, I certify that I have entered the information in this log
+            and that, as of
+            this date, it is true, accurate and complete to the best of my knowledge, information and beliefs.
+          </span>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div id="print-content-mail" style="display: none">
+    <form id="form-content" class="sf-form" [formGroup]="progressNotePrintForm">
+      <div class="row">
+        <div class="col-md-3" style="margin: auto">
+          <div class="heading">
+            {{referralName}}
+            <!-- FAMILY PRESERVATION PROGRESS NOTES -->
+          </div>
+        </div>
+        <div class="col-md-4 text-center" style="margin: auto">
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="case-info">
+            <div>
+              <span>Case Name:</span>
+              <div class="remove-borders">{{progressNotePrint.caseName}}</div>
+
+            </div>
+            <div>
+              <span>Case Number:</span>
+              <div class="remove-borders">{{progressNotePrint.caseNumber}}</div>
+
+            </div>
+            <!-- Dont Remove -->
+            <div>
+              <span>Referral Date:</span>
+              <div class="remove-borders">{{progressNotePrint.dateOfReferral}}</div>
+            </div>
+            <div>
+              <span>Date:</span>
+              <div class="remove-borders">{{progressNotePrint.date}}</div>
+
+            </div>
+
+            <div class="flex-container">
+              <span>Start Time:</span>
+              <div class="remove-borders">{{progressNotePrint.startTime}}</div>
+
+
+              <span>End Time:</span>
+              <div class="remove-borders">{{progressNotePrint.endTime}}</div>
+
+            </div>
+
+            <div>
+              <span>Duration:</span>
+              <p class="remove-borders" style="width: 41%;">{{duration}}</p>
+            </div>
+            <div>
+              <span>Service Provider:</span>
+              <div class="remove-borders">SFM</div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="row">
+            <span class="col-md-5 margin-top-10">Office Location:</span>
+            <div class="col-md-7">
+              <div class="remove-borders">{{progressNotePrint.officeLocation}}</div>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <span class="col-md-5 margin-top-10">Client Location:</span>
+            <div class="col-md-5">
+              <div class="remove-borders">{{progressNotePrint.clientLocation}}</div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="!showOpsField">
+        <div class="col-md-4">
+          <div class="row">
+            <span class="col-md-5 margin-top-10">Originating Site:</span>
+            <div class="col-md-7">
+              <div class="remove-borders">{{progressNotePrint.originatingSite}}</div>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <span class="col-md-5 margin-top-10">Distant Site:</span>
+            <div class="col-md-7">
+              <div class="remove-borders">{{progressNotePrint.distantSite}}</div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <span class="margin-top-10">
+            <p-checkbox name="therapyType" [ngModelOptions]="{standalone: true}" value="Initial Psych Interview"
+              [(ngModel)]="progressNotePrint.therapyType">
+            </p-checkbox>&nbsp;Initial Psych Interview
+          </span>
+        </div>
+        <div class="col-md-4">
+          <span class="margin-top-10">
+            <p-checkbox value="Individual Therapy" [ngModelOptions]="{standalone: true}" name="therapyType"
+              [(ngModel)]="progressNotePrint.therapyType"></p-checkbox>&nbsp;Individual Therapy
+          </span>
+        </div>
+        <div class="col-md-4">
+          <span class="margin-top-10">
+            <p-checkbox name="therapyType" [ngModelOptions]="{standalone: true}" value="Family Therapy in home"
+              [(ngModel)]="progressNotePrint.therapyType"></p-checkbox>&nbsp;Family Therapy in home
+          </span>
+        </div>
+
+      </div>
+      <br>
+
+      <div class="row">
+        <div class="col-md-4">
+
+          <span class="margin-top-10">
+            <p-checkbox value="Group Therapy" [ngModelOptions]="{standalone: true}" name="therapyType"
+              [(ngModel)]="progressNotePrint.therapyType "></p-checkbox>&nbsp;Group Therapy
+          </span>
+
+        </div>
+        <div class="col-md-4">
+
+          <span class="margin-top-10">
+            <p-checkbox value="Family Therapy in clinic/community" [ngModelOptions]="{standalone: true}"
+              name="therapyType" [(ngModel)]="progressNotePrint.therapyType"></p-checkbox>&nbsp;Family Therapy in
+            Clinic/Community
+          </span>
+
+        </div>
+        <div class="col-md-4">
+          <span class="margin-top-10">
+            <p-checkbox value="Case Conference (Medical Team Conference)" [ngModelOptions]="{standalone: true}"
+              name="therapyType" [(ngModel)]="progressNotePrint.therapyType"></p-checkbox>&nbsp;Case Conference
+            (Medical Team
+            Conference)
+          </span>
+        </div>
+
+      </div>
+
+      <br>
+      <div class="case-info-diag">
+        <div class="row">
+          <div class="col-md-4">
+            <h3>
+              <b>DIAGNOSIS CODE</b>
+            </h3>
+          </div>
+
+        </div>
+        <div *ngFor="let data of diagnosisList">
+          <div class="row" style="margin-bottom: -17px;" *ngIf="data.IsPrimary">
+            <div class="col-md-2">
+              <p><b>Principal</b></p>
+              <p><b>Clarification</b></p>
+            </div>
+            <div class="col-md-10">
+              <p>:{{data.DiagnosisCode}}</p>
+              <p>:{{data.clarification}}</p>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: -17px;" *ngIf="!data.IsPrimary">
+            <div class="col-md-2">
+              <p><b>Other diagnosis</b></p>
+              <p><b>Clarification</b></p>
+            </div>
+            <div class="col-md-10">
+              <p>:{{data.DiagnosisCode}}</p>
+              <p>:{{data.clarification}}</p>
+            </div>
+          </div>
+          <hr>
+        </div>
+
+      </div>
+      <br>
+      <div class="case-info">
+        <p>
+          <b>I. Participant(s) in Session and relationship to client</b>
+        </p>
+
+        <pre>{{progressNotePrint.sessionParticipants}}</pre>
+        <div>
+          <span class="sf-labels sf-heading-3">Alone Time with child:</span>
+        </div>
+        <table class="fisMember-table print-table" *ngIf="alone_list.length > 0">
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>Alone Time</th>
+              <th>Exception</th>
+              <th>Exception Reason</th>
+              <th>Length</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let alone of alone_list; let i = index">
+              <td>{{ alone.clientID?.clientName }}</td>
+              <td>
+                <span *ngIf="!alone.isAloneTime" class="negative-mark">&#10006;</span>
+                <span *ngIf="alone.isAloneTime" class="positive-mark">&#10004;</span>
+              </td>
+              <td>
+                <span *ngIf="!alone.isAloneTimeException" class="negative-mark">&#10006;</span>
+                <span *ngIf="alone.isAloneTimeException" class="positive-mark">&#10004;</span>
+              </td>
+              <td>{{ alone.aloneTimeExceptionID?.aloneTimeException }}</td>
+              <td>{{ alone.aloneTimeLength }}</td>
+              <td>{{ alone.aloneTimeNotes }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+      <div class="case-info">
+        <p>
+          <b>II. Goals/Objective Addressed:</b>
+          <i>(Include progress made)</i>
+        </p>
+
+        <pre>{{progressNotePrint.goalsObjectives}}</pre>
+      </div>
+      <br>
+      <div class="case-info" *ngIf="showOpsField">
+        <p>
+          <b>New Problem (s) in Session</b>
+          <i>(Include progress made)</i>
+        </p>
+
+        <pre>{{progressNote.newProblems}}</pre>
+      </div>
+      <br>
+      <div class="case-info">
+        <p>
+          <b>III. Client Functioning, Topics Covered, Interventions Used and Client Response:</b>
+        </p>
+
+        <pre>{{progressNotePrint.topicsCovered}}</pre>
+      </div>
+      <br>
+      <div class="case-border" *ngIf="!showOpsField">
+        <h3 class="center bold">SAFETY ASSESSMENT</h3> <br>
+        <p>*Safety is the potential for serious maltreatment which is imminent. It determines the need for immediate
+          protective action or controlling interventions to protect the child from imminent danger.</p> <br>
+        <div class="row">
+          <div class="col-md-3">
+            <p>Home is free of safety concerns</p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="homesafety" value="1" label="Yes"
+                  formControlName="homeSafetyConcerns_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.homeSafetyConcerns_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="homesafety" value="2" label="No"
+                  formControlName="homeSafetyConcerns_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.homeSafetyConcerns_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="homesafety" value="5" label="NA"
+                  formControlName="homeSafetyConcerns_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.homeSafetyConcerns_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <p>Suicidal thoughts or gestures made by any person in the home
+            </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="gesturesSuicidal" value="1" label="Yes"
+                  formControlName="suicidalThoughtsOrGestures_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.suicidalThoughtsOrGestures_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="gesturesSuicidal" value="2" label="No"
+                  formControlName="suicidalThoughtsOrGestures_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.suicidalThoughtsOrGestures_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="gesturesSuicidal" value="5" label="NA"
+                  formControlName="suicidalThoughtsOrGestures_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.suicidalThoughtsOrGestures_YesNoPendingID">
+                </p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Home is relatively clean</p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="home" value="1" label="Yes" formControlName="homeIsClean_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.homeIsClean_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="home" value="2" label="No" formControlName="homeIsClean_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.homeIsClean_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="home" value="5" label="NA" formControlName="homeIsClean_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.homeIsClean_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <p>Violent thoughts or gestures made by or to any person in the home
+            </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="gestures" value="1" label="Yes"
+                  formControlName="violentThoughtsOrGestures_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.violentThoughtsOrGestures_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="gestures" value="2" label="No"
+                  formControlName="violentThoughtsOrGestures_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.violentThoughtsOrGestures_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="gestures" value="5" label="NA"
+                  formControlName="violentThoughtsOrGestures_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.violentThoughtsOrGestures_YesNoPendingID">
+                </p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Weapons observed in the home</p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="Weapons" value="1" label="Yes" formControlName="weaponsObserved_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.weaponsObserved_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="Weapons" value="2" label="No" formControlName="weaponsObserved_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.weaponsObserved_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="Weapons" value="5" label="NA" formControlName="weaponsObserved_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.weaponsObserved_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <p>
+              Caregiver has the protective capacity ability to care for the child
+            </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="protective" value="1" label="Yes"
+                  formControlName="caregiverforTheChild_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.caregiverforTheChild_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="protective" value="2" label="No"
+                  formControlName="caregiverforTheChild_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.caregiverforTheChild_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="protective" value="5" label="NA"
+                  formControlName="caregiverforTheChild_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.caregiverforTheChild_YesNoPendingID">
+                </p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Child’s appearance is healthy</p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="healthy" value="1" label="Yes" formControlName="childAppearsHealthy_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.childAppearsHealthy_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="healthy" value="2" label="No" formControlName="childAppearsHealthy_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.childAppearsHealthy_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="healthy" value="5" label="NA" formControlName="childAppearsHealthy_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.childAppearsHealthy_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <p>
+              Caregiver showing signs of being under the influence of substances </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="Caregiver" value="1" label="Yes"
+                  formControlName="caregiverInfluenceOfSubstances_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.caregiverInfluenceOfSubstances_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="Caregiver" value="2" label="No"
+                  formControlName="caregiverInfluenceOfSubstances_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.caregiverInfluenceOfSubstances_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="Caregiver" value="5" label="NA"
+                  formControlName="caregiverInfluenceOfSubstances_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.caregiverInfluenceOfSubstances_YesNoPendingID">
+                </p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Unusual marks or bruising</p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="bruising" value="1" label="Yes" formControlName="unusualMarks_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.unusualMarks_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="bruising" value="2" label="No" formControlName="unusualMarks_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.unusualMarks_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="bruising" value="5" label="NA" formControlName="unusualMarks_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.unusualMarks_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Have new safety concerns been identified since your last visit?</p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="concerns_print" value="1" label="Yes"
+                  formControlName="newSafetyConcerns_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.newSafetyConcerns_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="concerns_print" value="2" label="No"
+                  formControlName="newSafetyConcerns_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.newSafetyConcerns_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Was the Family Safety Plan developed or reviewed? </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="Family_print" value="1" label="Yes"
+                  formControlName="developedORreviewed_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.developedORreviewed_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="Family_print" value="2" label="No"
+                  formControlName="developedORreviewed_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.developedORreviewed_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="Family_print" value="5" label="NA"
+                  formControlName="developedORreviewed_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.developedORreviewed_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p>
+          <b>Progress towards Family Safety Plan:</b>
+        </p>
+
+        <pre>{{progressNotePrint.familySafetyPlan}}</pre>
+        <p>
+          <b>What services or supports are in place to meet safety needs?</b>
+        </p>
+
+        <pre>{{progressNotePrint.safetyNeeds}}</pre>
+        <p>
+          <b>Explain answers to the questions above, any comments made by child or caregiver, observed
+            interactions:</b>
+        </p>
+
+        <pre>{{progressNotePrint.safetyComments}}</pre>
+      </div>
+      <br>
+      <div class="case-border" *ngIf="!showOpsField">
+        <h3 class="center bold">RISK ASSESSMENT</h3> <br>
+        <p>*Risk is potential maltreatment in the future. It determines the need for services to address potential
+          future maltreatment.</p> <br>
+        <div class="row">
+          <div class="col-md-3">
+            <p>Change in household members</p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="household" value="1" label="Yes" formControlName="householdMembers_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.householdMembers_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="household" value="2" label="No" formControlName="householdMembers_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.householdMembers_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <p>Child’s height and weight appear normal
+            </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="height" value="1" label="Yes" formControlName="heightWeight_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.heightWeight_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="height" value="2" label="No" formControlName="heightWeight_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.heightWeight_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="height" value="5" label="NA" formControlName="heightWeight_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.heightWeight_YesNoPendingID">
+                </p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Caregiver has natural and community supports</p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="community" value="1" label="Yes"
+                  formControlName="naturalAndCommunitySupports_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.naturalAndCommunitySupports_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="community" value="2" label="No"
+                  formControlName="naturalAndCommunitySupports_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.naturalAndCommunitySupports_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <p>Child has appropriate hygiene and dress
+            </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="appropriate" value="1" label="Yes" formControlName="hygieneAndDress_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.hygieneAndDress_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="appropriate" value="2" label="No" formControlName="hygieneAndDress_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.hygieneAndDress_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="appropriate" value="5" label="NA" formControlName="hygieneAndDress_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.hygieneAndDress_YesNoPendingID">
+                </p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Caregiver demonstrates the ability to provide adequate care for the child (child’s physical and
+              emotional needs are being met)</p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="demonstrates" value="1" label="Yes"
+                  formControlName="caregiverDemonstrates_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.caregiverDemonstrates_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="demonstrates" value="2" label="No"
+                  formControlName="caregiverDemonstrates_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.caregiverDemonstrates_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <p>
+              Child has displayed self-harming behaviors
+            </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="harming" value="1" label="Yes"
+                  formControlName="selfHarmingBehaviors_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.selfHarmingBehaviors_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="harming" value="2" label="No" formControlName="selfHarmingBehaviors_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.selfHarmingBehaviors_YesNoPendingID">
+                </p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Child has adequate space</p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="adequate" value="1" label="Yes" formControlName="adequateSpace_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.adequateSpace_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="adequate" value="2" label="No" formControlName="adequateSpace_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.adequateSpace_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <p>
+              Child has displayed aggressive behaviors </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="aggressive" value="1" label="Yes"
+                  formControlName="aggressiveBehaviors_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.aggressiveBehaviors_YesNoPendingID">
+                </p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="aggressive" value="2" label="No"
+                  formControlName="aggressiveBehaviors_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.aggressiveBehaviors_YesNoPendingID">
+                </p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Have additional risk concerns been identified since last visit? </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="concerns_print_risk" value="1" label="Yes"
+                  formControlName="additionalRiskConcerns_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.additionalRiskConcerns_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="concerns_print_risk" value="2" label="No"
+                  formControlName="additionalRiskConcerns_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.additionalRiskConcerns_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <p>Does the case plan or non-intensive plan need to be updated to address risk concerns? </p>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-4">
+                <p-radioButton name="Family_print_risk" value="1" label="Yes"
+                  formControlName="casePlanOrNonIntensive_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.casePlanOrNonIntensive_YesNoPendingID"></p-radioButton>
+              </div>
+              <div class="col-md-4">
+                <p-radioButton name="Family_print_risk" value="2" label="No"
+                  formControlName="casePlanOrNonIntensive_YesNoPendingID"
+                  [(ngModel)]="progressNotePrint.casePlanOrNonIntensive_YesNoPendingID"></p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p>
+          <b>What are the family’s strengths and resources mitigating the risk concerns?</b>
+        </p>
+
+        <pre>{{progressNotePrint.familyStrengthsAndResources}}</pre>
+        <p>
+          <b>Explain answers to the questions above, any comments made by child or caregiver, observed
+            interactions:</b>
+        </p>
+
+        <pre>{{progressNotePrint.riskComments}}</pre>
+      </div>
+      <br>
+      <div class="case-info">
+        <p>
+          <b>IV. Collaborative Change to TX Plan:(Include goals/objectives for new problem(s) identified in #II.;
+            goals/objectives
+            met or being discontinued and rationale for such ; or other changes)</b>
+        </p>
+
+        <pre>{{progressNotePrint.changeTXPlan}}</pre>
+      </div>
+      <br>
+      <div>
+        <p>
+          <b>V. Changes in Diagnosis(es), including Rationale:</b>
+        </p>
+
+        <pre>{{progressNotePrint.diagnosisChange}}</pre>
+        <div class="flex-container space-down Initial" style="display:flex; justify-content: space-between;;">
+          <div class="space-right Initial">
+            <span>Prognosis </span>
+          </div>
+          <div class="space-right Initial">
+            <p-checkbox formControlName="isGood" [(ngModel)]="progressNotePrint.isGood" name="isGood" binary="true">
+            </p-checkbox>
+            <span>Good </span>
+          </div>
+          <div class="space-right Initial">
+            <p-checkbox formControlName="isFair" [(ngModel)]="progressNotePrint.isFair" name="isFair" binary="true"
+              class="space-right"></p-checkbox>
+            <span>Fair </span>
+          </div>
+          <div class="space-right Initial">
+            <p-checkbox binary="true" formControlName="isGuarded" [(ngModel)]="progressNotePrint.isGuarded"
+              name="isGuarded" class="space-right"></p-checkbox>
+            <span>Guarded</span>
+          </div>
+          <div class="space-right">
+            <p-checkbox binary="true" formControlName="isPoor" [(ngModel)]="progressNotePrint.isPoor" name="isPoor"
+              class="space-right"></p-checkbox>
+            <span>Poor </span>
+          </div>
+          <div class="flex-container space-right space-down">
+            <div class="space-right"> GAF</div>
+            <div class="space-right">
+              <div class="remove-borders">{{progressNotePrint.gafValue}}</div>
+
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <br>
+      <div class="case-border">
+        <p>
+          <b>VI. Meets Medical Necessity for Continued Treatment Due to:</b>
+          <i>(check all that apply):</i>
+        </p>
+        <div class="margin-top-20 row">
+          <div style="display:flex;flex-direction: column;    margin-left: 15px;">
+
+
+            <p-checkbox formControlName="isTreatmentNeeded" [(ngModel)]="medicalNecessaryValues.isTreatmentNeeded"
+              name="isTreatmentNeeded" binary="true"
+              label="Treatment Needed to Monitor/Reduce Risk of Violence to Self or Others"></p-checkbox>
+            <p-checkbox formControlName="isContinuedImpairment"
+              [(ngModel)]="medicalNecessaryValues.isContinuedImpairment" name="isContinuedImpairment" binary="true"
+              label="Continued Impairment of Reality Testing">
+            </p-checkbox>
+            <p-checkbox formControlName="isImpairmentInSocial" [(ngModel)]="medicalNecessaryValues.isImpairmentInSocial"
+              name="isImpairmentInSocial" binary="true"
+              label="Impairment in Social, Familial, Academic/Work Functioning"></p-checkbox>
+            <p-checkbox formControlName="isServicesNecessary" [(ngModel)]="medicalNecessaryValues.isServicesNecessary"
+              name="isServicesNecessary" binary="true" label="Services Necessary to Maintain GAF and Stabilize Gains">
+            </p-checkbox>
+            <p-checkbox formControlName="isMoodDisordered" [(ngModel)]="medicalNecessaryValues.isMoodDisordered"
+              name="isMoodDisordered" binary="true" label="Mood Disorder">
+            </p-checkbox>
+            <p-checkbox formControlName="isInterpersonalImpairment"
+              [(ngModel)]="medicalNecessaryValues.isInterpersonalImpairment" name="isInterpersonalImpairment"
+              binary="true" label="Interpersonal/Behavioral Difficulties">
+            </p-checkbox>
+            <p-checkbox formControlName="isMeetsContinue" [(ngModel)]="medicalNecessaryValues.isMeetsContinue"
+              name="isMeetsContinue" binary="true" label="Meets Continuing Care Criteria"></p-checkbox>
+            <p-checkbox formControlName="isMonitorMedication" [(ngModel)]="medicalNecessaryValues.isMonitorMedication"
+              name="isMonitorMedication" binary="true" label="Continued need to Monitor Medication"></p-checkbox>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="case-border">
+        <p>
+          <b>VII. Mental Status:</b>
+        </p>
+        <div class="magin-top-20" style="display:flex;justify-content: space-between;">
+          <div style="flex-direction: column;display: flex; margin-left: 15px;">
+            <span>
+              <b>Affect</b>
+            </span>
+            <div *ngFor="let item of mentalStatusAffectList; let i = index">
+              <p-checkbox binary="true" value="{{updatedMentalStatusAffectList[i]}}" label="{{item.MentalStatus}}"
+                [(ngModel)]="updatedMentalStatusAffectList[i]" [ngModelOptions]="{standalone: true}">
+              </p-checkbox>
+            </div>
+          </div>
+          <div style="flex-direction: column;display: flex;">
+            <span>
+              <b>Cognitive Processes</b>
+            </span>
+            <div *ngFor="let item of mentalStatusCognitiveProcessesList; let i = index">
+              <p-checkbox binary="true" label="{{item.MentalStatus}}"
+                [(ngModel)]="updatedMentalStatusCognitiveProcessesList[i]" [ngModelOptions]="{standalone: true}">
+              </p-checkbox>
+            </div>
+          </div>
+          <div style="flex-direction: column;display: flex;">
+            <span>
+              <b>Current Impairment</b>
+            </span>
+            <div *ngFor="let item of mentalStatusCurrentImpairmentList; let i = index">
+              <p-checkbox binary="true" value="{{item.MentalStatus}}"
+                [(ngModel)]="updatedMentalStatusCurrentImpairmentList[i]" [ngModelOptions]="{standalone: true}"
+                label="{{item.MentalStatus}}">
+              </p-checkbox>
+            </div>
+          </div>
+          <div style="flex-direction: column;display: flex;">
+            <span>
+              <b>Danger to Self/Others</b>
+            </span>
+            <div *ngFor="let item of mentalStatusDangerList; let i = index">
+              <p-checkbox binary="true" label="{{item.MentalStatus}}" [(ngModel)]="updatedMentalStatusDangerList[i]"
+                [ngModelOptions]="{standalone: true}">
+              </p-checkbox>
+            </div>
+          </div>
+          <div style="flex-direction: column;display: flex;">
+            <span>
+              <b>Mood</b>
+            </span>
+            <div *ngFor="let item of mentalStatusMoodList; let i = index">
+              <p-checkbox binary="true" label="{{item.MentalStatus}}" [(ngModel)]="updatedMentalStatusMoodList[i]"
+                [ngModelOptions]="{standalone: true}">
+              </p-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+      <div class="case-info">
+        <p>
+          <b>VIII.Next appointment:
+            <span>
+
+              <div class="remove-borders">{{progressNotePrint.nextAppointmentDate}}</div>
+            </span> Plan for client until next appointment:</b>
+        </p>
+        <div class="row">
+          <div class="col-lg-12 col-sm-12 col-md-12">
+
+            <pre>{{progressNotePrint.planTillNextAppointment}}</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-5">
+          <div class="remove-borders">{{encounterForm.therapist}}</div>
+
+          <br> Therapist Name (print)
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="remove-borders" pInputText size="20" />
+          <br>Therapist Signature
+        </div>
+        <div class="col-md-3">
+          <input type="text" class="remove-borders" pInputText size="20" />
+          <br>Date</div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <span>
+            <p-checkbox binary="true" formControlName="isAgreementStatementChecked" [disabled]="isInProgress"
+              [(ngModel)]="progressNotePrint.isAgreementStatementChecked" name="isAgreementStatementChecked">
+            </p-checkbox>By checking this box, I certify that I have entered the information in this log
+            and that, as of
+            this date, it is true, accurate and complete to the best of my knowledge, information and beliefs.
+          </span>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

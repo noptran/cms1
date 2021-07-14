@@ -1,0 +1,338 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="medicallyFragileScoringForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        REINTEGRATION FOSTER CARE <br>
+        MEDICALLY FRAGILE SCORING TOOL
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Child’s Name:</span>
+            <input [(ngModel)]="reMedicallyFragileScoring.ChilName" formControlName="ChilName" name="ChilName"  type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span> DOB:</span>
+          <p-calendar [(ngModel)]="reMedicallyFragileScoring.Dob" formControlName="Dob" name="Dob"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>SFCS Office:</span>
+          <input [(ngModel)]="reMedicallyFragileScoring.SfcsOffice" formControlName="SfcsOffice" name="SfcsOffice"  type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Form Completed By:</span>
+          <input [(ngModel)]="reMedicallyFragileScoring.CompletedBy" formControlName="CompletedBy" name="CompletedBy"  type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span> Date Form Completed:</span>
+          <p-calendar [(ngModel)]="reMedicallyFragileScoring.DateFormCompleted" formControlName="DateFormCompleted" name="DateFormCompleted"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">SCORE</th>
+          <th class="table-td">QUESTION</th>
+          <th class="table-td">ANSWER KEY</th>
+          <th class="table-td">NOTES</th>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score" formControlName="Score" name="Score"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Does the child need physical assistance from the foster parent with putting on braces or
+            prosthetic
+            devices?</td>
+          <td class="table-td">Yes = 3 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes" formControlName="Notes" name="Notes"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td td-color"></td>
+          <td class="table-td">
+            Does the child need appliances or special medical equipment of any kind which requires physical assistance
+            from the foster parent?
+          </td>
+          <td class="table-td td-color"></td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.NotesCompulsory" formControlName="NotesCompulsory" name="NotesCompulsory"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score1" formControlName="Score1" name="Score1"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Apnea Monitor</td>
+          <td class="table-td">Yes = 2
+            No = 0
+          </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes1" formControlName="Notes1" name="Notes1"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score2" formControlName="Score2" name="Score2"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Colostomy</td>
+          <td class="table-td">Yes = 3 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes2" formControlName="Notes2" name="Notes2"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score17" formControlName="Score17" name="Score17"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Aspiration Equipment</td>
+          <td class="table-td">Yes = 3 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes17" formControlName="Notes17" name="Notes17"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score3" formControlName="Score3" name="Score3"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Feeding Tube</td>
+          <td class="table-td">Yes = 4
+            No = 0
+          </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes3" formControlName="Notes3" name="Notes3"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score4" formControlName="Score4" name="Score4"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Suctioning Equipment</td>
+          <td class="table-td">Yes = 4 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes4" formControlName="Notes4" name="Notes4"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score5" formControlName="Score5" name="Score5"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Catheter</td>
+          <td class="table-td">Yes = 4 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes5" formControlName="Notes5" name="Notes5"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score6" formControlName="Score6" name="Score6"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Other (please provide notes)</td>
+          <td class="table-td">Yes = 2 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes6" formControlName="Notes6" name="Notes6"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score7" formControlName="Score7" name="Score7"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Does the child need physical assistance from foster parent(s) with feeding, drinking,
+            getting dressed, bathing or toileting? (Includes medically required special diet, actual feeding of child,
+            general supervision in eating, or swallowing disorders. Tube feeding is not included, as it is scored
+            above.)</td>
+          <td class="table-td">Yes = 3 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes7" formControlName="Notes7" name="Notes7"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score8" formControlName="Score8" name="Score8"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Does the child require physical assistance from foster parent(s) to prevent or remedy
+            skin conditions such as bedsores?</td>
+          <td class="table-td">Yes = 3 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes8" formControlName="Notes8" name="Notes8"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score9" formControlName="Score9" name="Score9"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Is the child non-ambulatory due to a delay in physical development of a permanent
+            physical disability?</td>
+          <td class="table-td">Yes = 4 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes9" formControlName="Notes9" name="Notes9"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score10" formControlName="Score10" name="Score10"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Is the child’s vision so impaired it seriously limits their ability to engage in normal
+            ordinary vocations and activities?</td>
+          <td class="table-td">Yes = 4 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes10" formControlName="Notes10" name="Notes10"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score11" formControlName="Score11" name="Score11"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Is the child’s speech or hearing so impaired that it seriously limits their ability to
+            engage in normal, ordinary vocation and activities?</td>
+          <td class="table-td">Yes = 4 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes11" formControlName="Notes11" name="Notes11"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td td-color"></td>
+          <td class="table-td">
+            Does the foster parent provide any of the following for the child with instruction from a professional?
+            (Does not include transportation to and from appointments)
+          </td>
+          <td class="table-td td-color"></td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.NotesCompulsory1" formControlName="NotesCompulsory1" name="NotesCompulsory1"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score12" formControlName="Score12" name="Score12"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Physical Therapy</td>
+          <td class="table-td">Yes = 3 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes12" formControlName="Notes12" name="Notes12"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score13" formControlName="Score13" name="Score13"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Speech Therapy/Vision Therapy</td>
+          <td class="table-td">Yes = 3 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes13" formControlName="Notes13" name="Notes13"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score14" formControlName="Score14" name="Score14"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Cognitive Training</td>
+          <td class="table-td">Yes = 3 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes14" formControlName="Notes14" name="Notes14"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score15" formControlName="Score15" name="Score15"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Occupational Therapy</td>
+          <td class="table-td">Yes = 3 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes15" formControlName="Notes15" name="Notes15"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score16" formControlName="Score16" name="Score16"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Range of Motion and Positioning</td>
+          <td class="table-td">Yes = 3 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes16" formControlName="Notes16" name="Notes16"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score18" formControlName="Score18" name="Score18"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Other (Please Specify in Notes)</td>
+          <td class="table-td">Yes = 2 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes18" formControlName="Notes18" name="Notes18"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score19" formControlName="Score19" name="Score19"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Is extraordinary cleaning and laundry required to maintain body hygiene and control of
+            the child’s bodily waste?</td>
+          <td class="table-td">Yes = 4 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes19" formControlName="Notes19" name="Notes19"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score20" formControlName="Score20" name="Score20"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Does the child require visits to the doctor, dentist, or therapist (OT, PT, Speech,
+            Vision) at least once a week and does the foster parent have to be present during the session/appointment?</td>
+          <td class="table-td">Yes = 4 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes20" formControlName="Notes20" name="Notes20"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score21" formControlName="Score21" name="Score21"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Is the child currently experiencing seizures?</td>
+          <td class="table-td">Yes = 3 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes21" formControlName="Notes21" name="Notes21"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score22" formControlName="Score22" name="Score22"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Does the child have a chronic medical condition that has become an acute (life
+            threatening) medical condition within the last year, as medically documented (e.g., cystic fibrosis with
+            pneumonia, uncontrolled diabetes, severe asthma, a difficult pregnancy)?</td>
+          <td class="table-td">Yes = 4 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes22" formControlName="Notes22" name="Notes22"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score23" formControlName="Score23" name="Score23"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Does the child require regular nursing care from a professional, in the foster home,
+            with the foster parents’ assistance?</td>
+          <td class="table-td">Yes = 3 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes23" formControlName="Notes23" name="Notes23"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score24" formControlName="Score24" name="Score24"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Does the child have a chronic illness or infectious disease which requires isolation
+            from others or special care to prevent being infected by or spreading infection to others?</td>
+          <td class="table-td">Yes = 5 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes24" formControlName="Notes24" name="Notes24"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score25" formControlName="Score25" name="Score25"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Does the child have a physical condition that the foster parent must provide specific
+            documentation that is required by a medical provider? </td>
+          <td class="table-td">Yes = 3 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes25" formControlName="Notes25" name="Notes25"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> <input [(ngModel)]="reMedicallyFragileScoring.Score26" formControlName="Score26" name="Score26"  type="text" pInputText size="20" /></td>
+          <td class="table-td">Does the child have a physical condition that requires that foster parents keep specific
+            documentation? (Does not include use of universal precautions)</td>
+          <td class="table-td">Yes = 3 No = 0 </td>
+          <td class="table-td">
+            <textarea [(ngModel)]="reMedicallyFragileScoring.Notes26" formControlName="Notes26" name="Notes26"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="table-td center bold">TOTAL SCORE:</td>
+          <td class="table-td"></td>
+          <td class="table-td">Basic = 0
+            Moderate = 1-13
+            Low Moderate = 1-6
+            High Moderate = 7-13
+            Intensive = 14-24
+            Intensive Plus = 25 and up
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,reMedicallyFragileScoring)"  (edit)="editForm()" [editControll]="editControll" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

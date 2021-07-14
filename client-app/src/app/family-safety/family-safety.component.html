@@ -1,0 +1,73 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div class="opencard-menu-container" *ngIf="fs.familySafetyID">
+  <div class="dropdown border-none margin-top-20">
+    <span class="fa fa-th opencard-menu" data-toggle="dropdown" pTooltip="OpenCards"></span>
+    <div class="dropdown-menu opencard-box">
+      <div class="card-container">
+        <div class="opencard" pTooltip="Allergies" routerLink="/reports/family-safety/family-activity/view">
+          <span class="opencard-title">Family Safety Activity</span>
+          <div>
+            <span class="fa fa-exclamation-triangle allergies"></span>
+          </div>
+          <span class="opencard-footer"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    
+    <form class="sf-form" [formGroup]="familySafetyForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Event Number</span>
+            <span class="mandatory">*</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText name="inputText" formControlName="eventNumber" [(ngModel)]="fs.eventNumber" size="27" />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Event Date</span>
+            <span class="mandatory">*</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" showTime="true" hourFormat="24" [yearNavigator]="true" formControlName="eventDate" [monthNavigator]="true"
+              yearRange="2000:2030" [showIcon]="true" [(ngModel)]="fs.eventDate"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span>Notes</span>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea pInputTextarea name="inputTextarea" formControlName="notes" [(ngModel)]="fs.notes" style="width:100%;height:100%"></textarea>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <button (click)=navigateTo() class="opencard-attachment btn btn-primary">Attachment Document</button>
+          </div>
+        </div>
+      </div> -->
+      <app-form-footer [attachmentControll]="isAttachmentRequired " [isAttachmentDisabled]="false" (attachDoc)="navigateTo()" (save)="formAction(fs)" [discardTo]="discardTo" (edit)="editForm()" [editControll]="isEdit" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+    </form>
+    <app-quick-menu [module]="quickMenu"></app-quick-menu>
+  </div>
+</div>

@@ -1,0 +1,430 @@
+ <app-form-header [title]="title" [status]="status" [subtitle]="subtitle" [breadcrumbs]="breadcrumbs"></app-form-header>
+
+ <div id="loading-overlay">
+   <p class="loader-text">
+     <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+   </p>
+ </div>
+
+ <div class="container-background">
+   <div class="container-foreground">
+     <p-toast position="center"></p-toast>
+     <div *ngIf="isCasesOpencardsVisible" class="row">
+       <div class="col-lg-2 col-md-2 col-sm-2">
+         <div class="card-header-row">
+           <div class="opencard-menu-container rfcOpencard">
+             <div class="dropdown border-none">
+               <span class="fa fa-th opencard-menu" data-toggle="dropdown" pTooltip="OpenCards"></span>
+               <div class="dropdown-menu opencard-box">
+                 <div class="card-container">
+                   <div class="opencard" pTooltip="Click here to open" (click)=navigateTo(item.title)
+                     *ngFor="let item of refcOpencards">
+                     <img src={{item.icon}} alt="{{tip}}">
+                     <div class="opencard-info">
+                       <span class="title">{{item.title}}</span>
+                     </div>
+                   </div>
+                 </div>
+
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+
+     </div>
+     <form class="margin-top-20 sf-form" [formGroup]="orgForm" autocomplete="off">
+       <div>
+         <nav class="nav-fill">
+           <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+             <a class="nav-item nav-link" *ngFor="let main of mainTabs;let i = index" [class.active]="sIndex  === i"
+               (click)="setIndex(i,$event)" data-toggle="tab" href="{{main.href}}" role="tab">{{main.label}}</a>
+           </div>
+         </nav>
+         <div class="tab-content" id="nav-tabContent">
+           <div class="tab-pane margin-left-45 active in" id="nav-1" role="tabpanel" aria-labelledby="nav-general-tab">
+             <div class="row margin-top-20">
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">First Name
+                     <span class="mandatory"> *</span>
+                   </span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                   <input type="text" name="firstName" formControlName="firstName"
+                     [(ngModel)]="communityMember.firstName" maxlength="25" pInputText />
+                   <div class="alert"
+                     *ngIf="!orgForm.controls['firstName'].valid && orgForm.controls['firstName'].touched">Enter
+                     a valid name</div>
+                 </div>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">Last Name
+                     <span class="mandatory"> *</span>
+                   </span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                   <input type="text" name="lastName" formControlName="lastName" [(ngModel)]="communityMember.lastName"
+                     maxlength="25" pInputText />
+                   <div class="alert"
+                     *ngIf="!orgForm.controls['lastName'].valid && orgForm.controls['lastName'].touched">Enter
+                     a valid name</div>
+                 </div>
+               </div>
+             </div>
+             <div class="row margin-top-20">
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">Acronym
+                   </span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                   <p-inputSwitch name="acronym" formControlName="acronym" [(ngModel)]="communityMember.acronym">
+                   </p-inputSwitch>
+                 </div>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">MI
+                   </span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                   <input type="text" name="mi" formControlName="mi" [(ngModel)]="communityMember.mi" maxlength="2"
+                     pInputText />
+                   <div class="alert" *ngIf="!orgForm.controls['mi'].valid && orgForm.controls['mi'].touched">Enter a
+                     valid
+                     middle initial</div>
+                 </div>
+               </div>
+             </div>
+             <div class="row margin-top-20">
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">Suffix</span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <input type="text" name="suffix" [(ngModel)]="communityMember.suffix" formControlName="suffix"
+                     class="input" maxlength="3" pInputText size="27" />
+                   <div class="alert" *ngIf="!orgForm.controls['suffix'].valid && orgForm.controls['suffix'].touched">
+                     Enter
+                     a valid suffix</div>
+                 </div>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">Contract State</span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                   <p-autoComplete formControlName="contract_StateID" [(ngModel)]="communityMember.contract_StateID"
+                     [suggestions]="searchResults" field="state" (completeMethod)="getMetaData($event,'state')"
+                     [dropdown]="true" [forceSelection]="true"></p-autoComplete>
+                 </div>
+               </div>
+             </div>
+             <div class="row margin-top-20">
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">SSN
+                   </span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                   <p-inputMask mask="999-99-9999" formControlName="ssn" [(ngModel)]="communityMember.ssn">
+                   </p-inputMask>
+                   <div class="alert" *ngIf="!orgForm.controls['ssn'].valid && orgForm.controls['ssn'].touched">Enter a
+                     valid
+                     ssn
+                   </div>
+                 </div>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">DOB</span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                   <p-calendar formControlName="dob" [showIcon]="true" [(ngModel)]="communityMember.dob"
+                     [showIcon]="true" [yearNavigator]="true" [monthNavigator]="true" yearRange="1930:2030">
+                   </p-calendar>
+                 </div>
+               </div>
+             </div>
+             <div class="row margin-top-20">
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">Deceased
+                   </span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                   <input type="text" name="deceased" formControlName="deceased" [(ngModel)]="communityMember.deceased"
+                     maxlength="25" pInputText />
+                   <div class="alert"
+                     *ngIf="!orgForm.controls['deceased'].valid && orgForm.controls['deceased'].touched">Enter
+                     a valid name</div>
+                 </div>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">Gender</span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                   <p-autoComplete formControlName="genderID" [(ngModel)]="communityMember.genderID"
+                     [suggestions]="searchResults" class="low-option-autos" field="gender"
+                     (completeMethod)="getMetaData($event,'gender')" [dropdown]="true" [forceSelection]="true">
+                   </p-autoComplete>
+                 </div>
+               </div>
+             </div>
+             <div class="row margin-top-20">
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">Race</span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                   <p-autoComplete formControlName="raceID" field="race" [dropdown]="true" [forceSelection]="true"
+                     [(ngModel)]="communityMember.raceID" [suggestions]="searchResults"
+                     (completeMethod)="getMetaData($event,'race')"></p-autoComplete>
+                 </div>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">Ethnicity</span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                   <p-autoComplete formControlName="ethnicityID" [(ngModel)]="communityMember.ethnicityID"
+                     [suggestions]="searchResults" field="ethnicity" [dropdown]="true" [forceSelection]="true"
+                     (completeMethod)="getMetaData($event,'ethnicity')"></p-autoComplete>
+                 </div>
+               </div>
+             </div>
+           </div>
+           <div class="tab-pane margin-left-45 " id="nav-2" role="tabpanel" aria-labelledby="nav-contact-tab">
+             <div class="row margin-top-20">
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">Tribe</span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                   <p-autoComplete formControlName="tribeID" [(ngModel)]="communityMember.tribeID"
+                     [suggestions]="searchResults" field="tribe" [dropdown]="true" [forceSelection]="true"
+                     (completeMethod)="getMetaData($event,'tribe')"></p-autoComplete>
+                 </div>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">Email address
+                   </span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                   <input type="email" name="email" formControlName="email" [(ngModel)]="communityMember.email"
+                     class="input" maxlength="75" pInputText />
+                   <div class="alert" *ngIf="!orgForm.controls['email'].valid && orgForm.controls['email'].touched">
+                     Enter
+                     a valid email</div>
+                 </div>
+               </div>
+             </div>
+             <div class="row margin-top-20">
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">Home Phone</span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                   <p-inputMask mask="(999) 999-9999" formControlName="homePh" [(ngModel)]="communityMember.homePh"
+                     class="input"></p-inputMask>
+                   <div class="alert" *ngIf="!orgForm.controls['homePh'].valid && orgForm.controls['homePh'].touched">
+                     Enter
+                     a valid number</div>
+                 </div>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">Cell Phone</span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                   <p-inputMask mask="(999) 999-9999" formControlName="cellPh" [(ngModel)]="communityMember.cellPh"
+                     class="input"></p-inputMask>
+                   <div class="alert" *ngIf="!orgForm.controls['cellPh'].valid && orgForm.controls['cellPh'].touched">
+                     Enter
+                     a valid number</div>
+                 </div>
+               </div>
+             </div>
+             <div class="row margin-top-20">
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">Pager
+                   </span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                   <p-inputMask mask="(999) 999-9999" formControlName="pager" [(ngModel)]="communityMember.pager"
+                     class="input"></p-inputMask>
+                 </div>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">Fax
+                   </span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                   <p-inputMask mask="(999) 999-9999" formControlName="fax" [(ngModel)]="communityMember.fax"
+                     class="input"></p-inputMask>
+                 </div>
+               </div>
+             </div>
+             <div class="row margin-top-20">
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">Work Phone
+                   </span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                   <p-inputMask mask="(999) 999-9999" formControlName="workPh" [(ngModel)]="communityMember.workPh"
+                     class="input"></p-inputMask>
+                   <div class="alert" *ngIf="!orgForm.controls['workPh'].valid && orgForm.controls['workPh'].touched">
+                     Enter
+                     a valid number</div>
+                 </div>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">Ext
+                   </span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                   <p-spinner [formatInput]="false" [maxlength]="5" formControlName="ext"
+                     [(ngModel)]="communityMember.ext" name="ext" [min]="0"></p-spinner>
+                   <div class="alert" *ngIf="!orgForm.controls['ext'].valid && orgForm.controls['ext'].touched">Enter a
+                     valid
+                     extension
+                   </div>
+                 </div>
+               </div>
+             </div>
+             <div class="row margin-top-20">
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">Address
+                   </span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <input type="text" name="address" formControlName="address" [(ngModel)]="communityMember.address"
+                     class="input" maxlength="75" pInputText size="27" />
+                   <div class="alert" *ngIf="!orgForm.controls['address'].valid && orgForm.controls['address'].touched">
+                     Enter
+                     a valid address</div>
+                 </div>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">Unknown
+                   </span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <p-inputSwitch formControlName="unknownAddress" name="inputtoggle"
+                     [(ngModel)]="communityMember.unknownAddress"></p-inputSwitch>
+                 </div>
+               </div>
+
+             </div>
+             <div class="row margin-top-20">
+               <!-- <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Tribe</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete formControlName="tribeID" field="tribe" [(ngModel)]="communityMember.tribeID" [suggestions]="searchResults" [dropdown]="true" [forceSelection]="true" (completeMethod)="getMetaData($event,'gender')"></p-autoComplete>
+                </div>
+              </div> -->
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">State
+                     <span class="mandatory"> *</span>
+                   </span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                   <p-autoComplete formControlName="stateID" field="state" [suggestions]="searchResults"
+                     (completeMethod)="getMetaData($event,'state')" [(ngModel)]="communityMember.stateID"
+                     [dropdown]="true" [forceSelection]="true" (onSelect)="generateCityFromSelectedSatate($event)"
+                     [dropdown]="true" [forceSelection]="true"></p-autoComplete>
+                 </div>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">City
+                     <span class="mandatory"> *</span>
+                   </span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                   <p-autoComplete formControlName="cityID" [suggestions]="filteredCities" field="city"
+                     [(ngModel)]="communityMember.cityID" [dropdown]="true" [forceSelection]="true"
+                     (onSelect)="selectedCity($event)" (completeMethod)="getMetaData($event,'city')"></p-autoComplete>
+                 </div>
+               </div>
+             </div>
+             <div class="row margin-top-20">
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">ZIP/Pincode
+                    <span class="mandatory"> *</span>
+                   </span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                   <p-autoComplete formControlName="zipcodeID" [suggestions]="filteredZipcodes" field="zipcode"
+                     [dropdown]="true" [forceSelection]="true" [(ngModel)]="communityMember.zipcodeID"
+                     (completeMethod)="getMetaData($event,'zipcode')"></p-autoComplete>
+                 </div>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-6">
+                 <div class="col-lg-6 col-md-6 col-sm-6">
+                   <span class="sf-labels">County
+                    <span class="mandatory"> *</span>
+                   </span>
+                 </div>
+                 <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                   <p-autoComplete formControlName="countyID" [suggestions]="filteredCounties" field="countyName"
+                     [dropdown]="true" [forceSelection]="true" [(ngModel)]="communityMember.countyID"
+                     (completeMethod)="getMetaData($event,'county')"></p-autoComplete>
+                 </div>
+               </div>
+             </div>
+           </div>
+           <div class="tab-pane margin-left-45 " id="nav-3" role="tabpanel" aria-labelledby="nav-notes-tab">
+             <div class="row margin-top-20">
+             </div>
+             <div class="row margin-top-20">
+               <div class="col-lg-12 col-md-12 col-sm-12">
+                 <div class="col-lg-1 col-md-1 col-sm-1">
+                   <span class="sf-labels">
+                     Notes
+                   </span>
+                 </div>
+               </div>
+             </div>
+             <div class="row margin-top-20">
+               <div class="col-lg-12 col-md-12 col-sm-12">
+                 <div class="col-lg-11 col-md-11 col-sm-11">
+                   <textarea class="sf-width-100" name="notes" formControlName="notes"
+                     [(ngModel)]="communityMember.notes" rows="5"></textarea>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+       <div class="tab-footer">
+         <div>
+           <button class="sf-positive-btn margin-left-0" *ngIf="sIndex !== 0" (click)="goPrevious()"><i
+               class="fa fa-angle-double-left"></i> Previous</button>
+         </div>
+         <div class="push">
+           <button class="sf-positive-btn margin-left-0" *ngIf="sIndex !== mainTabs.length - 1" (click)="goNext()">Next
+             <i class="fa fa-angle-double-right"></i></button>
+         </div>
+       </div>
+       <footer>
+         <app-form-footer *ngIf="sIndex == mainTabs.length - 1" (save)="addPost(communityMember)" (reset)="resetForm()"
+           (discard)="discardForm()" (edit)="edit()" [editControll]="editForm" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+       </footer>
+     </form>
+   </div>
+ </div>

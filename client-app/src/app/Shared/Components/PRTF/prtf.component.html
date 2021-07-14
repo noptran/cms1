@@ -1,0 +1,1176 @@
+<p-dialog
+  header="PRTF Referral"
+  [(visible)]="isPopUpWindow"
+  [contentStyle]="{ 'min-width': '106rem', width: '100vw' }"
+  [responsive]="true"
+  [maximizable]="true"
+>
+  <p-toast position="center"></p-toast>
+  <div class="opencard-well">
+    <button (click)="showNode('Health Exam')">Health Exam</button>
+    <button (click)="showNode('Treatment Decision')">Treatment Decision</button>
+    <button (click)="isMedications = true">Medication Allergies</button>
+    <button (click)="isProgressReport = true">Progress Report</button>
+    <button (click)="showNode('Medical Assesment')">Medical Assessment</button>
+    <button (click)="showNode('Treatment Services')">Treatment Service</button>
+    <button (click)="showNode('Medical Condetion')">Medical Conditions</button>
+    <button (click)="showNode('caseTeam')"><span>Case Team</span></button>
+    <button (click)="showNode('assessment')"><span>Assessments</span></button>
+    <button (click)="showNode('caseFileActivity')">
+      <span>Case File Activity</span>
+    </button>
+    <p-splitButton label="Schools" [model]="schoolMenuItems"></p-splitButton>
+    <button (click)="showNode('appointments')">
+      <span>Appointments</span>
+    </button>
+  </div>
+  <div class="opencard-bottom">
+    <button (click)="showNode('courtOrder')"><span>Court Order</span></button>
+    <button (click)="showNode('extendedFamily')">
+      <span>Extended Family</span>
+    </button>
+    <button (click)="showNode('siblingInFamily')">
+      <span>Sibling In Out Family</span>
+    </button>
+    <button (click)="showNode('caseEvaluation')">
+      <span>Case Evaluation</span>
+    </button>
+  </div>
+  <form class="sf-form" [formGroup]="prtfForm">
+    <p-tabView>
+      <p-tabPanel header="General information">
+        <div style="margin-bottom: 5px">
+          <p><b>General info</b></p>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Date Of admission</span><span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  name="dateOfAdmission"
+                  [showIcon]="true"
+                  showTime="true"
+                  hourFormat="24"
+                  formControlName="beginDate"
+                  [(ngModel)]="referralInfo.beginDate"
+                  [yearNavigator]="true"
+                  [monthNavigator]="true"
+                  yearRange="2000:2030"
+                ></p-calendar>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Date of Discharge</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar
+                  name="dateOfDischarge"
+                  [showIcon]="true"
+                  showTime="true"
+                  hourFormat="24"
+                  formControlName="dischargeDate"
+                  [(ngModel)]="youthInfo.dischargeDate"
+                  [yearNavigator]="true"
+                  [monthNavigator]="true"
+                  yearRange="2000:2030"
+                ></p-calendar>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Discharge code</span><span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete
+                  [dropdown]="true"
+                  [forceSelection]="true"
+                  field="closureReason"
+                  [(ngModel)]="youthInfo.dischargeReasonID"
+                  name="dischargeReasonID"
+                  formControlName="dischargeReasonID"
+                  (completeMethod)="onFilterDischargecode($event)"
+                  [suggestions]="metaData"
+                >
+                </p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Discharge to</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input
+                  type="text"
+                  name="dischargeTo"
+                  formControlName="dischargeTo"
+                  [(ngModel)]="youthInfo.dischargeTo"
+                  pInputText
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3"><span>Program</span></div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <!-- <input type="text" [ngModelOptions]="{standalone: true}" pInputText /> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <p><b>Youth Information</b></p>
+        <div style="display: flex; align-items: center">
+          <div style="width: 80%" class="table-line-item-border-view">
+            <table width="100%">
+              <tr>
+                <td><b>First Name</b></td>
+                <td>{{ clientInformation?.firstName }}</td>
+                <td><b>Last Name</b></td>
+                <td>{{ clientInformation?.lastName }}</td>
+                <td><b>MI</b></td>
+                <td>{{ clientInformation?.mi }}</td>
+                <td><b>Suffix</b></td>
+                <td>{{ clientInformation?.suffix }}</td>
+              </tr>
+              <tr>
+                <td><b>DOB</b></td>
+                <td>{{ clientInformation?.dob | date: "MM/dd/yyyy" }}</td>
+                <td><b>SSN</b></td>
+                <td>{{ clientInformation?.ssn }}</td>
+                <td><b>Record Number (AlternateID)</b></td>
+                <td>{{ clientInformation?.alternateID }}</td>
+                <td><b>Address</b></td>
+                <td>{{ clientInformation?.address }}</td>
+              </tr>
+              <tr>
+                <td><b>City</b></td>
+                <td>{{ clientInformation?.city }}</td>
+                <td><b>County</b></td>
+                <td>{{ clientInformation?.countyName }}</td>
+                <td><b>State</b></td>
+                <td>{{ clientInformation?.state }}</td>
+                <td><b>Zip code</b></td>
+                <td>{{ clientInformation?.zipcode }}</td>
+              </tr>
+              <tr>
+                <td><b>Gender</b></td>
+                <td>{{ clientInformation?.gender }}</td>
+                <td><b>Race</b></td>
+                <td>{{ clientInformation?.race }}</td>
+                <td><b>Ethnicity</b></td>
+                <td>{{ clientInformation?.ethnicity }}</td>
+                <td><b>Tribe</b></td>
+                <td>{{ clientInformation?.tribe }}</td>
+              </tr>
+              <tr>
+                <td><b>Medicaid#</b></td>
+                <td>{{ clientInformation?.medicaid }}</td>
+              </tr>
+            </table>
+          </div>
+          <div style="width: 20%; text-align: center">
+            <button
+              class="list-actions-btn"
+              (click)="isEditClient = !isEditClient"
+              *ngIf="clientInformation"
+              style="width: 30%"
+            >
+              Edit
+            </button>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Youth additional information">
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Height</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-spinner
+                name="prtfYouthHeight"
+                formControlName="height"
+                [(ngModel)]="youthInfo.height"
+              >
+              </p-spinner>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"><span>Weight</span></div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-spinner
+                name="prtfYouthWeight"
+                formControlName="weight"
+                [(ngModel)]="youthInfo.weight"
+              >
+              </p-spinner>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Hair colour</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                name="prtfYouthHairColor"
+                [(ngModel)]="youthInfo.pRTF_HairColor"
+                formControlName="pRTF_HairColor"
+                pInputText
+              />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Eye colour</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                name="prtfYouthEyeColor"
+                [(ngModel)]="youthInfo.pRTF_EyeColor"
+                formControlName="pRTF_EyeColor"
+                pInputText
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Complexion</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                name="prtfYouthComplexion"
+                [(ngModel)]="youthInfo.pRTF_Complexion"
+                formControlName="pRTF_Complexion"
+                pInputText
+              />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Current grade</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                name="prtfYouthCurrentGrade"
+                [(ngModel)]="youthInfo.currentGrade"
+                formControlName="currentGrade"
+                pInputText
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Birthplace</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                name="prtfYouthBirthPlace"
+                [(ngModel)]="youthInfo.pRTF_BirthPlace"
+                formControlName="pRTF_BirthPlace"
+                pInputText
+              />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Primary language</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                name="prtfYouthPrimaryLanguage"
+                [(ngModel)]="youthInfo.primaryLanguage"
+                formControlName="primaryLanguage"
+                pInputText
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Church preference</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                name="prtfYouthChurchPreference"
+                [(ngModel)]="youthInfo.pRTF_ChurchPreference"
+                formControlName="pRTF_ChurchPreference"
+                pInputText
+              />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>U.S. Citizen</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputSwitch
+                name="prtfYouthUSCitizen"
+                [ngModelOptions]="{ standalone: true }"
+                [(ngModel)]="youthInfo.isUSCitizen"
+                (onChange)="prtfDomain.toggle(youthInfo.isUSCitizen)"
+              >
+              </p-inputSwitch>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20" *ngIf="prtfDomain.isUsCitizenShip">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>If No, where is citizenship?</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input
+                type="text"
+                name="citizenship"
+                [(ngModel)]="youthInfo.citizenship"
+                formControlName="citizenship"
+                pInputText
+              />
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Family member">
+        <div style="height: 50vh; overflow-y: scroll; overflow-x: hidden">
+          <div>
+            <div class="table-list-actions-btn">
+              <!-- <button (click)="listAdd('familyMember')">Add</button> -->
+              <button
+                class="table-list-actions-btn"
+                (click)="listExport('familyMember')"
+              >
+                Export
+              </button>
+            </div>
+            <div
+              *ngIf="listOfFamilyMembers.length === 0"
+              style="text-align: center"
+            >
+              <button
+                class="list-actions-btn"
+                (click)="isFamilyMemberForm = !isFamilyMemberForm"
+              >
+                <span *ngIf="!isFamilyMemberForm">+ Add family member</span>
+                <span *ngIf="isFamilyMemberForm">- Close family member</span>
+              </button>
+            </div>
+            <div *ngIf="listOfFamilyMembers.length > 0">
+              <table width="100%" class="table-line-item-border">
+                <th>Begin Date</th>
+                <th>End Date</th>
+                <th>Family Member</th>
+                <th>Gender</th>
+                <th>DOB</th>
+                <th>Race</th>
+                <th>Person Type</th>
+                <th>Restriction Type</th>
+                <th>Frequency Type</th>
+                <th>Actions</th>
+                <tr *ngFor="let familyMemberRow of listOfFamilyMembers">
+                  <td>{{ familyMemberRow?.beginDate }}</td>
+                  <td>{{ familyMemberRow?.endDate }}</td>
+                  <td>{{ familyMemberRow?.familyMember }}</td>
+                  <td>{{ familyMemberRow?.Gender }}</td>
+                  <td>{{ familyMemberRow?.dob }}</td>
+                  <td>{{ familyMemberRow?.race }}</td>
+                  <td>{{ familyMemberRow?.personType }}</td>
+                  <td>{{ familyMemberRow?.RestrictionType }}</td>
+                  <td>{{ familyMemberRow?.frequencyType }}</td>
+                  <td>
+                    <div class="actions-icons">
+                      <span
+                        class="fa fa-eye"
+                        title="view"
+                        (click)="listviewEdit('familyMember', familyMemberRow)"
+                      ></span>
+                      <span
+                        class="fa fa-trash"
+                        title="delete"
+                        (click)="
+                          listviewDelete('familyMember', familyMemberRow)
+                        "
+                      ></span>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div
+              style="text-align: right"
+              *ngIf="listOfFamilyMembers.length > 0"
+            >
+              <button
+                class="list-actions-btn"
+                (click)="isFamilyMemberForm = !isFamilyMemberForm"
+              >
+                <span *ngIf="!isFamilyMemberForm">+ Add family member</span>
+                <span *ngIf="isFamilyMemberForm">- Close family member</span>
+              </button>
+            </div>
+            <div class="sub-form">
+              <app-shared-family-member
+                (listOfFamilymembers)="getListOfFamilyMembers($event)"
+                [isOpenForm]="isFamilyMemberForm"
+              >
+              </app-shared-family-member>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Siblings in OOH">
+        <div class="table-list-actions-btn">
+          <button
+            class="list-actions-btn"
+            (click)="listExport('siblingsInOOH')"
+          >
+            Export
+          </button>
+        </div>
+        <table width="100%" class="table-line-item-border">
+          <th>Client Name</th>
+          <th>DOB</th>
+          <th>Kaecses</th>
+          <th>Can Be Placed Together</th>
+          <th>Begin Date</th>
+          <th>End Date</th>
+          <tr *ngFor="let siblings of listOfSiblingInOOH">
+            <td>{{ siblings?.clientName }}</td>
+            <td>{{ siblings?.dob }}</td>
+            <td>{{ siblings?.kaecses }}</td>
+            <td>{{ siblings?.canBePlacedTogether }}</td>
+            <td>{{ siblings?.beginDate }}</td>
+            <td>{{ siblings?.endDate }}</td>
+          </tr>
+        </table>
+      </p-tabPanel>
+      <p-tabPanel header="Medications">
+        <div style="height: 50vh; overflow-y: scroll; overflow-x: hidden">
+          <div style="border-bottom: 1px solid #000">
+            <div class="table-list-actions-btn">
+              <!-- <button (click)="listAdd('familyMember')">Add</button> -->
+              <button (click)="listExport('medications')">Export</button>
+            </div>
+            <div
+              *ngIf="listOfMedications.length === 0"
+              style="text-align: center"
+            >
+              <button
+                class="list-actions-btn"
+                (click)="isMedicationsForm = !isMedicationsForm"
+              >
+                <span *ngIf="!isMedicationsForm">+ Add medications</span>
+                <span *ngIf="isMedicationsForm">- Close medications</span>
+              </button>
+            </div>
+            <div *ngIf="listOfMedications.length > 0">
+              <table width="100%" class="table-line-item-border">
+                <th>ClientName</th>
+                <th>Medication</th>
+                <th>DosageType</th>
+                <th>FrequencyType</th>
+                <th>BeginDate</th>
+                <th>EndDate</th>
+                <th>Actions</th>
+                <tr *ngFor="let medicationsRow of listOfMedications">
+                  <td>{{ medicationsRow?.ClientName }}</td>
+                  <td>{{ medicationsRow?.Medication }}</td>
+                  <td>{{ medicationsRow?.DosageType }}</td>
+                  <td>{{ medicationsRow?.FrequencyType }}</td>
+                  <td>{{ medicationsRow?.BeginDate }}</td>
+                  <td>{{ medicationsRow?.EndDate }}</td>
+                  <td>
+                    <div class="actions-icons">
+                      <span
+                        class="fa fa-eye"
+                        title="view"
+                        (click)="listviewEdit('medications', medicationsRow)"
+                      ></span>
+                      <span
+                        class="fa fa-trash"
+                        title="delete"
+                        (click)="listviewDelete('medications', medicationsRow)"
+                      ></span>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div style="text-align: right" *ngIf="listOfMedications.length > 0">
+              <button
+                class="list-actions-btn"
+                (click)="isMedicationsForm = !isMedicationsForm"
+              >
+                <span *ngIf="!isMedicationsForm">+ Add medications</span>
+                <span *ngIf="isMedicationsForm">- Close medications</span>
+              </button>
+            </div>
+            <div class="sub-form">
+              <app-shared-medications
+                [isOpenForm]="isMedicationsForm"
+                (listOfMedications)="getListOfMedications($event)"
+              >
+              </app-shared-medications>
+            </div>
+          </div>
+          <div>
+            <div class="table-list-actions-btn">
+              <button
+                class="list-actions-btn"
+                (click)="listExport('medications')"
+              >
+                Export
+              </button>
+            </div>
+            <div
+              *ngIf="listOfAllergies.length === 0"
+              style="text-align: center"
+            >
+              <button
+                class="list-actions-btn"
+                (click)="isAllergiesForm = !isAllergiesForm"
+              >
+                <span *ngIf="!isAllergiesForm">+ Add allergies</span>
+                <span *ngIf="isAllergiesForm">- Close allergies</span>
+              </button>
+            </div>
+            <div *ngIf="listOfAllergies.length > 0">
+              <table width="100%" class="table-line-item-border">
+                <th>Client Name</th>
+                <th>Allergies</th>
+                <th>Notification Date</th>
+                <th>Actions</th>
+                <tr *ngFor="let allergiesRow of listOfAllergies">
+                  <td>{{ allergiesRow?.ClientName }}</td>
+                  <td>{{ allergiesRow?.Allergies }}</td>
+                  <td>{{ allergiesRow?.NotificationDate }}</td>
+                  <td>
+                    <div class="actions-icons">
+                      <span
+                        class="fa fa-eye"
+                        title="view"
+                        (click)="listviewEdit('allergies', allergiesRow)"
+                      ></span>
+                      <span
+                        class="fa fa-trash"
+                        title="delete"
+                        (click)="listviewDelete('allergies', allergiesRow)"
+                      ></span>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div style="text-align: right" *ngIf="listOfAllergies.length > 0">
+              <button
+                class="list-actions-btn"
+                (click)="isAllergiesForm = !isAllergiesForm"
+              >
+                <span *ngIf="!isAllergiesForm">+ Add allergies</span>
+                <span *ngIf="isAllergiesForm">- Close allergies</span>
+              </button>
+            </div>
+            <div class="sub-form">
+              <app-shared-allergies
+                [isOpenForm]="isAllergiesForm"
+                (listOfAllergies)="getListOfAllergies($event)"
+              >
+              </app-shared-allergies>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Medical conditions and Allergies">
+        <div class="row margin-top-20">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>List of Medical conditions</span>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea
+                name="medicalConditions"
+                [(ngModel)]="referralInfo.medicalConditions"
+                formControlName="medicalConditions"
+                style="width: 100%; height: 100%"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>List Allergies: Including food, medications, and pets</span>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea
+                name="allergies"
+                style="width: 100%; height: 100%"
+                formControlName="clientAllergiesID"
+                [(ngModel)]="referralInfo.clientAllergiesID"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Payer Source/Agency">
+        <p style="text-align: center; color: red">
+          ** INSURANCE BENEFIT FROM MUST BE COMPLETED FOR ALL PERSONS COVERED BY
+          PRIVATE INSURANCE**
+        </p>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-gl-3 col-sm-3 col-md-3">
+              <span>Payor source</span>
+            </div>
+            <div class="col-gl-3 col-sm-3 col-md-3">
+              <input
+                type="text"
+                formControlName="payorSource"
+                name="payorSource"
+                [(ngModel)]="referralInfo.payorSource"
+                pInputText
+              />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-gl-3 col-sm-3 col-md-3">
+              <span>Agency name</span><span class="mandatory">*</span>
+            </div>
+            <div class="col-gl-3 col-sm-3 col-md-3">
+              <p-autoComplete
+                [dropdown]="true"
+                [forceSelection]="true"
+                field="payorName"
+                name="agencyName"
+                formControlName="agencyName"
+                (completeMethod)="onFilterdAgencyName($event)"
+                [(ngModel)]="referralInfo.payorID"
+                [suggestions]="metaData"
+              >
+                <ng-template let-payorID pTemplate="item">
+                  <div class="ui-helper-clearfix dropdown-list">
+                    <table style="width: 100%">
+                      <tr>
+                        <td><b>Payor Name</b></td>
+                        <td>:</td>
+                        <td>{{ payorID?.payorName }}</td>
+                      </tr>
+                      <tr>
+                        <td><b>Address</b></td>
+                        <td>:</td>
+                        <td>{{ payorID?.Address }}</td>
+                      </tr>
+                      <tr>
+                        <td><b>Phone</b></td>
+                        <td>:</td>
+                        <td>{{ payorID?.Phone }}</td>
+                      </tr>
+                      <tr>
+                        <td><b>Fax</b></td>
+                        <td>:</td>
+                        <td>{{ payorID?.Fax }}</td>
+                      </tr>
+                    </table>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <!-- <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-gl-3 col-sm-3 col-md-3"><span>Community member</span></div>
+            <div class="col-gl-3 col-sm-3 col-md-3">
+              <p-inputSwitch name="prtfPayorsourceCommunityMember"
+                (onChange)="prtfDomain.payorSocurceToggle('communityMember')">
+              </p-inputSwitch>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-gl-3 col-sm-3 col-md-3"><span>SFCS Staff</span></div>
+            <div class="col-gl-3 col-sm-3 col-md-3">
+              <p-inputSwitch name="prtfPayorsourceSFCSStaff" (onChange)="prtfDomain.payorSocurceToggle('sfcsStaff')">
+              </p-inputSwitch>
+            </div>
+          </div> -->
+          <div class="col-lg-12 col-sm-12 col-md-12">
+            <div class="col-lg-6 col-sm-6 col-md-6">
+              <span>Referring Agency social worker Name</span>
+            </div>
+            <div class="col-lg-6 col-sm-6 col-md-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-radioButton
+                  name="prtfPayorsource"
+                  (onClick)="prtfDomain.payorSocurceToggle('communityMember')"
+                  label="Community Member"
+                ></p-radioButton>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-radioButton
+                  name="prtfPayorsource"
+                  (onClick)="prtfDomain.payorSocurceToggle('sfcsStaff')"
+                  label="SFCS Staff"
+                ></p-radioButton>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-gl-3 col-sm-3 col-md-3">
+              <span>Social worker</span>
+            </div>
+            <div class="col-gl-3 col-sm-3 col-md-3">
+              <p-autoComplete
+                [dropdown]="true"
+                [forceSelection]="true"
+                [field]="socialWorkerField"
+                name="socialWorker"
+                (completeMethod)="onFilteredSocialWorker($event)"
+                formControlName="payor_personID"
+                [(ngModel)]="referralInfo.payor_personID"
+                [suggestions]="metaData"
+              >
+                <ng-template let-payor_personID pTemplate="item">
+                  <div
+                    class="ui-helper-clearfix dropdown-list"
+                    *ngIf="prtfDomain.isPayorSourceCommunitySource"
+                  >
+                    <table style="width: 100%">
+                      <tr>
+                        <td><b>Name</b></td>
+                        <td>:</td>
+                        <td>{{ payor_personID?.Name }}</td>
+                      </tr>
+                      <tr>
+                        <td><b>Home Phone</b></td>
+                        <td>:</td>
+                        <td>{{ payor_personID?.HomePhone }}</td>
+                      </tr>
+                      <tr>
+                        <td><b>Work Phone</b></td>
+                        <td>:</td>
+                        <td>{{ payor_personID?.WorkPhone }}</td>
+                      </tr>
+                      <tr>
+                        <td><b>City/State</b></td>
+                        <td>:</td>
+                        <td>{{ payor_personID?.City / State }}</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div
+                    class="ui-helper-clearfix dropdown-list"
+                    *ngIf="!prtfDomain.isPayorSourceCommunitySource === true"
+                  >
+                    <table style="width: 100%">
+                      <tr>
+                        <td><b>Staff Name</b></td>
+                        <td>:</td>
+                        <td>{{ payor_personID?.StaffName }}</td>
+                      </tr>
+                      <tr>
+                        <td><b>Gender</b></td>
+                        <td>:</td>
+                        <td>{{ payor_personID?.Gender }}</td>
+                      </tr>
+                      <tr>
+                        <td><b>Cell Phone</b></td>
+                        <td>:</td>
+                        <td>{{ payor_personID?.CellPhone }}</td>
+                      </tr>
+                      <tr>
+                        <td><b>Office</b></td>
+                        <td>:</td>
+                        <td>{{ payor_personID?.Office }}</td>
+                      </tr>
+                      <tr>
+                        <td><b>StaffPosition_BeginDate</b></td>
+                        <td>:</td>
+                        <td>{{ payor_personID?.StaffPosition_BeginDate }}</td>
+                      </tr>
+                    </table>
+                  </div>
+                </ng-template>
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="PRTF/Open Referral Case Team">
+        <div style="height: 50vh; overflow-y: scroll; overflow-x: hidden">
+          <div>
+            <div class="table-list-actions-btn">
+              <!-- <button (click)="listAdd('caseTeam')">Add</button> -->
+              <button class="list-actions-btn" (click)="listExport('caseTeam')">
+                Export
+              </button>
+            </div>
+            <div *ngIf="listOfCaseTeam.length === 0" style="text-align: center">
+              <button
+                class="list-actions-btn"
+                (click)="isCaseTeamForm = !isCaseTeamForm"
+              >
+                <span *ngIf="!isCaseTeamForm">+ Add case team</span>
+                <span *ngIf="isCaseTeamForm">- Close case team</span>
+              </button>
+            </div>
+            <div *ngIf="listOfCaseTeam.length > 0">
+              <table width="100%" class="table-line-item-border">
+                <th>Person Type</th>
+                <th>Name</th>
+                <th>Begin Date</th>
+                <th>End Date</th>
+                <th>Criticals</th>
+                <th>Contact List</th>
+                <th>Emergency Contact</th>
+                <th>Treatment Plan</th>
+                <!-- <th>EmailNotice Of Child's Location</th> -->
+                <th>Actions</th>
+                <tr *ngFor="let caseTeam of listOfCaseTeam">
+                  <td>{{ caseTeam?.personType }}</td>
+                  <td>{{ caseTeam?.name }}</td>
+                  <td>{{ caseTeam?.beginDate }}</td>
+                  <td>{{ caseTeam?.endDate }}</td>
+                  <td>{{ caseTeam?.criticals }}</td>
+                  <td>{{ caseTeam?.contactList }}</td>
+                  <td>{{ caseTeam?.emergencyContact }}</td>
+                  <td>{{ caseTeam?.treatmentPlan }}</td>
+                  <!-- <td>{{caseTeam?.emailNoticeOfChild'sLocation}}</td> -->
+                  <td>
+                    <div class="actions-icons">
+                      <span
+                        class="fa fa-eye"
+                        title="view"
+                        (click)="listviewEdit('caseTeam', caseTeam)"
+                      ></span>
+                      <span
+                        class="fa fa-trash"
+                        title="delete"
+                        (click)="listviewDelete('caseTeam')"
+                      ></span>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div style="text-align: right" *ngIf="listOfCaseTeam.length > 0">
+              <button
+                class="list-actions-btn"
+                (click)="isCaseTeamForm = !isCaseTeamForm"
+              >
+                <span *ngIf="!isCaseTeamForm">+ Add case team</span>
+                <span *ngIf="isCaseTeamForm">- Close case team</span>
+              </button>
+            </div>
+            <div class="sub-form">
+              <app-shared-case-team
+                [isOpenForm]="isCaseTeamForm"
+                (listOfCaseTeam)="getListOfCaseTeam($event)"
+              >
+              </app-shared-case-team>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Treatment decisions">
+        <div style="height: 50vh; overflow-y: scroll; overflow-x: hidden">
+          <div class="table-list-actions-btn">
+            <!-- <button (click)="listAdd('caseTeam')">Add</button> -->
+            <button
+              class="list-actions-btn"
+              (click)="listExport('treatmentDecisons')"
+            >
+              Export
+            </button>
+          </div>
+          <div
+            *ngIf="listOfTreatmentDecisions.length === 0"
+            style="text-align: center"
+          >
+            <button
+              class="list-actions-btn"
+              (click)="isTreatmentDecisionsForm = !isTreatmentDecisionsForm"
+            >
+              <span *ngIf="!isTreatmentDecisionsForm"
+                >+ Add treatment decisions</span
+              >
+              <span *ngIf="isTreatmentDecisionsForm"
+                >- Close treatment decisions</span
+              >
+            </button>
+          </div>
+          <div *ngIf="listOfTreatmentDecisions.length > 0">
+            <table width="100%" class="table-line-item-border">
+              <th>Begin Date</th>
+              <th>End Date</th>
+              <th>personName</th>
+              <th>personAssignmentType</th>
+              <th>Actions</th>
+              <tr *ngFor="let treatmentDecision of listOfTreatmentDecisions">
+                <td>{{ treatmentDecision?.beginDate }}</td>
+                <td>{{ treatmentDecision?.endDate }}</td>
+                <td>{{ treatmentDecision?.personName }}</td>
+                <td>{{ treatmentDecision?.personAssignmentType }}</td>
+                <td>
+                  <div class="actions-icons">
+                    <span
+                      class="fa fa-eye"
+                      title="view"
+                      (click)="
+                        listviewEdit('treatmentDecisons', treatmentDecision)
+                      "
+                    ></span>
+                    <span
+                      class="fa fa-trash"
+                      title="delete"
+                      (click)="
+                        listviewDelete('treatmentDecisons', treatmentDecision)
+                      "
+                    ></span>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div
+            style="text-align: right"
+            *ngIf="listOfTreatmentDecisions.length > 0"
+          >
+            <button
+              class="list-actions-btn"
+              (click)="isTreatmentDecisionsForm = !isTreatmentDecisionsForm"
+            >
+              <span *ngIf="!isTreatmentDecisionsForm"
+                >+ Add treatment decisions</span
+              >
+              <span *ngIf="isTreatmentDecisionsForm"
+                >- Close treatment decisions</span
+              >
+            </button>
+          </div>
+          <div class="sub-form">
+            <app-shared-treatment-decision
+              [isOpenForm]="isTreatmentDecisionsForm"
+              (listOfTreatmentDecisions)="getListOfTreatmentDecisions($event)"
+            >
+            </app-shared-treatment-decision>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Schools">
+        <div>
+          <div class="table-list-actions-btn">
+            <!-- <button (click)="listAdd('caseTeam')">Add</button> -->
+            <button (click)="listExport('school')">Export</button>
+          </div>
+          <div *ngIf="listOfSchools.length === 0" style="text-align: center">
+            <button
+              class="list-actions-btn"
+              (click)="isSchoolForm = !isSchoolForm"
+            >
+              <span *ngIf="!isSchoolForm">+ Add school</span>
+              <span *ngIf="isSchoolForm">- Close school</span>
+            </button>
+          </div>
+          <div *ngIf="listOfSchools.length > 0">
+            <table width="100%" class="table-line-item-border">
+              <th>Begin Date</th>
+              <th>End Date</th>
+              <th>School Name</th>
+              <th>Enrolled BeginDate</th>
+              <th>Enrolled EndDate</th>
+              <th>Change Reason</th>
+              <th>Actions</th>
+              <tr *ngFor="let school of listOfSchools">
+                <td>{{ school?.BeginDate }}</td>
+                <td>{{ school?.EndDate }}</td>
+                <td>{{ school?.schoolName }}</td>
+                <td>{{ school?.EnrolledBeginDate }}</td>
+                <td>{{ school?.EnrolledEndDate }}</td>
+                <td>{{ school?.changeReason }}</td>
+                <td>
+                  <div class="actions-icons">
+                    <span
+                      class="fa fa-eye"
+                      title="view"
+                      (click)="listviewEdit('school', school)"
+                    ></span>
+                    <span
+                      class="fa fa-trash"
+                      title="delete"
+                      (click)="listviewDelete('school', school)"
+                    ></span>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div style="text-align: right" *ngIf="listOfSchools.length > 0">
+            <button
+              class="list-actions-btn"
+              (click)="isSchoolForm = !isSchoolForm"
+            >
+              <span *ngIf="!isSchoolForm">+ Add school</span>
+              <span *ngIf="isSchoolForm">- Close school</span>
+            </button>
+          </div>
+          <div class="sub-form">
+            <app-shared-school
+              [isOpenForm]="isSchoolForm"
+              (listOfSchool)="getListOfSchool($event)"
+            ></app-shared-school>
+          </div>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </form>
+  <app-form-footer
+    (deleted)="onReferralDelete($event)"
+    (save)="onFormAction()"
+    [editControll]="isEdit"
+    (edit)="editForm()"
+    [currentNodeValue]="deleteRequest"
+    [isPopUp]="isPopUp"
+    (discard)="onClickCancel()"
+  >
+  </app-form-footer>
+  <div *ngIf="isHealthExam">
+    <app-health-exam-prtf [isPopUpWindow]="true"></app-health-exam-prtf>
+  </div>
+  <div *ngIf="isMedications">
+    <app-medication-allergies-prtf
+      [isPopUpWindow]="true"
+    ></app-medication-allergies-prtf>
+  </div>
+  <div *ngIf="isProgressReport">
+    <app-progress-reports-prtf
+      [isPopUpWindow]="true"
+    ></app-progress-reports-prtf>
+  </div>
+  <app-medical-assessment-form
+    [get_referralID]="referralID"
+    (closeModel)="closeModelComp($event, 'Medical Assesment')"
+    *ngIf="showMedicalAssessment"
+  >
+  </app-medical-assessment-form>
+  <app-med-treatment-service
+    [get_referralID]="referralID"
+    (closeModel)="closeModelComp($event, 'Treatment Services')"
+    *ngIf="showMedicalTreatment"
+  >
+  </app-med-treatment-service>
+  <app-medical-condition
+    [get_referralID]="referralID"
+    (closeModel)="closeModelComp($event, 'Medical Condetion')"
+    *ngIf="showMedicalCondition"
+  >
+  </app-medical-condition>
+  <app-prtf-cards
+    [card]="cardName"
+    (closeModel)="closeModelComp($event, 'PRTF Card')"
+    *ngIf="showPrtfCard"
+  >
+  </app-prtf-cards>
+</p-dialog>
+<p-dialog
+  header="Case Team"
+  [(visible)]="isCoreCaseTeam"
+  [contentStyle]="{ 'min-width': '106rem', width: '100vw' }"
+>
+  <app-case-team></app-case-team>
+</p-dialog>
+<p-dialog
+  header="Assessments"
+  [(visible)]="isAssessments"
+  [contentStyle]="{ 'min-width': '106rem', width: '100vw' }"
+>
+  <app-assessment-fp-form></app-assessment-fp-form>
+</p-dialog>
+<p-dialog
+  header="Case File Activity"
+  [(visible)]="isCaseFileActivity"
+  [contentStyle]="{ 'min-width': '106rem', width: '100vw' }"
+>
+  <app-case-file-activity></app-case-file-activity>
+</p-dialog>
+<p-dialog
+  header="Attending School"
+  [(visible)]="isAttendingSchool"
+  [contentStyle]="{ 'min-width': '106rem', width: '100vw' }"
+>
+  <app-attending-school></app-attending-school>
+</p-dialog>
+<p-dialog
+  header="Home School"
+  [(visible)]="isHomeSchool"
+  [contentStyle]="{ 'min-width': '106rem', width: '100vw' }"
+>
+  <app-home-school></app-home-school>
+</p-dialog>
+<p-dialog
+  header="Appointments"
+  [(visible)]="isAppointments"
+  [contentStyle]="{ 'min-width': '106rem', width: '100vw' }"
+>
+  <app-appointments></app-appointments>
+</p-dialog>
+<p-dialog
+  header="Court Order"
+  [(visible)]="isCourtOrder"
+  [contentStyle]="{ 'min-width': '106rem', width: '100vw' }"
+>
+  <app-court-order></app-court-order>
+</p-dialog>
+<p-dialog
+  header="Extended Family"
+  [(visible)]="isExtendedFamily"
+  [contentStyle]="{ 'min-width': '106rem', width: '100vw' }"
+>
+  <app-extended-family-fp-form></app-extended-family-fp-form>
+</p-dialog>
+<p-dialog
+  header="Extended Family"
+  [(visible)]="isSiblingInOutFamily"
+  [contentStyle]="{ 'min-width': '106rem', width: '100vw' }"
+>
+  <app-siblings-inout-home></app-siblings-inout-home>
+</p-dialog>
+<p-dialog
+  header="Case Evaluation"
+  [(visible)]="isCaseEvaluation"
+  [contentStyle]="{ 'min-width': '106rem', width: '100vw' }"
+  [maximizable]="true"
+  (onHide)="closeCaseEvaluation()"
+>
+  <app-case-evaluations-fp-form></app-case-evaluations-fp-form>
+</p-dialog>
+<shared-client
+  *ngIf="isEditClient"
+  [clientId]="clientID"
+  (onUpdateClientDetails)="onGetUpdateClientDetails($event)"
+>
+</shared-client>

@@ -1,0 +1,98 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="departureChecklistForm" class="sf-form">
+      <div class="flex-container header">
+          <div>
+    
+          </div>
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+          <div>
+    
+          </div>
+        </div>
+    <h3 class="center bold">Departure Checklist</h3>
+    <h3 class="center bold">(K.A.R. 28-4-809 (c) 1-4)</h3>
+    <p class="center bold">These items must accompany the child when moving to a new placement</p>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="RiDepartureChecklist.isPossessionsBought" formControlName="isPossessionsBought" name="isPossessionsBought"  class="space-right"></p-checkbox>1.
+      </div>
+      <div class="space-right">
+        All possessions brought with the child
+        to the family foster home.
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="RiDepartureChecklist.isSavingsAccompanied" formControlName="isSavingsAccompanied" name="isSavingsAccompanied"  class="space-right"></p-checkbox>2.
+      </div>
+      <div class="space-right">
+        Savings from gifts, allowances and
+        earnings
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="RiDepartureChecklist.isUseableThingsAccompanied" formControlName="isUseableThingsAccompanied" name="isUseableThingsAccompanied"  class="space-right"></p-checkbox>3.
+      </div>
+      <div class="space-right">
+        All useable clothing, school supplies,
+        recreational equipment, gifts and and
+        other items purchased specifically for
+        and given to the child <br> during
+        placement in the family foster home,
+        including items provided by the foster
+        parents
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="RiDepartureChecklist.isChildLifeBookAccompanied" formControlName="isChildLifeBookAccompanied" name="isChildLifeBookAccompanied"  class="space-right"></p-checkbox>4.
+      </div>
+      <div class="space-right">
+        Child’s life book, which may include
+        family history, placement history,
+        pictures, school information and a
+        record of personal achievements
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">If unable to send items with the child, please explain</div>
+      <div class="space-right">
+        <textarea  [(ngModel)]="RiDepartureChecklist.explanationNotSend" formControlName="explanationNotSend" name="explanationNotSend"  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <input [(ngModel)]="RiDepartureChecklist.resourceParent" formControlName="resourceParent" name="resourceParent"  type="text" pInputText size="20" />
+        </div>
+        <div class="space-down">Resource Parent </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar  [(ngModel)]="RiDepartureChecklist.resourceParentDate" formControlName="resourceParentDate" name="resourceParentDate"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date</div>
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <input [(ngModel)]="RiDepartureChecklist.transportingAdult" formControlName="transportingAdult" name="transportingAdult"  type="text" pInputText size="20" />
+        </div>
+        <div class="space-down">Transporting Adult </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar  [(ngModel)]="RiDepartureChecklist.transportingAdultDate" formControlName="transportingAdultDate" name="transportingAdultDate"  [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+            [yearNavigator]="true"  [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date</div>
+      </div>
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,RiDepartureChecklist)" (edit)="editForm()" [editControll]="editControll" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

@@ -1,0 +1,76 @@
+<app-form-header [title]="title" [status]="status" [breadcrumbs]="breadcrumbs" [formstatus]="formStatus"
+  [formNavigation]="" [subtitle]="subtitle"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+
+    <form class="margin-top-20 sf-form" [formGroup]="orgForm">
+      <div class="margin-top-20 margin-left-45">
+        <div class="row margin-top-20 margin-bottom-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span class="sf-labels">Begin Date</span>
+              <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <p-calendar formControlName="beginDate" [showIcon]="true" name="beginDate" [(ngModel)]="sfcs.beginDate">
+              </p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span class="sf-labels">End Date</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <p-calendar formControlName="endDate" [showIcon]="true" name="endDate" [(ngModel)]="sfcs.endDate" showButtonBar="true">
+              </p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span class="sf-labels">SFM Office</span>
+              <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+              <p-autoComplete formControlName="sfaofficeID" field="officeName" [forceSelection]="true"
+                emptyMessage="No results found!" placeholder="Type here to search" [suggestions]="results"
+                (completeMethod)="getMetaData($event,'office')" name="endDate" [(ngModel)]="sfcs.sfaofficeID"
+                [dropdown]="true"></p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span class="sf-labels">SFM Office Type</span>
+              <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+              <p-autoComplete formControlName="sfaofficeTypeID" field="sfaofficeType" [forceSelection]="true"
+                emptyMessage="No results found!" placeholder="Type here to search" [suggestions]="results"
+                (completeMethod)="getMetaData($event,'officeType')" name="endDate" [(ngModel)]="sfcs.sfaofficeTypeID"
+                [dropdown]="true"></p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <button (click)=navigateTo() class="opencard-attachment btn btn-primary">Attachment Document</button>
+            </div>
+          </div>
+        </div> -->
+
+      </div>
+    </form>
+    <app-form-footer [attachmentControll]="isAttachmentRequired" [isAttachmentDisabled]="false"
+      (attachDoc)="navigateTo()" (save)="addPost(sfcs)" (edit)="editForm()" [editControll]="editControll"
+      [discardTo]="discardTo" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+    </app-form-footer>
+    <app-quick-menu [module]="quickMenu"></app-quick-menu>
+  </div>
+</div>

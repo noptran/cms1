@@ -1,0 +1,73 @@
+<button (click)="onGetAttachments()" class="component-btn">
+  <i class="fa fa-envelope-o" aria-hidden="true"></i>
+  <span>{{componentBtn}}</span>
+</button>
+<div class="wrapper">
+  <p-dialog [(visible)]="isMailActionWindowOpen" [contentStyle]="{'min-width':'66rem'}" [maximizable]="true"
+    [baseZIndex]="10000" [responsive]="true" header="Email">
+    <p class="info-text">{{infoText}}</p>
+    <div>
+      <!--Email-->
+      <div class="email-container">
+        <table>
+          <tr>
+            <td>To</td>
+            <td>
+              <p-chips [(ngModel)]="to" name="to" placeholder="Press 'Enter'"></p-chips>
+            </td>
+          </tr>
+          <tr>
+            <td>Cc</td>
+            <td>
+              <p-chips [(ngModel)]="cc" name="cc" placeholder="Press 'Enter'"></p-chips>
+            </td>
+          </tr>
+          <tr>
+            <td>Bcc</td>
+            <td>
+              <p-chips [(ngModel)]="bcc" name="bcc" placeholder="Press 'Enter'"></p-chips>
+            </td>
+          </tr>
+          <tr>
+            <td>Subject</td>
+            <td>
+              <textarea name="emailSubject" [(ngModel)]="emailSubject" pInputTextarea
+                style="width:100%;height:100%"></textarea>
+            </td>
+          </tr>
+        </table>
+        <div>
+          <textarea name="emailBody" [(ngModel)]="emailBody" pInputTextarea placeholder="Content of email"
+            style="width:100%;height:100%"></textarea>
+        </div>
+      </div>
+      <!--Attachments-->
+      <div class="attachmentListTable">
+        <table *ngIf="availableAttachments.length > 0">
+          <tr>
+            <th>Action</th>
+            <th>File Name</th>
+          </tr>
+          <tr *ngFor="let record of availableAttachments; let i = index">
+            <td>
+              <p-checkbox name="checkboxrecord[i]" [(ngModel)]="record.isActive" binary="true"
+                (onChange)="onChangeAttachmentSelection($event,record.fileName)">
+              </p-checkbox>
+            </td>
+            <td>{{record.fileName}}</td>
+          </tr>
+        </table>
+        <p *ngIf="availableAttachments.length === 0"> No attachments found!</p>
+      </div>
+    </div>
+    <!--footer-->
+    <p-footer>
+      <div class="flex-end">
+        <button (click)="onSendEmail()">
+          <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+          <span>{{sendBtnLabel}}</span>
+        </button>
+      </div>
+    </p-footer>
+  </p-dialog>
+</div>

@@ -1,0 +1,46 @@
+<p-dialog [(visible)]="isPrompt" header="Placement History" [responsive]="true" [contentStyle]="{'min-width':'66rem'}"
+    [maximizable]="true" [baseZIndex]="10000" (onHide)="close()">
+    <table class="table table-bordered table-striped table-fixed" style="height: 0% !important;"
+        *ngIf="histories?.length > 0">
+        <tr>
+            <th>Report Type</th>
+            <th>History</th>
+        </tr>
+
+        <tr *ngFor="let item of histories" (click)="printForm(item)">
+            <td>{{item.reportType}}</td>
+            <td>{{item.history}}</td>
+        </tr>
+    </table>
+    <p class="text-center" *ngIf="histories?.length === 0">No placement histories found!</p>
+    <p class="text-center" *ngIf="isLoading">Please wait...</p>
+</p-dialog>
+<div *ngIf="isAckPrompt">
+    <p-dialog [(visible)]="isAckPrompt" header="Placement Acknowledgement" [responsive]="true"
+        [contentStyle]="{width: '1200px', minWidth: '600px'}" [maximizable]="true" [baseZIndex]="10000"
+        (onHide)="ack_close()">
+
+        <app-placement-acknowledgement (closeAckWindow)="closeAckWindow($event)" [historyData]="historyData"
+            [acknowledgementID]="acknowledgementID" [isAchHistoryView]="isAchHistoryView">
+        </app-placement-acknowledgement>
+    </p-dialog>
+</div>
+<div *ngIf="isPSAPrompt">
+    <p-dialog [(visible)]="isPSAPrompt" header="Provider Service Agreement" [responsive]="true"
+        [contentStyle]="{width: '1200px', minWidth: '600px'}" [maximizable]="true" [baseZIndex]="10000"
+        (onHide)="psa_close()">
+        <app-placement-psa [psaID]="psaID" [isPSA_View]="isPSA_View" (closeAckWindow)="closeAckWindow($event)">
+        </app-placement-psa>
+    </p-dialog>
+
+</div>
+<div *ngIf="fchPrintPrompt">
+    <p-dialog [(visible)]="fchPrintPrompt" header="FCH Placement Agreement" [responsive]="true"
+        [contentStyle]="{width: '1200px', minWidth: '600px'}" [maximizable]="true" [baseZIndex]="10000"
+        (onHide)="fch_close()">
+        <app-placement-agreement-form [elecSignData]="elecSignData" [fchPrintID]="fchPrintID"
+            [elecPrintView]="elecPrintView" [fchPrintView]="fchPrintView" (closeAckWindow)="closeAckWindow($event)">
+        </app-placement-agreement-form>
+    </p-dialog>
+
+</div>

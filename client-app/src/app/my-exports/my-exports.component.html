@@ -1,0 +1,87 @@
+<div class="Report">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 main overflow-hidden" [ngClass]="Sidenav?'main-class':'width-100'">
+        <div class="container-fluid" style="margin-top:15px">
+          <div id="loading-overlay">
+            <p class="loader-text">
+              <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+            </p>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <h1>My Exports</h1>
+            </div>
+            <!-- <div class="col-lg-6 col-md-6 col-sm-6 sf-text-right">
+              <button class="sf-negative-btn" (click)="clearAllExports()" pTooltip="clear all the records">Clear all</button>
+            </div> -->
+
+            <div class="col-lg-6 col-md-6 col-sm-6 sf-text-right">
+              <button class="sf-primary-btn" (click)="getExportReportByUseId()">Refresh</button>
+              <button class="sf-negative-btn" (click)="clearAllExports()" pTooltip="clear all the records">Clear
+                all</button>
+            </div>
+
+
+          </div>
+          <!-- *ngIf="!showCard" -->
+          <div class="export-div" *ngIf="!showCard">
+            <div class="card" *ngFor="let download of exportFiles">
+              <div class="row">
+                <div class="col-lg-1">
+                  <!-- <i class="fa fa-file-archive-o zip-icon" aria-hidden="true"></i> -->
+                  <img *ngIf="download.fileType == 'excel'" src="assets/image/excel.jpg" alt="excel file"
+                    width="50px" />
+                  <img *ngIf="download.fileType == 'csv'" src="assets/image/csv.jpg" alt="csv file" width="50px" />
+                </div>
+                <div class="col-lg-9">
+                  <h3>{{download.reportName}}</h3>
+                  <label *ngIf="download.status == 'Completed'">Completed</label>
+                  <label *ngIf="download.status == 'New'">Pending</label>
+                  <div>Date of Download :{{download.readyToDownloadTime | date:"MM/dd/yyyy"}}</div>
+                  <div>
+                    <a *ngIf="download.status == 'Completed'" href="{{download.exportUrl}}" download>
+                      Download the report
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="card" *ngFor="let download_tred of trentLineReports">
+              <div class="row">
+                <div class="col-lg-1">
+                  <!-- <i class="fa fa-file-archive-o zip-icon" aria-hidden="true"></i> -->
+                  <img src="assets/image/excel.jpg" alt="excel file" width="50px" />
+
+                </div>
+                <div class="col-lg-9">
+                  <h3>{{download_tred.ReportName}}</h3>
+                  <div>Date of Download :{{download_tred.readyToDownloadTime | date:"MM/dd/yyyy"}}</div>
+                  <div>
+                    <p *ngIf="download_tred.Url==='No data found, Try with some other date'" style="color:red">
+                      {{download_tred.Url}}</p>
+                    <p *ngIf="download_tred.Url==='Please wait your report process in queue'" style="color:red">
+                      {{download_tred.Url}}</p>   
+                    <p *ngIf="download_tred.Url==='Problem on data, Please contact your administrator'" style="color:red">
+                        {{download_tred.Url}}</p>                                                                   
+                    <a *ngIf="download_tred.Url!=='Please wait your report process in queue' && download_tred.Url!=='No data found, Try with some other date' && download_tred.Url!=='Problem on data, Please contact your administrator'"
+                      href="{{download_tred.Url}}" download>
+                      Download the report
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          <div *ngIf="showCard" class="sf-pr-emptystate">
+            <p class="sf-heading-2 sf-black">{{message}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

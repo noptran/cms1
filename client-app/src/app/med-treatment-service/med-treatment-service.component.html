@@ -1,0 +1,131 @@
+<p-dialog header="Treatment Services" [contentStyle]="{'min-width':'103rem','width': '98vw'}" [responsive]="true"
+  [(visible)]="isPopListWindow" (onHide)="close()">
+  <button class="sf-positive-btn pull-right" (click)="showSaveModel()">
+    <span>Add new record</span>
+  </button>
+  <br>
+  <br>
+  <h3 class="text-center" *ngIf="isPlesWait"><b>Please Wait...</b></h3>
+  <div class="sf-text-right sf-table-header sf-black" *ngIf="totalCount > 0">
+    <app-pagesize *ngIf="totalCount" [totalCount]="totalCount" [initial]="initial" [end]="end"
+      (keyup)="pagesizeNav($event)" (click)="pagesize($event)"></app-pagesize>
+  </div>
+  <br>
+  <ag-grid-angular style="width: 500px; height: 500px;" class="ag-theme-balham" [rowData]="rowData"
+    [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [enableSorting]="true" [rowDragManaged]="true"
+    [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid style="width: 100%;height: 68vh;"
+    animateRows="true" rowSelection="multiple" (cellClicked)='onRowSelected($event)'>
+  </ag-grid-angular>
+</p-dialog>
+
+<p-dialog header="Treatment Services" [contentStyle]="{'min-width':'100rem','width': '95vw'}" [responsive]="true"
+  [(visible)]="isPopWindow">
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+  <div style="padding:5px;border-top:2px solid #eee; height: 630px;overflow-y: scroll;">
+    <div>
+      <div class="panel panel-default ui-call">
+        <div class="panel-heading">Treatment Services</div>
+        <div class="panel-body" style="padding:10px;">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-6">
+                  <div><span>Youth Name</span></div>
+                </div>
+                <div class="col-md-6">
+                  <input class="form-control" name="pulse" [(ngModel)]="clientName" [disabled]='true'
+                    style="height: 30px;border: 1px solid #737374;font-size: 1.2rem;" type="text">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div><span>Treatment Type</span></div>
+                </div>
+                <div class="col-md-6">
+                  <p-dropdown [options]="alltreatmentTypes" placeholder="Please Select" [disabled]='isUpdate_dis'  [(ngModel)]="medTreatServiceForm.treatmentServicesTypeID"
+                    optionLabel="treatmentServicesType"></p-dropdown>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row pt-3">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-6">
+                  <div><span>Begin Date and Time</span></div>
+                </div>
+                <div class="col-md-6">
+                  <p-calendar name="beginDate" [disabled]='isUpdate_dis' [yearNavigator]="true" [disabled]='isUpdate_dis'
+                    [(ngModel)]="medTreatServiceForm.beginDate" [monthNavigator]="true" yearRange="2000:2030"
+                    [showIcon]="true" [inputStyle]="{'height':'30px','width':'100% !important'}"></p-calendar>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div><span>End Date and Time</span></div>
+                </div>
+                <div class="col-md-6">
+                  <p-calendar name="endDate"[disabled]='isUpdate_dis'  [yearNavigator]="true" [disabled]='isUpdate_dis'
+                    [(ngModel)]="medTreatServiceForm.endDate" [monthNavigator]="true" yearRange="2000:2030"
+                    [showIcon]="true" [inputStyle]="{'height':'30px','width':'100% !important'}"></p-calendar>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div>Notes</div>
+              <textarea pInputTextarea name="inputTextarea" [disabled]='isUpdate_dis' [(ngModel)]="medTreatServiceForm.notes"
+                style="width:100%;height:100%"></textarea>
+            </div>
+          </div>
+
+          <br>
+          <div class="row">
+            <div class="col-md-1">
+              <button class="btn btn-danger" *ngIf="isUpdate" style="margin-top: 20px;
+    padding-top: 10px;
+    border-top: 0.5px solid #CED7D1;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 5px;" (click)="this.isDeleteConfirmation = true;">
+                <span>Delete</span>
+              </button>
+            </div>
+            <div class="col-md-11">
+              <app-form-footer (edit)="editForm()" [attachmentControll]="true" [currentNodeValue]="req"
+                [editControll]="isEdit" (save)="formAction()" (discard)="discard()" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+              </app-form-footer>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog header="Delete confirmation" [(visible)]="isDeleteConfirmation">
+  <p>Are you sure want to delete this record?</p>
+  <p-footer>
+    <div class="dialog-footer">
+      <button (click)="this.isDeleteConfirmation = false;" [disabled]="isDeleteConfirmationDisable">Cancel</button>
+      <button (click)="onDelete()" [disabled]="isDeleteConfirmationDisable"
+        class="alert-text">{{deleteConfirmationBtnLabel}}</button>
+    </div>
+  </p-footer>
+</p-dialog>

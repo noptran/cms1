@@ -1,0 +1,43 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form class="sf-form" [formGroup]="quesgroupcreationForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Group</span> <span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText  formControlName="group" name="inputText" [(ngModel)]="quesgroupcreation.group" size="27"/>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>QuestionGroup ID </span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText  formControlName="questionGroupID" name="inputText" [(ngModel)]="quesgroupcreation.questionGroupID" size="27"/>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Entered Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" formControlName="enteredDate" [showIcon]="true" showTime="true" [(ngModel)]="quesgroupcreation.enteredDate"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Changed Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" formControlName="changedDate" [showIcon]="true" showTime="true" [(ngModel)]="quesgroupcreation.changedDate"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer (save)="formActions(quesgroupcreation)" [editControll]="isEdit" (edit)="editForm()" [discardTo]="discardTo" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+  </div>
+</div>

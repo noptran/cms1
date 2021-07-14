@@ -1,0 +1,452 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="adoptionExchangeChildForm" class="sf-form">
+      <div class="flex-container header">
+          <div>
+    
+          </div>
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+          <div>
+    
+          </div>
+        </div>
+    <div class="text-center margin-bottom-2rem">
+      <h3>
+        <b>Adoption Exchange Child Status Update Form</b>
+      </h3>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-3">
+        Today’s Date:
+      </div>
+      <div class="col-xs-9">
+        <p-calendar [(ngModel)]="adopAdoptionExchangeChild.TodayDate" formControlName="TodayDate" name="TodayDate" class="date-picker"
+          showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-3">
+        Name of person completing this form:
+      </div>
+      <div class="col-xs-9">
+        <input [(ngModel)]="adopAdoptionExchangeChild.NameOfPerson" formControlName="NameOfPerson" name="NameOfPerson" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-3">
+        Agency Name:
+      </div>
+      <div class="col-xs-9">
+        <input [(ngModel)]="adopAdoptionExchangeChild.AgencyName" formControlName="AgencyName" name="AgencyName" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-3">
+        Phone Number:
+      </div>
+      <div class="col-xs-9">
+        <input [(ngModel)]="adopAdoptionExchangeChild.PhoneNumber" formControlName="PhoneNumber" name="PhoneNumber" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-3">
+        E-mail address:
+      </div>
+      <div class="col-xs-9">
+        <input [(ngModel)]="adopAdoptionExchangeChild.EmailAddress" formControlName="EmailAddress" name="EmailAddress" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <b>Child’s Name: </b>
+        <input [(ngModel)]="adopAdoptionExchangeChild.ChildName" formControlName="ChildName" name="ChildName" type="text" pInputText
+          size="20" />
+      </div>
+
+      <div class="col-xs-4">
+        <b>MATCH ID: </b>
+        <input [(ngModel)]="adopAdoptionExchangeChild.MatchId" formControlName="MatchId" name="MatchId" type="text" pInputText size="20"
+        />
+      </div>
+
+      <div class="col-xs-4">
+        <b>Facts Client ID#: </b>
+        <input [(ngModel)]="adopAdoptionExchangeChild.FactsClientId" formControlName="FactsClientId" name="FactsClientId" type="text"
+          pInputText size="20" />
+      </div>
+
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-3">
+        Is this child a member of a sibling group?
+      </div>
+      <div class="col-xs-9">
+        Yes
+        <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsSiblingGroupYes" formControlName="IsSiblingGroupYes" name="IsSiblingGroupYes"
+          binary="true"></p-checkbox> No
+        <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsSiblingGroupNo" formControlName="IsSiblingGroupNo" name="IsSiblingGroupNo"
+          binary="true"></p-checkbox>
+      </div>
+    </div>
+    <p>
+      <b>Adopt Kansas Kids Website</b>
+    </p>
+    <p>
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsPrivateSite" formControlName="IsPrivateSite" name="IsPrivateSite" binary="true"></p-checkbox> Move child to the private site (child will not show in public searches by families/social workers will
+      still be able to view the child)
+    </p>
+    <p>
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsPublicSite" formControlName="IsPublicSite" name="IsPublicSite" binary="true"></p-checkbox> Move child to the public site (child will show up in public searches by families)
+    </p>
+    <p>
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsChangeOfVenue" formControlName="IsChangeOfVenue" name="IsChangeOfVenue"
+        binary="true"></p-checkbox> Change of Venue (when that venue is moved to another contractor)
+    </p>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        Name of new contractor:
+        <input [(ngModel)]="adopAdoptionExchangeChild.NewContractor" formControlName="NewContractor" name="NewContractor" type="text"
+          pInputText size="20" />
+      </div>
+
+      <div class="col-xs-4">
+        Date of change of venue:
+        <p-calendar [(ngModel)]="adopAdoptionExchangeChild.DateChangeOfVenue" formControlName="DateChangeOfVenue" name="DateChangeOfVenue"
+          class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+
+      </div>
+
+    </div>
+
+    <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsChildOnHold" formControlName="IsChildOnHold" name="IsChildOnHold" binary="true"></p-checkbox>
+    <b>Place the child on hold (check reason)</b>
+    <div class="margin-left-2rem">
+      <p>
+        <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsIdentifiedResource" formControlName="IsIdentifiedResource" name="IsIdentifiedResource"
+          binary="true"></p-checkbox> Child has an Identified resource
+      </p>
+      <p class="margin-left-2rem">
+        Name of family:
+        <input [(ngModel)]="adopAdoptionExchangeChild.NameOfFamily" formControlName="NameOfFamily" name="NameOfFamily" type="text"
+          pInputText size="20" />
+      </p>
+      <p>
+        <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsFamilySelected" formControlName="IsFamilySelected" name="IsFamilySelected"
+          binary="true"></p-checkbox> Family selected
+      </p>
+      <p class="margin-left-2rem">
+        Best interest staffing date:
+        <p-calendar [(ngModel)]="adopAdoptionExchangeChild.BestInterestStaffingDate" formControlName="BestInterestStaffingDate" name="BestInterestStaffingDate"
+          class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        Name of family selected:
+        <input [(ngModel)]="adopAdoptionExchangeChild.FamilySelectedName" formControlName="FamilySelectedName" name="FamilySelectedName"
+          type="text" pInputText size="20" />
+      </p>
+      <p>
+        <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsRecruitmentNeeded" formControlName="IsRecruitmentNeeded" name="IsRecruitmentNeeded"
+          binary="true"></p-checkbox> No recruitment needed at this time (includes children on run (AWOL), no longer wanting to be adopted,
+        etc.)
+      </p>
+      <p>
+        <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsSiblingSplitPending" formControlName="IsSiblingSplitPending" name="IsSiblingSplitPending"
+          binary="true"></p-checkbox> Sibling split pending
+      </p>
+      <p>
+        <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsOther" formControlName="IsOther" name="IsOther" binary="true"></p-checkbox> Other (explain):
+      </p>
+      <textarea [(ngModel)]="adopAdoptionExchangeChild.Other" formControlName="Other" name="Other" pInputTextarea autoResize="autoResize"
+        rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsChildCaseClosed" formControlName="IsChildCaseClosed" name="IsChildCaseClosed"
+      binary="true"></p-checkbox>
+    <b>Close the child’s case on the website (check reason)</b>
+    <div class="margin-left-2rem">
+      <p>
+        <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsCasePlanGoalChanged" formControlName="IsCasePlanGoalChanged" name="IsCasePlanGoalChanged"
+          binary="true"></p-checkbox>
+        Child’s case plan goal changed to OPPLA
+      </p>
+      <p>
+        <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsAgreementSigned" formControlName="IsAgreementSigned" name="IsAgreementSigned"
+          binary="true"></p-checkbox>
+        Adoption Placement Agreement (APA) signed
+      </p>
+      <div class="row margin-bottom-2rem">
+        <div class="col-xs-2 margin-left-2rem">
+          Date APA signed:
+        </div>
+        <div>
+          <p-calendar [(ngModel)]="adopAdoptionExchangeChild.DateSigned" formControlName="DateSigned" name="DateSigned" class="date-picker"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="col-xs-2">
+          Name of family:
+        </div>
+        <div>
+          <input [(ngModel)]="adopAdoptionExchangeChild.NameOfFamily1" formControlName="NameOfFamily1" name="NameOfFamily1" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsAdoptionFinalized" formControlName="IsAdoptionFinalized" name="IsAdoptionFinalized"
+        binary="true"></p-checkbox>
+      Adoption Finalized/Adoption decree
+      <div class="row margin-bottom-2rem">
+        <div class="col-xs-2 margin-left-2rem">
+          Date:
+        </div>
+        <div>
+          <p-calendar [(ngModel)]="adopAdoptionExchangeChild.Date" formControlName="Date" name="Date" class="date-picker" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="col-xs-2">
+          Name of family:
+        </div>
+        <div>
+          <input [(ngModel)]="adopAdoptionExchangeChild.FamilyName" formControlName="FamilyName" name="FamilyName" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsLegalRiskSigned" formControlName="IsLegalRiskSigned" name="IsLegalRiskSigned"
+        binary="true"></p-checkbox>
+      Legal Risk Placement Agreement signed
+      <div class="row margin-bottom-2rem">
+        <div class="col-xs-2 margin-left-2rem">
+          Date:
+        </div>
+        <div>
+          <p-calendar [(ngModel)]="adopAdoptionExchangeChild.Date1" formControlName="Date1" name="Date1" class="date-picker" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="col-xs-2">
+          Name of family:
+        </div>
+        <div>
+          <input [(ngModel)]="adopAdoptionExchangeChild.NameOfFamily2" formControlName="NameOfFamily2" name="NameOfFamily2" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsReleasedFromCustody" formControlName="IsReleasedFromCustody" name="IsReleasedFromCustody"
+        binary="true"></p-checkbox>
+      Child has been released from custody
+      <div class="row margin-bottom-2rem">
+        <div class="col-xs-2 margin-left-2rem">
+          Date:
+        </div>
+        <div>
+          <p-calendar [(ngModel)]="adopAdoptionExchangeChild.Date2" formControlName="Date2" name="Date2" class="date-picker" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsGuardianshipSigned" formControlName="IsGuardianshipSigned" name="IsGuardianshipSigned"
+        binary="true"></p-checkbox>
+      Guardianship/Custodianship has been signed
+      <div class="row">
+        <div class="col-xs-2 margin-left-2rem">
+          Date:
+        </div>
+        <div>
+          <p-calendar [(ngModel)]="adopAdoptionExchangeChild.Date3" formControlName="Date3" name="Date3" class="date-picker" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="col-xs-2">
+          Name of family:
+        </div>
+        <div>
+          <input [(ngModel)]="adopAdoptionExchangeChild.NameOfFamily3" formControlName="NameOfFamily3" name="NameOfFamily3" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsOther1" formControlName="IsOther1" name="IsOther1" binary="true"></p-checkbox>
+      Other (explain):
+      <textarea [(ngModel)]="adopAdoptionExchangeChild.Other1" formControlName="Other1" name="Other1" pInputTextarea autoResize="autoResize"
+        rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsReActivated" formControlName="IsReActivated" name="IsReActivated" binary="true"></p-checkbox>
+    <b>Re-activate the child’s case on the website (check reason)</b>
+    <div class="margin-left-2rem">
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsResourceBackedOut" formControlName="IsResourceBackedOut" name="IsResourceBackedOut"
+        binary="true"></p-checkbox>
+      Identified resource backed out
+      <div class="row">
+        <div class="col-xs-2 margin-left-2rem">
+          Date:
+        </div>
+        <div>
+          <p-calendar [(ngModel)]="adopAdoptionExchangeChild.Date4" formControlName="Date4" name="Date4" class="date-picker" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsAdoptionDisrupted" formControlName="IsAdoptionDisrupted" name="IsAdoptionDisrupted"
+        binary="true"></p-checkbox>
+      Adoption Disruption
+      <div class="row">
+        <div class="col-xs-2 margin-left-2rem">
+          Date:
+        </div>
+        <div>
+          <p-calendar [(ngModel)]="adopAdoptionExchangeChild.Date5" formControlName="Date5" name="Date5" class="date-picker" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsAdoptionDissolution" formControlName="IsAdoptionDissolution" name="IsAdoptionDissolution"
+        binary="true"></p-checkbox>
+      Adoption Dissolution
+      <div class="row">
+        <div class="col-xs-2 margin-left-2rem">
+          Date:
+        </div>
+        <div>
+          <p-calendar [(ngModel)]="adopAdoptionExchangeChild.Date6" formControlName="Date6" name="Date6" class="date-picker" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsSiblingSplitApproved" formControlName="IsSiblingSplitApproved" name="IsSiblingSplitApproved"
+        binary="true"></p-checkbox>
+      Sibling split approved
+      <div class="row margin-bottom-2rem">
+        <div class="col-xs-2 margin-left-2rem">
+          Date:
+        </div>
+        <div>
+          <p-calendar [(ngModel)]="adopAdoptionExchangeChild.Date7" formControlName="Date7" name="Date7" class="date-picker" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsReturnedFromAwol" formControlName="IsReturnedFromAwol" name="IsReturnedFromAwol"
+        binary="true"></p-checkbox>
+      Child has returned from AWOL
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsReadyToResume" formControlName="IsReadyToResume" name="IsReadyToResume"
+        binary="true"></p-checkbox>
+      Child is ready to resume recruitment activities.
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsOther2" formControlName="IsOther2" name="IsOther2" binary="true"></p-checkbox>
+      Other (explain):
+      <textarea [(ngModel)]="adopAdoptionExchangeChild.Other2" formControlName="Other2" name="Other2" pInputTextarea autoResize="autoResize"
+        rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p>
+      <b>AdoptUsKids </b>
+    </p>
+    <p>
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsChildRemoved" formControlName="IsChildRemoved" name="IsChildRemoved"
+        binary="true"></p-checkbox>
+      Remove child from AdoptUsKids (child no longer eligible to be placed out of state)
+    </p>
+    <p class="margin-bottom-2rem">
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsChildAdded" formControlName="IsChildAdded" name="IsChildAdded" binary="true"></p-checkbox>
+      Add child from AdoptUsKids (child is now eligible to be placed out of state)
+    </p>
+
+    <p>
+      <b>Community Profile Request: </b>
+    </p>
+    <p>
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsCommunityAwarenessStarted" formControlName="IsCommunityAwarenessStarted"
+        name="IsCommunityAwarenessStarted" binary="true"></p-checkbox>
+      Start the following community awareness initiatives (mark all that apply below)
+    </p>
+    <p class="margin-bottom-2rem">
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsCommunityAwarenessCeased" formControlName="IsCommunityAwarenessCeased"
+        name="IsCommunityAwarenessCeased" binary="true"></p-checkbox>
+      Cease the following community awareness initiatives (mark all that apply below)
+    </p>
+
+    <p>
+      <b>Community Profile Request Section (Select Community Awareness Initiatives):</b>
+    </p>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-3">
+        <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsTelevisionProfile" formControlName="IsTelevisionProfile" name="IsTelevisionProfile"
+          binary="true"></p-checkbox>
+        <b>Television profile </b>
+      </div>
+      <div class="col-xs-3">
+        <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsTelevisionFeature" formControlName="IsTelevisionFeature" name="IsTelevisionFeature"
+          binary="true"></p-checkbox>
+        <b>Television feature/ad </b>
+      </div>
+      <div class="col-xs-3">
+        <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsNewspaperFeature" formControlName="IsNewspaperFeature" name="IsNewspaperFeature"
+          binary="true"></p-checkbox>
+        <b>Newspaper feature/ad </b>
+      </div>
+      <div class="col-xs-3">
+        <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsPublicService" formControlName="IsPublicService" name="IsPublicService"
+          binary="true"></p-checkbox>
+        <b>Public Service Announcement </b>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">
+        <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsRadioProfile" formControlName="IsRadioProfile" name="IsRadioProfile"
+          binary="true"></p-checkbox>
+        <b>Radio profile </b>
+      </div>
+      <div class="col-xs-3">
+        <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsNewspaperProfile" formControlName="IsNewspaperProfile" name="IsNewspaperProfile"
+          binary="true"></p-checkbox>
+        <b>Newspaper profile </b>
+      </div>
+      <div class="col-xs-3">
+        <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsChurchBulletinInserts" formControlName="IsChurchBulletinInserts" name="IsChurchBulletinInserts"
+          binary="true"></p-checkbox>
+        <b>Church Bulletin Inserts</b>
+      </div>
+      <div class="col-xs-3">
+        <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsKidsView" formControlName="IsKidsView" name="IsKidsView" binary="true"></p-checkbox>
+        <b>Kids View (KCSL publication-statewide dist.) </b>
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-3">
+        <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsBillboard" formControlName="IsBillboard" name="IsBillboard" binary="true"></p-checkbox>
+        <b>Billboard </b>
+      </div>
+      <div class="col-xs-3">
+        <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.IsKlicksForKids" formControlName="IsKlicksForKids" name="IsKlicksForKids"
+          binary="true"></p-checkbox>
+        <b>Klicks For Kids </b>
+      </div>
+    </div>
+    <p>Area of State where recruitment should be avoided:
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.AreaOfStateAvoided" formControlName="AreaOfStateAvoided" name="AreaOfStateAvoided"
+        binary="true"></p-checkbox>
+    </p>
+    <p>
+      Area of State where recruitment desired:
+      <p-checkbox [(ngModel)]="adopAdoptionExchangeChild.AreaOfStateDesired" formControlName="AreaOfStateDesired" name="AreaOfStateDesired"
+        binary="true"></p-checkbox>
+    </p>
+    <p>
+      <b>Comments:</b>
+    </p>
+    <textarea [(ngModel)]="adopAdoptionExchangeChild.Comments" formControlName="Comments" name="Comments" pInputTextarea autoResize="autoResize"
+      rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      <div class="flex-container space-right space-down margin-top-2rem">
+        <div class="space-right space-down">
+          <div class="space-right">
+            <b>Printed Date:</b>
+          </div>
+          <div class="space-right">
+            <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="space-right space-down margin-left-66rem">
+          <div class="space-right">
+            <b>Printed By:</b>
+          </div>
+          <div class="space-right">
+            <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+          </div>
+        </div>
+  
+      </div>
+  </form>
+</div>
+
+<app-form-footer (discard)="discardForm()" (save)="saveForm(adopAdoptionExchangeChild)" (edit)="editForm()" [editControll]="editControll" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

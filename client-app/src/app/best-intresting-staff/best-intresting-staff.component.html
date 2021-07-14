@@ -1,0 +1,264 @@
+<app-form-header [breadcrumbs]="breadcurmbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground form-container">
+    <form class="sf-form" [formGroup]="bisForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span><b>BIS</b></span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Requested</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [(ngModel)]="bis.requested" [showIcon]="true" formControlName="requested" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Held</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [(ngModel)]="bis.completed" [showIcon]="true" formControlName="completed" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><textarea formControlName="notes" name="notes"
+              style="width:100%;height:100%" [(ngModel)]="bis.notes"></textarea></div>
+        </div>
+      </div>
+    </form>
+    <div class="margin-top-20 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12"><span> <b>BIS Resource</b> </span></div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="bisResourceList.length > 0 && !isbisResourceTableViewOnly">
+          <table cellpadding="10px" class="bisTable">
+            <tr class="main-row">
+              <th>Provider</th>
+              <th>Selected</th>
+              <th>Family Notified</th>
+              <th> Auth Requested</th>
+              <th> Authorized</th>
+              <th> Not Approved</th>
+              <th>ICPC</th>
+              <th>Appealed</th>
+              <th>Appeal Results</th>
+              <th>Notes</th>
+            </tr>
+            <tr *ngFor="let provider of bisResourceList; let i = index" (click)="getBisResourceRowData(provider, i)">
+              <td><span>{{provider.providerID?.fullName}}</span></td>
+              <td>
+                <span *ngIf="provider.selected" class="positive-mark">&#10004;</span>
+                <span *ngIf="!provider.selected" class="negative-mark">&#10006;</span>
+              </td>
+              <td><span>{{provider.providerNotified | date:'MM/dd/yyyy HH:mm:ss'}}</span></td>
+              <td><span>{{provider.srsSent | date:'MM/dd/yyyy HH:mm:ss'}}</span></td>
+              <td><span>{{provider.srsApproved | date:'MM/dd/yyyy HH:mm:ss'}}</span></td>
+              <td>
+                <span *ngIf="provider.srsNotApproved" class="positive-mark">&#10004;</span>
+                <span *ngIf="!provider.srsNotApproved" class="negative-mark">&#10006;</span>
+              </td>
+              <td>
+                <span *ngIf="provider.icpc" class="positive-mark"> &#10004;</span>
+                <span *ngIf="!provider.icpc" class="negative-mark"> &#10006;</span>
+              </td>
+              <td>
+                <span *ngIf="provider.appealed" class="positive-mark"> &#10004;</span>
+                <span *ngIf="!provider.appealed" class="negative-mark"> &#10006;</span>
+              </td>
+              <td><span>{{provider.appealResults_StatusTypeID?.statusType}}</span></td>
+              <td><span>{{provider.notes}}</span></td>
+              <td><span (click)="removeBisResource(i)" class="fa fa-trash remove-icon"></span></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="margin-top-20 row" *ngIf="isbisResourceTableViewOnly && bisResourceList.length > 0">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="bisResourceList.length > 0">
+          <table cellpadding="10px" class="bisTable">
+            <tr class="main-row">
+              <th>Provider</th>
+              <th>Selected</th>
+              <th>Family Notified</th>
+              <th> Auth Requested</th>
+              <th> Authorized</th>
+              <th> Not Approved</th>
+              <th>ICPC</th>
+              <th>Appealed</th>
+              <th>Appeal Results</th>
+              <th>Notes</th>
+            </tr>
+            <tr *ngFor="let provider of bisResourceList; let i = index">
+              <td><span>{{provider.providerID?.fullName}}</span></td>
+              <td>
+                <span *ngIf="provider.selected" class="positive-mark">&#10004;</span>
+                <span *ngIf="!provider.selected" class="negative-mark">&#10006;</span>
+              </td>
+              <td><span>{{provider.providerNotified | date:'MM/dd/yyyy HH:mm:ss'}}</span></td>
+              <td><span>{{provider.srsSent | date:'MM/dd/yyyy HH:mm:ss'}}</span></td>
+              <td><span>{{provider.srsApproved | date:'MM/dd/yyyy HH:mm:ss'}}</span></td>
+              <td>
+                <span *ngIf="provider.srsNotApproved" class="positive-mark">&#10004;</span>
+                <span *ngIf="!provider.srsNotApproved" class="negative-mark">&#10006;</span>
+              </td>
+              <td>
+                <span *ngIf="provider.icpc" class="positive-mark"> &#10004;</span>
+                <span *ngIf="!provider.icpc" class="negative-mark"> &#10006;</span>
+              </td>
+              <td>
+                <span *ngIf="provider.appealed" class="positive-mark"> &#10004;</span>
+                <span *ngIf="!provider.appealed" class="negative-mark"> &#10006;</span>
+              </td>
+              <td><span>{{provider?.appealResults_StatusTypeID?.statusType}}</span></td>
+              <td><span>{{provider.notes}}</span></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="margin-top-20 row" *ngIf="bisResourceList.length !== 0 && !isbisResourceTableViewOnly">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <span (click)="bisResourceFormControl()" *ngIf="!isbisResourceFormOpen" class="open-txt">+ Add BIS
+            Resource</span>
+          <span (click)="bisResourceFormControl()" *ngIf="isbisResourceFormOpen" class="close-txt">- Close BIS
+            Resource</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="margin-top-20 row" *ngIf="bisResourceList.length === 0 && !isbisResourceFormOpen">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 center-well">
+          <span><b>No BIS resource found!</b></span>
+          <span (click)="bisResourceFormControl()" class="open-txt">+ Add BIS Resource</span>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isbisResourceFormOpen" class="sf-form">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Provider</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="gradeID" emptyMessage="No results found!" [suggestions]="metaData"
+              (completeMethod)="getMetaData($event, 'provider')" [(ngModel)]="bisResource.providerID"
+              [forceSelection]="true" placeholder="Type here to search" field="fullName" size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Selected</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox binary="true" name="checkbox" [(ngModel)]="bisResource.selected"></p-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Family Notified</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              [showIcon]="true" yearRange="2000:2030" [(ngModel)]="bisResource.providerNotified"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span> Auth Requested</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              [showIcon]="true" yearRange="2000:2030" [(ngModel)]="bisResource.srsSent"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span> Authorized</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              [showIcon]="true" yearRange="2000:2030" [(ngModel)]="bisResource.srsApproved"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span> Not Approved</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox binary="true" name="checkbox" [(ngModel)]="bisResource.srsNotApproved"></p-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>ICPC</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox binary="true" name="checkbox" [(ngModel)]="bisResource.icpc"></p-checkbox>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Appealed</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox binary="true" name="checkbox" [(ngModel)]="bisResource.appealed"></p-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Appeal Results</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="gradeID" emptyMessage="No results found!"
+              [(ngModel)]="bisResource.appealResults_StatusTypeID" (completeMethod)="filterAppealResults($event)"
+              [forceSelection]="true" placeholder="Type here to search" [suggestions]="metaData" field="statusType"
+              size="23"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea style="width:100%;height:100%" pInputTextArea name="notes"
+              [(ngModel)]="bisResource.notes"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12 right-well">
+            <button (click)="resetBisResourceForm(bisResource)" class="sf-positive-btn"
+              style="background:#48b1fb !important;">Cancel</button>
+            <button (click)="addBisResource(bisResource)" class="sf-positive-btn" style="background:#48b1fb !important;"
+              *ngIf="bisResource.providerID">{{btnLabel}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <app-form-footer [attachmentControll]="isAttachmentRequired " [isAttachmentDisabled]="false"
+      (attachDoc)="navigateTo()" (save)="formAction(bis)" [editControll]="isEdit" (edit)="editForm()"
+      [discardTo]="discardTo" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+  </div>
+</div>

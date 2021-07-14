@@ -1,0 +1,101 @@
+export class PlacementPsa {
+  client: any;
+  dob: any;
+  facts: any;
+  kaecses: any;
+  ssn: any;
+  provider: any;
+  address: any;
+  phone: any;
+  fax: any;
+  provRate: any;
+  medicaidId: any;
+  taxID: any;
+  sponsor: any;
+
+  service: any;
+  beginDate: any;
+  endDate: any;
+  unitsAuthorized: any;
+  rate: any;
+  billableUnit: any;
+  nextScheduled: any;
+  reviewDate: any;
+  serviceFrequency: any;
+
+  additionalInformation: any;
+
+  authProvider: any;
+  authTitle: any;
+  authDate: any;
+  authAgeny: any;
+
+  serviceTitle: any;
+  serviceData: any;
+
+  placementAuthorization: any;
+  preAuthNumber: any;
+  payorName: any;
+  caseManager: any;
+  caseManagerPhone: any;
+  providerAddress: any;
+  providerPhone: any;
+  providerCity: any;
+  providerZipCode: any;
+  providerState: any;
+  providerFullAddress: string;
+}
+export class PlacementPSAPrintPreview {
+  ClientID: number;
+  AuthorizationID: number;
+  ClientName: string;
+  DOB: string;
+  SSN: string;
+  Court: string;
+  Facts: string;
+  Kaecses: string;
+  Gender: string;
+  PayorName: string;
+  PayorAddress: string;
+  PayorCity: string;
+  PayorState: string;
+  PayorZipcode: string;
+  PayorPhone: string;
+  PayorFax: string;
+  PayorRate: string;
+  FCHStaffName: string;
+  FCHStaffAddress: string;
+  FCHStaffCity: string;
+  FCHStaffState: string;
+  FCHStaffZipcode: string;
+  FCHStaffPhone: string;
+  ProviderName: string;
+  CurrentPlacementBeginDate: string;
+  ProviderAddress: string;
+  ProviderCityStateZip: string;
+  ProviderPhone: string;
+  Procode: string;
+  ProviderRate: string;
+  SponsorName: string;
+  AddInfo: string;
+  ReasonForMove: string;
+  PrevProviderName?: any;
+  PrevPlacementBeginDate?: any;
+  PrevPlacementEndDate?: any;
+  PrevProviderAddress?: any;
+  PrevProviderCityStateZip?: any;
+  PrevProviderPhone?: any;
+  PrevProcode?: any;
+  PrevProviderRate?: any;
+  PrevPayorName?: any;
+  PrevSponsorName?: any;
+  DischargeDate?: any;
+  DateTime: number;
+  Subject_ClientName: string;
+  Subject_CountyCode: string;
+  Subject_ReferralType: string;
+  ProviderID: number;
+  ReferralTypeID: number;
+  LivingArrangement: boolean;
+  PayorAuthorizationID: number;
+}

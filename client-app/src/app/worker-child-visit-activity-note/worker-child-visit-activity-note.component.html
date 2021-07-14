@@ -1,0 +1,936 @@
+<div>
+  <form id="print-form-content" class="sf-form" [formGroup]="workerChildVisit">
+    <div class="flex-container header">
+      <div class="heading">
+        WORKER CHILD VISIT
+        <br> ACTIVITY NOTE
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="Main form">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Child's Name:</span>
+          <input type="text" pInputText size="20" [(ngModel)]="workerChild.ClientName.value" formControlName="ClientName" name="ClientName"
+            readonly />
+        </div>
+        <div>
+          <span>Case Number:</span>
+          <input type="text" [(ngModel)]="workerChild.caseNo.value" formControlName="caseNo" name="caseNo" pInputText size="20" readonly
+          />
+        </div>
+        <div>
+          <span>Date:</span>
+          <p-calendar [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [(ngModel)]="workerChild.CompletionDate.value"
+            formControlName="CompletionDate" name="CompletionDate" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="flex-container">
+          <div>
+            <span>Time/Length:</span>
+          </div>
+          <div>
+            <div class="space-right">From:</div>
+            <p-calendar [inputStyle]="{'width':'70px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [(ngModel)]="workerChild.FromTime.value"
+              formControlName="FromTime" name="FromTime" [timeOnly]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+          <div>
+            <div class="space-right">To:</div>
+            <p-calendar [inputStyle]="{'width':'70px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [(ngModel)]="workerChild.ToTime.value"
+              formControlName="ToTime" name="ToTime" [timeOnly]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="procode" value="CF065.1" label="CF065.1 Visit in residence" [(ngModel)]="workerChild.proCode"
+          formControlName="proCode"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="procode" value="CF065.2" label="CF065.2 Visit not in residence" [(ngModel)]="workerChild.proCode"
+          formControlName="proCode"></p-radioButton>
+      </div>
+    </div>
+    <!--  -->
+    <div *ngIf="workerChild.multiClient" class="flex-container space-down">
+      <div *ngFor="let cisArrayData of workerChild.multiClient; let i = index" class="space-right">
+        <input [ngModelOptions]="{standalone: true}" class="margin-right-1rem" type="text" pInputText size="20" [(ngModel)]="cisArrayData" readonly />
+        <!-- [(ngModel)]="workerChild.multiClient[i]" formControlName="Place" name="Place" -->
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">If visit is outside of placement, specify place:</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.Place.value" formControlName="Place" name="Place" /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.Place.value)}} cols="150" [(ngModel)]="workerChild.Place.value" formControlName="Place"
+          name="Place" style="width: 100%;height: auto;"></textarea>
+     
+      </div>
+
+    </div>
+    <div class="space-down">
+      <div class="space-right">List those present at visit:</div>
+      <div class="space-right">
+         
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.presentAtVisit.value" name="presentAtVisit" formControlName="presentAtVisit"
+        /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.presentAtVisit.value)}} cols="150" [(ngModel)]="workerChild.presentAtVisit.value" formControlName="presentAtVisit"
+          name="presentAtVisit" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Did worker spend time alone with child?</div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="DidWorkerSpendTimeAloneWithChild" value="0" label="Yes" [(ngModel)]="workerChild.DidWorkerSpendTimeAloneWithChild.fieldOptionIndex"
+          formControlName="DidWorkerSpendTimeAloneWithChild"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="DidWorkerSpendTimeAloneWithChild" value="1" label="No" [(ngModel)]="workerChild.DidWorkerSpendTimeAloneWithChild.fieldOptionIndex"
+          formControlName="DidWorkerSpendTimeAloneWithChild"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Placement supportive of worker meeting with child?</div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="PlacementSupportiveofMeeting" value="0" label="Yes" [(ngModel)]="workerChild.PlacementSupportiveofMeeting.fieldOptionIndex"
+          formControlName="PlacementSupportiveofMeeting"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="PlacementSupportiveofMeeting" value="1" label="No" [(ngModel)]="workerChild.PlacementSupportiveofMeeting.fieldOptionIndex"
+          formControlName="PlacementSupportiveofMeeting"></p-radioButton>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-down">Describe location of visit, length of time, items discussed, and list any comments made by the child. Explain any no
+        answer to the above two questions.</div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.DescriptionAndCommentsByChild.value)}} cols="150" style="width: 100%;height: auto;" [(ngModel)]="workerChild.DescriptionAndCommentsByChild.value"
+          formControlName="DescriptionAndCommentsByChild" name="DescriptionAndCommentsByChild"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Case Plan Goal:</div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="casePlanGoal" value="0" label="Reintegration" [(ngModel)]="workerChild.casePlanGoal.fieldOptionIndex"
+          formControlName="casePlanGoal"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="casePlanGoal" value="1" label="Adoption" [(ngModel)]="workerChild.casePlanGoal.fieldOptionIndex"
+          formControlName="casePlanGoal"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="casePlanGoal" value="2" label="APPLA" [(ngModel)]="workerChild.casePlanGoal.fieldOptionIndex"
+          formControlName="casePlanGoal"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="casePlanGoal" value="3" label="Custodianship" [(ngModel)]="workerChild.casePlanGoal.fieldOptionIndex"
+          formControlName="casePlanGoal"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="casePlanGoal" value="4" label="Maintain at Home" [(ngModel)]="workerChild.casePlanGoal.fieldOptionIndex"
+          formControlName="casePlanGoal"></p-radioButton>
+      </div>
+    </div>
+    <h3 class="center space-down">SAFETY AND RISK ASSESSMENT </h3>
+    <p class="center"> *Safety is the potential for serious maltreatment which is imminent. It determines the need for immediate protective
+      action or controlling interventions to protect the child from imminent danger.</p>
+    <div class="space-down">
+      <table>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Home is free of safety concerns</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="HomeIsFreeOfSafetyConcerns" value="0" label="Yes" [(ngModel)]="workerChild.HomeIsFreeOfSafetyConcerns.fieldOptionIndex"
+                  formControlName="HomeIsFreeOfSafetyConcerns"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="HomeIsFreeOfSafetyConcerns" value="1" label="No" [(ngModel)]="workerChild.HomeIsFreeOfSafetyConcerns.fieldOptionIndex"
+                  formControlName="HomeIsFreeOfSafetyConcerns"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="HomeIsFreeOfSafetyConcerns" value="2" label="NA" [(ngModel)]="workerChild.HomeIsFreeOfSafetyConcerns.fieldOptionIndex"
+                  formControlName="HomeIsFreeOfSafetyConcerns"></p-radioButton>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Child's appearance is healthy</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="ChildsAppearanceIsHealthy" value="0" label="Yes" [(ngModel)]="workerChild.ChildsAppearanceIsHealthy.fieldOptionIndex"
+                  formControlName="ChildsAppearanceIsHealthy"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="ChildsAppearanceIsHealthy" value="1" label="No" [(ngModel)]="workerChild.ChildsAppearanceIsHealthy.fieldOptionIndex"
+                  formControlName="ChildsAppearanceIsHealthy"></p-radioButton>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Home is clean</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="HomeIsClean" value="0" label="Yes" [(ngModel)]="workerChild.HomeIsClean.fieldOptionIndex"
+                  formControlName="HomeIsClean"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="HomeIsClean" value="1" label="No" [(ngModel)]="workerChild.HomeIsClean.fieldOptionIndex"
+                  formControlName="HomeIsClean"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="HomeIsClean" value="2" label="NA" [(ngModel)]="workerChild.HomeIsClean.fieldOptionIndex"
+                  formControlName="HomeIsClean"></p-radioButton>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Free from unusual marks or bruising</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="FreeFromUnusualMarksOrBruising" value="0" label="Yes" [(ngModel)]="workerChild.FreeFromUnusualMarksOrBruising.fieldOptionIndex"
+                  formControlName="FreeFromUnusualMarksOrBruising"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="FreeFromUnusualMarksOrBruising" value="1" label="No" [(ngModel)]="workerChild.FreeFromUnusualMarksOrBruising.fieldOptionIndex"
+                  formControlName="FreeFromUnusualMarksOrBruising"></p-radioButton>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Homicidal Thoughts or Gestures </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="homicidalThoughts" value="0" label="Yes" [(ngModel)]="workerChild.homicidalThoughts.fieldOptionIndex"
+                  formControlName="homicidalThoughts"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="homicidalThoughts" value="1" label="No" [(ngModel)]="workerChild.homicidalThoughts.fieldOptionIndex"
+                  formControlName="homicidalThoughts"></p-radioButton>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Suicidal Thoughts or Gestures</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="suicidalThoughts" value="0" label="Yes" [(ngModel)]="workerChild.suicidalThoughts.fieldOptionIndex"
+                  formControlName="suicidalThoughts"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="suicidalThoughts" value="1" label="No" [(ngModel)]="workerChild.suicidalThoughts.fieldOptionIndex"
+                  formControlName="suicidalThoughts"></p-radioButton>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Caregiver has the protective capacity ability to care for the child</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="caregiverProtectiveCapacity" value="0" label="Yes" [(ngModel)]="workerChild.caregiverProtectiveCapacity.fieldOptionIndex"
+                  formControlName="caregiverProtectiveCapacity"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="caregiverProtectiveCapacity" value="1" label="No" [(ngModel)]="workerChild.caregiverProtectiveCapacity.fieldOptionIndex"
+                  formControlName="caregiverProtectiveCapacity"></p-radioButton>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Have additional safety concerns been identified since last visit?</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="additionalSafetyConcerns" value="0" label="Yes" [(ngModel)]="workerChild.additionalSafetyConcerns.fieldOptionIndex"
+                  formControlName="additionalSafetyConcerns"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="additionalSafetyConcerns" value="1" label="No" [(ngModel)]="workerChild.additionalSafetyConcerns.fieldOptionIndex"
+                  formControlName="additionalSafetyConcerns"></p-radioButton>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="space-down">
+      <div class="space-right">Describe the placement environment:</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.placementEnvironment.value" name="placementEnvironment"
+          formControlName="placementEnvironment" /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.placementEnvironment.value)}} cols="150" [(ngModel)]="workerChild.placementEnvironment.value"
+          formControlName="placementEnvironment" name="placementEnvironment" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">Describe the child’s appearance:</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.childAppearance.value" name="childAppearance" formControlName="childAppearance"
+        /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.childAppearance.value)}} cols="150" [(ngModel)]="workerChild.childAppearance.value" formControlName="childAppearance"
+          name="childAppearance" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">Observed interaction with caregiver:</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.interactionWithCaregiver.value" name="interactionWithCaregiver"
+          formControlName="interactionWithCaregiver" /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.interactionWithCaregiver.value)}} cols="150" [(ngModel)]="workerChild.interactionWithCaregiver.value"
+          formControlName="interactionWithCaregiver" name="interactionWithCaregiver" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">If applicable, what safety concerns have been identified since last visit?:</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.safetyConcernsIndentified.value" name="safetyConcernsIndentified"
+          formControlName="safetyConcernsIndentified" /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.safetyConcernsIndentified.value)}} cols="150" [(ngModel)]="workerChild.safetyConcernsIndentified.value"
+          formControlName="safetyConcernsIndentified" name="safetyConcernsIndentified" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">What are the family’s strengths and resources mitigating safety concerns?</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.familySafetyMitigationStrengths.value" formControlName="familySafetyMitigationStrengths"
+          name="familySafetyMitigationStrengths" /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.familySafetyMitigationStrengths.value)}} cols="150" [(ngModel)]="workerChild.familySafetyMitigationStrengths.value"
+          formControlName="familySafetyMitigationStrengths" name="familySafetyMitigationStrengths" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">What are the contributing factors directly related to the safety concern?</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.safetyConcernsContributingFactors.value" formControlName="safetyConcernsContributingFactors"
+          name="safetyConcernsContributingFactors" /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.safetyConcernsContributingFactors.value)}} cols="150" [(ngModel)]="workerChild.safetyConcernsContributingFactors.value"
+          formControlName="safetyConcernsContributingFactors" name="safetyConcernsContributingFactors" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Safety plan developed or reviewed</div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="SafetyPlanReviewed" value="0" label="Yes" [(ngModel)]="workerChild.SafetyPlanReviewed.fieldOptionIndex"
+          formControlName="SafetyPlanReviewed"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="SafetyPlanReviewed" value="1" label="No" [(ngModel)]="workerChild.SafetyPlanReviewed.fieldOptionIndex"
+          formControlName="SafetyPlanReviewed"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="SafetyPlanReviewed" value="2" label="NA" [(ngModel)]="workerChild.SafetyPlanReviewed.fieldOptionIndex"
+          formControlName="SafetyPlanReviewed"></p-radioButton>
+      </div>
+    </div>
+    <h3 class="center space-down">RISK ASSESSMENT</h3>
+    <p class="center space-down">*Risk is potential maltreatment in the future. It determines the need for services to address potential future maltreatment.
+    </p>
+    <div class="space-down">
+      <table>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Change in placement household</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="Changeinplacementhousehold" value="0" label="Yes" [(ngModel)]="workerChild.Changeinplacementhousehold.fieldOptionIndex"
+                  formControlName="Changeinplacementhousehold"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="Changeinplacementhousehold" value="1" label="No" [(ngModel)]="workerChild.Changeinplacementhousehold.fieldOptionIndex"
+                  formControlName="Changeinplacementhousehold"></p-radioButton>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Height and Weight appear normal</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="HeightandWeightappearnormal" value="0" label="Yes" [(ngModel)]="workerChild.HeightandWeightappearnormal.fieldOptionIndex"
+                  formControlName="HeightandWeightappearnormal"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="HeightandWeightappearnormal" value="1" label="No" [(ngModel)]="workerChild.HeightandWeightappearnormal.fieldOptionIndex"
+                  formControlName="HeightandWeightappearnormal"></p-radioButton>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Child has adequate space</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="ChildHasAdequateSpace" value="0" label="Yes" [(ngModel)]="workerChild.ChildHasAdequateSpace.fieldOptionIndex"
+                  formControlName="ChildHasAdequateSpace"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="ChildHasAdequateSpace" value="1" label="No" [(ngModel)]="workerChild.ChildHasAdequateSpace.fieldOptionIndex"
+                  formControlName="ChildHasAdequateSpace"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="ChildHasAdequateSpace" value="2" label="NA" [(ngModel)]="workerChild.ChildHasAdequateSpace.fieldOptionIndex"
+                  formControlName="ChildHasAdequateSpace"></p-radioButton>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Child is clean, neatly groomed</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="ChildisCleanNeatlyGroomed" value="0" label="Yes" [(ngModel)]="workerChild.ChildisCleanNeatlyGroomed.fieldOptionIndex"
+                  formControlName="ChildisCleanNeatlyGroomed"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="ChildisCleanNeatlyGroomed" value="1" label="No" [(ngModel)]="workerChild.ChildisCleanNeatlyGroomed.fieldOptionIndex"
+                  formControlName="ChildisCleanNeatlyGroomed"></p-radioButton>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Caregiver has natural and community supports</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="caregiverNaturalAndCommunitySupports" value="0" label="Yes" [(ngModel)]="workerChild.caregiverNaturalAndCommunitySupports.fieldOptionIndex"
+                  formControlName="caregiverNaturalAndCommunitySupports"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="caregiverNaturalAndCommunitySupports" value="1" label="No" [(ngModel)]="workerChild.caregiverNaturalAndCommunitySupports.fieldOptionIndex"
+                  formControlName="caregiverNaturalAndCommunitySupports"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="caregiverNaturalAndCommunitySupports" value="2" label="NA" [(ngModel)]="workerChild.caregiverNaturalAndCommunitySupports.fieldOptionIndex"
+                  formControlName="caregiverNaturalAndCommunitySupports"></p-radioButton>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Child feels safe and treated well</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="ChildFeelsSafeAndTreatedWell" value="0" label="Yes" [(ngModel)]="workerChild.ChildFeelsSafeAndTreatedWell.fieldOptionIndex"
+                  formControlName="ChildFeelsSafeAndTreatedWell"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="ChildFeelsSafeAndTreatedWell" value="1" label="No" [(ngModel)]="workerChild.ChildFeelsSafeAndTreatedWell.fieldOptionIndex"
+                  formControlName="ChildFeelsSafeAndTreatedWell"></p-radioButton>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Caregiver demonstrates the ability to provide adequate care for the child</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="caregiverDemonstratesAbilityToProvideCare" value="0" label="Yes" [(ngModel)]="workerChild.caregiverDemonstratesAbilityToProvideCare.fieldOptionIndex"
+                  formControlName="caregiverDemonstratesAbilityToProvideCare"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="caregiverDemonstratesAbilityToProvideCare" value="1" label="No" [(ngModel)]="workerChild.caregiverDemonstratesAbilityToProvideCare.fieldOptionIndex"
+                  formControlName="caregiverDemonstratesAbilityToProvideCare"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="caregiverDemonstratesAbilityToProvideCare" value="2" label="NA" [(ngModel)]="workerChild.caregiverDemonstratesAbilityToProvideCare.fieldOptionIndex"
+                  formControlName="caregiverDemonstratesAbilityToProvideCare"></p-radioButton>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Child has displayed self-harming behaviors</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="displayedSelfHarmingBehavior" value="0" label="Yes" [(ngModel)]="workerChild.displayedSelfHarmingBehavior.fieldOptionIndex"
+                  formControlName="displayedSelfHarmingBehavior"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="displayedSelfHarmingBehavior" value="1" label="No" [(ngModel)]="workerChild.displayedSelfHarmingBehavior.fieldOptionIndex"
+                  formControlName="displayedSelfHarmingBehavior"></p-radioButton>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> </td>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Child has displayed aggressive behaviors</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="displayedAgressiveBehavior" value="0" label="Yes" [(ngModel)]="workerChild.displayedAgressiveBehavior.fieldOptionIndex"
+                  formControlName="displayedAgressiveBehavior"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="displayedAgressiveBehavior" value="1" label="No" [(ngModel)]="workerChild.displayedAgressiveBehavior.fieldOptionIndex"
+                  formControlName="displayedAgressiveBehavior"></p-radioButton>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Have additional safety concerns been identified since last visit?</div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="additionalSafetyConcernsSinceLastVisit" value="0" label="Yes" [(ngModel)]="workerChild.additionalSafetyConcernsSinceLastVisit.fieldOptionIndex"
+          formControlName="additionalSafetyConcernsSinceLastVisit"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="additionalSafetyConcernsSinceLastVisit" value="1" label="No" [(ngModel)]="workerChild.additionalSafetyConcernsSinceLastVisit.fieldOptionIndex"
+          formControlName="additionalSafetyConcernsSinceLastVisit"></p-radioButton>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">Describe the placement environment</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.placementEnvironmentRiskSection.value" formControlName="placementEnvironmentRiskSection"
+          name="placementEnvironmentRiskSection" /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.placementEnvironmentRiskSection.value)}} cols="150" [(ngModel)]="workerChild.placementEnvironmentRiskSection.value"
+          formControlName="placementEnvironmentRiskSection" name="placementEnvironmentRiskSection" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">Describe the child’s appearance:</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.childsAppearance.value" formControlName="childsAppearance"
+          name="childsAppearance" /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.childsAppearance.value)}} cols="150" [(ngModel)]="workerChild.childsAppearance.value" formControlName="childsAppearance"
+          name="childsAppearance" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">Observed interaction with caregiver:</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.interactionWithCaregiverRiskSection.value" formControlName="interactionWithCaregiverRiskSection"
+          name="interactionWithCaregiverRiskSection" /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.interactionWithCaregiverRiskSection.value)}} cols="150" [(ngModel)]="workerChild.interactionWithCaregiverRiskSection.value"
+          formControlName="interactionWithCaregiverRiskSection" name="interactionWithCaregiverRiskSection" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">If applicable, what safety concerns have been identified since last visit?</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.safetyConcernsSinceLastVisit.value" name="safetyConcernsSinceLastVisit"
+          formControlName="safetyConcernsSinceLastVisit" /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.safetyConcernsSinceLastVisit.value)}} cols="150" [(ngModel)]="workerChild.safetyConcernsSinceLastVisit.value"
+          formControlName="safetyConcernsSinceLastVisit" name="safetyConcernsSinceLastVisit" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">What are the family’s strengths and resources mitigating safety concerns?</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.visitDetailsRiskSection.value" formControlName="visitDetailsRiskSection"
+          name="visitDetailsRiskSection" /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.visitDetailsRiskSection.value)}} cols="150" [(ngModel)]="workerChild.visitDetailsRiskSection.value"
+          formControlName="visitDetailsRiskSection" name="visitDetailsRiskSection" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">What services are needed or have taken place to mitigate the concerns?</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.serviceMitigateConcerns.value" formControlName="serviceMitigateConcerns"
+          name="serviceMitigateConcerns" /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.serviceMitigateConcerns.value)}} cols="150" [(ngModel)]="workerChild.serviceMitigateConcerns.value"
+          formControlName="serviceMitigateConcerns" name="serviceMitigateConcerns" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <h3 class="center space-down">CHILD’S WELL-BEING</h3>
+    <p class="center space-down">*Risk is potential maltreatment in the future. It determines the need for services to address potential future maltreatment.
+    </p>
+    <div class="space-down">
+      <table>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Has interactions with parents</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="HasInteractionsWithParents" value="0" label="Yes" [(ngModel)]="workerChild.HasInteractionsWithParents.fieldOptionIndex"
+                  formControlName="HasInteractionsWithParents"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="HasInteractionsWithParents" value="1" label="No" [(ngModel)]="workerChild.HasInteractionsWithParents.fieldOptionIndex"
+                  formControlName="HasInteractionsWithParents"></p-radioButton>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Feels parent interactions are going well</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="FeelsParentInteractionsAreGoingWell" value="0" label="Yes" [(ngModel)]="workerChild.FeelsParentInteractionsAreGoingWell.fieldOptionIndex"
+                  formControlName="FeelsParentInteractionsAreGoingWell"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="FeelsParentInteractionsAreGoingWell" value="1" label="No" [(ngModel)]="workerChild.FeelsParentInteractionsAreGoingWell.fieldOptionIndex"
+                  formControlName="FeelsParentInteractionsAreGoingWell"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="FeelsParentInteractionsAreGoingWell" value="2" label="NA" [(ngModel)]="workerChild.FeelsParentInteractionsAreGoingWell.fieldOptionIndex"
+                  formControlName="FeelsParentInteractionsAreGoingWell"></p-radioButton>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Has interactions with siblings</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="HasInteractionsWithSiblings" value="0" label="Yes" [(ngModel)]="workerChild.HasInteractionsWithSiblings.fieldOptionIndex"
+                  formControlName="HasInteractionsWithSiblings"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="HasInteractionsWithSiblings" value="1" label="No" [(ngModel)]="workerChild.HasInteractionsWithSiblings.fieldOptionIndex"
+                  formControlName="HasInteractionsWithSiblings"></p-radioButton>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Feels sibling interactions are going well</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="FeelsSiblingInteractionsAreGoingWell" value="0" label="Yes" [(ngModel)]="workerChild.FeelsSiblingInteractionsAreGoingWell.fieldOptionIndex"
+                  formControlName="FeelsSiblingInteractionsAreGoingWell"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="FeelsSiblingInteractionsAreGoingWell" value="1" label="No" [(ngModel)]="workerChild.FeelsSiblingInteractionsAreGoingWell.fieldOptionIndex"
+                  formControlName="FeelsSiblingInteractionsAreGoingWell"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="FeelsSiblingInteractionsAreGoingWell" value="2" label="NA" [(ngModel)]="workerChild.FeelsSiblingInteractionsAreGoingWell.fieldOptionIndex"
+                  formControlName="FeelsSiblingInteractionsAreGoingWell"></p-radioButton>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Maintaining other important connections</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="MaintainingOtherImportantConnections" value="0" label="Yes" [(ngModel)]="workerChild.MaintainingOtherImportantConnections.fieldOptionIndex"
+                  formControlName="MaintainingOtherImportantConnections"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="MaintainingOtherImportantConnections" value="1" label="No" [(ngModel)]="workerChild.MaintainingOtherImportantConnections.fieldOptionIndex"
+                  formControlName="MaintainingOtherImportantConnections"></p-radioButton>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Participates in extracurricular activities</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="Participatesinextracurricular" value="0" label="Yes" [(ngModel)]="workerChild.Participatesinextracurricular.fieldOptionIndex"
+                  formControlName="Participatesinextracurricular"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="Participatesinextracurricular" value="1" label="No" [(ngModel)]="workerChild.Participatesinextracurricular.fieldOptionIndex"
+                  formControlName="Participatesinextracurricular"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="Participatesinextracurricular" value="2" label="NA" [(ngModel)]="workerChild.Participatesinextracurricular.fieldOptionIndex"
+                  formControlName="Participatesinextracurricular"></p-radioButton>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Attending mental health appointments</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="AttendingMentalHealthAppointments" value="0" label="Yes" [(ngModel)]="workerChild.AttendingMentalHealthAppointments.fieldOptionIndex"
+                  formControlName="AttendingMentalHealthAppointments"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="AttendingMentalHealthAppointments" value="1" label="No" [(ngModel)]="workerChild.AttendingMentalHealthAppointments.fieldOptionIndex"
+                  formControlName="AttendingMentalHealthAppointments"></p-radioButton>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Attending school regularly</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="AttendingSchoolRegularly" value="0" label="Yes" [(ngModel)]="workerChild.AttendingSchoolRegularly.fieldOptionIndex"
+                  formControlName="AttendingSchoolRegularly"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="AttendingSchoolRegularly" value="1" label="No" [(ngModel)]="workerChild.AttendingSchoolRegularly.fieldOptionIndex"
+                  formControlName="AttendingSchoolRegularly"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="AttendingSchoolRegularly" value="2" label="NA" [(ngModel)]="workerChild.AttendingSchoolRegularly.fieldOptionIndex"
+                  formControlName="AttendingSchoolRegularly"></p-radioButton>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Medical/Vision/Dental current</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="Medical" value="0" label="Yes" [(ngModel)]="workerChild.Medical.fieldOptionIndex"
+                  formControlName="Medical"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="Medical" value="1" label="No" [(ngModel)]="workerChild.Medical.fieldOptionIndex"
+                  formControlName="Medical"></p-radioButton>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Adjusting to school & average grades</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="AdjustingToSchoolSverageGrades" value="0" label="Yes" [(ngModel)]="workerChild.AdjustingToSchoolSverageGrades.fieldOptionIndex"
+                  formControlName="AdjustingToSchoolSverageGrades"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="AdjustingToSchoolSverageGrades" value="1" label="No" [(ngModel)]="workerChild.AdjustingToSchoolSverageGrades.fieldOptionIndex"
+                  formControlName="AdjustingToSchoolSverageGrades"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="AdjustingToSchoolSverageGrades" value="2" label="NA" [(ngModel)]="workerChild.AdjustingToSchoolSverageGrades.fieldOptionIndex"
+                  formControlName="AdjustingToSchoolSverageGrades"></p-radioButton>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Life Book is updated</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="LifeBookIsUpdated" value="0" label="Yes" [(ngModel)]="workerChild.LifeBookIsUpdated.fieldOptionIndex"
+                  formControlName="LifeBookIsUpdated"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="LifeBookIsUpdated" value="1" label="No" [(ngModel)]="workerChild.LifeBookIsUpdated.fieldOptionIndex"
+                  formControlName="LifeBookIsUpdated"></p-radioButton>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Taking medications as prescribed</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="TakingMedicationsAsPrescribed" value="0" label="Yes" [(ngModel)]="workerChild.TakingMedicationsAsPrescribed.fieldOptionIndex"
+                  formControlName="TakingMedicationsAsPrescribed"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="TakingMedicationsAsPrescribed" value="1" label="No" [(ngModel)]="workerChild.TakingMedicationsAsPrescribed.fieldOptionIndex"
+                  formControlName="TakingMedicationsAsPrescribed"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="TakingMedicationsAsPrescribed" value="2" label="NA" [(ngModel)]="workerChild.TakingMedicationsAsPrescribed.fieldOptionIndex"
+                  formControlName="TakingMedicationsAsPrescribed"></p-radioButton>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td"> </td>
+          <td class="table-td">
+            <div class="flex-container space-down">
+              <div class="space-right">Adequate opportunities for sleep</div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="Adequate" value="0" label="Yes" [(ngModel)]="workerChild.Adequate.fieldOptionIndex"
+                  formControlName="Adequate"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="Adequate" value="1" label="No" [(ngModel)]="workerChild.Adequate.fieldOptionIndex"
+                  formControlName="Adequate"></p-radioButton>
+              </div>
+              <div class="space-right center">
+                <p-radioButton class="space-right" name="Adequate" value="2" label="NA" [(ngModel)]="workerChild.Adequate.fieldOptionIndex"
+                  formControlName="Adequate"></p-radioButton>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="space-down">
+      <div class="space-right">List medication changes since last W/C visit</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.medication.value" name="medication" formControlName="medication"
+        /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.medication.value)}} cols="150" [(ngModel)]="workerChild.medication.value" formControlName="medication"
+          name="medication" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">List all appointments since last W/C visit:</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.appointments.value" name="appointments" formControlName="appointments"
+        /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.appointments.value)}} cols="150" [(ngModel)]="workerChild.appointments.value" formControlName="appointments"
+          name="appointments" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">How is the child is maintaining important connections? </div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.maintaining.value" name="maintaining" formControlName="maintaining"
+        /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.maintaining.value)}} cols="150" [(ngModel)]="workerChild.maintaining.value" formControlName="maintaining"
+          name="maintaining" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">List extracurricular activities:</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.extracurricular.value" name="extracurricular" formControlName="extracurricular"
+        /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.extracurricular.value)}} cols="150" [(ngModel)]="workerChild.extracurricular.value" formControlName="extracurricular"
+          name="extracurricular" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">Describe how child is doing in school/day care:
+      </div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.school.value" formControlName="school" name="school" /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.school.value)}} cols="150" [(ngModel)]="workerChild.school.value" formControlName="school"
+          name="school" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <p-radioButton class="space-right" name="Provided" [(ngModel)]="workerChild.Provided.fieldOptionIndex" formControlName="Provided"
+        value="0" label="Provided Child Opportunity to Complete Monthly Individual Contact form, PPS 3061 (age 10 and older)"></p-radioButton>
+    </div>
+    <div class="space-down">
+      <p-radioButton class="space-right" name="Provided" [(ngModel)]="workerChild.Provided.fieldOptionIndex" formControlName="Provided"
+        value="1" label="Offered to help Child Complete Monthly Individual Contact form, PPS 3061 (age 10 and older)"></p-radioButton>
+    </div>
+    <div class="space-down">
+      <p-radioButton class="space-right" name="Provided" [(ngModel)]="workerChild.Provided.fieldOptionIndex" formControlName="Provided"
+        value="NA" label="Declined opportunity to Complete Monthly Individual Contact form, PPS 3061 (age 10 and older)"></p-radioButton>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Worker contact information provided to youth?</div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="information" value="0" label="Yes" [(ngModel)]="workerChild.information.fieldOptionIndex"
+          formControlName="information"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="information" value="1" label="No" [(ngModel)]="workerChild.information.fieldOptionIndex"
+          formControlName="information"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="information" value="2" label="Not Age Appropriate" [(ngModel)]="workerChild.information.fieldOptionIndex"
+          formControlName="information"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">How was information provided?</div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="informationprovided" value="0" label="Review of blue book" [(ngModel)]="workerChild.informationprovided.fieldOptionIndex"
+          formControlName="informationprovided"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="informationprovided" value="1" label="Business card provided" [(ngModel)]="workerChild.informationprovided.fieldOptionIndex"
+          formControlName="informationprovided"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="informationprovided" value="2" label="Written out" [(ngModel)]="workerChild.informationprovided.fieldOptionIndex"
+          formControlName="informationprovided"></p-radioButton>
+      </div>
+      <div class="space-right">
+        <p-radioButton class="space-right" name="informationprovided" value="3" label="Given to placement" [(ngModel)]="workerChild.informationprovided.fieldOptionIndex"
+          formControlName="informationprovided"></p-radioButton>
+      </div>
+    </div>
+    <h3 class="center">PROGRESS TOWARD PERMANENCY</h3>
+    <div class="space-down">
+      <div class="space-down"> Summary & Review of Life Skills/Transition Plan: (Be sure Life Skills Assessment is current for children 14 and over,
+        transition plan is current, and case plan tasks are discussed)</div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.ReviewOfLifeSkillsTransitionPlan.value)}} cols="150" [(ngModel)]="workerChild.ReviewOfLifeSkillsTransitionPlan.value"
+          formControlName="ReviewOfLifeSkillsTransitionPlan" name="ReviewOfLifeSkillsTransitionPlan" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-down"> Summary & Review of Permanency Plan, After Care Plan, Safety Plan, Service Plan and Progress:
+      </div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.ReviewOfPermanencyPlanAfterCarePlanProgress.value)}} cols="150" [(ngModel)]="workerChild.ReviewOfPermanencyPlanAfterCarePlanProgress.value"
+          formControlName="ReviewOfPermanencyPlanAfterCarePlanProgress" name="ReviewOfPermanencyPlanAfterCarePlanProgress"
+          style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-down">Additional Comments (Pertains to information discussed but not addressed above):</div>
+      <div class="space-down">
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.AdditionalRemarksPositivesOrConcerns.value)}} cols="150" [(ngModel)]="workerChild.AdditionalRemarksPositivesOrConcerns.value"
+          formControlName="AdditionalRemarksPositivesOrConcerns" name="AdditionalRemarksPositivesOrConcerns" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down follow">
+      <table>
+        <tr>
+          <th class="table-td">FOLLOW-UP ACTIVITIES IDENTIFIED DURING VISIT</th>
+          <th class="table-td"> PERSON RESPONSIBLE</th>
+          <th class="table-td"> TARGET DATE</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.Follow.value" formControlName="Follow" name="Follow" /> -->
+            <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.Follow.value)}} cols="150" [(ngModel)]="workerChild.Follow.value" formControlName="Follow"
+              name="Follow" style="width: 100%;height: auto;"></textarea>
+          </td>
+          <td class="table-td">
+            <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.PersonResponsible.value" formControlName="PersonResponsible"
+              name="PersonResponsible" /> -->
+            <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.PersonResponsible.value)}} cols="150" [(ngModel)]="workerChild.PersonResponsible.value" formControlName="PersonResponsible"
+              name="PersonResponsible" style="width: 100%;height: auto;"></textarea>
+          </td>
+          <td class="table-td">
+            <input type="text" pInputText size="20" [(ngModel)]="workerChild.TargetDate.value" formControlName="TargetDate" name="TargetDate"
+            />
+            <!-- <p-calendar [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [(ngModel)]="workerChild.TargetDate.value" formControlName="TargetDate"
+              name="TargetDate" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" [readonlyInput]="isNanFound"></p-calendar> -->
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="CaseTeamMember" value="0" label="Case Team Member" [(ngModel)]="workerChild.CaseTeamMember.fieldOptionIndex"
+          formControlName="CaseTeamMember"></p-radioButton>
+      </div>
+      <div class="space-right center">
+        <p-radioButton class="space-right" name="CaseTeamMember" value="1" label="New Class Team Member" [(ngModel)]="workerChild.CaseTeamMember.fieldOptionIndex"
+          formControlName="CaseTeamMember"></p-radioButton>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">Next W/C Visit Scheduled For</div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.Scheduled.value" name="Scheduled" formControlName="Scheduled"
+        /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.Scheduled.value)}} cols="150" [(ngModel)]="workerChild.Scheduled.value" formControlName="Scheduled"
+          name="Scheduled" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <div class="space-right">Signature/Title </div>
+      <div class="space-right">
+        <!-- <input type="text" pInputText size="20" [(ngModel)]="workerChild.Signature.value" name="Signature" formControlName="Signature"
+          readonly /> -->
+        <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(workerChild.Signature.value)}} cols="150" [(ngModel)]="workerChild.Signature.value" formControlName="Signature"
+          name="Signature" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+  </form>
+  <app-form-footer (save)="saveForm(workerChild)" (print)="printForm()" (finalize)="finalizeForm(workerChild)" [isPrint]="isPrint"
+    [isFinalize]="isFinalize" (edit)="editForm()" [editControll]="editControll" (discard)="discardForm()" [isDisabled]="isDisable"></app-form-footer>
+</div>

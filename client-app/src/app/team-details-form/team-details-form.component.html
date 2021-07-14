@@ -1,0 +1,122 @@
+<div class="Report">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 main" [ngClass]="Sidenav?'main-class':'width-100'">
+        <div class="container home" style="padding-bottom: 40px;margin:15px;">
+          <div class="team-loading-overlay" *ngIf="loaderController">
+            <p class="loader-text">Processing...</p>
+          </div>
+          <div class="card">
+            <!-- <p class="margin-top-20 sf-heading-2 sf-black">Team</p> -->
+            <!-- <form class="margin-top-20" [formGroup]="teamForm" (ngSubmit)="addPost(teamForm.value)" autocomplete="off"> -->
+              <div class="sf-text-right">
+                    <button *ngIf="showDeleteButton" class="btn sf-negative-btn sf-filter-padding mr-2  delete" data-toggle="modal" data-target="#myModal0">Delete</button>
+                    <button class="btn sf-moderate-btn sf-filter-padding mr-2 " (click)="cancel()" >Cancel</button>
+                    <button class="btn sf-positive-btn sf-filter-padding mr-2 " id="save" (click)="saveTeam()">Save</button>
+              </div>
+              <div class="row margin-top-20">
+                <div class="form-group col-lg-4">
+                    <label class="sf-heading-3">Team Name</label>
+                    <input class="form-control  text-field" type="text" placeholder="Team Name" [(ngModel)]="post.teamName">
+                    <div class="alert" *ngIf="showError">Enter a valid name</div>
+                  </div>
+                  <div class="form-group col-lg-4">
+                      <label class="sf-heading-3">Team Leader</label>
+                      <!-- <p class="lead-name" *ngIf="!teamLeadCntrl">{{this.post.teamLeader.itemName}}</p> -->
+                      <span *ngIf="!teamLeadCntrl">
+                        <select class="dropdown width-100" [(ngModel)]="post.teamLeader" (ngModelChange)='onUsersSelected($event)'>
+                          <option [ngValue]="null" [selected]="true">{{tempTeamLeader.itemName}}</option>
+                          <option *ngFor="let item of userList" [ngValue]="item">
+                            {{item.itemName}}
+                          </option>
+                        </select>
+                      </span>
+                      <span *ngIf="teamLeadCntrl">
+                        <select class="dropdown width-100" [(ngModel)]="post.teamLeader" (ngModelChange)='onUsersSelected($event)'>
+                          <option [ngValue]="null" [selected]="true"> Please select an team leader</option>
+                          <option *ngFor="let item of userList" [ngValue]="item">
+                            {{item.itemName}}
+                          </option>
+                        </select>
+                      </span>
+        
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label class="sf-heading-3">Team Members</label>
+                        <angular2-multiselect class="form-control width-70" [(ngModel)]="post.teamMembers" [data]="userList" [settings]="userSettings"
+                          (onSelect)="onUserSelect($event)" (onDeSelect)="OnUserDeSelect($event)" (onSelectAll)="onSelectAll($event)"
+                          (onDeSelectAll)="onDeSelectAll($event)">
+                        </angular2-multiselect>
+                      </div>
+            </div>
+              
+            
+            
+            <!-- <div class="form-group mb-4 margin-top-20">
+              <label class="sf-heading-3">Role</label>
+              <div>
+                <div class="card">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="sf-heading-3">Modules</th>
+                        <th class="sf-heading-3">Accessible to</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th class="sf-heading-3"> Predefined Reports</th>
+                        <th>
+                          <angular2-multiselect [data]="predefinedReportsList" [(ngModel)]="post.predefinedReports" [settings]="ReportSettings" (onSelect)="onItemSelect($event)"
+                            (onDeSelect)="OnItemDeSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                          </angular2-multiselect>
+                        </th>
+                      </tr>
+                      <tr>
+
+                        <th class="sf-heading-3">Dynamic Reports</th>
+                        <th>
+                          <angular2-multiselect [data]="customizedReportsList" [(ngModel)]="post.customizedReports" [settings]="ReportSettings" (onSelect)="onItemSelect($event)"
+                            (onDeSelect)="OnItemDeSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                          </angular2-multiselect>
+                        </th>
+                      </tr>
+
+                      <tr>
+                        <th class="sf-heading-3">Admin Settings</th>
+                        <th>
+                          <angular2-multiselect [data]="adminSettingsList" [(ngModel)]="post.adminSettings" [settings]="ReportSettings" (onSelect)="onItemSelect($event)"
+                            (onDeSelect)="OnItemDeSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                          </angular2-multiselect>
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="myModal0" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="row sect">
+        <div class="col-lg-3">
+          <img class="width-100" src='../../assets/image/delete-button.svg'>
+        </div>
+        <div class="col-lg-8">
+          <h2>Are you sure?</h2>
+          <h5>The team will be deleted</h5>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default cancel-btn" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-default ok-btn" (click)="delete()" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>

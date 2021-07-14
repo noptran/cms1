@@ -1,0 +1,196 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+
+<div class="container-background">
+  <div class="container-foreground">
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card-header-row">
+          <div class="opencard-menu-container rfcOpencard">
+            <div class="dropdown border-none">
+              <span class="fa fa-th opencard-menu" data-toggle="dropdown" pTooltip="OpenCards"></span>
+              <div class="dropdown-menu opencard-box">
+                <div class="card-container">
+                  <div class="opencard" pTooltip="Click here to open" (click)=navigateTo(item.title)
+                    *ngFor="let item of opencards">
+                    <img src={{item.icon}} alt="{{tip}}">
+                    <div class="opencard-info">
+                      <span class="title">{{item.title}}</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <form class="sf-form form-container" [formGroup]="dhsOfficeForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Office Name</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText [(ngModel)]="dhsOff.officeName" formControlName="officeName" name="inputText"
+              size="27" />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Acronym</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-inputSwitch></p-inputSwitch>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Phone</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" name="phone" class="input" maxlength="13" [(ngModel)]="dhsOff.phone"
+              formControlName="phone" pInputText size="27" />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Fax</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" name="fax" class="input" maxlength="13" [(ngModel)]="dhsOff.fax" formControlName="fax"
+              pInputText size="27" />
+
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Toll Free Number</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" name="tollFreeNumber" class="input" maxlength="13" [(ngModel)]="dhsOff.tollFreeNumber"
+              formControlName="tollFreeNumber" pInputText size="27" />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Office No</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText size="27" />
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="footer-info">
+              <p-checkbox binary="true" label="Regional Office" formControlName="regionalOffice"
+                [(ngModel)]="dhsOff.regionalOffice"></p-checkbox>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Address</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" pInputText [(ngModel)]="dhsOff.address" formControlName="address" name="address"
+              size="27" />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>State</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="stateID" emptyMessage="No results found!"
+              (completeMethod)="getMetaData($event,'state')" [suggestions]="metaData"
+              (onSelect)="getCityFormState($event)" formControlName="stateID" [(ngModel)]="dhsOff.stateID"
+              [forceSelection]="true" placeholder="Type here to search" field="state" size="23"></p-autoComplete>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>City</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="cityID" emptyMessage="No results found!"
+              (completeMethod)="filterCities($event)" [suggestions]="metaData " (onSelect)="getZipcodeFormCity($event)"
+              formControlName="cityID" [(ngModel)]="dhsOff.cityID" [forceSelection]="true"
+              placeholder="Type here to search" field="city" size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>ZIP</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [suggestions]="metaData" [dropdown]="true" name="zipcodeID" emptyMessage="No results found!"
+              (completeMethod)="filterZipcodes($event)" formControlName="zipcodeID" [(ngModel)]="dhsOff.zipcodeID"
+              [forceSelection]="true" placeholder="Type here to search" field="zipcode" size="23"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Area Office</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+
+
+            <p-autoComplete field="officeName" [dropdown]="true" name="dhsareaOfficeID" emptyMessage="No results found!"
+              (completeMethod)="getAreaOffices($event)" [suggestions]="metaData" formControlName="dhsareaOfficeID"
+              [(ngModel)]="dhsOff.dhsareaOfficeID" [forceSelection]="true" placeholder="Type here to search" size="23">
+              <ng-template let-office pTemplate="item">
+                <div class="ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
+                  <table width="100%">
+                    <tr>
+                      <th>Office Name</th>
+                      <th>Address</th>
+                      <th>City</th>
+                      <th>State</th>
+                    </tr>
+                    <tr>
+                      <td>{{office?.officeName}}</td>
+                      <td>{{office?.address}}</td>
+                      <td>{{office?.city}}</td>
+                      <td>{{office?.abbreviation}}</td>
+
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Manager</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [disabled]="true" [dropdown]="true" emptyMessage="No results found!" [forceSelection]="true"
+              placeholder="Type here to search" size="23"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea pInputTextArea style="width:100%;height:100%" formControlName="notes"
+              [(ngModel)]="dhsOff.notes"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer (edit)="editForm()" [editControll]="editControll" [discardTo]="discardTo"
+      (save)="formAction(dhsOff)"></app-form-footer>
+  </div>
+</div>

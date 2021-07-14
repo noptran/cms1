@@ -1,0 +1,210 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground client-form">
+    <button (click)="onClickPrint()" class="print-btn" title="Print" *ngIf="isEdit"><span class="fa fa-print"></span></button>
+    <form class="sf-form" [formGroup]="FamilyContact">
+      <div class="row" *ngIf="showAdditionalProvider">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-4">
+              <p>Additional Provider List</p>
+            </div>
+            <div class="col-md-6">
+              <p-dropdown [options]="allProvides" [style]="{'width':'100%','border': '1px solid #737374'}"
+                [(ngModel)]="selectedCity" (onChange)="getOtherProviderLists($event,1,100)" placeholder=""
+                optionLabel="name" [showClear]="true"></p-dropdown>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+        </div>
+      </div>
+      <hr>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Provider</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input [disabled]="true" [ngModelOptions]="{standalone: true}" [(ngModel)]="providerName" type="text"
+              class="input" pInputText size="27" />
+          </div>
+        </div>
+
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin Date</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar (onSelect)="onBeginDateSelect()" name="beginDate" showTime="true" hourFormat="12"
+              [yearNavigator]="true" [(ngModel)]="family.beginDate" formControlName="beginDate" [monthNavigator]="true"
+              yearRange="2000:2030" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar (onSelect)="onEndDateSelect()" name="endDate" showTime="true" hourFormat="12"
+              [yearNavigator]="true" [(ngModel)]="family.endDate" formControlName="endDate" [monthNavigator]="true"
+              yearRange="2000:2030" [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <!-- pTooltip="Enter float value (eg:19.67)" -->
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Units</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner name="numericInput"
+              [(ngModel)]="family.units" formControlName="units" [step]="0.05"></p-spinner>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="!showSfcsOffice">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Staff Performing activity</span><span class="mandatory">*</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p><a (click)="showSfcs()" class="clickMe">other agency staff</a></p>
+            <p-autoComplete [dropdown]="true" name="staff" emptyMessage="No results found!" [(ngModel)]="family.staffID"
+              [forceSelection]="true" placeholder="Type here to search" field="fullName" formControlName="staffID"
+              (completeMethod)="getMetaData($event,'staff')" [suggestions]="metaData" size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="showSfcsOffice">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Other Agency Staff</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p><a (click)="showSfcs()" class="clickMe"> SFCS staff</a></p>
+            <p-autoComplete [dropdown]="true" name="otherAgencyStaffID" emptyMessage="No results found!"
+              [(ngModel)]="family.otherAgencyStaffID" [forceSelection]="true" placeholder="Type here to search"
+              field="staffName" formControlName="otherAgencyStaffID"
+              (completeMethod)="getMetaData($event,'otherAgencyStaff')" [suggestions]="metaData" size="23">
+            </p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Person Type</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="personType" emptyMessage="No results found!"
+              [(ngModel)]="family.personTypeID" [forceSelection]="true" placeholder="Type here to search"
+              formControlName="personTypeID" (completeMethod)="onFilteredProviderList($event)"
+              [suggestions]="filteredProviderList" field="personType" size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Type of Contact</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="typeOfContact" emptyMessage="No results found!"
+              [(ngModel)]="family.contactTypeID" [forceSelection]="true" placeholder="Type here to search"
+              field="contactType" formControlName="contactTypeID" (completeMethod)="getMetaData($event,'contactType')"
+              [suggestions]="metaData" size="23"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Contact reason</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="contactReason" emptyMessage="No results found!"
+              [(ngModel)]="family.contactReasonID" [forceSelection]="true" placeholder="Type here to search"
+              formControlName="contactReasonID" (completeMethod)="getMetaData($event,'contactReason')"
+              [suggestions]="metaData" field="contactReason" size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Contact status</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="contactStatus" emptyMessage="No results found!"
+              [(ngModel)]="family.contactStatusID" [forceSelection]="true" placeholder="Type here to search"
+              field="contactStatus" formControlName="contactStatusID"
+              (completeMethod)="getMetaData($event,'contactStatus')" [suggestions]="metaData" size="23">
+            </p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span> Staff Notes</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea pInputTextarea formControlName="notes" name="inputTextarea" [(ngModel)]="family.notes"
+              style="width:100%;height:100%"></textarea>
+          </div>
+        </div>
+      </div>
+      <hr>
+    </form>
+    <div style="padding: 12px;" *ngIf="showAdditionalProvider">
+      <div class="sf-text-right sf-table-header sf-black" *ngIf="totalCount > 0">
+        <app-pagesize [totalCount]="totalCount" [initial]="initial" [end]="end" (keyup)="pagesizeNav($event)"
+          (click)="pagesize($event)"></app-pagesize>
+      </div>
+      <div class="table-responsive" style="height: 500px;overflow-y: scroll;">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th></th>
+              <th>provider Name</th>
+              <th>Address</th>
+              <th>Phone</th>
+              <th>Begin Date</th>
+              <th>End Date</th>
+              <th>ProviderID</th>
+              <th>Provider Location ID</th>
+              <th>Provider Type</th>
+              <th>SponsorID</th>
+              <th>sponsorName</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let provide_data of rowData; let i1 = index">
+              <td class="tab-min">
+                <input type="checkbox" [(ngModel)]="provide_data.checkSelect"
+                  (change)="single_claimApproved(i1,provide_data,$event)" />
+                <!-- <p-checkbox [(ngModel)]="provide_data.checkSelect"
+                  (onChange)="single_claimApproved(i1,provide_data,$event)" [binary]="true"></p-checkbox> -->
+              </td>
+              <td>{{provide_data.providerName}}</td>
+              <td>{{provide_data.Address}}</td>
+              <td>{{provide_data.Phone}}</td>
+              <td>{{provide_data.beginDate}}</td>
+              <td>{{provide_data.endDate}}</td>
+              <td>{{provide_data.providerID}}</td>
+              <td>{{provide_data.providerLocationID}}</td>
+              <td>{{provide_data.providerType}}</td>
+              <td>{{provide_data.sponsorID}}</td>
+              <td>{{provide_data.sponsorName}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <!-- <ag-grid-angular [rowSelection]="true" style="width: 500px; height: 40vh; overflow:scroll;" class="ag-theme-balham"
+          [rowData]="rowData" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [enableSorting]="true" [rowMultiSelectWithClick]="true"
+          [rowDragManaged]="true" [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid
+          style="width: 100%;height: 60vh;" animateRows="true" rowSelection="multiple"
+          (rowSelected)="onRowSelected($event)">
+        </ag-grid-angular> -->
+    </div>
+    <div>
+
+    </div>
+
+    <app-form-footer [currentNodeValue]="req" [attachmentControll]="isAttachmentRequired" (save)="formAction(family)"
+      (edit)="editForm()" [editControll]="isEdit" [discardTo]="discardTo" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+    </app-form-footer>
+  </div>
+</div>

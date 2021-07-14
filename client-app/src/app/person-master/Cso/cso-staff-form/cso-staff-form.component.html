@@ -1,0 +1,265 @@
+<app-form-header [title]="title" [subtitle]="subtitle" [breadcrumbs]="breadcrumbs" [formstatus]="formStatus">
+</app-form-header>
+
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+
+<div class="container-background">
+  <div class="container-foreground">
+    <div *ngIf="editForm" class="row">
+      <div class="col-lg-2 col-md-2 col-sm-2">
+        <div class="card-header-row">
+          <div class="opencard-menu-container rfcOpencard">
+            <div class="dropdown border-none">
+              <span class="fa fa-th opencard-menu" data-toggle="dropdown" pTooltip="OpenCards"></span>
+              <div class="dropdown-menu opencard-box">
+                <div class="card-container">
+                  <div class="opencard" pTooltip="Click here to open" routerLink="/reports/csoStaff/details/cases">
+                    <div class="opencard-info">
+                      <span class="title">Cases</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="opencard-container" *ngIf="editForm">
+      <div (click)="isCasesOpen = true"><span>Cases</span></div>
+      <div (click)="isCsoOfficeOpen = true"><span>CSO Office</span></div>
+      <div><span>Counties</span></div>
+    </div> -->
+    <form class="margin-top-20 sf-form" [formGroup]="orgForm" autocomplete="off">
+      <div class="sf-default-form scroll-height">
+        <nav class="nav-fill">
+          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link" *ngFor="let main of mainTabs;let i = index" [class.active]="sIndex  === i"
+              (click)="setIndex(i,$event)" data-toggle="tab" href="{{main.href}}" role="tab">{{main.label}}</a>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane margin-left-45 active in" id="nav-1" role="tabpanel" aria-labelledby="nav-general-tab">
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">First Name
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <input type="text" name="firstName" formControlName="firstName" [(ngModel)]="CsoStaff.firstName"
+                    maxlength="25" pInputText />
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Last Name
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <input type="text" name="lastName" formControlName="lastName" [(ngModel)]="CsoStaff.lastName"
+                    maxlength="25" pInputText />
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Acronym
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-inputSwitch name="acronym" formControlName="acronym" [(ngModel)]="CsoStaff.acronym">
+                  </p-inputSwitch>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">MI
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <input type="text" name="mi" formControlName="mi" [(ngModel)]="CsoStaff.mi" maxlength="2"
+                    pInputText />
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Con.ST
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete formControlName="contract_StateID" [suggestions]="metaData" field="state"
+                    name="contract_StateID" [(ngModel)]="CsoStaff.contract_StateID" [dropdown]="true"
+                    [forceSelection]="true" (completeMethod)="getMetaData('contractState',$event)">
+                  </p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Gender</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete formControlName="genderID" [(ngModel)]="CsoStaff.genderID" [suggestions]="metaData"
+                    class="low-option-autos" field="gender" [dropdown]="true" [forceSelection]="true" name="gender"
+                    (completeMethod)="getMetaData('gender',$event)"></p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Deceased
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Ethnicity</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete formControlName="ethnicityID" [(ngModel)]="CsoStaff.ethnicityID"
+                    [suggestions]="metaData" field="ethnicity" name="ethnicity" [dropdown]="true"
+                    [forceSelection]="true" (completeMethod)="getMetaData('ethnicity',$event)"></p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Tribe</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete formControlName="tribeID" [(ngModel)]="CsoStaff.tribeID" [suggestions]="metaData"
+                    field="tribe" [dropdown]="true" [forceSelection]="true" name="tribe"
+                    (completeMethod)="getMetaData('tribe',$event)">
+                  </p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Email address
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <input type="email" name="email" formControlName="email" [(ngModel)]="CsoStaff.email" class="input"
+                    maxlength="75" pInputText />
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Home Phone</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <p-inputMask mask="(999) 999-9999" name="homePhone" formControlName="homePh"
+                    [(ngModel)]="CsoStaff.homePh" class="input"></p-inputMask>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Cell Phone</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <p-inputMask mask="(999) 999-9999" name="cellPhone" formControlName="cellPh"
+                    [(ngModel)]="CsoStaff.cellPh" class="input"></p-inputMask>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane margin-left-45 " id="nav-2" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Pager</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <p-inputMask mask="(999) 999-9999" name="pager" formControlName="pager" [(ngModel)]="CsoStaff.pager"
+                    class="input">
+                  </p-inputMask>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Fax</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <p-inputMask mask="(999) 999-9999" name="fax" formControlName="fax" [(ngModel)]="CsoStaff.fax"
+                    class="input">
+                  </p-inputMask>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Work Phone
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <p-inputMask mask="(999) 999-9999" name="workPhone" formControlName="workPh"
+                    [(ngModel)]="CsoStaff.workPh" class="input"></p-inputMask>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Extension
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <p-spinner [formatInput]="false" name="extension" [maxlength]="5" formControlName="ext"
+                    [(ngModel)]="CsoStaff.ext" name="ext" [min]="0"></p-spinner>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6"><span>CSO Office</span></div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-autoComplete formControlName="csoofficeID" name="csoOffice" [(ngModel)]="CsoStaff.csoofficeID"
+                    [suggestions]="metaData" field="officeName" [dropdown]="true" [forceSelection]="true"
+                    (completeMethod)="getMetaData('csoOffice',$event)"></p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <span class="sf-labels">
+                    Notes
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-11 col-md-11 col-sm-11">
+                  <textarea class="sf-width-100" name="notes" name="notes" formControlName="notes"
+                    [(ngModel)]="CsoStaff.notes" rows="5"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer (save)="addPost(CsoStaff)" (reset)="resetForm()" (discard)="discardForm()" (edit)="edit()"
+      [editControll]="editForm" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+  </div>
+</div>
+
+<p-dialog header="Cases" [(visible)]="isCasesOpen"></p-dialog>
+<p-dialog header="CSO Office" [(visible)]="isCsoOfficeOpen"></p-dialog>

@@ -1,0 +1,186 @@
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+<form style="height: 85vh; overflow-y: scroll; padding: 5px">
+  <div class="sf-form">
+    <div>
+      <p>{{ printAckHeader }}</p>
+      <fieldset>
+        <legend>
+          <h3>Case Manager</h3>
+        </legend>
+        <p>
+          Multiple Case Managers/Supervisors possible for this Acknowledgement
+        </p>
+        <div class="space-down">
+          <table class="space-down">
+            <tr>
+              <th class="table-td" width="10%">Select</th>
+              <th class="table-td" width="10%">Case Manger Name</th>
+              <th class="table-td" width="10%">Begin Date</th>
+              <th class="table-td" width="10%">End Date</th>
+              <th class="table-td" width="10%">Person Type</th>
+            </tr>
+            <tr
+              *ngFor="let item of caseTeamList"
+              (click)="getSelectedCaseManager(item)"
+            >
+              <td class="table-td">
+                <p-radioButton
+                  name="caseManager"
+                  value="{{ item.select }}"
+                  (click)="getCaseTeamManager(item)"
+                >
+                </p-radioButton>
+              </td>
+              <td class="table-td">{{ item.caseManagerName }}</td>
+              <td class="table-td">{{ item.beginDate }}</td>
+              <td class="table-td">{{ item.endDate }}</td>
+              <td class="table-td">{{ item.personType }}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="space-down">
+          <div class="space-down">Case Manager Change person</div>
+          <div class="space-down">
+            <p-autoComplete
+              [(ngModel)]="caseMangerChangeReason"
+              placeholder="Type here to search"
+              emptyMessage="No records found!"
+              [dropdown]="true"
+              [forceSelection]="true"
+              name="caseManagerChangeReason"
+              [suggestions]="filteredCaseManagerReason"
+              (completeMethod)="getMetaData('caseManagerChangeReason', $event)"
+              field="staffChangeReason"
+            >
+            </p-autoComplete>
+          </div>
+        </div>
+      </fieldset>
+      <h3 class="bold">Judge</h3>
+      <p>Multiple Judges possible for this Acknowledgement</p>
+      <div>
+        <table>
+          <tr>
+            <th class="table-td" width="10%">Select</th>
+            <th class="table-td" width="20%">Judge Name</th>
+            <th class="table-td" width="20%">Begin Date</th>
+            <th class="table-td" width="20%">End Date</th>
+          </tr>
+          <tr *ngFor="let item of judgeList" (onClick)="onSelectedJudge(item)">
+            <td class="table-td">
+              <p-radioButton
+                (onClick)="storeJudgeInfo(item)"
+                value="{{ item.select }}"
+              >
+              </p-radioButton>
+            </td>
+            <td class="table-td">{{ item.judgeName }}</td>
+            <td class="table-td">{{ item.beginDate }}</td>
+            <td class="table-td">{{ item.endDate }}</td>
+          </tr>
+        </table>
+      </div>
+      <h3 class="bold">School</h3>
+      <p>School Change</p>
+      <div>
+        <table>
+          <tr>
+            <th class="table-td" width="10%">School Change</th>
+            <th class="table-td" width="10%">From School</th>
+            <th class="table-td" width="10%">To School</th>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-radioButton
+                name="selectSchool"
+                binary="true"
+                value="true"
+                [(ngModel)]="isSchoolInfo"
+              >
+              </p-radioButton>
+            </td>
+            <td>
+              <p-autoComplete
+                name="schoolChangeFromSchool"
+                (completeMethod)="onFilteredClientSchool($event)"
+                [suggestions]="metaData"
+                field="clientSchoolName"
+                (onSelect)="onSelectClientSchool($event)"
+                [dropdown]="true"
+                placeholder="Type here to search"
+                [(ngModel)]="defaultSchool"
+              >
+              </p-autoComplete>
+            </td>
+            <td>{{ clientToSchool?.clientSchoolName }}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="space-down">
+        <div class="space-down">Attending Same Home School Reason</div>
+        <div class="space-down">
+          <p-autoComplete
+            [(ngModel)]="attendingSameHomeSchoolChangeReason"
+            placeholder="Type here to search"
+            emptyMessage="No records found!"
+            [dropdown]="true"
+            [forceSelection]="true"
+            name="attendingSameHomeSchoolChangeReason"
+            [suggestions]="filteredAttendingSameHomeSchoolChangeReason"
+            (completeMethod)="
+              getMetaData('attendingSameHomeSchoolChangeReason', $event)
+            "
+            field="attendingSameSchoolReason"
+            (onSelect)="onSelectSchoolReasonForLate($event)"
+          >
+          </p-autoComplete>
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">Reason Late</div>
+        <div class="space-right">
+          <p-autoComplete
+            [suggestions]="filteredReasonLate"
+            [dropdown]="true"
+            [forceSelection]="true"
+            field="aCKReasonLate"
+            (completeMethod)="getMetaData('reasonLate', $event)"
+            [(ngModel)]="reasonLate"
+            placeholder="Type here to search"
+            name="reasonLate"
+          >
+          </p-autoComplete>
+        </div>
+      </div>
+      <p-checkbox
+        binary="true"
+        [(ngModel)]="correctedCopy"
+        name="correctedCopy"
+        label="Corrected Copy"
+      ></p-checkbox>
+    </div>
+    <div class="mail-footer">
+      <button class="send" (click)="ackOptions()" [disabled]="isOkayBtnDisable">
+        Ok
+      </button>
+      <button class="discard" (click)="ackOptions()">Cancel</button>
+    </div>
+  </div>
+</form>
+<p-dialog
+  header="Delete of Placement Successful"
+  [(visible)]="isPlacementDleteCountPrompt"
+>
+  <p>
+    Number of records affected by delete: {{ deletedPlacementRecordsCount }}
+  </p>
+  <div style="text-align: center">
+    <button class="sf-positive-btn" (click)="onClickDeletedCountsPrompt()">
+      OK
+    </button>
+  </div>
+</p-dialog>

@@ -1,0 +1,624 @@
+<div id="print-form-content">
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+  <p-toast position="center" [baseZIndex]="99999999"></p-toast>
+
+  <div class="flex-container header">
+    <div class="heading">
+      REINTEGRATION FOSTER
+      <br> CARE ADOPTION
+      <br> INITIAL FAMILY/ TEAM
+      <br> MEETING
+      <p>(Held within 2 Business Days) </p>
+    </div>
+    <div class="logo">
+      <img src="assets/logo color.svg" alt="">
+    </div>
+    <div class="case-info">
+      <div>
+        <!-- <span>Child(ren) Name:</span>
+          <input type="text" pInputText size="20" /> -->
+      </div>
+      <div>
+        <span>FACTS:</span>
+        <input readonly [(ngModel)]="cisInitialFamily.facts.value" type="text" pInputText size="20" />
+      </div>
+      <div>
+        <span>SFCS Worker:</span>
+        <input readonly [(ngModel)]="cisInitialFamily.SFCSworker.value" type="text" pInputText size="20" />
+      </div>
+      <div>
+        <span>Date/Time:</span>
+        <input readonly [(ngModel)]="cisInitialFamily.dateTime.value" type="text" pInputText size="20" />
+        <!-- <p-calendar formControlName="dateTime" name="dateTime" [(ngModel)]="cisInitialFamily.dateTime.value" showTime="true" hourFormat="24"
+          [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"> </p-calendar> -->
+      </div>
+      <div>
+        <span>Location: </span>
+        <input readonly [(ngModel)]="cisInitialFamily.Location.value" type="text" pInputText size="20" />
+      </div>
+    </div>
+
+  </div>
+  <form [formGroup]="initialFamilyForm" id="form-content" class="sf-form">
+    <div class="space-down">
+      <p-checkbox formControlName="Rolesresponsiblities" name="Rolesresponsiblities" [(ngModel)]="cisInitialFamily.Rolesresponsiblities.fieldOptionIndex"
+        binary="true"></p-checkbox>Roles and responsiblities of all team members clarified and defined including foster family and birth
+      family partnerships.
+    </div>
+    <div class="space-down">
+      <p-checkbox formControlName="homeplacement" name="homeplacement" [(ngModel)]="cisInitialFamily.homeplacement.fieldOptionIndex"
+        binary="true"></p-checkbox>Safety concerns idetified leading to out of home placement.
+    </div>
+    <p>Safety is the potential for serious maltreatment which is imminent. It determines the need for immediate protective action
+      or controlling interventions to protect the child from imminent danger.
+    </p>
+    <p>Desribe the safety concerns, contributing factors, and family’s strengths to mitigate the safety concerns:</p>
+    <div>
+      <textarea formControlName="safetyConcerns" name="safetyConcerns" [(ngModel)]="cisInitialFamily.safetyConcerns.value" pInputTextarea
+        autoResize="autoResize" rows={{rowMethod(cisInitialFamily.safetyConcerns.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="flex-container">
+      <div>
+        Safety plan needed or updated by case team:
+      </div>
+      <div>
+        Yes
+        <p-radioButton value="0" formControlName="SafetyPlan" name="SafetyPlan" [(ngModel)]="cisInitialFamily.SafetyPlan.fieldOptionIndex"
+          class="space-right"></p-radioButton>
+      </div>
+      <div>
+        No
+        <p-radioButton value="1" formControlName="SafetyPlan" name="SafetyPlan" [(ngModel)]="cisInitialFamily.SafetyPlan.fieldOptionIndex"
+          class="space-right"></p-radioButton>
+      </div>
+    </div>
+    <div class="space-down">
+      <p-checkbox formControlName="Riskconcerns" name="Riskconcerns" [(ngModel)]="cisInitialFamily.Riskconcerns.fieldOptionIndex"
+        binary="true"></p-checkbox>Risk concerns identified leading to out of home placement.
+    </div>
+    <p>Risk is potential maltreatment in the future. It determines the need for services to address potential future maltreatment.
+    </p>
+    <p>Desribe the risk, family strengths and resources to mitigate the risk, and services needed or taken:</p>
+    <div>
+      <textarea formControlName="familyStrengths" name="familyStrengths" [(ngModel)]="cisInitialFamily.familyStrengths.value" pInputTextarea
+        autoResize="autoResize" rows={{rowMethod(cisInitialFamily.familyStrengths.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="flex-container">
+      <div>
+        Service plan needed or updated by case team:
+      </div>
+      <div>
+        Yes
+        <p-radioButton formControlName="ServicePlan" name="ServicePlan" [(ngModel)]="cisInitialFamily.ServicePlan.fieldOptionIndex"
+          value="0" class="space-right"></p-radioButton>
+      </div>
+      <div>
+        No
+        <p-radioButton formControlName="ServicePlan" name="ServicePlan" [(ngModel)]="cisInitialFamily.ServicePlan.fieldOptionIndex"
+          value="1" class="space-right"></p-radioButton>
+      </div>
+    </div>
+    <div class="flex-container space-between">
+      <div class="flex-container">
+        <div class="space-right">
+          <p-checkbox formControlName="AnnualHousehold" name="AnnualHousehold" [(ngModel)]="cisInitialFamily.AnnualHousehold.fieldOptionIndex"
+            binary="true"></p-checkbox>Risk concerns identified leading to out of home placement.
+        </div>
+        <div>
+          <input formControlName="AnnualHouseholdInput" name="AnnualHouseholdInput" [(ngModel)]="cisInitialFamily.AnnualHouseholdInput.value"
+            type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          Number living in Household:
+        </div>
+        <div>
+          <input formControlName="NumberlivingHousehold" name="NumberlivingHousehold" [(ngModel)]="cisInitialFamily.NumberlivingHousehold.value"
+            type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <p-checkbox formControlName="SingleParent" name="SingleParent" [(ngModel)]="cisInitialFamily.SingleParent.fieldOptionIndex"
+        binary="true"></p-checkbox>Single Parent Household
+    </div>
+    <div class="space-down">
+      <p-checkbox formControlName="RelativeKinship" name="RelativeKinship" [(ngModel)]="cisInitialFamily.RelativeKinship.fieldOptionIndex"
+        binary="true"></p-checkbox> Relative/Kinship placement discussed and contact information gathered.
+    </div>
+    <div class="space-down">
+      <p-checkbox formControlName="Introduction" name="Introduction" [(ngModel)]="cisInitialFamily.Introduction.fieldOptionIndex"
+        binary="true"></p-checkbox>Introduction & Parents Guide to Case Planning Conferences (CFS 3049) explained and given to family.
+    </div>
+    <div class="space-down">
+      <p-checkbox formControlName="appointments" name="appointments" [(ngModel)]="cisInitialFamily.appointments.fieldOptionIndex"
+        binary="true"></p-checkbox>Set-up the following appointments
+    </div>
+    <div>
+      <table>
+        <tr>
+          <th class="table-td">Appointment</th>
+          <th class="table-td">Date</th>
+          <th class="table-td">Time</th>
+          <th class="table-td">Notes</th>
+        </tr>
+        <tr>
+          <td class="table-td">Initial Case Plan</td>
+          <td class="table-td">
+            <p-calendar formControlName="InitialCasePlanDate" name="InitialCasePlanDate" [(ngModel)]="cisInitialFamily.InitialCasePlanDate.value"
+              [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"> </p-calendar>
+          </td>
+          <td class="table-td">
+            <input formControlName="InitialCasePlanTime" name="InitialCasePlanTime" [(ngModel)]="cisInitialFamily.InitialCasePlanTime.value"
+            type="text" pInputText size="20" />
+              
+          </td>
+          <td class="table-td">
+            <input formControlName="InitialCasePlanNotes" name="InitialCasePlanNotes" [(ngModel)]="cisInitialFamily.InitialCasePlanNotes.value"
+              type="text" pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Next Court Hearing</td>
+          <td class="table-td">
+            <p-calendar formControlName="NextCourtHearingDate" name="NextCourtHearingDate" [(ngModel)]="cisInitialFamily.NextCourtHearingDate.value"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"> </p-calendar>
+          </td>
+          <td class="table-td">
+            <input formControlName="NextCourtHearingTime" name="NextCourtHearingTime" [(ngModel)]="cisInitialFamily.NextCourtHearingTime.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="NextCourtHearingNotes" name="NextCourtHearingNotes" [(ngModel)]="cisInitialFamily.NextCourtHearingNotes.value"
+              type="text" pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Next Visit</td>
+          <td class="table-td">
+            <p-calendar formControlName="NextVisitDate" name="NextVisitDate" [(ngModel)]="cisInitialFamily.NextVisitDate.value" showTime="true"
+              hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"> </p-calendar>
+          </td>
+          <td class="table-td">
+            <input formControlName="NextVisitTime" name="NextVisitTime" [(ngModel)]="cisInitialFamily.NextVisitTime.value" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="NextVisitNotes" name="NextVisitNotes" [(ngModel)]="cisInitialFamily.NextVisitNotes.value" type="text"
+              pInputText size="20" />
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Next Meeting with Parents/Caregivers</td>
+          <td class="table-td">
+            <p-calendar formControlName="ParentsCaregiversDate" name="ParentsCaregiversDate" [(ngModel)]="cisInitialFamily.ParentsCaregiversDate.value"
+              showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"> </p-calendar>
+          </td>
+          <td class="table-td">
+            <input formControlName="ParentsCaregiversTime" name="ParentsCaregiversTime" [(ngModel)]="cisInitialFamily.ParentsCaregiversTime.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="ParentsCaregiversNotes" name="ParentsCaregiversNotes" [(ngModel)]="cisInitialFamily.ParentsCaregiversNotes.value"
+              type="text" pInputText size="20" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="space-down">
+      <p-checkbox formControlName="neededAssessments" name="neededAssessments" [(ngModel)]="cisInitialFamily.neededAssessments.fieldOptionIndex"
+        binary="true"></p-checkbox>All needed assessments started. (ex. child and family profile, ecomap, genogram, initial screening tool)
+    </div>
+    <div class="space-down">
+      <p-checkbox formControlName="releasesSigned" name="releasesSigned" [(ngModel)]="cisInitialFamily.releasesSigned.fieldOptionIndex"
+        binary="true"></p-checkbox>All releases signed by parents. (ex. insurance, education, confidentiality)
+    </div>
+    <div class="flex-container">
+      <div class="space-down">
+        <p-checkbox formControlName="questionsComments" name="questionsComments" [(ngModel)]="cisInitialFamily.questionsComments.fieldOptionIndex"
+          binary="true"></p-checkbox>Parent(s) questions or comments:
+      </div>
+      <div>
+        <input formControlName="ParentquestionsComments" name="ParentquestionsComments" [(ngModel)]="cisInitialFamily.ParentquestionsComments.value"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>
+      <span class="bold">ACKNOWLEDGEMENTS:</span> Initialed by client and/or personal representative (parent/legal guardian/placing agency)</p>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">Client Initials
+          </th>
+          <th class="table-td">Guardian Initials
+          </th>
+          <th class="table-td"></th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="clientRightClient" name="clientRightClient" [(ngModel)]="cisInitialFamily.clientRightClient.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="clientRightGuardian" name="clientRightGuardian" [(ngModel)]="cisInitialFamily.clientRightGuardian.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p class="bold">CLIENT RIGHTS AND RESPONSIBILITIES:</p>
+            <p>Client has received/reviewed “Client’s Rights and Responsibilities” and understands rights as described in the
+              document. Client also understands that at any time during treatment, may request further explanation of these
+              rights. </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="privacyClient" name="privacyClient" [(ngModel)]="cisInitialFamily.privacyClient.value" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="privacyGuardian" name="privacyGuardian" [(ngModel)]="cisInitialFamily.privacyGuardian.value" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p class="bold">NOTICE OF PRIVACY PRACTICES:</p>
+            <p>Client has reviewed/received a copy of the Notice of Privacy Practices. Client understands that they may request
+              another copy at any time. </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="mandatedClient" name="mandatedClient" [(ngModel)]="cisInitialFamily.mandatedClient.value" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="mandatedGuardian" name="mandatedGuardian" [(ngModel)]="cisInitialFamily.mandatedGuardian.value" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p class="bold">MANDATED REPORTER:</p>
+            <p>Client understands that SFCS are mandated under the state law to report child or elder abuse when there is a
+              reason to suspect abuse. In addition, client understands that SFCS has a duty to warn others of life threatening
+              concerns, should that be disclosed. </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="providerClient" name="providerClient" [(ngModel)]="cisInitialFamily.providerClient.value" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="providerGuardian" name="providerGuardian" [(ngModel)]="cisInitialFamily.providerGuardian.value" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p class="bold">PROVIDER NON-DISCRIMINATION ACT:</p>
+            <p>Client understands that this is an equal opportunity institution. There is no discrimination because of race,
+              color, religion, natural origin, age, sex, handicap, or inability to pay for needed items while services are
+              being provided.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="communicationClient" name="communicationClient" [(ngModel)]="cisInitialFamily.communicationClient.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="communicationGuardian" name="communicationGuardian" [(ngModel)]="cisInitialFamily.communicationGuardian.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p class="bold">COMMUNICATION – SENSORY IMPAIRMENT:</p>
+            <p>There are times clients may have sensory impairments. Clients are assured that all efforts will be made to facilitate
+              communication through the provision of necessary items specific to the sensory impairment. </p>
+            <div class="flex-container">
+              <div>
+                Client has sensory impairment?
+              </div>
+              <div>
+                Yes
+                <p-radioButton value="0" formControlName="sensoryImpairment" name="sensoryImpairment" [(ngModel)]="cisInitialFamily.sensoryImpairment.fieldOptionIndex"
+                  class="space-right"></p-radioButton>
+              </div>
+              <div>
+                No
+                <p-radioButton value="1" formControlName="sensoryImpairment" name="sensoryImpairment" [(ngModel)]="cisInitialFamily.sensoryImpairment.fieldOptionIndex"
+                  class="space-right"></p-radioButton>
+              </div>
+            </div>
+            <div class="flex-container">
+              <div>
+                If Yes, Sensory Impairment:
+              </div>
+              <div>
+                <input formControlName="communicationSensoryImpairment" name="communicationSensoryImpairment" [(ngModel)]="cisInitialFamily.communicationSensoryImpairment.value"
+                  type="text" pInputText size="20" />
+              </div>
+            </div>
+            <div class="flex-container">
+              <div>
+                If Yes, Provision(s) Needed:
+              </div>
+              <div>
+                <input formControlName="Provision" name="Provision" [(ngModel)]="cisInitialFamily.Provision.value" type="text" pInputText
+                  size="20" />
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="proficiencyClient" name="proficiencyClient" [(ngModel)]="cisInitialFamily.proficiencyClient.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="proficiencyGuardian" name="proficiencyGuardian" [(ngModel)]="cisInitialFamily.proficiencyGuardian.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p class="bold">COMMUNICATION – LIMITED ENGLISH PROFICIENCY:</p>
+            <p>There are times a client may have limited English proficiency, or their parents/guardian may have limited English
+              proficiency. In these cases, the family, in conjunction with SFCS will determine if there is a family member
+              who can be an effective interpreter or if one will need to be hired. </p>
+            <div class="flex-container">
+              <div>
+                Client has a communication need?
+              </div>
+              <div>
+                Yes
+                <p-radioButton value="0" formControlName="clientSensoryImpairment" name="clientSensoryImpairment" [(ngModel)]="cisInitialFamily.clientSensoryImpairment.fieldOptionIndex"
+                  class="space-right"></p-radioButton>
+              </div>
+              <div>
+                No
+                <p-radioButton value="1" formControlName="clientSensoryImpairment" name="clientSensoryImpairment" [(ngModel)]="cisInitialFamily.clientSensoryImpairment.fieldOptionIndex"
+                  class="space-right"></p-radioButton>
+              </div>
+            </div>
+            <div class="flex-container">
+              <div>
+                If Yes, Communication Needs:
+              </div>
+              <div>
+                <input formControlName="Communication" name="Communication" [(ngModel)]="cisInitialFamily.Communication.value" type="text"
+                  pInputText size="20" />
+              </div>
+            </div>
+            <div class="flex-container">
+              <div>
+                If Yes, Preferred Language:
+              </div>
+              <div>
+                <input formControlName="PreferredLanguage" name="PreferredLanguage" [(ngModel)]="cisInitialFamily.PreferredLanguage.value"
+                  type="text" pInputText size="20" />
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="photographsSFCSstaffClient" name="photographsSFCSstaffClient" [(ngModel)]="cisInitialFamily.photographsSFCSstaffClient.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="photographsSFCSstaffGuardian" name="photographsSFCSstaffGuardian" [(ngModel)]="cisInitialFamily.photographsSFCSstaffGuardian.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p class="bold">PHOTOGRAPHS/AUDIO/VIDEO RECORDING BY SFCS STAFF: </p>
+            <p>Any photographs/videos/written materials to be used in publications, presentations, and/or advertisements require
+              a separate authorization signed at time of the specific event (Consent and Authorization for Marketing).
+              <span class="bold"> Any photographs/videos to be used in conjunction with treatment programs, protocols, and training will require
+                a separate authorization signed at time of the specific event</span> (Consent and Authorization for Treatment
+              Media). </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="photographsSFCSNonstaffClient" name="photographsSFCSNonstaffClient" [(ngModel)]="cisInitialFamily.photographsSFCSNonstaffClient.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="photographsSFCSNonstaffGuardian" name="photographsSFCSNonstaffGuardian" [(ngModel)]="cisInitialFamily.photographsSFCSNonstaffGuardian.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p class="bold">AUDIO/VIDEO RECORDING/PHOTOGRAPHS BY NON-STAFF:</p>
+            <p>Client/Family understands SFCS requires advance permission to photograph, video or audio record interactions
+              in SFCS offices, SFCS property and/or during delivery of SFCS services. </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="customerCareClient" name="customerCareClient" [(ngModel)]="cisInitialFamily.customerCareClient.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="customerCareGuardian" name="customerCareGuardian" [(ngModel)]="cisInitialFamily.customerCareGuardian.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p class="bold">CUSTOMER CARE:</p>
+            <p>Client is aware of customer care and has received a pamphlet. The client is encouraged to address concerns through
+              their worker, however may contact the Customer Care department at any time: 1-866-671-4735 or
+              <span class="email">www.st-francis.org</span>.</p>
+            <p>In addition to contacting SFCS Customer Care, client can contact The Joint Commission Customer Care: 630-792-5800
+              Email:
+              <span class="email">www.patientsafetyreport@jointcommission.org</span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="grievanceClient" name="grievanceClient" [(ngModel)]="cisInitialFamily.grievanceClient.value" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="grievanceGuardian" name="grievanceGuardian" [(ngModel)]="cisInitialFamily.grievanceGuardian.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p class="bold">GRIEVANCE:</p>
+            <p>Client has received a copy of and understands the grievance procedure. Client also understands at any time during
+              their treatment, may request further explanation of the grievance process. </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="emailConsentClient" name="emailConsentClient" [(ngModel)]="cisInitialFamily.emailConsentClient.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="emailConsentGuardian" name="emailConsentGuardian" [(ngModel)]="cisInitialFamily.emailConsentGuardian.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p class="bold">EMAIL CONSENT:</p>
+            <p>Client understands if email communication is requested, that SFCS cannot guarantee the security of the information.
+              Client has
+              <p-checkbox formControlName="authorized" name="authorized" [(ngModel)]="cisInitialFamily.authorized.fieldOptionIndex" binary="true"></p-checkbox>
+              <span class="bold">authorized</span>
+              <p-checkbox formControlName="notauthorized" name="notauthorized" [(ngModel)]="cisInitialFamily.notauthorized.fieldOptionIndex"
+                binary="true">
+              </p-checkbox>
+              <span class="bold">not authorized</span> to receive confidential information through email communication. Client may withdraw
+              consent to the use of e-mail at any time by contacting your assigned therapist/Licensed Permanency Specialist
+              by e-mail or written communication to. Client releases and holds SFCS harmless from any injury that may occur
+              as a result of email communications.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="careServiceClient" name="careServiceClient" [(ngModel)]="cisInitialFamily.careServiceClient.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="careServiceGuardian" name="careServiceGuardian" [(ngModel)]="cisInitialFamily.careServiceGuardian.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p class="bold">CARE SERVICES: </p>
+            <p>Medical, dental, vision, pharmacy and/or psychiatric care services will be provided by providers in the community
+              selected by the foster parent. If there is a provider preferred by the legal guardian that is different from
+              the one chosen by the foster parent, every effort will be made to utilize the chosen provider.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input formControlName="immunizationClient" name="immunizationClient" [(ngModel)]="cisInitialFamily.immunizationClient.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <input formControlName="immunizationGuardian" name="immunizationGuardian" [(ngModel)]="cisInitialFamily.immunizationGuardian.value"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">
+            <p class="bold">IMMUNIZATION:</p>
+            <p>One of the best ways to protect children is to make sure they have all of their vaccinations. Schools require
+              a copy of the up to date immunization for children to attend. SFCS will need copies of your child’s vaccinations.
+              If SFCS is unable to obtain verification, or your child is not up to date, your child will receive all required
+              vaccinations during their regularly scheduled Kan-Be-Healthy. </p>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <p>Your signature below indicates you participated during the above discussion and understand you are required to maintain
+      confidentiality as to any form of information you obtain during this meeting, unless access to such information is
+      obtained by a separate release of information or other lawful method of access.
+      <span class="bold">(Signature of Referred Family)
+      </span>
+    </p>
+    <div class="flex-container space-between">
+      <div>
+        <div>
+          <input formControlName="ClientSignature" name="ClientSignature" [(ngModel)]="cisInitialFamily.ClientSignature.value" type="text"
+            pInputText size="20" />
+        </div>
+        <div>
+          Client Signature
+        </div>
+      </div>
+      <div>
+        <div>
+          <input formControlName="CaregiverSignature" name="CaregiverSignature" [(ngModel)]="cisInitialFamily.CaregiverSignature.value"
+            type="text" pInputText size="20" />
+        </div>
+        <div>
+          Parent/Caregiver Signature
+        </div>
+      </div>
+    </div>
+    <p>Your signature below indicates you participated during the above discussion and you understand you are required to maintain
+      confidentiality as to any form of information you obtain during this meeting, unless access to such information is
+      obtained by a separate release of information or other lawful method of access.
+      <span class="bold">(Signatures of Other Participants)
+      </span>
+    </p>
+    <div class="flex-container space-between">
+      <div class="flex-container">
+        <div>
+          <input formControlName="CaregiverSignature1" name="CaregiverSignature1" [(ngModel)]="cisInitialFamily.CaregiverSignature1.value"
+            type="text" pInputText size="20" />
+        </div>
+        <div>
+          <input formControlName="CaregiverSignature2" name="CaregiverSignature2" [(ngModel)]="cisInitialFamily.CaregiverSignature2.value"
+            type="text" pInputText size="20" />
+        </div>
+        <div>
+          <input formControlName="CaregiverSignature3" name="CaregiverSignature3" [(ngModel)]="cisInitialFamily.CaregiverSignature3.value"
+            type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          <input formControlName="Signature1" name="Signature1" [(ngModel)]="cisInitialFamily.Signature1.value" type="text" pInputText
+            size="20" />
+        </div>
+        <div>
+          <input formControlName="Signature2" name="Signature2" [(ngModel)]="cisInitialFamily.Signature2.value" type="text" pInputText
+            size="20" />
+        </div>
+        <div>
+          <input formControlName="Signature3" name="Signature3" [(ngModel)]="cisInitialFamily.Signature3.value" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          <input formControlName="dcfSignature1" name="dcfSignature1" [(ngModel)]="cisInitialFamily.dcfSignature1.value" type="text"
+            pInputText size="20" />
+        </div>
+        <div>
+          <input formControlName="dcfSignature2" name="dcfSignature2" [(ngModel)]="cisInitialFamily.dcfSignature2.value" type="text"
+            pInputText size="20" />
+          <input formControlName="dcfSignature3" name="dcfSignature3" [(ngModel)]="cisInitialFamily.dcfSignature3.value" type="text"
+            pInputText size="20" />
+          <p>DCF Licensed Permanency
+            <br> Specialist/Designee Signature
+          </p>
+        </div>
+        <div>
+          <input formControlName="SFCSSignature1" name="SFCSSignature1" [(ngModel)]="cisInitialFamily.SFCSSignature1.value" type="text"
+            pInputText size="20" />
+          <input formControlName="SFCSSignature2" name="SFCSSignature2" [(ngModel)]="cisInitialFamily.SFCSSignature2.value" type="text"
+            pInputText size="20" />
+          <input formControlName="SFCSSignature3" name="SFCSSignature3" [(ngModel)]="cisInitialFamily.SFCSSignature3.value" type="text"
+            pInputText size="20" />
+          <p>SFCS Licensed Permanency
+            <br> Specialist/Designee Signature & Date</p>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<app-form-footer (print)="printForm()" [isPrint]="true" (save)="saveForm(cisInitialFamily)" (edit)="editForm()" [isDisabled]="isDisable" [editControll]="editControll"
+  (finalize)="finalizeForm(cisInitialFamily)" [isFinalize]="isFinalize" (discard)="discardForm()" [isDisabled]="isDisable"></app-form-footer>

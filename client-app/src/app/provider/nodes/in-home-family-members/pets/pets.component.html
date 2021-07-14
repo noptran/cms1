@@ -1,0 +1,30 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form class="sf-form" [formGroup]="petForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Pet Type</span> <span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="pet" emptyMessage="No results found!" [(ngModel)]="pet.petID"
+              [forceSelection]="true" [suggestions]="listOfPets" placeholder="Type here to search" field="pet" size="23"
+              formControlName="petType" (completeMethod)="getPets($event)"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Quantity</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner name="numericInput" formControlName="quantity" [(ngModel)]="pet.quantity" [step]="1"></p-spinner>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer [attachmentControll]="isAttachmentRequired" (attachDoc)="navigateTo()" (save)="formAction(pet)"
+      (edit)="editForm()" [editControll]="isEdit" [discardTo]="discardTo" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+  </div>
+</div>

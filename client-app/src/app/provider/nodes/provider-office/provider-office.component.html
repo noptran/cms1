@@ -1,0 +1,45 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-header">
+  <div class="container-footer">
+    <form class="sf-form" [formGroup]="officeForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>SFM Office</span> <span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="officeID" emptyMessage="No results found!"
+              [(ngModel)]="office.sfaofficeID" [forceSelection]="true" placeholder="Type here to search"
+              field="officeName" [suggestions]="officeList" formControlName="sfmOffice" size="23"
+              (completeMethod)="getSFMOffice($event)"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="beginDate" showTime="true" hourFormat="12" [yearNavigator]="true"
+              [(ngModel)]="office.beginDate" formControlName="beginDate" [monthNavigator]="true" yearRange="2000:2030"
+              [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="endDate" showTime="true" hourFormat="12" [yearNavigator]="true"
+              [(ngModel)]="office.endDate" formControlName="endDate" [monthNavigator]="true" yearRange="2000:2030"
+              [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+      </div>
+
+    </form>
+    <app-form-footer [attachmentControll]="isAttachmentRequired" (attachDoc)="navigateTo()" (save)="formAction(office)"
+      [discardTo]="discardTo" [editControll]="isEdit" (edit)="editForm()" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+    </app-form-footer>
+  </div>
+</div>

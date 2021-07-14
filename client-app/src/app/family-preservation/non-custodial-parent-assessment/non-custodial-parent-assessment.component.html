@@ -1,0 +1,363 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="nonCustodialParentAssessmentForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        FAMILY PRESERVATION
+        <br> NON-CUSTODIAL
+        <br> PARENT ASSESSMENT
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Case Name:</span>
+          <input readonly [(ngModel)]="fpNonCustodialParentAssessment.caseName" formControlName="caseName" name="caseName" type="text" pInputText
+            size="20" />
+        </div>
+        <div>
+          <span>Case Number:</span>
+          <input readonly [(ngModel)]="fpNonCustodialParentAssessment.caseNumber" formControlName="caseNumber" name="caseNumber" type="text"
+            pInputText size="20" />
+        </div>
+        <div>
+          <span>Date of Referral:</span>
+          <p-calendar [(ngModel)]="fpNonCustodialParentAssessment.dateOfReferral" formControlName="dateOfReferral" name="dateOfReferral"
+            [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>Assessment Date:</span>
+          <p-calendar [(ngModel)]="fpNonCustodialParentAssessment.assessmentDate" formControlName="assessmentDate" name="assessmentDate"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <p>INSTRUCTIONS: Complete with each identified and located non-custodial parent.</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name of Noncustodial Parent:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentAssessment.noncustodialParent" formControlName="noncustodialParent" name="noncustodialParent"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">List child(ren) name(s):</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentAssessment.listChild" formControlName="listChild" name="listChild" type="text" pInputText
+          size="20" />
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentAssessment.listChild1" formControlName="listChild1" name="listChild1" type="text"
+          pInputText size="20" />
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentAssessment.listChild2" formControlName="listChild2" name="listChild2" type="text"
+          pInputText size="20" />
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentAssessment.listChild3" formControlName="listChild3" name="listChild3" type="text"
+          pInputText size="20" />
+      </div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentAssessment.listChild4" formControlName="listChild4" name="listChild4" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">List any other people (adults/children) in the non-custodial parent’s home and their relationship:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpNonCustodialParentAssessment.listOtherPeople" formControlName="listOtherPeople" name="listOtherPeople"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-down">
+      <table class="space-down">
+        <tr>
+          <td class="table-td">
+            <div class="space-right space-down">
+              <div class="space-right space-down bold">Is the non-custodial parent the alleged perpetrator of abusing or neglecting the child?</div>
+              <p>If yes, explain</p>
+              <div class="space-right">
+                <textarea [(ngModel)]="fpNonCustodialParentAssessment.allegedPerpetrator" formControlName="allegedPerpetrator" name="allegedPerpetrator"
+                  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container table-td">
+              <div>
+                <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isAllegedPerpetratorYes" formControlName="isAllegedPerpetratorYes"
+                  name="isAllegedPerpetratorYes" class="space-right"></p-checkbox>Yes
+              </div>
+              <div>
+                <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isAllegedPerpetratorNo" formControlName="isAllegedPerpetratorNo"
+                  name="isAllegedPerpetratorNo" class="space-right"></p-checkbox>No
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="space-right space-down">
+              <div class="space-right space-down bold">Does non-custodial parent have any history of drug/alcohol abuse?
+              </div>
+              <p>If yes, explain</p>
+              <div class="space-right">
+                <textarea [(ngModel)]="fpNonCustodialParentAssessment.alcoholAbuse" formControlName="alcoholAbuse" name="alcoholAbuse" pInputTextarea
+                  autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container table-td">
+              <div>
+                <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isAlcoholAbuseYes" formControlName="isAlcoholAbuseYes"
+                  name="isAlcoholAbuseYes" class="space-right"></p-checkbox>Yes
+              </div>
+              <div>
+                <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isAlcoholAbuseNo" formControlName="isAlcoholAbuseNo"
+                  name="isAlcoholAbuseNo" class="space-right"></p-checkbox>No
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="space-right space-down">
+              <div class="space-right space-down bold">Does non-custodial parent have any criminal history?</div>
+              <p>If yes, explain</p>
+              <div class="space-right">
+                <textarea [(ngModel)]="fpNonCustodialParentAssessment.criminalHistory" formControlName="criminalHistory" name="criminalHistory"
+                  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container table-td">
+              <div>
+                <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isCriminalHistoryYes" formControlName="isCriminalHistoryYes"
+                  name="isCriminalHistoryYes" class="space-right"></p-checkbox>Yes
+              </div>
+              <div>
+                <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isCriminalHistoryNo" formControlName="isCriminalHistoryNo"
+                  name="isCriminalHistoryNo" class="space-right"></p-checkbox>No
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Does non-custodial parent currently have any contact/visitation with the child(ren)?</div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isVisitationYes" formControlName="isVisitationYes"
+          name="isVisitationYes" class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isVisitationNo" formControlName="isVisitationNocaseName"
+          name="isVisitationNo" class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">If yes, what is the frequency of contact?</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentAssessment.frequencyOfContact" formControlName="frequencyOfContact" name="frequencyOfContact"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">What type of activities does non-custodial parent do with child(ren)?</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentAssessment.typeOfActivities" formControlName="typeOfActivities" name="typeOfActivities"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Does non-custodial parent’s extended family members have any contact with the child(ren)? </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isContactYes" formControlName="isContactYes" name="isContactYes"
+          class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isContactNo" formControlName="isContactNo" name="isContactNo"
+          class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <p> If yes, complete kinship support form. </p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">What is the frequency of contact? </div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentAssessment.kinshipFrequencyOfContact" formControlName="kinshipFrequencyOfContact"
+          name="kinshipFrequencyOfContact" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right"> If no contacts, what are the barriers?</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentAssessment.barriers" formControlName="barriers" name="barriers" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <p>Does non-custodial parent provide direct care for the child(ren)?</p>
+    <p>If yes, list the type of care provided:</p>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isChildStays" formControlName="isChildStays" name="isChildStays"
+        class="space-right"></p-checkbox>Child(ren) stays at your home on a regular basis
+    </div>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isBabySits" formControlName="isBabySits" name="isBabySits"
+        class="space-right"></p-checkbox>Baby-sits child(ren)
+    </div>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isTakesChild" formControlName="isTakesChild" name="isTakesChild"
+        class="space-right"></p-checkbox>Takes child(ren) to activities
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isOther" formControlName="isOther" name="isOther" class="space-right"></p-checkbox>Other
+      </div>
+      <div>
+        <input [(ngModel)]="fpNonCustodialParentAssessment.other" formControlName="other" name="other" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">What method does non-custodial parent use to discipline the child(ren)?</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentAssessment.disciplineTheChild" formControlName="disciplineTheChild" name="disciplineTheChild"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <div class="flex-container space-down">
+      <div class="space-right">Does non-custodial parent communicate with the child(ren)’s primary caregiver regularly about the child? </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isParentCommunicateYes" formControlName="isParentCommunicateYes"
+          name="isParentCommunicateYes" class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isParentCommunicateNo" formControlName="isParentCommunicateNo"
+          name="isParentCommunicateNo" class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Describe the type of interaction between the child(ren)’s primary caregiver and non-custodial parent:</div>
+      <div class="space-right">
+        <input [(ngModel)]="fpNonCustodialParentAssessment.typeOfInteraction" formControlName="typeOfInteraction" name="typeOfInteraction"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Does non-custodial parent provide financial support for the child(ren)?</div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isFinancialSupportYes" formControlName="isFinancialSupportYes"
+          name="isFinancialSupportYes" class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isFinancialSupportNo" formControlName="isFinancialSupportNo"
+          name="isFinancialSupportNo" class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <p>If yes, list the type of support:</p>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isChildSupport" formControlName="isChildSupport" name="isChildSupport"
+        class="space-right"></p-checkbox>Child support payments made on regular basis
+    </div>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isOccasionalChild" formControlName="isOccasionalChild"
+        name="isOccasionalChild" class="space-right"></p-checkbox>Occasional child support
+    </div>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isOccasionalGifts" formControlName="isOccasionalGifts"
+        name="isOccasionalGifts" class="space-right"></p-checkbox>Occasional gifts or cash
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Is non-custodial parent interested in being involved in your child(ren)’s case plan?</div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isParentInterestedYes" formControlName="isParentInterestedYes"
+          name="isParentInterestedYes" class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isParentInterestedNo" formControlName="isParentInterestedNo"
+          name="isParentInterestedNo" class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        If yes, are there specific requirements to fulfill (court orders, divorce decree, etc.)?
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isSpecificRequirementsYes" formControlName="isSpecificRequirementsYes"
+          name="isSpecificRequirementsYes" class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="fpNonCustodialParentAssessment.isSpecificRequirementsNo" formControlName="isSpecificRequirementsNo"
+          name="isSpecificRequirementsNo" class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">If yes, explain:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpNonCustodialParentAssessment.specificRequirementsExplain" formControlName="specificRequirementsExplain"
+          name="specificRequirementsExplain" pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <p>How is non-custodial parent willing to contribute to provide the appropriate care and supervision to ensure the safety
+      and well-being of child(ren)?</p>
+    <p>Example of Safety: a safe environment</p>
+    <p> Examples of Well-being: Medical needs including dental and vision, mental health needs, developmental needs, social and
+      emotional needs, educational needs, and the need for stability.
+    </p>
+    <div class="space-down">
+      <textarea [(ngModel)]="fpNonCustodialParentAssessment.examplesOfWellBeing" formControlName="examplesOfWellBeing" name="examplesOfWellBeing"
+        pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Other Comments:</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="fpNonCustodialParentAssessment.otherComments" formControlName="otherComments" name="otherComments"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="space-right">
+        <div class="space-down">
+          <input [(ngModel)]="fpNonCustodialParentAssessment.sfcsSignature" formControlName="sfcsSignature" name="sfcsSignature" type="text"
+            pInputText size="20" />
+        </div>
+        <div class="space-down">SFCS Signature/Credentials</div>
+      </div>
+      <div class="space-right">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="fpNonCustodialParentAssessment.singaturedate" formControlName="singaturedate" name="singaturedate"
+            [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date</div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,fpNonCustodialParentAssessment)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

@@ -1,0 +1,1176 @@
+<div id="print-form-content">
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+  <p-toast position="center" [baseZIndex]="99999999"></p-toast>
+
+  <div class="flex-container space-between first-header-border">
+    <div class="flex-container">
+      <div>
+        Child Name:
+      </div>
+      <div>
+        <input [(ngModel)]="cisPecfas.ClientName.value" readonly type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container">
+      <div>
+        Child ID#:
+      </div>
+      <div>
+        <input readonly type="text" pInputText size="20" [(ngModel)]="cisPecfas.clientId" />
+      </div>
+    </div>
+    <div class="flex-container">
+      <div>
+        Gender:
+      </div>
+      <div>
+        <input readonly type="text" pInputText size="20" [(ngModel)]="cisPecfas.Gender.value" />
+      </div>
+    </div>
+  </div>
+  <form id="form-content" [formGroup]="pecfasForm" class="sf-form">
+    <div class="flex-container header-border">
+      <div class="flex-container">
+        <div>
+          Today's Date
+        </div>
+        <div>
+          <!-- <input readonly type="text" pInputText size="20" [(ngModel)]="cisPecfas.CompletionDate.value" /> -->
+          <p-calendar showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" formControlName="CompletionDate"
+            name="CompletionDate" [(ngModel)]="cisPecfas.CompletionDate.value"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          Admission Date:
+        </div>
+        <div>
+          <!-- <input readonly type="text" pInputText size="20" [(ngModel)]="cisPecfas.AdmissionDate.value" /> -->
+          <p-calendar showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" formControlName="AdmissionDate"
+            name="AdmissionDate" [(ngModel)]="cisPecfas.AdmissionDate.value"></p-calendar>
+        </div>
+      </div>
+      <div>
+        <div class="flex-container">
+          <div>
+            Date Of Birth:
+          </div>
+          <div>
+            <!-- <input readonly type="text" pInputText size="20" [(ngModel)]="cisPecfas.DateOfBirth.value" /> -->
+            <p-calendar showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" formControlName="DateOfBirth"
+              name="DateOfBirth" [(ngModel)]="cisPecfas.DateOfBirth.value"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="flex-container">
+          <div>
+            Age:
+          </div>
+          <div>
+            <p-calendar showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030" formControlName="Age"
+              name="Age" [(ngModel)]="cisPecfas.Age.value"></p-calendar>
+          </div>
+          <div>
+            <b>PECFAS</b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!-- <form id="form-content" [formGroup]="pecfasForm" class="sf-form">
+    <p-checkbox *ngIf="!cisPecfas.disableValidate" (onChange)="handleDataField(true)" formControlName="disableValidate" name="disableValidate"
+      [(ngModel)]="cisPecfas.disableValidate"></p-checkbox>
+    <p-checkbox binary="true" *ngIf="cisPecfas.disableValidate" (onChange)="handleDataField(false)"></p-checkbox>Unable to Access
+  </form> -->
+  <form id="form-content" [formGroup]="unableToAccesForm" class="sf-form">
+    <p-checkbox (onChange)="handleDataField(cisPecfas.disableValidate)" formControlName="disableValidate" binary="true" name="disableValidate"
+      [(ngModel)]="cisPecfas.disableValidate"></p-checkbox>Unable to Access
+  </form>
+  <div *ngIf="cisPecfas.disableValidate">
+    <p>Remarks:</p>
+    <textarea (ngModelChange)="saveRemarks($event)" [(ngModel)]="cisPecfas.remarks.value" pInputTextarea autoResize="autoResize"
+      rows={{rowMethod(cisPecfas.remarks.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    <!-- <textarea (ngModelChange)="saveRemarks($event)" pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea> -->
+  </div>
+  <form id="form-content" [formGroup]="pecfasForm" class="sf-form">
+    <div class="flex-container space-between">
+      <div>
+        <p class="bold">TIME PERIOD RATED:</p>
+        <div class="space-down">
+          <p-radioButton class="space-right" formControlName="TimePeriod" name="TimePeriod" [(ngModel)]="cisPecfas.TimePeriod.fieldOptionIndex"
+            value="Last Month"></p-radioButton>
+          Last Month
+        </div>
+        <div class="space-down">
+          <p-radioButton class="space-right" formControlName="TimePeriod" name="TimePeriod" [(ngModel)]="cisPecfas.TimePeriod.fieldOptionIndex"
+            value="Last 3 Months"></p-radioButton>
+          Last 3 Months
+        </div>
+        <div class="space-down">
+          <p-radioButton class="space-right" formControlName="TimePeriod" name="TimePeriod" [(ngModel)]="cisPecfas.TimePeriod.fieldOptionIndex"
+            value="Other"></p-radioButton>
+          Other
+        </div>
+      </div>
+      <div>
+        <p class="bold">Rater Name </p>
+        <div class="space-down">
+          <p-radioButton value="0" class="space-right" formControlName="Rater" name="Rater" [(ngModel)]="cisPecfas.Rater.fieldOptionIndex"></p-radioButton> Case Manager
+        </div>
+        <div class="space-down">
+          <p-radioButton value="1" class="space-right" formControlName="Rater" name="Rater" [(ngModel)]="cisPecfas.Rater.fieldOptionIndex"></p-radioButton>Treating Therapist
+        </div>
+        <div class="space-down">
+          <p-radioButton value="2" class="space-right" formControlName="Rater" name="Rater" [(ngModel)]="cisPecfas.Rater.fieldOptionIndex"></p-radioButton> Intake Worker
+        </div>
+        <div class="space-down">
+          <p-radioButton value="3" class="space-right" formControlName="Rater" name="Rater" [(ngModel)]="cisPecfas.Rater.fieldOptionIndex"></p-radioButton> Non-Treating Clinician
+        </div>
+        <div class="space-down">
+          <p-radioButton value="4" class="space-right" formControlName="Rater" name="Rater" [(ngModel)]="cisPecfas.Rater.fieldOptionIndex"></p-radioButton>Lay Interviewer/Researcher
+        </div>
+        <div class="space-down">
+          <p-radioButton value="5" class="space-right" formControlName="Rater" name="Rater" [(ngModel)]="cisPecfas.Rater.fieldOptionIndex"></p-radioButton>Other
+        </div>
+      </div>
+      <div>
+        <p class="bold">ADMINISTRATION: </p>
+        <div class="flex-container">
+          <div>
+            <p-radioButton value="0" class="space-right" formControlName="PEFASAdmin" name="PEFASAdmin" [(ngModel)]="cisPecfas.PEFASAdmin.fieldOptionIndex"></p-radioButton> 1st Evaluation
+          </div>
+          <div>
+            <p-radioButton value="1" class="space-right" formControlName="PEFASAdmin" name="PEFASAdmin" [(ngModel)]="cisPecfas.PEFASAdmin.fieldOptionIndex"></p-radioButton> 15 Months
+          </div>
+        </div>
+        <div class="flex-container">
+          <div>
+            <p-radioButton value="2" class="space-right" formControlName="PEFASAdmin" name="PEFASAdmin" [(ngModel)]="cisPecfas.PEFASAdmin.fieldOptionIndex"></p-radioButton>3 Months
+          </div>
+          <div>
+            <p-radioButton value="3" class="space-right" formControlName="PEFASAdmin" name="PEFASAdmin" [(ngModel)]="cisPecfas.PEFASAdmin.fieldOptionIndex"></p-radioButton>18 Months
+          </div>
+        </div>
+        <div class="flex-container">
+          <div>
+            <p-radioButton value="4" class="space-right" formControlName="PEFASAdmin" name="PEFASAdmin" [(ngModel)]="cisPecfas.PEFASAdmin.fieldOptionIndex"></p-radioButton> 6 Months
+          </div>
+          <div>
+            <p-radioButton value="5" class="space-right" formControlName="PEFASAdmin" name="PEFASAdmin" [(ngModel)]="cisPecfas.PEFASAdmin.fieldOptionIndex"></p-radioButton> 21 Months
+          </div>
+        </div>
+        <div class="flex-container">
+          <div>
+            <p-radioButton value="6" class="space-right" formControlName="PEFASAdmin" name="PEFASAdmin" [(ngModel)]="cisPecfas.PEFASAdmin.fieldOptionIndex"></p-radioButton>9 Months
+          </div>
+          <div>
+            <p-radioButton value="7" class="space-right" formControlName="PEFASAdmin" name="PEFASAdmin" [(ngModel)]="cisPecfas.PEFASAdmin.fieldOptionIndex"></p-radioButton>24 Months
+          </div>
+        </div>
+        <div class="space-down">
+          <p-radioButton value="8" class="space-right" formControlName="PEFASAdmin" name="PEFASAdmin" [(ngModel)]="cisPecfas.PEFASAdmin.fieldOptionIndex"></p-radioButton>12 Months
+        </div>
+        <div class="space-down">
+          <p-radioButton value="9" class="space-right" formControlName="PEFASAdmin" name="PEFASAdmin" [(ngModel)]="cisPecfas.PEFASAdmin.fieldOptionIndex"></p-radioButton>Exit from Service
+        </div>
+        <div class="space-down">
+          <p-radioButton value="10" class="space-right" formControlName="PEFASAdmin" name="PEFASAdmin" [(ngModel)]="cisPecfas.PEFASAdmin.fieldOptionIndex"></p-radioButton>Change in intensity of Service
+        </div>
+        <div class="space-down">
+          <p-radioButton value="11" class="space-right" formControlName="PEFASAdmin" name="PEFASAdmin" [(ngModel)]="cisPecfas.PEFASAdmin.fieldOptionIndex"></p-radioButton>Other
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-between">
+      <div class="space-right">
+        <h2 class="bold">CHILD’S LIVING ARRANGEMENT:</h2>
+        <div class="space-down">
+          <p-radioButton value="0" class="space-right" formControlName="LivingArrangement" name="LivingArrangement" [(ngModel)]="cisPecfas.LivingArrangement.fieldOptionIndex"></p-radioButton>
+          Family/Relative Home (parent/guardian)
+        </div>
+        <div class="space-down">
+          <p-radioButton value="1" class="space-right" formControlName="LivingArrangement" name="LivingArrangement" [(ngModel)]="cisPecfas.LivingArrangement.fieldOptionIndex"></p-radioButton>Private Home (other relative)
+        </div>
+        <div class="space-down">
+          <p-radioButton value="2" class="space-right" formControlName="LivingArrangement" name="LivingArrangement" [(ngModel)]="cisPecfas.LivingArrangement.fieldOptionIndex"></p-radioButton>Private Home (non-relative)
+        </div>
+        <div class="space-down">
+          <p-radioButton value="3" class="space-right" formControlName="LivingArrangement" name="LivingArrangement" [(ngModel)]="cisPecfas.LivingArrangement.fieldOptionIndex"></p-radioButton>Out of Home
+        </div>
+        <div>
+          <div class="space-down">
+            <p-radioButton value="0" class="space-right" formControlName="OutOfHome" name="OutOfHome" [(ngModel)]="cisPecfas.OutOfHome.fieldOptionIndex"></p-radioButton>
+            Regular Foster Care
+          </div>
+          <div class="space-down">
+            <p-radioButton value="1" class="space-right" formControlName="OutOfHome" name="OutOfHome" [(ngModel)]="cisPecfas.OutOfHome.fieldOptionIndex"></p-radioButton>
+            Therapeutic Foster Care
+          </div>
+          <div class="space-down">
+            <p-radioButton value="2" class="space-right" formControlName="OutOfHome" name="OutOfHome" [(ngModel)]="cisPecfas.OutOfHome.fieldOptionIndex"></p-radioButton>Group Home
+          </div>
+          <div class="space-down">
+            <p-radioButton value="3" class="space-right" formControlName="OutOfHome" name="OutOfHome" [(ngModel)]="cisPecfas.OutOfHome.fieldOptionIndex"></p-radioButton>
+            Psychiatric Group Home
+          </div>
+          <div class="space-down">
+            <p-radioButton value="4" class="space-right" formControlName="OutOfHome" name="OutOfHome" [(ngModel)]="cisPecfas.OutOfHome.fieldOptionIndex"></p-radioButton>
+            Psychiatric Inpatient
+          </div>
+          <div class="space-down">
+            <p-radioButton value="5" class="space-right" formControlName="OutOfHome" name="OutOfHome" [(ngModel)]="cisPecfas.OutOfHome.fieldOptionIndex"></p-radioButton>
+            Residential Treatment Center
+          </div>
+          <div class="space-down">
+            <p-radioButton value="6" class="space-right" formControlName="OutOfHome" name="OutOfHome" [(ngModel)]="cisPecfas.OutOfHome.fieldOptionIndex"></p-radioButton>Drug and/or Alcohol Program
+          </div>
+          <div class="space-down">
+            <p-radioButton value="7" class="space-right" formControlName="OutOfHome" name="OutOfHome" [(ngModel)]="cisPecfas.OutOfHome.fieldOptionIndex"></p-radioButton>
+            Juvenile Detention/Jail/Correctional
+          </div>
+          <div class="space-down">
+            <p-radioButton value="8" class="space-right" formControlName="OutOfHome" name="OutOfHome" [(ngModel)]="cisPecfas.OutOfHome.fieldOptionIndex"></p-radioButton>Youth Crisis Residential
+          </div>
+          <div class="space-down">
+            <p-radioButton value="9" class="space-right" formControlName="OutOfHome" name="OutOfHome" [(ngModel)]="cisPecfas.OutOfHome.fieldOptionIndex"></p-radioButton>Other Residential
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2 class="bold">SOURCES OF INFORMATION:</h2>
+        <div class="flex-container space-between">
+          <div>
+            <p>In person contact:</p>
+            <div class="space-down">
+              <p-radioButton value="0" class="space-right" formControlName="ContactPerson" name="ContactPerson" [(ngModel)]="cisPecfas.ContactPerson.fieldOptionIndex"></p-radioButton>Parent
+            </div>
+            <div class="space-down">
+              <p-radioButton value="1" class="space-right" formControlName="ContactPerson" name="ContactPerson" [(ngModel)]="cisPecfas.ContactPerson.fieldOptionIndex"></p-radioButton>Child
+            </div>
+            <div class="space-down">
+              <p-radioButton value="2" class="space-right" formControlName="ContactPerson" name="ContactPerson" [(ngModel)]="cisPecfas.ContactPerson.fieldOptionIndex"></p-radioButton>
+              School/Daycare Personnel
+            </div>
+            <div class="space-down">
+              <p-radioButton value="3" class="space-right" formControlName="ContactPerson" name="ContactPerson" [(ngModel)]="cisPecfas.ContactPerson.fieldOptionIndex"></p-radioButton>Foster (surrogate) Parent
+            </div>
+            <div class="space-down">
+              <p-radioButton value="4" class="space-right" formControlName="ContactPerson" name="ContactPerson" [(ngModel)]="cisPecfas.ContactPerson.fieldOptionIndex"></p-radioButton>Juvenile Justice/Police
+            </div>
+            <div class="space-down">
+              <p-radioButton value="5" class="space-right" formControlName="ContactPerson" name="ContactPerson" [(ngModel)]="cisPecfas.ContactPerson.fieldOptionIndex"></p-radioButton>Social Worker (Services)
+            </div>
+            <div class="space-down">
+              <p-radioButton value="6" class="space-right" formControlName="ContactPerson" name="ContactPerson" [(ngModel)]="cisPecfas.ContactPerson.fieldOptionIndex"></p-radioButton>Mental Health Worker
+            </div>
+            <div class="space-down">
+              <p-radioButton value="7" class="space-right" formControlName="ContactPerson" name="ContactPerson" [(ngModel)]="cisPecfas.ContactPerson.fieldOptionIndex"></p-radioButton>Public Health Worker
+            </div>
+            <div class="space-down">
+              <p-radioButton value="8" class="space-right" formControlName="ContactPerson" name="ContactPerson" [(ngModel)]="cisPecfas.ContactPerson.fieldOptionIndex"></p-radioButton>Other
+            </div>
+            <p>Review of Documentation:</p>
+            <div class="space-down">
+              <p-radioButton value="0" class="space-right" formControlName="ReviewofDocumentation" name="ReviewofDocumentation" [(ngModel)]="cisPecfas.ReviewofDocumentation.fieldOptionIndex"></p-radioButton>School/Daycare Personnel
+            </div>
+            <div class="space-down">
+              <p-radioButton value="1" class="space-right" formControlName="ReviewofDocumentation" name="ReviewofDocumentation" [(ngModel)]="cisPecfas.ReviewofDocumentation.fieldOptionIndex"></p-radioButton>Social Worker (Services)
+            </div>
+            <div class="space-down">
+              <p-radioButton value="2" class="space-right" formControlName="ReviewofDocumentation" name="ReviewofDocumentation" [(ngModel)]="cisPecfas.ReviewofDocumentation.fieldOptionIndex"></p-radioButton>Mental Health Worker
+            </div>
+            <div class="space-down">
+              <p-radioButton value="3" class="space-right" formControlName="ReviewofDocumentation" name="ReviewofDocumentation" [(ngModel)]="cisPecfas.ReviewofDocumentation.fieldOptionIndex"></p-radioButton>Public Health Worker
+            </div>
+            <div class="space-down">
+              <p-radioButton value="4" class="space-right" formControlName="ReviewofDocumentation" name="ReviewofDocumentation" [(ngModel)]="cisPecfas.ReviewofDocumentation.fieldOptionIndex"></p-radioButton>Juvenile Justice/Police
+            </div>
+            <div class="space-down">
+              <p-radioButton value="5" class="space-right" formControlName="ReviewofDocumentation" name="ReviewofDocumentation" [(ngModel)]="cisPecfas.ReviewofDocumentation.fieldOptionIndex"></p-radioButton>Other
+            </div>
+          </div>
+          <div>
+            <p>Phone Contact:</p>
+            <div class="space-down">
+              <p-radioButton value="0" class="space-right" formControlName="PhoneContact" name="PhoneContact" [(ngModel)]="cisPecfas.PhoneContact.fieldOptionIndex"></p-radioButton>Parent
+            </div>
+            <div class="space-down">
+              <p-radioButton value="1" class="space-right" formControlName="PhoneContact" name="PhoneContact" [(ngModel)]="cisPecfas.PhoneContact.fieldOptionIndex"></p-radioButton>Child
+            </div>
+            <div class="space-down">
+              <p-radioButton value="2" class="space-right" formControlName="PhoneContact" name="PhoneContact" [(ngModel)]="cisPecfas.PhoneContact.fieldOptionIndex"></p-radioButton>School/Daycare Personnel
+            </div>
+            <div class="space-down">
+              <p-radioButton value="3" class="space-right" formControlName="PhoneContact" name="PhoneContact" [(ngModel)]="cisPecfas.PhoneContact.fieldOptionIndex"></p-radioButton>Foster (surrogate) Parent
+            </div>
+            <div class="space-down">
+              <p-radioButton value="4" class="space-right" formControlName="PhoneContact" name="PhoneContact" [(ngModel)]="cisPecfas.PhoneContact.fieldOptionIndex"></p-radioButton>Juvenile Justice/Police
+            </div>
+            <div class="space-down">
+              <p-radioButton value="5" class="space-right" formControlName="PhoneContact" name="PhoneContact" [(ngModel)]="cisPecfas.PhoneContact.fieldOptionIndex"></p-radioButton>Social Worker (Services)
+            </div>
+            <div class="space-down">
+              <p-radioButton value="6" class="space-right" formControlName="PhoneContact" name="PhoneContact" [(ngModel)]="cisPecfas.PhoneContact.fieldOptionIndex"></p-radioButton>Mental Health Worker
+            </div>
+            <div class="space-down">
+              <p-radioButton value="7" class="space-right" formControlName="PhoneContact" name="PhoneContact" [(ngModel)]="cisPecfas.PhoneContact.fieldOptionIndex"></p-radioButton>Public Health Worker
+            </div>
+            <div class="space-down">
+              <p-radioButton value="8" class="space-right" formControlName="PhoneContact" name="PhoneContact" [(ngModel)]="cisPecfas.PhoneContact.fieldOptionIndex"></p-radioButton>Other
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="space-down">
+      <table>
+        <thead>
+          <tr>
+            <th class="table-td"></th>
+            <th class="table-td">Severe Impairment 30
+            </th>
+            <th class="table-td">Moderate Impairment 20
+            </th>
+            <th class="table-td">Mild Impairment 10
+            </th>
+            <th class="table-td">Minimal or No Impairment 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="8" class="bold table-td">
+              <h3>
+                SCHOOL/ DAYCARE Role Performance
+              </h3>
+              <input type="text" pInputText size="20" formControlName="PEC_SCHOOL" name="PEC_SCHOOL" [(ngModel)]="cisPecfas.PEC_SCHOOL.value"
+              />
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School1" name="School1" [(ngModel)]="cisPecfas.School1.fieldOptionIndex"></p-checkbox>001 Asked to leave daycare/school
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School10" name="School10" [(ngModel)]="cisPecfas.School10.fieldOptionIndex"></p-checkbox>010 Severe and/or chronic disobedience
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School17" name="School17" [(ngModel)]="cisPecfas.School17.fieldOptionIndex"></p-checkbox>017 Disobedience results in frequent attention from teacher
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School23" name="School23" [(ngModel)]="cisPecfas.School23.fieldOptionIndex"></p-checkbox>023 Competent and comfortable at school
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School2" name="School2" [(ngModel)]="cisPecfas.School2.fieldOptionIndex"></p-checkbox>002 Refuses to attend school/daycare
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School11" name="School11" [(ngModel)]="cisPecfas.School11.fieldOptionIndex"></p-checkbox>011 Chronic inappropriate behavior
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School18" name="School18" [(ngModel)]="cisPecfas.School18.fieldOptionIndex"></p-checkbox>018 Inappropriate behavior results in frequent attention from teacher
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School24" name="School24" [(ngModel)]="cisPecfas.School24.fieldOptionIndex"></p-checkbox>024 Minor problems are easily resolved
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School3" name="School3" [(ngModel)]="cisPecfas.School3.fieldOptionIndex"></p-checkbox>003 Actions & statements considered potentially harmful to others
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School12" name="School12" [(ngModel)]="cisPecfas.School12.fieldOptionIndex"></p-checkbox>012 Frequently misses school/daycare
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School19" name="School19" [(ngModel)]="cisPecfas.School19.fieldOptionIndex"></p-checkbox>019 Occasional disobedience
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School25" name="School25" [(ngModel)]="cisPecfas.School25.fieldOptionIndex"></p-checkbox>025 Average or above learning
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School4" name="School4" [(ngModel)]="cisPecfas.School4.fieldOptionIndex"></p-checkbox>004 Has harmed or made threats to hurt others
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School13" name="School13" [(ngModel)]="cisPecfas.School13.fieldOptionIndex"></p-checkbox>013 Special accommodations are recommended or implemented due to disruptive behavior
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School20" name="School20" [(ngModel)]="cisPecfas.School20.fieldOptionIndex"></p-checkbox>020 Problems are due to poor attention or high activity level; not disruptive to others
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School26" name="School26" [(ngModel)]="cisPecfas.School26.fieldOptionIndex"></p-checkbox>026 Learning achievement consistent with skills & abilities , and cognitive disability
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School5" name="School5" [(ngModel)]="cisPecfas.School5.fieldOptionIndex"></p-checkbox>005 Unable to meet minimum behavior standards for school/daycare
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School14" name="School14" [(ngModel)]="cisPecfas.School14.fieldOptionIndex"></p-checkbox>014 Poor achievement; special accommodations are recommended or implemented
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School21" name="School21" [(ngModel)]="cisPecfas.School21.fieldOptionIndex"></p-checkbox>021 fails to follow instructions or listen
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School27" name="School27" [(ngModel)]="cisPecfas.School27.fieldOptionIndex"></p-checkbox>027 Learning achievement consistent with skills & abilities, and physical disability
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School6" name="School6" [(ngModel)]="cisPecfas.School6.fieldOptionIndex"></p-checkbox>006 Special accommodations do not mediate disruptive behavior
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School15" name="School15" [(ngModel)]="cisPecfas.School15.fieldOptionIndex"></p-checkbox>015 Learning is below average; no learning problem
+            </td>
+            <td class="table-td"></td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School28" name="School28" [(ngModel)]="cisPecfas.School28.fieldOptionIndex"></p-checkbox>028 Behavior is generally age appropriate
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School7" name="School7" [(ngModel)]="cisPecfas.School7.fieldOptionIndex"></p-checkbox>007 Learning impaired by poor attention or high activity level
+            </td>
+            <td class="table-td"></td>
+            <td class="table-td"></td>
+            <td class="table-td"></td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="School8" name="School8" [(ngModel)]="cisPecfas.School8.fieldOptionIndex"></p-checkbox>008 Learning impaired by learning disability
+            </td>
+            <td class="table-td"></td>
+            <td class="table-td"></td>
+            <td class="table-td"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="space-down">
+      <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(cisPecfas.TextBox1.value)}} cols="150" style="width: 100%;height: auto;"
+        formControlName="TextBox1" name="TextBox1" [(ngModel)]="cisPecfas.TextBox1.value"></textarea>
+    </div>
+    <div class="space-down">
+      <table>
+        <thead>
+          <tr>
+            <th class="table-td"></th>
+            <th class="table-td">Severe Impairment 30
+            </th>
+            <th class="table-td">Moderate Impairment 20
+            </th>
+            <th class="table-td">Mild Impairment 10
+            </th>
+            <th class="table-td">Minimal or No Impairment 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="7" class="bold table-td">
+              <h3>
+                HOME SUBSCALE Role Performance
+              </h3>
+              <input type="text" pInputText size="20" formControlName="PEC_HOME" name="PEC_HOME" [(ngModel)]="cisPecfas.PEC_HOME.value"
+              />
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home31" name="Home31" [(ngModel)]="cisPecfas.Home31.fieldOptionIndex"></p-checkbox>031 Child’s behavior has resulted in placement outside of home
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home39" name="Home39" [(ngModel)]="cisPecfas.Home39.fieldOptionIndex"></p-checkbox>039 Persistently uncooperative or disobedient
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home46" name="Home46" [(ngModel)]="cisPecfas.Home46.fieldOptionIndex"></p-checkbox>046 Frequently refuses to follow rules at home
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home54" name="Home54" [(ngModel)]="cisPecfas.Home54.fieldOptionIndex"></p-checkbox>054 Typically cooperative
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home32" name="Home32" [(ngModel)]="cisPecfas.Home32.fieldOptionIndex"></p-checkbox>032 Extensive management required to keep child at home
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home40" name="Home40" [(ngModel)]="cisPecfas.Home40.fieldOptionIndex"></p-checkbox>040 Fails to follow instructions
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home47" name="Home47" [(ngModel)]="cisPecfas.Home47.fieldOptionIndex"></p-checkbox>047 Compliance requires prodding & being watched
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home55" name="Home55" [(ngModel)]="cisPecfas.Home55.fieldOptionIndex"></p-checkbox>055 Minor problems are easily resolved
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home33" name="Home33" [(ngModel)]="cisPecfas.Home33.fieldOptionIndex"></p-checkbox>033 High level of supervision required
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home41" name="Home41" [(ngModel)]="cisPecfas.Home41.fieldOptionIndex"></p-checkbox>041 Refuses to perform age-appropriate chores/activities
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home48" name="Home48" [(ngModel)]="cisPecfas.Home48.fieldOptionIndex"></p-checkbox>048 Often frustrates caregiver with behavior
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home56" name="Home56" [(ngModel)]="cisPecfas.Home56.fieldOptionIndex"></p-checkbox>056 Behavior typically age appropriate
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home34" name="Home34" [(ngModel)]="cisPecfas.Home34.fieldOptionIndex"></p-checkbox>034 Constant attention has not resolved problem behavior
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home42" name="Home42" [(ngModel)]="cisPecfas.Home42.fieldOptionIndex"></p-checkbox>042 Markedly uncooperative or disobedient lasting several days
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home49" name="Home49" [(ngModel)]="cisPecfas.Home49.fieldOptionIndex"></p-checkbox>049 Insists on help from caregiver for mastered tasks
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home35" name="Home35" [(ngModel)]="cisPecfas.Home35.fieldOptionIndex"></p-checkbox>035 Constant attention, clinginess, demanded of caregiver
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home43" name="Home43" [(ngModel)]="cisPecfas.Home43.fieldOptionIndex"></p-checkbox>043 Consistently demanding
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home50" name="Home50" [(ngModel)]="cisPecfas.Home50.fieldOptionIndex"></p-checkbox>050 Will comply if caregiver insists
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home36" name="Home36" [(ngModel)]="cisPecfas.Home36.fieldOptionIndex"></p-checkbox>036 Runs away on purpose
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home44" name="Home44" [(ngModel)]="cisPecfas.Home44.fieldOptionIndex"></p-checkbox>044 Must be coaxed to eat
+            </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home51" name="Home51" [(ngModel)]="cisPecfas.Home51.fieldOptionIndex"></p-checkbox>051 Gets upset if caregiver is not giving them attention
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home37" name="Home37" [(ngModel)]="cisPecfas.Home37.fieldOptionIndex"></p-checkbox>037 Mealtime difficulties, refuses to eat
+            </td>
+            <td class="table-td"> </td>
+            <td class="table-td">
+              <p-checkbox binary="true" formControlName="Home52" name="Home52" [(ngModel)]="cisPecfas.Home52.fieldOptionIndex"></p-checkbox>052 Very picky eater
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="space-down">
+      <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(cisPecfas.TextBox2.value)}} cols="150" style="width: 100%;height: auto;"
+        formControlName="TextBox2" name="TextBox2" [(ngModel)]="cisPecfas.TextBox2.value"></textarea>
+    </div>
+    <div class="space-down">
+      <table>
+        <thead>
+          <tr>
+            <th class="table-td"></th>
+            <th class="table-td">Severe Impairment 30
+            </th>
+            <th class="table-td">Moderate Impairment 20
+            </th>
+            <th class="table-td">Mild Impairment 10
+            </th>
+            <th class="table-td">Minimal or No Impairment 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="6" class="bold table-td">
+              <h3>
+                COMMUNITY SUBSCALE Role Performance
+              </h3>
+              <input formControlName="PEC_COMMUNITY" name="PEC_COMMUNITY" [(ngModel)]="cisPecfas.PEC_COMMUNITY.value" type="text" pInputText
+                size="20" />
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Community59" name="Community59" [(ngModel)]="cisPecfas.Community59.fieldOptionIndex" binary="true"></p-checkbox>059 Hangs out with older children involved in illegal activities
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Community67" name="Community67" [(ngModel)]="cisPecfas.Community67.fieldOptionIndex" binary="true"></p-checkbox>067 Behavior would be considered delinqu -ent if older
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Community72" name="Community72" [(ngModel)]="cisPecfas.Community72.fieldOptionIndex" binary="true"></p-checkbox>072 Minor behavior problems not easily resolved
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Community76" name="Community76" [(ngModel)]="cisPecfas.Community76.fieldOptionIndex" binary="true"></p-checkbox>076 No negative impact on community
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Community60" name="Community60" [(ngModel)]="cisPecfas.Community60.fieldOptionIndex" binary="true"></p-checkbox>060 Influenced to do things for older children; may be involved in illegal activity
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Community68" name="Community68" [(ngModel)]="cisPecfas.Community68.fieldOptionIndex" binary="true"></p-checkbox>068 Chooses to play with older children who engage in delinquent behavior
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Community73" name="Community73" [(ngModel)]="cisPecfas.Community73.fieldOptionIndex" binary="true"></p-checkbox>073 Plays with children who get into serious trouble sometimes
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Community77" name="Community77" [(ngModel)]="cisPecfas.Community77.fieldOptionIndex" binary="true"></p-checkbox>077 Minor problems easily resolved
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Community61" name="Community61" [(ngModel)]="cisPecfas.Community61.fieldOptionIndex" binary="true"></p-checkbox>061 Repeatedly stolen money/property outside of home
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Community69" name="Community69" [(ngModel)]="cisPecfas.Community69.fieldOptionIndex" binary="true"></p-checkbox>069 Has been sexually inappropriate
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Community74" name="Community74" [(ngModel)]="cisPecfas.Community74.fieldOptionIndex" binary="true"></p-checkbox>074 Has played with fire on more than 1 occasion
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Community62" name="Community62" [(ngModel)]="cisPecfas.Community62.fieldOptionIndex" binary="true"></p-checkbox>062 Inappropriate sexual acts attempted or accomplished with other children
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Community70" name="Community70" [(ngModel)]="cisPecfas.Community70.fieldOptionIndex" binary="true"></p-checkbox>070 Repeatedly and intentionally plays with fire
+            </td>
+            <td class="table-td"> </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Community63" name="Community63" [(ngModel)]="cisPecfas.Community63.fieldOptionIndex" binary="true"></p-checkbox>063 Violates the law but not confined
+            </td>
+            <td class="table-td"> </td>
+            <td class="table-td"> </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Community64" name="Community64" [(ngModel)]="cisPecfas.Community64.fieldOptionIndex" binary="true"></p-checkbox>064 Deliberate firesetting
+            </td>
+            <td class="table-td"> </td>
+            <td class="table-td"> </td>
+            <td class="table-td"> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="space-down">
+      <textarea formControlName="TextBox3" name="TextBox3" [(ngModel)]="cisPecfas.TextBox3.value" pInputTextarea autoResize="autoResize"
+        rows={{rowMethod(cisPecfas.TextBox3.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="space-down">
+      <table>
+        <thead>
+          <tr>
+            <th class="table-td"></th>
+            <th class="table-td">Severe Impairment 30
+            </th>
+            <th class="table-td">Moderate Impairment 20
+            </th>
+            <th class="table-td">Mild Impairment 10
+            </th>
+            <th class="table-td">Minimal or No Impairment 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="13" class="bold table-td">
+              <h3>
+                BEHAVIOR TOWARD OTHERS
+              </h3>
+              <input formControlName="PEC_BEHAVIOR" name="PEC_BEHAVIOR" [(ngModel)]="cisPecfas.PEC_BEHAVIOR.value" type="text" pInputText
+                size="20" />
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior80" name="Behavior80" [(ngModel)]="cisPecfas.Behavior80.fieldOptionIndex" binary="true"></p-checkbox>080 Consistently inappropriate or bizarre behavior
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior86" name="Behavior86" [(ngModel)]="cisPecfas.Behavior86.fieldOptionIndex" binary="true"></p-checkbox>086 Typically inappropriate behavior
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior95" name="Behavior95" [(ngModel)]="cisPecfas.Behavior95.fieldOptionIndex" binary="true"></p-checkbox>095 Argumentative or annoying to others
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior109" name="Behavior109" [(ngModel)]="cisPecfas.Behavior109.fieldOptionIndex" binary="true"></p-checkbox>109 Appropriate interactions with others
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior81" name="Behavior81" [(ngModel)]="cisPecfas.Behavior81.fieldOptionIndex" binary="true"></p-checkbox>081 Behavior is dangerous enough to cause harm to others
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior87" name="Behavior87" [(ngModel)]="cisPecfas.Behavior87.fieldOptionIndex" binary="true"></p-checkbox>087 Inappropriate sexual behavior toward others
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior96" name="Behavior96" [(ngModel)]="cisPecfas.Behavior96.fieldOptionIndex" binary="true"></p-checkbox>096 Anger outbursts or temper tantrums when can’t get what they want
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior110" name="Behavior110" [(ngModel)]="cisPecfas.Behavior110.fieldOptionIndex" binary="true"></p-checkbox>110 Occasional problems are easily resolved
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior82" name="Behavior82" [(ngModel)]="cisPecfas.Behavior82.fieldOptionIndex" binary="true"></p-checkbox>082 Intentional sexually- inappropriate behavior toward another child
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior88" name="Behavior88" [(ngModel)]="cisPecfas.Behavior88.fieldOptionIndex" binary="true"></p-checkbox>088 Intentionally annoys others
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior97" name="Behavior97" [(ngModel)]="cisPecfas.Behavior97.fieldOptionIndex" binary="true"></p-checkbox>097 Quick-tempered, annoyed by others
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior111" name="Behavior111" [(ngModel)]="cisPecfas.Behavior111.fieldOptionIndex" binary="true"></p-checkbox>111 Typically behaves appropriately
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior83" name="Behavior83" [(ngModel)]="cisPecfas.Behavior83.fieldOptionIndex" binary="true"></p-checkbox>083 Cruel to animals – intentional
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior89" name="Behavior89" [(ngModel)]="cisPecfas.Behavior89.fieldOptionIndex" binary="true"></p-checkbox>089 Angry outbursts/ temper tantrums
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior98" name="Behavior98" [(ngModel)]="cisPecfas.Behavior98.fieldOptionIndex" binary="true"></p-checkbox>098 Poor peer interactions due to behavior
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior84" name="Behavior84" [(ngModel)]="cisPecfas.Behavior84.fieldOptionIndex" binary="true"></p-checkbox>084 No age-appropriate peer interactions
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior90" name="Behavior90" [(ngModel)]="cisPecfas.Behavior90.fieldOptionIndex" binary="true"></p-checkbox>090 Often mean toward others or animals
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior99" name="Behavior99" [(ngModel)]="cisPecfas.Behavior99.fieldOptionIndex" binary="true"></p-checkbox>099 Immature behavior with peers
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td"> </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior91" name="Behavior91" [(ngModel)]="cisPecfas.Behavior91.fieldOptionIndex" binary="true"></p-checkbox>091 Engages in bullying and harassment with others
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior100" name="Behavior100" [(ngModel)]="cisPecfas.Behavior100.fieldOptionIndex" binary="true"></p-checkbox>100 Overreacts to teasing
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td"> </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior92" name="Behavior92" [(ngModel)]="cisPecfas.Behavior92.fieldOptionIndex" binary="true"></p-checkbox>092 Antagonizes other children
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior101" name="Behavior101" [(ngModel)]="cisPecfas.Behavior101.fieldOptionIndex" binary="true"></p-checkbox>101 Pouts and stubborn a lot
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td"> </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior93" name="Behavior93" [(ngModel)]="cisPecfas.Behavior93.fieldOptionIndex" binary="true"></p-checkbox>093 Plays alone, prefers to be alone
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior102" name="Behavior102" [(ngModel)]="cisPecfas.Behavior102.fieldOptionIndex" binary="true"></p-checkbox>102 Does not like to share
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td"> </td>
+            <td class="table-td"> </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior103" name="Behavior103" [(ngModel)]="cisPecfas.Behavior103.fieldOptionIndex" binary="true"></p-checkbox>103 Bossy with other children
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td"> </td>
+            <td class="table-td"> </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior104" name="Behavior104" [(ngModel)]="cisPecfas.Behavior104.fieldOptionIndex" binary="true"></p-checkbox>104 Plays rough
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td"> </td>
+            <td class="table-td"> </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior105" name="Behavior105" [(ngModel)]="cisPecfas.Behavior105.fieldOptionIndex" binary="true"></p-checkbox>105 Upset for long periods when don’t get their way
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td"> </td>
+            <td class="table-td"> </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior106" name="Behavior106" [(ngModel)]="cisPecfas.Behavior106.fieldOptionIndex" binary="true"></p-checkbox>106 Rejected by peers
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td"> </td>
+            <td class="table-td"> </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Behavior107" name="Behavior107" [(ngModel)]="cisPecfas.Behavior107.fieldOptionIndex" binary="true"></p-checkbox>107 Timid or withdrawn limiting peer interactions
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="space-down">
+      <textarea formControlName="TextBox4" name="TextBox4" [(ngModel)]="cisPecfas.TextBox4.value" pInputTextarea autoResize="autoResize"
+        rows={{rowMethod(cisPecfas.TextBox4.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="space-down">
+      <table>
+        <thead>
+          <tr>
+            <th class="table-td"></th>
+            <th class="table-td">Severe Impairment 30
+            </th>
+            <th class="table-td">Moderate Impairment 20
+            </th>
+            <th class="table-td">Mild Impairment 10
+            </th>
+            <th class="table-td">Minimal or No Impairment 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="10" class="bold table-td">
+              <h3>
+                MOODS/EMOTIONS
+              </h3>
+              <input formControlName="PEC_MOODS" name="PEC_MOODS" [(ngModel)]="cisPecfas.PEC_MOODS.value" type="text" pInputText size="20"
+              />
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="vMoods114" name="Moods114" [(ngModel)]="cisPecfas.Moods114.fieldOptionIndex" binary="true"></p-checkbox>114 Incongruous emotional responses, viewed are strange or odd
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods123" name="Moods123" [(ngModel)]="cisPecfas.Moods123.fieldOptionIndex" binary="true"></p-checkbox>123 Overreacts when away from caregiver
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods131" name="Moods131" [(ngModel)]="cisPecfas.Moods131.fieldOptionIndex" binary="true"></p-checkbox>131 some symptoms related to anxiety, fear or sadness
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods142" name="Moods142" [(ngModel)]="cisPecfas.Moods142.fieldOptionIndex" binary="true"></p-checkbox>142 Normal experience of life stress
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods115" name="Moods115" [(ngModel)]="cisPecfas.Moods115.fieldOptionIndex" binary="true"></p-checkbox>115 Marked distress when apart from caregiver, inconsolable
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods124" name="Moods124" [(ngModel)]="cisPecfas.Moods124.fieldOptionIndex" binary="true"></p-checkbox>124 Overreacts to sounds or noise
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods132" name="Moods132" [(ngModel)]="cisPecfas.Moods132.fieldOptionIndex" binary="true"></p-checkbox>132 Overreacts, irritable, fearful or worried
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods143" name="Moods143" [(ngModel)]="cisPecfas.Moods143.fieldOptionIndex" binary="true"></p-checkbox>143 “OK” person; Self- esteem
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods116" name="Moods116" [(ngModel)]="cisPecfas.Moods116.fieldOptionIndex" binary="true"></p-checkbox>116 Poor school attendance due to extreme anxiety being away from caregiver
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods125" name="Moods125" [(ngModel)]="cisPecfas.Moods125.fieldOptionIndex" binary="true"></p-checkbox>125 Excessive and persistent worry
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods133" name="Moods133" [(ngModel)]="cisPecfas.Moods133.fieldOptionIndex" binary="true"></p-checkbox>133 Easily distressed by mistakes
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods144" name="Moods144" [(ngModel)]="cisPecfas.Moods144.fieldOptionIndex" binary="true"></p-checkbox>144 Can express strong emotion
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods117" name="Moods117" [(ngModel)]="cisPecfas.Moods117.fieldOptionIndex" binary="true"></p-checkbox>117 Atypical emotional expression associated with failure, interest in others, or interest in
+              eating
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods126" name="Moods126" [(ngModel)]="cisPecfas.Moods126.fieldOptionIndex" binary="true"></p-checkbox>126 Persistent sadness or unhappiness
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods134" name="Moods134" [(ngModel)]="cisPecfas.Moods134.fieldOptionIndex" binary="true"></p-checkbox>134 Feelings are easily hurt
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods145" name="Moods145" [(ngModel)]="cisPecfas.Moods145.fieldOptionIndex" binary="true"></p-checkbox>145 Generally behaviors appropriately
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods118" name="Moods118" [(ngModel)]="cisPecfas.Moods118.fieldOptionIndex" binary="true"></p-checkbox>118 Suicidal wishes
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods127" name="Moods127" [(ngModel)]="cisPecfas.Moods127.fieldOptionIndex" binary="true"></p-checkbox>127 Feelings of worthlessness
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods135" name="Moods135" [(ngModel)]="cisPecfas.Moods135.fieldOptionIndex" binary="true"></p-checkbox>135 Depressed or anxious for several days at a time
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods146" name="Moods146" [(ngModel)]="cisPecfas.Moods146.fieldOptionIndex" binary="true"></p-checkbox>146 Generally happy
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods119" name="Moods119" [(ngModel)]="cisPecfas.Moods119.fieldOptionIndex" binary="true"></p-checkbox>119 Hard to please or comfort most of the time, sad
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods128" name="Moods128" [(ngModel)]="cisPecfas.Moods128.fieldOptionIndex" binary="true"></p-checkbox>128 Frequent emotional outbursts
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods136" name="Moods136" [(ngModel)]="cisPecfas.Moods136.fieldOptionIndex" binary="true"></p-checkbox>136 Never expresses joy or delight
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods147" name="Moods147" [(ngModel)]="cisPecfas.Moods147.fieldOptionIndex" binary="true"></p-checkbox>147 Sadness and anxiety are age- appropriate
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods120" name="Moods120" [(ngModel)]="cisPecfas.Moods120.fieldOptionIndex" binary="true"></p-checkbox>120 Cries a lot
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods129" name="Moods129" [(ngModel)]="cisPecfas.Moods129.fieldOptionIndex" binary="true"></p-checkbox>129 Difficulty expressing emotions
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods137" name="Moods137" [(ngModel)]="cisPecfas.Moods137.fieldOptionIndex" binary="true"></p-checkbox>137 worries about neatness, cleanliness
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods121" name="Moods121" [(ngModel)]="cisPecfas.Moods121.fieldOptionIndex" binary="true"></p-checkbox>121 Little emotional expression
+            </td>
+            <td class="table-td"> </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods138" name="Moods138" [(ngModel)]="cisPecfas.Moods138.fieldOptionIndex" binary="true"></p-checkbox>138 Nervous habits
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td"> </td>
+            <td class="table-td"> </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods139" name="Moods139" [(ngModel)]="cisPecfas.Moods139.fieldOptionIndex" binary="true"></p-checkbox>139 frequent nightmares
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td"> </td>
+            <td class="table-td"> </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Moods140" name="Moods140" [(ngModel)]="cisPecfas.Moods140.fieldOptionIndex" binary="true"></p-checkbox>140 Does not handle changes to schedule or routine
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="space-down">
+      <textarea formControlName="TextBox5" name="TextBox5" [(ngModel)]="cisPecfas.TextBox5.value" pInputTextarea autoResize="autoResize"
+        rows={{rowMethod(cisPecfas.TextBox5.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="space-down">
+      <table>
+        <thead>
+          <tr>
+            <th class="table-td"> </th>
+            <th class="table-td"> Severe Impairment 30
+            </th>
+            <th class="table-td"> Moderate Impairment 20
+            </th>
+            <th class="table-td"> Mild Impairment 10
+            </th>
+            <th class="table-td"> Minimal or No Impairment 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="3" class="bold table-td">
+              <h3>
+                SELF-HARM BEHAVIOR
+              </h3>
+              <input formControlName="PEC_SELFHARM" name="PEC_SELFHARM" [(ngModel)]="cisPecfas.PEC_SELFHARM.value" type="text" pInputText
+                size="20" />
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="SelfHarm150" name="SelfHarm150" [(ngModel)]="cisPecfas.SelfHarm150.fieldOptionIndex" binary="true"></p-checkbox>150 Non-accidental self- injurious behavior
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="SelfHarm154" name="SelfHarm154" [(ngModel)]="cisPecfas.SelfHarm154.fieldOptionIndex" binary="true"></p-checkbox>154 Non-accidental self- mutilation or injury, not life threatening
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="SelfHarm157" name="SelfHarm157" [(ngModel)]="cisPecfas.SelfHarm157.fieldOptionIndex" binary="true"></p-checkbox>157 Repeated, non- accidental h=behavior resulting in injury
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="SelfHarm159" name="SelfHarm159" [(ngModel)]="cisPecfas.SelfHarm159.fieldOptionIndex" binary="true"></p-checkbox>159 No tendency toward self-harm
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="SelfHarm151" name="SelfHarm151" [(ngModel)]="cisPecfas.SelfHarm151.fieldOptionIndex" binary="true"></p-checkbox>151 Seemingly accidental self-harm behavior
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="SelfHarm155" name="SelfHarm155" [(ngModel)]="cisPecfas.SelfHarm155.fieldOptionIndex" binary="true"></p-checkbox>155 Repeatedly thinks about or talks about dying, suicide, self-harm
+            </td>
+            <td class="table-td"> </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="SelfHarm152" name="SelfHarm152" [(ngModel)]="cisPecfas.SelfHarm152.fieldOptionIndex" binary="true"></p-checkbox>152 Plan to harm self
+            </td>
+            <td class="table-td"> </td>
+            <td class="table-td"> </td>
+            <td class="table-td"> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="space-down">
+      <textarea formControlName="TextBox6" name="TextBox6" [(ngModel)]="cisPecfas.TextBox6.value" pInputTextarea autoResize="autoResize"
+        rows={{rowMethod(cisPecfas.TextBox6.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="space-down">
+      <table>
+        <thead>
+          <tr>
+            <th class="table-td"></th>
+            <th class="table-td">Severe Impairment 30
+            </th>
+            <th class="table-td">Moderate Impairment 20
+            </th>
+            <th class="table-td">Mild Impairment 10
+            </th>
+            <th class="table-td">Minimal or No Impairment 0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="7" class="bold table-td">
+              <h3>
+                THINKING COMMUNICATION </h3>
+              <input formControlName="PEC_COMMUNICATION" name="PEC_COMMUNICATION" [(ngModel)]="cisPecfas.PEC_COMMUNICATION.value" type="text"
+                pInputText size="20" />
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Thinking162" name="Thinking162" [(ngModel)]="cisPecfas.Thinking162.fieldOptionIndex" binary="true"></p-checkbox>162 Incoherent thought or language results in impossible communication
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Thinking170" name="Thinking170" [(ngModel)]="cisPecfas.Thinking170.fieldOptionIndex" binary="true"></p-checkbox>170 Disorganized or irrelevant communication
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Thinking177" name="Thinking177" [(ngModel)]="cisPecfas.Thinking177.fieldOptionIndex" binary="true"></p-checkbox>177 Odd speech or eccentric communication
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Thinking182" name="Thinking182" [(ngModel)]="cisPecfas.Thinking182.fieldOptionIndex" binary="true"></p-checkbox>182 No sign of disordered thought
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Thinking163" name="Thinking163" [(ngModel)]="cisPecfas.Thinking163.fieldOptionIndex" binary="true"></p-checkbox>163 Odd or noncommunicative speech or nonverbal behavior
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Thinking171" name="Thinking171" [(ngModel)]="cisPecfas.Thinking171.fieldOptionIndex" binary="true"></p-checkbox>171 Frequent strange or odd behavior
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Thinking178" name="Thinking178" [(ngModel)]="cisPecfas.Thinking178.fieldOptionIndex" binary="true"></p-checkbox>178 Expresses unnatural or strange idea
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Thinking164" name="Thinking164" [(ngModel)]="cisPecfas.Thinking164.fieldOptionIndex" binary="true"></p-checkbox>164 Bizarre or strange behavior; fantasy vs. reality
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Thinking172" name="Thinking172" [(ngModel)]="cisPecfas.Thinking172.fieldOptionIndex" binary="true"></p-checkbox>172 Intermittent hallucinations that interfere with functioning
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Thinking179" name="Thinking179" [(ngModel)]="cisPecfas.Thinking179.fieldOptionIndex" binary="true"></p-checkbox>179 Unusual perceptions, not hallucinations
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Thinking165" name="Thinking165" [(ngModel)]="cisPecfas.Thinking165.fieldOptionIndex" binary="true"></p-checkbox>165 Aimless, nonpurposeful behavior
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Thinking173" name="Thinking173" [(ngModel)]="cisPecfas.Thinking173.fieldOptionIndex" binary="true"></p-checkbox>173 Frequent aimless or nonpurposeful behavior
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Thinking180" name="Thinking180" [(ngModel)]="cisPecfas.Thinking180.fieldOptionIndex" binary="true"></p-checkbox>180 Limited ability for verbal expression
+            </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Thinking166" name="Thinking166" [(ngModel)]="cisPecfas.Thinking166.fieldOptionIndex" binary="true"></p-checkbox>166 Selective mute or refuses to talk
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Thinking174" name="Thinking174" [(ngModel)]="cisPecfas.Thinking174.fieldOptionIndex" binary="true"></p-checkbox>174 Bizarre, odd thoughts or fantasies
+            </td>
+            <td class="table-td"> </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Thinking167" name="Thinking167" [(ngModel)]="cisPecfas.Thinking167.fieldOptionIndex" binary="true"></p-checkbox>167 Does not respond when spoken to
+            </td>
+            <td class="table-td">
+              <p-checkbox formControlName="Thinking175" name="Thinking175" [(ngModel)]="cisPecfas.Thinking175.fieldOptionIndex" binary="true"></p-checkbox>175 Extremely limited verbal expression
+            </td>
+            <td class="table-td"> </td>
+            <td class="table-td"> </td>
+          </tr>
+          <tr>
+            <td class="table-td">
+              <p-checkbox formControlName="Thinking168" name="Thinking168" [(ngModel)]="cisPecfas.Thinking168.fieldOptionIndex" binary="true"></p-checkbox>168 Repetitive movement or speech
+            </td>
+            <td class="table-td"> </td>
+            <td class="table-td"> </td>
+            <td class="table-td"> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="space-down">
+      <textarea formControlName="TextBox7" name="TextBox7" [(ngModel)]="cisPecfas.TextBox7.value" pInputTextarea autoResize="autoResize"
+        rows={{rowMethod(cisPecfas.TextBox7.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="flex-container">
+      <div>
+        Total Score:
+      </div>
+      <div>
+        <input formControlName="PEC_TOTAL" name="PEC_TOTAL" [(ngModel)]="cisPecfas.PEC_TOTAL.value" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <p>This is not your official copy. Attach this to the signed copy of the assessment.</p>
+    <button (click)="calculate()" type="button" class="btn btn-block btn-add margin-top">Calculate</button>
+  </form>
+</div>
+
+
+<app-form-footer (print)="printForm()" [isPrint]="true" (save)="saveForm(cisPecfas)" (edit)="editForm()" [isDisabled]="isDisable"
+  [editControll]="editControll" (finalize)="finalizeForm(cisPecfas)" [isFinalize]="isFinalize" (discard)="discardForm()" [isDisabled]="isDisable" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>

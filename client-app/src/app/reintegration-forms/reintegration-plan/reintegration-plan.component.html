@@ -1,0 +1,281 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="reintegrationPlanForm" class="sf-form">
+    <div class="logo center space-down">
+      <img src="assets/logo color.svg" alt="">
+    </div>
+    <h3 class="center bold">REINTEGRATION PLAN </h3>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">DATE: </div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="reReintegrationPlan.Date" formControlName="Date" name="Date" [inputStyle]="{'width':'170px'}" showTime="true"
+          hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right"> CASE NUMBER: </div>
+      <div class="space-right">
+        <input [(ngModel)]="reReintegrationPlan.CaseNumber" formControlName="CaseNumber" name="CaseNumber" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <p>FAMILY INFORMATION</p>
+    <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Parent or Caretaker </div>
+        <div class="space-right">
+          <input [(ngModel)]="reReintegrationPlan.Parent" formControlName="Parent" name="Parent" type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">DOB </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reReintegrationPlan.ParentDob" formControlName="ParentDob" name="ParentDob" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Relationship</div>
+        <div class="space-right">
+          <input [(ngModel)]="reReintegrationPlan.ParentRelationship" formControlName="ParentRelationship" name="ParentRelationship"
+            type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p>CHILD/CHILDREN INVOLVED IN COURT ACTION</p>
+    <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Name </div>
+        <div class="space-right">
+          <input [(ngModel)]="reReintegrationPlan.ChildName" formControlName="ChildName" name="ChildName" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">DOB/AGE </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reReintegrationPlan.ChildDob" formControlName="ChildDob" name="ChildDob" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <p>OTHER CHILDREN IN FAMILY</p>
+    <div class="space-down flex-container space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Name </div>
+        <div class="space-right">
+          <input [(ngModel)]="reReintegrationPlan.OtherChildName" formControlName="OtherChildName" name="OtherChildName" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">DOB/AGE </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reReintegrationPlan.OtherChildDob" formControlName="OtherChildDob" name="OtherChildDob" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">
+        <span class="bold">Reason for custody:</span> (The children came into DCF custody as a result of….)</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reReintegrationPlan.ReasonForCustody" formControlName="ReasonForCustody" name="ReasonForCustody" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">
+        <span class="bold">Progress Towards Permanency:</span> (Case Plan task and progress. ***If case plan task is not completed document
+        plan for completion of case plan task)</div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Completed: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reReintegrationPlan.Completed" formControlName="Completed" name="Completed" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Not Completed: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reReintegrationPlan.NotCompleted" formControlName="NotCompleted" name="NotCompleted" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">
+        <span class="bold">REINTEGRATION TIMELINE: </span> (Be very specific about visitation plans, safety, and tentative date for reunification)</div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Safety: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reReintegrationPlan.Safety" formControlName="Safety" name="Safety" type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Anticipated Visitation Progression: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reReintegrationPlan.VisitationProgression" formControlName="VisitationProgression" name="VisitationProgression"
+            type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Tentative Date for Permanency: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reReintegrationPlan.TentativeDate" formControlName="TentativeDate" name="TentativeDate" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">
+        <span class="bold">PROPOSED PLAN FOR AFTERCARE: </span> (Services, Contact with Workers, Medical Card Application, Education, Child
+        Care, etc.)</div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Frequency of Worker Visits: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reReintegrationPlan.Frequency" formControlName="Frequency" name="Frequency" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Services: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reReintegrationPlan.Services" formControlName="Services" name="Services" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Medical Card Application: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reReintegrationPlan.MedicalCardApplication" formControlName="MedicalCardApplication" name="MedicalCardApplication"
+            type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Natural Supports: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reReintegrationPlan.NaturalSupports" formControlName="NaturalSupports" name="NaturalSupports" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date After Care Plan Discussed with Parents: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reReintegrationPlan.DateAfterCar" formControlName="DateAfterCar" name="DateAfterCar" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reReintegrationPlan.Parent1" formControlName="Parent1" name="Parent1" type="text" pInputText size="20"
+          />
+        </div>
+        <div class="space-down">Parent
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="reReintegrationPlan.Date1" formControlName="Date1" name="Date1" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reReintegrationPlan.Parent2" formControlName="Parent2" name="Parent2" type="text" pInputText size="20"
+          />
+        </div>
+        <div class="space-down">Parent
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="reReintegrationPlan.Date2" formControlName="Date2" name="Date2" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reReintegrationPlan.SocialWorker" formControlName="SocialWorker" name="SocialWorker" type="text" pInputText
+            size="20" />
+        </div>
+        <div class="space-down">Social Worker
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="reReintegrationPlan.Date3" formControlName="Date3" name="Date3" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reReintegrationPlan.FamilySupportWorker" formControlName="FamilySupportWorker" name="FamilySupportWorker"
+            type="text" pInputText size="20" />
+        </div>
+        <div class="space-down">Family Support Worker
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="reReintegrationPlan.Date4" formControlName="Date4" name="Date4" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reReintegrationPlan.ReintegrationSupervisor" formControlName="ReintegrationSupervisor" name="ReintegrationSupervisor"
+            type="text" pInputText size="20" />
+        </div>
+        <div class="space-down">Reintegration Supervisor
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="reReintegrationPlan.Date5" formControlName="Date5" name="Date5" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,reReintegrationPlan)" (edit)="editForm()" [editControll]="editControll" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

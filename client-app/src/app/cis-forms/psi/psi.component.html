@@ -1,0 +1,1372 @@
+<div id="print-form-content">
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+  <p-toast position="center" [baseZIndex]="99999999"></p-toast>
+  <form id="form-content" id="form-content" [formGroup]="psiForm" class="sf-form">
+    <h1 class="bold space-down center">Parent Stress Index – Short Form 4</h1>
+    <h3 class="bold space-down center">Filled by the parent</h3>
+    <div class="border-line space-down">
+      <div class="flex-container space-between">
+        <div class="flex-container">
+          <div>
+            Name:
+          </div>
+          <div>
+            <input formControlName="ParentName" name="ParentName" [(ngModel)]="cisPsi.ParentName.value" type="text" pInputText size="20"
+            />
+          </div>
+        </div>
+        <div class="flex-container">
+          <div>
+            Gender:
+          </div>
+          <div>
+            <input formControlName="ParentGender" name="ParentGender" [(ngModel)]="cisPsi.ParentGender.value" type="text" pInputText
+              size="20" />
+          </div>
+        </div>
+        <div class="flex-container">
+          <div>
+            Date of Birth:
+          </div>
+          <div>
+            <!-- <input  formControlName="ParentGender" name="ParentGender" [(ngModel)]="cisPsi.ParentDOB.value" type="text" pInputText size="20" /> -->
+            <p-calendar formControlName="ParentDOB" name="ParentDOB" [(ngModel)]="cisPsi.ParentDOB.value" showTime="true" hourFormat="24"
+              [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="flex-container space-between">
+        <div class="flex-container">
+          <div>
+            Ethnic Group:
+          </div>
+          <div>
+            <input formControlName="ParentEthnicGroup" name="ParentEthnicGroup" [(ngModel)]="cisPsi.ParentEthnicGroup.value" type="text"
+              pInputText size="20" />
+          </div>
+        </div>
+        <div class="flex-container">
+          <div>
+            <!-- <p-autoComplete formControlName="MaritalStatus" name="MaritalStatus" [(ngModel)]="cisPsi.MaritalStatus.fieldOptionIndex"></p-autoComplete> -->
+          </div>
+        </div>
+        <div class="flex-container">
+          <div>
+            Today's Date:
+          </div>
+          <div>
+            <!-- <input formControlName="ParentGender" name="ParentGender" [(ngModel)]="cisPsi.date.value" type="text" pInputText size="20" -->
+            <!-- /> -->
+            <p-calendar formControlName="date" name="date" [(ngModel)]="cisPsi.date.value" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <h3 class="bold table-td center">Filled by the staff</h3>
+  <div class="border-line space-down">
+    <div class="flex-container space-between">
+      <div class="flex-container">
+        <div>
+          Name:
+        </div>
+        <div>
+          <input type="text" readonly [(ngModel)]="cisPsi.ClientName.value" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          Child's gender:
+        </div>
+        <div>
+          <input readonly [(ngModel)]="cisPsi.Gender.value" type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div>
+          Child's date of birth:
+        </div>
+        <div>
+          <input readonly [(ngModel)]="cisPsi.DateOfBirth.value" type="text" pInputText size="20" />
+          <!-- <p-calendar [(ngModel)]="cisPsi.DateOfBirth.value" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <form id="form-content" id="form-content" [formGroup]="psiForm" class="sf-form">
+    <p-checkbox *ngIf="!cisPsi.disableValidate" (onChange)="handleDataField(true)" formControlName="disableValidate" name="disableValidate"
+      [(ngModel)]="cisPsi.disableValidate"></p-checkbox>
+    <p-checkbox binary="true" *ngIf="cisPsi.disableValidate" (onChange)="handleDataField(false)"></p-checkbox>Unable to Access
+  </form> -->
+
+  <form id="form-content" [formGroup]="unableToAccesForm" class="sf-form">
+    <p-checkbox (onChange)="handleDataField(cisPsi.disableValidate)" formControlName="disableValidate" binary="true" name="disableValidate"
+      [(ngModel)]="cisPsi.disableValidate"></p-checkbox>Unable to Access
+  </form>
+  <div *ngIf="cisPsi.disableValidate">
+    <p>Remarks:</p>
+    <textarea (ngModelChange)="saveRemarks($event)" [(ngModel)]="cisPsi.remarks.value" pInputTextarea autoResize="autoResize"
+      rows={{rowMethod(cisPsi.remarks.value)}} cols="150" style="width: 100%;height: auto;"></textarea>
+
+  </div>
+  <form id="form-content" id="form-content" [formGroup]="psiForm" class="sf-form">
+    <div class="flex-container">
+      <div class="space-right">
+        <p-radioButton value="0" formControlName="CareGiverRelationToClient" name="CareGiverRelationToClient" [(ngModel)]="cisPsi.CareGiverRelationToClient.fieldOptionIndex"
+          class="space-right"></p-radioButton>
+        Biological Parent
+      </div>
+      <div>
+        <p-radioButton formControlName="CareGiverRelationToClient" name="CareGiverRelationToClient" [(ngModel)]="cisPsi.CareGiverRelationToClient.fieldOptionIndex"
+          value="1" class="space-right"></p-radioButton>
+        Step parent
+      </div>
+      <div>
+        <p-radioButton formControlName="CareGiverRelationToClient" name="CareGiverRelationToClient" [(ngModel)]="cisPsi.CareGiverRelationToClient.fieldOptionIndex"
+          value="2" class="space-right"></p-radioButton>
+        Foster parent
+      </div>
+      <div>
+        <p-radioButton formControlName="CareGiverRelationToClient" name="CareGiverRelationToClient" [(ngModel)]="cisPsi.CareGiverRelationToClient.fieldOptionIndex"
+          value="3" class="space-right"></p-radioButton>
+        Guardian
+      </div>
+      <div>
+        <p-radioButton formControlName="CareGiverRelationToClient" name="CareGiverRelationToClient" [(ngModel)]="cisPsi.CareGiverRelationToClient.fieldOptionIndex"
+          value="4" class="space-right"></p-radioButton>
+        Adoptive parent
+      </div>
+      <div>
+        Other
+        <p-radioButton formControlName="CareGiverRelationToClient" name="CareGiverRelationToClient" [(ngModel)]="cisPsi.CareGiverRelationToClient.fieldOptionIndex"
+          value="5" class="space-right"></p-radioButton>
+      </div>
+      <div>
+        <input formControlName="RelationToClientOther" name="RelationToClientOther" [(ngModel)]="cisPsi.RelationToClientOther.value"
+          type="text" pInputText size="20" />
+      </div>
+      <div> (specify)
+      </div>
+    </div>
+    <div class="space-down">
+      <table>
+        <tr>
+          <td class="table-td">
+            <span class="bold">SA</span> = Strongly Agree</td>
+          <td class="table-td">
+            <span class="bold">A</span> = Agree</td>
+          <td class="table-td">
+            <span class="bold">NS</span> = Not Sure </td>
+          <td class="table-td">
+            <span class="bold">D</span> = Disagree</td>
+          <td class="table-td">
+            <span class="bold">SD</span> =Strongly Disagree</td>
+        </tr>
+      </table>
+    </div>
+    <div class="space-down">
+      <table>
+        <tr>
+          <td class="bold">1. I often have the feeling that I cannot handle things very well</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question1" name="Question1" [(ngModel)]="cisPsi.Question1.fieldOptionIndex" value="0" class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question1" name="Question1" [(ngModel)]="cisPsi.Question1.fieldOptionIndex" value="1" class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question1" name="Question1" [(ngModel)]="cisPsi.Question1.fieldOptionIndex" value="2" class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question1" name="Question1" [(ngModel)]="cisPsi.Question1.fieldOptionIndex" value="3" class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question1" name="Question1" [(ngModel)]="cisPsi.Question1.fieldOptionIndex" value="4" class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">2. I find myself giving up more of my life to meet my children's needs than I ever expected
+          </td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question2" name="Question2" [(ngModel)]="cisPsi.Question2.fieldOptionIndex" value="0" class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question2" name="Question2" [(ngModel)]="cisPsi.Question2.fieldOptionIndex" value="1" class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question2" name="Question2" [(ngModel)]="cisPsi.Question2.fieldOptionIndex" value="2" class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question2" name="Question2" [(ngModel)]="cisPsi.Question2.fieldOptionIndex" value="3" class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question2" name="Question2" [(ngModel)]="cisPsi.Question2.fieldOptionIndex" value="4" class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">3. I feel trapped by my responsibilities as a parent</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question3" name="Question3" [(ngModel)]="cisPsi.Question3.fieldOptionIndex" value="0" class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question3" name="Question3" [(ngModel)]="cisPsi.Question3.fieldOptionIndex" value="1" class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question3" name="Question3" [(ngModel)]="cisPsi.Question3.fieldOptionIndex" value="2" class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question3" name="Question3" [(ngModel)]="cisPsi.Question3.fieldOptionIndex" value="3" class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question3" name="Question3" [(ngModel)]="cisPsi.Question3.fieldOptionIndex" value="4" class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">4. Since having this child, I have been unable to do new and different things</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question4" name="Question4" [(ngModel)]="cisPsi.Question4.fieldOptionIndex" value="0" class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question4" name="Question4" [(ngModel)]="cisPsi.Question4.fieldOptionIndex" value="1" class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question4" name="Question4" [(ngModel)]="cisPsi.Question4.fieldOptionIndex" value="2" class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question4" name="Question4" [(ngModel)]="cisPsi.Question4.fieldOptionIndex" value="3" class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question4" name="Question4" [(ngModel)]="cisPsi.Question4.fieldOptionIndex" value="4" class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">5. Since having this child, I feel that I am almost never able to do things that I like to do</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question5" name="Question5" [(ngModel)]="cisPsi.Question5.fieldOptionIndex" value="0" class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question5" name="Question5" [(ngModel)]="cisPsi.Question5.fieldOptionIndex" value="1" class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question5" name="Question5" [(ngModel)]="cisPsi.Question5.fieldOptionIndex" value="2" class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question5" name="Question5" [(ngModel)]="cisPsi.Question5.fieldOptionIndex" value="3" class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question5" name="Question5" [(ngModel)]="cisPsi.Question5.fieldOptionIndex" value="4" class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">6. I am unhappy with the last purchase of clothing I made for myself</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question6" name="Question6" [(ngModel)]="cisPsi.Question6.fieldOptionIndex" value="0" class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question6" name="Question6" [(ngModel)]="cisPsi.Question6.fieldOptionIndex" value="1" class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question6" name="Question6" [(ngModel)]="cisPsi.Question6.fieldOptionIndex" value="2" class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question6" name="Question6" [(ngModel)]="cisPsi.Question6.fieldOptionIndex" value="3" class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question6" name="Question6" [(ngModel)]="cisPsi.Question6.fieldOptionIndex" value="4" class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">7. There are quite a few things that bother me about my life</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question7" name="Question7" [(ngModel)]="cisPsi.Question7.fieldOptionIndex" value="0" class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question7" name="Question7" [(ngModel)]="cisPsi.Question7.fieldOptionIndex" value="1" class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question7" name="Question7" [(ngModel)]="cisPsi.Question7.fieldOptionIndex" value="2" class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question7" name="Question7" [(ngModel)]="cisPsi.Question7.fieldOptionIndex" value="3" class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question7" name="Question7" [(ngModel)]="cisPsi.Question7.fieldOptionIndex" value="4" class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">8. Having a child has caused more problems than I expected in my relationship with my spouse/parenting partner</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question8" name="Question8" [(ngModel)]="cisPsi.Question8.fieldOptionIndex" value="0" class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question8" name="Question8" [(ngModel)]="cisPsi.Question8.fieldOptionIndex" value="1" class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question8" name="Question8" [(ngModel)]="cisPsi.Question8.fieldOptionIndex" value="2" class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question8" name="Question8" [(ngModel)]="cisPsi.Question8.fieldOptionIndex" value="3" class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question8" name="Question8" [(ngModel)]="cisPsi.Question8.fieldOptionIndex" value="4" class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">9. I feel alone and without friends</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question9" name="Question9" [(ngModel)]="cisPsi.Question9.fieldOptionIndex" value="0" class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question9" name="Question9" [(ngModel)]="cisPsi.Question9.fieldOptionIndex" value="1" class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question9" name="Question9" [(ngModel)]="cisPsi.Question9.fieldOptionIndex" value="2" class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question9" name="Question9" [(ngModel)]="cisPsi.Question9.fieldOptionIndex" value="3" class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question9" name="Question9" [(ngModel)]="cisPsi.Question9.fieldOptionIndex" value="4" class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">10. When I go to a party, I usually expect not to enjoy myself</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question10" name="Question10" [(ngModel)]="cisPsi.Question10.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question10" name="Question10" [(ngModel)]="cisPsi.Question10.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question10" name="Question10" [(ngModel)]="cisPsi.Question10.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question10" name="Question10" [(ngModel)]="cisPsi.Question10.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question10" name="Question10" [(ngModel)]="cisPsi.Question10.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">11. I am not as interested in people as I used to be</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question11" name="Question11" [(ngModel)]="cisPsi.Question11.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question11" name="Question11" [(ngModel)]="cisPsi.Question11.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question11" name="Question11" [(ngModel)]="cisPsi.Question11.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question11" name="Question11" [(ngModel)]="cisPsi.Question11.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question11" name="Question11" [(ngModel)]="cisPsi.Question11.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">12. I don't enjoy things as I used to</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question12" name="Question12" [(ngModel)]="cisPsi.Question12.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question12" name="Question12" [(ngModel)]="cisPsi.Question12.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question12" name="Question12" [(ngModel)]="cisPsi.Question12.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question12" name="Question12" [(ngModel)]="cisPsi.Question12.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question12" name="Question12" [(ngModel)]="cisPsi.Question12.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">13. My child rarely does things for me that make me feel good</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question13" name="Question13" [(ngModel)]="cisPsi.Question13.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question13" name="Question13" [(ngModel)]="cisPsi.Question13.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question13" name="Question13" [(ngModel)]="cisPsi.Question13.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question13" name="Question13" [(ngModel)]="cisPsi.Question13.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question13" name="Question13" [(ngModel)]="cisPsi.Question13.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">14. When I do things for my child, I get the feeling that my efforts are not appreciated very much SA</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question14" name="Question14" [(ngModel)]="cisPsi.Question14.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question14" name="Question14" [(ngModel)]="cisPsi.Question14.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question14" name="Question14" [(ngModel)]="cisPsi.Question14.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question14" name="Question14" [(ngModel)]="cisPsi.Question14.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question14" name="Question14" [(ngModel)]="cisPsi.Question14.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">15. My child smiles at me much less than I expected</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question15" name="Question15" [(ngModel)]="cisPsi.Question15.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question15" name="Question15" [(ngModel)]="cisPsi.Question15.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question15" name="Question15" [(ngModel)]="cisPsi.Question15.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question15" name="Question15" [(ngModel)]="cisPsi.Question15.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question15" name="Question15" [(ngModel)]="cisPsi.Question15.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">16. Sometimes I feel my child doesn't like me and doesn't want to be close to me
+          </td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question16" name="Question16" [(ngModel)]="cisPsi.Question16.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question16" name="Question16" [(ngModel)]="cisPsi.Question16.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question16" name="Question16" [(ngModel)]="cisPsi.Question16.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question16" name="Question16" [(ngModel)]="cisPsi.Question16.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question16" name="Question16" [(ngModel)]="cisPsi.Question16.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">17. My child is very emotional and gets upset easily</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question17" name="Question17" [(ngModel)]="cisPsi.Question17.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question17" name="Question17" [(ngModel)]="cisPsi.Question17.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question17" name="Question17" [(ngModel)]="cisPsi.Question17.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question17" name="Question17" [(ngModel)]="cisPsi.Question17.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question17" name="Question17" [(ngModel)]="cisPsi.Question17.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">18. My child doesn't seem to learn as quickly as most children</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question18" name="Question18" [(ngModel)]="cisPsi.Question18.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question18" name="Question18" [(ngModel)]="cisPsi.Question18.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question18" name="Question18" [(ngModel)]="cisPsi.Question18.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question18" name="Question18" [(ngModel)]="cisPsi.Question18.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question18" name="Question18" [(ngModel)]="cisPsi.Question18.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">19. My child doesn't seem to smile as much as most children</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question19" name="Question19" [(ngModel)]="cisPsi.Question19.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question19" name="Question19" [(ngModel)]="cisPsi.Question19.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question19" name="Question19" [(ngModel)]="cisPsi.Question19.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question19" name="Question19" [(ngModel)]="cisPsi.Question19.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question19" name="Question19" [(ngModel)]="cisPsi.Question19.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">20. My child is not able to do as much as I expected</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question20" name="Question20" [(ngModel)]="cisPsi.Question20.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question20" name="Question20" [(ngModel)]="cisPsi.Question20.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question20" name="Question20" [(ngModel)]="cisPsi.Question20.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question20" name="Question20" [(ngModel)]="cisPsi.Question20.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question20" name="Question20" [(ngModel)]="cisPsi.Question20.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">21. It takes a long time and it is very hard for my child to get used to new things
+          </td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question21" name="Question21" [(ngModel)]="cisPsi.Question21.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question21" name="Question21" [(ngModel)]="cisPsi.Question21.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question21" name="Question21" [(ngModel)]="cisPsi.Question21.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question21" name="Question21" [(ngModel)]="cisPsi.Question21.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question21" name="Question21" [(ngModel)]="cisPsi.Question21.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">22. I feel that I am: (choose a response from the choices below)
+            <br> 1. a very good parent
+            <br> 2. a better-than-average parentg
+            <br> 3. an average parent
+            <br> 4. a person who has some trouble being a parent
+            <br> 5. not very good at being a parent</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question22" name="Question22" [(ngModel)]="cisPsi.Question22.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question22" name="Question22" [(ngModel)]="cisPsi.Question22.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question22" name="Question22" [(ngModel)]="cisPsi.Question22.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question22" name="Question22" [(ngModel)]="cisPsi.Question22.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question22" name="Question22" [(ngModel)]="cisPsi.Question22.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">23. I expected to have closer and warmer feelings for my child than I do, and this bothers me</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question23" name="Question23" [(ngModel)]="cisPsi.Question23.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question23" name="Question23" [(ngModel)]="cisPsi.Question23.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question23" name="Question23" [(ngModel)]="cisPsi.Question23.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question23" name="Question23" [(ngModel)]="cisPsi.Question23.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question23" name="Question23" [(ngModel)]="cisPsi.Question23.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">24. Sometimes my child does things that bother me just to be mean</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question24" name="Question24" [(ngModel)]="cisPsi.Question24.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question24" name="Question24" [(ngModel)]="cisPsi.Question24.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question24" name="Question24" [(ngModel)]="cisPsi.Question24.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question24" name="Question24" [(ngModel)]="cisPsi.Question24.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question24" name="Question24" [(ngModel)]="cisPsi.Question24.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">25. My child seems to cry or fuss more often than most children</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question25" name="Question25" [(ngModel)]="cisPsi.Question25.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question25" name="Question25" [(ngModel)]="cisPsi.Question25.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question25" name="Question25" [(ngModel)]="cisPsi.Question25.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question25" name="Question25" [(ngModel)]="cisPsi.Question25.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question25" name="Question25" [(ngModel)]="cisPsi.Question25.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">26. My child generally wakes up in a bad mood</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question26" name="Question26" [(ngModel)]="cisPsi.Question26.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question26" name="Question26" [(ngModel)]="cisPsi.Question26.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question26" name="Question26" [(ngModel)]="cisPsi.Question26.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question26" name="Question26" [(ngModel)]="cisPsi.Question26.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question26" name="Question26" [(ngModel)]="cisPsi.Question26.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">27. I feel that my child is very moody and easily upset</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question27" name="Question27" [(ngModel)]="cisPsi.Question27.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question27" name="Question27" [(ngModel)]="cisPsi.Question27.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question27" name="Question27" [(ngModel)]="cisPsi.Question27.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question27" name="Question27" [(ngModel)]="cisPsi.Question27.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question27" name="Question27" [(ngModel)]="cisPsi.Question27.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">28. Compared to the average child, my child has a great deal of difficulty in getting used to changes in schedules
+            or changes around the house</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question28" name="Question28" [(ngModel)]="cisPsi.Question28.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question28" name="Question28" [(ngModel)]="cisPsi.Question28.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question28" name="Question28" [(ngModel)]="cisPsi.Question28.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question28" name="Question28" [(ngModel)]="cisPsi.Question28.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question28" name="Question28" [(ngModel)]="cisPsi.Question28.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">29. My child reacts very strongly when something happens that my child doesn't like
+          </td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question29" name="Question29" [(ngModel)]="cisPsi.Question29.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question29" name="Question29" [(ngModel)]="cisPsi.Question29.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question29" name="Question29" [(ngModel)]="cisPsi.Question29.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question29" name="Question29" [(ngModel)]="cisPsi.Question29.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question29" name="Question29" [(ngModel)]="cisPsi.Question29.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">30. When playing, my child doesn't often giggle or laugh</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question30" name="Question30" [(ngModel)]="cisPsi.Question30.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question30" name="Question30" [(ngModel)]="cisPsi.Question30.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question30" name="Question30" [(ngModel)]="cisPsi.Question30.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question30" name="Question30" [(ngModel)]="cisPsi.Question30.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question30" name="Question30" [(ngModel)]="cisPsi.Question30.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">31.My child's sleeping or eating schedule was much harder to establish than I expected
+          </td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question31" name="Question31" [(ngModel)]="cisPsi.Question31.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question31" name="Question31" [(ngModel)]="cisPsi.Question31.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question31" name="Question31" [(ngModel)]="cisPsi.Question31.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question31" name="Question31" [(ngModel)]="cisPsi.Question31.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question31" name="Question31" [(ngModel)]="cisPsi.Question31.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">32. I have found that getting my child to do something or stop doing something is: (choose a response from the
+            choices below)
+            <br> 1. much harder than I expected
+            <br> 2. somewhat harder than I expected
+            <br> 3. about as hard as I expected
+            <br> 4. somewhat easier than I expected
+            <br> 5. much easier than I expected</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question32" name="Question32" [(ngModel)]="cisPsi.Question32.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question32" name="Question32" [(ngModel)]="cisPsi.Question32.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question32" name="Question32" [(ngModel)]="cisPsi.Question32.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question32" name="Question32" [(ngModel)]="cisPsi.Question32.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question32" name="Question32" [(ngModel)]="cisPsi.Question32.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">33. Think carefully and count the number of things which your child does that bothers you. For example,
+            <br> dawdles, refuses to listen, overactive, cries, interrupts, fights, whines, etc. (choose a response from the
+            choices below)
+            <br> 1. 1-3
+            <br> 2. 4-5
+            <br> 3. 6-7
+            <br> 4. 8-9
+            <br> 5. 10+</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question33" name="Question33" [(ngModel)]="cisPsi.Question33.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question33" name="Question33" [(ngModel)]="cisPsi.Question33.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question33" name="Question33" [(ngModel)]="cisPsi.Question33.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question33" name="Question33" [(ngModel)]="cisPsi.Question33.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question33" name="Question33" [(ngModel)]="cisPsi.Question33.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">34. There are some things my child does that really bothers me a lot</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question34" name="Question34" [(ngModel)]="cisPsi.Question34.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question34" name="Question34" [(ngModel)]="cisPsi.Question34.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question34" name="Question34" [(ngModel)]="cisPsi.Question34.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question34" name="Question34" [(ngModel)]="cisPsi.Question34.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question34" name="Question34" [(ngModel)]="cisPsi.Question34.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">35. My child's behavior is more of a problem than I expected</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question35" name="Question35" [(ngModel)]="cisPsi.Question35.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question35" name="Question35" [(ngModel)]="cisPsi.Question35.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question35" name="Question35" [(ngModel)]="cisPsi.Question35.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question35" name="Question35" [(ngModel)]="cisPsi.Question35.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question35" name="Question35" [(ngModel)]="cisPsi.Question35.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="bold">36. My child makes more demands on me than most children</td>
+          <td>
+            <div class="flex-container">
+              <div>
+                <p-radioButton formControlName="Question36" name="Question36" [(ngModel)]="cisPsi.Question36.fieldOptionIndex" value="0"
+                  class="space-right"></p-radioButton>
+                SA
+              </div>
+              <div>
+                <p-radioButton formControlName="Question36" name="Question36" [(ngModel)]="cisPsi.Question36.fieldOptionIndex" value="1"
+                  class="space-right"></p-radioButton>
+                A
+              </div>
+              <div>
+                <p-radioButton formControlName="Question36" name="Question36" [(ngModel)]="cisPsi.Question36.fieldOptionIndex" value="2"
+                  class="space-right"></p-radioButton>
+                NS
+              </div>
+              <div>
+                <p-radioButton formControlName="Question36" name="Question36" [(ngModel)]="cisPsi.Question36.fieldOptionIndex" value="3"
+                  class="space-right"></p-radioButton>
+                D
+              </div>
+              <div>
+                <p-radioButton formControlName="Question36" name="Question36" [(ngModel)]="cisPsi.Question36.fieldOptionIndex" value="4"
+                  class="space-right"></p-radioButton>
+                SD
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">Score Domain</th>
+          <th class="table-td"> Percentile Score</th>
+          <th class="table-td">Interpretation</th>
+        </tr>
+        <tr>
+          <td class="table-td">Defensive Responding</td>
+          <td class="table-td">
+            <input formControlName="DefensiveResponding" name="DefensiveResponding" [(ngModel)]="cisPsi.DefensiveResponding.value" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">&gt;10 indicates parent is responding truthfully</td>
+        </tr>
+        <tr>
+          <td class="table-td">Parent Domain</td>
+          <td class="table-td">
+            <input formControlName="ParentDomain" name="ParentDomain" [(ngModel)]="cisPsi.ParentDomain.value" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td"> &lt; 86%tile = normal stress 86%time to 89%tile = moderate stress &gt;= 89%tile = high stress Related to stressors
+            other than their parenting</td>
+        </tr>
+        <tr>
+          <td class="table-td">Parent-Child Difficult Interaction</td>
+          <td class="table-td">
+            <input formControlName="ParentChild" name="ParentChild" [(ngModel)]="cisPsi.ParentChild.value" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">&lt; 86%tile = normal stress 86%time to 89%tile = moderate stress &gt;= 89%tile = high stress Related to stress
+            in the parent-child relationship</td>
+        </tr>
+        <tr>
+          <td class="table-td">Difficult Child</td>
+          <td class="table-td">
+            <input formControlName="DifficultChild" name="DifficultChild" [(ngModel)]="cisPsi.DifficultChild.value" type="text" pInputText
+              size="20" />
+          </td>
+          <td class="table-td">&lt; 86%tile = normal stress 86%time to 89%tile = moderate stress &gt;= 89%tile = high stress Related to the stress
+            in parenting this particular child</td>
+        </tr>
+        <tr>
+          <td class="table-td">TOTAL STRESS</td>
+          <td class="table-td">
+            <input formControlName="totalStress" name="totalStress" [(ngModel)]="cisPsi.totalStress.value" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">
+            &lt; 86%tile = normal stress 86%time to 89%tile = moderate stress &gt;= 89%tile = high stress Related to parent's overall
+            stress
+          </td>
+        </tr>
+      </table>
+    </div>
+    <p class="bold">Adapted and reproduced by special permission of the Publisher, Psychological Assessment Resources, Inc. (PAR), 16204
+      North Florida Avenue, Lutz, Florida 33549, from the Parenting Stress Index Fourth Edition Short Form by Richard R.
+      Abidin, EdD. Copyright 1990, 1995, 2012 by PAR. Further reproduction is prohibited without permission of PAR.</p>
+    <button (click)="calculate()" type="button" class="btn btn-block btn-add margin-top">Calculate</button>
+  </form>
+</div>
+
+
+<app-form-footer (print)="printForm()" [isPrint]="true" (save)="saveForm(cisPsi)" (edit)="editForm()" [isDisabled]="isDisable" [editControll]="editControll" (finalize)="finalizeForm(cisPsi)"
+  [isFinalize]="isFinalize" (discard)="discardForm()" [isDisabled]="isDisable" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>

@@ -1,0 +1,846 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="suicideRiskAssessmentForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        SUICIDE RISK ASSESSMENT - FAMILY
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Case Name:</span>
+          <input [(ngModel)]="reSuicideRiskAssessment.suicideRiskCaseName" formControlName="suicideRiskCaseName" name="suicideRiskCaseName"
+            type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Case Number:</span>
+          <input [(ngModel)]="reSuicideRiskAssessment.suicideRiskCaseNumber" formControlName="suicideRiskCaseNumber" name="suicideRiskCaseNumber"
+            type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Referral Date:</span>
+          <p-calendar [(ngModel)]="reSuicideRiskAssessment.suicideRiskReferralDate" formControlName="suicideRiskReferralDate" name="suicideRiskReferralDate"
+            [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>Date:</span>
+          <p-calendar [(ngModel)]="reSuicideRiskAssessment.suicideRiskDate" formControlName="suicideRiskDate" name="suicideRiskDate"
+            [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <p>
+      INSTRUCTIONS: This assessment is to be completed by a licensed professional (LP) and/or other Saint Francis staff trained
+      to recognize and assess suicide risk with children, youth and adults. A copy of this assessment & interventions should
+      be provided to client (age 6 & above), parent/caregiver, and others as appropriate for the care and/or supervision
+      of the client. Attach Suicide Precaution Intervention form to this assessment.
+    </p>
+    <div class="flex-container space-down">
+      <div>
+        <p>Risk Factors in
+          <span class="striped">Striped bordered area</span> - Develop Suicide Precaution Intervention Form/Safety Plan</p>
+        <p>
+          Safety Factors in
+          <span class="solid">Solid bordered area</span> - Indicate cause for immediate assessment for inpatient hospitalization
+        </p>
+      </div>
+      <div class="caregiver-one">
+        Protective Factors:
+        <br> 4+ = Low Risk, 2-3 = Moderate Risk, 0-1 = High Risk
+      </div>
+    </div>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">Name</th>
+          <th class="table-td">Danger to Self</th>
+          <th class="table-td">Danger to Others</th>
+          <th class="table-td">Protective Factors</th>
+          <th class="table-td">Risk</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="suicide">
+
+              <div class="space-down">
+                <span> No Action Taken</span>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isSuicideRiskNoActionYes" formControlName="isSuicideRiskNoActionYes"
+                  name="isSuicideRiskNoActionYes"></p-checkbox>
+              </div>
+              <div class="space-down">
+                <span>Action Taken</span>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isSuicideRiskNoActionNo" formControlName="isSuicideRiskNoActionNo"
+                  name="isSuicideRiskNoActionNo"></p-checkbox>
+              </div>
+              <div>
+
+                <textarea [(ngModel)]="reSuicideRiskAssessment.suicideRiskAssessmentName" formControlName="suicideRiskAssessmentName" name="suicideRiskAssessmentName"
+                  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="solid space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfClear" formControlName="isDangerSelfClear"
+                  name="isDangerSelfClear"></p-checkbox>Clear Intent
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfPotentially" formControlName="isDangerSelfPotentially"
+                  name="isDangerSelfPotentially"></p-checkbox>Potentially Lethal
+              </div>
+            </div>
+            <div class="striped space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfAttempts" formControlName="isDangerSelfAttempts"
+                  name="isDangerSelfAttempts"></p-checkbox>Prior Attempts
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfHopelessness" formControlName="isDangerSelfHopelessness"
+                  name="isDangerSelfHopelessness"></p-checkbox>Hopelessness
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfSubstance" formControlName="isDangerSelfSubstance"
+                  name="isDangerSelfSubstance"></p-checkbox>Substance Use
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfLoss" formControlName="isDangerSelfLoss"
+                  name="isDangerSelfLoss"></p-checkbox>Loss & Trauma
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfIdeation" formControlName="isDangerSelfIdeation"
+                  name="isDangerSelfIdeation"></p-checkbox>Ideation Only
+              </div>
+            </div>
+            <div class="space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfHarm" formControlName="isDangerSelfHarm"
+                  name="isDangerSelfHarm"></p-checkbox>Self Harm Behaviors
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfChronic" formControlName="isDangerSelfChronic"
+                  name="isDangerSelfChronic"></p-checkbox>Chronic/Severe Illness
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfNone" formControlName="isDangerSelfNone"
+                  name="isDangerSelfNone"></p-checkbox>None
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="solid space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerOthersClear" formControlName="isDangerOthersClear"
+                  name="isDangerOthersClear"></p-checkbox>Clear Intent
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerOthersPlan" formControlName="isDangerOthersPlan"
+                  name="isDangerOthersPlan"></p-checkbox>Plan
+              </div>
+            </div>
+            <div class="space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerOthersAttempts" formControlName="isDangerOthersAttempts"
+                  name="isDangerOthersAttempts"></p-checkbox>Prior Attempts
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerOthersSubstance" formControlName="isDangerOthersSubstance"
+                  name="isDangerOthersSubstance"></p-checkbox>Substance Use
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerOthersIdeation" formControlName="isDangerOthersIdeation"
+                  name="isDangerOthersIdeation"></p-checkbox>Ideation Only
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerOthersNone" formControlName="isDangerOthersNone"
+                  name="isDangerOthersNone"></p-checkbox>None
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="solid space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveNone" formControlName="isProtectiveNone"
+                  name="isProtectiveNone"></p-checkbox>None
+              </div>
+            </div>
+            <div class="space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveFamily" formControlName="isProtectiveFamily"
+                  name="isProtectiveFamily"></p-checkbox>Family Support
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveCommunity" formControlName="isProtectiveCommunity"
+                  name="isProtectiveCommunity"></p-checkbox>Community Support
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveReligious" formControlName="isProtectiveReligious"
+                  name="isProtectiveReligious"></p-checkbox>Religious Beliefs
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveTolerance" formControlName="isProtectiveTolerance"
+                  name="isProtectiveTolerance"></p-checkbox>Good Frustration Tolerance
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectivePositive" formControlName="isProtectivePositive"
+                  name="isProtectivePositive"></p-checkbox>Positive Therapeutic Relationships
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveCopeStress" formControlName="isProtectiveCopeStress"
+                  name="isProtectiveCopeStress"></p-checkbox>Ability to Cope with Stress
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveCompliant" formControlName="isProtectiveCompliant"
+                  name="isProtectiveCompliant"></p-checkbox>Compliant with Treatment
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveIntelligence" formControlName="isProtectiveIntelligence"
+                  name="isProtectiveIntelligence"></p-checkbox>Intelligence
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveSafety" formControlName="isProtectiveSafety"
+                  name="isProtectiveSafety"></p-checkbox>Able to Contract for Safety
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="solid space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isRiskHigh" formControlName="isRiskHigh"
+                  name="isRiskHigh"></p-checkbox>High
+              </div>
+            </div>
+            <div class="striped space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isRiskModerate" formControlName="isRiskModerate"
+                  name="isRiskModerate"></p-checkbox>Moderate
+              </div>
+            </div>
+            <div class="space-down">
+              <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isRiskMild" formControlName="isRiskMild"
+                name="isRiskMild"></p-checkbox>Mild
+            </div>
+            <div class="space-down">
+              <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isRiskLow" formControlName="isRiskLow"
+                name="isRiskLow"></p-checkbox>Low
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">Name</th>
+          <th class="table-td">Danger to Self</th>
+          <th class="table-td">Danger to Others</th>
+          <th class="table-td">Protective Factors</th>
+          <th class="table-td">Risk</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="suicide">
+
+              <div class="space-down">
+                <span> No Action Taken</span>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isSuicideRiskNoActionYes1" formControlName="isSuicideRiskNoActionYes1"
+                  name="isSuicideRiskNoActionYes1"></p-checkbox>
+              </div>
+              <div class="space-down">
+                <span>Action Taken</span>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isSuicideRiskNoActionNo1" formControlName="isSuicideRiskNoActionNo1"
+                  name="isSuicideRiskNoActionNo1"></p-checkbox>
+              </div>
+              <div>
+
+                <textarea [(ngModel)]="reSuicideRiskAssessment.suicideRiskAssessmentName1" formControlName="suicideRiskAssessmentName1" name="suicideRiskAssessmentName1"
+                  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="solid space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfClear1" formControlName="isDangerSelfClear1"
+                  name="isDangerSelfClear1"></p-checkbox>Clear Intent
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfPotentially1" formControlName="isDangerSelfPotentially1"
+                  name="isDangerSelfPotentially1"></p-checkbox>Potentially Lethal
+              </div>
+            </div>
+            <div class="striped space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfAttempts1" formControlName="isDangerSelfAttempts1"
+                  name="isDangerSelfAttempts"></p-checkbox>Prior Attempts
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfHopelessness1" formControlName="isDangerSelfHopelessness1"
+                  name="isDangerSelfHopelessness1"></p-checkbox>Hopelessness
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfSubstance1" formControlName="isDangerSelfSubstance1"
+                  name="isDangerSelfSubstance1"></p-checkbox>Substance Use
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfLoss1" formControlName="isDangerSelfLoss1"
+                  name="isDangerSelfLoss1"></p-checkbox>Loss & Trauma
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfIdeation1" formControlName="isDangerSelfIdeation1"
+                  name="isDangerSelfIdeation1"></p-checkbox>Ideation Only
+              </div>
+            </div>
+            <div class="space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfHarm1" formControlName="isDangerSelfHarm1"
+                  name="isDangerSelfHarm1"></p-checkbox>Self Harm Behaviors
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfChronic1" formControlName="isDangerSelfChronic1"
+                  name="isDangerSelfChronic1"></p-checkbox>Chronic/Severe Illness
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfNone1" formControlName="isDangerSelfNone1"
+                  name="isDangerSelfNone1"></p-checkbox>None
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="solid space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerOthersClear1" formControlName="isDangerOthersClear1"
+                  name="isDangerOthersClear1"></p-checkbox>Clear Intent
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerOthersPlan1" formControlName="isDangerOthersPlan1"
+                  name="isDangerOthersPlan1"></p-checkbox>Plan
+              </div>
+            </div>
+            <div class="space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerOthersAttempts1" formControlName="isDangerOthersAttempts1"
+                  name="isDangerOthersAttempts1"></p-checkbox>Prior Attempts
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerOthersSubstance1" formControlName="isDangerOthersSubstance1"
+                  name="isDangerOthersSubstance1"></p-checkbox>Substance Use
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerOthersIdeation1" formControlName="isDangerOthersIdeation1"
+                  name="isDangerOthersIdeation1"></p-checkbox>Ideation Only
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerOthersNone1" formControlName="isDangerOthersNone1"
+                  name="isDangerOthersNone1"></p-checkbox>None
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="solid space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveNone1" formControlName="isProtectiveNone1"
+                  name="isProtectiveNone1"></p-checkbox>None
+              </div>
+            </div>
+            <div class="space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveFamily1" formControlName="isProtectiveFamily1"
+                  name="isProtectiveFamily1"></p-checkbox>Family Support
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveCommunity1" formControlName="isProtectiveCommunity1"
+                  name="isProtectiveCommunity1"></p-checkbox>Community Support
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveReligious1" formControlName="isProtectiveReligious1"
+                  name="isProtectiveReligious1"></p-checkbox>Religious Beliefs
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveTolerance1" formControlName="isProtectiveTolerance1"
+                  name="isProtectiveTolerance1"></p-checkbox>Good Frustration Tolerance
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectivePositive1" formControlName="isProtectivePositive1"
+                  name="isProtectivePositive1"></p-checkbox>Positive Therapeutic Relationships
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveCopeStress1" formControlName="isProtectiveCopeStress1"
+                  name="isProtectiveCopeStress1"></p-checkbox>Ability to Cope with Stress
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveCompliant1" formControlName="isProtectiveCompliant1"
+                  name="isProtectiveCompliant1"></p-checkbox>Compliant with Treatment
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveIntelligence1" formControlName="isProtectiveIntelligence1"
+                  name="isProtectiveIntelligence1"></p-checkbox>Intelligence
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveSafety1" formControlName="isProtectiveSafety1"
+                  name="isProtectiveSafety1"></p-checkbox>Able to Contract for Safety
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="solid space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isRiskHigh1" formControlName="isRiskHigh1"
+                  name="isRiskHigh1"></p-checkbox>High
+              </div>
+            </div>
+            <div class="striped space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isRiskModerate1" formControlName="isRiskModerate1"
+                  name="isRiskModerate1"></p-checkbox>Moderate
+              </div>
+            </div>
+            <div class="space-down">
+              <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isRiskMild1" formControlName="isRiskMild1"
+                name="isRiskMild1"></p-checkbox>Mild
+            </div>
+            <div class="space-down">
+              <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isRiskLow1" formControlName="isRiskLow1"
+                name="isRiskLow1"></p-checkbox>Low
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">Name</th>
+          <th class="table-td">Danger to Self</th>
+          <th class="table-td">Danger to Others</th>
+          <th class="table-td">Protective Factors</th>
+          <th class="table-td">Risk</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <div class="suicide">
+
+              <div class="space-down">
+                <span> No Action Taken</span>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isSuicideRiskNoActionYes2" formControlName="isSuicideRiskNoActionYes2"
+                  name="isSuicideRiskNoActionYes2"></p-checkbox>
+              </div>
+              <div class="space-down">
+                <span>Action Taken</span>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isSuicideRiskNoActionNo2" formControlName="isSuicideRiskNoActionNo2"
+                  name="isSuicideRiskNoActionNo2"></p-checkbox>
+              </div>
+              <div>
+
+                <textarea [(ngModel)]="reSuicideRiskAssessment.suicideRiskAssessmentName2" formControlName="suicideRiskAssessmentName2" name="suicideRiskAssessmentName2"
+                  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="solid space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfClear2" formControlName="isDangerSelfClear2"
+                  name="isDangerSelfClear2"></p-checkbox>Clear Intent
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfPotentially2" formControlName="isDangerSelfPotentially2"
+                  name="isDangerSelfPotentially2"></p-checkbox>Potentially Lethal
+              </div>
+            </div>
+            <div class="striped space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfAttempts2" formControlName="isDangerSelfAttempts2"
+                  name="isDangerSelfAttempts2"></p-checkbox>Prior Attempts
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfHopelessness2" formControlName="isDangerSelfHopelessness2"
+                  name="isDangerSelfHopelessness2"></p-checkbox>Hopelessness
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfSubstance2" formControlName="isDangerSelfSubstance2"
+                  name="isDangerSelfSubstance2"></p-checkbox>Substance Use
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfLoss2" formControlName="isDangerSelfLoss2"
+                  name="isDangerSelfLoss2"></p-checkbox>Loss & Trauma
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfIdeation2" formControlName="isDangerSelfIdeation2"
+                  name="isDangerSelfIdeation2"></p-checkbox>Ideation Only
+              </div>
+            </div>
+            <div class="space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfHarm2" formControlName="isDangerSelfHarm2"
+                  name="isDangerSelfHarm2"></p-checkbox>Self Harm Behaviors
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfChronic2" formControlName="isDangerSelfChronic2"
+                  name="isDangerSelfChronic2"></p-checkbox>Chronic/Severe Illness
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerSelfNone2" formControlName="isDangerSelfNone2"
+                  name="isDangerSelfNone2"></p-checkbox>None
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="solid space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerOthersClear2" formControlName="isDangerOthersClear2"
+                  name="isDangerOthersClear2"></p-checkbox>Clear Intent
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerOthersPlan2" formControlName="isDangerOthersPlan2"
+                  name="isDangerOthersPlan2"></p-checkbox>Plan
+              </div>
+            </div>
+            <div class="space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerOthersAttempts2" formControlName="isDangerOthersAttempts2"
+                  name="isDangerOthersAttempts2"></p-checkbox>Prior Attempts
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerOthersSubstance2" formControlName="isDangerOthersSubstance2"
+                  name="isDangerOthersSubstance2"></p-checkbox>Substance Use
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerOthersIdeation2" formControlName="isDangerOthersIdeation2"
+                  name="isDangerOthersIdeation2"></p-checkbox>Ideation Only
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isDangerOthersNone2" formControlName="isDangerOthersNone2"
+                  name="isDangerOthersNone2"></p-checkbox>None
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="solid space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveNone2" formControlName="isProtectiveNone2"
+                  name="isProtectiveNone2"></p-checkbox>None
+              </div>
+            </div>
+            <div class="space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveFamily2" formControlName="isProtectiveFamily2"
+                  name="isProtectiveFamily2"></p-checkbox>Family Support
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveCommunity2" formControlName="isProtectiveCommunity2"
+                  name="isProtectiveCommunity2"></p-checkbox>Community Support
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveReligious2" formControlName="isProtectiveReligious2"
+                  name="isProtectiveReligious2"></p-checkbox>Religious Beliefs
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveTolerance2" formControlName="isProtectiveTolerance2"
+                  name="isProtectiveTolerance2"></p-checkbox>Good Frustration Tolerance
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectivePositive2" formControlName="isProtectivePositive2"
+                  name="isProtectivePositive2"></p-checkbox>Positive Therapeutic Relationships
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveCopeStress2" formControlName="isProtectiveCopeStress2"
+                  name="isProtectiveCopeStress2"></p-checkbox>Ability to Cope with Stress
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveCompliant2" formControlName="isProtectiveCompliant2"
+                  name="isProtectiveCompliant2"></p-checkbox>Compliant with Treatment
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveIntelligence2" formControlName="isProtectiveIntelligence2"
+                  name="isProtectiveIntelligence2"></p-checkbox>Intelligence
+              </div>
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isProtectiveSafety2" formControlName="isProtectiveSafety2"
+                  name="isProtectiveSafety2"></p-checkbox>Able to Contract for Safety
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="solid space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isRiskHigh2" formControlName="isRiskHigh2"
+                  name="isRiskHigh2"></p-checkbox>High
+              </div>
+            </div>
+            <div class="striped space-down">
+              <div>
+                <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isRiskModerate2" formControlName="isRiskModerate2"
+                  name="isRiskModerate2"></p-checkbox>Moderate
+              </div>
+            </div>
+            <div class="space-down">
+              <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isRiskMild2" formControlName="isRiskMild2"
+                name="isRiskMild2"></p-checkbox>Mild
+            </div>
+            <div class="space-down">
+              <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isRiskLow2" formControlName="isRiskLow2"
+                name="isRiskLow2"></p-checkbox>Low
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    
+    <div class="flex-container space-down space-between">
+      <div class="flex-container space-down">
+        <div class="space-right">Staff Member Signature:</div>
+        <div class="space-right">
+          <input type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-down">
+        <div class="space-right">Date/Time:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reSuicideRiskAssessment.dateSuicideRisk" formControlName="dateSuicideRisk" name="dateSuicideRisk" [inputStyle]="{'width':'170px'}" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container header">
+      <div class="heading">
+        SUICIDE PRECAUTION INTERVENTION
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Client Name:</span>
+          <input [(ngModel)]="reSuicideRiskAssessment.suicidesafetyClientName" formControlName="suicidesafetyClientName" name="suicidesafetyClientName"
+            type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Record Number:</span>
+          <input [(ngModel)]="reSuicideRiskAssessment.suicidesafetyRecNo" formControlName="suicidesafetyRecNo" name="suicidesafetyRecNo"
+            type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Birth Date:</span>
+          <p-calendar  [(ngModel)]="reSuicideRiskAssessment.suicidesafetyDOB" formControlName="suicidesafetyDOB" name="suicidesafetyDOB"
+            class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>Assessment Date:</span>
+          <p-calendar  [(ngModel)]="reSuicideRiskAssessment.suicidesafetyAssmntDate" formControlName="suicidesafetyAssmntDate"
+            name="suicidesafetyAssmntDate" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <p>
+      Instructions: This intervention is to be completed by a licensed professional (LP) and/or by trained staff in consultation
+      with a LP or supervisor.
+    </p>
+    <div class="space-down">
+      <p>
+        Describe the situation that resulted in the need for Suicide Precaution Intervention/Safety Plan:
+      </p>
+      <textarea [(ngModel)]="reSuicideRiskAssessment.suicideSafetyPlan" formControlName="suicideSafetyPlan" name="suicideSafetyPlan"
+        pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="flex-container space-down">
+      <span>Rationale for Suicide Precaution Intervention/Safety Plan (check one): </span>
+      <div>
+        <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isSuicideSafetyMildRisk" formControlName="isSuicideSafetyMildRisk"
+          name="isSuicideSafetyMildRisk"></p-checkbox>Mild Risk
+      </div>
+      <div>
+        <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isSuicideSafetyModerateRisk" formControlName="isSuicideSafetyModerateRisk"
+          name="isSuicideSafetyModerateRisk"></p-checkbox>Moderate Risk
+      </div>
+      <div>
+        <p-checkbox class="margin-left-1rem" binary="true" [(ngModel)]="reSuicideRiskAssessment.isSuicideSafetyHighRisk" formControlName="isSuicideSafetyHighRisk"
+          name="isSuicideSafetyHighRisk"></p-checkbox>High Risk
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div>
+        <div>
+          <input [(ngModel)]="reSuicideRiskAssessment.suicideStaffMember" formControlName="suicideStaffMember" name="suicideStaffMember"
+            type="text" pInputText size="20" />
+        </div>
+        <div>Staff Member Initiating Suicide Precaution Intervention</div>
+      </div>
+      <div>
+        <div>
+          <input [(ngModel)]="reSuicideRiskAssessment.staffSignatureSuicidePrecaution" formControlName="staffSignatureSuicidePrecaution"
+            name="staffSignatureSuicidePrecaution" type="text" pInputText size="20" />
+        </div>
+        <div>Licensed Staff Signature/Credentials</div>
+      </div>
+    </div>
+    <div class="caregiver-one space-down">
+      <h3 style="text-align:center">PROTOCOL</h3>
+
+      <table class="no-border">
+        <tr>
+          <th class="table-td">Staff Initials</th>
+          <th class="table-td"></th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reSuicideRiskAssessment.suicideRiskAssessmentCompleted" formControlName="suicideRiskAssessmentCompleted"
+              name="suicideRiskAssessmentCompleted" type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">Suicide Risk Assessment Completed</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reSuicideRiskAssessment.suicideReleaseOfInformation" formControlName="suicideReleaseOfInformation" name="suicideReleaseOfInformation"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">Obtained a release of information for a contact person who is able to check on the client/family or in case unable
+            to contact the client.</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reSuicideRiskAssessment.lowModerateRisk" formControlName="lowModerateRisk" name="lowModerateRisk" type="text"
+              pInputText size="20" />
+          </td>
+          <td class="table-td">If Low to Moderate Risk, Client was given emergency numbers.</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reSuicideRiskAssessment.highRisk" formControlName="highRisk" name="highRisk" type="text" pInputText size="20"
+            />
+          </td>
+          <td class="table-td">If High Risk or no responsible adult to supervise for safety, Staff assisted in having client screened for inpatient
+            hospitalization either through local community mental health or local hospital emergency room.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <input [(ngModel)]="reSuicideRiskAssessment.suicideRiskTherapist" formControlName="suicideRiskTherapist" name="suicideRiskTherapist"
+              type="text" pInputText size="20" />
+          </td>
+          <td class="table-td">Therapist or Staff followed up with client (face to face if possible) to reassess for level of risk within 72 hours
+            of initial screen. </td>
+        </tr>
+      </table>
+    </div>
+    <p>
+      Client cannot be removed from suicide precaution intervention unless client screens outside the striped border area on the
+      Suicide Risk Assessment. Indicators that would tell staff client is demonstrating safety:
+    </p>
+    <div class="flex-container space-down">
+      <div>
+        <span>1</span>
+        <input [(ngModel)]="reSuicideRiskAssessment.indicatorsDemonstratingSafety1" formControlName="indicatorsDemonstratingSafety1"
+          name="indicatorsDemonstratingSafety1" type="text" pInputText size="20" />
+      </div>
+      <div>
+        <span>2</span>
+        <input [(ngModel)]="reSuicideRiskAssessment.indicatorsDemonstratingSafety2" formControlName="indicatorsDemonstratingSafety2"
+          name="indicatorsDemonstratingSafety2" type="text" pInputText size="20" />
+      </div>
+      <div>
+        <span>3</span>
+        <input [(ngModel)]="reSuicideRiskAssessment.indicatorsDemonstratingSafety3" formControlName="indicatorsDemonstratingSafety3"
+          name="indicatorsDemonstratingSafety3" type="text" pInputText size="20" />
+      </div>
+      <div>
+        <span>4</span>
+        <input [(ngModel)]="reSuicideRiskAssessment.indicatorsDemonstratingSafety4" formControlName="indicatorsDemonstratingSafety4"
+          name="indicatorsDemonstratingSafety4" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p>I understand the reason for suicide precaution intervention and the behaviors/expectations I must demonstrate.</p>
+    <div class="flex-container space-down">
+      <div>
+        <div>
+          <input [(ngModel)]="reSuicideRiskAssessment.suicideInterventionClientSignature" formControlName="suicideInterventionClientSignature"
+            name="suicideInterventionClientSignature" type="text" pInputText size="20" />
+        </div>
+        <div>Client signature</div>
+      </div>
+      <div>
+        <div>
+          <p-calendar [(ngModel)]="reSuicideRiskAssessment.suicideInterventionClientDate" formControlName="suicideInterventionClientDate"
+            name="suicideInterventionClientDate" [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>Date</div>
+      </div>
+      <div>
+        <div>
+          <input [(ngModel)]="reSuicideRiskAssessment.suicideInterventionParentSignature" formControlName="suicideInterventionParentSignature"
+            name="suicideInterventionParentSignature" type="text" pInputText size="20" />
+        </div>
+        <div>Parent/Guardian Signature</div>
+      </div>
+      <div>
+        <div>
+          <p-calendar [(ngModel)]="reSuicideRiskAssessment.suicideInterventionParentDate" formControlName="suicideInterventionParentDate"
+            name="suicideInterventionParentDate" [inputStyle]="{'width':'170px'}" class="date-picker" showTime="true" hourFormat="24"
+            [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>Date</div>
+      </div>
+    </div>
+    <div class="space-down">
+      <p>
+        Rationale for ceasing precaution intervention/safety plan (include client’s response, affect and safety plan):
+      </p>
+      <textarea [(ngModel)]="reSuicideRiskAssessment.ceasingPrecaution" formControlName="ceasingPrecaution" name="ceasingPrecaution"
+        pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="flex-container space-down">
+      <div>
+        <span>Conducted rescreen & client fell in </span>
+        <input [(ngModel)]="reSuicideRiskAssessment.conductedRescreen" formControlName="conductedRescreen" name="conductedRescreen"
+          type="text" pInputText size="20" />
+        <span>Risk.</span>
+      </div>
+      <div>
+        <span>Date</span>
+        <input [(ngModel)]="reSuicideRiskAssessment.conductedRescreenDate" formControlName="conductedRescreenDate" name="conductedRescreenDate"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div>
+        <div>
+          <input [(ngModel)]="reSuicideRiskAssessment.suicideRiskLpSignature" formControlName="suicideRiskLpSignature" name="suicideRiskLpSignature"
+            type="text" pInputText size="20" />
+        </div>
+        <div>LP Signature</div>
+      </div>
+      <div>
+        <div>
+          <input [(ngModel)]="reSuicideRiskAssessment.suicideRiskClientSignature" formControlName="suicideRiskClientSignature" name="suicideRiskClientSignature"
+            type="text" pInputText size="20" />
+        </div>
+        <div>Client Signature</div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,reSuicideRiskAssessment)" (edit)="editForm()" [editControll]="editControll" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

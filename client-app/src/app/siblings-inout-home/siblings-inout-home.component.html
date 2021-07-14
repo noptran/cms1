@@ -1,0 +1,86 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form class="sf-form" [formGroup]="siblingsForm">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Begin Date</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="beginDate" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030" formControlName="beginDate" [showIcon]="true" [(ngModel)]="sioh.BeginDate">
+            </p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="endDate" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030" formControlName="endDate" [showIcon]="true" [(ngModel)]="sioh.EndDate"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Can 'Client name' be placed with 'Siblings name'?</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox binary="true" formControlName="clientNamePlaced" name="checkbox"
+              [(ngModel)]="sioh.CanBePlacedTogether"></p-checkbox>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Who is the Cause of the Split?</span><span
+              class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" name="SiblingSplitCause" formControlName="causeOfSplit" pInputText
+              [(ngModel)]="sioh.SiblingSplitCauseID" />
+            <!-- <p-autoComplete [dropdown]="true" name="split" emptyMessage="No results found!" [forceSelection]="true"
+              placeholder="Type here to search" formControlName="causeOfSplit" field="grade" [(ngModel)]="sioh.SiblingSplitCauseID" size="23"></p-autoComplete> -->
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Sibling Reason</span><span class="mandatory">*</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" name="SiblingReason" formControlName="siblingsReason" pInputText
+              [(ngModel)]="sioh.SiblingReasonID" />
+            <!-- <p-autoComplete [dropdown]="true" name="siblingReason" emptyMessage="No results found!"
+              [forceSelection]="true" formControlName="siblingsReason" [(ngModel)]="sioh.SiblingReasonID" placeholder="Type here to search" field="grade" size="23"></p-autoComplete> -->
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Sibling Sub Reason</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input type="text" name="SiblingSubReason" formControlName="siblingsSubReason" pInputText
+              [(ngModel)]="sioh.SiblingSubReasonID" />
+            <!-- <p-autoComplete [dropdown]="true" name="siblingSubReason" emptyMessage="No results found!"
+              [forceSelection]="true" formControlName="siblingsSubReason" [(ngModel)]="sioh.SiblingSubReasonID" placeholder="Type here to search" field="grade" size="23"></p-autoComplete> -->
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea pInputTextarea name="siblingNotes" formControlName="notes" [(ngModel)]="sioh.Notes"
+              style="width:100%;height:100%"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <!-- [discardTo]="discardTo" -->
+    <app-form-footer (discard)="discardForm()" (save)="addPost()" (edit)="editForm()" [editControll]="editControll"
+      [attachmentControll]="isAttachmentRequired " [isAttachmentDisabled]="false" (attachDoc)="navigateToCMS()"
+      [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+    <!-- <app-quick-menu [module]="quickMenu"></app-quick-menu> -->
+  </div>
+</div>

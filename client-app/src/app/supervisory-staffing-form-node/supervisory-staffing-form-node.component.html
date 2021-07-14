@@ -1,0 +1,349 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+
+
+    <form class="sf-form form-size" [formGroup]="ssfForm">
+      <!-- id="pdf" -->
+      <div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Reason For Referral</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input [disabled]="true" [(ngModel)]="reasonForReferral" [ngModelOptions]="{standalone: true}" type="text"
+                pInputText name="inputText" size="27" />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Client</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete [dropdown]="true" name="clientID" emptyMessage="No results found!" [forceSelection]="true"
+                placeholder="Type here to search" field="clientName" size="23" [(ngModel)]="ssf.clientID"
+                formControlName="clientID" [suggestions]="metaData" (completeMethod)="getMetaData($event,'client')">
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Staff Performing Activity</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete [dropdown]="true" name="staffID" emptyMessage="No results found!" [forceSelection]="true"
+                placeholder="Type here to search" field="fullName" size="23" [(ngModel)]="ssf.staffID"
+                formControlName="staffID" [suggestions]="metaData" (completeMethod)="getMetaData($event,'staff')">
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateInput" showTime="true" hourFormat="24" [yearNavigator]="true"
+                [monthNavigator]="true" yearRange="2000:2030" [showIcon]="true" formControlName="date"
+                [(ngModel)]="ssf.date"></p-calendar>
+
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Court Update</span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea pInputTextarea name="courtUpdate" formControlName="courtUpdate" [(ngModel)]="ssf.courtUpdate"
+                style="width:100%;height:auto"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Visitation Update</span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea pInputTextarea name="visitationUpdate" formControlName="visitationUpdate"
+                [(ngModel)]="ssf.visitationUpdate" style="width:100%;height:auto"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Barries and Progress</span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea pInputTextarea name="progressTowardsAchievingPermanency"
+                formControlName="progressTowardsAchievingPermanency"
+                [(ngModel)]="ssf.progressTowardsAchievingPermanency" style="width:100%;height:auto"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Kinship</span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea pInputTextarea name="kinship" style="width:100%;height:auto" formControlName="kinship"
+                [(ngModel)]="ssf.kinship"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Review of Assessments</span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea pInputTextarea name="reviewOfNCFAS" formControlName="reviewOfNCFAS"
+                [(ngModel)]="ssf.reviewOfNCFAS" style="width:100%;height:auto"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Transition Plan for OPPLA Children</span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea pInputTextarea name="transitionPlan" formControlName="transitionPlan"
+                [(ngModel)]="ssf.transitionPlan" style="width:100%;height:auto"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>To Be Completed</span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea pInputTextarea name="toBeCompleted" formControlName="toBeCompleted"
+                [(ngModel)]="ssf.toBeCompleted" style="width:100%;height:auto"></textarea>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <app-form-footer [attachmentControll]="false " [isAttachmentDisabled]="false" (attachDoc)="navigateToCMS()"
+        (save)="formAction(ssf)" [editControll]="isEdit" [discardTo]="discardTo" (edit)="editForm()" [isPrint]="isPrint"
+        (print)="print()" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+      </app-form-footer>
+
+    </form>
+    <!-- <app-quick-menu [module]="quickMenu"></app-quick-menu> -->
+  </div>
+
+</div>
+
+<div *ngIf="isPrintEnabled" class="container-background">
+  <div class="container-foreground">
+
+
+    <form class="sf-form form-size" [formGroup]="ssfForm">
+      <div id="pdf">
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Reason For Referral</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input [(ngModel)]="reasonForReferral" [ngModelOptions]="{standalone: true}" class="remove-borders"
+                type="text" pInputText name="inputText" size="27" />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Client</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+
+              <input formControlName="clientID" [(ngModel)]="clientName" class="remove-borders" type="text" pInputText
+                name="inputText" size="27" />
+
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Staff Performing Activity</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input formControlName="staffID" [(ngModel)]="staffPerforming" class="remove-borders" type="text"
+                pInputText name="inputText" size="27" />
+
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input *ngIf="ssf.date" [(ngModel)]="ssf.date" formControlName="date" class="remove-borders" type="text"
+                pInputText name="inputText" size="27" />
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Court Update</span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <!-- <pre>{{ssf.courtUpdate}}</pre> -->
+              <p class="wrap-word">{{ssf.courtUpdate}}</p>
+
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Visitation Update</span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <!-- <pre>{{ssf.visitationUpdate}}</pre> -->
+              <p class="wrap-word">
+                {{ssf.visitationUpdate}}
+              </p>
+
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Barries and Progress</span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <!-- <pre>{{ssf.progressTowardsAchievingPermanency}}</pre> -->
+              <p class="wrap-word">
+                {{ssf.progressTowardsAchievingPermanency}}
+              </p>
+
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Kinship</span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <pre>{{ssf.kinship}}</pre>
+
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Review of Assessments</span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <pre>{{ssf.reviewOfNCFAS}}</pre>
+
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>Transition Plan for OPPLA Children</span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <pre>{{ssf.transitionPlan}}</pre>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>To Be Completed</span>
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <pre>{{ssf.toBeCompleted}}</pre>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </form>
+
+  </div>
+
+</div>

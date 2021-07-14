@@ -1,0 +1,72 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="custodyCaseForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="img">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+    </div>
+    <h3 class="bold center space-down">Notice of Child in Custody Case Planning Conference</h3>
+    <div class="flex-container space-down">
+      <div class="space-right">Date:</div>
+      <p-calendar [(ngModel)]="fpCustodyCase.date" formControlName="date" name="date"  showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+    </div>
+    <div class="space-down">
+      <div class="space-down">DCF Office:</div>
+      <div>
+        <textarea [(ngModel)]="fpCustodyCase.dcfOffice" formControlName="dcfOffice" name="dcfOffice"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-down">Address: </div>
+      <textarea [(ngModel)]="fpCustodyCase.address" formControlName="address" name="address"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">City, KS Zip Code: </div>
+      <input  [(ngModel)]="fpCustodyCase.cityInfo" formControlName="cityInfo" name="cityInfo"  type="text" pInputText size="20" />
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Child’s Name: </div>
+      <input  [(ngModel)]="fpCustodyCase.childName" formControlName="childName" name="childName"  type="text" pInputText size="20" />
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">Date/Time of Conference: </div>
+      <p-calendar [(ngModel)]="fpCustodyCase.dateOfconference" formControlName="dateOfconference" name="dateOfconference"  showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-down">Location of Conference: </div>
+      <textarea [(ngModel)]="fpCustodyCase.locationOfConference" formControlName="locationOfConference" name="locationOfConference"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-down">Address: </div>
+      <textarea [(ngModel)]="fpCustodyCase.address1" formControlName="address1" name="address1"  pInputTextarea autoResize="autoResize" rows="2" cols="150" style="width: 100%;height: auto;"></textarea>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">City, KS Zip Code: </div>
+      <input  [(ngModel)]="fpCustodyCase.cityInfo1" formControlName="cityInfo1" name="cityInfo1"  type="text" pInputText size="20" />
+    </div>
+    <p>
+      Each of you is invited to attend this Child in Custody Case Planning Conference for the above named child. Your
+      presence and participation in the case planning process will be helpful and appreciated. Parent(s), please also
+      bring the latest copies of your child’s medical and school records. Training is also available by the enclosed
+      brochure if you’ve never participated in this process before.
+      The date and time set for this meeting has been established in order to encourage maximum participation from
+      persons important to the child. If you have questions or if there is a good reason that this time and date will
+      not work for you please let us know. Please leave a message on my cell phone, (LICENSED WORKER CELL #),
+      indicating whether or not you will be able to attend.
+    </p>
+    <p>Sincerely,</p>
+    <div class="flex-container space-down space-between">
+      <div>
+        <div class="space-down"><input  [(ngModel)]="fpCustodyCase.signature" formControlName="signature" name="signature"  type="text" pInputText size="20" /></div>
+        <div class="space-down">Saint Francis Staff Signature</div>
+      </div>
+      <div>
+        <div class="space-down"><input  [(ngModel)]="fpCustodyCase.printedName" formControlName="printedName" name="printedName"  type="text" pInputText size="20" /></div>
+        <div class="space-down">Saint Francis Staff Printed Name</div>
+      </div>
+    </div>
+    <p>Additional Invitees Listed Below: (Include Both Parent(s), Child/ren (if over 7), GAL, 3rd Party, CASA, MH
+      Therapist, Community Supports, etc.)</p>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm(fpCustodyCase)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

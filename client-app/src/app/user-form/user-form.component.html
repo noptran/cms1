@@ -1,0 +1,482 @@
+<div class="Report">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 main" [ngClass]="Sidenav?'main-class':'width-100'">
+        <div class="container home access-container" style="padding-bottom: 40px;margin: 15px;">
+          <div id="loading-overlay">
+            <p class="loader-text">
+              <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+            </p>
+          </div>
+          <div *ngIf="!showForm">
+              <div class="row margin-top-20">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-heading-3 sf-black">Users</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 sf-text-right sf-table-header sf-black" *ngIf="totalCount > 0">
+                    <app-pagesize *ngIf="totalCount" [totalCount]="totalCount" [initial]="initial" [end]="end" (keyup)="pagesizeNav($event)"
+                      (click)="pagesize($event)"></app-pagesize>
+                  </div>
+                </div>
+            <!-- <div [hidden]="hideLoader" class="loader"></div> -->
+            <div class="margin-top-20  text-align-right" *ngIf="hideLoader">
+              <!-- <button class="btn sf-primary-btn font-600 add" (click)="addForm()">+ Add Users</button> -->
+              <div class="dropdow">
+                <button class="sf-dropdown-btn">
+                  <span class="sf-labels">Export</span>
+                </button>
+                <div class="dropdow-content sf-dropcontent-margin">
+                  <a style="cursor: pointer" (click)="exportToExcel()" class="sf-labels">Export as Excel</a>
+                  <a style="cursor: pointer" (click)="exportAsCsv()" class="sf-labels">Export as CSV</a>
+                </div>
+              </div>
+            </div>
+
+            
+            <div class="row margin-top-20">
+              <div class="col-lg-9 col-md-9 col-sm-9 sf-filter-padding">
+                <!-- <span class="col-lg-2 pad-0" >
+                  <span class="sf-heading-3 sf-black">My Favorites :</span>
+                </span>
+                <span class="col-lg-10 pad-0 margin-left-30 fav-scroll">
+                  <button *ngFor="let item of favouriteFilters;let index = index" type="submit" class="sf-secondary-btn sf-filter-padding font-600 margin-top-0"
+                  id="apply" (click)="apply(item,$event)">
+                    {{item.favoriteFilterName}}
+                    <i class="fa fa-times-circle color-grey" data-toggle="modal" data-target="#myModal1" id="remove" (click)="getDetails(item.favoriteFilterId,$event)"></i>
+                  </button>
+                </span> -->
+              </div>
+          
+            <div class="col-lg-2 col-md-2 col-sm-2 sf-text-right" >
+              <span class="sf-heading-3 sf-black glyphicon glyphicon-filter sf-click-cursor" pTooltip="Filter" id="filter-controller" (click)="displaying = true"></span>
+            </div>
+          </div>
+
+            <!-- Sorting layer-->
+            <div class="row margin-top-20" [hidden]="hideTable">
+              <div *ngIf="totalCount > 0" class="col-lg-12 col-md-12 col-sm-12 sf-text-right sf-table-header">
+                <p-dropdown [options]="sortcolumnDropdownList" [(ngModel)]="sortColumn" placeholder="{{sortColumn?sortColumn:'Select column'}}"
+                  (ngModelChange)=SortChanged()></p-dropdown>
+                <p-selectButton [options]="sortList" [(ngModel)]="sortOrder" (ngModelChange)=SortChanged() optionLabel="name"></p-selectButton>
+              </div>
+            </div>
+
+            <p-sidebar [(visible)]="displaying" position="right">
+              <h4 class="sf-heading-3">Filter</h4>     
+              <select class="dropdown width-200 sf-filter-padding" [(ngModel)]='filterConditionOption' (ngModelChange)='onConditionFilterSelected($event)'>
+                <option *ngFor="let item of option" [ngValue]="item.value">
+                  {{item.view}}
+                </option>
+              </select>
+          
+              <p-dropdown [options]="columnDropdownList" [style]="{'margin':'10px','width':'150px'}" [(ngModel)]="filterColumnSelected" (ngModelChange)=onColumnFilterSelected($event) placeholder="Select column"></p-dropdown>
+           <div class="row sf-filter-padding">
+              <div class="col-lg-8 pad-0">
+            <div  id="textFilter">
+              <angular2-multiselect [data]="columnData" [(ngModel)]="selectedDataToFilter" [settings]="ReportSubSettings" (onSelect)="onSubItemSelect($event)"
+                (onDeSelect)="OnSubItemDeSelect($event)" (onSelectAll)="onSubSelectAll($event)" (onDeSelectAll)="onSubDeSelectAll($event)">
+              </angular2-multiselect>
+            </div>
+            <div  id="dateFilter" class="adv-filter">
+              <div >
+                  <p-calendar [(ngModel)]="startingDate" [showIcon]="true" hourFormat="24"  [yearNavigator]="true" [monthNavigator]="true" yearRange="1930:2030"></p-calendar>
+                <!-- <input type="date" [(ngModel)]="startingDate" name="start-date" class="sf-date-input sf-input-size" /> -->
+              </div>
+              <div class="adv-filter margin-top-20">
+                  <p-calendar [(ngModel)]="endingDate" [showIcon]="true" hourFormat="24"  [yearNavigator]="true" [monthNavigator]="true" yearRange="1930:2030"></p-calendar>
+                <!-- <input type="date" [(ngModel)]="endingDate" name="end-date" class="sf-date-input sf-input-size" /> -->
+              </div>
+            </div>
+            <div id="intFilter">
+              <div >
+                <input type="number"  [(ngModel)]="startNumber" name="start-range" class="sf-input-size width-150" />
+              </div>
+              <div class="margin-top-20">
+                <input type="number" [(ngModel)]="endNumber" name="end-range" class="sf-input-size width-150" />
+              </div>
+            </div>
+            <div  id="singledateFilter" class="adv-filter">
+              <div >
+                <p-calendar [(ngModel)]="DateToFilter" [showIcon]="true" hourFormat="24"  [yearNavigator]="true" [monthNavigator]="true" yearRange="1930:2030"></p-calendar>
+                <!-- <input type="date" [(ngModel)]="DateToFilter" name="start-date-single" class="sf-date-input width-150 sf-input-size font-size-12" /> -->
+              </div>
+            </div>
+            <div id="singleIntFilter">
+              <div >
+                <input type="number" [(ngModel)]="NumberToFilter" name="start-range-single" class="sf-input-size width-150 font-size-12" />
+              </div>
+            </div>
+            <div  id="singleStringFilter">
+              <div >
+                <input type="text" [(ngModel)]="StringToFilter" name="single-filter" class="sf-input-size width-150 font-size-12" />
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <button class="plus-button" (click)="setAdvFilter()">+</button>
+          </div>
+           </div>
+           <div *ngIf="showFilterError" class="filter-error">*Enter data to filter</div>
+           <div *ngIf="fillBothFields" class="filter-error">*Fill both the fields</div>
+           <div *ngIf="fillField" class="filter-error">*Enter data to filter</div>
+          <div class="row placeholder margin-left-5px" >
+            <div class="col-md-6 col-sm-6 col-lg-6 " style="margin-top: 10px;">
+              <button class="sf-negative-btn " (click)="reset()">Reset</button>
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 sf-text-right" style="margin-top:10px">
+              <button class="sf-positive-btn" (click)="applyFilter()">Apply Filter</button>
+            </div>
+          </div>
+            <div class="filter-container placeholder">
+                <button *ngFor="let item of displayFilter2;let index = index" type="submit" class="sf-secondary-btn sf-filter-padding font-600 advance-filter-btn"
+                  (click)="remove(item,index,this.displayFilter2,this.originalArray)">
+                  {{item.column}} = {{item.value}}
+                  <i class="fa fa-times-circle color-grey"></i>
+                </button>
+                <button *ngFor="let item of displayFilter2NonString;let index = index" type="submit" class="sf-secondary-btn sf-filter-padding font-600 advance-filter-btn"
+                  (click)="remove(item,index,this.displayFilter2NonString,this.originalArrayNonString)">
+                  {{item.column}} between {{item.value}}
+                  <i class="fa fa-times-circle color-grey"></i>
+                </button>
+                <button *ngFor="let item of displayGreaterThan;let index = index" type="submit" class="sf-secondary-btn sf-filter-padding font-600 advance-filter-btn"
+                  (click)="remove(item,index,this.displayGreaterThan,this.greaterThanArray)">
+                  {{item.column}} > {{item.value}}
+                  <i class="fa fa-times-circle color-grey"></i>
+                </button>
+                <button *ngFor="let item of displayLesserThan;let index = index" type="submit" class="sf-secondary-btn sf-filter-padding font-600 advance-filter-btn"
+                  (click)="remove(item,index,this.displayLesserThan,this.lesserThanArray)">
+                  {{item.column}} < {{item.value}}
+                  <i class="fa fa-times-circle color-grey"></i>
+                </button>
+                <button *ngFor="let item of displayContains;let index = index" type="submit" class="sf-secondary-btn sf-filter-padding font-600 advance-filter-btn"
+                  (click)="remove(item,index,this.displayContains,this.containsArray)">
+                  {{item.column}} contains {{item.value}}
+                  <i class="fa fa-times-circle color-grey"></i>
+                </button>
+                <button *ngFor="let item of displaygreaterThanOrEqualsArray;let index = index" type="submit" class="sf-secondary-btn sf-filter-padding font-600 advance-filter-btn"
+                  (click)="remove(item,index,this.displaygreaterThanOrEqualsArray,this.greaterThanOrEqualsArray)">
+                  {{item.column}} >= {{item.value}}
+                  <i class="fa fa-times-circle color-grey"></i>
+                </button>
+                <button *ngFor="let item of displaylessThanOrEqualsArray;let index = index" type="submit" class="sf-secondary-btn sf-filter-padding font-600 advance-filter-btn"
+                  (click)="remove(item,index,this.displaylessThanOrEqualsArray,this.lessThanOrEqualsArray)">
+                  {{item.column}} <= {{item.value}}
+                  <i class="fa fa-times-circle color-grey"></i>
+                </button>
+                <button *ngFor="let item of displayNotBetweenArray;let index = index" type="submit" class="sf-secondary-btn sf-filter-padding font-600 advance-filter-btn"
+                  (click)="remove(item,index,this.displayNotBetweenArray,this.notBetweenArray)">
+                  {{item.column}} not between {{item.value}}
+                  <i class="fa fa-times-circle color-grey"></i>
+                </button>
+                <button *ngFor="let item of displayIsEmptyArray ;let index = index" type="submit" class="sf-secondary-btn sf-filter-padding font-600 advance-filter-btn"
+                  (click)="removeEmpty(item,index,this.displayIsEmptyArray,this.isEmptyArray)">
+                  {{item.column}} is empty
+                  <i class="fa fa-times-circle color-grey"></i>
+                </button>
+                <button *ngFor="let item of displayIsNotEmptyArray ;let index = index" type="submit" class="sf-secondary-btn sf-filter-padding font-600 advance-filter-btn"
+                  (click)="removeEmpty(item,index,this.displayIsNotEmptyArray,this.isNotEmptyArray)">
+                  {{item.column}} is not empty
+                  <i class="fa fa-times-circle color-grey"></i>
+                </button>
+          
+              </div>
+              <!-- <div class="text-align-right">
+                <button *ngIf="showSave" class="sf-positive-btn" data-toggle="modal" data-target="#myModal0">Save Filter</button>
+              </div> -->
+          </p-sidebar>
+
+            <div class="margin-top-20 card pad-0 row-cursor">
+              <ag-grid-angular style="width: 500px; height: 500px;" class="ag-theme-balham" [rowData]="rowData" [columnDefs]="columnDefs"
+                [defaultColDef]="defaultColDef" [rowDragManaged]="true" [suppressDragLeaveHidesColumns]="true" [enableSorting]="true"
+                enableColResize="true" #agGrid style="width: 100%; height:55vh;" animateRows="true" rowSelection="single" (rowSelected)="onRowSelected($event)"
+                (click)="onFilterChanged($event)">
+              </ag-grid-angular>
+            </div>
+          </div>
+
+          <div class="card" *ngIf="showForm">
+            <div>
+              <p class="sf-heading-2 sf-black text-center">Access Rights</p>
+            </div>
+            <!-- <h2 class="margin-top-20 header [disabled]="!userForm.valid"">User</h2> -->
+            <div class="sf-text-right">
+              <!-- <button class="btn sf-negative-btn" type="submit">Reset</button> -->
+              <button class="btn sf-moderate-btn sf-filter-padding mr-2" (click)=goBack()>Back</button>
+              <button class="btn sf-positive-btn" type="submit" (click)="save()">
+                <span id="saveBtnLabel">Save</span>
+              </button>
+            </div>
+            <form class="margin-top-20" [formGroup]="userForm" (ngSubmit)="addPost(userForm.value)" autocomplete="off">
+              <div class="row">
+                <div class="col-lg-6 col-sm-6 col-md-6">
+                  <div class="form-group mb-4">
+                    <label class=" sf-heading-3">First name</label>
+                    <input class="form-control width-30 text-field" type="text" placeholder="First name" formControlName="userFirstName" readonly>
+                    <div class="alert" *ngIf="!userForm.controls['userFirstName'].valid && userForm.controls['userFirstName'].touched">Enter a valid first name</div>
+                  </div>
+                </div>
+                <!-- <div class="col-lg-6 col-sm-6 col-md-6">
+                  <div class="form-group mb-4">
+                    <label class=" sf-heading-3">Team name</label>
+                    <input class="form-control width-30 text-field" type="text" placeholder="Team name" formControlName="teamName" readonly>
+                  </div>
+                </div> -->
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-sm-6 col-md-6">
+                  <div class="form-group mb-4">
+                    <label class=" sf-heading-3">Last login</label>
+                    <p-calendar formControlName="lastLogin" [showTime]="true" [monthNavigator]="true" [yearNavigator]="true" [readonlyInput]="true"
+                      disabled="true"></p-calendar>
+                    <!-- <input class="form-control width-30 text-field" type="text" placeholder="Login" formControlName="lastLogin" readonly> -->
+                    <div class="alert" *ngIf="!userForm.controls['lastLogin'].valid && userForm.controls['lastLogin'].touched">Enter a valid first name</div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-6 col-md-6">
+                  <div class="form-group mb-4">
+                    <label class=" sf-heading-3">Last logout</label>
+                    <p-calendar formControlName="lastLogout" [showTime]="true" [monthNavigator]="true" [yearNavigator]="true" [readonlyInput]="true"
+                      disabled="true"></p-calendar>
+                    <!-- <input class="form-control width-30 text-field" type="text" placeholder="Logout" formControlName="lastLogout" readonly> -->
+                    <div class="alert" *ngIf="!userForm.controls['lastLogout'].valid && userForm.controls['lastLogout'].touched">Enter a valid first name</div>
+                  </div>
+                </div>
+              </div>
+              <!-- PR -->
+              <p class="sf-heading-3 sf-black">Predefined Reports</p>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-sm-6 col-md-6 right-border">
+                  <span class="font-14 header-color">Report Categories</span>
+                  <div class="reportName margin-top-20" id="report-container">
+                    <div *ngFor="let rCategory of rCategories;let i = index" id="report-category{{i}}" class="reportName-container" (click)="getReportNames(rCategory.name,$event)">
+                      <span>{{rCategory.name}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-6 col-md-6">
+                  <span class="font-14 header-color">Reports</span>
+                  <span class="margin-left-20">
+                    <input type="search" name="report-search" id="report-search" (keyup)="reportSearch()" placeholder="Search {{userSelected}} report"
+                      class="search-box">
+                  </span>
+                  <div class="row report-border">
+                    <div class="col-lg-1 col-md-1 col-sm-1" *ngIf="reports.length > 0">
+                      <input type="checkbox" name="" id="prePRSelectall" (click)="prSelectAll($event)">
+                    </div>
+                    <div class="col-lg-11 col-md-11 col-sm-11" *ngIf="reports.length > 0">
+                      <span class="sf-labels">Select all</span>
+                    </div>
+                  </div>
+                  <div class="margin-top-20 report-container-height">
+                    <div *ngIf="!reports.length > 0" class="report-empty-info text-center ">
+                      <span> Select any report categories</span>
+                    </div>
+
+                    <div *ngFor="let report of reports; let i = index" class="row report-border" id="prData">
+                      <div class="col-lg-1 col-md-1 col-sm-1">
+                        <input type="checkbox" name="report-check" id="reportCheck" (click)="prInputs(report,$event,i)" />
+                      </div>
+                      <div class="col-lg-11 col-md-11 col-sm-11 sf-labels reportIndex" id="repo-label">
+                        <span>{{report.combination}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="reportEmptyStateController" class="empty-card">
+                    <span class="sf-labels">No reports matched!</span>
+                  </div>
+                </div>
+              </div>
+              <!-- CR -->
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6 right-border">
+                  <span class="sf-heading-3 sf-black">Custom Reports</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div *ngFor="let cReport of cReports; let i = index" class="row">
+                    <div class="col-lg-12 col-sm-12 col-md-12 margin-left-10 crContainer">
+                      <div class="col-lg-1 col-sm-1 col-md-1 ">
+                        <input type="checkbox" name="cReport-check" id="cReportCheck" (click)="crInputs(cReport.value,$event)" />
+                      </div>
+                      <div class="col-lg-5 col-sm-5 col-md-5 sf-labels">
+                        <span>{{cReport.view}}</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <!-- AS -->
+              <div class="row margin-top-20">
+
+                <div class="col-lg-6 col-md-6 col-sm-6 right-border">
+                  <span class="sf-heading-3 sf-black">Admin Settings</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="row margin-left-10">
+                    <div class="col-lg-1 col-md-1 col-sm-1">
+                      <input type="checkbox" name="" id="" (click)="asSelectall($event)">
+                    </div>
+                    <div class="col-lg-11 col-md-11 col-sm-11">
+                      <span class="sf-labels">Select all</span>
+                    </div>
+                  </div>
+                  <div *ngFor="let aSetting of aSettings; let i = index" class="row">
+                    <div class="col-lg-12 col-sm-12 col-md-12 margin-left-10 asContainer">
+                      <div class="col-lg-1 col-sm-1 col-md-1 ">
+                        <input type="checkbox" name="cReport-check" id="cReportCheck" (click)="asInputs(aSetting.value,$event,i)" />
+                      </div>
+
+                      <div class="col-lg-5 col-sm-5 col-md-5 sf-labels">
+                        <span>{{aSetting.view}}</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <!-- Referals -->
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6 right-border">
+                  <span class="sf-heading-3 sf-black">Referrals</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div *ngFor="let refer of referals; let i = index" class="row">
+                    <div class="col-lg-12 col-sm-12 col-md-12 margin-left-10 crContainer">
+                      <div class="col-lg-1 col-sm-1 col-md-1 ">
+                        <input type="checkbox" name="refer-check" id="referCheck" (click)="referInputs(refer.value,$event)" />
+                      </div>
+                      <div class="col-lg-5 col-sm-5 col-md-5 sf-labels">
+                        <span>{{refer.view}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Person -->
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6 right-border">
+                  <span class="sf-heading-3 sf-black">Person</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="row margin-left-10">
+                    <div class="col-lg-1 col-md-1 col-sm-1">
+                      <input type="checkbox" name="" id="" (click)="personSelectall($event)">
+                    </div>
+                    <div class="col-lg-11 col-md-11 col-sm-11">
+                      <span class="sf-labels">Select all</span>
+                    </div>
+                  </div>
+                  <div *ngFor="let person of personMaster; let i = index" class="row">
+                    <div class="col-lg-12 col-sm-12 col-md-12 margin-left-10 personContainer">
+                      <div class="col-lg-1 col-sm-1 col-md-1 ">
+                        <input type="checkbox" name="person-check" id="personCheck" (click)="personInputs(person.value,$event)" />
+                      </div>
+                      <div class="col-lg-5 col-sm-5 col-md-5 sf-labels">
+                        <span>{{person.view}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Export -->
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6 right-border">
+                  <span class="sf-heading-3 sf-black">Export</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div *ngFor="let export of myExports; let i = index" class="row">
+                    <div class="col-lg-12 col-sm-12 col-md-12 margin-left-10 crContainer">
+                      <div class="col-lg-1 col-sm-1 col-md-1 ">
+                        <input type="checkbox" name="export-check" id="exportCheck" (click)="exportInputs(export.value,$event)" />
+                      </div>
+                      <div class="col-lg-5 col-sm-5 col-md-5 sf-labels">
+                        <span>{{export.view}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!--CIS -->
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6 right-border">
+                  <span class="sf-heading-3 sf-black" ptoolTip="Mobile forms">CIS</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span>Reintegration</span>
+                  <div class="row margin-left-10">
+                    <div class="col-lg-1 col-md-1 col-sm-1">
+                      <input type="checkbox" name="" id="" (click)="cis_reingSelectall($event)">
+                    </div>
+                    <div class="col-lg-11 col-md-11 col-sm-11">
+                      <span class="sf-labels">Select all</span>
+                    </div>
+                  </div>
+                  <div *ngFor="let reinteg of cis_reintegration; let i = index" class="row">
+                    <div class="col-lg-12 col-sm-12 col-md-12 margin-left-10 cis_reing">
+                      <div class="col-lg-1 col-sm-1 col-md-1 ">
+                        <input type="checkbox" name="person-check" id="personCheck" (click)="cisReitegInputs(reinteg.value,$event)" />
+                      </div>
+                      <div class="col-lg-5 col-sm-5 col-md-5 sf-labels">
+                        <span>{{reinteg.view}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <span>Behavioral Assessment</span>
+                  <div class="row margin-left-10">
+                    <div class="col-lg-1 col-md-1 col-sm-1">
+                      <input type="checkbox" name="" id="" (click)="cis_behavSelectall($event)">
+                    </div>
+                    <div class="col-lg-11 col-md-11 col-sm-11">
+                      <span class="sf-labels">Select all</span>
+                    </div>
+                  </div>
+                  <div *ngFor="let behavass of cis_behavioural; let i = index" class="row">
+                    <div class="col-lg-12 col-sm-12 col-md-12 margin-left-10 cis_behav">
+                      <div class="col-lg-1 col-sm-1 col-md-1 ">
+                        <input type="checkbox" name="person-check" id="personCheck" (click)="cisBehavAss(behavass.value,$event)" />
+                      </div>
+                      <div class="col-lg-5 col-sm-5 col-md-5 sf-labels">
+                        <span>{{behavass.view}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="form-group mb-4">
+  <label class=" sf-heading-3">First Name</label>
+  <input class="form-control width-30 text-field" type="text" placeholder="First name" formControlName="userFirstName">
+  <div class="alert" *ngIf="!userForm.controls['userFirstName'].valid && userForm.controls['userFirstName'].touched">Enter a valid first name</div>
+</div>
+<div class="form-group mb-4">
+  <label class=" sf-heading-3">Last Name</label>
+  <input class="form-control width-30 text-field" type="text" placeholder="Last name" formControlName="userLastName">
+  <div class="alert" *ngIf="!userForm.controls['userLastName'].valid && userForm.controls['userLastName'].touched">Enter a valid last name</div>
+</div>
+<div class="form-group mb-4">
+  <label class=" sf-heading-3">Email</label>
+  <input class="form-control width-30 text-field" type="email" placeholder="Email" formControlName="userEmail">
+  <div class="alert" *ngIf="!userForm.controls['userEmail'].valid && userForm.controls['userEmail'].touched">Enter a valid email address</div>
+</div>
+<div class="form-group mb-4">
+  <label class=" sf-heading-3">Phone Number</label>
+  <input class="form-control width-30 text-field" type="text" placeholder="Address" formControlName="userCellPh">
+  <div class="alert" *ngIf="!userForm.controls['userCellPh'].valid && userForm.controls['userCellPh'].touched">Enter a valid address</div>
+</div>
+<div class="form-group mb-4">
+  <label class=" sf-heading-3">Address</label>
+  <input class="form-control width-30 text-field" type="text" placeholder="Address" formControlName="userAddress">
+  <div class="alert" *ngIf="!userForm.controls['userAddress'].valid && userForm.controls['userAddress'].touched">Enter a valid address</div>
+</div> -->

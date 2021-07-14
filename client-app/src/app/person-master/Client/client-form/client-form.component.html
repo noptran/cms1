@@ -1,0 +1,1592 @@
+<app-form-header
+  [title]="title"
+  [status]="status"
+  [breadcrumbs]="breadcrumbs"
+  [formstatus]="formStatus"
+  [moreActions]="moreActions"
+  [formNavigation]="form_navigation"
+  [subtitle]="subtitle"
+  *ngIf="isEditForm"
+></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <p-toast position="center"></p-toast>
+
+    <div class="row" *ngIf="clientId">
+      <div class="col-md-9">
+        <div class="opencard-menu-container">
+          <div class="dropdown border-none">
+            <span
+              class="fa fa-th opencard-menu"
+              data-toggle="dropdown"
+              pTooltip="OpenCards"
+            ></span>
+            <div class="dropdown-menu opencard-box">
+              <div class="card-container">
+                <div
+                  class="opencard"
+                  pTooltip="Medications and allergies"
+                  (click)="
+                    navigateToListView('/reports/medication-allergies/view')
+                  "
+                >
+                  <span class="opencard-title">Medications</span>
+                  <div>
+                    <span class="fa fa-medkit medical"></span>
+                  </div>
+                  <!-- <span class="opencard-footer">{{opencard.ClientMedication}}</span> -->
+                </div>
+                <div class="opencard" pTooltip="Cases" (click)="goToCaseForm()">
+                  <span class="opencard-title">Cases</span>
+                  <div>
+                    <span class="fa fa-suitcase cases"></span>
+                  </div>
+                  <!-- <span class="opencard-footer">{{opencard.Case}}</span> -->
+                </div>
+                <div
+                  class="opencard"
+                  pTooltip="Profiles"
+                  (click)="navigateToListView('/reports/client/profile')"
+                >
+                  <span class="opencard-title">Profiles</span>
+                  <div>
+                    <span class="fa fa-user profile"></span>
+                  </div>
+                  <!-- <span class="opencard-footer">{{opencard.ClientsProfile}}</span> -->
+                </div>
+                <div
+                  class="opencard"
+                  pTooltip="Client strengths"
+                  (click)="navigateToListView('/reports/client-strength/view')"
+                >
+                  <span class="opencard-title">Strengths</span>
+                  <div>
+                    <span class="fa fa-child strengths"></span>
+                  </div>
+                  <!-- <span class="opencard-footer">{{opencard.ClientStrength}}</span> -->
+                </div>
+                <div
+                  class="opencard"
+                  pTooltip="Court Case Number"
+                  (click)="navigateToListView('/reports/court/case/view')"
+                >
+                  <span class="opencard-title">Court Case</span>
+                  <div>
+                    <span class="fa fa-newspaper-o court-case"></span>
+                  </div>
+                  <!-- <span class="opencard-footer">{{opencard.CourtcaseNumber}}</span> -->
+                </div>
+                <div
+                  class="opencard"
+                  pTooltip="Third-party Liabilities"
+                  (click)="
+                    navigateToListView('/reports/thirdparty/liability/view')
+                  "
+                >
+                  <span class="opencard-title">Liability</span>
+                  <div>
+                    <span class="fa fa-file-text-o liability"></span>
+                  </div>
+                  <!-- <span class="opencard-footer">0</span> -->
+                </div>
+                <div
+                  class="opencard"
+                  pTooltip="Preventative Measures"
+                  (click)="
+                    navigateToListView(
+                      '/reports/preventative-measurements/view'
+                    )
+                  "
+                >
+                  <span class="opencard-title">Preventative </span>
+                  <div>
+                    <span class="fa fa-file-text-o preventative"></span>
+                  </div>
+                  <!-- <span class="opencard-footer">{{opencard.ClientPreventativeMeasure}}</span> -->
+                </div>
+                <div
+                  class="opencard"
+                  pTooltip="Attached Documents"
+                  (click)="getClientAttachmentsList()"
+                >
+                  <span class="opencard-title">Documents</span>
+                  <div>
+                    <span class="fa fa-file-text-o documents"></span>
+                  </div>
+                  <!-- <span class="opencard-footer">{{opencard.AttachedDocument}}</span> -->
+                </div>
+                <!-- <div class="opencard" pTooltip="Critical/Significant/Unusual Incident"
+                  routerLink="/reports/opencards/list/client/critical-significant-unusual-incident/view">
+                  <span class="opencard-title"> Unusual Incident</span>
+                  <div>
+                    <span class="fa fa-file-text-o incident"></span>
+                  </div>
+                  <span class="opencard-footer">{{opencard.UnusualIncident}}</span>
+                </div> -->
+                <!-- <div class="opencard extra-width" pTooltip="Critical/Significant/Unusual Incident- RM Only"
+                  routerLink="/reports/opencards/list/client/critical-significant-unusual-incident-RM/view">
+                  <span class="opencard-title">Incident- RM Only</span>
+                  <div>
+                    <span class="fa fa-file-text-o incident-rm"></span>
+                  </div>
+                  <span class="opencard-footer">0</span>
+                </div> -->
+                <div
+                  class="opencard extra-width"
+                  pTooltip="Customer care- CC Staff Only (Client Tree)"
+                  (click)="navigateToListView('/reports/customer-care/view')"
+                >
+                  <span class="opencard-title">Customer Care</span>
+                  <div>
+                    <span class="fa fa-file-text-o customer-care"></span>
+                  </div>
+                  <!-- <span class="opencard-footer">0</span> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-1 external-link-container">
+        <div
+          class="case-btn pull-right"
+          (click)="goToCaseForm()"
+          pTooltip="Cases"
+        >
+          <span class="fa fa-suitcase cases-bt"></span><span>Cases</span>
+        </div>
+        <div>
+          <span
+            class="fa fa-external-link cursor-pointer icon-red"
+            (click)="
+              openInNewBrowserWindow('/reports/opencards/list/client/case')
+            "
+            pTooltip="Click here to open cases in new window"
+          ></span>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div
+          class="sf-positive-button referral-btn"
+          data-toggle="modal"
+          pTooltip="click here to create a new referral"
+          data-target="#referralDecisionForm"
+        >
+          <span>Move To Referral</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- <app-open-cards [cards]="openCards" (cardAction)="referralDetails($event)"></app-open-cards> -->
+    <div class="margin-top-20 sf-form client-form">
+      <div *ngIf="currentJumpToTreeNode" class="menu navigation">
+        <div pTooltip="Click here to open" (click)="onClickJumptoTree()">
+          <span><b>Jump to Tree</b></span>
+        </div>
+      </div>
+      <form class="" [formGroup]="orgForm">
+        <nav class="nav-fill head_align">
+          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a
+              class="nav-item nav-link"
+              *ngFor="let main of mainTabs; let i = index"
+              [class.active]="sIndex === i"
+              (click)="setIndex(i, $event)"
+              data-toggle="tab"
+              href="{{ main.href }}"
+              role="tab"
+              ><b>{{ main.label }}</b></a
+            >
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div
+            class="tab-pane margin-left-45 active in"
+            id="nav-1"
+            role="tabpanel"
+            aria-labelledby="nav-general-tab"
+          >
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >First Name
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <input
+                    type="text"
+                    name="firstName"
+                    [(ngModel)]="client.firstName"
+                    formControlName="firstName"
+                    class="input"
+                    maxlength="25"
+                    pInputText
+                    size="27"
+                  />
+                  <!-- <div class="alert" *ngIf="!orgForm.controls['firstName'].valid && orgForm.controls['firstName'].touched">Enter
+                                            a valid name</div> -->
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Suffix</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <input
+                    type="text"
+                    name="Suffix"
+                    [(ngModel)]="client.suffix"
+                    formControlName="suffix"
+                    class="input"
+                    maxlength="3"
+                    pInputText
+                    size="27"
+                  />
+                  <!-- <div class="alert" *ngIf="!orgForm.controls['suffix'].valid && orgForm.controls['suffix'].touched">Enter
+                                            a valid suffix</div> -->
+                </div>
+              </div>
+            </div>
+
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >Last Name
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <input
+                    type="text"
+                    name="lasttName"
+                    [(ngModel)]="client.lastName"
+                    formControlName="lastName"
+                    class="input"
+                    maxlength="25"
+                    pInputText
+                    size="27"
+                  />
+                  <!-- <div class="alert" *ngIf="!orgForm.controls['lastName'].valid && orgForm.controls['lastName'].touched">Enter
+                                            a valid name</div> -->
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">MI </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <input
+                    type="text"
+                    name="lasttName"
+                    [(ngModel)]="client.mi"
+                    formControlName="mi"
+                    class="input"
+                    maxlength="25"
+                    pInputText
+                    size="27"
+                  />
+                  <!-- <div class="alert" *ngIf="!orgForm.controls['lastName'].valid && orgForm.controls['lastName'].touched">Enter
+                                                a valid name</div> -->
+                </div>
+              </div>
+            </div>
+
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >Gender
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete
+                    [(ngModel)]="client.genderID"
+                    name="genderID"
+                    formControlName="genderID"
+                    class="low-option-autos"
+                    field="gender"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    scrollHeight="100px"
+                    [suggestions]="results"
+                    (completeMethod)="getGender($event)"
+                  >
+                  </p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">SSN</span>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <span *ngIf="show_ssn">
+                    <input
+                      type="text"
+                      class="blink"
+                      name="ssnhideview"
+                      [(ngModel)]="client_ssn"
+                      [ngModelOptions]="{ standalone: true }"
+                      size="27"
+                      pInputText
+                      *ngIf="isEditForm"
+                      [disabled]="isSSNFormEditOptDisable"
+                      (focus)="onSSNChange($event)"
+                    />
+                  </span>
+
+                  <span *ngIf="!show_ssn">
+                    <p-inputMask
+                      mask="999-99-9999"
+                      class="blink_nr"
+                      [(ngModel)]="client.ssn"
+                      name="ssn"
+                      formControlName="ssn"
+                      *ngIf="!isEditForm"
+                    ></p-inputMask>
+                    <input
+                      type="text"
+                      [ngClass]="{ blink_nr: ssn_view_access === false }"
+                      name="ssnhideview"
+                      [(ngModel)]="client.ssn"
+                      [ngModelOptions]="{ standalone: true }"
+                      size="27"
+                      pInputText
+                      [disabled]="isSSNFormEditOptDisable"
+                      *ngIf="isEditForm"
+                      (focus)="onSSNChange($event)"
+                    />
+                  </span>
+
+                  <span
+                    style="border: 1px solid #737374; padding: 2%"
+                    *ngIf="show_ssn"
+                    ><i class="fa fa-eye" aria-hidden="true"></i
+                  ></span>
+
+                  <span
+                    style="border: 1px solid #737374; padding: 2%"
+                    (click)="showDialog(true)"
+                    *ngIf="!ssn_view_access"
+                    ><i class="fa fa-eye" aria-hidden="true"></i
+                  ></span>
+                  <!-- <div class="alert" *ngIf="!orgForm.controls['ssn'].valid && orgForm.controls['ssn'].touched">Enter
+                                                a valid ssn</div> -->
+                </div>
+              </div>
+            </div>
+
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >DOB
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-calendar
+                    [(ngModel)]="client.dob"
+                    formControlName="dob"
+                    [showIcon]="true"
+                    [showIcon]="true"
+                    [yearNavigator]="true"
+                    [monthNavigator]="true"
+                    yearRange="1930:2030"
+                  ></p-calendar>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">{{ Kaecses }}</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <!-- <p-spinner [formatInput]="false" [(ngModel)]="client.kaecses" name="kaecses"
+                    formControlName="kaecses"></p-spinner> -->
+                  <input
+                    type="text"
+                    [(ngModel)]="client.kaecses"
+                    name="kaecses"
+                    formControlName="kaecses"
+                    pInputText
+                  />
+                  <!-- <div class="alert" *ngIf="!orgForm.controls['kaecses'].valid && orgForm.controls['kaecses'].touched">Enter
+                                                a valid Kaecses upto 10 characters</div> -->
+                </div>
+              </div>
+            </div>
+
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >Address
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <input
+                    type="text"
+                    name="address"
+                    [(ngModel)]="client.address"
+                    formControlName="address"
+                    class="input"
+                    maxlength="75"
+                    pInputText
+                    size="27"
+                  />
+                  <!-- <div class="alert" *ngIf="!orgForm.controls['address'].valid && orgForm.controls['address'].touched">Enter
+                                            a valid address</div> -->
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Race </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete
+                    [(ngModel)]="client.raceID"
+                    name="raceID"
+                    formControlName="raceID"
+                    field="race"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    [suggestions]="results"
+                    (completeMethod)="getRace($event)"
+                  ></p-autoComplete>
+                </div>
+              </div>
+            </div>
+
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >State
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete
+                    [(ngModel)]="client.stateID"
+                    formControlName="stateID"
+                    field="state"
+                    [suggestions]="results"
+                    name="cityID"
+                    (completeMethod)="getState($event)"
+                    (onClear)="onClearingState()"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    (onSelect)="getSelectedState($event)"
+                  ></p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Con.ST</span>
+                  <span class="mandatory">*</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete
+                    [(ngModel)]="client.stateID"
+                    formControlName="conST"
+                    field="abbreviation"
+                    [suggestions]="results"
+                    name="conST"
+                    (completeMethod)="getContractState($event)"
+                    (onClear)="onClearingState()"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                  ></p-autoComplete>
+                </div>
+              </div>
+            </div>
+
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >City
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete
+                    [(ngModel)]="client.cityID"
+                    formControlName="cityID"
+                    [disabled]="showCity"
+                    [suggestions]="results"
+                    name="cityID"
+                    field="city"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    (onClear)="onClearing()"
+                    (onSelect)="getSelectedCity($event)"
+                    (completeMethod)="filterCity($event)"
+                  >
+                  </p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Email</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 form">
+                  <input
+                    type="email"
+                    name="Email"
+                    [(ngModel)]="client.email"
+                    formControlName="email"
+                    class="input"
+                    maxlength="75"
+                    pInputText
+                    size="27"
+                  />
+                  <!-- <div class="alert" *ngIf="!orgForm.controls['email'].valid && orgForm.controls['email'].touched">Enter a valid email</div> -->
+                </div>
+              </div>
+            </div>
+
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">ZIP Code</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete
+                    [(ngModel)]="client.zipcodeID"
+                    name="zipcodeID"
+                    formControlName="zipcodeID"
+                    [suggestions]="results"
+                    field="zipcode"
+                    [disabled]="isZipcode"
+                    (completeMethod)="getZipcode($event)"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                  ></p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Is not live birth</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-inputSwitch
+                    [(ngModel)]="client.isNotLiveBirth"
+                    name="isNotLiveBirth"
+                    formControlName="isNotLiveBirth"
+                  ></p-inputSwitch>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">County</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete
+                    [(ngModel)]="client.countyID"
+                    name="countyID"
+                    formControlName="countyID"
+                    [suggestions]="results"
+                    field="countyName"
+                    [disabled]="isCounty"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    (completeMethod)="getCounty($event)"
+                  ></p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Acronym </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-inputSwitch
+                    [(ngModel)]="client.acronym"
+                    formControlName="acronym"
+                    name="acronym"
+                  >
+                  </p-inputSwitch>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tab-pane margin-left-45"
+            id="nav-2"
+            role="tabpanel"
+            aria-labelledby="nav-contact-tab"
+          >
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Ethnicity</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete
+                    [(ngModel)]="client.ethnicityID"
+                    name="ethnicityID"
+                    formControlName="ethnicityID"
+                    [suggestions]="results"
+                    field="ethnicity"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    (completeMethod)="getEthnicity($event)"
+                  >
+                  </p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Tribe</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete
+                    [(ngModel)]="client.tribeID"
+                    name="tribeID"
+                    formControlName="tribeID"
+                    field="tribe"
+                    [suggestions]="results"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    (completeMethod)="getTribe($event)"
+                  >
+                  </p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Insurance Type</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete
+                    [(ngModel)]="client.insuranceTypeID"
+                    name="insuranceTypeID"
+                    formControlName="insuranceTypeID"
+                    field="insuranceType"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                    [suggestions]="results"
+                    (completeMethod)="getInsuranceType($event)"
+                  ></p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">KEES Client ID </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-spinner
+                    [formatInput]="false"
+                    [maxlength]="10"
+                    [(ngModel)]="client.kees"
+                    name="kees"
+                    formControlName="kees"
+                    [min]="0"
+                  ></p-spinner>
+                  <!-- <div class="alert" *ngIf="!orgForm.controls['kees'].valid && orgForm.controls['kees'].touched">Enter
+                                            a valid KEES upto 10 characters</div> -->
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Alternate ID </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-spinner
+                    [formatInput]="false"
+                    [maxlength]="10"
+                    [(ngModel)]="client.alternateID"
+                    name="alternateID"
+                    formControlName="alternateID"
+                    [min]="0"
+                  ></p-spinner>
+                  <!-- <div class="alert" *ngIf="!orgForm.controls['alternateID'].valid && orgForm.controls['alternateID'].touched">Enter
+                                            a valid AlternateID upto 10 characters</div> -->
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Home Phone</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-inputMask
+                    mask="(999) 999-9999"
+                    [(ngModel)]="client.homePh"
+                    name="homePh"
+                    formControlName="homePh"
+                  >
+                  </p-inputMask>
+                  <!-- <div class="alert" *ngIf="!orgForm.controls['homePh'].valid && orgForm.controls['homePh'].touched">Enter
+                                            a valid number</div> -->
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Cell Phone</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-inputMask
+                    mask="(999) 999-9999"
+                    [(ngModel)]="client.cellPh"
+                    name="cellPh"
+                    formControlName="cellPh"
+                  >
+                  </p-inputMask>
+                  <!-- <div class="alert" *ngIf="!orgForm.controls['cellPh'].valid && orgForm.controls['cellPh'].touched">Enter
+                                            a valid number</div> -->
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Fax</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-inputMask
+                    mask="(999) 999-9999"
+                    [(ngModel)]="client.fax"
+                    name="fax"
+                    formControlName="fax"
+                  >
+                  </p-inputMask>
+                  <!-- <div class="alert" *ngIf="!orgForm.controls['fax'].valid && orgForm.controls['fax'].touched">Enter
+                                            a valid fax</div> -->
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">KanCare MCO</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete
+                    [(ngModel)]="client.kanCareMCO_ProviderID"
+                    formControlName="kanCareMCO_ProviderID"
+                    field="providerName"
+                    [suggestions]="listOfProviders"
+                    name="kanCareMCO_ProviderID"
+                    (completeMethod)="getProviderData($event)"
+                    [dropdown]="true"
+                    [forceSelection]="true"
+                  >
+                  </p-autoComplete>
+                  <!-- <div class="alert" *ngIf="!orgForm.controls['workPh'].valid && orgForm.controls['workPh'].touched">Enter
+                                            a valid number</div> -->
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Work Phone</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-inputMask
+                    mask="(999) 999-9999"
+                    [(ngModel)]="client.workPh"
+                    formControlName="workPh"
+                  >
+                  </p-inputMask>
+                  <!-- <div class="alert" *ngIf="!orgForm.controls['workPh'].valid && orgForm.controls['workPh'].touched">Enter
+                                                    a valid number</div> -->
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Medical ID</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-spinner
+                    [formatInput]="false"
+                    [maxlength]="10"
+                    [(ngModel)]="client.medicalID"
+                    name="medicalID"
+                    formControlName="medicalID"
+                    [min]="0"
+                  ></p-spinner>
+                  <!-- <div class="alert" *ngIf="!orgForm.controls['medicalID'].valid && orgForm.controls['medicalID'].touched">Enter
+                                            a valid medical ID</div> -->
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Non-Contract client </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-inputSwitch
+                    [(ngModel)]="client.nonContractClient"
+                    name="nonContractClient"
+                    formControlName="nonContractClient"
+                  >
+                  </p-inputSwitch>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <!-- <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <span class="sf-labels">Address
+                                        <span class="mandatory"> *</span>
+                                    </span>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <input type="text" name="address" [(ngModel)]="client.address" formControlName="address" class="input" maxlength="75" pInputText
+                                        size="27" /> -->
+              <!-- <div class="alert" *ngIf="!orgForm.controls['address'].valid && orgForm.controls['address'].touched">Enter
+                                            a valid address</div> -->
+              <!-- </div>
+                            </div> -->
+            </div>
+            <!-- <div class="row margin-top-20">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <span class="sf-labels">State
+                                        <span class="mandatory"> *</span>
+                                    </span>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                                    <p-autoComplete [(ngModel)]="client.stateID" formControlName="stateID" field="state"
+                                        [suggestions]="results" name="cityID" (completeMethod)="getState($event)"
+                                        (onClear)="onClearingState()" [dropdown]="true" [forceSelection]="true"
+                                        (onSelect)="getSelectedState($event)"></p-autoComplete>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <span class="sf-labels">City
+                                        <span class="mandatory"> *</span>
+                                    </span>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                                    <p-autoComplete [(ngModel)]="client.cityID" formControlName="cityID"
+                                        [disabled]="showCity" [suggestions]="results" name="cityID" field="city"
+                                        [dropdown]="true" [forceSelection]="true" (onClear)="onClearing()"
+                                        (onSelect)="getSelectedCity($event)" (completeMethod)="filterCity($event)">
+                                    </p-autoComplete>
+                                </div>
+                            </div>
+                        </div> -->
+            <!-- <div class="row margin-top-20">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <span class="sf-labels">ZIP/Pincode</span>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                                    <p-autoComplete [(ngModel)]="client.zipcodeID" name="zipcodeID"
+                                        formControlName="zipcodeID" [suggestions]="results" field="zipcode"
+                                        [disabled]="isZipcode" (completeMethod)="getZipcode($event)" [dropdown]="true"
+                                        [forceSelection]="true"></p-autoComplete>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <span class="sf-labels">County</span>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                                    <p-autoComplete [(ngModel)]="client.countyID" name="countyID" formControlName="countyID"
+                                        [suggestions]="results" field="countyName" [disabled]="isCounty" [dropdown]="true"
+                                        [forceSelection]="true" (completeMethod)="getCounty($event)"></p-autoComplete>
+                                </div>
+                            </div>
+                        </div> -->
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Medicaid </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-spinner
+                    [formatInput]="false"
+                    [maxlength]="10"
+                    [(ngModel)]="client.medicaid"
+                    name="medicaid"
+                    formControlName="medicaid"
+                    [min]="0"
+                  ></p-spinner>
+                  <!-- <input type="text" name="address" [(ngModel)]="client. "  formControlName="address" class="input" maxlength="75" pInputText size="27" />
+                                                    <div class="alert" *ngIf="!orgForm.controls['address'].valid && orgForm.controls['address'].touched">Enter a valid address</div> -->
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <span class="sf-labels"> Notes </span>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-11 col-md-11 col-sm-11">
+                  <textarea
+                    class="sf-width-100"
+                    name="notes"
+                    [(ngModel)]="client.notes"
+                    formControlName="notes"
+                    rows="5"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="tab-pane margin-left-45" id="nav-3" role="tabpanel" aria-labelledby="nav-details-tab">
+
+                    </div>
+                    <div class="tab-pane margin-left-45" id="nav-4" role="tabpanel" aria-labelledby="nav-notes-tab">
+
+                    </div> -->
+        </div>
+      </form>
+      <hr />
+      <div class="p-3" *ngIf="showClientAlias">
+        <div class="panel panel-default">
+          <div class="panel-heading"><b>Client Alias</b></div>
+          <div
+            class="panel-body client-alies"
+            style="height: 350px; overflow-y: scroll"
+          >
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>First Name</label>
+                  <input
+                    class="form-control"
+                    name="alias_FirstName"
+                    [(ngModel)]="aliasData.alias_FirstName"
+                    style="
+                      height: 30px;
+                      border: 1px solid #737374;
+                      font-size: 1.5rem;
+                    "
+                    type="text"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label>Begin Date</label>
+                  <br />
+                  <p-calendar
+                    name="beginDate"
+                    [(ngModel)]="aliasData.beginDate"
+                    class="date-picker"
+                    [inputStyle]="{ height: '30px', width: '100% !important' }"
+                    [showIcon]="true"
+                    [yearNavigator]="true"
+                    [monthNavigator]="true"
+                    yearRange="1930:2030"
+                  >
+                  </p-calendar>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Last Name</label>
+                  <input
+                    class="form-control"
+                    name="alias_LastName"
+                    [(ngModel)]="aliasData.alias_LastName"
+                    style="
+                      height: 30px;
+                      border: 1px solid #737374;
+                      font-size: 1.5rem;
+                    "
+                    type="text"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>End Date</label>
+                  <br />
+                  <p-calendar
+                    name="endDate"
+                    [(ngModel)]="aliasData.endDate"
+                    class="date-picker"
+                    [inputStyle]="{ height: '30px', width: '100% !important' }"
+                    [showIcon]="true"
+                    [yearNavigator]="true"
+                    [monthNavigator]="true"
+                    yearRange="1930:2030"
+                  >
+                  </p-calendar>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>MI</label>
+                  <input
+                    class="form-control"
+                    name="alias_MI"
+                    [(ngModel)]="aliasData.alias_MI"
+                    style="
+                      height: 30px;
+                      border: 1px solid #737374;
+                      font-size: 1.5rem;
+                    "
+                    type="text"
+                  />
+                </div>
+                <label>&nbsp;</label>
+                <br />
+                <button class="sf-positive-btn" (click)="aliasSave()">
+                  <span>Save</span>
+                </button>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Suffix</label>
+                  <input
+                    class="form-control"
+                    name="alias_Suffix"
+                    [(ngModel)]="aliasData.alias_Suffix"
+                    style="
+                      height: 30px;
+                      border: 1px solid #737374;
+                      font-size: 1.5rem;
+                    "
+                    type="text"
+                  />
+                </div>
+                <label>&nbsp;</label>
+                <br />
+                <button class="sf-negative-btn" (click)="clearAliasData()">
+                  <span>Clear</span>
+                </button>
+              </div>
+            </div>
+
+            <hr />
+            <table
+              class="table table-bordered table-striped"
+              style="height: 0px"
+            >
+              <thead>
+                <tr>
+                  <th>Firstname</th>
+                  <th>Lastname</th>
+                  <th>MI</th>
+                  <th>Suffix</th>
+                  <th>Begin Date</th>
+                  <th>End Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let aliasData of allAliasList">
+                <tr>
+                  <td>{{ aliasData.alias_FirstName }}</td>
+                  <td>{{ aliasData.alias_LastName }}</td>
+                  <td>{{ aliasData.alias_MI }}</td>
+                  <td>{{ aliasData.alias_Suffix }}</td>
+                  <td>{{ aliasData.beginDate }}</td>
+                  <td>{{ aliasData.endDate }}</td>
+                  <td>
+                    <button
+                      class="sf-negative-btn"
+                      (click)="getByIdAlias(aliasData.clientAliasID)"
+                      style="width: 28px !important"
+                    >
+                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button
+                      class="btn btn-danger"
+                      style="width: 28px; height: 28px; font-size: 13px"
+                      (click)="showDeletePromt(aliasData.clientAliasID)"
+                    >
+                      <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p *ngIf="allAliasList.length === 0" class="text-center">
+              <b>No records found</b>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-quick-menu [module]="quickMenu" *ngIf="clientId"></app-quick-menu>
+    <!-- <div class="tab-footer">
+            <div>
+                <button class="sf-positive-btn margin-left-0" *ngIf="sIndex !== 0" (click)="goPrevious()"><i class="fa fa-angle-double-left"></i>
+                    Previous</button>
+            </div>
+            <div class="push">
+                <button class="sf-positive-btn margin-left-0" *ngIf="sIndex !== mainTabs.length - 1" (click)="goNext()">Next
+                    <i class="fa fa-angle-double-right"></i></button>
+            </div>
+        </div> -->
+    <app-form-footer
+      (save)="addPost(client)"
+      (discard)="discardForm()"
+      (edit)="editForm()"
+      (back)="formBack()"
+      [editControll]="isEditForm"
+      [isEmail]="isEmail"
+      (email)="basciEmail()"
+      [currentNodeValue]="req"
+      [isAttachmentDisabled]="false"
+      [isFormLog]="isFormLog"
+      [formLogInfo]="formLogInfo"
+    >
+    </app-form-footer>
+  </div>
+</div>
+
+<div class="modal" id="referralDecisionForm" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <span class="modal-title sf-heading-6 sf-black" id="myModalLabel"
+          >Referral Programs</span
+        >
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          id="closeBtn"
+          (click)="closeReferral()"
+        >
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+      </div>
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <p class="statusMsg"></p>
+        <div class="sf-text-center">
+          <p-dropdown
+            [options]="listOfReferral"
+            (onChange)="onChangeReferrel(selectedReferral)"
+            name="typeOfReferral"
+            [(ngModel)]="selectedReferral"
+            optionLabel="display"
+            [style]="{ width: '360px' }"
+            placeholder="Select one referral"
+          >
+          </p-dropdown>
+        </div>
+        <p
+          *ngIf="selectedReferral && selectedReferral.display"
+          class="margin-top-20"
+        >
+          You have selected
+          <span class="sf-positive-text">{{ selectedReferral.display }}</span
+          >, Click submit to continue.
+        </p>
+      </div>
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="sf-negative-btn"
+          data-dismiss="modal"
+          (click)="closeReferral()"
+        >
+          Close
+        </button>
+        <button
+          type="button"
+          class="sf-positive-btn"
+          (click)="createReferral(selectedReferral)"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<p-dialog
+  [(visible)]="display"
+  header="SSN Number"
+  [responsive]="true"
+  showEffect="fade"
+  [modal]="true"
+  [width]="800"
+  [minWidth]="800"
+  [minY]="80"
+  [baseZIndex]="10000"
+  [maximizable]="false"
+  [closable]="true"
+>
+  <p class="text-center" style="font-size: 14px">
+    This has a confidential information, are you sure you want to proceed?
+  </p>
+  <div class="text-center">
+    <button class="sf-positive-btn" (click)="showDialog(false); showSSNnum()">
+      <span>Yes</span>
+    </button>
+    <button class="sf-negative-btn" (click)="showDialog(false)">
+      <span>No</span>
+    </button>
+  </div>
+</p-dialog>
+
+<p-dialog header="Delete confirmation" [(visible)]="isDeleteConfirmation">
+  <p>Are you sure want to delete this record?</p>
+  <p-footer>
+    <div class="dialog-footer">
+      <button
+        (click)="deleteAlias()"
+        class="btn btn-danger"
+        style="height: 28px; width: 102px"
+      >
+        {{ deleteConfirmationBtnLabel }}
+      </button>
+      <button
+        class="sf-negative-btn"
+        (click)="this.isDeleteConfirmation = false"
+      >
+        Cancel
+      </button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<p-dialog header="Client attachments" [(visible)]="isClientAttachments">
+  <p class="text-center">{{ attachmentInfoText }}</p>
+  <div class="attachment-table">
+    <table>
+      <tr>
+        <th>Document Type</th>
+        <th>Description</th>
+        <th>Upload Date</th>
+        <th>Upload By</th>
+        <th>Reupload Date</th>
+        <th>Reupload By</th>
+        <th>File Size</th>
+        <th>Action</th>
+      </tr>
+      <tr *ngFor="let file of scannedDocumentList">
+        <td>{{ file?.documentType }}</td>
+        <td>{{ file?.Description }}</td>
+        <td>{{ file?.UploadDate | date: "MM/dd/yyyy" }}</td>
+        <td>{{ file?.UploadBy }}</td>
+        <td>{{ file?.ReUploadDate | date: "MM/dd/yyyy" }}</td>
+        <td>{{ file?.ReUploadBy }}</td>
+        <td>{{ file?.Filesize }} KB.</td>
+        <td>
+          <div class="attachment-actions">
+            <span
+              class="fa fa-download download-icon"
+              title="Download the record"
+              (click)="
+                uploadDocTypes.downloadAttachedDocument(file.ScannedDocumentID)
+              "
+            ></span>
+            <span
+              class="fa fa-trash delete-icon"
+              title="Delete the record"
+              (click)="onOpenDialogConfirmation(file.ScannedDocumentID)"
+            ></span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</p-dialog>
+<p-dialog header="Delete confirmation" [(visible)]="isDeleteAllConfirmation">
+  <p>Are you sure want to delete record?</p>
+  <p-footer>
+    <div class="dialog-footer">
+      <button
+        (click)="this.isDeleteAllConfirmation = false"
+        [disabled]="isDeleteAllConfirmationDisable"
+      >
+        Cancel
+      </button>
+      <button
+        (click)="onAttachDocDelete()"
+        [disabled]="isDeleteAllConfirmationDisable"
+        class="alert-text"
+      >
+        {{ attachmentDeleteBtnLabel }}
+      </button>
+    </div>
+  </p-footer>
+</p-dialog>
+<app-prtf-referral [isPopUpWindow]="isPRTF"> </app-prtf-referral>
+<p-dialog
+  class="referral-validation-popup"
+  (onHide)="onReferralValidationClose()"
+  header="{{ referralValidationHeader }}"
+  [(visible)]="isReferralValidationVisible"
+  [maximizable]="true"
+  [responsive]="true"
+  [minY]="70"
+  [contentStyle]="{ 'min-width': '106rem', height: 'unset' }"
+>
+  <div>
+    <div class="pull-right margin-bottom-alignment">
+      <button type="button" class="sf-negative-btn" (click)="checkValidation()">
+        Check
+      </button>
+      <!-- [disabled]="!isReferralPassed" -->
+      <button
+        type="button"
+        class="sf-positive-btn"
+        (click)="nextStepValidation()"
+      >
+        Next
+      </button>
+      <button type="button" class="clear-btn" (click)="closeTabValidation()">
+        Cancel
+      </button>
+    </div>
+
+    <!-- <hr> -->
+
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Client</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input
+            class="input-border"
+            [(ngModel)]="referralValidationObject.client"
+            [disabled]="true"
+            type="text"
+            pInputText
+            size="20"
+            style="width: 100%"
+          />
+        </div>
+      </div>
+      <div *ngIf="!isKkshown" class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Facts</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input
+            class="input-border"
+            type="text"
+            pInputText
+            size="20"
+            style="width: 100%"
+          />
+        </div>
+      </div>
+      <div *ngIf="isKkshown" class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>KK Number</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input
+            [(ngModel)]="referralValidationObject.kk"
+            class="input-border"
+            type="text"
+            pInputText
+            size="20"
+            style="width: 100%"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div>Existing Cases</div>
+      <table class="fisMember-table">
+        <tr>
+          <th>Referral Type</th>
+          <th>Begin Date</th>
+          <th>HOH</th>
+        </tr>
+        <tr *ngFor="let data of openReferralList; let i = index">
+          <td>{{ data.referralType }}</td>
+          <td>{{ data.beginDate | date: "dd/MM/yyyy" }}</td>
+          <td>{{ data.hoh }}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="opencase-message" *ngIf="isReferralPassed">
+      {{ openCaseMessage }}
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog
+  (onHide)="isReferralAlert = false"
+  header="Unable to add Referral"
+  [(visible)]="isReferralAlert"
+>
+  <p>This client is currently in {{ opencaseReferralTypes }} case(s)</p>
+  <p>This case must be closed first</p>
+  <p-footer>
+    <div class="dialog-footer">
+      <button (click)="isReferralAlert = false" class="sf-positive-btn">
+        Okay
+      </button>
+    </div>
+  </p-footer>
+</p-dialog>
+<p-dialog
+  [(visible)]="isClientDashboard"
+  header="Client Dashboard"
+  [style]="{ width: '50vw' }"
+  [maximizable]="true"
+  [responsive]="true"
+  [minY]="70"
+>
+  <p-accordion [multiple]="true">
+    <p-accordionTab header="Basic Client Information">
+      <table class="table-width-100">
+        <tr>
+          <td>Client Name</td>
+          <td></td>
+          <td>Home County</td>
+          <td></td>
+          <td>KAECSES</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Gender</td>
+          <td></td>
+          <td>CM Office</td>
+          <td></td>
+          <td>FACTS</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Age</td>
+          <td></td>
+          <td>Region</td>
+          <td></td>
+          <td>Court Case Number</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>DOB</td>
+          <td></td>
+          <td>Kan Care MCO</td>
+          <td></td>
+          <td>SSN</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Financial Mgt. Office</td>
+          <td></td>
+          <td>Case Plan Goal</td>
+          <td></td>
+        </tr>
+      </table>
+    </p-accordionTab>
+    <p-accordionTab header="Attending School Information">
+      <table>
+        <tr>
+          <td>School Name</td>
+          <td></td>
+          <td>School Address</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>School Grade</td>
+          <td></td>
+          <td>School Phone</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>IEP</td>
+          <td></td>
+        </tr>
+      </table>
+    </p-accordionTab>
+    <p-accordionTab header="The Active Placement Information">
+      <table>
+        <tr>
+          <td>Provider Name</td>
+          <td></td>
+          <td>Start Date of Active Placement</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Provider Address</td>
+          <td></td>
+          <td>Open Living arrangment</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Provider Phone</td>
+          <td></td>
+          <td>LEVEL OF CARE</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>EMAIL</td>
+          <td></td>
+          <td>LEVEL OF CARE Start Data</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Sponsor</td>
+          <td></td>
+          <td>LEVEL OF CARE DESCRIPTION</td>
+          <td></td>
+        </tr>
+      </table>
+    </p-accordionTab>
+    <p-accordionTab header="The client's current SFM case team">
+      <table>
+        <tr>
+          <td>Case Manager</td>
+          <td></td>
+          <td>Kinship Worker</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Family Support Worker</td>
+          <td></td>
+          <td>Kinship Supervisor</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Supervisor</td>
+          <td></td>
+          <td>(pipe in sponsor name) Foster Care Supervisor</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Director</td>
+          <td></td>
+          <td>(pipe in sponsor name) Foster Care Supervisor</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Compliance Tech</td>
+          <td></td>
+          <td>(provider specific)</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Indepenent Living Worker</td>
+          <td></td>
+          <td>LEVEL OF CARE DESCRIPTION</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Parent support Worker?</td>
+          <td></td>
+          <td>LEVEL OF CARE DESCRIPTION</td>
+          <td></td>
+        </tr>
+      </table>
+    </p-accordionTab>
+    <p-accordionTab header="The client's sibling information"></p-accordionTab>
+    <p-accordionTab header="Common navigation buttons"></p-accordionTab>
+  </p-accordion>
+</p-dialog>

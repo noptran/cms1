@@ -1,0 +1,438 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="initialPlacementForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        REINTEGRATION FOSTER CARE <br>
+        INITIAL PLACEMENT SCREENING TOOL
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Client’s Name:</span>
+          <input [(ngModel)]="reInitialPlacement.ClientName" formControlName="ClientName" name="ClientName"  type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>KAECSES:</span>
+          <input [(ngModel)]="reInitialPlacement.Kaecses" formControlName="Kaecses" name="Kaecses"  type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>DOB:</span>
+          <p-calendar [(ngModel)]="reInitialPlacement.Dob" formControlName="Dob" name="Dob"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div>
+          <span>Licensed Permanency Specialist:</span>
+          <input [(ngModel)]="reInitialPlacement.PermanencySpecialist" formControlName="PermanencySpecialist" name="PermanencySpecialist"  type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>Office</span>
+          <input [(ngModel)]="reInitialPlacement.Office" formControlName="Office" name="Office"  type="text" pInputText size="20" />
+        </div>
+        <div>
+            <span>Date:</span>
+            <p-calendar [(ngModel)]="reInitialPlacement.Date" formControlName="Date" name="Date"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+              [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Have all kinship and informal care options been explored? </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isKinshipExploredYes" formControlName="isKinshipExploredYes" name="isKinshipExploredYes"  class="space-right"></p-checkbox>Yes
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isKinshipExploredNo" formControlName="isKinshipExploredNo" name="isKinshipExploredNo"  class="space-right"></p-checkbox>No
+      </div>
+    </div>
+    <div class="space-down">
+      <table>
+        <tr>
+          <td class="table-td">
+            <p><span class="bold">School Concerns </span> (during summer, score for last 30 days of school)</p>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isMinimal" formControlName="isMinimal" name="isMinimal"  class="space-right"></p-checkbox>0.
+              </div>
+              <div class="space-right"> Minimal/None </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isIep" formControlName="isIep" name="isIep"  class="space-right"></p-checkbox>1.
+              </div>
+              <div class="space-right"> IEP </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isAttendance" formControlName="isAttendance" name="isAttendance"  class="space-right"></p-checkbox>2.
+              </div>
+              <div class="space-right"> Attendance/tardy issues </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isFrequent" formControlName="isFrequent" name="isFrequent"  class="space-right"></p-checkbox>3.
+              </div>
+              <div class="space-right"> Frequent truancy (approx once every two weeks or for several consecutive days)
+              </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isAlternativeSchooling" formControlName="isAlternativeSchooling" name="isAlternativeSchooling"  class="space-right"></p-checkbox>4.
+              </div>
+              <div class="space-right"> Needs alternative schooling </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isSuspended" formControlName="isSuspended" name="isSuspended"  class="space-right"></p-checkbox>6.
+              </div>
+              <div class="space-right">Suspended in last 30 days </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <p class="bold">Physical/Health Concerns</p>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isHealthConcernsNone" formControlName="isHealthConcernsNone" name="isHealthConcernsNone"  class="space-right"></p-checkbox>0.
+              </div>
+              <div class="space-right"> None </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isHealthConcernsDocumented" formControlName="isHealthConcernsDocumented" name="isHealthConcernsDocumented"  class="space-right"></p-checkbox>3.
+              </div>
+              <div class="space-right"> Documented illness requiring monitoring every 90 days </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isHealthConcernsSleepDisturbance" formControlName="isHealthConcernsSleepDisturbance" name="isHealthConcernsSleepDisturbance"  class="space-right"></p-checkbox>4.
+              </div>
+              <div class="space-right"> Sleep disturbance; needs night time supervision </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isHealthConcernsAssessment" formControlName="isHealthConcernsAssessment" name="isHealthConcernsAssessment"  class="space-right"></p-checkbox>5.
+              </div>
+              <div class="space-right"> Documented physical disabilities. Not waiver eligible/waiting for assessment
+              </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isHealthConcernsMedicalNeeds" formControlName="isHealthConcernsMedicalNeeds" name="isHealthConcernsMedicalNeeds"  class="space-right"></p-checkbox>10.
+              </div>
+              <div class="space-right"> Intense Medical needs </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p class="bold">Developmental Concerns</p>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isDevelopmentalNone" formControlName="isDevelopmentalNone" name="isDevelopmentalNone"  class="space-right"></p-checkbox>0.
+              </div>
+              <div class="space-right"> None </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isDevelopmentalNotAll" formControlName="isDevelopmentalNotAll" name="isDevelopmentalNotAll"  class="space-right"></p-checkbox>3.
+              </div>
+              <div class="space-right"> Not all developmental milestones met. </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isDevelopmentalDocumented" formControlName="isDevelopmentalDocumented" name="isDevelopmentalDocumented"  class="space-right"></p-checkbox>5.
+              </div>
+              <div class="space-right"> Documented delays/disabilities. Not waiver eligible/waiting for assessment.
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <p class="bold">Runaway (last 90 days)</p>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isRunawayNoRunning" formControlName="isRunawayNoRunning" name="isRunawayNoRunning"  class="space-right"></p-checkbox>0.
+              </div>
+              <div class="space-right"> No running behavior </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isRunawayMultipleRuns" formControlName="isRunawayMultipleRuns" name="isRunawayMultipleRuns"  class="space-right"></p-checkbox>2.
+              </div>
+              <div class="space-right"> Multiple runs from home </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isRunawayCourt" formControlName="isRunawayCourt" name="isRunawayCourt"  class="space-right"></p-checkbox>4.
+              </div>
+              <div class="space-right"> No run order by court </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p class="bold">Aggressive/Destructive Behavior</p>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isAggressiveDocumented" formControlName="isAggressiveDocumented" name="isAggressiveDocumented"  class="space-right"></p-checkbox>0.
+              </div>
+              <div class="space-right"> None documented </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isAggressivePeers" formControlName="isAggressivePeers" name="isAggressivePeers"  class="space-right"></p-checkbox>1.
+              </div>
+              <div class="space-right"> Verbal aggression towards peers </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isAggressiveAdults" formControlName="isAggressiveAdults" name="isAggressiveAdults"  class="space-right"></p-checkbox>2.
+              </div>
+              <div class="space-right"> Verbal aggression towards adults </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isAggressiveDamageToProperty" formControlName="isAggressiveDamageToProperty" name="isAggressiveDamageToProperty"  class="space-right"></p-checkbox>4.
+              </div>
+              <div class="space-right"> Physical damage to property </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isAggressiveAnimals" formControlName="isAggressiveAnimals" name="isAggressiveAnimals"  class="space-right"></p-checkbox>5.
+              </div>
+              <div class="space-right"> Deliberate cruelty towards animals</div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isAggressivePersons" formControlName="isAggressivePersons" name="isAggressivePersons"  class="space-right"></p-checkbox>6.
+              </div>
+              <div class="space-right">Assaulting behavior towards persons </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isAggressiveExplain" formControlName="isAggressiveExplain" name="isAggressiveExplain"  class="space-right"></p-checkbox>8.
+              </div>
+              <div class="space-right">Fire starter Explain: </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <p class="bold">Mental Health Concerns (last 90 days)</p>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isMentalHealthNo" formControlName="isMentalHealthNo" name="isMentalHealthNo"  class="space-right"></p-checkbox>0.
+              </div>
+              <div class="space-right"> No problems indicated </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isMentalHealthTherapy" formControlName="isMentalHealthTherapy" name="isMentalHealthTherapy"  class="space-right"></p-checkbox>2.
+              </div>
+              <div class="space-right"> Currently in therapy </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isMentalHealthBehaviors" formControlName="isMentalHealthBehaviors" name="isMentalHealthBehaviors"  class="space-right"></p-checkbox>3.
+              </div>
+              <div class="space-right"> Currently taking meds for behaviors </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isMentalHealthClientRefuses" formControlName="isMentalHealthClientRefuses" name="isMentalHealthClientRefuses"  class="space-right"></p-checkbox>4.
+              </div>
+              <div class="space-right"> Client refuses to take meds/behaviors not controlled by meds </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isMentalHealthDiagnosis" formControlName="isMentalHealthDiagnosis" name="isMentalHealthDiagnosis"  class="space-right"></p-checkbox>5.
+              </div>
+              <div class="space-right"> Current mental health diagnosis</div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isMentalHealthHospitalized" formControlName="isMentalHealthHospitalized" name="isMentalHealthHospitalized"  class="space-right"></p-checkbox>6.
+              </div>
+              <div class="space-right"> Hospitalized</div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isMentalHealthSuicide" formControlName="isMentalHealthSuicide" name="isMentalHealthSuicide"  class="space-right"></p-checkbox>8.
+              </div>
+              <div class="space-right"> Self harming behaviors/suicide ideation</div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isMentalHealthSuicideAttempt" formControlName="isMentalHealthSuicideAttempt" name="isMentalHealthSuicideAttempt"  class="space-right"></p-checkbox>10.
+              </div>
+              <div class="space-right"> Suicide attempt</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p class="bold">Sexual Abuse/Sexual Behaviors</p>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isSexualAbuseNone" formControlName="isSexualAbuseNone" name="isSexualAbuseNone"  class="space-right"></p-checkbox>0.
+              </div>
+              <div class="space-right"> None </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isSexualAbuseSuspected" formControlName="isSexualAbuseSuspected" name="isSexualAbuseSuspected"  class="space-right"></p-checkbox>2.
+              </div>
+              <div class="space-right"> Suspected abuse; not currently acting out </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isSexualAbuseNotDocumented" formControlName="isSexualAbuseNotDocumented" name="isSexualAbuseNotDocumented"  class="space-right"></p-checkbox>3.
+              </div>
+              <div class="space-right"> Acts out sexually; no documented abuse </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isSexualAbuseExperienced" formControlName="isSexualAbuseExperienced" name="isSexualAbuseExperienced"  class="space-right"></p-checkbox>4.
+              </div>
+              <div class="space-right"> Has experienced sex abuse and acts out sexually </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isSexualAbuseAnimals" formControlName="isSexualAbuseAnimals" name="isSexualAbuseAnimals"  class="space-right"></p-checkbox>6.
+              </div>
+              <div class="space-right"> Sexually acts out with animals</div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isSexualAbuseOffender" formControlName="isSexualAbuseOffender" name="isSexualAbuseOffender"  class="space-right"></p-checkbox>8.
+              </div>
+              <div class="space-right">Sex offender; no acting out last 6 months </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isSexualAbuseOffender1" formControlName="isSexualAbuseOffender1" name="isSexualAbuseOffender1"  class="space-right"></p-checkbox>10.
+              </div>
+              <div class="space-right">Sex offender; acted out last 90 days </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <p class="bold">Substance Use (alcohol and drugs)</p>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isAlcoholNone" formControlName="isAlcoholNone" name="isAlcoholNone"  class="space-right"></p-checkbox>0.
+              </div>
+              <div class="space-right"> None indicated </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isAlcoholSuspected" formControlName="isAlcoholSuspected" name="isAlcoholSuspected"  class="space-right"></p-checkbox>1.
+              </div>
+              <div class="space-right"> Suspected use </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isAlcoholExperimental" formControlName="isAlcoholExperimental" name="isAlcoholExperimental"  class="space-right"></p-checkbox>2.
+              </div>
+              <div class="space-right"> Experimental use; drug(s) of choice: </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isAlcoholHigh" formControlName="isAlcoholHigh" name="isAlcoholHigh"  class="space-right"></p-checkbox>4.
+              </div>
+              <div class="space-right"> High or intoxicated 1x week; drug(s) of choice: </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isAlcoholRefusing" formControlName="isAlcoholRefusing" name="isAlcoholRefusing"  class="space-right"></p-checkbox>5.
+              </div>
+              <div class="space-right"> Refusing treatment </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isAlcoholFrequent" formControlName="isAlcoholFrequent" name="isAlcoholFrequent"  class="space-right"></p-checkbox>6.
+              </div>
+              <div class="space-right"> Frequent usage; more than 2x week;
+                drug(s) of choice:
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p class="bold">Total Score</p>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isTotalScoreFamily" formControlName="isTotalScoreFamily" name="isTotalScoreFamily"  class="space-right"></p-checkbox>0-10
+              </div>
+              <div class="space-right">Family Level
+              </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isTotalScoreDiversion" formControlName="isTotalScoreDiversion" name="isTotalScoreDiversion"  class="space-right"></p-checkbox>11-15
+              </div>
+              <div class="space-right"> Diversion
+              </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isTotalScoreSpecialized" formControlName="isTotalScoreSpecialized" name="isTotalScoreSpecialized"  class="space-right"></p-checkbox>16-19
+              </div>
+              <div class="space-right"> Specialized
+              </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isTotalScoreTreatment" formControlName="isTotalScoreTreatment" name="isTotalScoreTreatment"  class="space-right"></p-checkbox>20-25
+              </div>
+              <div class="space-right"> Treatment
+              </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isTotalScoreYrc" formControlName="isTotalScoreYrc" name="isTotalScoreYrc"  class="space-right"></p-checkbox>26-30
+              </div>
+              <div class="space-right"> YRC
+              </div>
+            </div>
+            <div class="flex-container space-down">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialPlacement.isTotalScoreScreening" formControlName="isTotalScoreScreening" name="isTotalScoreScreening"  class="space-right"></p-checkbox>31-40
+              </div>
+              <div class="space-right"> PRTF Screening
+              </div>
+            </div>
+          </td>
+          <td class="table-td">
+            <div class="flex-container space-right space-down">
+              <div class="space-right">Completed By:</div>
+              <div class="space-right">
+                <input [(ngModel)]="reInitialPlacement.CompletedBy" formControlName="CompletedBy" name="CompletedBy"  type="text" pInputText size="20" />
+              </div>
+            </div>
+            <p class="bold">***Send to Care Center and Area Director***</p>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,reInitialPlacement)"  (edit)="editForm()" [editControll]="editControll" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

@@ -1,0 +1,84 @@
+<app-form-header [title]="title" [status]="status" [breadcrumbs]="breadcrumbs" [formstatus]="formStatus"
+  [formNavigation]="" [subtitle]="subtitle"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form class="sf-form" [formGroup]="participantsTherpyForm">
+      <div class="margin-left-45 sf-form-size">
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <span>Begin Date</span><span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <p-calendar [(ngModel)]="partcipantsFormData.beginDate" formControlName="beginDate" name="beginDate"
+                  [showTime]="true" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
+                  yearRange="1900:2030"></p-calendar>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <span>End Date</span>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <p-calendar [(ngModel)]="partcipantsFormData.endDate" formControlName="endDate" name="endDate"
+                  [showTime]="true" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
+                  yearRange="1900:2030"></p-calendar>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <span>Person table</span><span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <!-- <p-dropdown [options]="personTypes" [style]="{'width':'210px','border': '1px solid #737374'}"
+                  [(ngModel)]="partcipantsFormData.personAssignmentTypeID"
+                  (onChange)="getPeresonDetails(partcipantsFormData.personAssignmentTypeID)" placeholder=""
+                  optionLabel="personAssignmentType" name="personTyp" [showClear]="true"></p-dropdown> -->
+                <p-autoComplete [(ngModel)]="partcipantsFormData.personAssignmentTypeID"
+                  formControlName="personAssignmentTypeID" name="personAssignmentTypeID" [dropdown]="true"
+                  [suggestions]="personTypes" [forceSelection]="true" (onSelect)="getPeresonDetails($event)"
+                  (completeMethod)="getPersonAssignments()" field="personAssignmentType">
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <span>Person name</span><span class="mandatory">*</span>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <p-autoComplete [(ngModel)]="partcipantsFormData.personID" name="personID" formControlName="personID"
+                  [dropdown]="true" [suggestions]="personLists" [forceSelection]="true"
+                  (completeMethod)="getPeresonAllDetails($event)" field="fullName">
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span>Notes</span>
+            <textarea [(ngModel)]="partcipantsFormData.notes" name="notes" formControlName="notes" pInputTextarea
+              style=" width: 100%; height: 100%;" cols="60" rows="5"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer [attachmentControll]="isAttachmentRequired" [isAttachmentDisabled]="false"
+      (attachDoc)="navigateTo()" (save)="saveParticipantsForm(partcipantsFormData)" (edit)="editForm()"
+      [editControll]="editControll" [discardTo]="discardTo" [currentNodeValue]="deleteReq" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+  </div>
+</div>

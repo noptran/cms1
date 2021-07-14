@@ -1,0 +1,283 @@
+<div id="loading-overlay">
+    <p class="loader-text">
+        <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+</div>
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div class="opencard-container" *ngIf="isEdit">
+    <div (click)="isCustomerCareReports = true"><span>Customer Care Reports</span></div>
+    <div (click)="isCustomerCareReportActivities = true"><span>Customer Care Report Activities</span></div>
+</div>
+<form class="sf-form" [formGroup]="customerCareForm">
+    <div class="sf-default-form scroll-height">
+        <nav class="nav-fill">
+            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link" *ngFor="let main of mainTabs;let i = index" [class.active]="sIndex  === i"
+                    (click)="setIndex(i,$event)" data-toggle="tab" href="{{main.href}}" role="tab">{{main.label}}</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane margin-left-45 active in" id="nav-1" role="tabpanel" aria-labelledby="nav-general-tab">
+                <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span class="sf-labels">First Name
+                                <span class="mandatory"> *</span>
+                            </span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                            <input type="text" name="firstName" formControlName="firstName"
+                                [(ngModel)]="customerCare.firstName" maxlength="25" pInputText />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span class="sf-labels">Last Name
+                                <span class="mandatory"> *</span>
+                            </span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                            <input type="text" name="lastName" formControlName="lastName"
+                                [(ngModel)]="customerCare.lastName" maxlength="25" pInputText />
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span class="sf-labels">Acronym
+                            </span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                            <p-inputSwitch name="acronym" formControlName="acronym" [(ngModel)]="customerCare.acronym">
+                            </p-inputSwitch>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span class="sf-labels">MI
+                            </span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                            <input type="text" name="mi" formControlName="mi" [(ngModel)]="customerCare.mi"
+                                maxlength="2" pInputText />
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span class="sf-labels">Con.ST</span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                            <p-autoComplete formControlName="contract_StateID"
+                                [(ngModel)]="customerCare.contract_StateID" [suggestions]="metaData" field="state"
+                                [dropdown]="true" [forceSelection]="true"
+                                (completeMethod)="getMetaData('contractState',$event)"></p-autoComplete>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span class="sf-labels">Gender</span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                            <p-autoComplete formControlName="genderID" [(ngModel)]="customerCare.genderID"
+                                [suggestions]="metaData" class="low-option-autos" field="gender" [dropdown]="true"
+                                [forceSelection]="true" (completeMethod)="getMetaData('gender',$event)">
+                            </p-autoComplete>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span class="sf-labels">Race
+                            </span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                            <p-autoComplete formControlName="raceID" [(ngModel)]="customerCare.raceID"
+                                [suggestions]="metaData" field="race" [dropdown]="true" [forceSelection]="true"
+                                (completeMethod)="getMetaData('race',$event)"></p-autoComplete>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span class="sf-labels">Ethnicity</span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                            <p-autoComplete formControlName="ethnicityID" [(ngModel)]="customerCare.ethnicityID"
+                                [suggestions]="metaData" field="ethnicity" [dropdown]="true" [forceSelection]="true"
+                                (completeMethod)="getMetaData('ethnicity',$event)"></p-autoComplete>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span class="sf-labels">Tribe</span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                            <p-autoComplete formControlName="tribeID" [(ngModel)]="customerCare.tribeID"
+                                [suggestions]="metaData" field="tribe" [dropdown]="true" [forceSelection]="true"
+                                (completeMethod)="getMetaData('tribe',$event)"></p-autoComplete>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span class="sf-labels">Email
+                                <span class="mandatory"> *</span>
+                            </span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                            <input type="email" name="email" formControlName="email" [(ngModel)]="customerCare.email"
+                                class="input" maxlength="75" pInputText />
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span class="sf-labels">Home Phone</span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                            <p-inputMask mask="(999) 999-9999" formControlName="homePh"
+                                [(ngModel)]="customerCare.homePh" class="input"></p-inputMask>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span class="sf-labels">Cell Phone</span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                            <p-inputMask mask="(999) 999-9999" formControlName="cellPh"
+                                [(ngModel)]="customerCare.cellPh" class="input"></p-inputMask>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane margin-left-45 " id="nav-2" role="tabpanel" aria-labelledby="nav-contact-tab">
+                <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span class="sf-labels">Pager</span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                            <p-inputMask mask="(999) 999-9999" formControlName="pager" [(ngModel)]="customerCare.pager"
+                                class="input"></p-inputMask>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span class="sf-labels">Fax</span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                            <p-inputMask mask="(999) 999-9999" formControlName="fax" [(ngModel)]="customerCare.fax"
+                                class="input">
+                            </p-inputMask>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-top-20">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span class="sf-labels">Work Phone
+                            </span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                            <p-inputMask mask="(999) 999-9999" formControlName="workPh"
+                                [(ngModel)]="customerCare.workPh" class="input"></p-inputMask>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-top-20">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span class="sf-labels">Address</span>
+                        </div>
+                        <div class="col-lg-6 col-sm-6 col-md-6">
+                            <div class="col-lg-3 col-sm-3 col-md-3"><span>Unknown</span></div>
+                            <div class="col-lg-3 col-sm-3 col-md-3">
+                                <p-inputSwitch name="unknown" formControlName="unknownAddress"
+                                    [(ngModel)]="customerCare.unknownAddress">
+                                </p-inputSwitch>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-top-20">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <textarea name="address" class="sf-width-100" [(ngModel)]="customerCare.address"
+                                formControlName="address"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="margin-top-20 row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-3"><span>State</span></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <p-autoComplete formControlName="stateID" [(ngModel)]="customerCare.stateID"
+                                [suggestions]="metaData" field="state" [dropdown]="true" [forceSelection]="true"
+                                (onSelect)="onGetCityFromState($event)" (completeMethod)="getMetaData('state',$event)">
+                            </p-autoComplete>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-3"><span>City</span></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <p-autoComplete formControlName="cityID" [(ngModel)]="customerCare.cityID"
+                                [suggestions]="metaData" field="city" [dropdown]="true" [forceSelection]="true"
+                                (onSelect)="onGetZipCodeFromCity($event)" (completeMethod)="onFilterCity($event)">
+                            </p-autoComplete>
+                        </div>
+                    </div>
+                </div>
+                <div class="margin-top-20 row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-3"><span>Zip</span></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <p-autoComplete formControlName="zipCodeID" [(ngModel)]="customerCare.zipcodeID"
+                                [suggestions]="metaData" field="zipcode" [dropdown]="true" [forceSelection]="true"
+                                (completeMethod)="onFilterZipcode($event)"></p-autoComplete>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-3"><span>County</span></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <p-autoComplete formControlName="countyID" [(ngModel)]="customerCare.countyID"
+                                [suggestions]="metaData" field="countyName" [dropdown]="true" [forceSelection]="true"
+                                (completeMethod)="onFilterCounty($event)"></p-autoComplete>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-top-20">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="col-lg-1 col-md-1 col-sm-1">
+                            <span class="sf-labels">
+                                Notes
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-top-20">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="col-lg-11 col-md-11 col-sm-11">
+                            <textarea class="sf-width-100" name="notes" formControlName="notes"
+                                [(ngModel)]="customerCare.notes" rows="5"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<app-form-footer (save)="formActions()" [editControll]="isEdit" (edit)="editForm()" [discardTo]="discardTo"
+[currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+</app-form-footer>
+
+<p-dialog header="Customer Care Reports" [(visible)]="isCustomerCareReports">
+    <action-list-view></action-list-view>
+</p-dialog>
+<p-dialog header="Customer Care Report Activities" [(visible)]="isCustomerCareReportActivities">
+    <action-list-view></action-list-view>
+</p-dialog>

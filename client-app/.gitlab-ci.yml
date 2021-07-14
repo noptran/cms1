@@ -1,0 +1,198 @@
+stages:
+  - build-stage
+  - build-beta
+  - build-qa
+  - build-prod
+  - sonar-test
+  - deploy-stage
+  - deploy-beta
+  - deploy-qa
+  - deploy-prod
+
+
+
+build-stage:
+  stage: build-stage
+  only:
+    - cmsStaging-v8
+  when: manual
+  before_script:
+    - sudo rm -rf /opt/sfcsFrontend/client-app-stage/client-app/node_modules
+  script:
+    - sudo cp -r . /opt/sfcsFrontend/client-app-stage/client-app/
+    - sudo chown -R ubuntu:ubuntu /opt/sfcsFrontend/client-app-stage/client-app/
+    - sudo chmod -R 775 /opt/sfcsFrontend/client-app-stage/client-app/
+    - cd /opt/sfcsFrontend/client-app-stage/client-app/
+    - npm install
+    - npm run ng-high-memory-staging
+  after_script:
+    - scp -r /opt/sfcsFrontend/client-app-stage/client-app/dist/ ubuntu@10.0.50.150:/opt/sfcsFrontend/client-app-build/
+  environment:
+    name: alpha
+  tags:
+    - build_client_app
+
+soanr-analysis:
+  stage: sonar-test
+  only:
+    - cmsStaging-v8
+  when: manual
+  script:
+    - source /etc/profile.d/sonar-scanner.sh
+    - cd /opt/sfcsFrontend/client-app-stage/client-app
+    - sonar-scanner
+  after_script:
+    - sudo rm -rf .scannerwork
+  environment:
+    name: alpha
+  tags:
+    - sonar_test
+
+deploy-stage:
+  stage: deploy-stage
+  only:
+    - cmsStaging-v8
+  when: manual
+  script:
+    - sudo rm -rf /opt/sfcsFrontend/client-app/dist/*
+    - sudo cp -r /opt/sfcsFrontend/client-app-build/dist/* /opt/sfcsFrontend/client-app/dist/
+    - sudo chmod -R 775 /opt/sfcsFrontend/client-app/dist
+    - sudo systemctl restart nginx
+  after_script:
+    - sudo rm -rf /opt/sfcsFrontend/client-app-build/dist/
+  environment:
+    name: alpha
+  tags:
+    - deploy_stage
+
+
+#################### Betaware Environment #####################
+
+build-Betaware:
+  stage: build-beta
+  only:
+    - cmsBetaware-v8
+  when: manual
+  before_script:
+    - sudo rm -rf /opt/sfcsFrontend/client-app-beta/client-app/node_modules
+  script:
+    - sudo cp -r . /opt/sfcsFrontend/client-app-beta/client-app/
+    - sudo chown -R ubuntu:ubuntu /opt/sfcsFrontend/client-app-beta/client-app/
+    - sudo chmod -R 775 /opt/sfcsFrontend/client-app-beta/client-app/
+    - cd /opt/sfcsFrontend/client-app-beta/client-app/
+    - npm install
+    - npm run ng-high-memory-beta
+  after_script:
+    - scp -r /opt/sfcsFrontend/client-app-beta/client-app/dist/ ubuntu@10.0.50.155:/opt/sfcsFrontend/client-app-build/
+  environment:
+    name: Betaware
+  tags:
+    - build_client_app
+
+deploy-Betaware:
+  stage: deploy-beta
+  only:
+    - cmsBetaware-v8
+  when: manual  
+  script:
+    - sudo rm -rf /opt/sfcsFrontend/client-app/dist/*
+    - sudo cp -r /opt/sfcsFrontend/client-app-build/dist/* /opt/sfcsFrontend/client-app/dist/
+    - sudo chown -R ubuntu:ubuntu /opt/sfcsFrontend/client-app/dist
+    - sudo chmod -R 775 /opt/sfcsFrontend/client-app/dist
+    - sudo systemctl restart nginx
+    - sudo systemctl restart helpdesk.service
+  after_script:
+    - sudo mount --all
+    - sudo chmod 777 -R /home/ftpuser/
+    - sudo rm -rf /opt/sfcsFrontend/client-app-build/dist/
+  environment:
+    name: Betaware
+  tags:
+    - deploy-betaware-1
+
+################### CMS-QA Environment ####################################
+
+build-qa:
+  stage: build-qa
+  only:
+    - cmsQA-v8
+  when: manual
+  before_script:
+    - sudo rm -rf /opt/sfcsFrontend/client-app-qa/client-app/node_modules
+  script:
+    - sudo cp -r . /opt/sfcsFrontend/client-app-qa/client-app/
+    - sudo chown -R ubuntu:ubuntu /opt/sfcsFrontend/client-app-qa/client-app/
+    - sudo chmod -R 775 /opt/sfcsFrontend/client-app-qa/client-app/
+    - cd /opt/sfcsFrontend/client-app-qa/client-app/
+    - npm install
+    - npm run ng-high-memory-qa
+  after_script:
+    - scp -r /opt/sfcsFrontend/client-app-qa/client-app/dist/ ubuntu@10.0.50.55:/opt/sfcsFrontend/client-app-build/
+  environment:
+    name: cmsQA
+  tags:
+    - build_client_app
+
+deploy-qa:
+  stage: deploy-qa
+  only:
+    - cmsQA-v8
+  when: manual
+  script:
+    - sudo rm -rf /opt/sfcsFrontend/client-app/dist/*
+    - sudo cp -r /opt/sfcsFrontend/client-app-build/dist/* /opt/sfcsFrontend/client-app/dist/
+    - sudo chown -R ubuntu:ubuntu /opt/sfcsFrontend/client-app/dist
+    - sudo chmod -R 775 /opt/sfcsFrontend/client-app/dist
+    - sudo systemctl restart nginx
+  after_script:
+    - sudo rm -rf /opt/sfcsFrontend/client-app-build/dist/
+  environment:
+    name: cmsQA
+  tags:
+    - deploy-qacms01
+
+#################### Production  Environment #####################
+
+build-prod:
+  stage: build-prod
+  only:
+    - production-v8
+  when: manual
+  before_script:
+    - sudo rm -rf /opt/sfcsFrontend/client-app-prod/client-app/node_modules
+  script:
+    - sudo cp -r . /opt/sfcsFrontend/client-app-prod/client-app/
+    - sudo chown -R ubuntu:ubuntu /opt/sfcsFrontend/client-app-prod/client-app/
+    - sudo chmod -R 775 /opt/sfcsFrontend/client-app-prod/client-app/
+    - cd /opt/sfcsFrontend/client-app-prod/client-app/
+    - npm install
+    - npm run ng-high-memory
+  after_script:
+    - scp -r /opt/sfcsFrontend/client-app-prod/client-app/dist/ ubuntu@10.0.50.148:/opt/sfcsFrontend/client-app-build/
+  environment:
+    name: Production
+  tags:
+    - build_client_app
+
+deploy-prod:
+  stage: deploy-prod
+  only:
+    - production-v8
+  when: manual
+  before_script:
+    - sudo cp -r /opt/sfcsFrontend/client-app/dist/helpdesk /opt/sfcsFrontend/helpdesk_backup
+  script:
+    - sudo rm -rf /opt/sfcsFrontend/client-app/dist/*
+    - sudo cp -r /opt/sfcsFrontend/client-app-build/dist/* /opt/sfcsFrontend/client-app/dist/
+    - sudo mv /opt/sfcsFrontend/helpdesk_backup /opt/sfcsFrontend/client-app/dist/helpdesk
+    - sudo chown -R ubuntu:ubuntu /opt/sfcsFrontend/client-app/dist
+    - sudo chmod -R 775 /opt/sfcsFrontend/client-app/dist
+    - sudo systemctl restart nginx
+    - sudo systemctl restart helpdesk.service
+  after_script:
+    - sudo mount --all
+    - sudo chmod 777 -R /home/ftpuser/
+  environment:
+    name: Production
+  tags:
+    - deploy-prodcms01

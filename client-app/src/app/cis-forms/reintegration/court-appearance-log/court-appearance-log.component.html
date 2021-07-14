@@ -1,0 +1,426 @@
+<div id="print-form-content">
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+    </p>
+  </div>
+  <p-toast position="center" [baseZIndex]="99999999"></p-toast>
+  <form id="form-content" [formGroup]="courtAppearanceForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        COURT
+        <br> APPEARANCE LOG
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Child's Name:</span>
+          <input [(ngModel)]="cisCourtAppearance.ClientName.value" formControlName="ClientName" name="ClientName"
+            type="text" pInputText size="20" readonly />
+        </div>
+        <div>
+          <span>KAECSES:</span>
+          <input [(ngModel)]="cisCourtAppearance.Kaecses.value" formControlName="Kaecses" name="Kaecses" type="text"
+            pInputText size="20" readonly />
+        </div>
+        <div>
+          <span>Date:</span>
+          <input [(ngModel)]="cisCourtAppearance.CompletionDate.value" formControlName="CompletionDate"
+            name="CompletionDate" type="text" pInputText size="20" readonly />
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Court Location:
+        </div>
+        <div>
+          <input [(ngModel)]="cisCourtAppearance.courtLocation.value" formControlName="courtLocation"
+            name="courtLocation" type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Time:
+        </div>
+        <div>
+          <input [(ngModel)]="cisCourtAppearance.FromTime.value" formControlName="FromTime" name="FromTime"
+            class="input-sm" type="time">
+          <!-- <p-calendar [(ngModel)]="cisCourtAppearance.FromTime.value" formControlName="FromTime" name="FromTime" [inputStyle]="{'width':'170px'}"
+          [timeOnly]="true" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar> -->
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Length:
+        </div>
+        <div>
+          <input [(ngModel)]="cisCourtAppearance.length.value" formControlName="length" name="length" class="input-sm"
+            type="time">
+          <!-- <p-calendar [(ngModel)]="cisCourtAppearance.length.value" formControlName="length" name="length" [inputStyle]="{'width':'170px'}"
+            [timeOnly]="true" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar> -->
+        </div>
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Type of hearing:
+        </div>
+        <div>
+          <input [(ngModel)]="cisCourtAppearance.hearing.value" formControlName="hearing" name="hearing" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="col-xs-12">
+          Held:
+          <p-radioButton value="0" [(ngModel)]="cisCourtAppearance.RadioButtonList.fieldOptionIndex"
+            formControlName="RadioButtonList" name="RadioButtonList" class="space-right"></p-radioButton>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="col-xs-12">
+          Continued:
+          <p-radioButton value="1" [(ngModel)]="cisCourtAppearance.RadioButtonList.fieldOptionIndex"
+            formControlName="RadioButtonList" name="RadioButtonList" class="space-right"></p-radioButton>
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-12">
+        <!-- <div class="col-xs-5">
+
+        </div> -->
+        <div class="flex">
+          <div class="child-list">
+            <span>
+              <b>Child List: </b>
+            </span>
+          </div>
+          <div *ngFor="let client of multiClientArr; let i = index;" class="multiClient">
+            <span>Child{{i + 1}}:</span>
+            <input class="margin-left-1rem" type="text" pInputText size="20" value={{client}} readonly />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p>
+      <b>Attendees:</b>
+    </p>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Judge:
+        </div>
+        <div class="col-xs-7">
+          <input class="width-75-rem" [(ngModel)]="cisCourtAppearance.Judge1.value" formControlName="Judge1"
+            name="Judge1" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          SFCS Staff:
+        </div>
+        <div class="col-xs-7">
+          <input class="width-75-rem" [(ngModel)]="cisCourtAppearance.SFSCStaff.value" formControlName="SFSCStaff"
+            name="SFSCStaff" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          County Atty:
+        </div>
+        <div class="col-xs-7">
+          <input class="width-75-rem" [(ngModel)]="cisCourtAppearance.CountyAtty.value" formControlName="CountyAtty"
+            name="CountyAtty" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          GAL:
+        </div>
+        <div class="col-xs-7">
+          <input class="width-75-rem" [(ngModel)]="cisCourtAppearance.GAL.value" formControlName="GAL" name="GAL"
+            type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          CASA:
+        </div>
+        <div class="col-xs-7">
+          <input class="width-75-rem" [(ngModel)]="cisCourtAppearance.CASA.value" formControlName="CASA" name="CASA"
+            type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          CSO:
+        </div>
+        <div class="col-xs-7">
+          <input class="width-75-rem" [(ngModel)]="cisCourtAppearance.CSO.value" formControlName="CSO" name="CSO"
+            type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          DCF:
+        </div>
+        <div class="col-xs-7">
+          <input class="width-75-rem" [(ngModel)]="cisCourtAppearance.DCF.value" formControlName="DCF" name="DCF"
+            type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Child(ren):
+        </div>
+        <div class="col-xs-7">
+          <input class="width-75-rem" [(ngModel)]="cisCourtAppearance.Children.value" formControlName="Children"
+            name="Children" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Others:
+        </div>
+        <div class="col-xs-7">
+          <input class="width-75-rem" [(ngModel)]="cisCourtAppearance.Others.value" formControlName="Others"
+            name="Others" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Placement:
+        </div>
+        <div class="col-xs-7">
+          <input class="width-75-rem" [(ngModel)]="cisCourtAppearance.placement.value" formControlName="placement"
+            name="placement" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Mother:
+        </div>
+        <div class="col-xs-7">
+          <input class="width-75-rem" [(ngModel)]="cisCourtAppearance.Mother.value" formControlName="Mother"
+            name="Mother" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Mother's Atty:
+        </div>
+        <div class="col-xs-7">
+          <input class="width-75-rem" [(ngModel)]="cisCourtAppearance.MothersAtty.value" formControlName="MothersAtty"
+            name="MothersAtty" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Father:
+        </div>
+        <div class="col-xs-7">
+          <input class="width-75-rem" [(ngModel)]="cisCourtAppearance.Father.value" formControlName="Father"
+            name="Father" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Father's Atty:
+        </div>
+        <div class="col-xs-7">
+          <input class="width-75-rem" [(ngModel)]="cisCourtAppearance.FatherAtty.value" formControlName="FatherAtty"
+            name="FatherAtty" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Grandparents:
+        </div>
+        <div class="col-xs-7">
+          <input class="width-75-rem" [(ngModel)]="cisCourtAppearance.Grandparents.value" formControlName="Grandparents"
+            name="Grandparents" type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+
+    <p>
+      <b>Notes & Recommendations:</b>
+    </p>
+    <div>
+      <textarea [(ngModel)]="cisCourtAppearance.NotesAndRecommendations.value" formControlName="NotesAndRecommendations"
+        name="NotesAndRecommendations" pInputTextarea autoResize="autoResize"
+        rows={{rowMethod(cisCourtAppearance.NotesAndRecommendations.NotesAndRecommendations)}} cols="150"
+        style="width: 100%;height: auto;"></textarea>
+    </div>
+
+    <p>
+      <b>Court Orders:</b>
+    </p>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Custody:
+        </div>
+        <div>
+          <input [(ngModel)]="cisCourtAppearance.Custody.value" formControlName="Custody" name="Custody" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Placement:
+        </div>
+        <div>
+          <input [(ngModel)]="cisCourtAppearance.Placement.value" formControlName="Placement" name="Placement"
+            type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Visitation:
+        </div>
+        <div>
+          <input [(ngModel)]="cisCourtAppearance.Visitation.value" formControlName="Visitation" name="Visitation"
+            type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p>
+      <b>Other Orders:</b>
+    </p>
+    <div>
+      <textarea [(ngModel)]="cisCourtAppearance.OtherOrders.value" formControlName="OtherOrders" name="OtherOrders"
+        pInputTextarea autoResize="autoResize" rows={{rowMethod(cisCourtAppearance.OtherOrders.OtherOrders)}} cols="150"
+        style="width: 100%;height: auto;"></textarea>
+    </div>
+    <p>
+      <b>Next Hearing:</b>
+    </p>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Judge:
+        </div>
+        <div>
+          <input id="validateJudge" [(ngModel)]="cisCourtAppearance.NextHearingJudge.value"
+            formControlName="NextHearingJudge" name="NextHearingJudge" type="text" pInputText size="20"
+            (change)="judgeTypeEventEmit()" />
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Type:
+        </div>
+        <div>
+          <input id="validateType" [(ngModel)]="cisCourtAppearance.NextHearingType.value"
+            formControlName="NextHearingType" name="NextHearingType" type="text" pInputText size="20"
+            (change)="judgeTypeEventEmit()" />
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Date:
+        </div>
+        <div>
+          <p-calendar *ngIf="!isDisableFields" [(ngModel)]="cisCourtAppearance.NextHearingDate.value"
+            formControlName="NextHearingDate" name="NextHearingDate" [inputStyle]="{'width':'170px'}" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+          <input *ngIf="isDisableFields" type="text" pInputText size="20" readonly />
+        </div>
+      </div>
+    </div>
+    <div class="row margin-bottom-2rem">
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Time:
+        </div>
+        <div>
+          <input *ngIf="!isDisableFields" [(ngModel)]="cisCourtAppearance.NextHearingTime.value"
+            formControlName="NextHearingTime" name="NextHearingTime" class="input-sm" type="time">
+          <input *ngIf="isDisableFields" type="text" pInputText size="20" readonly />
+          <!-- <p-calendar [(ngModel)]="cisCourtAppearance.NextHearingTime.value" formControlName="NextHearingTime" name="NextHearingTime"
+            [inputStyle]="{'width':'170px'}" [timeOnly]="true" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+            yearRange="2000:2030"></p-calendar> -->
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Location:
+        </div>
+        <div>
+          <input *ngIf="!isDisableFields" [(ngModel)]="cisCourtAppearance.NextHearingLocation.value"
+            formControlName="NextHearingLocation" name="NextHearingLocation" type="text" pInputText size="20" />
+          <input *ngIf="isDisableFields" type="text" pInputText size="20" readonly />
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="col-xs-5">
+          Signature/Title:
+        </div>
+        <div>
+          <input [(ngModel)]="cisCourtAppearance.Signature.value" formControlName="Signature" name="Signature"
+            type="text" pInputText size="20" readonly />
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<app-form-footer (print)="printForm()" [isPrint]="true" (save)="saveForm(cisCourtAppearance)" (edit)="editForm()"
+  [isDisabled]="isDisable" [editControll]="editControll" (finalize)="finalizeForm(cisCourtAppearance)"
+  [isFinalize]="isFinalize" (discard)="discardForm()" [isDisabled]="isDisable"></app-form-footer>

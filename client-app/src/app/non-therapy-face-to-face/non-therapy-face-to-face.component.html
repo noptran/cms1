@@ -1,0 +1,3499 @@
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+<app-form-header
+  *ngIf="!isCaseActivityLogCreated"
+  [title]="title"
+  [status]="status"
+  [breadcrumbs]="breadcrumbs"
+  [formstatus]="formStatus"
+  [formNavigation]=""
+  [subtitle]="subtitle"
+  [backLabel]="backLabel"
+  [isBackLabel]="isBackLabel"
+></app-form-header>
+<!-- <app-form-header [title]="title" [status]="status" [breadcrumbs]="breadcrumbs" [formstatus]="formStatus"></app-form-header> -->
+<!-- class="container-background" -->
+<div [ngClass]="{ 'container-background': !isCaseActivityLogCreated }">
+  <div class="container-foreground">
+    <form
+      *ngIf="!isCaseActivityLogCreated"
+      class="sf-form"
+      autocomplete="off"
+      [formGroup]="ntffForm"
+    >
+      <div class="sf-default-form scroll-height">
+        <nav class="nav-fill">
+          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a
+              class="nav-item nav-link"
+              *ngFor="let main of mainTabs; let i = index"
+              [class.active]="sIndex === i"
+              (click)="setIndex(i, $event)"
+              data-toggle="tab"
+              href="{{ main.href }}"
+              role="tab"
+              >{{ main.label }}</a
+            >
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div
+            class="tab-pane margin-left-45 active in"
+            id="nav-general"
+            role="tabpanel"
+            aria-labelledby="nav-general-tab"
+          >
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Begin Date</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-calendar
+                    [showIcon]="true"
+                    name="beginDate"
+                    formControlName="beginDate"
+                    [(ngModel)]="ntff.beginDate"
+                    showTime="true"
+                    (onClearClick)="clearDateFields($event, 'beginDate')"
+                    showButtonBar="true"
+                  ></p-calendar>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">End Date</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-calendar
+                    [showIcon]="true"
+                    name="endDate"
+                    formControlName="endDate"
+                    [(ngModel)]="ntff.endDate"
+                    showTime="true"
+                    (onClearClick)="clearDateFields($event, 'endDate')"
+                    showButtonBar="true"
+                  >
+                  </p-calendar>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Location</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <input
+                    type="text"
+                    class="input"
+                    maxlength="25"
+                    pInputText
+                    size="27"
+                    name="location"
+                    formControlName="location"
+                    [(ngModel)]="ntff.location"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Staff</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-autoComplete
+                    name="staffId"
+                    formControlName="staffID"
+                    [(ngModel)]="ntff.staffID"
+                    [dropdown]="true"
+                    [suggestions]="metadata"
+                    (completeMethod)="getMetaData($event, 'staff')"
+                    field="fullName"
+                  >
+                  </p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20">
+              <div>
+                <span class="sf-labels sf-heading-3"
+                  >Alone Time with child:</span
+                >
+              </div>
+              <table class="fisMember-table" *ngIf="alone_list.length > 0">
+                <thead>
+                  <tr>
+                    <th>Client</th>
+                    <th>Alone Time</th>
+                    <th>Exception</th>
+                    <th>Exception Reason</th>
+                    <th>Length</th>
+                    <th>Notes</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let alone of alone_list; let i = index">
+                    <td>{{ alone.clientID?.clientName }}</td>
+                    <td>
+                      <span *ngIf="!alone.isAloneTime" class="negative-mark"
+                        >&#10006;</span
+                      >
+                      <span *ngIf="alone.isAloneTime" class="positive-mark"
+                        >&#10004;</span
+                      >
+                    </td>
+                    <td>
+                      <span
+                        *ngIf="!alone.isAloneTimeException"
+                        class="negative-mark"
+                        >&#10006;</span
+                      >
+                      <span
+                        *ngIf="alone.isAloneTimeException"
+                        class="positive-mark"
+                        >&#10004;</span
+                      >
+                    </td>
+                    <td>
+                      {{ alone.aloneTimeExceptionID?.aloneTimeException }}
+                    </td>
+                    <td>{{ alone.aloneTimeLength }}</td>
+                    <td>{{ alone.aloneTimeNotes }}</td>
+                    <td>
+                      <button
+                        type="button"
+                        class="sf-positive-btn ac"
+                        (click)="viewAloneTime(alone, i)"
+                      >
+                        <i
+                          class="fa fa-edit"
+                          aria-hidden="true"
+                          pTooltip="view"
+                        ></i>
+                      </button>
+                      <button
+                        type="button"
+                        class="sf-negative-btn ac"
+                        (click)="
+                          deleteAloneTime(i, alone.caseActivityFaceToFaceID)
+                        "
+                      >
+                        <i
+                          class="fa fa-trash-o"
+                          aria-hidden="true"
+                          pTooltip="Delete"
+                        ></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <hr />
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Client</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <p-autoComplete
+                      name="client"
+                      [(ngModel)]="alone_ntff.clientID"
+                      [dropdown]="true"
+                      [ngModelOptions]="{ standalone: true }"
+                      [suggestions]="filteredFISMembers"
+                      (completeMethod)="filteredFISMember($event)"
+                      field="clientName"
+                    >
+                    </p-autoComplete>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Alone Time?</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <p-checkbox
+                      binary="true"
+                      name="a_time"
+                      [ngModelOptions]="{ standalone: true }"
+                      [(ngModel)]="alone_ntff.isAloneTime"
+                    ></p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Exception</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <p-checkbox
+                      binary="true"
+                      name="endDate"
+                      [ngModelOptions]="{ standalone: true }"
+                      name="exp"
+                      [(ngModel)]="alone_ntff.isAloneTimeException"
+                    ></p-checkbox>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Exception Reason</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <p-autoComplete
+                      name="alone_time_exception"
+                      [ngModelOptions]="{ standalone: true }"
+                      [(ngModel)]="alone_ntff.aloneTimeExceptionID"
+                      [suggestions]="filteredAloneTimeExceptions"
+                      field="aloneTimeException"
+                      (completeMethod)="filterAloneTimeExceptions($event)"
+                      [dropdown]="true"
+                    >
+                    </p-autoComplete>
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <span class="sf-labels">Length(min)</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <input
+                      type="text"
+                      class="input"
+                      maxlength="25"
+                      [(ngModel)]="alone_ntff.aloneTimeLength"
+                      name="length"
+                      [ngModelOptions]="{ standalone: true }"
+                      pInputText
+                      size="27"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-12 col-lg-12">
+                  <span>Notes</span>
+                </div>
+              </div>
+              <div class="row margin-top-20">
+                <div class="col-lg-12 col-md-12 col-xs-12">
+                  <textarea
+                    style="width: 100%; height: 100%"
+                    cols="60"
+                    rows="5"
+                    [(ngModel)]="alone_ntff.aloneTimeNotes"
+                    name="notes"
+                    [ngModelOptions]="{ standalone: true }"
+                  ></textarea>
+                </div>
+              </div>
+              <br />
+              <div class="alone-time-actions">
+                <button type="button" (click)="clearAloneTime()">Cancel</button>
+                <button type="button" (click)="addAloneTime()">
+                  {{ isAloneTimeUpdate ? "Update" : "Add" }}
+                </button>
+              </div>
+              <br />
+            </div>
+          </div>
+          <div
+            class="tab-pane margin-left-45"
+            id="nav-family"
+            role="tabpanel"
+            aria-labelledby="nav-general-tab"
+          >
+            <div class="margin-top-20">
+              <div>
+                <span class="sf-labels"
+                  >List all present and if a family member is not present
+                  explain why:</span
+                >
+              </div>
+              <div>
+                <textarea
+                  pInputTextArea
+                  name="clientsPresent"
+                  formControlName="clientsPresent"
+                  [(ngModel)]="ntff.clientsPresent"
+                  rows="4"
+                  class="width-100"
+                >
+                </textarea>
+              </div>
+            </div>
+
+            <div class="margin-top-20">
+              <div>
+                <span class="sf-labels"
+                  >Identify the safety plan activity, case plan activity or
+                  non-intensive plan activity addressed during this
+                  session</span
+                >
+              </div>
+              <div>
+                <textarea
+                  pInputTextArea
+                  name="planactivityDuringTheSession"
+                  formControlName="planactivityDuringTheSession"
+                  [(ngModel)]="ntff.planactivityDuringTheSession"
+                  rows="4"
+                  class="width-100"
+                >
+                </textarea>
+              </div>
+            </div>
+
+            <div class="margin-top-20">
+              <div>
+                <span class="sf-labels"
+                  >Describe specific observations and interactions with family
+                  members and document their input or response:</span
+                >
+              </div>
+              <div>
+                <textarea
+                  pInputTextArea
+                  name="interactions"
+                  formControlName="interactions"
+                  [(ngModel)]="ntff.interactions"
+                  rows="4"
+                  class="width-100"
+                >
+                </textarea>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="tab-pane margin-left-45  " id="nav-case" role="tabpanel" aria-labelledby="nav-general-tab">
+            <div class="margin-top-20">
+              <div>
+                <span class="sf-labels">Which case plan task or non-intensive plan task did you visit relate to:</span>
+              </div>
+              <div>
+                <textarea rows="4" class="width-100" name="relatedTask" formControlName="relatedTask"
+                  [(ngModel)]="ntff.relatedTask"> </textarea>
+              </div>
+            </div>
+            <div class="margin-top-20">
+              <div>
+                <span class="sf-labels">Community Resource Update (What community resources have the family utilized
+                  since last home visit?)</span>
+              </div>
+              <div>
+                <textarea rows="4" class="width-100" name="problemsConcerns" formControlName="problemsConcerns"
+                  [(ngModel)]="ntff.problemsConcerns"> </textarea>
+              </div>
+            </div>
+            <div class="margin-top-20">
+              <div>
+                <span class="sf-labels">Review of case plan or non-intensive plan and progress towards completing tasks
+                  (must be done atleast monthly):</span>
+              </div>
+              <div>
+                <textarea rows="4" pInputTextArea name="review" formControlName="review" [(ngModel)]="ntff.review"
+                  class="width-100">
+                </textarea>
+              </div>
+            </div>
+          </div> -->
+          <div
+            class="tab-pane margin-left-45"
+            id="nav-observation"
+            role="tabpanel"
+            aria-labelledby="nav-general-tab"
+          >
+            <!-- 1. Safety assessment label-->
+            <p class="text-center" style="font-weight: 700">
+              SAFETY ASSESSMENT
+            </p>
+            <span class="text-center" style="font-weight: 700"
+              >*Safety is the potential for serious maltreatment which is
+              imminent. It determines the need for immediate protective action
+              or controlling interventions to protect the child from imminent
+              danger.</span
+            >
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >Home is free and safety concerns</span
+                  >
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-radioButton
+                    name="homeSafetyConcerns_YesNoPendingID"
+                    value="1"
+                    formControlName="homeSafetyConcerns_YesNoPendingID"
+                    label="Yes"
+                    [(ngModel)]="ntff.homeSafetyConcerns_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="homeSafetyConcerns_YesNoPendingID"
+                    value="2"
+                    formControlName="homeSafetyConcerns_YesNoPendingID"
+                    label="No"
+                    [(ngModel)]="ntff.homeSafetyConcerns_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="homeSafetyConcerns_YesNoPendingID"
+                    value="5"
+                    formControlName="homeSafetyConcerns_YesNoPendingID"
+                    label="N/A"
+                    [(ngModel)]="ntff.homeSafetyConcerns_YesNoPendingID"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Home is relatively clean</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-radioButton
+                    name="homeIsClean_YesNoPendingID"
+                    value="1"
+                    formControlName="homeIsClean_YesNoPendingID"
+                    label="Yes"
+                    [(ngModel)]="ntff.homeIsClean_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="homeIsClean_YesNoPendingID"
+                    value="2"
+                    formControlName="homeIsClean_YesNoPendingID"
+                    label="No"
+                    [(ngModel)]="ntff.homeIsClean_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="homeIsClean_YesNoPendingID"
+                    value="5"
+                    formControlName="homeIsClean_YesNoPendingID"
+                    label="N/A"
+                    [(ngModel)]="ntff.homeIsClean_YesNoPendingID"
+                  ></p-radioButton>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <!-- <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Child is clean and neatly groomed</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-radioButton name="childIsClean_YesNoPendingID" value="1"
+                    formControlName="childIsClean_YesNoPendingID" label="Yes"
+                    [(ngModel)]="ntff.childIsClean_YesNoPendingID"></p-radioButton>
+                  <p-radioButton name="childIsClean_YesNoPendingID" value="2"
+                    formControlName="childIsClean_YesNoPendingID" label="No"
+                    [(ngModel)]="ntff.childIsClean_YesNoPendingID"></p-radioButton>
+                  <p-radioButton name="childIsClean_YesNoPendingID" value="5"
+                    formControlName="childIsClean_YesNoPendingID" label="N/A"
+                    [(ngModel)]="ntff.childIsClean_YesNoPendingID"></p-radioButton>
+                </div>
+              </div> -->
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Child appearance is healthy</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-radioButton
+                    name="childAppearsHealthy_YesNoPendingID"
+                    value="1"
+                    formControlName="childAppearsHealthy_YesNoPendingID"
+                    label="Yes"
+                    [(ngModel)]="ntff.childAppearsHealthy_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="childAppearsHealthy_YesNoPendingID"
+                    value="2"
+                    formControlName="childAppearsHealthy_YesNoPendingID"
+                    label="No"
+                    [(ngModel)]="ntff.childAppearsHealthy_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="childAppearsHealthy_YesNoPendingID"
+                    value="5"
+                    formControlName="childAppearsHealthy_YesNoPendingID"
+                    label="N/A"
+                    [(ngModel)]="ntff.childAppearsHealthy_YesNoPendingID"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Unusual marks or bruising</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-radioButton
+                    name="unusualMarks_YesNoPendingID"
+                    value="1"
+                    formControlName="unusualMarks_YesNoPendingID"
+                    label="Yes"
+                    [(ngModel)]="ntff.unusualMarks_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="unusualMarks_YesNoPendingID"
+                    value="2"
+                    formControlName="unusualMarks_YesNoPendingID"
+                    label="No"
+                    [(ngModel)]="ntff.unusualMarks_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="unusualMarks_YesNoPendingID"
+                    value="5"
+                    formControlName="unusualMarks_YesNoPendingID"
+                    label="N/A"
+                    [(ngModel)]="ntff.unusualMarks_YesNoPendingID"
+                  ></p-radioButton>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Weapons observed in the home</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-radioButton
+                    name="weaponsObserv_YesNoPendingID"
+                    value="1"
+                    formControlName="weaponsObserv_YesNoPendingID"
+                    label="Yes"
+                    [(ngModel)]="ntff.weaponsObserv_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="weaponsObserv_YesNoPendingID"
+                    value="2"
+                    formControlName="weaponsObserv_YesNoPendingID"
+                    label="No"
+                    [(ngModel)]="ntff.weaponsObserv_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="weaponsObserv_YesNoPendingID"
+                    value="5"
+                    formControlName="weaponsObserv_YesNoPendingID"
+                    label="N/A"
+                    [(ngModel)]="ntff.weaponsObserv_YesNoPendingID"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >Suicidal thoughts or gestures made by any person in the
+                    home</span
+                  >
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-radioButton
+                    name="suicidalThoughts_YesNoPendingID"
+                    value="1"
+                    formControlName="suicidalThoughts_YesNoPendingID"
+                    label="Yes"
+                    [(ngModel)]="ntff.suicidalThoughts_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="suicidalThoughts_YesNoPendingID"
+                    value="2"
+                    formControlName="suicidalThoughts_YesNoPendingID"
+                    label="No"
+                    [(ngModel)]="ntff.suicidalThoughts_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="suicidalThoughts_YesNoPendingID"
+                    value="5"
+                    formControlName="suicidalThoughts_YesNoPendingID"
+                    label="N/A"
+                    [(ngModel)]="ntff.suicidalThoughts_YesNoPendingID"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <!-- <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Height and weight appears normal</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-radioButton name="heightWeightAppears_YesNoPendingID" value="1"
+                    formControlName="heightWeightAppears_YesNoPendingID" label="Yes"
+                    [(ngModel)]="ntff.heightWeightAppears_YesNoPendingID"></p-radioButton>
+                  <p-radioButton name="heightWeightAppears_YesNoPendingID" value="2"
+                    formControlName="heightWeightAppears_YesNoPendingID" label="No"
+                    [(ngModel)]="ntff.heightWeightAppears_YesNoPendingID"></p-radioButton>
+                  <p-radioButton name="heightWeightAppears_YesNoPendingID" value="5"
+                    formControlName="heightWeightAppears_YesNoPendingID" label="N/A"
+                    [(ngModel)]="ntff.heightWeightAppears_YesNoPendingID"></p-radioButton>
+                </div>
+              </div> -->
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >Violent thoughts or gestures made by or to any person in
+                    the home</span
+                  >
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-radioButton
+                    name="violentThoughts_YesNoPendingID"
+                    value="1"
+                    formControlName="violentThoughts_YesNoPendingID"
+                    label="Yes"
+                    [(ngModel)]="ntff.violentThoughts_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="violentThoughts_YesNoPendingID"
+                    value="2"
+                    formControlName="violentThoughts_YesNoPendingID"
+                    label="No"
+                    [(ngModel)]="ntff.violentThoughts_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="violentThoughts_YesNoPendingID"
+                    value="5"
+                    formControlName="violentThoughts_YesNoPendingID"
+                    label="N/A"
+                    [(ngModel)]="ntff.violentThoughts_YesNoPendingID"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >Caregiver has the protective capacity ability to care for
+                    the child</span
+                  >
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-radioButton
+                    name="caregiver_YesNoPendingID"
+                    value="1"
+                    formControlName="caregiver_YesNoPendingID"
+                    label="Yes"
+                    [(ngModel)]="ntff.caregiver_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="caregiver_YesNoPendingID"
+                    value="2"
+                    formControlName="caregiver_YesNoPendingID"
+                    label="No"
+                    [(ngModel)]="ntff.caregiver_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="caregiver_YesNoPendingID"
+                    value="5"
+                    formControlName="caregiver_YesNoPendingID"
+                    label="N/A"
+                    [(ngModel)]="ntff.caregiver_YesNoPendingID"
+                  ></p-radioButton>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >Caregiver showing signs of being under the influence of
+                    substances</span
+                  >
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-radioButton
+                    name="shwsings_YesNoPendingID"
+                    value="1"
+                    formControlName="shwsings_YesNoPendingID"
+                    label="Yes"
+                    [(ngModel)]="ntff.shwsings_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="shwsings_YesNoPendingID"
+                    value="2"
+                    formControlName="shwsings_YesNoPendingID"
+                    label="No"
+                    [(ngModel)]="ntff.shwsings_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="shwsings_YesNoPendingID"
+                    value="5"
+                    formControlName="shwsings_YesNoPendingID"
+                    label="N/A"
+                    [(ngModel)]="ntff.shwsings_YesNoPendingID"
+                  ></p-radioButton>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-8 col-md-8 col-sm-8">
+                <span class="sf-labels"
+                  >Have new safety concerns been identified since your last
+                  visit?
+                </span>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4">
+                <p-radioButton
+                  name="safetyConcerns_YesNo"
+                  value="1"
+                  formControlName="safetyConcerns_YesNo"
+                  label="Yes"
+                  [(ngModel)]="ntff.safetyConcerns_YesNo"
+                ></p-radioButton>
+                <p-radioButton
+                  name="safetyConcerns_YesNo"
+                  value="2"
+                  formControlName="safetyConcerns_YesNo"
+                  label="No"
+                  [(ngModel)]="ntff.safetyConcerns_YesNo"
+                ></p-radioButton>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-8 col-md-8 col-sm-8">
+                <span class="sf-labels"
+                  >Was the Family Safety Plan developed or reviewed?</span
+                >
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4">
+                <p-radioButton
+                  name="developedOrReviewed_YesNoPendingID"
+                  value="1"
+                  formControlName="developedOrReviewed_YesNoPendingID"
+                  label="Yes"
+                  [(ngModel)]="ntff.developedOrReviewed_YesNoPendingID"
+                ></p-radioButton>
+                <p-radioButton
+                  name="developedOrReviewed_YesNoPendingID"
+                  value="2"
+                  formControlName="developedOrReviewed_YesNoPendingID"
+                  label="No"
+                  [(ngModel)]="ntff.developedOrReviewed_YesNoPendingID"
+                ></p-radioButton>
+                <p-radioButton
+                  name="developedOrReviewed_YesNoPendingID"
+                  value="5"
+                  formControlName="developedOrReviewed_YesNoPendingID"
+                  label="N/A"
+                  [(ngModel)]="ntff.developedOrReviewed_YesNoPendingID"
+                ></p-radioButton>
+              </div>
+            </div>
+            <div class="margin-top-20">
+              <div>
+                <span class="sf-labels"
+                  >Progress towards Family Safety Plan:</span
+                >
+              </div>
+              <div>
+                <textarea
+                  rows="4"
+                  class="width-100"
+                  formControlName="familySafetyPlan"
+                  [(ngModel)]="ntff.familySafetyPlan"
+                  name="familySafetyPlan"
+                  pInputTextArea
+                >
+                </textarea>
+              </div>
+            </div>
+            <div class="margin-top-20">
+              <div>
+                <span class="sf-labels"
+                  >What services or supports are in place to meet safety
+                  needs?</span
+                >
+              </div>
+              <div>
+                <textarea
+                  rows="4"
+                  class="width-100"
+                  formControlName="safetyNeeds"
+                  [(ngModel)]="ntff.safetyNeeds"
+                  name="safetyNeeds"
+                  pInputTextArea
+                >
+                </textarea>
+              </div>
+            </div>
+            <div class="margin-top-20">
+              <div>
+                <span class="sf-labels"
+                  >Explain answers to the questions above, any comments made by
+                  child or caregiver, observed interactions:</span
+                >
+              </div>
+              <div>
+                <textarea
+                  rows="4"
+                  class="width-100"
+                  formControlName="safetyComments"
+                  [(ngModel)]="ntff.safetyComments"
+                  name="safetyComments"
+                  pInputTextArea
+                >
+                </textarea>
+              </div>
+            </div>
+            <p class="text-center" style="font-weight: 700">RISK ASSESSMENT</p>
+            <span class="text-center" style="font-weight: 700"
+              >*Risk is potential maltreatment in the future. It determines the
+              need for services to address potential future maltreatment.</span
+            >
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Change in household members</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-radioButton
+                    name="riskHouse_YesNo"
+                    value="1"
+                    formControlName="riskHouse_YesNo"
+                    label="Yes"
+                    [(ngModel)]="ntff.riskHouse_YesNo"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="riskHouse_YesNo"
+                    value="2"
+                    formControlName="riskHouse_YesNo"
+                    label="No"
+                    [(ngModel)]="ntff.riskHouse_YesNo"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >Child’s height and weight appear normal</span
+                  >
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-radioButton
+                    name="heightWeight_YesNoPendingID"
+                    value="1"
+                    formControlName="heightWeight_YesNoPendingID"
+                    label="Yes"
+                    [(ngModel)]="ntff.heightWeight_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="heightWeight_YesNoPendingID"
+                    value="2"
+                    formControlName="heightWeight_YesNoPendingID"
+                    label="No"
+                    [(ngModel)]="ntff.heightWeight_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="heightWeight_YesNoPendingID"
+                    value="5"
+                    formControlName="heightWeight_YesNoPendingID"
+                    label="N/A"
+                    [(ngModel)]="ntff.heightWeight_YesNoPendingID"
+                  ></p-radioButton>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >Caregiver has natural and community supports</span
+                  >
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-radioButton
+                    name="riskCaregiver_YesNo"
+                    value="1"
+                    formControlName="riskCaregiver_YesNo"
+                    label="Yes"
+                    [(ngModel)]="ntff.riskCaregiver_YesNo"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="riskCaregiver_YesNo"
+                    value="2"
+                    formControlName="riskCaregiver_YesNo"
+                    label="No"
+                    [(ngModel)]="ntff.riskCaregiver_YesNo"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >Child has appropriate hygiene and dress</span
+                  >
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-radioButton
+                    name="childHygieneAndDress_YesNoPendingID"
+                    value="1"
+                    formControlName="childHygieneAndDress_YesNoPendingID"
+                    label="Yes"
+                    [(ngModel)]="ntff.childHygieneAndDress_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="childHygieneAndDress_YesNoPendingID"
+                    value="2"
+                    formControlName="childHygieneAndDress_YesNoPendingID"
+                    label="No"
+                    [(ngModel)]="ntff.childHygieneAndDress_YesNoPendingID"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="childHygieneAndDress_YesNoPendingID"
+                    value="5"
+                    formControlName="childHygieneAndDress_YesNoPendingID"
+                    label="N/A"
+                    [(ngModel)]="ntff.childHygieneAndDress_YesNoPendingID"
+                  ></p-radioButton>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >Caregiver demonstrates the ability to provide adequate care
+                    for the child (child’s physical and emotional needs are
+                    being met)</span
+                  >
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-radioButton
+                    name="riskphysical_YesNo"
+                    value="1"
+                    formControlName="riskphysical_YesNo"
+                    label="Yes"
+                    [(ngModel)]="ntff.riskphysical_YesNo"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="riskphysical_YesNo"
+                    value="2"
+                    formControlName="riskphysical_YesNo"
+                    label="No"
+                    [(ngModel)]="ntff.riskphysical_YesNo"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >Child has displayed self-harming behaviors</span
+                  >
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-radioButton
+                    name="riskChildSelfHarming_YesNo"
+                    value="1"
+                    formControlName="riskChildSelfHarming_YesNo"
+                    label="Yes"
+                    [(ngModel)]="ntff.riskChildSelfHarming_YesNo"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="riskChildSelfHarming_YesNo"
+                    value="2"
+                    formControlName="riskChildSelfHarming_YesNo"
+                    label="No"
+                    [(ngModel)]="ntff.riskChildSelfHarming_YesNo"
+                  ></p-radioButton>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Child has adequate space</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-radioButton
+                    name="riskChildSpace_YesNo"
+                    value="1"
+                    formControlName="riskChildSpace_YesNo"
+                    label="Yes"
+                    [(ngModel)]="ntff.riskChildSpace_YesNo"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="riskChildSpace_YesNo"
+                    value="2"
+                    formControlName="riskChildSpace_YesNo"
+                    label="No"
+                    [(ngModel)]="ntff.riskChildSpace_YesNo"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels"
+                    >Child has displayed aggressive behaviors</span
+                  >
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-radioButton
+                    name="riskChildAggressive_YesNo"
+                    value="1"
+                    formControlName="riskChildAggressive_YesNo"
+                    label="Yes"
+                    [(ngModel)]="ntff.riskChildAggressive_YesNo"
+                  ></p-radioButton>
+                  <p-radioButton
+                    name="riskChildAggressive_YesNo"
+                    value="2"
+                    formControlName="riskChildAggressive_YesNo"
+                    label="No"
+                    [(ngModel)]="ntff.riskChildAggressive_YesNo"
+                  ></p-radioButton>
+                </div>
+              </div>
+            </div>
+            <!--End-->
+            <div class="row margin-top-20">
+              <div class="col-lg-8 col-md-8 col-sm-8">
+                <span
+                  >Have additional risk concerns been identified since last
+                  visit?
+                </span>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4">
+                <p-radioButton
+                  name="additionalRiskConcernVisited_YesNoPendingID"
+                  value="1"
+                  formControlName="additionalRiskConcernVisited_YesNoPendingID"
+                  label="Yes"
+                  [(ngModel)]="ntff.additionalRiskConcernVisited_YesNoPendingID"
+                ></p-radioButton>
+                <p-radioButton
+                  name="additionalRiskConcernVisited_YesNoPendingID"
+                  value="2"
+                  formControlName="additionalRiskConcernVisited_YesNoPendingID"
+                  label="No"
+                  [(ngModel)]="ntff.additionalRiskConcernVisited_YesNoPendingID"
+                ></p-radioButton>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-8 col-md-8 col-sm-8">
+                <span
+                  >Does the case plan or non-intensive plan need to be updated
+                  to address risk concerns?</span
+                >
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4">
+                <p-radioButton
+                  name="riskIntenseplan_YesNo"
+                  value="1"
+                  formControlName="riskIntenseplan_YesNo"
+                  label="Yes"
+                  [(ngModel)]="ntff.riskIntenseplan_YesNo"
+                ></p-radioButton>
+                <p-radioButton
+                  name="riskIntenseplan_YesNo"
+                  value="2"
+                  formControlName="riskIntenseplan_YesNo"
+                  label="No"
+                  [(ngModel)]="ntff.riskIntenseplan_YesNo"
+                ></p-radioButton>
+              </div>
+            </div>
+            <div class="margin-top-20">
+              <div>
+                <span class="sf-labels"
+                  >What are the family’s strengths and resources mitigating the
+                  risk concerns?</span
+                >
+              </div>
+              <div>
+                <textarea
+                  rows="4"
+                  class="width-100"
+                  name="familyStrengthsAndResources"
+                  formControlName="familyStrengthsAndResources"
+                  [(ngModel)]="ntff.familyStrengthsAndResources"
+                >
+                </textarea>
+              </div>
+            </div>
+            <div class="margin-top-20">
+              <div>
+                <span class="sf-labels"
+                  >Explain answers to the questions above, any comments made by
+                  child or caregiver, observed interactions:</span
+                >
+              </div>
+              <div>
+                <textarea
+                  rows="4"
+                  class="width-100"
+                  name="riskComments"
+                  formControlName="riskComments"
+                  [(ngModel)]="ntff.riskComments"
+                >
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="margin-top-20">
+              <div>
+                <span class="sf-labels">Additional Comments (explain any no answer to the above;any unusual
+                  marks/bruises;any comments made by child
+                  or caregiver;Observed interactions):</span>
+              </div>
+              <div>
+                <textarea rows="4" class="width-100" formControlName="additionalComments"
+                  [(ngModel)]="ntff.additionalComments" name="additionalComments" pInputTextArea>
+                </textarea>
+              </div>
+            </div> -->
+          <!--New-->
+          <div
+            class="tab-pane margin-left-45"
+            id="nav-review"
+            role="tabpanel"
+            aria-labelledby="nav-general-tab"
+          >
+            <div class="margin-top-20">
+              <div>
+                <span class="sf-labels"
+                  >Review of Case Plan or Non-Intensive Plan (progress towards
+                  completing activities must be completed with the family and
+                  documented at least one time monthly):</span
+                >
+              </div>
+              <div>
+                <textarea
+                  pInputTextArea
+                  [(ngModel)]="ntff.reviewOfCasePlanProgress"
+                  cols="150"
+                  formControlName="reviewOfCasePlanProgress"
+                  rows="4"
+                  class="width-100"
+                >
+                </textarea>
+              </div>
+            </div>
+            <div class="margin-top-20">
+              <div class="col-lg-8 col-md-8 col-sm-8">
+                <span>Review of Case Plan during this visit:</span>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4">
+                <p-radioButton
+                  name="reviewCasePlan_YesNoPendingID"
+                  value="1"
+                  formControlName="reviewCasePlan_YesNoPendingID"
+                  label="Yes"
+                  [(ngModel)]="ntff.reviewCasePlan_YesNoPendingID"
+                ></p-radioButton>
+                <p-radioButton
+                  name="reviewCasePlan_YesNoPendingID"
+                  value="2"
+                  formControlName="reviewCasePlan_YesNoPendingID"
+                  label="No"
+                  [(ngModel)]="ntff.reviewCasePlan_YesNoPendingID"
+                ></p-radioButton>
+                <p-radioButton
+                  name="reviewCasePlan_YesNoPendingID"
+                  value="5"
+                  formControlName="reviewCasePlan_YesNoPendingID"
+                  label="N/A"
+                  [(ngModel)]="ntff.reviewCasePlan_YesNoPendingID"
+                ></p-radioButton>
+              </div>
+            </div>
+            <div class="margin-top-20">
+              <div class="col-lg-8 col-md-8 col-sm-8">
+                <span>Review of Non-Intensive Plan during this visit:</span>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4">
+                <p-radioButton
+                  name="nonIntense_YesNoPendingID"
+                  value="1"
+                  formControlName="nonIntense_YesNoPendingID"
+                  label="Yes"
+                  [(ngModel)]="ntff.nonIntense_YesNoPendingID"
+                ></p-radioButton>
+                <p-radioButton
+                  name="nonIntense_YesNoPendingID"
+                  value="2"
+                  formControlName="nonIntense_YesNoPendingID"
+                  label="No"
+                  [(ngModel)]="ntff.nonIntense_YesNoPendingID"
+                ></p-radioButton>
+                <p-radioButton
+                  name="nonIntense_YesNoPendingID"
+                  value="5"
+                  formControlName="nonIntense_YesNoPendingID"
+                  label="N/A"
+                  [(ngModel)]="ntff.nonIntense_YesNoPendingID"
+                ></p-radioButton>
+              </div>
+            </div>
+            <div class="margin-top-20">
+              <div>
+                <span class="sf-labels"
+                  >Progress towards completing case plan or non-intensive plan
+                  activities:</span
+                >
+              </div>
+              <div>
+                <textarea
+                  rows="4"
+                  class="width-100"
+                  name="reviewProgressPlanActivities"
+                  formControlName="reviewProgressPlanActivities"
+                  [(ngModel)]="ntff.reviewProgressPlanActivities"
+                >
+                </textarea>
+              </div>
+            </div>
+            <div class="margin-top-20">
+              <div>
+                <span class="sf-labels"
+                  >Follow up activities identified during visit, person(s)
+                  responsible, target date:</span
+                >
+              </div>
+              <div>
+                <textarea
+                  rows="4"
+                  class="width-100"
+                  name="followUp"
+                  formControlName="followUp"
+                  [(ngModel)]="ntff.followUp"
+                >
+                </textarea>
+              </div>
+            </div>
+          </div>
+          <div
+            class="tab-pane margin-left-45"
+            id="nav-appointment"
+            role="tabpanel"
+            aria-labelledby="nav-general-tab"
+          >
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Next Appointment</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-calendar
+                    [showIcon]="true"
+                    formControlName="nextAppointmentDate"
+                    [(ngModel)]="ntff.nextAppointmentDate"
+                    name="nextAppointmentDate"
+                    showTime="true"
+                    (onSelect)="checkController()"
+                    showButtonBar="true"
+                    (onClearClick)="clearDateFields($event, 'nextAppointment')"
+                  ></p-calendar>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top-20">
+              <div>
+                <span class="sf-labels"
+                  >Plan for client untill next appointment</span
+                >
+              </div>
+              <div>
+                <textarea
+                  class="width-100"
+                  formControlName="planTillNextAppointment"
+                  [(ngModel)]="ntff.planTillNextAppointment"
+                  name="planTillNextAppointment"
+                >
+                </textarea>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Status Type</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <p-autoComplete
+                    formControlName="statusTypeID"
+                    [(ngModel)]="ntff.statusTypeID"
+                    name="statusTypeID"
+                    [dropdown]="true"
+                    [suggestions]="fillteredNTFFStatus"
+                    (completeMethod)="NTFFStatusTypeFillter($event)"
+                    field="statusType"
+                    (onSelect)="confirmationCheckBoxController($event)"
+                  ></p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <p-checkbox
+                  [disabled]="isConfirmationCheckBox"
+                  [ngModelOptions]="{ standalone: true }"
+                  binary="true"
+                  [(ngModel)]="ntff.isVerified"
+                  (onChange)="ackChanges($event)"
+                ></p-checkbox>
+                <span class="sf-labels"
+                  >By checking this box,I certify that I have entered the
+                  information in this log and that as of this date,it is
+                  true,accurate and complete to best of my knowldge,information
+                  and belief</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <app-form-footer
+          (print)="printPreview()"
+          [isPrint]="isPrint"
+          [attachmentControll]="isAttachmentRequired"
+          [isAttachmentDisabled]="false"
+          (attachDoc)="navigateTo()"
+          (save)="addPost(ntff)"
+          (reset)="resetForm()"
+          (discard)="discardForm()"
+          (edit)="editForm()"
+          [editControll]="edit"
+          [discardTo]="discardTo"
+          [isFormLog]="isFormLog"
+          [formLogInfo]="formLogInfo"
+        ></app-form-footer>
+      </footer>
+    </form>
+    <p-dialog
+      [contentStyle]="{ 'min-width': '106rem' }"
+      header="Non Therapy Face to Face Preview"
+      [(visible)]="isNTFTFPrintable"
+      [modal]="true"
+      [responsive]="true"
+      [minY]="70"
+      [baseZIndex]="999"
+      [closable]="true"
+    >
+      <div id="print-content">
+        <div id="form-content" class="sf-form">
+          <div class="row">
+            <div class="col-md-3" style="margin: auto">
+              <div class="heading">
+                FAMILY PRESERVATION NON-THERAPY/FACE TO FACE CONTACT
+              </div>
+            </div>
+            <div class="col-md-4 text-center" style="margin: auto">
+              <div class="logo">
+                <img src="assets/logo color.svg" alt="" />
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="case-info">
+                <div>
+                  <span>Case Name:</span>
+                  <input
+                    type="text"
+                    [(ngModel)]="ntffPrintJson.caseName"
+                    class="remove-borders"
+                    pInputText
+                    size="20"
+                  />
+                </div>
+                <div>
+                  <span>Case Number:</span>
+                  <input
+                    type="text"
+                    [(ngModel)]="ntffPrintJson.caseNumber"
+                    class="remove-borders"
+                    pInputText
+                    size="20"
+                  />
+                </div>
+                <div>
+                  <span>Referral Date:</span>
+                  <input
+                    type="text"
+                    [(ngModel)]="ntffPrintJson.dateOfReferral"
+                    class="remove-borders"
+                    pInputText
+                    size="20"
+                  />
+                </div>
+                <div>
+                  <span>Date:</span>
+                  <input
+                    type="text"
+                    [(ngModel)]="ntffPrintJson.date"
+                    class="remove-borders"
+                    pInputText
+                    size="20"
+                  />
+                </div>
+
+                <div class="flex-container">
+                  <span>Start Time:</span>
+                  <input
+                    type="text"
+                    [(ngModel)]="ntffPrintJson.startTime"
+                    class="remove-borders"
+                    pInputText
+                    size="20"
+                    style="width: 30%"
+                  />
+                  <span>End Time:</span>
+                  <input
+                    [(ngModel)]="ntffPrintJson.endTime"
+                    type="text"
+                    class="remove-borders"
+                    pInputText
+                    size="20"
+                    style="width: 30%"
+                  />
+                </div>
+
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    width: 44%;
+                  "
+                >
+                  <span>Duration:</span>
+                  <span class="remove-borders">{{ ntffDuration }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="row">
+                <span class="col-md-6" style="margin-top: auto">Location:</span>
+                <div class="col-md-6">
+                  <input
+                    [(ngModel)]="ntff.location"
+                    type="text"
+                    class="remove-borders"
+                    pInputText
+                    size="20"
+                    style="width: auto"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <br />
+              <span>
+                <p-checkbox
+                  binary="true"
+                  [(ngModel)]="ntffPrintJson.isProcodeCaseSupervision"
+                ></p-checkbox>
+                &nbsp;CF054.1 – Case Supervision
+              </span>
+            </div>
+            <div class="col-md-4">
+              <br />
+              <span>
+                <p-checkbox
+                  binary="true"
+                  [(ngModel)]="ntffPrintJson.isProcodeFamilySupportService"
+                ></p-checkbox>
+                &nbsp;CF011 – Family Support Services
+              </span>
+            </div>
+          </div>
+
+          <br />
+
+          <div class="case-info">
+            <p>
+              <b
+                >I. List all present and if a family member is not present
+                explain why:</b
+              >
+            </p>
+            <div>
+              <textarea
+                pInputTextArea
+                [(ngModel)]="ntff.clientsPresent"
+                cols="150"
+                rows="{{ rowMethod(ntff.clientsPresent) }}"
+                class="width-100"
+              >
+              </textarea>
+            </div>
+            <p>
+              <b>Alone time with Child:</b>
+            </p>
+            <div>
+              <table class="fisMember-table" *ngIf="alone_list.length > 0">
+                <thead>
+                  <tr>
+                    <th>Client</th>
+                    <th>Alone Time</th>
+                    <th>Exception</th>
+                    <th>Exception Reason</th>
+                    <th>Length</th>
+                    <th>Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let alone of alone_list; let i = index">
+                    <td>{{ alone.clientID?.clientName }}</td>
+                    <td>
+                      <span *ngIf="!alone.isAloneTime" class="negative-mark"
+                        >&#10006;</span
+                      >
+                      <span *ngIf="alone.isAloneTime" class="positive-mark"
+                        >&#10004;</span
+                      >
+                    </td>
+                    <td>
+                      <span
+                        *ngIf="!alone.isAloneTimeException"
+                        class="negative-mark"
+                        >&#10006;</span
+                      >
+                      <span
+                        *ngIf="alone.isAloneTimeException"
+                        class="positive-mark"
+                        >&#10004;</span
+                      >
+                    </td>
+                    <td>
+                      {{ alone.aloneTimeExceptionID?.aloneTimeException }}
+                    </td>
+                    <td>{{ alone.aloneTimeLength }}</td>
+                    <td>{{ alone.aloneTimeNotes }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <br />
+
+            <br />
+          </div>
+          <br />
+          <div class="case-info">
+            <p>
+              <b
+                >II. Identify the safety plan activity, case plan activity or
+                non-intensive plan activity addressed during this session:
+              </b>
+            </p>
+            <div>
+              <textarea
+                cols="150"
+                rows="{{ rowMethod(ntff.planactivityDuringTheSession) }}"
+                pInputTextArea
+                [(ngModel)]="ntff.planactivityDuringTheSession"
+                class="width-100"
+              ></textarea>
+            </div>
+            <br />
+            <br />
+          </div>
+          <br />
+
+          <br />
+          <div class="case-info">
+            <p>
+              <b
+                >III. Describe specific observations and interactions with
+                family members and document their input or response:
+              </b>
+            </p>
+            <div>
+              <textarea
+                pInputTextArea
+                [(ngModel)]="ntff.interactions"
+                cols="150"
+                rows="{{ rowMethod(ntff.interactions) }}"
+                class="width-100"
+              >
+              </textarea>
+            </div>
+          </div>
+
+          <br />
+          <div class="case-border">
+            <p class="text-center">
+              <b
+                >SAFETY ASSESSMENT *Safety is the potential for serious
+                maltreatment which is imminent. It determines the need for
+                immediate protective action or controlling interventions to
+                protect the child from imminent danger.</b
+              >
+            </p>
+            <hr />
+            <div class="row">
+              <div class="col-md-3">
+                <p>Home is free of safety concerns</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isHomeSafetyConcernsYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isHomeSafetyConcernsNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isHomeSafetyConcernsNA"
+                    ></p-checkbox
+                    >&nbsp;NA
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <p>
+                  Suicidal thoughts or gestures made by any person in the home
+                </p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isSuicidalThoughtsYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isSuicidalThoughtsNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isSuicidalThoughtsNA"
+                    ></p-checkbox
+                    >&nbsp;NA
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <p>Home is relatively clean</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isHomeCleanYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isHomeCleanNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isHomeCleanNA"
+                    ></p-checkbox
+                    >&nbsp;NA
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <p>
+                  Violent thoughts or gestures made by or to any person in the
+                  home
+                </p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isViolentThoughtsYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isViolentThoughtsNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isViolentThoughtsNA"
+                    ></p-checkbox
+                    >&nbsp;NA
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <p>Weapons observed in the home</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isWeaponsObservedYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isWeaponsObservedNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isWeaponsObservedNA"
+                    ></p-checkbox
+                    >&nbsp;NA
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <p>
+                  Caregiver has the protective capacity ability to care for the
+                  child
+                </p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isCaregiverYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isCaregiverNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isCaregiverNA"
+                    ></p-checkbox
+                    >&nbsp;NA
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <p>Child’s appearance is healthy</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isChildAppearHealthyYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isChildAppearHealthyNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isChildAppearHealthyNA"
+                    ></p-checkbox
+                    >&nbsp;NA
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <p>
+                  Caregiver showing signs of being under the influence of
+                  substances
+                </p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isCaregiverShowingYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isCaregiverShowingNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isCaregiverShowingNA"
+                    ></p-checkbox
+                    >&nbsp;NA
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <p>Unusual marks or bruising</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isUnusualMarksYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isUnusualMarksNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isUnusualMarksNA"
+                    ></p-checkbox
+                    >&nbsp;NA
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-5">
+                <p>
+                  <b
+                    >Have new safety concerns been identified since your last
+                    visit?</b
+                  >
+                </p>
+              </div>
+              <div class="col-md-7">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isSafetyConcernsYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isSafetyConcernsNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-5">
+                <p>
+                  <b>Was the Family Safety Plan developed or reviewed?</b>
+                </p>
+              </div>
+              <div class="col-md-7">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isDevelopedReviewedYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isDevelopedReviewedNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isDevelopedReviewedNA"
+                    ></p-checkbox
+                    >&nbsp;NA
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p>
+              <b>Progress towards Family Safety Plan:</b>
+            </p>
+            <textarea
+              cols="150"
+              rows="{{ rowMethod(ntff.familySafetyPlan) }}"
+              pInputTextArea
+              [(ngModel)]="ntff.familySafetyPlan"
+              class="width-100"
+            ></textarea>
+            <p>
+              <b
+                >What services or supports are in place to meet safety needs?</b
+              >
+            </p>
+            <textarea
+              cols="150"
+              rows="{{ rowMethod(ntff.safetyNeeds) }}"
+              pInputTextArea
+              [(ngModel)]="ntff.safetyNeeds"
+              class="width-100"
+            ></textarea>
+            <p>
+              <b
+                >Explain answers to the questions above, any comments made by
+                child or caregiver, observed interactions:</b
+              >
+            </p>
+            <textarea
+              cols="150"
+              rows="{{ rowMethod(ntff.safetyComments) }}"
+              pInputTextArea
+              [(ngModel)]="ntff.safetyComments"
+              class="width-100"
+            ></textarea>
+          </div>
+
+          <br />
+          <div class="case-border">
+            <p class="text-center">
+              <b
+                >RISK ASSESSMENT *Risk is potential maltreatment in the future.
+                It determines the need for services to address potential future
+                maltreatment.
+              </b>
+            </p>
+            <hr />
+            <div class="row">
+              <div class="col-md-3">
+                <p>Change in household members</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isRiskHouseYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isRiskHouseNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                  <!-- <div class="col-md-4">
+                    <p-checkbox binary="true" [(ngModel)]="ntffPrintJson.isRiskHouseNA"></p-checkbox>&nbsp;NA
+                  </div> -->
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <p>Child’s height and weight appear normal</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isHeighWeightNormalYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isHeighWeightNormalNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isHeighWeightNormalNA"
+                    ></p-checkbox
+                    >&nbsp;NA
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <p>Caregiver has natural and community supports</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isRiskCaregiverYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isRiskCaregiverNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <p>Child has appropriate hygiene and dress</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isChildHygieneYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isChildHygieneNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isChildHygieneNA"
+                    ></p-checkbox
+                    >&nbsp;NA
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <p>
+                  Caregiver demonstrates the ability to provide adequate care
+                  for the child (child’s physical and emotional needs are being
+                  met)
+                </p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isRiskPhysicalYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isRiskPhysicalNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <p>Child has displayed self-harming behaviors</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isRiskChildSelfHarmYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isRiskChildSelfHarmNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                  <!-- <div class="col-md-4">
+                    <p-checkbox binary="true" [(ngModel)]="ntffPrintJson.isRiskChildSelfHarmNA"></p-checkbox>&nbsp;NA
+                  </div> -->
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <p>Child has adequate space</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isRiskChildSpaceYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isRiskChildSpaceNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <p>Child has displayed aggressive behaviors</p>
+              </div>
+              <div class="col-md-3">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isRiskChildAggressiveYes"
+                    ></p-checkbox>
+                    &nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isRiskChildAggressiveNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-5">
+                <p>
+                  <b
+                    >Have additional risk concerns been identified since last
+                    visit?
+                  </b>
+                </p>
+              </div>
+              <div class="col-md-7">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isAdditionalRiskConcernYes"
+                    ></p-checkbox>
+                    &nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isAdditionalRiskConcernNo"
+                    ></p-checkbox>
+                    &nbsp;No
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-5">
+                <p>
+                  <b
+                    >Does the case plan or non-intensive plan need to be updated
+                    to address risk concerns?</b
+                  >
+                </p>
+              </div>
+              <div class="col-md-7">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isRiskIntensePlanYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isRiskIntensePlanNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p>
+              <b
+                >What are the family’s strengths and resources mitigating the
+                risk concerns?</b
+              >
+            </p>
+            <textarea
+              cols="150"
+              rows="{{ rowMethod(ntff.familyStrengthsAndResources) }}"
+              pInputTextArea
+              [(ngModel)]="ntff.familyStrengthsAndResources"
+              class="width-100"
+            ></textarea>
+            <p>
+              <b
+                >Explain answers to the questions above, any comments made by
+                child or caregiver, observed interactions:</b
+              >
+            </p>
+            <textarea
+              cols="150"
+              rows="{{ rowMethod(ntff.riskComments) }}"
+              pInputTextArea
+              [(ngModel)]="ntff.riskComments"
+              class="width-100"
+            ></textarea>
+          </div>
+          <br />
+          <div class="case-info-ntff">
+            <p>
+              <b
+                >IV.Review of Case Plan or Non-Intensive Plan (progress towards
+                completing activities must be completed with the family and
+                documented at least one time monthly):</b
+              >
+              <textarea
+                cols="150"
+                rows="{{ rowMethod(ntff.reviewOfCasePlanProgress) }}"
+                pInputTextArea
+                [(ngModel)]="ntff.reviewOfCasePlanProgress"
+                class="width-100"
+              ></textarea>
+            </p>
+            <div class="row">
+              <div class="col-md-5">
+                <p>
+                  <b>Review of Case Plan during this visit: </b>
+                </p>
+              </div>
+              <div class="col-md-7">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isReviewCasePlanYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isReviewCasePlanNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isReviewCasePlanNA"
+                    ></p-checkbox
+                    >&nbsp;NA
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-5">
+                <p>
+                  <b>Review of Non-Intensive Plan during this visit:</b>
+                </p>
+              </div>
+              <div class="col-md-7">
+                <div class="row">
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isNonIntenseYes"
+                    ></p-checkbox
+                    >&nbsp;Yes
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isNonIntenseNo"
+                    ></p-checkbox
+                    >&nbsp;No
+                  </div>
+                  <div class="col-md-4">
+                    <p-checkbox
+                      binary="true"
+                      [(ngModel)]="ntffPrintJson.isNonIntenseNA"
+                    ></p-checkbox
+                    >&nbsp;NA
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p>
+              <b
+                >Progress towards completing case plan or non-intensive plan
+                activities:</b
+              >
+            </p>
+
+            <textarea
+              cols="150"
+              rows="{{ rowMethod(ntff.reviewProgressPlanActivities) }}"
+              pInputTextArea
+              [(ngModel)]="ntff.reviewProgressPlanActivities"
+              class="width-100"
+            >
+            </textarea>
+          </div>
+          <br />
+          <br />
+          <div class="case-info">
+            <p>
+              <b
+                >V.Follow up activities identified during visit, person(s)
+                responsible, target date:</b
+              >
+            </p>
+            <textarea
+              cols="150"
+              rows="{{ rowMethod(ntff.followUp) }}"
+              pInputTextArea
+              [(ngModel)]="ntff.followUp"
+              class="width-100"
+            ></textarea>
+          </div>
+          <br />
+          <div class="case-info">
+            <p>
+              <b
+                >VI.Next appointment: Plan for client until next appointment:</b
+              >
+            </p>
+
+            <textarea
+              cols="150"
+              rows="{{
+                rowMethod(ntff.planTillNextAppointment)
+              }}"
+              class="width-100"
+              [(ngModel)]="nexAppointmentAlongWithDate"
+              pInputTextArea
+            ></textarea>
+          </div>
+          <div class="row margin-top-1rem">
+            <div class="col-md-5">
+              <input
+                [(ngModel)]="ntffPrintJson.staffName"
+                type="text"
+                class="remove-borders"
+                pInputText
+                size="20"
+              />
+              <br />
+              FP Staff Name (print)
+            </div>
+            <div class="col-md-4">
+              <input type="text" class="remove-borders" pInputText size="20" />
+              <br />FP Staff Signature
+            </div>
+            <div class="col-md-3">
+              <p-calendar [showIcon]="true" showTime="true"></p-calendar>
+              <br />Date
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-md-12">
+              <span>
+                <p-checkbox
+                  [(ngModel)]="ntffPrintJson.isVerified"
+                  name="byCertify"
+                  binary="true"
+                ></p-checkbox
+                >By checking this box, I certify that I have entered the
+                information in this log and that, as of this date, it is true,
+                accurate and complete to the best of my knowledge, information
+                and beliefs.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--  -->
+      <div class="footer">
+        <div id="loading-overlay">
+          <p class="loader-text">
+            <img
+              src="/assets/loader/loader_new.gif"
+              alt="loder"
+              width="150px"
+            />
+          </p>
+        </div>
+        <div class="footer-left-well"></div>
+        <div class="footer-right-well">
+          <button
+            class="sf-negative-btn"
+            pTooltip="Print"
+            (click)="printForm()"
+            *ngIf="true"
+          >
+            <span>Print</span>
+          </button>
+
+          <button
+            class="sf-negative-btn"
+            pTooltip="Cancel"
+            (click)="closeModalBox()"
+          >
+            <span> Cancel </span>
+          </button>
+        </div>
+      </div>
+      <!--  -->
+    </p-dialog>
+
+    <!-- To be removed -->
+
+    <div *ngIf="isCaseActivityLogCreated" id="print-content">
+      <div id="form-content" class="sf-form">
+        <div class="row">
+          <div class="col-md-3" style="margin: auto">
+            <div class="heading">
+              FAMILY PRESERVATION NON-THERAPY/FACE TO FACE CONTACT
+            </div>
+          </div>
+          <div class="col-md-4 text-center" style="margin: auto">
+            <div class="logo">
+              <img src="assets/logo color.svg" alt="" />
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="case-info">
+              <!-- <div>
+                <span>Case Name:</span>
+                <div class="remove-borders">{{ntffPrintJson.caseName}}</div>
+
+              </div> -->
+              <!-- <div>
+                <span>Case Number:</span>
+                <div class="remove-borders">{{ntffPrintJson.caseNumber}}</div>
+
+              </div> -->
+              <!-- Dont Remove -->
+              <!-- <div>
+                <span>Referral Date:</span>
+                <div class="remove-borders">{{ntffPrintJson.dateOfReferral}}</div>
+              </div> -->
+              <div>
+                <span>Date:</span>
+                <div class="remove-borders">{{ ntffPrintJson.date }}</div>
+              </div>
+
+              <div class="flex-container">
+                <span>Start Time:</span>
+                <div class="remove-borders">{{ ntffPrintJson.startTime }}</div>
+
+                <span>End Time:</span>
+
+                <div class="remove-borders">{{ ntffPrintJson.endTime }}</div>
+              </div>
+
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  width: 44%;
+                "
+              >
+                <span>Duration:</span>
+                <span class="remove-borders">{{ ntffDuration }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="row">
+              <span class="col-md-6" style="margin-top: auto">Location:</span>
+              <div class="col-md-6">
+                <div class="remove-borders">{{ ntff.location }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <br />
+            <span>
+              <p-checkbox
+                binary="true"
+                [(ngModel)]="ntffPrintJson.isProcodeCaseSupervision"
+              ></p-checkbox>
+              &nbsp;CF054.1 – Case Supervision
+            </span>
+          </div>
+          <div class="col-md-4">
+            <br />
+            <span>
+              <p-checkbox
+                binary="true"
+                [(ngModel)]="ntffPrintJson.isProcodeFamilySupportService"
+              ></p-checkbox>
+              &nbsp;CF011 – Family Support Services
+            </span>
+          </div>
+        </div>
+
+        <br />
+
+        <div class="case-info">
+          <p>
+            <b
+              >I. List all present and if a family member is not present explain
+              why:</b
+            >
+          </p>
+          <pre>{{ ntff.clientsPresent }}</pre>
+
+          <p>
+            <b>Alone time with Child:</b>
+          </p>
+          <div>
+            <table class="fisMember-table" *ngIf="alone_list.length > 0">
+              <thead>
+                <tr>
+                  <th>Client</th>
+                  <th>Alone Time</th>
+                  <th>Exception</th>
+                  <th>Exception Reason</th>
+                  <th>Length</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let alone of alone_list; let i = index">
+                  <td>{{ alone.clientID?.clientName }}</td>
+                  <td>
+                    <span *ngIf="!alone.isAloneTime" class="negative-mark"
+                      >&#10006;</span
+                    >
+                    <span *ngIf="alone.isAloneTime" class="positive-mark"
+                      >&#10004;</span
+                    >
+                  </td>
+                  <td>
+                    <span
+                      *ngIf="!alone.isAloneTimeException"
+                      class="negative-mark"
+                      >&#10006;</span
+                    >
+                    <span
+                      *ngIf="alone.isAloneTimeException"
+                      class="positive-mark"
+                      >&#10004;</span
+                    >
+                  </td>
+                  <td>{{ alone.aloneTimeExceptionID?.aloneTimeException }}</td>
+                  <td>{{ alone.aloneTimeLength }}</td>
+                  <td>{{ alone.aloneTimeNotes }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <br />
+
+          <br />
+        </div>
+        <br />
+        <div class="case-info">
+          <p>
+            <b
+              >II. Identify the safety plan activity, case plan activity or
+              non-intensive plan activity addressed during this session:
+            </b>
+          </p>
+
+          <pre>{{ ntff.planactivityDuringTheSession }}</pre>
+          <br />
+          <br />
+        </div>
+        <br />
+
+        <br />
+        <div class="case-info">
+          <p>
+            <b
+              >III. Describe specific observations and interactions with family
+              members and document their input or response:
+            </b>
+          </p>
+
+          <pre>{{ ntff.interactions }}</pre>
+        </div>
+
+        <br />
+        <div class="case-border">
+          <p class="text-center">
+            <b
+              >SAFETY ASSESSMENT *Safety is the potential for serious
+              maltreatment which is imminent. It determines the need for
+              immediate protective action or controlling interventions to
+              protect the child from imminent danger.</b
+            >
+          </p>
+          <hr />
+          <div class="row">
+            <div class="col-md-3">
+              <p>Home is free of safety concerns</p>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isHomeSafetyConcernsYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isHomeSafetyConcernsNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isHomeSafetyConcernsNA"
+                  ></p-checkbox
+                  >&nbsp;NA
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <p>
+                Suicidal thoughts or gestures made by any person in the home
+              </p>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isSuicidalThoughtsYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isSuicidalThoughtsNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isSuicidalThoughtsNA"
+                  ></p-checkbox
+                  >&nbsp;NA
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <p>Home is relatively clean</p>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isHomeCleanYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isHomeCleanNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isHomeCleanNA"
+                  ></p-checkbox
+                  >&nbsp;NA
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <p>
+                Violent thoughts or gestures made by or to any person in the
+                home
+              </p>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isViolentThoughtsYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isViolentThoughtsNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isViolentThoughtsNA"
+                  ></p-checkbox
+                  >&nbsp;NA
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <p>Weapons observed in the home</p>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isWeaponsObservedYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isWeaponsObservedNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isWeaponsObservedNA"
+                  ></p-checkbox
+                  >&nbsp;NA
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <p>
+                Caregiver has the protective capacity ability to care for the
+                child
+              </p>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isCaregiverYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isCaregiverNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isCaregiverNA"
+                  ></p-checkbox
+                  >&nbsp;NA
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <p>Child’s appearance is healthy</p>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isChildAppearHealthyYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isChildAppearHealthyNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isChildAppearHealthyNA"
+                  ></p-checkbox
+                  >&nbsp;NA
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <p>
+                Caregiver showing signs of being under the influence of
+                substances
+              </p>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isCaregiverShowingYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isCaregiverShowingNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isCaregiverShowingNA"
+                  ></p-checkbox
+                  >&nbsp;NA
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <p>Unusual marks or bruising</p>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isUnusualMarksYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isUnusualMarksNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isUnusualMarksNA"
+                  ></p-checkbox
+                  >&nbsp;NA
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-5">
+              <p>
+                <b
+                  >Have new safety concerns been identified since your last
+                  visit?</b
+                >
+              </p>
+            </div>
+            <div class="col-md-7">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isSafetyConcernsYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isSafetyConcernsNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-5">
+              <p>
+                <b>Was the Family Safety Plan developed or reviewed?</b>
+              </p>
+            </div>
+            <div class="col-md-7">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isDevelopedReviewedYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isDevelopedReviewedNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isDevelopedReviewedNA"
+                  ></p-checkbox
+                  >&nbsp;NA
+                </div>
+              </div>
+            </div>
+          </div>
+          <p>
+            <b>Progress towards Family Safety Plan:</b>
+          </p>
+
+          <pre>{{ ntff.familySafetyPlan }}</pre>
+          <p>
+            <b>What services or supports are in place to meet safety needs?</b>
+          </p>
+
+          <pre>{{ ntff.safetyNeeds }}</pre>
+          <p>
+            <b
+              >Explain answers to the questions above, any comments made by
+              child or caregiver, observed interactions:</b
+            >
+          </p>
+
+          <pre>{{ ntff.safetyComments }}</pre>
+        </div>
+
+        <br />
+        <div class="case-border">
+          <p class="text-center">
+            <b
+              >RISK ASSESSMENT *Risk is potential maltreatment in the future. It
+              determines the need for services to address potential future
+              maltreatment.
+            </b>
+          </p>
+          <hr />
+          <div class="row">
+            <div class="col-md-3">
+              <p>Change in household members</p>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isRiskHouseYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isRiskHouseNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <p>Child’s height and weight appear normal</p>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isHeighWeightNormalYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isHeighWeightNormalNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isHeighWeightNormalNA"
+                  ></p-checkbox
+                  >&nbsp;NA
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <p>Caregiver has natural and community supports</p>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isRiskCaregiverYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isRiskCaregiverNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <p>Child has appropriate hygiene and dress</p>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isChildHygieneYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isChildHygieneNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isChildHygieneNA"
+                  ></p-checkbox
+                  >&nbsp;NA
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <p>
+                Caregiver demonstrates the ability to provide adequate care for
+                the child (child’s physical and emotional needs are being met)
+              </p>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isRiskPhysicalYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isRiskPhysicalNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <p>Child has displayed self-harming behaviors</p>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isRiskChildSelfHarmYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isRiskChildSelfHarmNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <p>Child has adequate space</p>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isRiskChildSpaceYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isRiskChildSpaceNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <p>Child has displayed aggressive behaviors</p>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isRiskChildAggressiveYes"
+                  ></p-checkbox>
+                  &nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isRiskChildAggressiveNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-5">
+              <p>
+                <b
+                  >Have additional risk concerns been identified since last
+                  visit?
+                </b>
+              </p>
+            </div>
+            <div class="col-md-7">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isAdditionalRiskConcernYes"
+                  ></p-checkbox>
+                  &nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isAdditionalRiskConcernNo"
+                  ></p-checkbox>
+                  &nbsp;No
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-5">
+              <p>
+                <b
+                  >Does the case plan or non-intensive plan need to be updated
+                  to address risk concerns?</b
+                >
+              </p>
+            </div>
+            <div class="col-md-7">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isRiskIntensePlanYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isRiskIntensePlanNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+              </div>
+            </div>
+          </div>
+          <p>
+            <b
+              >What are the family’s strengths and resources mitigating the risk
+              concerns?</b
+            >
+          </p>
+
+          <pre>{{ ntff.familyStrengthsAndResources }}</pre>
+          <p>
+            <b
+              >Explain answers to the questions above, any comments made by
+              child or caregiver, observed interactions:</b
+            >
+          </p>
+
+          <pre>{{ ntff.riskComments }}</pre>
+        </div>
+        <br />
+        <div class="case-info-ntff">
+          <p>
+            <b
+              >IV.Review of Case Plan or Non-Intensive Plan (progress towards
+              completing activities must be completed with the family and
+              documented at least one time monthly):</b
+            >
+          </p>
+
+          <pre>{{ ntff.reviewOfCasePlanProgress }}</pre>
+
+          <div class="row">
+            <div class="col-md-5">
+              <p>
+                <b>Review of Case Plan during this visit: </b>
+              </p>
+            </div>
+            <div class="col-md-7">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isReviewCasePlanYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isReviewCasePlanNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isReviewCasePlanNA"
+                  ></p-checkbox
+                  >&nbsp;NA
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-5">
+              <p>
+                <b>Review of Non-Intensive Plan during this visit:</b>
+              </p>
+            </div>
+            <div class="col-md-7">
+              <div class="row">
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isNonIntenseYes"
+                  ></p-checkbox
+                  >&nbsp;Yes
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isNonIntenseNo"
+                  ></p-checkbox
+                  >&nbsp;No
+                </div>
+                <div class="col-md-4">
+                  <p-checkbox
+                    binary="true"
+                    [(ngModel)]="ntffPrintJson.isNonIntenseNA"
+                  ></p-checkbox
+                  >&nbsp;NA
+                </div>
+              </div>
+            </div>
+          </div>
+          <p>
+            <b
+              >Progress towards completing case plan or non-intensive plan
+              activities:</b
+            >
+          </p>
+
+          <pre>{{ ntff.reviewProgressPlanActivities }}</pre>
+        </div>
+        <br />
+        <br />
+        <div class="case-info">
+          <p>
+            <b
+              >V.Follow up activities identified during visit, person(s)
+              responsible, target date:</b
+            >
+          </p>
+
+          <pre>{{ ntff.followUp }}</pre>
+        </div>
+        <br />
+        <div class="case-info">
+          <p>
+            <b>VI.Next appointment: Plan for client until next appointment:</b>
+          </p>
+
+          <pre>{{ nexAppointmentAlongWithDate }}</pre>
+        </div>
+        <div class="row margin-top-1rem">
+          <div class="col-md-5">
+            <input
+              [(ngModel)]="ntffPrintJson.staffName"
+              type="text"
+              class="remove-borders"
+              pInputText
+              size="20"
+            />
+            <br />
+            FP Staff Name (print)
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="remove-borders" pInputText size="20" />
+            <br />FP Staff Signature
+          </div>
+          <div class="col-md-3">
+            <p-calendar [showIcon]="true" showTime="true"></p-calendar>
+            <br />Date
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-md-12">
+            <span>
+              <p-checkbox
+                [(ngModel)]="ntffPrintJson.isVerified"
+                name="byCertify"
+                binary="true"
+              ></p-checkbox
+              >By checking this box, I certify that I have entered the
+              information in this log and that, as of this date, it is true,
+              accurate and complete to the best of my knowledge, information and
+              beliefs.
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

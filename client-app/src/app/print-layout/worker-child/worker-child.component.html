@@ -1,0 +1,1142 @@
+<div id="print-form-content" class="sf-form">
+  <div class="flex-container header">
+    <div class="heading">
+      WORKER CHILD VISIT
+      <br> ACTIVITY NOTE
+    </div>
+    <div class="logo">
+      <img src="assets/logo color.svg" alt="Print layout">
+    </div>
+    <div class="case-info">
+      <div>
+        <span>Child's Name:</span>
+
+        <div class="remove-borders">{{workerChild?.ClientName?.value}}</div>
+      </div>
+      <div>
+        <span>Case Number:</span>
+
+        <div class="remove-borders">{{workerChild?.caseNo?.value}}</div>
+      </div>
+      <div>
+        <span>Date:</span>
+
+        <div class="remove-borders">{{workerChild?.CompletionDate?.value | date:'MM/dd/yyy HH:mm'}}</div>
+      </div>
+      <div class="flex-container">
+        <div>
+          <span>Time/Length:</span>
+        </div>
+        <div>
+          <div class="space-right">From:</div>
+
+          <div class="remove-borders">{{workerChild?.FromTime?.value}}</div>
+        </div>
+        <div>
+          <div class="space-right">To:</div>
+
+          <div class="remove-borders">{{workerChild?.ToTime?.value}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-container space-down">
+    <div class="space-right center">
+      CF065.1 Visit in residence
+      <input type="radio" ngDefaultControl class="space-right" value="CF065.1" label="CF065.1 Visit in residence"
+        [(ngModel)]="workerChild.proCode">
+    </div>
+    <div class="space-right center">
+      CF065.2 Visit not in residence
+      <input type="radio" ngDefaultControl class="space-right" value="CF065.2" label="CF065.2 Visit not in residence"
+        [(ngModel)]="workerChild.proCode">
+
+    </div>
+  </div>
+
+  <div *ngIf="workerChild?.multiClient" class="flex-container space-down">
+    <div *ngFor="let cisArrayData of workerChild.multiClient; let i = index" class="space-right">
+
+      <div class="remove-borders">{{cisArrayData}}</div>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">If visit is outside of placement, specify place:</div>
+    <div class="space-right">
+
+      <pre>{{workerChild?.Place?.value}}</pre>
+
+    </div>
+
+  </div>
+  <div class="space-down">
+    <div class="space-right">List those present at visit:</div>
+    <div class="space-right">
+
+
+      <pre>{{workerChild?.presentAtVisit?.value}}</pre>
+    </div>
+  </div>
+  <div class="flex-container space-down">
+    <div class="space-right">Did worker spend time alone with child?</div>
+    <div class="space-right center">
+      Yes
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.DidWorkerSpendTimeAloneWithChild?.fieldOptionIndex"
+        class="space-right" value="0" label="Yes"
+        [(ngModel)]="workerChild.DidWorkerSpendTimeAloneWithChild.fieldOptionIndex">
+
+    </div>
+    <div class="space-right center">
+      No
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.DidWorkerSpendTimeAloneWithChild?.fieldOptionIndex"
+        class="space-right" value="1" label="No"
+        [(ngModel)]="workerChild.DidWorkerSpendTimeAloneWithChild.fieldOptionIndex">
+
+    </div>
+  </div>
+  <div class="flex-container space-down">
+    <div class="space-right">Placement supportive of worker meeting with child?</div>
+    <div class="space-right center">
+      Yes
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.PlacementSupportiveofMeeting?.fieldOptionIndex"
+        class="space-right" value="0" label="Yes"
+        [(ngModel)]="workerChild.PlacementSupportiveofMeeting.fieldOptionIndex">
+    </div>
+    <div class="space-right center">
+      No
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.PlacementSupportiveofMeeting?.fieldOptionIndex"
+        class="space-right" value="1" label="No"
+        [(ngModel)]="workerChild.PlacementSupportiveofMeeting.fieldOptionIndex">
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-down">Describe location of visit, length of time, items discussed, and list any comments made by
+      the child. Explain any no
+      answer to the above two questions.</div>
+    <div class="space-down">
+
+      <pre>{{workerChild?.DescriptionAndCommentsByChild?.value}}</pre>
+    </div>
+  </div>
+  <div class="flex-container space-down">
+    <div class="space-right">Case Plan Goal:</div>
+    <div class="space-right center">
+      Reintegration
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.casePlanGoal?.fieldOptionIndex" class="space-right"
+        value="0" label="Reintegration" [(ngModel)]="workerChild.casePlanGoal.fieldOptionIndex">
+    </div>
+    <div class="space-right center">
+      Adoption
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.casePlanGoal?.fieldOptionIndex" class="space-right"
+        value="1" label="Adoption" [(ngModel)]="workerChild.casePlanGoal.fieldOptionIndex">
+    </div>
+    <div class="space-right center">
+      APPLA
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.casePlanGoal?.fieldOptionIndex" class="space-right"
+        value="2" label="APPLA" [(ngModel)]="workerChild.casePlanGoal.fieldOptionIndex">
+
+    </div>
+    <div class="space-right center">
+      Custodianship
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.casePlanGoal?.fieldOptionIndex" class="space-right"
+        value="3" label="Custodianship" [(ngModel)]="workerChild.casePlanGoal.fieldOptionIndex">
+    </div>
+    <div class="space-right center">
+      Maintain at Home
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.casePlanGoal?.fieldOptionIndex" class="space-right"
+        value="4" label="Maintain at Home" [(ngModel)]="workerChild.casePlanGoal.fieldOptionIndex">
+    </div>
+  </div>
+  <h3 class="center space-down">SAFETY AND RISK ASSESSMENT </h3>
+  <p class="center"> *Safety is the potential for serious maltreatment which is imminent. It determines the need for
+    immediate protective
+    action or controlling interventions to protect the child from imminent danger.</p>
+  <div class="space-down">
+    <table>
+      <tr>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Home is free of safety concerns</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.HomeIsFreeOfSafetyConcerns?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes"
+                [(ngModel)]="workerChild.HomeIsFreeOfSafetyConcerns.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.HomeIsFreeOfSafetyConcerns?.fieldOptionIndex"
+                class="space-right" value="1" label="No"
+                [(ngModel)]="workerChild.HomeIsFreeOfSafetyConcerns.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              NA
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.HomeIsFreeOfSafetyConcerns?.fieldOptionIndex"
+                class="space-right" value="2" label="NA"
+                [(ngModel)]="workerChild.HomeIsFreeOfSafetyConcerns.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Child's appearance is healthy</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.ChildsAppearanceIsHealthy?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes"
+                [(ngModel)]="workerChild.ChildsAppearanceIsHealthy.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.ChildsAppearanceIsHealthy?.fieldOptionIndex"
+                class="space-right" value="1" label="No"
+                [(ngModel)]="workerChild.ChildsAppearanceIsHealthy.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Home is clean</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.HomeIsClean?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes" [(ngModel)]="workerChild.HomeIsClean.fieldOptionIndex">
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.HomeIsClean?.fieldOptionIndex"
+                class="space-right" value="1" label="No" [(ngModel)]="workerChild.HomeIsClean.fieldOptionIndex">
+            </div>
+            <div class="space-right center">
+              NA
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.HomeIsClean?.fieldOptionIndex"
+                class="space-right" value="2" label="NA" [(ngModel)]="workerChild.HomeIsClean.fieldOptionIndex">
+            </div>
+          </div>
+        </td>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Free from unusual marks or bruising</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.FreeFromUnusualMarksOrBruising?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes"
+                [(ngModel)]="workerChild.FreeFromUnusualMarksOrBruising.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.FreeFromUnusualMarksOrBruising?.fieldOptionIndex"
+                class="space-right" value="1" label="No"
+                [(ngModel)]="workerChild.FreeFromUnusualMarksOrBruising.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Homicidal Thoughts or Gestures </div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.homicidalThoughts?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes" [(ngModel)]="workerChild.homicidalThoughts.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.homicidalThoughts?.fieldOptionIndex"
+                class="space-right" value="1" label="No" [(ngModel)]="workerChild.homicidalThoughts.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Suicidal Thoughts or Gestures</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.suicidalThoughts?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes" [(ngModel)]="workerChild.suicidalThoughts.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.suicidalThoughts?.fieldOptionIndex"
+                class="space-right" value="1" label="No" [(ngModel)]="workerChild.suicidalThoughts.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Caregiver has the protective capacity ability to care for the child</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.caregiverProtectiveCapacity?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes"
+                [(ngModel)]="workerChild.caregiverProtectiveCapacity.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.caregiverProtectiveCapacity?.fieldOptionIndex"
+                class="space-right" value="1" label="No"
+                [(ngModel)]="workerChild.caregiverProtectiveCapacity.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Have additional safety concerns been identified since last visit?</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.additionalSafetyConcerns?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes"
+                [(ngModel)]="workerChild.additionalSafetyConcerns.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.additionalSafetyConcerns?.fieldOptionIndex"
+                class="space-right" value="1" label="No"
+                [(ngModel)]="workerChild.additionalSafetyConcerns.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="space-down">
+    <div class="space-right">Describe the placement environment:</div>
+    <div class="space-right">
+
+      <pre>{{workerChild?.placementEnvironment?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">Describe the child’s appearance:</div>
+    <div class="space-right">
+
+      <pre>{{workerChild?.childAppearance?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">Observed interaction with caregiver:</div>
+    <div class="space-right">
+
+      <pre>{{workerChild?.interactionWithCaregiver?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">If applicable, what safety concerns have been identified since last visit?:</div>
+    <div class="space-right">
+
+      <pre>{{workerChild?.safetyConcernsIndentified?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">What are the family’s strengths and resources mitigating safety concerns?</div>
+    <div class="space-right">
+
+      <pre>{{workerChild?.familySafetyMitigationStrengths?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">What are the contributing factors directly related to the safety concern?</div>
+    <div class="space-right">
+
+      <pre>{{workerChild?.safetyConcernsContributingFactors?.value}}</pre>
+    </div>
+  </div>
+  <div class="flex-container space-down">
+    <div class="space-right">Safety plan developed or reviewed</div>
+    <div class="space-right center">
+      Yes
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.SafetyPlanReviewed?.fieldOptionIndex" class="space-right"
+        value="0" label="Yes" [(ngModel)]="workerChild.SafetyPlanReviewed.fieldOptionIndex">
+
+    </div>
+    <div class="space-right center">
+      No
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.SafetyPlanReviewed?.fieldOptionIndex" class="space-right"
+        value="1" label="No" [(ngModel)]="workerChild.SafetyPlanReviewed.fieldOptionIndex">
+
+    </div>
+    <div class="space-right center">
+      NA
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.SafetyPlanReviewed?.fieldOptionIndex" class="space-right"
+        value="2" label="NA" [(ngModel)]="workerChild.SafetyPlanReviewed.fieldOptionIndex">
+
+    </div>
+  </div>
+  <h3 class="center space-down">RISK ASSESSMENT</h3>
+  <p class="center space-down">*Risk is potential maltreatment in the future. It determines the need for services to
+    address potential future maltreatment.
+  </p>
+  <div class="space-down">
+    <table>
+      <tr>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Change in placement household</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.Changeinplacementhousehold?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes"
+                [(ngModel)]="workerChild.Changeinplacementhousehold.fieldOptionIndex">
+
+            </div>
+            <div class=" space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.Changeinplacementhousehold?.fieldOptionIndex"
+                class="space-right" value="1" label="No"
+                [(ngModel)]="workerChild.Changeinplacementhousehold.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Height and Weight appear normal</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.HeightandWeightappearnormal?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes"
+                [(ngModel)]="workerChild.HeightandWeightappearnormal.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.HeightandWeightappearnormal?.fieldOptionIndex"
+                class="space-right" value="1" label="No"
+                [(ngModel)]="workerChild.HeightandWeightappearnormal.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Child has adequate space</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.ChildHasAdequateSpace?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes"
+                [(ngModel)]="workerChild.ChildHasAdequateSpace.fieldOptionIndex">
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.ChildHasAdequateSpace?.fieldOptionIndex"
+                class="space-right" value="1" label="No"
+                [(ngModel)]="workerChild.ChildHasAdequateSpace.fieldOptionIndex">
+            </div>
+            <div class="space-right center">
+              NA
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.ChildHasAdequateSpace?.fieldOptionIndex"
+                class="space-right" value="2" label="NA"
+                [(ngModel)]="workerChild.ChildHasAdequateSpace.fieldOptionIndex">
+            </div>
+          </div>
+        </td>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Child is clean, neatly groomed</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.ChildisCleanNeatlyGroomed?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes"
+                [(ngModel)]="workerChild.ChildisCleanNeatlyGroomed.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.ChildisCleanNeatlyGroomed?.fieldOptionIndex"
+                class="space-right" value="1" label="No"
+                [(ngModel)]="workerChild.ChildisCleanNeatlyGroomed.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Caregiver has natural and community supports</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl
+                *ngIf="workerChild?.caregiverNaturalAndCommunitySupports?.fieldOptionIndex" class="space-right"
+                value="0" label="Yes" [(ngModel)]="workerChild.caregiverNaturalAndCommunitySupports.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl
+                *ngIf="workerChild?.caregiverNaturalAndCommunitySupports?.fieldOptionIndex" class="space-right"
+                value="1" label="No" [(ngModel)]="workerChild.caregiverNaturalAndCommunitySupports.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              NA
+              <input type="radio" ngDefaultControl
+                *ngIf="workerChild?.caregiverNaturalAndCommunitySupports?.fieldOptionIndex" class="space-right"
+                value="2" label="NA" [(ngModel)]="workerChild.caregiverNaturalAndCommunitySupports.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Child feels safe and treated well</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.ChildFeelsSafeAndTreatedWell?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes"
+                [(ngModel)]="workerChild.ChildFeelsSafeAndTreatedWell.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.ChildFeelsSafeAndTreatedWell?.fieldOptionIndex"
+                class="space-right" value="1" label="No"
+                [(ngModel)]="workerChild.ChildFeelsSafeAndTreatedWell.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Caregiver demonstrates the ability to provide adequate care for the child</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl
+                *ngIf="workerChild?.caregiverDemonstratesAbilityToProvideCare?.fieldOptionIndex" class="space-right"
+                value="0" label="Yes"
+                [(ngModel)]="workerChild.caregiverDemonstratesAbilityToProvideCare.fieldOptionIndex">
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl
+                *ngIf="workerChild?.caregiverDemonstratesAbilityToProvideCare?.fieldOptionIndex" class="space-right"
+                value="1" label="No"
+                [(ngModel)]="workerChild.caregiverDemonstratesAbilityToProvideCare.fieldOptionIndex">
+            </div>
+            <div class="space-right center">
+              NA
+              <input type="radio" ngDefaultControl
+                *ngIf="workerChild?.caregiverDemonstratesAbilityToProvideCare?.fieldOptionIndex" class="space-right"
+                value="2" label="NA"
+                [(ngModel)]="workerChild.caregiverDemonstratesAbilityToProvideCare.fieldOptionIndex">
+            </div>
+          </div>
+        </td>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Child has displayed self-harming behaviors</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.displayedSelfHarmingBehavior?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes"
+                [(ngModel)]="workerChild.displayedSelfHarmingBehavior.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.displayedSelfHarmingBehavior?.fieldOptionIndex"
+                class="space-right" value="1" label="No"
+                [(ngModel)]="workerChild.displayedSelfHarmingBehavior.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="table-td"> </td>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Child has displayed aggressive behaviors</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.displayedAgressiveBehavior?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes"
+                [(ngModel)]="workerChild.displayedAgressiveBehavior.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.displayedAgressiveBehavior?.fieldOptionIndex"
+                class="space-right" value="1" label="No"
+                [(ngModel)]="workerChild.displayedAgressiveBehavior.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="flex-container space-down">
+    <div class="space-right">Have additional safety concerns been identified since last visit?</div>
+    <div class="space-right center">
+      Yes
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.additionalSafetyConcernsSinceLastVisit?.fieldOptionIndex"
+        class="space-right" value="0" label="Yes"
+        [(ngModel)]="workerChild.additionalSafetyConcernsSinceLastVisit.fieldOptionIndex">
+
+    </div>
+    <div class="space-right center">
+      No
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.additionalSafetyConcernsSinceLastVisit?.fieldOptionIndex"
+        class="space-right" value="1" label="No"
+        [(ngModel)]="workerChild.additionalSafetyConcernsSinceLastVisit.fieldOptionIndex">
+
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">Describe the placement environment</div>
+    <div class="space-right">
+
+      <pre>{{workerChild?.placementEnvironmentRiskSection?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">Describe the child’s appearance:</div>
+    <div class="space-right">
+
+      <pre>{{workerChild?.childsAppearance?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">Observed interaction with caregiver:</div>
+    <div class="space-right">
+
+      <pre>{{workerChild?.interactionWithCaregiverRiskSection?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">If applicable, what safety concerns have been identified since last visit?</div>
+    <div class="space-right">
+
+      <pre>{{workerChild?.safetyConcernsSinceLastVisit?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">What are the family’s strengths and resources mitigating safety concerns?</div>
+    <div class="space-right">
+
+      <pre>{{workerChild?.visitDetailsRiskSection?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">What services are needed or have taken place to mitigate the concerns?</div>
+    <div class="space-right">
+
+      <pre>{{workerChild?.serviceMitigateConcerns?.value}}</pre>
+    </div>
+  </div>
+  <h3 class="center space-down">CHILD’S WELL-BEING</h3>
+  <p class="center space-down">*Risk is potential maltreatment in the future. It determines the need for services to
+    address potential future maltreatment.
+  </p>
+  <div class="space-down">
+    <table>
+      <tr>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Has interactions with parents</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.HasInteractionsWithParents?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes"
+                [(ngModel)]="workerChild.HasInteractionsWithParents.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.HasInteractionsWithParents?.fieldOptionIndex"
+                class="space-right" value="1" label="No"
+                [(ngModel)]="workerChild.HasInteractionsWithParents.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Feels parent interactions are going well</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl
+                *ngIf="workerChild?.FeelsParentInteractionsAreGoingWell?.fieldOptionIndex" class="space-right" value="0"
+                label="Yes" [(ngModel)]="workerChild.FeelsParentInteractionsAreGoingWell.fieldOptionIndex">
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl
+                *ngIf="workerChild?.FeelsParentInteractionsAreGoingWell?.fieldOptionIndex" class="space-right" value="1"
+                label="No" [(ngModel)]="workerChild.FeelsParentInteractionsAreGoingWell.fieldOptionIndex">
+            </div>
+            <div class="space-right center">
+              NA
+              <input type="radio" ngDefaultControl
+                *ngIf="workerChild?.FeelsParentInteractionsAreGoingWell?.fieldOptionIndex" class="space-right" value="2"
+                label="NA" [(ngModel)]="workerChild.FeelsParentInteractionsAreGoingWell.fieldOptionIndex">
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Has interactions with siblings</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.HasInteractionsWithSiblings?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes"
+                [(ngModel)]="workerChild.HasInteractionsWithSiblings.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.HasInteractionsWithSiblings?.fieldOptionIndex"
+                class="space-right" value="1" label="No"
+                [(ngModel)]="workerChild.HasInteractionsWithSiblings.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Feels sibling interactions are going well</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl
+                *ngIf="workerChild?.FeelsSiblingInteractionsAreGoingWell?.fieldOptionIndex" class="space-right"
+                value="0" label="Yes" [(ngModel)]="workerChild.FeelsSiblingInteractionsAreGoingWell.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl
+                *ngIf="workerChild?.FeelsSiblingInteractionsAreGoingWell?.fieldOptionIndex" class="space-right"
+                value="1" label="No" [(ngModel)]="workerChild.FeelsSiblingInteractionsAreGoingWell.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              NA
+              <input type="radio" ngDefaultControl
+                *ngIf="workerChild?.FeelsSiblingInteractionsAreGoingWell?.fieldOptionIndex" class="space-right"
+                value="2" label="NA" [(ngModel)]="workerChild.FeelsSiblingInteractionsAreGoingWell.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Maintaining other important connections</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl
+                *ngIf="workerChild?.MaintainingOtherImportantConnections?.fieldOptionIndex" class="space-right"
+                value="0" label="Yes" [(ngModel)]="workerChild.MaintainingOtherImportantConnections.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl
+                *ngIf="workerChild?.MaintainingOtherImportantConnections?.fieldOptionIndex" class="space-right"
+                value="1" label="No" [(ngModel)]="workerChild.MaintainingOtherImportantConnections.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Participates in extracurricular activities</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.Participatesinextracurricular?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes"
+                [(ngModel)]="workerChild.Participatesinextracurricular.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.Participatesinextracurricular?.fieldOptionIndex"
+                class="space-right" value="1" label="No"
+                [(ngModel)]="workerChild.Participatesinextracurricular.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              NA
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.Participatesinextracurricular?.fieldOptionIndex"
+                class="space-right" value="2" label="NA"
+                [(ngModel)]="workerChild.Participatesinextracurricular.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Attending mental health appointments</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl
+                *ngIf="workerChild?.AttendingMentalHealthAppointments?.fieldOptionIndex" class="space-right" value="0"
+                label="Yes" [(ngModel)]="workerChild.AttendingMentalHealthAppointments.fieldOptionIndex">
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl
+                *ngIf="workerChild?.AttendingMentalHealthAppointments?.fieldOptionIndex" class="space-right" value="1"
+                label="No" [(ngModel)]="workerChild.AttendingMentalHealthAppointments.fieldOptionIndex">
+            </div>
+          </div>
+        </td>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Attending school regularly</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.AttendingSchoolRegularly?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes"
+                [(ngModel)]="workerChild.AttendingSchoolRegularly.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.AttendingSchoolRegularly?.fieldOptionIndex"
+                class="space-right" value="1" label="No"
+                [(ngModel)]="workerChild.AttendingSchoolRegularly.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              NA
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.AttendingSchoolRegularly?.fieldOptionIndex"
+                class="space-right" value="2" label="NA"
+                [(ngModel)]="workerChild.AttendingSchoolRegularly.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Medical/Vision/Dental current</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.Medical?.fieldOptionIndex" class="space-right"
+                value="0" label="Yes" [(ngModel)]="workerChild.Medical.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.Medical?.fieldOptionIndex" class="space-right"
+                value="1" label="No" [(ngModel)]="workerChild.Medical.fieldOptionIndex">
+            </div>
+          </div>
+        </td>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Adjusting to school & average grades</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.AdjustingToSchoolSverageGrades?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes"
+                [(ngModel)]="workerChild.AdjustingToSchoolSverageGrades.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.AdjustingToSchoolSverageGrades?.fieldOptionIndex"
+                class="space-right" value="1" label="No"
+                [(ngModel)]="workerChild.AdjustingToSchoolSverageGrades.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              NA
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.AdjustingToSchoolSverageGrades?.fieldOptionIndex"
+                class="space-right" value="2" label="NA"
+                [(ngModel)]="workerChild.AdjustingToSchoolSverageGrades.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Life Book is updated</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.LifeBookIsUpdated?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes" [(ngModel)]="workerChild.LifeBookIsUpdated.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.LifeBookIsUpdated?.fieldOptionIndex"
+                class="space-right" value="1" label="No" [(ngModel)]="workerChild.LifeBookIsUpdated.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Taking medications as prescribed</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.TakingMedicationsAsPrescribed?.fieldOptionIndex"
+                class="space-right" value="0" label="Yes"
+                [(ngModel)]="workerChild.TakingMedicationsAsPrescribed.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.TakingMedicationsAsPrescribed?.fieldOptionIndex"
+                class="space-right" value="1" label="No"
+                [(ngModel)]="workerChild.TakingMedicationsAsPrescribed.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              NA
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.TakingMedicationsAsPrescribed?.fieldOptionIndex"
+                class="space-right" value="2" label="NA"
+                [(ngModel)]="workerChild.TakingMedicationsAsPrescribed.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="table-td"> </td>
+        <td class="table-td">
+          <div class="flex-container space-down">
+            <div class="space-right">Adequate opportunities for sleep</div>
+            <div class="space-right center">
+              Yes
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.Adequate?.fieldOptionIndex" class="space-right"
+                value="0" label="Yes" [(ngModel)]="workerChild.Adequate.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              No
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.Adequate?.fieldOptionIndex" class="space-right"
+                value="1" label="No" [(ngModel)]="workerChild.Adequate.fieldOptionIndex">
+
+            </div>
+            <div class="space-right center">
+              NA
+              <input type="radio" ngDefaultControl *ngIf="workerChild?.Adequate?.fieldOptionIndex" class="space-right"
+                value="2" label="NA" [(ngModel)]="workerChild.Adequate.fieldOptionIndex">
+
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="space-down">
+    <div class="space-right">List medication changes since last W/C visit</div>
+    <div class="space-right">
+
+      <pre>{{workerChild?.medication?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">List all appointments since last W/C visit:</div>
+    <div class="space-right">
+
+      <pre>{{workerChild?.appointments?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">How is the child is maintaining important connections? </div>
+    <div class="space-right">
+
+      <pre>{{workerChild?.maintaining?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">List extracurricular activities:</div>
+    <div class="space-right">
+
+      <pre>{{workerChild?.extracurricular?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">Describe how child is doing in school/day care:
+    </div>
+    <div class="space-right">
+
+      <pre>{{workerChild?.school?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    Provided Child Opportunity to Complete Monthly Individual Contact form, PPS 3061 (age 10 and older)
+    <input type="radio" ngDefaultControl *ngIf="workerChild?.Provided?.fieldOptionIndex" class="space-right"
+      [(ngModel)]="workerChild.Provided.fieldOptionIndex" value="0"
+      label="Provided Child Opportunity to Complete Monthly Individual Contact form, PPS 3061 (age 10 and older)">
+
+  </div>
+  <div class="space-down">
+    Offered to help Child Complete Monthly Individual Contact form, PPS 3061 (age 10 and older)
+    <input type="radio" ngDefaultControl *ngIf="workerChild?.Provided?.fieldOptionIndex" class="space-right"
+      [(ngModel)]="workerChild.Provided.fieldOptionIndex" value="1"
+      label="Offered to help Child Complete Monthly Individual Contact form, PPS 3061 (age 10 and older)">
+
+  </div>
+  <div class="space-down">
+    Declined opportunity to Complete Monthly Individual Contact form, PPS 3061 (age 10 and older)
+    <input type="radio" ngDefaultControl *ngIf="workerChild?.Provided?.fieldOptionIndex" class="space-right"
+      [(ngModel)]="workerChild.Provided.fieldOptionIndex" value="NA"
+      label="Declined opportunity to Complete Monthly Individual Contact form, PPS 3061 (age 10 and older)">
+
+  </div>
+  <div class="flex-container space-down">
+    <div class="space-right">Worker contact information provided to youth?</div>
+    <div class="space-right center">
+      Yes
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.information?.fieldOptionIndex" class="space-right"
+        value="0" label="Yes" [(ngModel)]="workerChild.information.fieldOptionIndex">
+
+    </div>
+    <div class="space-right center">
+      No
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.information?.fieldOptionIndex" class="space-right"
+        value="1" label="No" [(ngModel)]="workerChild.information.fieldOptionIndex">
+    </div>
+    <div class="space-right center">
+      Not Age Appropriate
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.information?.fieldOptionIndex" class="space-right"
+        value="2" label="Not Age Appropriate" [(ngModel)]="workerChild.information.fieldOptionIndex">
+    </div>
+  </div>
+  <div class="flex-container space-down">
+    <div class="space-right">How was information provided?</div>
+    <div class="space-right">
+      Review of blue book
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.informationprovided?.fieldOptionIndex"
+        class="space-right" value="0" label="Review of blue book"
+        [(ngModel)]="workerChild.informationprovided.fieldOptionIndex">
+
+    </div>
+    <div class="space-right">
+      Business card provided
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.informationprovided?.fieldOptionIndex"
+        class="space-right" value="1" label="Business card provided"
+        [(ngModel)]="workerChild.informationprovided.fieldOptionIndex">
+
+    </div>
+    <div class="space-right">
+      Written out
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.informationprovided?.fieldOptionIndex"
+        class="space-right" value="2" label="Written out"
+        [(ngModel)]="workerChild.informationprovided.fieldOptionIndex">
+
+    </div>
+    <div class="space-right">
+      Given to placement
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.informationprovided?.fieldOptionIndex"
+        class="space-right" value="3" label="Given to placement"
+        [(ngModel)]="workerChild.informationprovided.fieldOptionIndex">
+
+    </div>
+  </div>
+  <h3 class="center">PROGRESS TOWARD PERMANENCY</h3>
+  <div class="space-down">
+    <div class="space-down"> Summary & Review of Life Skills/Transition Plan: (Be sure Life Skills Assessment is current
+      for children 14 and over,
+      transition plan is current, and case plan tasks are discussed)</div>
+    <div class="space-down">
+
+      <pre>{{workerChild?.ReviewOfLifeSkillsTransitionPlan?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-down"> Summary & Review of Permanency Plan, After Care Plan, Safety Plan, Service Plan and
+      Progress:
+    </div>
+    <div class="space-down">
+
+      <pre>{{workerChild?.ReviewOfPermanencyPlanAfterCarePlanProgress?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-down">Additional Comments (Pertains to information discussed but not addressed above):</div>
+    <div class="space-down">
+
+      <pre>{{workerChild?.AdditionalRemarksPositivesOrConcerns?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down follow">
+    <table>
+      <tr>
+        <th class="table-td">FOLLOW-UP ACTIVITIES IDENTIFIED DURING VISIT</th>
+        <th class="table-td"> PERSON RESPONSIBLE</th>
+        <th class="table-td"> TARGET DATE</th>
+      </tr>
+      <tr>
+        <td class="table-td">
+
+          <pre>{{workerChild?.Follow?.value}}</pre>
+        </td>
+        <td class="table-td">
+
+          <pre>{{workerChild?.PersonResponsible?.value}}</pre>
+        </td>
+        <td class="table-td">
+
+          <div class="remove-borders">{{workerChild?.TargetDate?.value | date:'MM/dd/yyy HH:mm' }}</div>
+
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="flex-container space-down">
+    <div class="space-right center">
+      Case Team Member
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.CaseTeamMember?.fieldOptionIndex" class="space-right"
+        value="0" label="Case Team Member" [(ngModel)]="workerChild.CaseTeamMember.fieldOptionIndex">
+    </div>
+    <div class="space-right center">
+      New Class Team Member
+      <input type="radio" ngDefaultControl *ngIf="workerChild?.CaseTeamMember?.fieldOptionIndex" class="space-right"
+        value="1" label="New Class Team Member" [(ngModel)]="workerChild.CaseTeamMember.fieldOptionIndex">
+
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">Next W/C Visit Scheduled For</div>
+    <div class="space-right">
+
+      <pre>{{workerChild?.Scheduled?.value}}</pre>
+    </div>
+  </div>
+  <div class="space-down">
+    <div class="space-right">Signature/Title </div>
+    <div class="space-right">
+
+      <pre>{{workerChild?.Signature?.value}}</pre>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,112 @@
+<div *ngIf="isOpenForm">
+    <form class="sf-form" [formGroup]="medicationsForm">
+        <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Medication</span> <span class="mandatory">*</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input type="text" name="medication" formControlName="medication" [(ngModel)]="medications.medication" pInputText
+                        maxlength="50" />
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Dosage</span> <span class="mandatory">*</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-spinner name="Dosage" [step]="0.1" formControlName="dosage" [(ngModel)]="medications.dosage" maxlength="8">
+                    </p-spinner>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Dosage Type</span> <span class="mandatory">*</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete [suggestions]="metadata" formControlName="dosageTypeID" [(ngModel)]="medications.dosageTypeID"
+                        name="dosageType" (completeMethod)="getMetadata($event,'dosage')" field="dosageType"
+                        [dropdown]="true" [forceSelection]="true"></p-autoComplete>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Frequency</span> <span class="mandatory">*</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete [suggestions]="metadata" formControlName="frequencyTypeID" [(ngModel)]="medications.frequencyTypeID"
+                        name="frequencyType" (completeMethod)="getMetadata($event,'frequency')" field="frequencyType"
+                        [dropdown]="true" [forceSelection]="true">
+                    </p-autoComplete>
+    
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Begin Date</span> <span class="mandatory">*</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar [showTime]="true" formControlName="beginDate" [showIcon]="true" [(ngModel)]="medications.beginDate"
+                        name="beginDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>End Date</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar [showTime]="true" formControlName="endDate" [showIcon]="true" [(ngModel)]="medications.endDate"
+                        name="endDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030"></p-calendar>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Prescribed For</span> <span class="mandatory">*</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input type="text" pInputText formControlName="prescribedFor" name="prescribedFor"
+                        [(ngModel)]="medications.prescribedFor" maxlength="40" />
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Prescribed By</span> <span class="mandatory">*</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input type="text" pInputText formControlName="prescribedBy" name="prescribed_by"
+                        [(ngModel)]="medications.prescribedBy" maxlength="40" />
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Source of Info</span>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input type="text" pInputText formControlName="sourceOfInfo" name="source_info"
+                        [(ngModel)]="medications.sourceOfInfo" maxlength="40" />
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top-20">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-3 col-md-3 col-md-3">
+                    <span>Frequency Notes</span>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea name="notes" pInputTextarea formControlName="frequencyNotes" style=" width: 100%;     height: 100%;"
+                        cols="60" [(ngModel)]="medications.frequencyNotes" rows="5"></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+    <app-form-footer (save)="onFormAction()" [editControll]="isEdit" (edit)="editForm()"></app-form-footer>
+</div>

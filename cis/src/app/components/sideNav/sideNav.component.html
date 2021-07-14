@@ -1,0 +1,64 @@
+<div class="sidenav-container">
+  <div class="logo">
+    <img src="assets/images/logo-sidenav.svg" />
+  </div>
+  <div class="menu">
+    <div>
+      <mat-list role="list">
+        <a routerLink="/home/dashboard">
+          <button mat-button>
+            <mat-list-item role="listitem" class="menuItem">
+              <dashboard-icon></dashboard-icon>
+              <span class="text">Dashboard</span>
+            </mat-list-item>
+          </button>
+        </a>
+        <a routerLink="/home/forms/list/:all">
+          <button mat-button>
+            <mat-list-item role="listitem" class="menuItem">
+              <program-icon></program-icon>
+              <span class="text">Program</span>
+            </mat-list-item>
+          </button>
+        </a>
+        <a *ngFor="let program of userRightsReferralForms" routerLink="/home/forms/list/:{{program}}">
+          <button mat-button>
+            <mat-list-item role="listitem" class="menuItem">
+              <span class="sub-menu-text">{{program.charAt(0).toUpperCase()+program.slice(1)}}</span>
+            </mat-list-item>
+          </button>
+        </a>
+        <a routerLink="/home/view/form">
+          <button mat-button>
+            <mat-list-item role="listitem" class="menuItem">
+              <span class="text">View earlier forms</span>
+            </mat-list-item>
+          </button>
+        </a>
+        <a>
+          <button mat-button>
+            <mat-list-item role="listitem" class="menuItem">
+              <span class="text" (click)="helpDoc()">Help document</span>
+            </mat-list-item>
+          </button>
+        </a>
+        <a routerLink="/accesspin">
+          <button mat-button>
+            <mat-list-item role="listitem" class="menuItem">
+              <lock-icon></lock-icon>
+              <span class="text">Lock App</span>
+            </mat-list-item>
+          </button>
+        </a>
+        <a>
+          <button mat-button (click)="logout()">
+            <mat-list-item role="listitem" class="menuItem">
+              <logout-icon></logout-icon>
+              <span class="text">Log out</span>
+            </mat-list-item>
+          </button>
+        </a>
+      </mat-list>
+    </div>
+  </div>
+</div>

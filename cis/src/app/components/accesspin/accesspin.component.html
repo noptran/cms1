@@ -1,0 +1,35 @@
+<div class="outer-section">
+  <div id="loading-overlay">
+    <p class="loader-text">
+      <span>Loading...</span>
+    </p>
+  </div>
+  <div class="login">
+    <div class="signin">
+      <div class="sign-section">
+        <h1 class="signin-heading" *ngIf="!user.pin">Create Your 4 digit PIN</h1>
+        <h1 class="signin-heading" *ngIf="user.pin">Enter Your 4 digit PIN</h1>
+      </div>
+      <div class="pin">
+        <mat-form-field>
+          <input matInput type='password' (keypress)="keyPress($event)"  placeholder="Enter your 4 digit pin" [(ngModel)]="accessPin" size="4"
+            maxlength="4">
+        </mat-form-field>
+        <br/>
+        <mat-form-field *ngIf="!user.pin">
+          <input matInput type='password' (keypress)="keyPress($event)" placeholder="Confirm your pin" [(ngModel)]="confirmPin"
+            size="4" maxlength="4">
+        </mat-form-field>
+      </div>
+      <div class="button">
+        <button mat-raised-button color="primary" (click)='save()'>
+          <span *ngIf="!user.pin">CREATE PIN</span>
+          <span *ngIf="user.pin">VERIFY PIN</span>
+        </button>
+      </div>
+      <div class="logout">
+        Forgot PIN? To create a new one please <button mat-button class="warn" (click)="logout()">Log out</button>
+      </div>
+    </div>
+  </div>
+</div>

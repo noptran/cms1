@@ -1,0 +1,688 @@
+<app-form-header [breadcrumbs]="breadcrumbs">
+</app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form [formGroup]="moveEventForm" class="sf-form" id="element-to-print">
+      <div *ngIf="isPrint" class="row">
+        <div class="col-xs-8">
+          <p>
+            <b>Type: "Move And Permanency"</b>
+          </p>
+        </div>
+        <div class="col-xs-4 d-flex justify-content-end">
+          <div>
+            <p>
+              <b>SFCS</b>
+            </p>
+          </div>
+        </div>
+      </div>
+      <span>
+        <b class="margin-left-bold">Client Information</b>
+      </span>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="auto-fect-info">Child's Name</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="auto-fect-info">Kaecses</span>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="auto-fect-info">SFCS Office</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="auto-fect-info">Court Case#</span>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="moveAutoFillData.clientname" type="text"
+              pInputText [disabled]="true" />
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="moveAutoFillData.kaecses" type="text" pInputText
+              [disabled]="true" />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="moveAutoFetch_sfcsOffice" type="text" pInputText
+              [disabled]="true" />
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input [ngModelOptions]="{standalone: true}" [(ngModel)]="moveAutoFillData.CourtCaseNo" type="text"
+              pInputText [disabled]="true" />
+          </div>
+        </div>
+      </div>
+      <nav class="nav-fill margin-top-1rem">
+        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link" *ngFor="let main of mainTabs;let i = index" [class.active]="sIndex  === i"
+            (click)="setIndex(i,$event)" data-toggle="tab" href="{{main.href}}" role="tab">{{main.label}}</a>
+        </div>
+      </nav>
+      <div class="tab-content padding-15" id="nav-tabContent"
+        style="height: 36vh;overflow-y: scroll;border-bottom: 0.5px solid #CED7D1;">
+
+        <div class="tab-pane  active in" id="nav-sec1" role="tabpanel" aria-spanledby="nav-fis-tab">
+          <div class="margin-top-20 flex-box">
+            <span>Provider</span>
+            <p-autoComplete (onSelect)="onProviderFromSelect();fromLocatID($event)" formControlName="providerID_From"
+              class="width-autocomplete" placeholder="Type here to search" emptyMessage="No records found!"
+              [dropdown]="true" [forceSelection]="true" field="providerName" (completeMethod)="getProviderDrop($event)"
+              [suggestions]="providerLists" name="providerID_From" [(ngModel)]="moveForm.providerID_From">
+            </p-autoComplete>
+            <span>Incorrect Provider</span>
+            <p-checkbox binary="true"></p-checkbox>
+            <button (click)="isNewProviderWindowOpen = true">New Provider</button>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="auto-fect-info">Name of Home/Facility</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="moveAutoFillData.ProviderName" type="text"
+                  pInputText [disabled]="true" />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="auto-fect-info">Address</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3 address-change">
+
+                <span *ngIf="moveAutoFillData.FullAddress" class="readonly-div">{{moveAutoFillData.FullAddress}}</span>
+
+                <span (click)="openExistingProviderAddressChangeForm()" class="hypher"
+                  *ngIf="isExisingAddressChangeLink">Existing Provider Address Change</span>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="auto-fect-info">Phone Number</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="moveAutoFillData.Phone" type="text" pInputText
+                  [disabled]="true" />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="auto-fect-info">Name of School</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="moveAutoFillData.SchoolName" type="text"
+                  pInputText [disabled]="true" />
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span class="auto-fect-info">School District</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="moveAutoFillData.USD" type="text" pInputText
+                  [disabled]="true" />
+              </div>
+            </div>
+
+          </div>
+          <span>
+            <b class="margin-left-bold">Move Action Taken</b>
+          </span>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Care Center Assistance Requested</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-radioButton (onClick)="onMoveActionSelection()" name="moveActionID"
+                  [(ngModel)]="moveForm.moveActionID" formControlName="moveActionID" value=1></p-radioButton>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Short-Term Placement Assigned </span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-radioButton (onClick)="onMoveActionSelection()" name="moveActionID"
+                  [(ngModel)]="moveForm.moveActionID" formControlName="moveActionID" value=2></p-radioButton>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Long-Term Placement Assigned </span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-radioButton (onClick)="onMoveActionSelection()" name="moveActionID"
+                  [(ngModel)]="moveForm.moveActionID" formControlName="moveActionID" value=3></p-radioButton>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Move Action Date </span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar name="statusDate" [(ngModel)]="moveForm.statusDate" formControlName="statusDate"
+                  [showTime]="true" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
+                  yearRange="1900:2030"></p-calendar>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Move Needed Date </span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar name="moveNeededDate" [(ngModel)]="moveForm.moveNeededDate" formControlName="moveNeededDate"
+                  [showTime]="true" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
+                  yearRange="1900:2030"></p-calendar>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Departure Date </span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar name="departureDate" [(ngModel)]="moveForm.departureDate" formControlName="departureDate"
+                  [showTime]="true" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
+                  yearRange="1900:2030"></p-calendar>
+
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Request Reason</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+
+                <p-autoComplete formControlName="requestReasonID" class="width-autocomplete"
+                  placeholder="Type here to search" emptyMessage="No records found!" [dropdown]="true"
+                  [forceSelection]="true" field="placementRequestReason"
+                  (completeMethod)="getMetaData($event,'PlacementRequestReason')" [suggestions]="metaData"
+                  name="requestReasonID" [(ngModel)]="moveForm.requestReasonID">
+                </p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Client Location</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+
+                <p-autoComplete formControlName="clientLocationID" class="width-autocomplete"
+                  placeholder="Type here to search" emptyMessage="No records found!" [dropdown]="true"
+                  [forceSelection]="true" field="value" (completeMethod)="getMetaData($event,'ClientLocation')"
+                  [suggestions]="metaData" name="clientLocationID" [(ngModel)]="moveForm.clientLocationID">
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <span>
+            <b class="margin-left-bold">Disruption</b>
+          </span>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Was this move due to a disruption?</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-checkbox [disabled]="true" binary="true"></p-checkbox>Yes
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Disruption Type</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete [disabled]="true" class="width-autocomplete" placeholder="Type here to search"
+                  emptyMessage="No records found!" [dropdown]="true" [forceSelection]="true">
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Disruption Reason</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input [disabled]="true" type="text" pInputText [disabled]="true" />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Name of person requesting move</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete [disabled]="true" class="width-autocomplete" placeholder="Type here to search"
+                  emptyMessage="No records found!" [dropdown]="true" [forceSelection]="true">
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Behaviors the child was displaying that caused the disruption </span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input [disabled]="true" type="text" pInputText [disabled]="true" />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Did sponsoring agency find alternate placement to serve out notice if needed</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete [disabled]="true" class="width-autocomplete" placeholder="Type here to search"
+                  emptyMessage="No records found!" [dropdown]="true" [forceSelection]="true">
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>If yes, the name of the alternate placement provided? </span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete [disabled]="true" class="width-autocomplete" placeholder="Type here to search"
+                  emptyMessage="No records found!" [dropdown]="true" [forceSelection]="true">
+                </p-autoComplete>
+              </div>
+            </div>
+
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Reason for Move Notes</span>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <textarea name="reasonForMove_Notes" [(ngModel)]="moveForm.reasonForMove_Notes"
+                  formControlName="reasonForMove_Notes" pInputTextarea style=" width: 100%;height: 100%;" cols="30"
+                  rows="5"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Medications</span>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <textarea name="medications_Notes" [(ngModel)]="moveForm.medications_Notes"
+                  formControlName="medications_Notes" pInputTextarea style=" width: 100%;height: 100%;" cols="30"
+                  rows="5"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>School Appointment Notes</span>
+              </div>
+            </div>
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <textarea name="schoolAppointments_Notes" [(ngModel)]="moveForm.schoolAppointments_Notes"
+                  formControlName="schoolAppointments_Notes" pInputTextarea style=" width: 100%;height: 100%;" cols="30"
+                  rows="5"></textarea>
+              </div>
+            </div>
+          </div>
+          <span>
+            <b class="margin-left-bold">Initiated By</b>
+          </span>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Care Center</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-checkbox name="isInitiatedByCC" [(ngModel)]="moveForm.isInitiatedByCC"
+                  formControlName="isInitiatedByCC" binary="true"></p-checkbox>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Field Staff</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-checkbox name="isInitiatedByFieldStaff" [(ngModel)]="moveForm.isInitiatedByFieldStaff"
+                  formControlName="isInitiatedByFieldStaff" binary="true"></p-checkbox>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Person Type Move Initiated by</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete field="personType" name="personTypeID_MoveInitiatedBy"
+                  [(ngModel)]="moveForm.personTypeID_MoveInitiatedBy" formControlName="personTypeID_MoveInitiatedBy"
+                  placeholder="Type here to search" emptyMessage="No records found!" [dropdown]="true"
+                  [forceSelection]="true" [suggestions]="personTypesDropdown"
+                  (completeMethod)="getReferralTypeBasedPersonType($event)">
+                </p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Move Initiated By</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-autoComplete field="fullName" name="staffID_MoveInitiatedBy"
+                  [(ngModel)]="moveForm.staffID_MoveInitiatedBy" formControlName="staffID_MoveInitiatedBy"
+                  placeholder="Type here to search" emptyMessage="No records found!" [dropdown]="true"
+                  [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'staff')">
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane" id="nav-sec2" role="tabpanel" aria-spanledby="nav-fis-tab">
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Provider</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+
+                <p-autoComplete (onSelect)="onProviderToSelect($event);movetoLocationID($event)"
+                  formControlName="providerID_MoveTo" class="width-autocomplete" placeholder="Type here to search"
+                  emptyMessage="No records found!" [dropdown]="true" [forceSelection]="true" field="providerName"
+                  (completeMethod)="getProviderDrop($event)" [suggestions]="providerLists" name="providerID_MoveTo"
+                  [(ngModel)]="moveForm.providerID_MoveTo">
+                </p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Arrival Date and Time</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-calendar name="arrivalDate" [(ngModel)]="moveForm.arrivalDate" formControlName="arrivalDate"
+                  [showTime]="true" [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
+                  yearRange="1900:2030"></p-calendar>
+
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span *ngIf="moveAutoFillData.providerToAddress"
+                class="readonly-div">{{moveAutoFillData.providerToAddress}}</span>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p>{{newPlacementInfoProviderName}}</p>
+                <p>{{newPlacementInfoAddressLineOne}}</p>
+                <p>{{newPlacementInfoAddressLineTwo}}</p>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3"><span>Relative Type</span></div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+
+                <p-autoComplete [disabled]="!isPersonTypeID_IfRelative" formControlName="personTypeID_IfRelative"
+                  class="width-autocomplete" placeholder="Type here to search" emptyMessage="No records found!"
+                  [dropdown]="true" [forceSelection]="true" field="PersonType"
+                  (completeMethod)="getRelativeTypes($event,'relativeType')" [suggestions]="relativeTypes"
+                  name="personTypeID_IfRelative" [(ngModel)]="moveForm.personTypeID_IfRelative">
+                </p-autoComplete>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <button (click)="isNewProviderWindowOpen = true">New Provider</button>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Is provider a relative</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-checkbox formControlName="isProviderRelative" [(ngModel)]="isPersonTypeID_IfRelative" binary="true">
+                </p-checkbox>
+              </div>
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>School Attending</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]="newSchool" type="text" pInputText
+                  [disabled]="true" />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Schools nearby</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+
+                <p-listbox [options]="nearBySchools" [listStyle]="{'max-height':'110px'}">
+                  <ng-template let-school pTemplate="item">
+                    <div class="ui-helper-clearfix">
+                      <span>{{school.schoolName}}</span>
+                    </div>
+                  </ng-template>
+
+                </p-listbox>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-90px row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>School</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+
+                <p-autoComplete formControlName="schoolID_MoveTo" class="width-autocomplete"
+                  placeholder="Type here to search" emptyMessage="No records found!" [dropdown]="true"
+                  [forceSelection]="true" field="schoolName" (completeMethod)="getMetaData($event,'school')"
+                  [suggestions]="metaData" name="schoolID_MoveTo" (onSelect)="getSlectedSchoolAddress($event)"
+                  [(ngModel)]="moveForm.schoolID_MoveTo">
+                </p-autoComplete>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Schools Address</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <div *ngIf="moveAutoFillData.FacilityAddress" class="col-lg-12 col-sm-12 col-md-12 readonly-div">
+
+                  {{moveAutoFillData.FacilityAddress}}
+                </div>
+                <div *ngIf="!moveAutoFillData.FacilityAddress && selectedSchoolAddress && isAddressSelected"
+                  class="col-lg-12 col-sm-12 col-md-12 readonly-div">
+                  {{selectedSchoolAddress.fullAddress}}
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row margin-bottom-2rem print-footer">
+        <div class="col-xs-4">
+          <div class="col-xs-5">
+            Finalized By
+          </div>
+          <div *ngIf="isFinalizedStaff">
+
+            {{moveForm.signedBy}}
+
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="col-xs-5">
+            Move Status
+          </div>
+          <div>
+            <p-autoComplete formControlName="moveStatusID" class="width-autocomplete" placeholder="Type here to search"
+              emptyMessage="No records found!" [dropdown]="true" [forceSelection]="true" field="moveStatus"
+              (completeMethod)="getMetaData($event,'moveStatus')" [suggestions]="metaData" name="moveStatusID"
+              [(ngModel)]="moveForm.moveStatusID">
+            </p-autoComplete>
+
+
+          </div>
+        </div>
+
+        <div class="col-xs-4">
+          <div class="col-xs-6">
+            <button [disabled]="!isPrintNavigation" (click)="finalize(moveAutoFillData, moveForm)"
+              class="sf-positive-btn" pTooltip="Finalize">
+              <span>Finalize</span>
+            </button>
+
+          </div>
+          <div class="col-xs-6">
+
+            <span>
+              *Finalizing this form sends it to care center for data entry.
+            </span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isPrint" class="row d-flex justify-content-end">
+        <div class="col-xs-12">
+          <p>
+            <b>Current Date</b>
+          </p>
+        </div>
+      </div>
+    </form>
+
+    <app-form-footer (edit)="onEdit()" [isPrintNavigation]="isPrintNavigation"
+      (save)="moveFormAction(moveAutoFillData, moveForm)" [editControll]="isEdit" [discardTo]="discardTo">
+    </app-form-footer>
+    <app-quick-menu [module]="quickMenu"></app-quick-menu>
+  </div>
+</div>
+<p-dialog header="Existing Provider Address Change" [(visible)]="isExistingProviderForm" [modal]="true"
+  [maximizable]="true" [responsive]="true">
+  <form class="sf-form" [formGroup]="addressChangeForm" style="width: 65vw">
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span class="auto-fect-info">Provider Name</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span *ngIf="moveAutoFillData">
+
+            {{moveAutoFillData.ProviderName}}
+          </span></div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Phone</span> <span class="mandatory">*</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-inputMask formControlName="phone" [(ngModel)]="exisitingForm.phone" mask="(999) 999-9999"></p-inputMask>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Email</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input formControlName="email" [(ngModel)]="exisitingForm.email" type="text" pInputText size="27" />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Address</span> <span class="mandatory">*</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input formControlName="serviceAddress" [(ngModel)]="exisitingForm.serviceAddress" type="text" pInputText
+            size="27" />
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>State</span> <span class="mandatory">*</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete field="state" formControlName="stateID" [(ngModel)]="exisitingForm.stateID" [dropdown]="true"
+            emptyMessage="No results found!" [suggestions]="metaData" (completeMethod)="getMetaData($event, 'state')"
+            [forceSelection]="true" placeholder="Type here to search" size="23"
+            (onSelect)="generateCityBasedOnState($event)"></p-autoComplete>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>City</span><span class="mandatory">*</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete field="city" formControlName="cityID" [(ngModel)]="exisitingForm.cityID" [dropdown]="true"
+            emptyMessage="No results found!" [suggestions]="filteredCitites" (completeMethod)="filterCities($event)"
+            [forceSelection]="true" placeholder="Type here to search" size="23"
+            (onSelect)="generateZipcodeBasedOncity($event)">
+          </p-autoComplete>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>Zip</span><span class="mandatory">*</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete field="zipcodeID" formControlName="zipcodeID" [(ngModel)]="exisitingForm.zipcodeID"
+            [dropdown]="true" emptyMessage="No results found!" [suggestions]="filteredZipcodes"
+            (completeMethod)="filterZipcodes($event)" [forceSelection]="true" placeholder="Type here to search"
+            size="23"></p-autoComplete>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row" *ngIf="isExisitingFormUpdate">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 center-text">
+          <span>Please wait...</span>
+        </div>
+      </div>
+    </div>
+  </form>
+  <app-form-footer [attachmentControll]="isAttachmentRequired" [isAttachmentDisabled]="false"
+    (save)="existingFormAction(exisitingForm)" (discard)="resetExistingProviderForm()" (edit)="editMoveEventForm()"
+    (attachDoc)="navigateTo()" [editControll]="isEdit" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+  </app-form-footer>
+
+</p-dialog>
+
+<p-dialog header="New Provider" [(visible)]="isNewProviderWindowOpen" [responsive]="true"
+  [contentStyle]="{'min-width':'106rem'}" [baseZIndex]="10000">
+  <app-new-provider [selectedTab]="sIndex" (newProviderOut)="newProviderOutput($event)"></app-new-provider>
+</p-dialog>

@@ -1,0 +1,30 @@
+export class otherService {
+    clientName: any;
+    unitType: any;
+    beginDate: any;
+    endDate: any;
+    units: any;
+    unitsRemaining: any;
+    frequency: any;
+    payorRate: any;
+    providerRate: any;
+    authorizationPayor: any;
+    authorizationStatus: any;
+    procode: any;
+    whoToPay: any;
+    note: any;
+    additionalInfo: any;
+    payee: any;
+    originalPayorRate: any;
+    originalProviderRate: any;
+    exceptionPayorRate: any;
+    exceptionProviderRate: any;
+    exceptionReason: any;
+    explanationOfNeed: any;
+    overrideDate: boolean;
+    paySponsor: any;
+    providerSponsor: any;
+    provider: any;
+    requestedBy: any;
+    approvedBy: any;
+}

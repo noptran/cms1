@@ -1,0 +1,987 @@
+<hr style="margin: 0px !important;">
+<h5 class="head_acces">Data Maintenance
+</h5>
+<hr style="margin: 0px !important;">
+<div class="container-background">
+  <div class="container-foreground">
+    <div id="loading-overlay">
+      <p class="loader-text">
+        <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+      </p>
+    </div>
+    <div class="sf-form form-al client-form">
+      <div style="padding:5px;">
+        <div class="panel panel-default">
+          <div class="panel-heading">Select Task to Perform
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-2 mr-bottom" style="pointer-events: none;">
+                <div>
+                  <p-radioButton name="group1" value="clientToCase" label="Delete Client">
+                  </p-radioButton>
+                </div>
+                <div>
+                  <p-radioButton name="group1" value="clientToCase" label="Delete Case">
+                  </p-radioButton>
+                </div>
+                <div>
+                  <p-radioButton name="group1" value="clientToCase" label="Delete Referral">
+                  </p-radioButton>
+                </div>
+                <div>
+                  <p-radioButton name="group1" value="clientToCase" label="Delete Staff">
+                  </p-radioButton>
+                </div>
+                <div>
+                  <p-radioButton name="group1" value="clientToCase" label="Delete Provider">
+                  </p-radioButton>
+                </div>
+                <div>
+                  <p-radioButton name="group1" value="clientToCase" label="Delete Family Member">
+                  </p-radioButton>
+                </div>
+              </div>
+              <div class="col-md-2 mr-bottom" style="pointer-events: none;">
+                <div>
+                  <p-radioButton name="group1" value="clientToCase" label="Undelete Client">
+                  </p-radioButton>
+                </div>
+                <div>
+                  <p-radioButton name="group1" value="clientToCase" label="Undelete Case">
+                  </p-radioButton>
+                </div>
+              </div>
+              <div class="col-md-3 mr-bottom">
+                <div>
+                  <p-radioButton name="group1" value="clientToCase" (click)="moveClick('movePlacement')"
+                    label="Move Placement Event to Placement">
+                  </p-radioButton>
+                </div>
+                <div>
+                  <p-radioButton name="group1" value="clientToCase" (click)="moveClick('movePlacementEvent')"
+                    label="Move Authorization to Placement Event">
+                  </p-radioButton>
+                </div>
+                <div>
+                  <p-radioButton name="group1" value="clientToCase" (click)="moveClick('moveReferral')"
+                    label="Move Case Activity to Different Referral">
+                  </p-radioButton>
+                </div>
+                <div>
+                  <p-radioButton name="group1" value="clientToCase" (click)="moveClick('moveClientToCase')"
+                    label="Move Case to Different Client">
+                  </p-radioButton>
+                </div>
+              </div>
+              <div class="col-md-2 mr-bottom">
+                <div>
+                  <p-radioButton name="group1" value="mergeClient" (click)="mergeClick('mergeClient')"
+                    label="Merge Client">
+                  </p-radioButton>
+                </div>
+                <div>
+                  <p-radioButton name="group1" value="mergeReferral" (click)="mergeClick('mergeReferral')"
+                    label="Merge Referral">
+                  </p-radioButton>
+                </div>
+                <div>
+                  <p-radioButton name="group1" value="mergeProvider" (click)="mergeClick('mergeProvider')"
+                    label="Merge Provider">
+                  </p-radioButton>
+                </div>
+                <div>
+                  <p-radioButton name="group1" value="mergePayee" (click)="mergeClick('mergePayee')"
+                    label="Merge Payee">
+                  </p-radioButton>
+                </div>
+                <div>
+                  <p-radioButton name="group1" value="mergeSchool" (click)="mergeClick('mergeSchool')"
+                    label="Merge School">
+                  </p-radioButton>
+                </div>
+
+              </div>
+              <div class="col-md-3 mr-bottom">
+                <div>
+                  <p-radioButton name="group1" value="clientToCase" label="Merge Payee to Provider"
+                    (click)="mergeClick('mergePayeeToProvider')">
+                  </p-radioButton>
+                </div>
+                <div>
+                  <p-radioButton name="group1" value="mergeStaff" (click)="mergeClick('mergeStaff')"
+                    label="Merge Staff">
+                  </p-radioButton>
+                </div>
+                <div>
+                  <p-radioButton name="group1" value="mergeDCFStaff" (click)="mergeClick('mergeDCFStaff')"
+                    label="Merge DCF Staff">
+                  </p-radioButton>
+                </div>
+                <div>
+                  <p-radioButton name="group1" value="mergeDHSStaff" (click)="mergeClick('mergeDHSStaff')"
+                    label="Merge DHS Staff">
+                  </p-radioButton>
+                </div>
+                <div>
+                  <p-radioButton name="group1" value="mergeDHSSStaff" (click)="mergeClick('mergeDHSSStaff')"
+                    label="Merge DHSS Staff">
+                  </p-radioButton>
+                </div>
+                <div>
+                  <p-radioButton name="group1" value="mergeFamilymember" (click)="mergeClick('mergeFamilymember')"
+                    label="Merge Family Member">
+                  </p-radioButton>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row" *ngIf="showMergeProvider">
+          <div class="col-md-6">
+            <p>Select Provider To Merge To</p>
+            <p-autoComplete [(ngModel)]="providerTo" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="providerName" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-office pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Provider Name</th>
+                      <th>Provider Type</th>
+                      <th>Sponsor Name</th>
+                    </tr>
+                    <tr>
+                      <td>{{ office?.providerName }}</td>
+                      <td>{{ office?.providerType }}</td>
+                      <td>{{ office?.sponsorName }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+          <div class="col-md-6">
+            <p>Select Provider To Merge From</p>
+            <!-- {{providerFrom}} -->
+            <p-autoComplete [(ngModel)]="providerFrom" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="providerName" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-office pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Provider Name</th>
+                      <th>Provider Type</th>
+                      <th>Sponsor Name</th>
+                    </tr>
+                    <tr>
+                      <td>{{ office?.providerName }}</td>
+                      <td>{{ office?.providerType }}</td>
+                      <td>{{ office?.sponsorName }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="showMergeReferal">
+          <div class="col-md-6">
+            <p>Select Referral To Merge To</p>
+            <p-autoComplete [(ngModel)]="referralTo" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="clientName" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-referral pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Client Name</th>
+                      <th>Referral Type</th>
+                      <th>Referral Date</th>
+                    </tr>
+                    <tr>
+                      <td>{{ referral?.clientName }}</td>
+                      <td>{{ referral?.referralType }}</td>
+                      <td>{{ referral?.referralDate }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+          <div class="col-md-6">
+            <p>Select Referral To Merge From</p>
+            <p-autoComplete [(ngModel)]="referralFrom" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="clientName" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-referral pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Client Name</th>
+                      <th>Referral Type</th>
+                      <th>Referral Date</th>
+                    </tr>
+                    <tr>
+                      <td>{{ referral?.clientName }}</td>
+                      <td>{{ referral?.referralType }}</td>
+                      <td>{{ referral?.referralDate }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="row" *ngIf="showMergeClient">
+          <div class="col-md-6">
+            <p>Select Client To Merge To</p>
+            <p-autoComplete [(ngModel)]="clientTo" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="clientName" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-client pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Client Name</th>
+                      <th>DOB</th>
+                      <th>SSN</th>
+                      <th>Kaecses</th>
+                      <th>OklahomaID</th>
+                    </tr>
+                    <tr>
+                      <td>{{ client?.clientName }}</td>
+                      <td>{{ client?.dob }}</td>
+                      <td>{{ client?.ssn }}</td>
+                      <td>{{ client?.oklahomaID }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+          <div class="col-md-6">
+            <p>Select Client To Merge From</p>
+            <p-autoComplete [(ngModel)]="clientFrom" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="clientName" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-client pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Client Name</th>
+                      <th>DOB</th>
+                      <th>SSN</th>
+                      <th>Kaecses</th>
+                      <th>OklahomaID</th>
+                    </tr>
+                    <tr>
+                      <td>{{ client?.clientName }}</td>
+                      <td>{{ client?.dob }}</td>
+                      <td>{{ client?.ssn }}</td>
+                      <td>{{ client?.oklahomaID }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="row" *ngIf="showMergeSchool">
+          <div class="col-md-6">
+            <p>Select School To Merge To</p>
+            <p-autoComplete [(ngModel)]="schoolTo" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="name" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-school pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Name</th>
+                      <th>USD</th>
+                      <th>Address</th>
+                      <th>City</th>
+                      <th>State</th>
+                    </tr>
+                    <tr>
+                      <td>{{ school?.name }}</td>
+                      <td>{{ school?.usd }}</td>
+                      <td>{{ school?.address }}</td>
+                      <td>{{ school?.city }}</td>
+                      <td>{{ school?.state }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+          <div class="col-md-6">
+            <p>Select School To Merge From</p>
+            <p-autoComplete [(ngModel)]="schoolFrom" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="name" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-school pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Name</th>
+                      <th>USD</th>
+                      <th>Address</th>
+                      <th>City</th>
+                      <th>State</th>
+                    </tr>
+                    <tr>
+                      <td>{{ school?.name }}</td>
+                      <td>{{ school?.usd }}</td>
+                      <td>{{ school?.address }}</td>
+                      <td>{{ school?.city }}</td>
+                      <td>{{ school?.state }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="row" *ngIf="showMergeStaff">
+          <div class="col-md-6">
+            <p>Select Staff To Merge To</p>
+            <p-autoComplete [(ngModel)]="staffTo" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="staffName" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-staff pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Staff Name</th>
+                      <th>Gender</th>
+                      <th>Cell Phone</th>
+                      <th>Office</th>
+                      <th>Staff Position_Be</th>
+                    </tr>
+                    <tr>
+                      <td>{{ staff?.staffName }}</td>
+                      <td>{{ staff?.gender }}</td>
+                      <td>{{ staff?.cellPhone }}</td>
+                      <td>{{ staff?.office }}</td>
+                      <td>{{ staff?.staffPosition_BeginDate }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+          <div class="col-md-6">
+            <p>Select Staff To Merge From</p>
+            <p-autoComplete [(ngModel)]="staffFrom" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="staffName" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-staff pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Staff Name</th>
+                      <th>Gender</th>
+                      <th>Cell Phone</th>
+                      <th>Office</th>
+                      <th>Staff Position_Be</th>
+                    </tr>
+                    <tr>
+                      <td>{{ staff?.staffName }}</td>
+                      <td>{{ staff?.gender }}</td>
+                      <td>{{ staff?.cellPhone }}</td>
+                      <td>{{ staff?.office }}</td>
+                      <td>{{ staff?.staffPosition_BeginDate }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="showMergeDCFStaff">
+          <div class="col-md-6">
+            <p>Select DCFStaff To Merge To</p>
+            <p-autoComplete [(ngModel)]="dcfStaffTo" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="staffName" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-staff_dcf pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Staff Name</th>
+                      <th>Gender</th>
+                      <th>DCF Office</th>
+                    </tr>
+                    <tr>
+                      <td>{{ staff_dcf?.staffName }}</td>
+                      <td>{{ staff_dcf?.gender }}</td>
+                      <td>{{ staff_dcf?.dcfOffice }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+          <div class="col-md-6">
+            <p>Select DCFStaff To Merge From</p>
+            <p-autoComplete [(ngModel)]="dcfStaffFrom" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="staffName" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-staff_dcf pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Staff Name</th>
+                      <th>Gender</th>
+                      <th>DCF Office</th>
+                    </tr>
+                    <tr>
+                      <td>{{ staff_dcf?.staffName }}</td>
+                      <td>{{ staff_dcf?.gender }}</td>
+                      <td>{{ staff_dcf?.dcfOffice }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="showMergeDHSStaff">
+          <div class="col-md-6">
+            <p>Select DHSStaff To Merge To</p>
+            <p-autoComplete [(ngModel)]="dhsStaffTo" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="staffName" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-staff_dhs pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Staff Name</th>
+                      <th>Gender</th>
+                      <th>DHS Office</th>
+                    </tr>
+                    <tr>
+                      <td>{{ staff_dhs?.staffName }}</td>
+                      <td>{{ staff_dhs?.gender }}</td>
+                      <td>{{ staff_dhs?.dhsOffice }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+          <div class="col-md-6">
+            <p>Select DHSStaff To Merge From</p>
+            <p-autoComplete [(ngModel)]="dhsStaffFrom" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="staffName" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-staff_dhs pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Staff Name</th>
+                      <th>Gender</th>
+                      <th>DHS Office</th>
+                    </tr>
+                    <tr>
+                      <td>{{ staff_dhs?.staffName }}</td>
+                      <td>{{ staff_dhs?.gender }}</td>
+                      <td>{{ staff_dhs?.dhsOffice }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="showMergeDHSSStaff">
+          <div class="col-md-6">
+            <p>Select DHSS Staff To Merge To</p>
+            <p-autoComplete [(ngModel)]="dhssStaffTo" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="staffName" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-staff_dhss pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Staff Name</th>
+                      <th>Gender</th>
+                      <th>DHSS Office</th>
+                    </tr>
+                    <tr>
+                      <td>{{ staff_dhss?.staffName }}</td>
+                      <td>{{ staff_dhss?.gender }}</td>
+                      <td>{{ staff_dhss?.dhhsOffice }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+          <div class="col-md-6">
+            <p>Select DHSS Staff To Merge From</p>
+            <p-autoComplete [(ngModel)]="dhssStaffFrom" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="staffName" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-staff_dhss pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Staff Name</th>
+                      <th>Gender</th>
+                      <th>DHSS Office</th>
+                    </tr>
+                    <tr>
+                      <td>{{ staff_dhss?.staffName }}</td>
+                      <td>{{ staff_dhss?.gender }}</td>
+                      <td>{{ staff_dhss?.dhhsOffice }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="showMergeFamilyMember">
+          <div class="col-md-6">
+            <p>Select Family Member Staff To Merge To</p>
+            <p-autoComplete [(ngModel)]="familyMemberTo" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="name" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-familyMember pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Name</th>
+                      <th>Facts</th>
+                      <th>SSN</th>
+                      <th>City/State</th>
+                    </tr>
+                    <tr>
+                      <td>{{ familyMember?.name }}</td>
+                      <td>{{ familyMember?.facts }}</td>
+                      <td>{{ familyMember?.ssn }}</td>
+                      <td>{{ familyMember?.city }}, {{ familyMember?.state }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+          <div class="col-md-6">
+            <p>Select Family Member To Merge From</p>
+            <p-autoComplete [(ngModel)]="familyMemberFrom" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="name" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-familyMember pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Name</th>
+                      <th>Facts</th>
+                      <th>SSN</th>
+                      <th>City/State</th>
+                    </tr>
+                    <tr>
+                      <td>{{ familyMember?.name }}</td>
+                      <td>{{ familyMember?.facts }}</td>
+                      <td>{{ familyMember?.ssn }}</td>
+                      <td>{{ familyMember?.city }}, {{ familyMember?.state }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="showMergePayee">
+          <div class="col-md-6">
+            <p>Select Payee Staff To Merge To</p>
+            <p-autoComplete [(ngModel)]="payeeTo" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="payeeName"
+              (completeMethod)="getDataMaintanProviderDrop('payee',$event)">
+              <ng-template let-payee pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Payee Name</th>
+                      <th>Address</th>
+                      <th>Phone</th>
+                      <th>FedTaxNo</th>
+                    </tr>
+                    <tr>
+                      <td>{{ payee?.payeeName }}</td>
+                      <td>{{ payee?.address }}</td>
+                      <td>{{ payee?.phone }}</td>
+                      <td>{{ payee?.fedTaxNo }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+          <div class="col-md-6">
+            <p>Select Payee Member To Merge From</p>
+            <p-autoComplete [(ngModel)]="payeeFrom" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="payeeName"
+              (completeMethod)="getDataMaintanProviderDrop('payee',$event)">
+              <ng-template let-payee pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Payee Name</th>
+                      <th>Address</th>
+                      <th>Phone</th>
+                      <th>FedTaxNo</th>
+                    </tr>
+                    <tr>
+                      <td>{{ payee?.payeeName }}</td>
+                      <td>{{ payee?.address }}</td>
+                      <td>{{ payee?.phone }}</td>
+                      <td>{{ payee?.fedTaxNo }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+
+
+        <div class="row" *ngIf="showMergePayeeToProvider">
+          <div class="col-md-6">
+            <p>Select Provider To Merge To</p>
+            <p-autoComplete [(ngModel)]="providerTo" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="providerName"
+              (completeMethod)="getDataMaintanProviderDrop('provider',$event)">
+              <ng-template let-office pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Provider Name</th>
+                      <th>Provider Type</th>
+                      <th>Sponsor Name</th>
+                    </tr>
+                    <tr>
+                      <td>{{ office?.providerName }}</td>
+                      <td>{{ office?.providerType }}</td>
+                      <td>{{ office?.sponsorName }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+          <div class="col-md-6">
+            <p>Select Payee Member To Merge From</p>
+            <p-autoComplete [(ngModel)]="payeeFrom" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="payeeName"
+              (completeMethod)="getDataMaintanProviderDrop('payee',$event)">
+              <ng-template let-payee pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Payee Name</th>
+                      <th>Address</th>
+                      <th>Phone</th>
+                      <th>FedTaxNo</th>
+                    </tr>
+                    <tr>
+                      <td>{{ payee?.payeeName }}</td>
+                      <td>{{ payee?.address }}</td>
+                      <td>{{ payee?.phone }}</td>
+                      <td>{{ payee?.fedTaxNo }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="showMovePlacement">
+          <div class="col-md-6">
+            <p>Select Placement To Move To</p>
+            <p-autoComplete [(ngModel)]="placementTo" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="clientName" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-placement pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table style="height: 0px; width: 100%;">
+                    <tr>
+                      <th style="border: 1px solid black;">Client Name</th>
+                      <th style="border: 1px solid black;">Provider Name</th>
+                      <th style="border: 1px solid black;">Provider Type</th>
+                      <th style="border: 1px solid black;">Begin Date</th>
+                      <th style="border: 1px solid black;">End Date</th>
+                      <th style="border: 1px solid black;">Referral Type</th>
+                      <th style="border: 1px solid black;">Clousure Date</th>
+                      <th style="border: 1px solid black;">PlacementID</th>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black;">{{ placement?.clientName }}</td>
+                      <td style="border: 1px solid black;">{{ placement?.providerName }}</td>
+                      <td style="border: 1px solid black;">{{ placement?.providerType }}</td>
+                      <td style="border: 1px solid black;">{{ placement?.beginDate }}</td>
+                      <td style="border: 1px solid black;">{{ placement?.endDate }}</td>
+                      <td style="border: 1px solid black;">{{ placement?.referralType }}</td>
+                      <td style="border: 1px solid black;">{{ placement?.closureDate }}</td>
+                      <td style="border: 1px solid black;">{{ placement?.placementID }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+          <div class="col-md-6">
+            <p>Select Placement To Move From</p>
+            <p-autoComplete [(ngModel)]="placementFrom" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="clientName" (onSelect)="getDetail($event)"
+              (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-placement pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table style="height: 0px; width: 100%;">
+                    <tr>
+                      <th style="border: 1px solid black;">Client Name</th>
+                      <th style="border: 1px solid black;">Provider Name</th>
+                      <th style="border: 1px solid black;">Provider Type</th>
+                      <th style="border: 1px solid black;">Begin Date</th>
+                      <th style="border: 1px solid black;">End Date</th>
+                      <th style="border: 1px solid black;">Referral Type</th>
+                      <th style="border: 1px solid black;">Clousure Date</th>
+                      <th style="border: 1px solid black;">PlacementID</th>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black;">{{ placement?.clientName }}</td>
+                      <td style="border: 1px solid black;">{{ placement?.providerName }}</td>
+                      <td style="border: 1px solid black;">{{ placement?.providerType }}</td>
+                      <td style="border: 1px solid black;">{{ placement?.beginDate }}</td>
+                      <td style="border: 1px solid black;">{{ placement?.endDate }}</td>
+                      <td style="border: 1px solid black;">{{ placement?.referralType }}</td>
+                      <td style="border: 1px solid black;">{{ placement?.closureDate }}</td>
+                      <td style="border: 1px solid black;">{{ placement?.placementID }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="showMovePlacementEvent">
+          <div class="col-md-6">
+            <p>Select Placement Event To Move To</p>
+            <p-autoComplete [(ngModel)]="placementEventTo" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="clientName" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-placementEvent pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table style="height: 0px; width: 100%;">
+                    <tr>
+                      <th style="border: 1px solid black;">Client Name</th>
+                      <th style="border: 1px solid black;">Provider Name</th>
+                      <th style="border: 1px solid black;">Provider Type</th>
+                      <th style="border: 1px solid black;">Begin Date</th>
+                      <th style="border: 1px solid black;">End Date</th>
+                      <th style="border: 1px solid black;">Referral Type</th>
+                      <th style="border: 1px solid black;">Clousure Date</th>
+                      <th style="border: 1px solid black;">PlacementID</th>
+                      <th style="border: 1px solid black;">Placement Detail ID</th>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black;">{{ placementEvent?.clientName }}</td>
+                      <td style="border: 1px solid black;">{{ placementEvent?.providerName }}</td>
+                      <td style="border: 1px solid black;">{{ placementEvent?.providerType }}</td>
+                      <td style="border: 1px solid black;">{{ placementEvent?.beginDate }}</td>
+                      <td style="border: 1px solid black;">{{ placementEvent?.endDate }}</td>
+                      <td style="border: 1px solid black;">{{ placementEvent?.referralType }}</td>
+                      <td style="border: 1px solid black;">{{ placementEvent?.closureDate }}</td>
+                      <td style="border: 1px solid black;">{{ placementEvent?.placementID }}</td>
+                      <td style="border: 1px solid black;">{{ placementEvent?.placementDetailID }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+          <div class="col-md-6">
+            <p>Select Placement Event To Move From</p>
+            <p-autoComplete [(ngModel)]="placementEventFrom" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="clientName" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-placementEvent pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table style="height: 0px; width: 100%;">
+                    <tr>
+                      <th style="border: 1px solid black;">Client Name</th>
+                      <th style="border: 1px solid black;">Provider Name</th>
+                      <th style="border: 1px solid black;">Provider Type</th>
+                      <th style="border: 1px solid black;">Begin Date</th>
+                      <th style="border: 1px solid black;">End Date</th>
+                      <th style="border: 1px solid black;">Referral Type</th>
+                      <th style="border: 1px solid black;">Clousure Date</th>
+                      <th style="border: 1px solid black;">PlacementID</th>
+                      <th style="border: 1px solid black;">Placement Detail ID</th>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black;">{{ placementEvent?.clientName }}</td>
+                      <td style="border: 1px solid black;">{{ placementEvent?.providerName }}</td>
+                      <td style="border: 1px solid black;">{{ placementEvent?.providerType }}</td>
+                      <td style="border: 1px solid black;">{{ placementEvent?.beginDate }}</td>
+                      <td style="border: 1px solid black;">{{ placementEvent?.endDate }}</td>
+                      <td style="border: 1px solid black;">{{ placementEvent?.referralType }}</td>
+                      <td style="border: 1px solid black;">{{ placementEvent?.closureDate }}</td>
+                      <td style="border: 1px solid black;">{{ placementEvent?.placementID }}</td>
+                      <td style="border: 1px solid black;">{{ placementEvent?.placementDetailID }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="showMoveReferral">
+          <div class="col-md-6">
+            <p>Select Referral To Move To</p>
+            <p-autoComplete [(ngModel)]="referralTo" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="clientName" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-mvreferral pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table style="height: 0px; width: 100%;">
+                    <tr>
+                      <th style="border: 1px solid black;">Client Name</th>
+                      <th style="border: 1px solid black;">Referral Type</th>
+                      <th style="border: 1px solid black;">Referral Date</th>
+                      <th style="border: 1px solid black;">Closure Date</th>
+                      <th style="border: 1px solid black;">PaymentEndDate</th>
+                      <th style="border: 1px solid black;">ReferralID</th>
+
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black;">{{ mvreferral?.clientName }}</td>
+                      <td style="border: 1px solid black;">{{ mvreferral?.referralType }}</td>
+                      <td style="border: 1px solid black;">{{ mvreferral?.referralDate }}</td>
+                      <td style="border: 1px solid black;">{{ mvreferral?.closureDate }}</td>
+                      <td style="border: 1px solid black;">{{ mvreferral?.paymentEndDate }}</td>
+                      <td style="border: 1px solid black;">{{ mvreferral?.referralID }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+          <div class="col-md-6">
+            <p>Select Referral To Move From</p>
+            <p-autoComplete [(ngModel)]="referralFrom" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="clientName" (completeMethod)="getDataMaintanceDrop($event)">
+              <ng-template let-mvreferral pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table style="height: 0px; width: 100%;">
+                    <tr>
+                      <th style="border: 1px solid black;">Client Name</th>
+                      <th style="border: 1px solid black;">Referral Type</th>
+                      <th style="border: 1px solid black;">Referral Date</th>
+                      <th style="border: 1px solid black;">Closure Date</th>
+                      <th style="border: 1px solid black;">PaymentEndDate</th>
+                      <th style="border: 1px solid black;">ReferralID</th>
+
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black;">{{ mvreferral?.clientName }}</td>
+                      <td style="border: 1px solid black;">{{ mvreferral?.referralType }}</td>
+                      <td style="border: 1px solid black;">{{ mvreferral?.referralDate }}</td>
+                      <td style="border: 1px solid black;">{{ mvreferral?.closureDate }}</td>
+                      <td style="border: 1px solid black;">{{ mvreferral?.paymentEndDate }}</td>
+                      <td style="border: 1px solid black;">{{ mvreferral?.referralID }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="showMove_clientCase">
+          <div class="col-md-6">
+            <p>Select Client To Move To</p>
+            <p-autoComplete [(ngModel)]="referralTo" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="clientName"
+              (completeMethod)="getDataMaintanProviderDrop('client',$event)">
+              <ng-template let-mvClient pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table class="table table-bordered table-striped" style="height: 0px">
+                    <tr>
+                      <th>Client Name</th>
+                      <th>DOB</th>
+                      <th>SSN</th>
+                      <th>Kaecses</th>
+                      <th>OklahomaID</th>
+                    </tr>
+                    <tr>
+                      <td>{{ mvClient?.clientName }}</td>
+                      <td>{{ mvClient?.dob }}</td>
+                      <td>{{ mvClient?.ssn }}</td>
+                      <td>{{ mvClient?.oklahomaID }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+          <div class="col-md-6">
+            <p>Select Case To Move From</p>
+            <p-autoComplete [(ngModel)]="caseFrom" [dropdown]="true" [forceSelection]="true"
+              [suggestions]="dropDownLists" field="clientName"
+              (completeMethod)="getDataMaintanProviderDrop('case',$event)">
+              <ng-template let-case pTemplate="item">
+                <div class="ui-helper-clearfix">
+                  <table style="height: 0px; width: 100%;">
+                    <tr>
+                      <th style="border: 1px solid black;">Client Name</th>
+                      <th style="border: 1px solid black;">Case Type</th>
+                      <th style="border: 1px solid black;">Begin Date</th>
+                      <th style="border: 1px solid black;">End Date</th>
+                      <th style="border: 1px solid black;">Facts</th>
+                      <th style="border: 1px solid black;">CaseID</th>
+
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black;">{{ case?.clientName }}</td>
+                      <td style="border: 1px solid black;">{{ case?.caseType }}</td>
+                      <td style="border: 1px solid black;">{{ case?.beginDate }}</td>
+                      <td style="border: 1px solid black;">{{ case?.endDate }}</td>
+                      <td style="border: 1px solid black;">{{ case?.facts }}</td>
+                      <td style="border: 1px solid black;">{{ case?.caseID }}</td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+
+
+        <table class="table table-bordered table-striped" style="height: 0px" *ngIf="placementEventList.length!=0">
+          <tr>
+            <th>Placement Event</th>
+            <th>Placement DetailID</th>
+          </tr>
+          <tr *ngFor="let item of placementEventList" (click)="getPlacementID(item)">
+            <td>{{ item.providerName }} {{ item.procode }} {{ item.cS_Abbreviation }} {{ item.beginDate }} To
+              {{ item.endDate }}</td>
+            <td>{{ item.placementDetailID }}</td>
+          </tr>
+        </table>
+
+
+        <hr>
+        <div class="row">
+          <div class="col-md-3">
+            <button *ngIf="isMerge" class="sf-positive-btn" (click)="dataMaintananceMerge()">
+              Process
+            </button>
+            <button *ngIf="isMove" class="sf-positive-btn" (click)="dataMaintananceMove()">
+              Process
+            </button>
+          </div>
+          <div class="col-md-9">
+            <p>After the merge Process it is YOUR RESPONSIBILITY to make sure that any dublication caused by the merge
+              is cleaned up.</p>
+          </div>
+        </div>
+        <div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

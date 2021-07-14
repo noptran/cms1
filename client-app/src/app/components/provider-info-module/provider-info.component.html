@@ -1,0 +1,292 @@
+<div class="main-container" *ngIf="isProviderInfoView">
+  <div class="width-90">
+    <div class="primary-info">
+      <span class="sub-title"><b>Provider Name:</b> {{ profileDatas.providerName }}</span>
+      <span class="sub-title">
+        <b>Provider Type:</b> {{ profileDatas.providerType }}
+      </span>
+      <span class="sub-title">
+        <b>FCH Office:</b> {{ profileDatas.fchOffice }}
+      </span>
+      <span class="sub-title">
+        <b>Status:</b> {{ profileDatas.providerStatusType }}
+      </span>
+    </div>
+  </div>
+  <div class="component-btn-container">
+    <button (click)="onShowMoreClick()" [disabled]="componentBtnDisable">
+      {{ componentBtnLabel }}
+    </button>
+    <button (click)="onClickDashboard()">
+      <!-- <span>Provider Dashboard</span> -->
+    </button>
+  </div>
+</div>
+
+<!--More details-->
+<p-dialog header="More details" [(visible)]="isMoreDetails" [contentStyle]="{ width: '80vw', height: '50vh' }">
+  <!--Client-->
+  <div class="more-info">
+    <div class="profile-info-container">
+      <table>
+        <tr>
+          <td><span>Provider Name</span></td>
+          <td>{{ profileDatas?.providerName }}</td>
+          <td><span>Provider Type</span></td>
+          <td>{{ profileDatas?.providerType }}</td>
+          <td><span>FCH Office</span></td>
+          <td>{{ profileDatas?.fchOffice }}</td>
+        </tr>
+        <tr>
+          <td><span>Phone</span></td>
+          <td>{{ profileDatas?.phone }}</td>
+          <td><span>Sponsor</span></td>
+          <td>{{ profileDatas?.sponsorName }}</td>
+          <td><span>Status</span></td>
+          <td>{{ profileDatas?.providerStatusType }}</td>
+        </tr>
+        <tr>
+          <td><span>SFCS Assigned Staff</span></td>
+          <td>{{ profileDatas?.sfcsAssignedStaff }}</td>
+          <td><span>Tax No</span></td>
+          <td>{{ profileDatas?.fedTaxNo }}</td>
+          <td><span>Vender ID</span></td>
+          <td>{{ profileDatas?.venderID }}</td>
+        </tr>
+        <tr>
+          <td><span>Is SFCS Employee?</span></td>
+          <td>
+            <span *ngIf="profileDatas.isEmployee">Yes</span>
+            <span *ngIf="!profileDatas.isEmployee">No</span>
+          </td>
+          <td><span>Is Sponsor?</span></td>
+          <td>
+            <span *ngIf="profileDatas.isSponsor">Yes</span>
+            <span *ngIf="!profileDatas.isSponsor">No</span>
+          </td>
+          <td><span>FM</span></td>
+          <td>
+            <span *ngIf="profileDatas.isFamilyMatters">Yes</span>
+            <span *ngIf="!profileDatas.isFamilyMatters">No</span>
+          </td>
+        </tr>
+        <tr>
+          <td><span>SM</span></td>
+          <td>
+            <span *ngIf="profileDatas.paySemiMonthly">Yes</span>
+            <span *ngIf="!profileDatas.paySemiMonthly">No</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</p-dialog>
+<div class="provider-dashboards">
+  <p-dialog [(visible)]="isProviderDashboard" header="Provider Dashboard" [style]="{ width: '100vw' }"
+    [maximizable]="true" [responsive]="true" [minY]="70">
+    <p-accordion [multiple]="true">
+      <p-accordionTab header="The Placement Provider Information" [selected]="isTabCollapsed">
+        <table class="table-width-100">
+          <tr>
+            <td class="dashboard-label">Provider Name</td>
+            <td class="dashboard-data">
+              <strong>{{
+                providerDashboard?.providerInfo?.ProviderName
+              }}</strong>
+            </td>
+            <td class="dashboard-label">SFM Foster Care Worker</td>
+            <td class="dashboard-data">
+              <strong>{{
+                providerDashboard?.fosterCareWorker?.StaffName
+              }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Provider Address</td>
+            <td class="dashboard-data">
+              <strong>{{
+                providerDashboard?.providerInfo?.ProviderAddress
+              }}</strong>
+            </td>
+            <td class="dashboard-label">SFM Foster Care Supervisor</td>
+            <td class="dashboard-data">
+              <strong>{{
+                providerDashboard?.fosterCareSupervisor?.StaffName
+              }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Provider Phone</td>
+            <td class="dashboard-data">
+              <strong>{{ providerDashboard?.providerInfo?.Phone }}</strong>
+            </td>
+            <td class="dashboard-label">SFM Kinship Worker</td>
+            <td class="dashboard-data">
+              <strong>{{ providerDashboard?.kinshipWorker?.StaffName }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">EMAIL</td>
+            <td class="dashboard-data">
+              <strong>{{ providerDashboard?.providerInfo?.Email }}</strong>
+            </td>
+            <td class="dashboard-label">SFM Kinship Supervisor<</td> <td class="dashboard-data">
+                <strong>{{
+                providerDashboard?.kinshipSupervisor?.StaffName
+              }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Provider Type</td>
+            <td class="dashboard-data">
+              <strong>{{
+                providerDashboard?.providerInfo?.ProviderType
+              }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Sponsor</td>
+            <td class="dashboard-data">
+              <strong>{{
+                providerDashboard?.providerInfo?.SponsorName
+              }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Status</td>
+            <td class="dashboard-data">
+              <strong>{{ providerDashboard?.providerInfo?.Status }}</strong>
+            </td>
+          </tr>
+        </table>
+      </p-accordionTab>
+      <p-accordionTab header="Licensed Capacity (only available on SFM Sponsored homes)" [selected]="isTabCollapsed">
+        <table class="table-width-100">
+          <tr>
+            <td class="dashboard-label">Licensed Capacity</td>
+            <td class="dashboard-data">
+              <strong>{{
+                providerDashboard?.providerCapacity?.LicenseCapacity
+              }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Preferred Capacity</td>
+            <td class="dashboard-data">
+              <strong>{{
+                providerDashboard?.providerCapacity?.PreferredCapacity
+              }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Able to Go Over Capacity</td>
+            <td class="dashboard-data"></td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Open Beds</td>
+            <td class="dashboard-data">
+              <strong>{{
+                providerDashboard?.providerCapacity?.OpenBeds
+              }}</strong>
+            </td>
+          </tr>
+        </table>
+      </p-accordionTab>
+      <p-accordionTab header="Other Demographic Info (only available on SFM home) - leave bank is not SFM home"
+        [selected]="isTabCollapsed">
+        <div *ngFor="
+            let child of providerDashboard?.providerMemberChildrens;
+            let i = index
+          ">
+          <div class="row">
+            <div class="col-md-9">
+              <div class="col-md-3">
+                <div class="dashboard-label">Name</div>
+                <div class="dashboard-data">
+                  <strong>{{ child.ProviderMemberName }}</strong>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="dashboard-label">Age</div>
+                <div class="dashboard-data">
+                  <strong>{{ child.Age }}</strong>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="dashboard-label">Relationship</div>
+                <div class="dashboard-data">
+                  <strong>{{ child.Relationship }}</strong>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="dashboard-data">{{ child.ProviderPets }}</div>
+            </div>
+          </div>
+        </div>
+      </p-accordionTab>
+      <p-accordionTab header="The Active SFM Placements in home" [selected]="isTabCollapsed">
+        <div *ngFor="
+            let client of placementClientProfile?.activePlacementClientsProfile;
+            let i = index
+          ">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="col-md-3">
+                <div class="dashboard-label">Client Name</div>
+                <div class="dashboard-label">Gender</div>
+                <div class="dashboard-label">Age</div>
+                <div class="dashboard-label">DOB</div>
+                <div class="dashboard-label">Level of Care</div>
+              </div>
+              <div class="col-md-3">
+                <div class="dashboard-data">
+                  <strong>{{ client.ClientName }}</strong>
+                </div>
+                <div class="dashboard-data">
+                  <strong>{{ client.Gender }}</strong>
+                </div>
+                <div class="dashboard-data">
+                  <strong>{{ client.DCFRegion }}</strong>
+                </div>
+                <div class="dashboard-data">
+                  <strong>{{ client.DOB }}</strong>
+                </div>
+                <div class="dashboard-data">
+                  <strong>{{ client.LevelOfCare }}</strong>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="col-md-6">
+                <div class="dashboard-label">Home Country</div>
+                <div class="dashboard-label">CM Office</div>
+                <div class="dashboard-label">Region</div>
+                <div class="dashboard-label">Kan Care MCO</div>
+                <div class="dashboard-label">Financial Mgt. Office</div>
+              </div>
+              <div class="col-md-6">
+                <div class="dashboard-data">
+                  <strong>{{ client.HomeCounty }}</strong>
+                </div>
+                <div class="dashboard-data">
+                  <strong>{{ client.CaseManagementOffice }}</strong>
+                </div>
+                <div class="dashboard-data">
+                  <strong>{{ client.Age }}</strong>
+                </div>
+                <div class="dashboard-data">
+                  <strong>{{ client.KanCareMCO }}</strong>
+                </div>
+                <div class="dashboard-data">
+                  <strong>{{ client.FinancialMgtOffice }}</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-accordionTab>
+      <p-accordionTab header="Common navigation buttons" [selected]="isTabCollapsed"></p-accordionTab>
+    </p-accordion>
+  </p-dialog>
+</div>

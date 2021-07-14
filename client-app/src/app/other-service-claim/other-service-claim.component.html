@@ -1,0 +1,1133 @@
+<app-form-header
+  [title]="title"
+  [status]="status"
+  [breadcrumbs]="breadcrumbs"
+  [formstatus]=""
+  [formNavigation]=""
+>
+</app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+<div class="opencard-menu-container" *ngIf="showOpenCard">
+  <div class="dropdown border-none">
+    <span
+      class="fa fa-th opencard-menu"
+      data-toggle="dropdown"
+      pTooltip="OpenCards"
+    ></span>
+    <div class="dropdown-menu opencard-box">
+      <div class="card-container">
+        <div
+          class="opencard"
+          *ngIf="showEdit"
+          pTooltip="Claims"
+          routerLink="/reintegration/referral/service/opencard/claim"
+        >
+          <span class="opencard-title">Claims</span>
+          <div>
+            <span class="fa fa-exclamation-triangle allergies"></span>
+          </div>
+          <span class="opencard-footer"></span>
+        </div>
+        <div
+          class="opencard"
+          *ngIf="!showEdit"
+          pTooltip="Claims"
+          routerLink="/reintegration/referral/service/opencard/claim/authorizationSummary"
+        >
+          <span class="opencard-title">Claims</span>
+          <div>
+            <span class="fa fa-exclamation-triangle allergies"></span>
+          </div>
+          <span class="opencard-footer"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="flex-container">
+  <div>
+    <div *ngIf="currentClientId" class="menu navigation">
+      <div pTooltip="Click here to open" (click)="onClickJumptoClient()">
+        <span><b>Jump to Client</b></span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="marign-left-10">
+      <strong>Authorization ID:</strong>
+      {{ authorizationID }}
+    </div>
+  </div>
+</div>
+
+<!-- <button (click)=navigateTo() class="opencard-attachment btn btn-primary">Attachment Document</button> -->
+<form
+  [formGroup]="otherServiceValue"
+  [ngClass]="footerHeight ? 'otherServiceForm' : 'otherServiceFormSave'"
+>
+  <div class="sf-form">
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Client</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete
+            [(ngModel)]="otherService.clientName"
+            formControlName="clientName"
+            name="clientName"
+            [suggestions]="results"
+            [dropdown]="true"
+            [forceSelection]="true"
+            field="fullName"
+            (completeMethod)="getFisClient($event)"
+            (onSelect)="getClientId($event)"
+          ></p-autoComplete>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-checkbox
+            label="Override Date"
+            binary="true"
+            [(ngModel)]="otherService.overrideDate"
+            formControlName="overrideDate"
+            name="overrideDate"
+            (onChange)="onChangeOverRide($event)"
+          ></p-checkbox>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3"></div>
+      </div>
+    </div>
+
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Unit type</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete
+            [(ngModel)]="otherService.unitType"
+            formControlName="unitType"
+            name="unitType"
+            [suggestions]="results"
+            [dropdown]="true"
+            [forceSelection]="true"
+            field="unitType"
+            (completeMethod)="getUnitType($event)"
+            (onSelect)="getUnitTypeValue($event)"
+          ></p-autoComplete>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Frequency (PSA):</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input
+            maxlength="75"
+            [(ngModel)]="otherService.frequency"
+            formControlName="frequency"
+            name="frequency"
+            pInputText
+            size="27"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Begin Date:</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-calendar
+            [(ngModel)]="otherService.beginDate"
+            (ngModelChange)="validateEndDate()"
+            [showIcon]="true"
+            formControlName="beginDate"
+            name="beginDate"
+            showTime="true"
+            hourFormat="12"
+            [yearNavigator]="true"
+            [monthNavigator]="true"
+            yearRange="2000:2030"
+          ></p-calendar>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Payor Rate:</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-spinner
+            size="30"
+            [(ngModel)]="otherService.payorRate"
+            formControlName="payorRate"
+            name="payorRate"
+            [min]="0.0"
+            [step]="0.25"
+            (onChange)="getPayorRate($event)"
+          ></p-spinner>
+        </div>
+      </div>
+    </div>
+
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>End Date:</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-calendar
+            name="dateInput"
+            [(ngModel)]="otherService.endDate"
+            [disabled]="isOverrideDate"
+            [showIcon]="true"
+            formControlName="endDate"
+            name="endDate"
+            showTime="true"
+            hourFormat="12"
+            [yearNavigator]="true"
+            [monthNavigator]="true"
+            yearRange="2000:2030"
+            (onSelect)="validateEndDate()"
+          ></p-calendar>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Provider Rate:</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-spinner
+            size="30"
+            [(ngModel)]="otherService.providerRate"
+            formControlName="providerRate"
+            name="providerRate"
+            [min]="0.0"
+            [step]="0.25"
+            [disabled]="true"
+          ></p-spinner>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Units:</span> <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <!-- <p-spinner [(ngModel)]="otherService.units" (ngModelChange)="getUnitValue()" formControlName="units"
+            name="units" [min]="0.0" [step]="0.25"></p-spinner> -->
+
+          <p-spinner
+            [(ngModel)]="otherService.units"
+            formControlName="units"
+            name="units"
+            [step]="0.25"
+            (ngModelChange)="getUnitValue()"
+            [min]="0.0"
+            placeholder="0.00"
+          ></p-spinner>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Units remaining</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input
+            maxlength="75"
+            [(ngModel)]="otherService.unitsRemaining"
+            formControlName="unitsRemaining"
+            name="unitsRemaining"
+            pInputText
+            size="27"
+            readonly
+          />
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Authorization Payor:</span> <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete
+            [(ngModel)]="otherService.authorizationPayor"
+            formControlName="authorizationPayor"
+            name="authorizationPayor"
+            [suggestions]="results"
+            [dropdown]="true"
+            [forceSelection]="true"
+            field="fullName"
+            (completeMethod)="getAuthorizationPayor($event)"
+            (onSelect)="getPayorId($event)"
+          ></p-autoComplete>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span> Authorization Exception:</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input
+            (click)="authException()"
+            maxlength="75"
+            pInputText
+            size="27"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Authorization Status:</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete
+            [(ngModel)]="otherService.authorizationStatus"
+            formControlName="authorizationStatus"
+            name="authorizationStatus"
+            [suggestions]="results"
+            [dropdown]="true"
+            [forceSelection]="true"
+            field="authorizationStatus"
+            (completeMethod)="getAuthorizationStatus($event)"
+            (onSelect)="getAuthorizationId($event)"
+          ></p-autoComplete>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="showProviderSponsor">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span> Provider Sponsor:</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete
+            [(ngModel)]="otherService.providerSponsor"
+            formControlName="providerSponsor"
+            name="providerSponsor"
+            [suggestions]="results"
+            [dropdown]="true"
+            [forceSelection]="true"
+            field="sponsorName"
+            (completeMethod)="getProviderSponsor($event)"
+            (onSelect)="getSponsorId($event)"
+          ></p-autoComplete>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Procedure Code:</span> <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete
+            [(ngModel)]="otherService.procode"
+            formControlName="procode"
+            name="procode"
+            [suggestions]="filteredProcodes"
+            [dropdown]="true"
+            [forceSelection]="true"
+            field="procodeDescription"
+            (completeMethod)="getMetaData($event, 'procode')"
+            (onSelect)="getProcodeId($event)"
+          ></p-autoComplete>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <label class="checkbox-inline pay-sponsor">
+            <input
+              type="checkbox"
+              [(ngModel)]="otherService.paySponsor"
+              formControlName="paySponsor"
+              name="paySponsor"
+              [checked]="isChecked"
+            />Pay Sponsor
+          </label>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3"></div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Who To Pay:</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete
+            [(ngModel)]="otherService.whoToPay"
+            formControlName="whoToPay"
+            name="whoToPay"
+            [suggestions]="results"
+            [dropdown]="true"
+            [forceSelection]="true"
+            field="whoToPay"
+            (completeMethod)="getWhoToPay($event)"
+            (onSelect)="whoToPay($event)"
+          ></p-autoComplete>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Note (NA):</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <textarea
+            [(ngModel)]="otherService.note"
+            formControlName="note"
+            name="note"
+            pInputTextArea
+            style="width: 100%; height: 100%"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="showProvider">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Provider:</span> <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete
+            [(ngModel)]="otherService.provider"
+            formControlName="provider"
+            name="provider"
+            [suggestions]="results"
+            [dropdown]="true"
+            [forceSelection]="true"
+            field="provider"
+            (completeMethod)="getProvider($event)"
+            (onSelect)="providerInfo($event)"
+          >
+            <ng-template let-providerName pTemplate="item">
+              <table>
+                <tr>
+                  <td><b>Provider Name</b></td>
+                  <td>:</td>
+                  <td>{{ providerName?.providerName }}</td>
+                </tr>
+                <tr>
+                  <td><b>Provider Type</b></td>
+                  <td>:</td>
+                  <td>{{ providerName?.providerType }}</td>
+                </tr>
+                <tr>
+                  <td><b>Address</b></td>
+                  <td>:</td>
+                  <td>{{ providerName?.address }}</td>
+                </tr>
+                <tr>
+                  <td><b>Phone</b></td>
+                  <td>:</td>
+                  <td>{{ providerName?.phone }}</td>
+                </tr>
+                <tr>
+                  <td><b>Sponsor Name</b></td>
+                  <td>:</td>
+                  <td>{{ providerName?.sponsorName }}</td>
+                </tr>
+              </table>
+            </ng-template>
+          </p-autoComplete>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="!showProvider">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Payee:</span> <span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete
+            [(ngModel)]="otherService.payee"
+            formControlName="payee"
+            name="payee"
+            [suggestions]="results"
+            [dropdown]="true"
+            [forceSelection]="true"
+            field="payee"
+            (completeMethod)="getPayee($event)"
+            (onSelect)="getPayeeId($event)"
+          >
+            <ng-template let-payeeID pTemplate="item">
+              <table>
+                <tr>
+                  <td><b>Payee Name</b></td>
+                  <td>:</td>
+                  <td>{{ payeeID?.payeeName }}</td>
+                </tr>
+                <tr>
+                  <td><b>Address</b></td>
+                  <td>:</td>
+                  <td>{{ payeeID?.address }}</td>
+                </tr>
+                <tr>
+                  <td><b>Phone</b></td>
+                  <td>:</td>
+                  <td>{{ payeeID?.phone }}</td>
+                </tr>
+                <tr>
+                  <td><b>FedTaxNo</b></td>
+                  <td>:</td>
+                  <td>{{ payeeID?.fedTaxNo }}</td>
+                </tr>
+              </table>
+            </ng-template>
+          </p-autoComplete>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Additional Info. (PSA)</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <textarea
+            [(ngModel)]="otherService.additionalInfo"
+            formControlName="additionalInfo"
+            name="additionalInfo"
+            pInputTextArea
+            style="width: 100%; height: 100%"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+    <p-dialog
+      header="Authorization Exception"
+      [(visible)]="displayDialog"
+      [responsive]="true"
+      showEffect="fade"
+      [modal]="true"
+      [width]="1000"
+      [minWidth]="400"
+      [minY]="80"
+      [baseZIndex]="10000"
+      [maximizable]="true"
+    >
+      <h2>Authorization</h2>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Payor Rate:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner
+              size="30"
+              [(ngModel)]="otherService.originalPayorRate"
+              formControlName="originalPayorRate"
+              name="originalPayorRate"
+              [min]="0.0"
+              [step]="0.25"
+              (onChange)="getOriginalPayorRate($event)"
+            ></p-spinner>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Provider Rate:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              maxlength="75"
+              [(ngModel)]="otherService.originalProviderRate"
+              formControlName="originalProviderRate"
+              name="originalProviderRate"
+              pInputText
+              size="27"
+              readonly
+            />
+          </div>
+        </div>
+      </div>
+      <h2>Exception</h2>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Payor Rate:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner
+              size="30"
+              [(ngModel)]="otherService.exceptionPayorRate"
+              formControlName="exceptionPayorRate"
+              name="exceptionPayorRate"
+              [min]="0.0"
+              [step]="0.25"
+            ></p-spinner>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Provider Rate:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner
+              size="30"
+              [(ngModel)]="otherService.exceptionProviderRate"
+              formControlName="exceptionProviderRate"
+              name="exceptionProviderRate"
+              [min]="0.0"
+              [step]="0.25"
+            >
+            </p-spinner>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Requested By:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              maxlength="75"
+              pInputText
+              size="27"
+              [(ngModel)]="otherService.requestedBy"
+              formControlName="requestedBy"
+              name="requestedBy"
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Exception Reason:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete
+              [(ngModel)]="otherService.exceptionReason"
+              formControlName="exceptionReason"
+              name="exceptionReason"
+              [suggestions]="results"
+              [dropdown]="true"
+              [forceSelection]="true"
+              field="authorizationExceptionReason"
+              (completeMethod)="getExceptionReason($event)"
+              (onSelect)="getExceptionReasonId($event)"
+            ></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Explanation of need:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <textarea
+              [(ngModel)]="otherService.explanationOfNeed"
+              formControlName="explanationOfNeed"
+              name="explanationOfNeed"
+              pInputTextArea
+              style="width: 100%; height: 100%"
+            ></textarea>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Approved By:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete
+              [(ngModel)]="otherService.approvedBy"
+              formControlName="approvedBy"
+              name="approvedBy"
+              [suggestions]="results"
+              [dropdown]="true"
+              [forceSelection]="true"
+              field="staffInfo"
+              (completeMethod)="getStaffID($event)"
+              (onSelect)="getApprovedStaffID($event)"
+            ></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+          <button type="button" pButton (click)="save()" label="Save"></button>
+        </div>
+      </p-footer>
+    </p-dialog>
+  </div>
+</form>
+<app-form-footer
+  (sendMail)="printPreview()"
+  [currentNodeValue]="req"
+  [mailBtnControl]="isPrintEnabled"
+  [attachmentControll]="isAttachmentRequired"
+  [isAttachmentDisabled]="false"
+  (attachDoc)="navigateTo()"
+  (edit)="editForm()"
+  [isDisabled]="isDisabled"
+  [editControll]="editControll"
+  (save)="saveAuth(otherServiceValue)"
+  (discard)="discardClaim()"
+  [formLogInfo]="formLogInfo"
+  [isFormLog]="isFormLog"
+  [isPrintNavigation]="isPrintNavigation"
+></app-form-footer>
+
+<p-dialog
+  [contentStyle]="{ 'min-width': '106rem' }"
+  header="PROVIDER SERVICE AGREEMENT SFCS PAYMENT AUTHORIZATION"
+  [(visible)]="isPreviewOpen"
+  [modal]="true"
+  [responsive]="true"
+  [minY]="70"
+  [baseZIndex]="999"
+  [closable]="true"
+>
+  <div id="pdf-content">
+    <form id="form-content" class="sf-form">
+      <div class="flex-container header">
+        <div class="logo">
+          <img src="assets/logo color.svg" alt="" />
+        </div>
+        <div class="heading">
+          PROVIDER SERVICE AGREEMENT
+          <br />SFCS PAYMENT AUTHORIZATION
+        </div>
+        <div class="case-info">
+          <div>
+            <span class="text-bold">Pre-Authorization No.</span>
+            <input class="remove-borders" type="text" pInputText size="20" />
+          </div>
+        </div>
+      </div>
+      <div class="border-black">
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">SFCS Worker</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Telephone</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="border-black">
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Client</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Provider</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">DOB</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Address</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">FACTS</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Phone</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">KAECSES</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Prov. Rate</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">SSN</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Medicaid ID</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Fax</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Sponsor</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">TaxID</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="border-black">
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Service</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Begin Date</span>
+              <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">End Date:</span>
+              <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Units Authorized</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Rate</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Billable Unit</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Next Scheduled</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Review Date:</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Service Frequency: </span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="border-black">
+        <div class="margin-top-20 row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <p>
+              <b>ADDITIONAL INFORMATION:</b>(i.e. Client names if different from
+              above, other info., etc.) FOR ALL SERVICES PURCHASED Either
+              document the desired outcome here or attach a copy of the case
+              plan which pertains to the outcome
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span class="text-bold">RIGHTS and REQUIREMENTS: </span>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <span class="text-bold">Agency: </span>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <span class="text-bold text-center">Mutual: </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span class="text-bold">RIGHTS and REQUIREMENTS:
+            </span>
+          </div>
+        </div>
+      </div> -->
+      <div class="margin-top-20 margin-left-1rem row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <p>1. Plan with client.</p>
+            <p>2. Share with provider.</p>
+            <p>3. Services purchased must be consistent with the plan/goal.</p>
+            <p>
+              4. Transport client to and from case planning activities, school,
+              work, mental health and medical appointments when foster home is
+              unable to transport.
+            </p>
+            <p>5. Negotiate and monitor provider agreement.</p>
+            <p>
+              6. Notification of 48 hours for termination of this provider
+              service agreement prior to proposed ending date unless a move
+              occurs due to extenuating circumstances. Examples of extenuating
+              circumstances may include but are not limited to court ordered
+              moves, AWOLs, emergency situations and critical incidents
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <p>1. Discuss any change in status or plan for client.</p>
+            <p>
+              2. Direct Care Provider shall maintain homeowners (liability)
+              insurance through duration of agreement.
+            </p>
+            <p>
+              3. Services provided in conformation with standards contained
+              herein.
+            </p>
+            <p>
+              4. Services provided consistent with and supportive of the case
+              plan
+            </p>
+            <p>
+              5. Abide by licensing standards and other regulations as
+              applicable.
+            </p>
+            <p>6. Maintain up to date records documenting service</p>
+            <p>7. Provide progress reports to the agency as specified</p>
+            <p>8. Maintain records to demonstrate cost.</p>
+            <p>9. Submit claim forms as required.</p>
+            <p>
+              10. Services provided consistent with contractual agreement signed
+              by both parties
+            </p>
+            <p>11.Follow SFCS Agency Provider Manual.</p>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span class="text-bold">AUTHORIZATION: </span>
+          </div>
+        </div>
+      </div>
+      <div class="border-black">
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Provider</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Title</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span class="text-bold">Agency: </span>
+          </div>
+        </div>
+      </div>
+      <div class="border-black">
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Saint Francis Community Services:</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Title</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input class="remove-borders" type="text" pInputText size="20" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-black">
+        <div class="margin-top-20 row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="text-bold">SFCS Use Only </span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3"></div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <app-form-footer
+    [attachmentControll]="isAttachmentRequired"
+    (attachDoc)="navigateTo()"
+    (sendMail)="sendMail()"
+    [mailBtnControl]="true"
+    [formLogInfo]="formLogInfo"
+    [isFormLog]="isFormLog"
+  >
+  </app-form-footer>
+</p-dialog>
+<app-quick-menu [module]="quickMenu"></app-quick-menu>

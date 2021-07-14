@@ -1,0 +1,322 @@
+<app-form-header (cmsOut)="getCmsData($event)" [breadcrumbs]="breadcrumbs"></app-form-header>
+
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div *ngIf="!isNodeOpened" class="container-background">
+  <div class="container-foreground">
+
+    <form [formGroup]="cmsForm" id="form" autocomplete="off" class="sf-form">
+      <div class="sf-form-size-34 margin-left-45">
+        <!--  -->
+        <div class="row margin-top-20">
+          <div *ngIf="!isDetailsPage" class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Document Type Catagory</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-radioButton (onClick)="setDocumentTypeCatagory()" [(ngModel)]="documentTypeSelection" formControlName="documentTypeCatagory"
+                name="documentTypeCatagory" value="file upload selected" class="space-right" label="File Upload"></p-radioButton>
+              <!-- <p-radioButton (onClick)="setDocumentTypeCatagory()" [(ngModel)]="documentTypeSelection" formControlName="documentTypeCatagory"
+                name="documentTypeCatagory" value="forms selected" class="space-right" label="Forms"></p-radioButton> -->
+            </div>
+          </div>
+
+          <div *ngIf="isUploadView" class="col-lg-6 col-md-6 col-sm-6 ">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="document-link" (click)="printDocument()">Click to download file</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Document Type</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete *ngIf="!isDetailsPage" name="documentType" field="form" formControlName="documentType" [(ngModel)]="cmsAttachment.documentType"
+                emptyMessage="No results found!" placeholder="Type here to search" (onSelect)="documentTypeSelected($event)"
+                [forceSelection]="true" [dropdown]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event)"></p-autoComplete>
+              <input *ngIf="isDetailsPage" readonly name="documentType" formControlName="documentType" [(ngModel)]="cmsAttachment.documentType"
+                type="text" pInputText size="27" />
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="upload_css">
+                <p-fileUpload accept=".pdf,text/plain,image/*,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.csv,.xlsx, .xls,.doc,.odt,.svg"
+                  *ngIf="!isNodeOpened && isUploadEnabled" customUpload="true" chooseLabel="Browse" mode="basic" maxFileSize="200000000"
+                  (uploadHandler)="storeCmsFile($event)" (onSelect)="afterFileSelection($event)"></p-fileUpload>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <div class="font-color-red" *ngIf="isFileSelected">
+                  *Please click document name to save the file
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="sf-labels">Entered By</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+              <input readonly name="enteredBy" formControlName="enteredBy" [(ngModel)]="cmsAttachment.enteredBy" type="text" pInputText
+                size="27" />
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6 ">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span class="sf-labels">Changed By</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 subForms">
+              <input readonly name="changedBy" formControlName="changedBy" [(ngModel)]="cmsAttachment.changedBy" type="text" pInputText
+                size="27" />
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <span>SFCS Notes</span>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea name="sfcsNotes" formControlName="sfcsNotes" [(ngModel)]="cmsAttachment.sfcsNotes" class="sf-width-100" rows="4"></textarea>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Description</span>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea name="description" formControlName="description" [(ngModel)]="cmsAttachment.description" class="sf-width-100" rows="4"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="isDetailsPage && !isExistingDoc" class="versioning-table">
+
+          <table class="space-down table-hover">
+            <tr>
+              <th class="table-td">
+                Version
+              </th>
+              <th class="table-td">
+                Completed By
+              </th>
+              <th class="table-td">
+                Last Modified
+              </th>
+              <th class="table-td">
+
+              </th>
+            </tr>
+
+            <tr *ngFor="let cisArrayData of formCisArrayValue; let i = index">
+              <td class="table-td">
+                {{generateVersion(cisArrayData.version)}}
+              </td>
+              <td class="table-td">
+                {{cisArrayData.staffID.firstName+" "+cisArrayData.staffID.lastName}}
+              </td>
+              <td class="table-td">
+
+                {{cisArrayData.createdDate | date :'medium' }}
+              </td>
+              <td class="table-td">
+                <span *ngIf="!isUploadViewEnabled" class="document-link" (click)="cisVersionBasedView(cisArrayData.version)">View</span>
+                <span *ngIf="isUploadViewEnabled" (click)="printDocument()" class="document-link">Click to download file</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <!-- [isUploadDisabled]="isUploadEnabled" [fileUploadControl]="!isNodeOpened && isUploadEnabled" (uploadPdf)="storeCmsFile($event)" -->
+        <footer>
+          <app-form-footer (cancel)="window.history.back()" (save)="saveForm(cmsAttachment)" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+        </footer>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Case Activity -->
+<app-non-therapy-face-to-face-log *ngIf="isNtftfNode" (ntffFormOut)="getCmsData($event)"></app-non-therapy-face-to-face-log>
+<app-lack-of-contact-notification *ngIf="isLackOfContact" (locFromOut)="getCmsData($event)"></app-lack-of-contact-notification>
+<app-supervisory-staffing *ngIf="isSupervisorStaff" (supervisoryStaffOut)="getCmsData($event)"></app-supervisory-staffing>
+<app-client-face-to-face *ngIf="isCftfContact" (formOut)="getCmsData($event)"></app-client-face-to-face>
+<app-case-transfer-summary *ngIf="isCaseTransfer" (caseOut)="getCmsData($event)"></app-case-transfer-summary>
+
+<!-- Case Activity (RFC) -->
+<app-icpc-100b-pps-9135 *ngIf="isIcpcPps" (icpcPpsOut)="getCmsData($event)"></app-icpc-100b-pps-9135>
+<app-appendix-9h-icpc-checklist *ngIf="isIcpc" (icpcOut)="getCmsData($event)"></app-appendix-9h-icpc-checklist>
+<app-pps-91451-reg *ngIf="isPps" (ppsOut)="getCmsData($event)"></app-pps-91451-reg>
+
+<!-- Adoption(RFC) -->
+<app-request-for-consent-to-adopt *ngIf="isReqForCon" (reqConOut)="getCmsData($event)"></app-request-for-consent-to-adopt>
+<app-adoption-exchange-child-status-update *ngIf="isAdopExcng" (adopExcOut)="getCmsData($event)"></app-adoption-exchange-child-status-update>
+<app-individual-recruitment-plan *ngIf="isIndRec" (indRecOut)="getCmsData($event)"></app-individual-recruitment-plan>
+<app-request-to-schedule-best-interest-staffing *ngIf="isReqSchBest" (reqSceOut)="getCmsData($event)"></app-request-to-schedule-best-interest-staffing>
+<app-notice-best-interest-staffing *ngIf="isBestStaff" (bestIntOut)="getCmsData($event)"></app-notice-best-interest-staffing>
+<app-adoption-court-report-template *ngIf="isAdopCourt" (adopCourtOut)="getCmsData($event)"></app-adoption-court-report-template>
+<app-child-move-disruption *ngIf="isChildDisrupt" (childDisOut)="getCmsData($event)"></app-child-move-disruption>
+
+<app-permanency-release-change-status *ngIf="isPermanencyRel" (perRelOut)="getCmsData($event)"></app-permanency-release-change-status>
+<app-planned-changed-placement-notice *ngIf="isPlannedChg" (plannedChgOut)="getCmsData($event)"></app-planned-changed-placement-notice>
+<app-respite-request *ngIf="isRespiteNot" (resNotOut)="getCmsData($event)"></app-respite-request>
+<app-notice-of-planned-move-waiver-guide *ngIf="isWaiver" (waiverOut)="getCmsData($event)"></app-notice-of-planned-move-waiver-guide>
+
+<!-- Phase -->
+<app-family-relapse-prevention-non-intensive *ngIf="isFamilyRel" (famRelOut)="getCmsData($event)"></app-family-relapse-prevention-non-intensive>
+<app-non-intensive-transition *ngIf="nonTrans" (nonIntOut)="getCmsData($event)"></app-non-intensive-transition>
+
+<!-- Family SAfety -->
+<app-family-safety-plan *ngIf="isFamSafety" (famSafOut)="getCmsData($event)"></app-family-safety-plan>
+
+<!-- Supervisor Staffing -->
+<app-case-transfer-summary *ngIf="isSuperrCaseTrans" (caseOut)="getCmsData($event)"></app-case-transfer-summary>
+
+<!-- Supervisor Staffing RFC -->
+<app-case-transfer-summary *ngIf="isCaseTransferRFC" (caseOut)="getCmsData($event)"></app-case-transfer-summary>
+
+
+<!-- Progress Notes -->
+<app-progress-note *ngIf="isProgressNote" (progressOut)="getCmsData($event)"></app-progress-note>
+
+<!-- Service Claims -->
+<app-financial-assistance-request *ngIf="isFinanReq" (finReqOut)="getCmsData($event)"></app-financial-assistance-request>
+
+<!-- Referral Events -->
+<app-therapy-discharge *ngIf="isTherDisc" (therDiscOut)="getCmsData($event)"></app-therapy-discharge>
+
+<!-- Placement -->
+<app-sfcs-employee-resource *ngIf="isSfcsEmp" (sfcsEmplOut)="getCmsData($event)"></app-sfcs-employee-resource>
+
+<!-- Independent Living -->
+<app-self-sufficiency-plan *ngIf="isSelfSuff" (selfSuffOut)="getCmsData($event)"></app-self-sufficiency-plan>
+<app-casey-assessment *ngIf="isLifeSkill" (lifeSkillOut)="getCmsData($event)"></app-casey-assessment>
+<app-self-sufficiency-matrix *ngIf="isSelfMatric" (selfMatrixOut)="getCmsData($event)"></app-self-sufficiency-matrix>
+
+<!-- SFCS Office(RFC) -->
+<app-disability-consulatation-referral-form *ngIf="isDisabCons" (disablConsOut)="getCmsData($event)"></app-disability-consulatation-referral-form>
+
+<!-- FP referral event -->
+<app-pps5002 *ngIf="isPpsFp" (ppsOut)="getCmsData($event)"></app-pps5002>
+
+<!-- Case Plan Goals (FP) -->
+<app-custody-case-planning-conference *ngIf="caseCustody" (caseCusOut)="getCmsData($event)"></app-custody-case-planning-conference>
+<app-intro-and-parents-guide *ngIf="isIntroParent" (introParOut)="getCmsData($event)"></app-intro-and-parents-guide>
+<app-pps3051-permananency-plan *ngIf="isPpsPerman" (ppsPermOut)="getCmsData($event)"></app-pps3051-permananency-plan>
+<app-administrative-requirements *ngIf="isAdminReq" (adminReqOut)="getCmsData($event)"></app-administrative-requirements>
+<app-visitation-schedule *ngIf="isVisitationScl" (visiSchOut)="getCmsData($event)"></app-visitation-schedule>
+<app-permanency-plan-review *ngIf="isPermPlanRev" (permPlanRevOut)="getCmsData($event)"></app-permanency-plan-review>
+<app-service-and-service-code *ngIf="isServices" (serviceOut)="getCmsData($event)"></app-service-and-service-code>
+<app-permanency-plan-checklist *ngIf="isPerPlanCheck" (perPlanCheckOut)="getCmsData($event)"></app-permanency-plan-checklist>
+<app-family-service-preservation-plan *ngIf="familyPreServ" (famSerPreOut)="getCmsData($event)"></app-family-service-preservation-plan>
+
+<!-- Case PLan goals RFC -->
+<app-permanency-plan *ngIf="isPerPlanCasePlan" (perPlanRfcOut)="getCmsData($event)"></app-permanency-plan>
+<app-caseplan-needing-scheduled *ngIf="isCasePlanNeed" (casePlanNeedOut)="getCmsData($event)"></app-caseplan-needing-scheduled>
+<app-notice-child-custody-caseplan *ngIf="isNoticeCasePlan" (noticeCaseOut)="getCmsData($event)"></app-notice-child-custody-caseplan>
+<app-visitation-schedule *ngIf="isNoticeCasePlan" (visiSchOut)="getCmsData($event)"></app-visitation-schedule>
+<app-parent-child-interaction *ngIf="isParentChildInt" (parChildIntOut)="getCmsData($event)"></app-parent-child-interaction>
+<app-family-safety-plan-reintegration *ngIf="isFamSafetyReint" (famSafetyReintOut)="getCmsData($event)"></app-family-safety-plan-reintegration>
+<app-kinship-visitation-plan *ngIf="isKinVisPlan" (kinVisPlanOut)="getCmsData($event)"></app-kinship-visitation-plan>
+<app-kyac *ngIf="isKyac" (kyacOut)="getCmsData($event)"></app-kyac>
+
+<!-- Court Order FP -->
+<app-court-report-correspondence *ngIf="isCourteRepCorr" (courtRepCorrOut)="getCmsData($event)"></app-court-report-correspondence>
+<app-court-report *ngIf="isCourtRepFp" (courtRepFpOut)="getCmsData($event)"></app-court-report>
+
+<!-- Court Orders RFC -->
+<app-achievement-plan *ngIf="isAchPlan" (achPlanOut)="getCmsData($event)"></app-achievement-plan>
+<app-addendum-court-report *ngIf="isAddentum" (addentumOut)="getCmsData($event)"></app-addendum-court-report>
+<app-self-sufficiency-plan *ngIf="isCourtRepRfc" (selfSuffOut)="getCmsData($event)"></app-self-sufficiency-plan>
+<app-dd-contact-sheet *ngIf="isDDContact"></app-dd-contact-sheet>
+<app-dd-report-alleged-father *ngIf="isAllegedFather" (ddAllegFathOut)="getCmsData($event)"></app-dd-report-alleged-father>
+<app-dd-report-father-unknown *ngIf="isFatherUnknown" (ddFathUnknownOut)="getCmsData($event)"></app-dd-report-father-unknown>
+<app-dd-report-father *ngIf="isFatherSedwick" (ddFathSedwickOut)="getCmsData($event)"></app-dd-report-father>
+<app-dd-report-maternal-grandparent *ngIf="isMatenalGrand" (ddMaternalOut)="getCmsData($event)"></app-dd-report-maternal-grandparent>
+<app-dd-report-mother *ngIf="isMother" (ddRepMotherOut)="getCmsData($event)"></app-dd-report-mother>
+<app-dd-report-paternal-grandparent *ngIf="isPaternalGrand" (paternalGrandOut)="getCmsData($event)"></app-dd-report-paternal-grandparent>
+<app-points-of-serverance *ngIf="isPointsOfServerance" (pointsServOut)="getCmsData($event)"></app-points-of-serverance>
+<app-reintegration-plan *ngIf="isReintPlan" (reintPlanOut)="getCmsData($event)"></app-reintegration-plan>
+<app-relinquishment-of-minor-child-agency *ngIf="isRelinquish" (relinquishOut)="getCmsData($event)"></app-relinquishment-of-minor-child-agency>
+<app-review-hearing-exhibit *ngIf="isReviewHear" (revHearOut)="getCmsData($event)"></app-review-hearing-exhibit>
+<app-visitation-court-report *ngIf="isVisitCourt" (visitCourtOut)="getCmsData($event)"></app-visitation-court-report>
+
+<!-- Assessment FP -->
+
+<p-dialog header="Initial Family Assessment" [(visible)]="initialFam" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}"
+  [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+  <app-initial-family-assessment *ngIf="initialFam" (intiFamilyOut)="getCmsData($event)"></app-initial-family-assessment>
+</p-dialog>
+
+
+
+
+
+<app-mental-health-assessment-by-therapist-and-family *ngIf="isMentalHealth" (mhaFormOut)="getCmsData($event)"></app-mental-health-assessment-by-therapist-and-family>
+<app-progress-report *ngIf="isProgRep" (prFormOut)="getCmsData($event)"></app-progress-report>
+<app-family-safety-plan *ngIf="isFamSafetyPlan" (famSafOut)="getCmsData($event)"></app-family-safety-plan>
+<app-plan-of-safe-care *ngIf="isPlanOfSafe" (planOfSafeOut)="getCmsData($event)"></app-plan-of-safe-care>
+<app-domestic-violence-screening *ngIf="isDomesticVio" (domVioOut)="getCmsData($event)"></app-domestic-violence-screening>
+<app-non-custodial-parent-assessment *ngIf="isNonCus" (nonCusOut)="getCmsData($event)"></app-non-custodial-parent-assessment>
+<app-non-custodial-parent-iced-worksheet *ngIf="isNonCusIced" (nonCusIcedOut)="getCmsData($event)"></app-non-custodial-parent-iced-worksheet>
+<app-treatment-plan-update *ngIf="isTreatPlan" (treatPlanOut)="getCmsData($event)"></app-treatment-plan-update>
+<app-change-of-status-form *ngIf="isChangeOfStat" (changeOfStatOut)="getCmsData($event)"></app-change-of-status-form>
+<app-progress-report *ngIf="isProgrRepAssess" (prFormOut)="getCmsData($event)"></app-progress-report>
+<app-assessment-checklist *ngIf="isAssessCheck" (assessCheckOut)="getCmsData($event)"></app-assessment-checklist>
+<app-epds *ngIf="isEpds" (epdsOut)="getCmsData($event)"></app-epds>
+<app-missing-child-questionaire *ngIf="isMissingChild" (missingChildOut)="getCmsData($event)"></app-missing-child-questionaire>
+<app-therapy-discharge *ngIf="isTheDisAssess" (therDiscOut)="getCmsData($event)"></app-therapy-discharge>
+<app-treatment-plan-update *ngIf="isTreatPlanAssess" (treatPlanOut)="getCmsData($event)"></app-treatment-plan-update>
+
+<!-- Assessment RFC -->
+<app-departure-checklist *ngIf="isDeptCheck" (deptCheckOut)="getCmsData($event)"></app-departure-checklist>
+<app-caregiver-response-tool *ngIf="isCareGiveResp" (careGiveOut)="getCmsData($event)"></app-caregiver-response-tool>
+<app-child-and-family-profile *ngIf="isChildFam" (childFamProfOut)="getCmsData($event)"></app-child-and-family-profile>
+<app-decision-making-functional-assessment *ngIf="isDecMakFuncAss" (decMakFunOut)="getCmsData($event)"></app-decision-making-functional-assessment>
+<app-human-trafficking-child-welfare *ngIf="isHumanTrack" (humanTrackOut)="getCmsData($event)"></app-human-trafficking-child-welfare>
+<app-icwa *ngIf="isIcwa" (icwaOut)="getCmsData($event)"></app-icwa>
+<app-informal-care-referral *ngIf="isInformCare" (inforCareOut)="getCmsData($event)"></app-informal-care-referral>
+<app-initial-placement-screening-tool *ngIf="isInitPlacScreen" (iniPlaceScrOut)="getCmsData($event)"></app-initial-placement-screening-tool>
+<app-initial-screening-tool *ngIf="isIniScreenTool" (iniScreenOut)="getCmsData($event)"></app-initial-screening-tool>
+<app-maternal-paternal-relative *ngIf="isMatPatRel" (matPatRelOut)="getCmsData($event)"></app-maternal-paternal-relative>
+<app-medical-genetic-info *ngIf="isMedGenInfo" (medGenInfOut)="getCmsData($event)"></app-medical-genetic-info>
+<app-medically-fragile-scoring-tool *ngIf="isMedFragTool" (medFragOut)="getCmsData($event)"></app-medically-fragile-scoring-tool>
+<app-rehabilation-service-referral *ngIf="isRehService" (rehServOut)="getCmsData($event)"></app-rehabilation-service-referral>
+<app-family-pres-service *ngIf="isFamPreService" (famSerOut)="getCmsData($event)"></app-family-pres-service>
+<app-kinship-assessment-service *ngIf="isKinAssess" (kinsAssOut)="getCmsData($event)"></app-kinship-assessment-service>
+<app-mental-health *ngIf="isMentalHealthAssRfc" (mentalHealthAssOut)="getCmsData($event)"></app-mental-health>
+<app-sibling-separation-staffing *ngIf="isSibSep" (sibSepOut)="getCmsData($event)"></app-sibling-separation-staffing>
+<app-social-history *ngIf="isSociHist" (socHistOut)="getCmsData($event)"></app-social-history>
+<app-social-emotional-screening-tool *ngIf="isSociEmoTol" (socEmoScrOut)="getCmsData($event)"></app-social-emotional-screening-tool>
+<app-suicide-risk-assessment *ngIf="isSuiRiskAssess" (suicideRiskOut)="getCmsData($event)"></app-suicide-risk-assessment>
+<app-worker-child-quality-checklist *ngIf="isWorkChild" (workChildOut)="getCmsData($event)"></app-worker-child-quality-checklist>
+<app-worker-parent-quality-checklist *ngIf="isWorkParent" (workParOut)="getCmsData($event)"></app-worker-parent-quality-checklist>
+<app-xtreme-kinship-recruitment *ngIf="isXtremKin" (xtrKinOut)="getCmsData($event)"></app-xtreme-kinship-recruitment>
+<!-- <app-new-referral-packet-10.20.17 *ngIf="isNewPacket"></app-new-referral-packet-10.20.17> -->
+<app-permanency-plan-desk-review *ngIf="isPermPlanDeskRev" (perPlanDeskRevOut)="getCmsData($event)"> </app-permanency-plan-desk-review>

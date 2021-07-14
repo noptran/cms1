@@ -1,0 +1,503 @@
+<app-form-header *ngIf="isSchoolNode" [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+
+<div [ngClass]="(isSchoolNode)?'container-background':'dialog-school'">
+  <div [ngClass]="(isSchoolNode)?'container-foreground':'dialog-school-foreground'">
+    <div *ngIf="isOpenCardsVisible" class="row">
+      <div class="col-lg-2 col-md-2 col-sm-2">
+        <div class="card-header-row">
+          <div class="opencard-menu-container rfcOpencard">
+            <div class="dropdown border-none">
+              <span class="fa fa-th opencard-menu" data-toggle="dropdown" pTooltip="OpenCards"></span>
+              <div class="dropdown-menu opencard-box">
+                <div class="card-container">
+                  <div class="opencard" pTooltip="Click here to open" (click)=navigateTo(item.title)
+                    *ngFor="let item of refcOpencards">
+                    <div class="opencard-info">
+                      <span class="title">{{item.title}}</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <form [formGroup]="schoolForm" class="sf-form">
+      <nav class="nav-fill">
+        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link" *ngFor="let main of mainTabs;let i = index" [class.active]="sIndex  === i"
+            (click)="setIndex(i,$event)" data-toggle="tab" href="{{main.href}}" role="tab">{{main.label}}</a>
+        </div>
+      </nav>
+
+      <div class="tab-content padding-15 nav-content" id="nav-tabContent">
+        <div class="tab-pane margin-left-45  active in inner-scroll" id="nav-school-info" role="tabpanel"
+          aria-labelledby="nav-general-tab">
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+
+              <label>School Name</label>
+
+              <textarea [(ngModel)]="schoolInfo.schoolName" formControlName="schoolName" class="sf-width-100"
+                rows="2"></textarea>
+
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 form-al">
+
+              <span>USD Name</span>
+
+              <!-- <input [(ngModel)]="schoolInfo.usd" formControlName="usd" type="text" class="input" pInputText
+                  size="27" /> -->
+              <div class="row">
+                <div class="col-md-8">
+                  <p-autoComplete formControlName="usd" emptyMessage="No results found!"
+                    placeholder="Type here to search" [forceSelection]="true" [dropdown]="true"
+                    [(ngModel)]="schoolInfo.usd" (onSelect)="USD_id_Change($event)" size="23" name="usd"
+                    (completeMethod)="getScholls_Name($event)" [suggestions]="usdNames" field="usdName">
+                  </p-autoComplete>
+                </div>
+                <div class="col-md-4">
+                  <button (click)="addUSdTab('add')" [disabled]="isEditControl" style="    width: 18%;
+                  height: 74%;
+                  background: white;
+                  border: 2px solid gray;margin-right: 10px;">
+                    <i class="fa fa-plus" pTooltip="Add" aria-hidden="true" style="
+              color: #026502;margin-right: 10px;"></i>
+                  </button>
+                  <button (click)="addUSdTab('edit')" *ngIf="usd_data.usdID" [disabled]="isEditControl" style="    width: 18%;
+                  height: 74%;
+                  background: white;
+                  border: 2px solid gray;">
+                    <i class="fa fa-edit" aria-hidden="true" pTooltip="Edit" style="
+    color: #00558e;
+    margin-right: 10px;"></i>
+                  </button>
+
+
+
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <h5>
+                <b>ESSA Point of Contact Information</b>
+              </h5>
+            </div>
+
+          </div>
+          <div class="row">
+
+            <div class="col-md-4">
+              <div>Name</div>
+              <p class="readOnlyStyle">{{nameOfEssa}}</p>
+            </div>
+            <div class="col-md-4">
+              <div>Email</div>
+              <p class="readOnlyStyle">{{emailOfEssa}}</p>
+            </div>
+            <div class="col-md-4">
+              <div>Phone</div>
+              <p class="readOnlyStyle">{{PhoneOfEssa}}</p>
+            </div>
+
+          </div>
+          <div class="margin-top-20 row">
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Building #</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input [(ngModel)]="schoolInfo.buildingNumber" formControlName="buildingNumber" type="text" class="input"
+                pInputText size="27" />
+
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Begin Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar [(ngModel)]="schoolInfo.beginDate" formControlName="beginDate" [showIcon]="true"
+                [showIcon]="true" [yearNavigator]="true" [monthNavigator]="true" yearRange="1930:2030"></p-calendar>
+
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>End Date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar [(ngModel)]="schoolInfo.endDate" formControlName="endDate" [showIcon]="true" [showIcon]="true"
+                [yearNavigator]="true" [monthNavigator]="true" yearRange="1930:2030"></p-calendar>
+
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Address</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input [(ngModel)]="schoolInfo.address" formControlName="address" type="text" class="input" pInputText
+                size="27" />
+
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Private School</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-checkbox [(ngModel)]="schoolInfo.isPrivate" formControlName="isPrivate" binary="true">
+              </p-checkbox>
+
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Multi-State</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-checkbox [(ngModel)]="schoolInfo.isMultiState" formControlName="isMultiState" binary="true">
+              </p-checkbox>
+            </div>
+
+          </div>
+
+          <div class="margin-top-20 row">
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>City</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+
+              <p-autoComplete name="cityID" placeholder="Type here to search" emptyMessage="No records found!"
+                [suggestions]="metaData" field="city" (completeMethod)="getMetaData($event,'city')"
+                [(ngModel)]="schoolInfo.cityID" formControlName="cityID" [dropdown]="true" [forceSelection]="true">
+              </p-autoComplete>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>State</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+
+              <p-autoComplete name="stateID" placeholder="Type here to search" emptyMessage="No records found!"
+                (completeMethod)="getMetaData($event,'state')" field="state" [suggestions]="metaData"
+                [(ngModel)]="schoolInfo.stateID" formControlName="stateID" [dropdown]="true" [forceSelection]="true">
+              </p-autoComplete>
+            </div>
+
+          </div>
+
+          <div class="margin-top-20 row">
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Zip</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+
+              <p-autoComplete emptyMessage="No records found!" placeholder="Type here to search"
+                (completeMethod)="getZipcodes()" (onSelect)="onZipcodeSelect($event)" field="zipcode"
+                [suggestions]="zipcodeSuggestions" [(ngModel)]="schoolInfo.zipcodeID" formControlName="zipcodeID"
+                [dropdown]="true" [forceSelection]="true">
+              </p-autoComplete>
+
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>County</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete [disabled]="true" field="countyName" [(ngModel)]="schoolInfo.countyID"
+                formControlName="countyID" class="low-option-autos" [dropdown]="true" [forceSelection]="true">
+              </p-autoComplete>
+
+            </div>
+          </div>
+
+
+          <div class="margin-top-20 row">
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Phone</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input [(ngModel)]="schoolInfo.phone" formControlName="phone" type="text" class="input" pInputText
+                size="27" />
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Fax</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <input [(ngModel)]="schoolInfo.fax" formControlName="fax" type="text" class="input" pInputText
+                size="27" />
+            </div>
+
+          </div>
+          <div>
+            <span class="sf-labels">
+              Notes
+            </span>
+            <textarea [(ngModel)]="schoolInfo.notes" formControlName="notes" class="sf-width-100" rows="5"></textarea>
+          </div>
+        </div>
+        <div class="tab-pane margin-left-45 inner-scroll" id="nav-other-info" role="tabpanel"
+          aria-labelledby="nav-specific-tab">
+          <div class="row margin-top-20">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <span class="sf-labels text-bold">
+                  Principal Information
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>First Name</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input [(ngModel)]="schoolInfo.principal_FirstName" formControlName="principal_FirstName" type="text"
+                  class="input" pInputText size="27" />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Last Name</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input [(ngModel)]="schoolInfo.principal_LastName" formControlName="principal_LastName" type="text"
+                  class="input" pInputText size="27" />
+              </div>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>MI</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input [(ngModel)]="schoolInfo.principal_MI" formControlName="principal_MI" type="text" class="input"
+                  pInputText size="27" />
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row margin-top-20">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <span class="sf-labels text-bold">
+                  Vice-Principal Information
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>First Name</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input [(ngModel)]="schoolInfo.vicePrincipal_FirstName" formControlName="vicePrincipal_FirstName"
+                  type="text" class="input" pInputText size="27" />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Last Name</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input [(ngModel)]="schoolInfo.vicePrincipal_LastName" formControlName="vicePrincipal_LastName"
+                  type="text" class="input" pInputText size="27" />
+              </div>
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>MI</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input [(ngModel)]="schoolInfo.vicePrincipal_MI" formControlName="vicePrincipal_MI" type="text"
+                  class="input" pInputText size="27" />
+              </div>
+            </div>
+
+          </div>
+          <div class="row margin-top-20">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <span class="sf-labels text-bold">
+                  Nurse Information
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>First Name</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input [(ngModel)]="schoolInfo.nurse_FirstName" formControlName="nurse_FirstName" type="text"
+                  class="input" pInputText size="27" />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Last Name</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input [(ngModel)]="schoolInfo.nurse_LastName" formControlName="nurse_LastName" type="text"
+                  class="input" pInputText size="27" />
+              </div>
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>MI</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input [(ngModel)]="schoolInfo.nurse_MI" formControlName="nurse_MI" type="text" class="input" pInputText
+                  size="27" />
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row margin-top-20">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <span class="sf-labels text-bold">
+                  School Point of Contact
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Name</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <input [(ngModel)]="schoolInfo.ESSAPointOfContact" formControlName="ESSAPointOfContact" type="text"
+                  class="input" pInputText size="27" />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Email</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <textarea [(ngModel)]="schoolInfo.registrarEmail" formControlName="registrarEmail" class="sf-width-100"
+                  rows="2"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="margin-top-20 row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <span>Do Not Send to POC</span>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <p-checkbox [(ngModel)]="schoolInfo.isDoNotSendToPOC" formControlName="isDoNotSendToPOC" binary="true">
+                </p-checkbox>
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+      </div>
+    </form>
+
+    <app-form-footer [editControll]="isEditControl" (edit)="editForm()" [currentNodeValue]="req"
+      (save)="formAction(schoolInfo)" [discardTo]="discardTo" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+    </app-form-footer>
+
+  </div>
+</div>
+<p-dialog [draggable]="true" [contentStyle]="{'min-width':'44rem','height':'unset'}" header="Add USD"
+  [(visible)]="isVisible" [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="999" [closable]="true">
+  <form class="sf-form form-al">
+    <div class="row">
+      <div class="col-md-6">
+        <div>USD Number <span class="mandatory">*</span></div>
+        <input [(ngModel)]="usd_data.usd" name="usd" type="text" class="input" pInputText size="27" />
+      </div>
+      <div class="col-md-6">
+        <div>USD Name <span class="mandatory">*</span></div>
+        <input [(ngModel)]="usd_data.usdName" name="usdname" type="text" class="input" pInputText size="27" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div>Contact Name</div>
+        <input [(ngModel)]="usd_data.contactName" name="contactName" type="text" class="input" pInputText size="27" />
+      </div>
+      <div class="col-md-6">
+        <div>Contact Email</div>
+        <input [(ngModel)]="usd_data.contactEmail" name="contactEmail" type="text" class="input" pInputText size="27" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div>Superintendent</div>
+        <input [(ngModel)]="usd_data.superintendent" name="superintendent" type="text" class="input" pInputText
+          size="27" />
+      </div>
+      <div class="col-md-6">
+        <div>Superintendent Email</div>
+        <input [(ngModel)]="usd_data.superintendentEmail" name="superintendentEmail" type="text" class="input"
+          pInputText size="27" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div>Phone</div>
+        <input [(ngModel)]="usd_data.phone" name="phone" type="text" class="input" pInputText size="27" />
+      </div>
+    </div>
+    <hr>
+    <button class="sf-negative-btn pull-right" (click)="cancelUsd()" style="width: 104.1px;">
+      Cancel
+    </button>
+    <button class="sf-positive-btn pull-right" (click)="add_usd_data()">
+      {{buttonLabel}}
+    </button>
+  </form>
+</p-dialog>
+<!-- <p-dialog [draggable]="true" [contentStyle]="{'min-width':'106rem','height':'unset'}" header="List View"
+  [(visible)]="isListViewVisible" [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="999" [closable]="true">
+  <app-opecards-list-view *ngIf="isListViewVisible"></app-opecards-list-view>
+</p-dialog> -->

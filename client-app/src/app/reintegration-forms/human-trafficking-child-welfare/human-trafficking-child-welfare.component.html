@@ -1,0 +1,660 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="humanTraffickingForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="logo">
+        <img src="assets/kansas.png" alt="">
+      </div>
+      <div class="logo">
+        <img src="assets/kvc.png" alt="">
+      </div>
+    </div>
+    <p>
+      <span class="bold"> Directions to interviewer:</span> It is important to make the client feel as safe as possible. Make sure that you ask
+      questions at a pace that feels comfortable for the client and take breaks as needed. Avoid referring to the client
+      as the “victim” or using terminology that the client might not be familiar with. Remind the person that you are there
+      to help and want to make sure they are safe. Adjust the order of the questions if needed and revisit questions if you
+      need to skip over any. Questions are to be asked to the child.
+      <u> NEVER give the assessment to the child to complete on their own.</u> Please include any collateral (admissions staff,
+      law enforcement, etc.) information in the assessment responses.
+    </p>
+    <p>Special considerations prior to conducting the assessment:</p>
+    <ol>
+      <li>Talk with Law Enforcement before meeting with child to obtain all information and input possible.</li>
+      <ol type="a">
+        <li>Any information you’re able to obtain and not ask the child is helpful.</li>
+      </ol>
+      <li>Conditions</li>
+      <ol type="a">
+        <li>Everything possible should be done to put child at ease, comfortable furniture, asking child is they are hungry or
+          thirsty, in need of a toilet, etc.</li>
+        <li>
+          When possible, the Interviewer should be of the same sex as the child and speak the child’s preferred language.
+        </li>
+      </ol>
+      <li>Introduction</li>
+      <ol type="a">
+        <li>Introduce yourself and explain your role.</li>
+        <li>
+          Make sure child feels comfortable and secure.
+        </li>
+        <li>Elaborate on the purpose of why we are there and what we are to do.</li>
+        <li>State “We are here to meet with you because there was a concern that you may be in an unsafe situation. We also want
+          to make sure that you know how to get a hold of someone if you need help in the future” Provide brochure/contact
+          info to child including the PRC hotline number. </li>
+        <li>
+          Ask about whether child is experiencing any physical pain or discomfort or needs immediate medical attention.
+        </li>
+      </ol>
+      <li>Explanation</li>
+      <ol type="a">
+        <li>Explain how the information gathered will be used</li>
+        <li>
+          Discuss how some of questions asked may be upsetting or painful and that you will pause and take a break when needed. Remind
+          him/her that they can take their time in answering
+        </li>
+      </ol>
+      <li>Last steps before beginning</li>
+      <ol type="a">
+        <li>Establish a rapport by talking about or doing things that are NOT related to the trafficking experience (e.g. things
+          the child is familiar with, play games, etc.)</li>
+        <li>
+          Monitor child’s non verbal communication as indication of fear or anxiety or acute tiredness. If this is notes, interview
+          should be suspended or terminated.
+        </li>
+      </ol>
+      <li>Opportunity</li>
+      <ol type="a">
+        <li>Use this opportunity to educate and raise awareness of human trafficking.</li>
+      </ol>
+    </ol>
+    <h3 class="bold center">CHILD WELFARE HUMAN TRAFFICKING RAPID RESPONSE TEAM ASSESSMENT OVERVIEW </h3>
+    <p>(Complete at end of interview with child and leave copy with law enforcement)</p>
+    <div class="flex-container space-down space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Child’s Name: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reHumanTrafficking.ChildName" formControlName="ChildName" name="ChildName" type="text" pInputText size="20"
+          />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">DOB: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reHumanTrafficking.Dob" formControlName="Dob" name="Dob" [inputStyle]="{'width':'170px'}" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Gender:</div>
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsMale" formControlName="IsMale" name="IsMale" class="space-right"></p-checkbox>M
+        </div>
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsFemale" formControlName="IsFemale" name="IsFemale" class="space-right"></p-checkbox>F
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Race: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reHumanTrafficking.Race" formControlName="Race" name="Race" type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date of Referral from Law Enforcement: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reHumanTrafficking.DateOfReferral" formControlName="DateOfReferral" name="DateOfReferral" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">DCF Region: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reHumanTrafficking.Region" formControlName="Region" name="Region" type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Time of Referral from Law Enforcement:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reHumanTrafficking.TimeOfReferral" formControlName="TimeOfReferral" name="TimeOfReferral" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [timeOnly]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">County where Law Enforcement Located Child: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reHumanTrafficking.County" formControlName="County" name="County" type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">State where Law Enforcement Located Child:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reHumanTrafficking.EnforcementLocated" formControlName="EnforcementLocated" name="EnforcementLocated"
+            type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">State of Residence: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reHumanTrafficking.State" formControlName="State" name="State" type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Date Assessment Completed:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reHumanTrafficking.DateAssessment" formControlName="DateAssessment" name="DateAssessment" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Time Assessment Completed: </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reHumanTrafficking.TimeAssessment" formControlName="TimeAssessment" name="TimeAssessment" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [timeOnly]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">HT Involvement:</div>
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsHtYes" formControlName="IsHtYes" name="IsHtYes" class="space-right"></p-checkbox>Yes
+        </div>
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsHtNo" formControlName="IsHtNo" name="IsHtNo" class="space-right"></p-checkbox>No
+        </div>
+      </div>
+    </div>
+    <p class="bold">RAPID RESPONSE RECOMMENDATIONS:</p>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.isStaffSecure" formControlName="isStaffSecure" name="isStaffSecure"
+        class="space-right"></p-checkbox>Staff secure
+    </div>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.isMhScreen" formControlName="isMhScreen" name="isMhScreen" class="space-right"></p-checkbox>MH screen
+    </div>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.isFamily" formControlName="isFamily" name="isFamily" class="space-right"></p-checkbox>Family
+    </div>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.isFoster" formControlName="isFoster" name="isFoster" class="space-right"></p-checkbox>Foster home/NR kin/Relative
+    </div>
+    <div class="space-down">
+      <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.isEmergency" formControlName="isEmergency" name="isEmergency" class="space-right"></p-checkbox>Emergency Shelter
+    </div>
+    <p>Placement Recommendation </p>
+    <div class="space-right space-down">
+      <div class="space-right space-down">Explanation</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reHumanTrafficking.PlacementExplanation" formControlName="PlacementExplanation" name="PlacementExplanation"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Service Recommendations (Physical/MH):</div>
+      <div class="space-right">
+        <input [(ngModel)]="reHumanTrafficking.ServiceRecommendations" formControlName="ServiceRecommendations" name="ServiceRecommendations"
+          type="text" pInputText size="20" />
+      </div>
+    </div>
+    <p class="bold">RAPID RESPONSE OUTCOME:</p>
+    <p>(completed post assessment by designated agency staff)</p>
+    <div class="flex-container space-down space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Placement Outcome: </div>
+        <div class="space-right">
+          <input [(ngModel)]="reHumanTrafficking.PlacementOutcome" formControlName="PlacementOutcome" name="PlacementOutcome" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Service Outcome:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reHumanTrafficking.ServiceOutcome" formControlName="ServiceOutcome" name="ServiceOutcome" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <p class="bold">OTHER:</p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name/Address of Parent/Legal Guardian (if known by child):</div>
+      <div class="space-right">
+        <input [(ngModel)]="reHumanTrafficking.AddressOfParent" formControlName="AddressOfParent" name="AddressOfParent" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-down">
+        <input [(ngModel)]="reHumanTrafficking.PrintedName" formControlName="PrintedName" name="PrintedName" type="text" pInputText
+          size="20" />
+      </div>
+      <div class="space-down">Printed Name of Person Completing Assessment & Credentials
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reHumanTrafficking.Signature" formControlName="Signature" name="Signature" type="text" pInputText size="20"
+          />
+        </div>
+        <div class="space-down">Signature
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="reHumanTrafficking.Date" formControlName="Date" name="Date" [inputStyle]="{'width':'170px'}" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Child’s Name:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reHumanTrafficking.SignChildName" formControlName="SignChildName" name="SignChildName" type="text" pInputText
+            size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">DOB:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reHumanTrafficking.Dob1" formControlName="Dob1" name="Dob1" [inputStyle]="{'width':'170px'}" showTime="true"
+            hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <p class="bold">SAFETY</p>
+    <div class="space-right space-down">
+      <div class="space-right space-down">DO YOU FEEL SAFE RIGHT NOW? (If yes, why? If no, why? Is there anything I can do to help you feel safe as we talk?)</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reHumanTrafficking.SafeRight" formControlName="SafeRight" name="SafeRight" pInputTextarea autoResize="autoResize"
+          rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">HAVE THERE BEEN TIMES WHEN YOU DIDN’T FEEL SAFE? (If yes, when, with who and where? If no, what does it mean to feel
+        safe? How do you know if you feel safe? Who makes you feel safe? What does that person/people do or not do that makes
+        you feel safe?)</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reHumanTrafficking.NotSafeRight" formControlName="NotSafeRight" name="NotSafeRight" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">HAVE YOU EVER RUN AWAY FROM HOME/CAREGIVER? (If yes, why had you decided to run? What do you think would keep you from
+        running? How is life [better/worse/different] on the run? If no, can you explain your current living situation? If
+        given the choice, where do you want to go and live right now?)</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reHumanTrafficking.RunAway" formControlName="RunAway" name="RunAway" pInputTextarea autoResize="autoResize"
+          rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">HAS THIS EVER HAPPENED TO YOU OR SOMEONE YOU KNOW – USE OF THREAT OR INTIMIDATION? (If yes, who, when where and how?
+        If no, what is your definition of someone being threatening or intimidating?)
+      </div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reHumanTrafficking.Intimidation" formControlName="Intimidation" name="Intimidation" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">HAS THIS EVER HAPPENED TO YOU OR SOMEONE YOU KNOW – PRESSURE TO DO SOMETHING THAT YOU DIDN’T WANT TO DO OR FELT UNCOMFORTABLE
+        DOING? (If yes, when, where, how and with who? If no, what would it look like if someone was pressuring you to do
+        something you didn’t want to do?)</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reHumanTrafficking.Pressure" formControlName="Pressure" name="Pressure" pInputTextarea autoResize="autoResize"
+          rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">HAS THIS EVER HAPPENED TO YOU OR SOMEONE YOU KNOW – BEEN ASKED TO HAVE SEX OR PERFORM OTHER SEX ACTS AS PAYMENT FOR
+        DRUGS OR A PLACE TO STAY? (If yes, with whom, where, when, etc.? Are you currently using drugs? If no, do you know
+        anyone who has ever been asked to do that?)</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reHumanTrafficking.PaymentForDrugs" formControlName="PaymentForDrugs" name="PaymentForDrugs" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down space-between">
+      <div class="flex-container space-right space-down">
+        <div class="space-right">Child’s Name:</div>
+        <div class="space-right">
+          <input [(ngModel)]="reHumanTrafficking.SafetyChildName" formControlName="SafetyChildName" name="SafetyChildName" type="text"
+            pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right space-down">
+        <div class="space-right">DOB:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="reHumanTrafficking.SafetyDob" formControlName="SafetyDob" name="SafetyDob" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">HAS THIS EVER HAPPENED TO YOU OR SOMEONE YOU KNOW – FORCED PHYSICALLY OR SEXUALLY TO DO SOMETHING THAT YOU DIDN’T FEEL
+        COMFORTABLE DOING? (Please explain)</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reHumanTrafficking.ForcedPhysically" formControlName="ForcedPhysically" name="ForcedPhysically" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">HAS THIS EVER HAPPENED TO YOU OR SOMEONE YOU KNOW –PHYSICAL ABUSE (shoved, slapped, hit, kicked, scratched, punched,
+        burned, etc.) BY ANYONE?</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reHumanTrafficking.PhysicalAbuse" formControlName="PhysicalAbuse" name="PhysicalAbuse" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">HAS THIS EVER HAPPENED TO YOU OR SOMEONE YOU KNOW – HAVE A BOYFRIEND/PIMP/ CONTROLLER? (If yes, how did you meet your
+        [boyfriend/pimp/controller]? Did your [boyfriend/pimp/controller] have a nickname, street name or alias? Did the
+        [boyfriend/pimp/controller] move you around to different locations? If so, how did you travel? How often? Do you
+        want to continue to be in a relationship with your [boyfriend/pimp/controller]? Do you think he/she will be looking
+        for you?)</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reHumanTrafficking.Relationship" formControlName="Relationship" name="Relationship" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">HAVE YOU EVER THOUGHT ABOUT OR ATTEMPTED TO SERIOUSLY HURT OF KILL YOURSELF OR SOMEONE ELSE? (If yes, please explain.
+        Do you have any of these kinds of thoughts now? Do you have a plan? How would you do it? Where would you do it? On
+        a scale of 1-10 [1 not thinking about it and 10 ready to do it] where are you now? Where were you last week? Where
+        were you a month ago? What has/hasn’t changed? What could change to have you feel differently?) Utilize agency Suicide
+        Risk Screen.</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reHumanTrafficking.KillYourself" formControlName="KillYourself" name="KillYourself" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <p class="bold">SERVITUDE</p>
+    <div class="space-right space-down">
+      <div class="space-right space-down">HAS THIS EVER HAPPENED TO YOU OR SOMEONE YOU KNOW –SOMEONE EVER CONTROLLED WHERE YOU COULD GO OR WATCHED/CHECKED UP
+        ON YOU TO A POINT THAT MADE YOU FEEL UNCOMFORTABLE? IF YES, PLEASE EXPLAIN. (What did you think would have happened
+        if you left the situation? Was there ever a time when you wanted to leave, but felt that you couldn’t? What do you
+        think would have happened if you left without telling anyone?)
+      </div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reHumanTrafficking.Servitude" formControlName="Servitude" name="Servitude" pInputTextarea autoResize="autoResize"
+          rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <p class="bold">SEX TRAFFICKING</p>
+    <div class="space-right space-down">
+      <div class="space-right space-down">HAS THIS EVER HAPPENED TO YOU OR SOMEONE YOU KNOW –PHOTOS TAKEN AND SENT TO OTHER PEOPLE OR POSTED ON AN ONLINE FORUM
+        (Craigslist, Backpage, Myspace, Facebook)?</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reHumanTrafficking.SexTrafficking" formControlName="SexTrafficking" name="SexTrafficking" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">HAS ANYONE EVER ASKED YOU TO ENGAGE IN SEXUAL ACTS WITH FRIENDS OR ASSOCIATES? (If yes, who, when where and how? How
+        old were you when you were in this situation? Did you ever see any minors [under 18 years old] involved in providing
+        sex for money?)</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reHumanTrafficking.SexTraffickingEngage" formControlName="SexTraffickingEngage" name="SexTraffickingEngage"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="space-right space-down">
+      <div class="space-right space-down">HAS ANYONE EVER INTRODUCED YOU TO OR FORCED YOU TO USE ALCOHOL OR DRUGS? (If yes, explain.)</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reHumanTrafficking.SexTraffickingDrugs" formControlName="SexTraffickingDrugs" name="SexTraffickingDrugs"
+          pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <p class="bold">LABOR TRAFFICKING</p>
+    <div class="space-right space-down">
+      <div class="space-right space-down">HAVE YOU EVER BEEN FORCED TO WORK AT A JOB SITE [WITH OR WITHOUT YOUR PARENT/CAREGIVER]? (Did you get paid for your
+        work? If so, were you paid what you were told you would be paid? What were your normal work hours? How many hours
+        did you have to work each day? What happened if you worked fewer hours or took breaks? Did anyone ever threaten you
+        if you indicated you did not want to work the hours expected of you?)</div>
+      <div class="space-right">
+        <textarea [(ngModel)]="reHumanTrafficking.LaborTrafficking" formControlName="LaborTrafficking" name="LaborTrafficking" pInputTextarea
+          autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div>
+      <img src="assets/ref.png" alt="">
+    </div>
+    <div class="space-down">
+      <table class="table-td">
+        <tr>
+          <th class="table-td" width="10%"></th>
+          <th class="table-td" width="70%"></th>
+          <th class="table-td" width="10%">Yes</th>
+          <th class="table-td" width="10%">No</th>
+        </tr>
+        <tr>
+          <td rowspan="2" class="table-td">Confirmed Victim</td>
+          <td class="table-td">Has the child self-reported being forced or coerced into sexual activity for the monetary benefit of another person?</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsSelfReportedYes" formControlName="IsSelfReportedYes" name="IsSelfReportedYes"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsSelfReportedNo" formControlName="IsSelfReportedNo" name="IsSelfReportedNo"></p-checkbox>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Has law enforcement confirmed through an investigation that the child has been trafficked or engaged in any commercial,
+            sexually-exploitive activity?</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsLawEnforcementYes" formControlName="IsLawEnforcementYes" name="IsLawEnforcementYes"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsLawEnforcementNo" formControlName="IsLawEnforcementNo" name="IsLawEnforcementNo"></p-checkbox>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="space-down">
+      <table class="table-td">
+        <tr>
+          <th class="table-td" width="10%"></th>
+          <th class="table-td" width="70%"></th>
+          <th class="table-td" width="10%">Yes</th>
+          <th class="table-td" width="10%">No</th>
+        </tr>
+        <tr>
+          <td rowspan="5" class="table-td">High Risk </td>
+          <td class="table-td">Have there been confirmed or reported uses of hotels for parties or sexual encounters in which sex trafficking
+            is suspected?</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsSexualEncounterYes" formControlName="IsSexualEncounterYes" name="IsSexualEncounterYes"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsSexualEncounterNo" formControlName="IsSexualEncounterNo" name="IsSexualEncounterNo"></p-checkbox>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Has the child participated (force, coerced or consensual) in a sexual act in exchange for shelter, transportation,
+            drugs, alcohol, money or other item(s) of value?</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsChildParticipatedYes" formControlName="IsChildParticipatedYes"
+              name="IsChildParticipatedYes"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsChildParticipatedNo" formControlName="IsChildParticipatedNo"
+              name="IsChildParticipatedNo"></p-checkbox>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Has there been unauthorized travel across county or state lines for purposes that suggest child trafficking?</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsUnauthorizedTravelYes" formControlName="IsUnauthorizedTravelYes"
+              name="IsUnauthorizedTravelYes"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsUnauthorizedTravelNo" formControlName="IsUnauthorizedTravelNo"
+              name="IsUnauthorizedTravelNo"></p-checkbox>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Does the child have unaccounted for injuries, marking or tattoos (i.e. branding) that suggest possible involvement
+            with a controller?</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsUnaccountedInjuriesYes" formControlName="IsUnaccountedInjuriesYes"
+              name="IsUnaccountedInjuriesYes"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsUnaccountedInjuriesNo" formControlName="IsUnaccountedInjuriesNo"
+              name="IsUnaccountedInjuriesNo"></p-checkbox>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Three or more “yes” responses to the “at risk” items below?</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsResponsesYes" formControlName="IsResponsesYes" name="IsResponsesYes"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsResponsesNo" formControlName="IsResponsesNo" name="IsResponsesNo"></p-checkbox>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="space-down">
+      <table class="table-td">
+        <tr>
+          <th class="table-td" width="10%"></th>
+          <th class="table-td" width="70%"></th>
+          <th class="table-td" width="10%">Yes</th>
+          <th class="table-td" width="10%">No</th>
+        </tr>
+        <tr>
+          <td rowspan="8" class="table-td">At Risk
+          </td>
+          <td class="table-td">Does the child have a history of multiple AWOLS?</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsAwolsYes" formControlName="IsAwolsYes" name="IsAwolsYes"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsAwolsNo" formControlName="IsAwolsNo" name="IsAwolsNo"></p-checkbox>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Have there been reports of multiple anonymous sex partners?</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsReportsYes" formControlName="IsReportsYes" name="IsReportsYes"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsReportsNo" formControlName="IsReportsNo" name="IsReportsNo"></p-checkbox>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Has the child used the internet for posting sexually explicit material or have others posted pictures of the child
+            with/without their consent?</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsInternetPostingYes" formControlName="IsInternetPostingYes" name="IsInternetPostingYes"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsInternetPostingNo" formControlName="IsInternetPostingNo" name="IsInternetPostingNo"></p-checkbox>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Does the child have a self-disclosed or reported history of multiple and/or anonymous sex partners?</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsReportedHistoryYes" formControlName="IsReportedHistoryYes" name="IsReportedHistoryYes"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsReportedHistoryNo" formControlName="IsReportedHistoryNo" name="IsReportedHistoryNo"></p-checkbox>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Is the child in a sexual/romantic relationship with an older partner?</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsRomanticRelationshipYes" formControlName="IsRomanticRelationshipYes"
+              name="IsRomanticRelationshipYes"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsRomanticRelationshipNo" formControlName="IsRomanticRelationshipNo"
+              name="IsRomanticRelationshipNo"></p-checkbox>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Is the child unable or unwilling to provide information about a boyfriend or sex partners?
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsUnwillingYes" formControlName="IsUnwillingYes" name="IsUnwillingYes"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsUnwillingNo" formControlName="IsUnwillingNo" name="IsUnwillingNo"></p-checkbox>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Does the child have a history of multiple/chronic sexually transmitted disease?</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsTransmittedDiseaseYes" formControlName="IsTransmittedDiseaseYes"
+              name="IsTransmittedDiseaseYes"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsTransmittedDiseaseNo" formControlName="IsTransmittedDiseaseNo"
+              name="IsTransmittedDiseaseNo"></p-checkbox>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">Has gang affiliation been disclosed, reported or suspected?</td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsGangAffiliationYes" formControlName="IsGangAffiliationYes" name="IsGangAffiliationYes"></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="reHumanTrafficking.IsGangAffiliationNo" formControlName="IsGangAffiliationNo" name="IsGangAffiliationNo"></p-checkbox>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">If child is a Confirmed Victim</th>
+          <th class="table-td">If child is at High Risk</th>
+          <th class="table-td">If child is At Risk</th>
+        </tr>
+        <tr>
+          <td class="table-td">Follow Policy & Practice Guidelines</td>
+          <td class="table-td">Follow Policy & Practice Guidelines</td>
+          <td class="table-td">Follow Policy & Practice Guidelines</td>
+        </tr>
+      </table>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,reHumanTrafficking)"  (edit)="editForm()" [editControll]="editControll" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

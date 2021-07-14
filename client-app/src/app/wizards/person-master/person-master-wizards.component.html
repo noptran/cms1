@@ -1,0 +1,251 @@
+<img
+  (click)="onCheckPersonMasterModules()"
+  src="/assets/person/addUser.svg"
+  *ngIf="isAdd == 'true'"
+/>
+
+<p-dialog
+  (onHide)="wizardClose()"
+  header="Person Wizard - Step 1 ({{ selectedModule.display }})"
+  [(visible)]="isPersonMasterWizardsOpen"
+  [modal]="true"
+  [contentStyle]="{ 'min-width': '106rem' }"
+  [responsive]="true"
+  [maximizable]="true"
+  [baseZIndex]="10000"
+>
+  <form class="sf-form" [formGroup]="wizard1Form">
+    <div class="flex-right">
+      <span class="mandatory">*</span> All the fields are required.
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>First Name</span><span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input
+            type="text"
+            formControlName="firstName"
+            [(ngModel)]="wizard.firstName"
+            name="firstName"
+          />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Last Name</span><span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input
+            type="text"
+            formControlName="lastName"
+            [(ngModel)]="wizard.lastName"
+            name="lastName"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <!-- *ngIf="isKaesesRequired" -->
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>{{ Kaecses }}</span>
+          <span class="mandatory" *ngIf="isKaecsesMandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input
+            maxlength="10"
+            type="text"
+            formControlName="kaecses"
+            [(ngModel)]="wizard.kaecses"
+            name="kaecses"
+            [disabled]="isKaecsesDisable"
+            pInputText
+            *ngIf="isKaecsesMandatory"
+          />
+          <input
+            maxlength="10"
+            type="text"
+            formControlName="kaecses"
+            [(ngModel)]="wizard.kaecses"
+            name="kaecses"
+            readonly
+            pInputText
+            *ngIf="!isKaecsesMandatory"
+          />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="isNonContractVisible">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Non-Contract client</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-inputSwitch
+            [(ngModel)]="wizard.isNonContract"
+            name="isNonContract"
+            formControlName="isNonContract"
+            (onChange)="onNonContractClientChange($event)"
+          >
+          </p-inputSwitch>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="isSSNVisbile">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>SSN</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input
+            formControlName="ssn"
+            type="text"
+            [(ngModel)]="wizard.ssn"
+            name="ssn"
+            pInputText
+          />
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="isClientCreation">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Contract State</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete
+            (onSelect)="contractSelection($event)"
+            [(ngModel)]="wizard.conST"
+            name="conST"
+            [suggestions]="results"
+            field="abbreviation"
+            formControlName="conST"
+            [dropdown]="true"
+            [forceSelection]="true"
+            (completeMethod)="getState($event)"
+          ></p-autoComplete>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="footer-actions">
+    <button (click)="onClickWizard1()">Next</button>
+  </div>
+  <div class="info-area">
+    <span>{{ infoText }}</span>
+  </div>
+</p-dialog>
+
+<p-dialog
+  header="Person Wizard - Step 2 ({{ selectedModule.display }})"
+  [(visible)]="isPersonMasterwizardSecondOpen"
+  [modal]="true"
+  [contentStyle]="{ 'min-width': '106rem' }"
+  [responsive]="true"
+  [maximizable]="true"
+  [minY]="100"
+  [baseZIndex]="10000"
+>
+  <div class="margin-top-20 row" *ngIf="identifiedClients.length > 0">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <span><b>Search Results:</b></span>
+        <table class="data-table" style="width: 100%">
+          <tr>
+            <th>Action</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>MI</th>
+            <th>DOB</th>
+            <th>SSN</th>
+            <th>Is Child</th>
+            <th>kaecses</th>
+          </tr>
+          <tr *ngFor="let client of identifiedClients">
+            <td>
+              <input
+                type="radio"
+                (click)="onIdentifiedClientSelected(client)"
+                name="client"
+              />
+            </td>
+            <td>{{ client.firstName }}</td>
+            <td>{{ client.lastName }}</td>
+            <td>{{ client.mi }}</td>
+            <td>{{ client.dob | date: "MM/dd/yyyy" }}</td>
+            <td>{{ client.ssn }}</td>
+            <td>{{ client.ischild ? "True" : "False" }}</td>
+            <td>{{ client.kaecses }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="info-area" *ngIf="identifiedClients.length == 0">
+    <span>No matches found!</span>
+  </div>
+
+  <!--Text-->
+  <div class="margin-top-20 row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <div class="col-lg-3 col-md-3 col-sm-3">
+        <span><b>Selected Person:</b></span>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-3">
+        {{ selectedClient?.lastName }} {{ selectedClient?.firstName }}
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+      <div class="col-lg-3 col-md-3 col-sm-3">
+        <span><b>Number Of Matches</b></span>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-3">
+        {{ identifiedClients ? identifiedClients.length : 0 }}
+      </div>
+    </div>
+  </div>
+  <div class="row margin-top-20">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <span><b>How would you like continue?</b></span>
+      </div>
+    </div>
+  </div>
+  <div class="row margin-top-20">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <input
+          type="radio"
+          class="radio-text"
+          name="navigationOption"
+          (click)="onContinueSelection('continue')"
+          [disabled]="identifiedClients.length == 0"
+          [(ngModel)]="navigationSelect"
+        />
+        <span>The person in the list and do I have them selected</span>
+      </div>
+    </div>
+  </div>
+  <div class="row margin-top-20">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <input
+          type="radio"
+          class="radio-text"
+          name="navigationOption"
+          (click)="onContinueSelection('createNew')"
+          [(ngModel)]="navigationSelect"
+        />
+        <span>The person is not in the list and I wish to create them</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-actions">
+    <button
+      (click)="
+        isPersonMasterWizardsOpen = true; isPersonMasterwizardSecondOpen = false
+      "
+    >
+      Back
+    </button>
+  </div>
+  <div class="info-area">
+    <span>{{ infoText }}</span>
+  </div>
+</p-dialog>

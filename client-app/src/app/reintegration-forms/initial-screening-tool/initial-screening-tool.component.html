@@ -1,0 +1,981 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="initialScreeningForm" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        INITIAL SCREENING TOOL
+        <br> Mental Health, Drug/Alcohol,
+        <br> Intellectual Development/Fetal
+        <br> Alcohol Spectrum Disorder
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span>Child Name:</span>
+          <input [(ngModel)]="reInitialScreening.ChildName" formControlName="ChildName" name="ChildName" type="text" pInputText size="20"
+          />
+        </div>
+        <div>
+          <span>FACTS:</span>
+          <input [(ngModel)]="reInitialScreening.Facts" formControlName="Facts" name="Facts" type="text" pInputText size="20" />
+        </div>
+        <div>
+          <span>SFCS Worker:</span>
+          <input [(ngModel)]="reInitialScreening.SfcsWorker" formControlName="SfcsWorker" name="SfcsWorker" type="text" pInputText
+            size="20" />
+        </div>
+        <div>
+          <span>Screening Date:</span>
+          <p-calendar [(ngModel)]="reInitialScreening.ScreeningDate" formControlName="ScreeningDate" name="ScreeningDate" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <h3 class="bold center">MENTAL HEALTH</h3>
+    <p>
+      This section is intended to assist in identifying which children need a referral for an SED Determination, not to provide
+      an assessment of SED. Check the appropriate answer for each statement and then refer to the Guidelines for Interpretation
+      on page 2 to determine if the child needs a referral to a CMHC.
+    </p>
+    <p class="bold">Yes (Y) No (N) Suspected (S) Unknown (U)</p>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th></th>
+          <th width="15%"></th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            1. Child previously received Community Based Services (CBS) through a CMHC.
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isCbsY" formControlName="isCbsY" name="isCbsY" class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isCbsN" formControlName="isCbsN" name="isCbsN" class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isCbsS" formControlName="isCbsS" name="isCbsS" class="space-right"></p-checkbox>S
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isCbsU" formControlName="isCbsU" name="isCbsU" class="space-right"></p-checkbox>U
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td" colspan="2">
+            DEFINITION: CBS (Community Based Services): Psychotherapy and medications are not considered CBS. Specialized mental health
+            services provided through Community Mental Health Centers, including the following: Mental Health Case Management
+            (Targeted Case Management and Community Psychiatric Supportive Treatment), Mental Health Attendant Care (including
+            Individual Community Support), Psychosocial Groups, Partial Hospitalization, Home Based Family Therapy, Respite
+            Care.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            2. Child previously determined to have met the criteria for Serious Emotional Disturbance (SED) by a CMHC.
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSedY" formControlName="isSedY" name="isSedY" class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSedN" formControlName="isSedN" name="isSedN" class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSedS" formControlName="isSedS" name="isSedS" class="space-right"></p-checkbox>S
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSedU" formControlName="isSedU" name="isSedU" class="space-right"></p-checkbox>U
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            3. Child has history of any psychiatric hospitalization; public, private or PRTF.
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isPrtfY" formControlName="isPrtfY" name="isPrtfY" class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isPrtfN" formControlName="isPrtfN" name="isPrtfN" class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isPrtfS" formControlName="isPrtfS" name="isPrtfS" class="space-right"></p-checkbox>S
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isPrtfU" formControlName="isPrtfU" name="isPrtfU" class="space-right"></p-checkbox>U
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            4. Child currently or previously received specialized educational services for emotional/behavior disorder
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isDisorderY" formControlName="isDisorderY" name="isDisorderY" class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isDisorderN" formControlName="isDisorderN" name="isDisorderN" class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isDisorderS" formControlName="isDisorderS" name="isDisorderS" class="space-right"></p-checkbox>S
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isDisorderU" formControlName="isDisorderU" name="isDisorderU" class="space-right"></p-checkbox>U
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            5. Child currently has a CAFAS score of 70 or above, or a 30 or above on any one subscale.
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSubscaleY" formControlName="isSubscaleY" name="isSubscaleY" class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSubscaleN" formControlName="isSubscaleN" name="isSubscaleN" class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSubscaleS" formControlName="isSubscaleS" name="isSubscaleS" class="space-right"></p-checkbox>S
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSubscaleU" formControlName="isSubscaleU" name="isSubscaleU" class="space-right"></p-checkbox>U
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            6. Child currently has a diagnosed mental illness, and symptoms of that illness that contribute to a lack of stability in
+            foster home or other placement, permanent home, school, or community.
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isCommunityY" formControlName="isCommunityY" name="isCommunityY"
+                  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isCommunityN" formControlName="isCommunityN" name="isCommunityN"
+                  class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isCommunityS" formControlName="isCommunityS" name="isCommunityS"
+                  class="space-right"></p-checkbox>S
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isCommunityU" formControlName="isCommunityU" name="isCommunityU"
+                  class="space-right"></p-checkbox>U
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            7. Child currently or within the last 60 days received some type of mental health treatment
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isMentalHealthY" formControlName="isMentalHealthY" name="isMentalHealthY"
+                  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isMentalHealthN" formControlName="isMentalHealthN" name="isMentalHealthN"
+                  class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isMentalHealthS" formControlName="isMentalHealthS" name="isMentalHealthS"
+                  class="space-right"></p-checkbox>S
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isMentalHealthU" formControlName="isMentalHealthU" name="isMentalHealthU"
+                  class="space-right"></p-checkbox>U
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            8. Child previously had a diagnosed mental illness/emotional disorder
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isEmotionalDisorderY" formControlName="isEmotionalDisorderY" name="isEmotionalDisorderY"
+                  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isEmotionalDisorderN" formControlName="isEmotionalDisorderN" name="isEmotionalDisorderN"
+                  class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isEmotionalDisorderS" formControlName="isEmotionalDisorderS" name="isEmotionalDisorderS"
+                  class="space-right"></p-checkbox>S
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isEmotionalDisorderU" formControlName="isEmotionalDisorderU" name="isEmotionalDisorderU"
+                  class="space-right"></p-checkbox>U
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            9. Child has history of mental health treatment, less intensive than inpatient or specialized services.
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSpecializedServicesY" formControlName="isSpecializedServicesY"
+                  name="isSpecializedServicesY" class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSpecializedServicesN" formControlName="isSpecializedServicesN"
+                  name="isSpecializedServicesN" class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSpecializedServicesS" formControlName="isSpecializedServicesS"
+                  name="isSpecializedServicesS" class="space-right"></p-checkbox>S
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSpecializedServicesU" formControlName="isSpecializedServicesU"
+                  name="isSpecializedServicesU" class="space-right"></p-checkbox>U
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            10. Child is currently on psychotropic medication.
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isPsychotropicY" formControlName="isPsychotropicY" name="isPsychotropicY"
+                  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isPsychotropicN" formControlName="isPsychotropicN" name="isPsychotropicN"
+                  class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isPsychotropicS" formControlName="isPsychotropicS" name="isPsychotropicS"
+                  class="space-right"></p-checkbox>S
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isPsychotropicU" formControlName="isPsychotropicU" name="isPsychotropicU"
+                  class="space-right"></p-checkbox>U
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            11. Child is currently experiencing functional impairment in current placement.
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isImpairmentY" formControlName="isImpairmentY" name="isImpairmentY"
+                  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isImpairmentN" formControlName="isImpairmentN" name="isImpairmentN"
+                  class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isImpairmentS" formControlName="isImpairmentS" name="isImpairmentS"
+                  class="space-right"></p-checkbox>S
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isImpairmentU" formControlName="isImpairmentU" name="isImpairmentU"
+                  class="space-right"></p-checkbox>U
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td" colspan="2">
+            Examples of Family/Home – frequent violations of household rules; dramatic changes in personality or behavior; isolative
+            behaviors; aggressive behaviors; verbally assaultive; parents feel youth is “out of control”; parents threatening
+            to place child out of home (or out of current placement); suicidal thoughts, plans or gestures; self-harmful
+            behaviors
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            12. Child is currently experiencing functional impairment in School domain.
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSchoolDomainY" formControlName="isSchoolDomainY" name="isSchoolDomainY"
+                  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSchoolDomainN" formControlName="isSchoolDomainN" name="isSchoolDomainN"
+                  class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSchoolDomainS" formControlName="isSchoolDomainS" name="isSchoolDomainS"
+                  class="space-right"></p-checkbox>S
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSchoolDomainU" formControlName="isSchoolDomainU" name="isSchoolDomainU"
+                  class="space-right"></p-checkbox>U
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td" colspan="2">
+            Examples of School – School performance clearly below youth’s ability; difficulties making or maintaining peer relationships;
+            youth’s behavior interferes with ability to learn; frequent detentions; school avoidance; repeated in-school
+            or out of school suspensions; failing classes not due solely to cognitive limitations; truancy; assaultive or
+            aggressive behaviors; excessive number of sick days without medical basis.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            13. Child is currently experiencing functional impairment in Community domain.
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isCommunityDomainY" formControlName="isCommunityDomainY" name="isCommunityDomainY"
+                  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isCommunityDomainN" formControlName="isCommunityDomainN" name="isCommunityDomainN"
+                  class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isCommunityDomainS" formControlName="isCommunityDomainS" name="isCommunityDomainS"
+                  class="space-right"></p-checkbox>S
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isCommunityDomainU" formControlName="isCommunityDomainU" name="isCommunityDomainU"
+                  class="space-right"></p-checkbox>U
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td" colspan="2">
+            Examples of Community – Lack of participation in community or peer related activities; contact with law enforcement due to
+            youth’s behavior; running away or threats to run away; legal action against youth; probation or history of probation.
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td" colspan="2">
+            <div class="space-right space-down">
+              <div class="space-right space-down">Comments: </div>
+              <div class="space-right">
+                <textarea [(ngModel)]="reInitialScreening.comments" formControlName="comments" name="comments" pInputTextarea autoResize="autoResize"
+                  rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="html2pdf__page-break"></div>
+    <h3 class="bold center">Screening Results</h3>
+    <p class="bold">Mark appropriate box</p>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isReferralNeeded" formControlName="isReferralNeeded" name="isReferralNeeded"
+          class="space-right"></p-checkbox>If answered yes on #1 or #2, referral needed to CMHC
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isQualifySed" formControlName="isQualifySed" name="isQualifySed"
+          class="space-right"></p-checkbox>If answered yes on #3, #4, #5, or #6, client may qualify for SED. Consider referral for assessment
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isQualifySpecialServices" formControlName="isQualifySpecialServices"
+          name="isQualifySpecialServices" class="space-right"></p-checkbox>If answered yes on #7, #8, #9, #10, #11, #12, or #13, client may still qualify for special services,
+        assess level of functioning
+      </div>
+    </div>
+    <hr>
+    <h3 class="bold center">FETAL ALCOHOL SPECTRUM DISORDER</h3>
+    <p>
+      This section is intended to assist in identifying which children need to be assessed for a Fetal Alcohol Spectrum Disorder
+      (FASD). Reassessment of need for an FASD assessment may need to occur as more information is gathered.
+    </p>
+    <p class="bold">
+      Children who meet at least one of the following criteria will be referred to Clinical RFCA team for staffing regarding diagnostic
+      evaluation. (Check all that apply)
+    </p>
+    <p class="bold">
+      Confirmed Prenatal Alcohol or Drug Exposure
+    </p>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isAlcoholMisuse" formControlName="isAlcoholMisuse" name="isAlcoholMisuse"  class="space-right"></p-checkbox>Mother’s self-report of alcohol misuse (more than social) or drug
+        use during pregnancy
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+ <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isAlcoholMisuse1" formControlName="isAlcoholMisuse1" name="isAlcoholMisuse1"  class="space-right"></p-checkbox>Reliable informant reported alcohol misuse or drug use by mother
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+ <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isAlcoholMisuse2" formControlName="isAlcoholMisuse2" name="isAlcoholMisuse2"  class="space-right"></p-checkbox>Child placed in child protective custody at birth due to mother’s
+        alcohol or drug condition
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+ <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isAlcoholMisuse3" formControlName="isAlcoholMisuse3" name="isAlcoholMisuse3"  class="space-right"></p-checkbox>Child’s medical records “indicate child was positive for a
+        substance/high blood alcohol level and detoxed at birth.
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+ <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isAlcoholMisuse4" formControlName="isAlcoholMisuse4" name="isAlcoholMisuse4"  class="space-right"></p-checkbox>Documentation in the child’s chart or a legal record of mother’s
+        history of misuse.
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+ <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isAlcoholMisuse5" formControlName="isAlcoholMisuse5" name="isAlcoholMisuse5"  class="space-right"></p-checkbox>Other
+      </div>
+    </div>
+    <p class="bold">
+      If 3 or more of the identifiers listed below are noted, the individual should be referred to Clinical RFCA team for staffing
+      regarding a diagnostic evaluation.
+    </p>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isHeight" formControlName="isHeight" name="isHeight" class="space-right"></p-checkbox>Height and weight seem small for age
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isUnusualFacial" formControlName="isUnusualFacial" name="isUnusualFacial"
+          class="space-right"></p-checkbox>Unusual facial features
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSizeOfHead" formControlName="isSizeOfHead" name="isSizeOfHead"
+          class="space-right"></p-checkbox>Size of head seems small for age
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isMentalRetardation" formControlName="isMentalRetardation" name="isMentalRetardation"
+          class="space-right"></p-checkbox>Mental retardation or IQ below familial expectations
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isBehavioralConcerns" formControlName="isBehavioralConcerns" name="isBehavioralConcerns"
+          class="space-right"></p-checkbox>Behavioral concerns: (any one of these qualifies as an identifier)
+      </div>
+    </div>
+    <div class="table-td">
+      <div class="flex-container space-down table-td">
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSleeping" formControlName="isSleeping" name="isSleeping" class="space-right"></p-checkbox>Sleeping/eating problem
+        </div>
+      </div>
+      <div class="flex-container space-down table-td">
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isImpulsive" formControlName="isImpulsive" name="isImpulsive" class="space-right"></p-checkbox>Attention problem/impulsive/restless
+        </div>
+      </div>
+      <div class="flex-container space-down table-td">
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isDisability" formControlName="isDisability" name="isDisability"
+            class="space-right"></p-checkbox>Learning disability
+        </div>
+      </div>
+      <div class="flex-container space-down table-td">
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isLanguageDelays" formControlName="isLanguageDelays" name="isLanguageDelays"
+            class="space-right"></p-checkbox>Speech and/or language delays
+        </div>
+      </div>
+      <div class="flex-container space-down table-td">
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isJudgment" formControlName="isJudgment" name="isJudgment" class="space-right"></p-checkbox>Problem with reasoning and judgment
+        </div>
+      </div>
+      <div class="flex-container space-down table-td">
+        <div class="space-right">
+          <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSameAge" formControlName="isSameAge" name="isSameAge" class="space-right"></p-checkbox>Acts younger than children the same age
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isFasd" formControlName="isFasd" name="isFasd" class="space-right"></p-checkbox>Sibling who already has a diagnosis of FASD (if more than one sibling, provide information on each)
+      </div>
+    </div>
+    <h3 class="bold center">Screening Results</h3>
+    <p class="bold">Mark appropriate box.</p>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isNegativeForRisk" formControlName="isNegativeForRisk" name="isNegativeForRisk"
+          class="space-right"></p-checkbox>Negative for Risk Child is not referred for diagnosis. No further action is needed
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isPreviousDiagnosis" formControlName="isPreviousDiagnosis" name="isPreviousDiagnosis"
+          class="space-right"></p-checkbox>Previous diagnosis of an FASD No further action is needed
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reInitialScreening.SourceOfInformation" formControlName="SourceOfInformation" name="SourceOfInformation"
+            type="text" pInputText size="20" />
+        </div>
+        <div class="space-down">Source of information
+          <br> (parent, child, record, other)
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="reInitialScreening.DateOfDiagnosis" formControlName="DateOfDiagnosis" name="DateOfDiagnosis" [inputStyle]="{'width':'170px'}"
+            class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date of Diagnosis </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reInitialScreening.DiagnosticClinic" formControlName="DiagnosticClinic" name="DiagnosticClinic" type="text"
+            pInputText size="20" />
+        </div>
+        <div class="space-down">Diagnostic Clinic</div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reInitialScreening.PositiveRiskChild" formControlName="PositiveRiskChild" name="PositiveRiskChild"  class="space-right"></p-checkbox>Positive for Risk Child is referred to Clinical RFCA team for
+        diagnostic evaluation
+      </div>
+    </div>
+    <p class="bold">Document any scheduled appointments in eKidz Case Activity Log.</p>
+    <hr>
+    <div class="html2pdf__page-break"></div>
+    <h3 class="bold center"> DRUG/ALCOHOL </h3>
+    <p>
+      This section is intended to assist in identifying which children need a referral for a drug/alcohol assessment, not to provide
+      a drug/alcohol assessment. The child should be the primary contact for answers to the questions but a caregiver may
+      provide pertinent information if you think the child is in denial/not answering truthfully.
+    </p>
+    <p>
+      Drug/Alcohol assessment should be recommended if one or more of the following exist: 1) child had an assessment/treatment
+      before and child used in the last thirty (30) days, 2) frequency of use, drug used or amount used in one setting is
+      at a level that would normally cause concern, 3) answers of concern supported by parent or provider.
+    </p>
+    <p class="bold">Yes (Y) No (N) Unknown (U) Not Applicable (N/A)</p>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th></th>
+          <th width="15%"></th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            1. Has the child ever used or experimented with drugs or alcohol?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isExperimentedDrugsY" formControlName="isExperimentedDrugsY" name="isExperimentedDrugsY"
+                  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isExperimentedDrugsN" formControlName="isExperimentedDrugsN" name="isExperimentedDrugsN"
+                  class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isExperimentedDrugsS" formControlName="isExperimentedDrugsS" name="isExperimentedDrugsS"
+                  class="space-right"></p-checkbox>U
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isExperimentedDrugsU" formControlName="isExperimentedDrugsU" name="isExperimentedDrugsU"
+                  class="space-right"></p-checkbox>N/A
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            2. Has the child used or experimented with drugs or alcohol in the last 30 days? </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isAlcoholProblemY" formControlName="isAlcoholProblemY" name="isAlcoholProblemY"
+                  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isAlcoholProblemN" formControlName="isAlcoholProblemN" name="isAlcoholProblemN"
+                  class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isAlcoholProblemS" formControlName="isAlcoholProblemS" name="isAlcoholProblemS"
+                  class="space-right"></p-checkbox>U
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isAlcoholProblemU" formControlName="isAlcoholProblemU" name="isAlcoholProblemU"
+                  class="space-right"></p-checkbox>N/A
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            3. Has anyone ever told the child they have a drug or alcohol problem?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isPositiveUaY" formControlName="isPositiveUaY" name="isPositiveUaY"
+                  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isPositiveUaN" formControlName="isPositiveUaN" name="isPositiveUaN"
+                  class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isPositiveUaS" formControlName="isPositiveUaS" name="isPositiveUaS"
+                  class="space-right"></p-checkbox>U
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isPositiveUaU" formControlName="isPositiveUaU" name="isPositiveUaU"
+                  class="space-right"></p-checkbox>N/A
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            4. Has the child ever had a positive UA? </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isAlcoholAssessmentY" formControlName="isAlcoholAssessmentY" name="isAlcoholAssessmentY"
+                  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isAlcoholAssessmentN" formControlName="isAlcoholAssessmentN" name="isAlcoholAssessmentN"
+                  class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isAlcoholAssessmentS" formControlName="isAlcoholAssessmentS" name="isAlcoholAssessmentS"
+                  class="space-right"></p-checkbox>U
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isAlcoholAssessmentU" formControlName="isAlcoholAssessmentU" name="isAlcoholAssessmentU"
+                  class="space-right"></p-checkbox>N/A
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            5. Has the child ever had a drug or alcohol assessment
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isAlcoholTreatmentY" formControlName="isAlcoholTreatmentY" name="isAlcoholTreatmentY"
+                  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isAlcoholTreatmentN" formControlName="isAlcoholTreatmentN" name="isAlcoholTreatmentN"
+                  class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isAlcoholTreatmentS" formControlName="isAlcoholTreatmentS" name="isAlcoholTreatmentS"
+                  class="space-right"></p-checkbox>U
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isAlcoholTreatmentU" formControlName="isAlcoholTreatmentU" name="isAlcoholTreatmentU"
+                  class="space-right"></p-checkbox>N/A
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            6. Has the child ever participated in drug or alcohol treatment?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isDrugOfChoiceY" formControlName="isDrugOfChoiceY" name="isDrugOfChoiceY"
+                  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isDrugOfChoiceN" formControlName="isDrugOfChoiceN" name="isDrugOfChoiceN"
+                  class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isDrugOfChoiceS" formControlName="isDrugOfChoiceS" name="isDrugOfChoiceS"
+                  class="space-right"></p-checkbox>U
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isDrugOfChoiceU" formControlName="isDrugOfChoiceU" name="isDrugOfChoiceU"
+                  class="space-right"></p-checkbox>N/A
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            7. What would the child consider their drug of choice?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isFrequencyY" formControlName="isFrequencyY" name="isFrequencyY"
+                  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isFrequencyN" formControlName="isFrequencyN" name="isFrequencyN"
+                  class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isFrequencyS" formControlName="isFrequencyS" name="isFrequencyS"
+                  class="space-right"></p-checkbox>U
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isFrequencyU" formControlName="isFrequencyU" name="isFrequencyU"
+                  class="space-right"></p-checkbox>N/A
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            8. What is the frequency/amount of drugs/alcohol the child has used in one setting?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isHistoryY" formControlName="isHistoryY" name="isHistoryY" class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isHistoryN" formControlName="isHistoryN" name="isHistoryN" class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isHistoryS" formControlName="isHistoryS" name="isHistoryS" class="space-right"></p-checkbox>U
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isHistoryU" formControlName="isHistoryU" name="isHistoryU" class="space-right"></p-checkbox>N/A
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            9. Child has history of mental health treatment, less intensive than inpatient or specialized services.
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.mentalHealthTreatmentY" formControlName="mentalHealthTreatmentY" name="mentalHealthTreatmentY"  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.mentalHealthTreatmentN" formControlName="mentalHealthTreatmentN" name="mentalHealthTreatmentN"  class="space-right"></p-checkbox>N
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.mentalHealthTreatmentS" formControlName="mentalHealthTreatmentS" name="mentalHealthTreatmentS"  class="space-right"></p-checkbox>S
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.mentalHealthTreatmentU" formControlName="mentalHealthTreatmentU" name="mentalHealthTreatmentU"  class="space-right"></p-checkbox>U
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td" colspan="2">
+            <div class="space-right space-down">
+              <div class="space-right space-down">Comments: </div>
+              <div class="space-right">
+                <textarea [(ngModel)]="reInitialScreening.AlcoholComments" formControlName="AlcoholComments" name="AlcoholComments" pInputTextarea
+                  autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <hr>
+    <div class="html2pdf__page-break"></div>
+    <h3 class="bold center">Intellectual/Developmental Disability</h3>
+    <p>
+      Use this section to determine if a referral to the local CDDO is appropriate for this family/child. If the answers for questions
+      1-5 are ’yes’, a referral to the local CDDO is required.
+    </p>
+    <p class="bold">Yes (Y) No (N)</p>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th></th>
+          <th width="10%"></th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            1. Has the child ever had an Individualized Education Plan for I/DD Issues?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isDdY" formControlName="isDdY" name="isDdY" class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isDdN" formControlName="isDdN" name="isDdN" class="space-right"></p-checkbox>N
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            2. Has the child ever been placed in a specialized classroom (i.e. learning disability)? ? </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isDisabilityY" formControlName="isDisabilityY" name="isDisabilityY"
+                  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isDisabilityN" formControlName="isDisabilityN" name="isDisabilityN"
+                  class="space-right"></p-checkbox>N
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            3. Has the child ever been determined eligible for Title I services by the local education authority?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isEducationAuthorityY" formControlName="isEducationAuthorityY"
+                  name="isEducationAuthorityY" class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isEducationAuthorityN" formControlName="isEducationAuthorityN"
+                  name="isEducationAuthorityN" class="space-right"></p-checkbox>N
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            4. Has the child ever been evaluated by a physician who used any of the following terms in a diagnosis? Mental Retardation,
+            Downs Syndrome, Cerebral Palsy, Aspberger’s Syndrome, any Pervasive Developmental Disorder or diagnosis on the
+            autism spectrum. </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isMentalRetardationY" formControlName="isMentalRetardationY" name="isMentalRetardationY"
+                  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isMentalRetardationN" formControlName="isMentalRetardationN" name="isMentalRetardationN"
+                  class="space-right"></p-checkbox>N
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            5. Does the child have any medical condition that requires on-going use of equipment to sustain life?
+          </td>
+          <td class="table-td">
+            <div class="flex-container">
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSustainLifeY" formControlName="isSustainLifeY" name="isSustainLifeY"
+                  class="space-right"></p-checkbox>Y
+              </div>
+              <div class="space-right">
+                <p-checkbox binary="true" [(ngModel)]="reInitialScreening.isSustainLifeN" formControlName="isSustainLifeN" name="isSustainLifeN"
+                  class="space-right"></p-checkbox>N
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-td" colspan="2">
+            <div class="space-right space-down">
+              <div class="space-right space-down">Comments: </div>
+              <div class="space-right">
+                <textarea [(ngModel)]="reInitialScreening.IntellectualComments" formControlName="IntellectualComments" name="IntellectualComments"
+                  pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <hr>
+    <div class="flex-container space-down space-between">
+      <div class="space-right space-down">
+        <div class="space-down">
+          <input [(ngModel)]="reInitialScreening.Signature" formControlName="Signature" name="Signature" type="text" pInputText size="20"
+          />
+        </div>
+        <div class="space-down">Signature/Credentials
+        </div>
+      </div>
+      <div class="space-right space-down">
+        <div class="space-down">
+          <p-calendar [(ngModel)]="reInitialScreening.Date" formControlName="Date" name="Date" [inputStyle]="{'width':'170px'}" class="date-picker"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+        <div class="space-down">Date</div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,reInitialScreening)"  (edit)="editForm()" [editControll]="editControll" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

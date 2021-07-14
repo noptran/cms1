@@ -1,0 +1,3348 @@
+<div id="pdf-content">
+  <div class="header-input">
+    <div>
+      <span>Child(ren)’s Name(s):</span>
+      <div class="input-section">
+        <client-search [ClientName]='displayClientName()' (setClientAction)="setClient($event)"></client-search>
+      </div>
+    </div>
+    <div>
+      <span>FACTS #:</span>
+      <div class="input-section">
+        <mat-form-field>
+          <input matInput class="input-sm" [(ngModel)]="model.Facts.value"></mat-form-field>
+      </div>
+    </div>
+    <div class="date-section">
+      <div>
+        <span>Date of Intake:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.DateOfIntake.value"></mat-form-field>
+      </div>
+      <div>
+        <span>Date of Case Plan1:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.DateOfCasePlan1.value"></mat-form-field>
+      </div>
+      <div>
+        <span>Date of Case Plan2:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.DateOfCasePlan2.value"></mat-form-field>
+      </div>
+      <div>
+        <span>Date of Reunification:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.DateOfReunification.value"></mat-form-field>
+      </div>
+      <div>
+        <span>Date of Closure:</span>
+        <mat-form-field>
+          <input matInput [(ngModel)]="model.DateOfClosure.value"></mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="space-padding">
+    <mat-checkbox (change)="disableValidationProcess()" [(ngModel)]="model.disableValidate">Unable to Assess
+    </mat-checkbox>
+  </div>
+  <div class="text-section space-padding" *ngIf="model.disableValidate">
+    <p>Remarks:</p>
+    <textarea [(ngModel)]="model.remarks.value" class="textarea" autosize matInput *ngIf="isFinalize"></textarea>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.remarks.value}}</span>
+  </div>
+  <hr *ngIf="isFinalize">
+  <div [ngClass]="model.disableValidate?'disableValidation':'non-disableValidation'">
+    <!-- multi client -->
+    <div *ngIf='model.showMultiClient === true' class="hideOnPdf">
+      <span class="spanMulticlient">Select the option for multi client</span>
+      <mat-form-field floatLabel="never">
+        <mat-select placeholder="Select the option for multi client" [(ngModel)]="model.multiClientValue">
+          <mat-option (click)="client()" value="By Facts">By Facts</mat-option>
+          <mat-option (click)="allClient()" value="By All clients">By All clients</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div *ngIf='showClient === true' class="hideOnPdf">
+      <mat-form-field floatLabel="never">
+        <input matInput [(ngModel)]="search" placeholder="Enter the last name" name="search" class="date">
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="client()" class="search">Select Client</button>
+    </div>
+
+    <div class="column">
+      <div *ngFor="let clients of model.multiClient; let i = index;" class="multiClient">
+        <div style="padding-right: 1rem;">Child{{i + 1}}</div>
+        <input [(ngModel)]="model.multiClient[i]" [ngModelOptions]="{standalone: true}" readonly />
+        <div>{{model.setFacts[i]}}</div>
+      </div>
+    </div>
+    <div>
+      <div>
+        <span>Administered Date:</span>
+        <mat-form-field> <input matInput [(ngModel)]="model.CompletionDate.value"></mat-form-field>
+      </div>
+      <div>
+        <span>Parent/Family Name:</span>
+        <mat-form-field><input matInput [(ngModel)]="model.ParentName.value"></mat-form-field>
+      </div>
+      <div>
+        <span>Administered By:</span>
+        <mat-form-field> <input matInput [(ngModel)]="model.StaffName.value"></mat-form-field>
+      </div>
+    </div>
+    <h2>NCFAS-G+R: North Carolina Family Assessment Scale for General Services and Reunification
+    </h2>
+    <div>
+      <span>Assessment Reason</span>
+      <input class="rad" type="radio" value="0" name="AssessmentReason"
+        [(ngModel)]="model.AssessmentReason.fieldOptionIndex">Intake
+      <input class="rad" type="radio" value="1" name="AssessmentReason"
+        [(ngModel)]="model.AssessmentReason.fieldOptionIndex">90 Days
+      <input class="rad" type="radio" value="2" name="AssessmentReason"
+        [(ngModel)]="model.AssessmentReason.fieldOptionIndex">Case Plan
+      <input class="rad" type="radio" value="3" name="AssessmentReason"
+        [(ngModel)]="model.AssessmentReason.fieldOptionIndex">Case Plan
+      <input class="rad" type="radio" value="4" name="AssessmentReason"
+        [(ngModel)]="model.AssessmentReason.fieldOptionIndex">Reunification
+      <input class="rad" type="radio" value="5" name="AssessmentReason"
+        [(ngModel)]="model.AssessmentReason.fieldOptionIndex">Closure
+
+    </div>
+    <h2>A. Environment</h2>
+    <table>
+      <tr>
+        <th></th>
+        <th>Not Applic.</th>
+        <th>Clear Strength</th>
+        <th>Mild Strength</th>
+        <th>Baseline Adequate</th>
+        <th>Mild Problem</th>
+        <th>Moderate Problem</th>
+        <th>Serious Problem</th>
+        <th>Unknown</th>
+      </tr>
+      <tr>
+        <td class="bold">1. Housing Stability</td>
+        <td>
+          <input type="radio" name="A1" value="0" class="radio"
+            [(ngModel)]="model.EnvironmentHousingStability.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="A1" value="1" class="radio"
+            [(ngModel)]="model.EnvironmentHousingStability.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="A1" value="2" class="radio"
+            [(ngModel)]="model.EnvironmentHousingStability.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="A1" value="3" class="radio"
+            [(ngModel)]="model.EnvironmentHousingStability.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="A1" value="4" class="radio"
+            [(ngModel)]="model.EnvironmentHousingStability.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="A1" value="5" class="radio"
+            [(ngModel)]="model.EnvironmentHousingStability.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="A1" value="6" class="radio"
+            [(ngModel)]="model.EnvironmentHousingStability.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="A1" value="7" class="radio"
+            [(ngModel)]="model.EnvironmentHousingStability.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">2. Safety in the Community</td>
+        <td>
+          <input type="radio" name="A2" value="0" class="radio" [(ngModel)]="model.EnvironmentSafety.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="A2" value="1" class="radio" [(ngModel)]="model.EnvironmentSafety.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="A2" value="2" class="radio" [(ngModel)]="model.EnvironmentSafety.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="A2" value="3" class="radio" [(ngModel)]="model.EnvironmentSafety.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="A2" value="4" class="radio" [(ngModel)]="model.EnvironmentSafety.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="A2" value="5" class="radio" [(ngModel)]="model.EnvironmentSafety.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="A2" value="6" class="radio" [(ngModel)]="model.EnvironmentSafety.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="A2" value="7" class="radio" [(ngModel)]="model.EnvironmentSafety.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">3. Environmental Risks</td>
+        <td>
+          <input type="radio" name="A3" value="0" class="radio" [(ngModel)]="model.EnvironmentRisks.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="A3" value="1" class="radio" [(ngModel)]="model.EnvironmentRisks.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="A3" value="2" class="radio" [(ngModel)]="model.EnvironmentRisks.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="A3" value="3" class="radio" [(ngModel)]="model.EnvironmentRisks.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="A3" value="4" class="radio" [(ngModel)]="model.EnvironmentRisks.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="A3" value="5" class="radio" [(ngModel)]="model.EnvironmentRisks.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="A3" value="6" class="radio" [(ngModel)]="model.EnvironmentRisks.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="A3" value="7" class="radio" [(ngModel)]="model.EnvironmentRisks.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">4. Habitability of Housing</td>
+        <td>
+          <input type="radio" name="A4" value="0" class="radio"
+            [(ngModel)]="model.EnvironmentHabitability.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="A4" value="1" class="radio"
+            [(ngModel)]="model.EnvironmentHabitability.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="A4" value="2" class="radio"
+            [(ngModel)]="model.EnvironmentHabitability.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="A4" value="3" class="radio"
+            [(ngModel)]="model.EnvironmentHabitability.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="A4" value="4" class="radio"
+            [(ngModel)]="model.EnvironmentHabitability.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="A4" value="5" class="radio"
+            [(ngModel)]="model.EnvironmentHabitability.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="A4" value="6" class="radio"
+            [(ngModel)]="model.EnvironmentHabitability.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="A4" value="7" class="radio"
+            [(ngModel)]="model.EnvironmentHabitability.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">5. Personal Hygiene</td>
+        <td>
+          <input type="radio" name="A5" value="0" class="radio" [(ngModel)]="model.EnvironmentHygiene.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="A5" value="1" class="radio" [(ngModel)]="model.EnvironmentHygiene.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="A5" value="2" class="radio" [(ngModel)]="model.EnvironmentHygiene.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="A5" value="3" class="radio" [(ngModel)]="model.EnvironmentHygiene.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="A5" value="4" class="radio" [(ngModel)]="model.EnvironmentHygiene.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="A5" value="5" class="radio" [(ngModel)]="model.EnvironmentHygiene.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="A5" value="6" class="radio" [(ngModel)]="model.EnvironmentHygiene.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="A5" value="7" class="radio" [(ngModel)]="model.EnvironmentHygiene.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">6. Learning Environment</td>
+        <td>
+          <input type="radio" name="A6" value="0" class="radio"
+            [(ngModel)]="model.EnvironmentLearning.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="A6" value="1" class="radio"
+            [(ngModel)]="model.EnvironmentLearning.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="A6" value="2" class="radio"
+            [(ngModel)]="model.EnvironmentLearning.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="A6" value="3" class="radio"
+            [(ngModel)]="model.EnvironmentLearning.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="A6" value="4" class="radio"
+            [(ngModel)]="model.EnvironmentLearning.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="A6" value="5" class="radio"
+            [(ngModel)]="model.EnvironmentLearning.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="A6" value="6" class="radio"
+            [(ngModel)]="model.EnvironmentLearning.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="A6" value="7" class="radio"
+            [(ngModel)]="model.EnvironmentLearning.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <!-- for mac comment it -->
+      <div class="html2pdf__page-break"></div>
+      <tr>
+        <td class="bold">7. Overall Environment</td>
+        <td>
+          <input type="radio" name="A7" value="0" class="radio" [(ngModel)]="model.EnvironmentOverall.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="A7" value="1" class="radio" [(ngModel)]="model.EnvironmentOverall.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="A7" value="2" class="radio" [(ngModel)]="model.EnvironmentOverall.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="A7" value="3" class="radio" [(ngModel)]="model.EnvironmentOverall.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="A7" value="4" class="radio" [(ngModel)]="model.EnvironmentOverall.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="A7" value="5" class="radio" [(ngModel)]="model.EnvironmentOverall.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="A7" value="6" class="radio" [(ngModel)]="model.EnvironmentOverall.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="A7" value="7" class="radio" [(ngModel)]="model.EnvironmentOverall.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+    </table>
+    <p class="bold">Comments:</p>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput [disabled]="model.disableValidate === true" class="textarea" autosize
+          [(ngModel)]="model.EnvironmentComment.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.EnvironmentComment.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <h2>B. Parental Capabilities</h2>
+    <p>Note: This section refers to biological parent(s), if present, or current caregiver(s).</p>
+    <table>
+      <tr>
+        <th></th>
+        <th>Not Applic.</th>
+        <th>Clear Strength</th>
+        <th>Mild Strength</th>
+        <th>Baseline Adequate</th>
+        <th>Mild Problem</th>
+        <th>Moderate Problem</th>
+        <th>Serious Problem</th>
+        <th>Unknown</th>
+      </tr>
+      <tr>
+        <td class="bold">1. Supervision of Child(ren)</td>
+        <td>
+          <input type="radio" name="B1" value="0" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesSupervision.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="B1" value="1" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesSupervision.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="B1" value="2" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesSupervision.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="B1" value="3" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesSupervision.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="B1" value="4" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesSupervision.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="B1" value="5" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesSupervision.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="B1" value="6" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesSupervision.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="B1" value="7" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesSupervision.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">2. Disciplinary Practices</td>
+        <td>
+          <input type="radio" name="B2" value="0" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDisciplinary.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="B2" value="1" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDisciplinary.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="B2" value="2" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDisciplinary.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="B2" value="3" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDisciplinary.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="B2" value="4" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDisciplinary.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="B2" value="5" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDisciplinary.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="B2" value="6" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDisciplinary.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="B2" value="7" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDisciplinary.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">3. Provision of Developmental/Enrichment Opportunities</td>
+        <td>
+          <input type="radio" name="B3" value="0" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDevelopment.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="B3" value="1" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDevelopment.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="B3" value="2" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDevelopment.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="B3" value="3" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDevelopment.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="B3" value="4" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDevelopment.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="B3" value="5" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDevelopment.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="B3" value="6" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDevelopment.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="B3" value="7" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDevelopment.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">4. Use of Drugs/Alcohol Interferes with Parenting</td>
+        <td>
+          <input type="radio" name="B4" value="0" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDrugs.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="B4" value="1" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDrugs.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="B4" value="2" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDrugs.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="B4" value="3" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDrugs.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="B4" value="4" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDrugs.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="B4" value="5" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDrugs.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="B4" value="6" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDrugs.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="B4" value="7" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesDrugs.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">5. Promotes Child(ren)’s Education</td>
+        <td>
+          <input type="radio" name="B5" value="0" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesEducation.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="B5" value="1" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesEducation.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="B5" value="2" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesEducation.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="B5" value="3" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesEducation.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="B5" value="4" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesEducation.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="B5" value="5" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesEducation.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="B5" value="6" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesEducation.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="B5" value="7" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesEducation.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">6. Controls Access to Media/Reading Material</td>
+        <td>
+          <input type="radio" name="B6" value="0" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesMedia.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="B6" value="1" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesMedia.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="B6" value="2" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesMedia.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="B6" value="3" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesMedia.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="B6" value="4" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesMedia.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="B6" value="5" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesMedia.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="B6" value="6" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesMedia.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="B6" value="7" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesMedia.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">7. Parent(s)/Caregiver(s)’s Literacy</td>
+        <td>
+          <input type="radio" name="B7" value="0" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesLiteracy.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="B7" value="1" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesLiteracy.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="B7" value="2" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesLiteracy.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="B7" value="3" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesLiteracy.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="B7" value="4" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesLiteracy.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="B7" value="5" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesLiteracy.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="B7" value="6" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesLiteracy.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="B7" value="7" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesLiteracy.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">8. Overall Parental Capabilities</td>
+        <td>
+          <input type="radio" name="B8" value="0" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesOverall.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="B8" value="1" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesOverall.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="B8" value="2" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesOverall.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="B8" value="3" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesOverall.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="B8" value="4" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesOverall.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="B8" value="5" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesOverall.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="B8" value="6" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesOverall.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="B8" value="7" class="radio"
+            [(ngModel)]="model.ParentalCapabilitiesOverall.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+    </table>
+    <p class="bold">Comments:</p>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput [disabled]="model.disableValidate === true" class="textarea" autosize
+          [(ngModel)]="model.ParentalCapabilitiesComment.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.ParentalCapabilitiesComment.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <h2>C. Family Interactions</h2>
+    <p>Note: This section refers to family members living in the same or different households</p>
+    <table>
+      <tr>
+        <th></th>
+        <th>Not Applic.</th>
+        <th>Clear Strength</th>
+        <th>Mild Strength</th>
+        <th>Baseline Adequate</th>
+        <th>Mild Problem</th>
+        <th>Moderate Problem</th>
+        <th>Serious Problem</th>
+        <th>Unknown</th>
+      </tr>
+      <tr>
+        <td class="bold">1. Bonding with Child(ren)</td>
+        <td>
+          <input type="radio" name="C1" value="0" class="radio"
+            [(ngModel)]="model.FamilyInteractionsBonding.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="C1" value="1" class="radio"
+            [(ngModel)]="model.FamilyInteractionsBonding.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="C1" value="2" class="radio"
+            [(ngModel)]="model.FamilyInteractionsBonding.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="C1" value="3" class="radio"
+            [(ngModel)]="model.FamilyInteractionsBonding.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="C1" value="4" class="radio"
+            [(ngModel)]="model.FamilyInteractionsBonding.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="C1" value="5" class="radio"
+            [(ngModel)]="model.FamilyInteractionsBonding.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="C1" value="6" class="radio"
+            [(ngModel)]="model.FamilyInteractionsBonding.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="C1" value="7" class="radio"
+            [(ngModel)]="model.FamilyInteractionsBonding.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">2. Communication with Child(ren)</td>
+        <td>
+          <input type="radio" name="C2" value="0" class="radio"
+            [(ngModel)]="model.FamilyInteractionsCommunication.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="C2" value="1" class="radio"
+            [(ngModel)]="model.FamilyInteractionsCommunication.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="C2" value="2" class="radio"
+            [(ngModel)]="model.FamilyInteractionsCommunication.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="C2" value="3" class="radio"
+            [(ngModel)]="model.FamilyInteractionsCommunication.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="C2" value="4" class="radio"
+            [(ngModel)]="model.FamilyInteractionsCommunication.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="C2" value="5" class="radio"
+            [(ngModel)]="model.FamilyInteractionsCommunication.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="C2" value="6" class="radio"
+            [(ngModel)]="model.FamilyInteractionsCommunication.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="C2" value="7" class="radio"
+            [(ngModel)]="model.FamilyInteractionsCommunication.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">3. Expectations of Child(ren)</td>
+        <td>
+          <input type="radio" name="C3" value="0" class="radio"
+            [(ngModel)]="model.FamilyInteractionsExpectation.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="C3" value="1" class="radio"
+            [(ngModel)]="model.FamilyInteractionsExpectation.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="C3" value="2" class="radio"
+            [(ngModel)]="model.FamilyInteractionsExpectation.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="C3" value="3" class="radio"
+            [(ngModel)]="model.FamilyInteractionsExpectation.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="C3" value="4" class="radio"
+            [(ngModel)]="model.FamilyInteractionsExpectation.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="C3" value="5" class="radio"
+            [(ngModel)]="model.FamilyInteractionsExpectation.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="C3" value="6" class="radio"
+            [(ngModel)]="model.FamilyInteractionsExpectation.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="C3" value="7" class="radio"
+            [(ngModel)]="model.FamilyInteractionsExpectation.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">4. Mutual Support Within the Family</td>
+        <td>
+          <input type="radio" name="C4" value="0" class="radio"
+            [(ngModel)]="model.FamilyInteractionsSupport.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="C4" value="1" class="radio"
+            [(ngModel)]="model.FamilyInteractionsSupport.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="C4" value="2" class="radio"
+            [(ngModel)]="model.FamilyInteractionsSupport.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="C4" value="3" class="radio"
+            [(ngModel)]="model.FamilyInteractionsSupport.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="C4" value="4" class="radio"
+            [(ngModel)]="model.FamilyInteractionsSupport.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="C4" value="5" class="radio"
+            [(ngModel)]="model.FamilyInteractionsSupport.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="C4" value="6" class="radio"
+            [(ngModel)]="model.FamilyInteractionsSupport.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="C4" value="7" class="radio"
+            [(ngModel)]="model.FamilyInteractionsSupport.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">5. Relationship Between Parents/Caregivers</td>
+        <td>
+          <input type="radio" name="C5" value="0" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRelationshipCaregiver.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="C5" value="1" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRelationshipCaregiver.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="C5" value="2" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRelationshipCaregiver.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="C5" value="3" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRelationshipCaregiver.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="C5" value="4" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRelationshipCaregiver.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="C5" value="5" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRelationshipCaregiver.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="C5" value="6" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRelationshipCaregiver.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="C5" value="7" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRelationshipCaregiver.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">6. Family Routines/Rituals</td>
+        <td>
+          <input type="radio" name="C6" value="0" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRoutines.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="C6" value="1" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRoutines.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="C6" value="2" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRoutines.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="C6" value="3" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRoutines.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="C6" value="4" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRoutines.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="C6" value="5" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRoutines.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="C6" value="6" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRoutines.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="C6" value="7" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRoutines.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">7. Family Recreation and Play Activities</td>
+        <td>
+          <input type="radio" name="B7" value="0" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRecreation.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="C7" value="1" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRecreation.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="C7" value="2" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRecreation.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="C7" value="3" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRecreation.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="C7" value="4" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRecreation.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="C7" value="5" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRecreation.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="C7" value="6" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRecreation.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="C7" value="7" class="radio"
+            [(ngModel)]="model.FamilyInteractionsRecreation.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">8. Overall Family Interactions</td>
+        <td>
+          <input type="radio" name="C8" value="0" class="radio"
+            [(ngModel)]="model.FamilyInteractionsOverall.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="C8" value="1" class="radio"
+            [(ngModel)]="model.FamilyInteractionsOverall.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="C8" value="2" class="radio"
+            [(ngModel)]="model.FamilyInteractionsOverall.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="C8" value="3" class="radio"
+            [(ngModel)]="model.FamilyInteractionsOverall.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="C8" value="4" class="radio"
+            [(ngModel)]="model.FamilyInteractionsOverall.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="C8" value="5" class="radio"
+            [(ngModel)]="model.FamilyInteractionsOverall.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="C8" value="6" class="radio"
+            [(ngModel)]="model.FamilyInteractionsOverall.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="C8" value="7" class="radio"
+            [(ngModel)]="model.FamilyInteractionsOverall.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+    </table>
+    <p class="bold">Comments:</p>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput [disabled]="model.disableValidate === true" class="textarea" autosize
+          [(ngModel)]="model.FamilyInteractionsComment.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.FamilyInteractionsComment.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <h2></h2>
+    <p>Note: This section refers to family members living in the same or different households</p>
+    <table>
+      <tr>
+        <th></th>
+        <th>Not Applic.</th>
+        <th>Clear Strength</th>
+        <th>Mild Strength</th>
+        <th>Baseline Adequate</th>
+        <th>Mild Problem</th>
+        <th>Moderate Problem</th>
+        <th>Serious Problem</th>
+        <th>Unknown</th>
+      </tr>
+      <tr>
+        <td class="bold">1. Absence/Presence of Domestic Violence Between Parents/Caregivers</td>
+        <td>
+          <input type="radio" name="D1" value="0" class="radio"
+            [(ngModel)]="model.FamilySafetyDomesticViolence.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="D1" value="1" class="radio"
+            [(ngModel)]="model.FamilySafetyDomesticViolence.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="D1" value="2" class="radio"
+            [(ngModel)]="model.FamilySafetyDomesticViolence.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="D1" value="3" class="radio"
+            [(ngModel)]="model.FamilySafetyDomesticViolence.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="D1" value="4" class="radio"
+            [(ngModel)]="model.FamilySafetyDomesticViolence.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="D1" value="5" class="radio"
+            [(ngModel)]="model.FamilySafetyDomesticViolence.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="D1" value="6" class="radio"
+            [(ngModel)]="model.FamilySafetyDomesticViolence.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="D1" value="7" class="radio"
+            [(ngModel)]="model.FamilySafetyDomesticViolence.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">2. Absence/Presence of Other Family Conflict</td>
+        <td>
+          <input type="radio" name="D2" value="0" class="radio"
+            [(ngModel)]="model.FamilySafetyConflict.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="D2" value="1" class="radio"
+            [(ngModel)]="model.FamilySafetyConflict.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="D2" value="2" class="radio"
+            [(ngModel)]="model.FamilySafetyConflict.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="D2" value="3" class="radio"
+            [(ngModel)]="model.FamilySafetyConflict.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="D2" value="4" class="radio"
+            [(ngModel)]="model.FamilySafetyConflict.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="D2" value="5" class="radio"
+            [(ngModel)]="model.FamilySafetyConflict.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="D2" value="6" class="radio"
+            [(ngModel)]="model.FamilySafetyConflict.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="D2" value="7" class="radio"
+            [(ngModel)]="model.FamilySafetyConflict.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">3. Absence/Presence of Physical Abuse of Child(ren)</td>
+        <td>
+          <input type="radio" name="D3" value="0" class="radio" [(ngModel)]="model.FamilySafetyAbuse.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="D3" value="1" class="radio" [(ngModel)]="model.FamilySafetyAbuse.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="D3" value="2" class="radio" [(ngModel)]="model.FamilySafetyAbuse.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="D3" value="3" class="radio" [(ngModel)]="model.FamilySafetyAbuse.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="D3" value="4" class="radio" [(ngModel)]="model.FamilySafetyAbuse.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="D3" value="5" class="radio" [(ngModel)]="model.FamilySafetyAbuse.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="D3" value="6" class="radio" [(ngModel)]="model.FamilySafetyAbuse.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="D3" value="7" class="radio" [(ngModel)]="model.FamilySafetyAbuse.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">4. Absence/Presence of Emotional Abuse of Child(ren)</td>
+        <td>
+          <input type="radio" name="D4" value="0" class="radio"
+            [(ngModel)]="model.FamilySafetyEmotionalAbuse.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="D4" value="1" class="radio"
+            [(ngModel)]="model.FamilySafetyEmotionalAbuse.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="D4" value="2" class="radio"
+            [(ngModel)]="model.FamilySafetyEmotionalAbuse.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="D4" value="3" class="radio"
+            [(ngModel)]="model.FamilySafetyEmotionalAbuse.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="D4" value="4" class="radio"
+            [(ngModel)]="model.FamilySafetyEmotionalAbuse.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="D4" value="5" class="radio"
+            [(ngModel)]="model.FamilySafetyEmotionalAbuse.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="D4" value="6" class="radio"
+            [(ngModel)]="model.FamilySafetyEmotionalAbuse.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="D4" value="7" class="radio"
+            [(ngModel)]="model.FamilySafetyEmotionalAbuse.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">5. Absence/Presence of Sexual Abuse of Child(ren)</td>
+        <td>
+          <input type="radio" name="D5" value="0" class="radio"
+            [(ngModel)]="model.FamilySafetySexualAbuse.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="D5" value="1" class="radio"
+            [(ngModel)]="model.FamilySafetySexualAbuse.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="D5" value="2" class="radio"
+            [(ngModel)]="model.FamilySafetySexualAbuse.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="D5" value="3" class="radio"
+            [(ngModel)]="model.FamilySafetySexualAbuse.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="D5" value="4" class="radio"
+            [(ngModel)]="model.FamilySafetySexualAbuse.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="D5" value="5" class="radio"
+            [(ngModel)]="model.FamilySafetySexualAbuse.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="D5" value="6" class="radio"
+            [(ngModel)]="model.FamilySafetySexualAbuse.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="D5" value="7" class="radio"
+            [(ngModel)]="model.FamilySafetySexualAbuse.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">6. Absence/Presence of Neglect of Child(ren)</td>
+        <td>
+          <input type="radio" name="D6" value="0" class="radio"
+            [(ngModel)]="model.FamilySafetyNeglect.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="D6" value="1" class="radio"
+            [(ngModel)]="model.FamilySafetyNeglect.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="D6" value="2" class="radio"
+            [(ngModel)]="model.FamilySafetyNeglect.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="D6" value="3" class="radio"
+            [(ngModel)]="model.FamilySafetyNeglect.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="D6" value="4" class="radio"
+            [(ngModel)]="model.FamilySafetyNeglect.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="D6" value="5" class="radio"
+            [(ngModel)]="model.FamilySafetyNeglect.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="D6" value="6" class="radio"
+            [(ngModel)]="model.FamilySafetyNeglect.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="D6" value="7" class="radio"
+            [(ngModel)]="model.FamilySafetyNeglect.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">7. Absence/Presence of Access to Weapons</td>
+        <td>
+          <input type="radio" name="D7" value="0" class="radio"
+            [(ngModel)]="model.FamilySafetyWeapons.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="D7" value="1" class="radio"
+            [(ngModel)]="model.FamilySafetyWeapons.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="D7" value="2" class="radio"
+            [(ngModel)]="model.FamilySafetyWeapons.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="D7" value="3" class="radio"
+            [(ngModel)]="model.FamilySafetyWeapons.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="D7" value="4" class="radio"
+            [(ngModel)]="model.FamilySafetyWeapons.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="D7" value="5" class="radio"
+            [(ngModel)]="model.FamilySafetyWeapons.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="D7" value="6" class="radio"
+            [(ngModel)]="model.FamilySafetyWeapons.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="D7" value="7" class="radio"
+            [(ngModel)]="model.FamilySafetyWeapons.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">8. Overall Family Safety</td>
+        <td>
+          <input type="radio" name="D8" value="0" class="radio"
+            [(ngModel)]="model.FamilyInteractionsOverall.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="D8" value="1" class="radio"
+            [(ngModel)]="model.FamilySafetyOverall.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="D8" value="2" class="radio"
+            [(ngModel)]="model.FamilySafetyOverall.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="D8" value="3" class="radio"
+            [(ngModel)]="model.FamilySafetyOverall.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="D8" value="4" class="radio"
+            [(ngModel)]="model.FamilySafetyOverall.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="D8" value="5" class="radio"
+            [(ngModel)]="model.FamilySafetyOverall.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="D8" value="6" class="radio"
+            [(ngModel)]="model.FamilySafetyOverall.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="D8" value="7" class="radio"
+            [(ngModel)]="model.FamilySafetyOverall.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+    </table>
+    <p class="bold">Comments:</p>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput [disabled]="model.disableValidate === true" class="textarea" autosize
+          [(ngModel)]="model.FamilySafetyComment.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.FamilySafetyComment.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <h2>E. Child Well-Being</h2>
+    <p>Note: This section pertains to all the children in the family. If more than one child, children may have
+      different issues.
+      Rate the family, thus if any child has, for example, a behavioral problem, the family as a whole experiences that
+      problem.
+      In this way, all children in the family may contribute to the ratings on a single form</p>
+    <table>
+      <tr>
+        <th></th>
+        <th>Not Applic.</th>
+        <th>Clear Strength</th>
+        <th>Mild Strength</th>
+        <th>Baseline Adequate</th>
+        <th>Mild Problem</th>
+        <th>Moderate Problem</th>
+        <th>Serious Problem</th>
+        <th>Unknown</th>
+      </tr>
+      <tr>
+        <td class="bold">1. Child(ren)'s Behavior</td>
+        <td>
+          <input type="radio" name="E1" value="0" class="radio"
+            [(ngModel)]="model.ChildWellBeingBehavior.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="E1" value="1" class="radio"
+            [(ngModel)]="model.ChildWellBeingBehavior.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="E1" value="2" class="radio"
+            [(ngModel)]="model.ChildWellBeingBehavior.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="E1" value="3" class="radio"
+            [(ngModel)]="model.ChildWellBeingBehavior.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="E1" value="4" class="radio"
+            [(ngModel)]="model.ChildWellBeingBehavior.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="E1" value="5" class="radio"
+            [(ngModel)]="model.ChildWellBeingBehavior.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="E1" value="6" class="radio"
+            [(ngModel)]="model.ChildWellBeingBehavior.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="E1" value="7" class="radio"
+            [(ngModel)]="model.ChildWellBeingBehavior.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">2. School Performance</td>
+        <td>
+          <input type="radio" name="E2" value="0" class="radio"
+            [(ngModel)]="model.ChildWellBeingSchool.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="E2" value="1" class="radio"
+            [(ngModel)]="model.ChildWellBeingSchool.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="E2" value="2" class="radio"
+            [(ngModel)]="model.ChildWellBeingSchool.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="E2" value="3" class="radio"
+            [(ngModel)]="model.ChildWellBeingSchool.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="E2" value="4" class="radio"
+            [(ngModel)]="model.ChildWellBeingSchool.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="E2" value="5" class="radio"
+            [(ngModel)]="model.ChildWellBeingSchool.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="E2" value="6" class="radio"
+            [(ngModel)]="model.ChildWellBeingSchool.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="E2" value="7" class="radio"
+            [(ngModel)]="model.ChildWellBeingSchool.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">3. Child(ren)'s Relationship with Parent(s)/Caregiver(s)</td>
+        <td>
+          <input type="radio" name="E3" value="0" class="radio"
+            [(ngModel)]="model.ChildWellBeingRelationshipParents.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="E3" value="1" class="radio"
+            [(ngModel)]="model.ChildWellBeingRelationshipParents.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="E3" value="2" class="radio"
+            [(ngModel)]="model.ChildWellBeingRelationshipParents.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="E3" value="3" class="radio"
+            [(ngModel)]="model.ChildWellBeingRelationshipParents.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="E3" value="4" class="radio"
+            [(ngModel)]="model.ChildWellBeingRelationshipParents.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="E3" value="5" class="radio"
+            [(ngModel)]="model.ChildWellBeingRelationshipParents.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="E3" value="6" class="radio"
+            [(ngModel)]="model.ChildWellBeingRelationshipParents.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="E3" value="7" class="radio"
+            [(ngModel)]="model.ChildWellBeingRelationshipParents.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">4. Child(ren)'s Relationship with Sibling(s)</td>
+        <td>
+          <input type="radio" name="E4" value="0" class="radio"
+            [(ngModel)]="model.ChildWellBeingSiblings.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="E4" value="1" class="radio"
+            [(ngModel)]="model.ChildWellBeingSiblings.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="E4" value="2" class="radio"
+            [(ngModel)]="model.ChildWellBeingSiblings.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="E4" value="3" class="radio"
+            [(ngModel)]="model.ChildWellBeingSiblings.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="E4" value="4" class="radio"
+            [(ngModel)]="model.ChildWellBeingSiblings.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="E4" value="5" class="radio"
+            [(ngModel)]="model.ChildWellBeingSiblings.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="E4" value="6" class="radio"
+            [(ngModel)]="model.ChildWellBeingSiblings.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="E4" value="7" class="radio"
+            [(ngModel)]="model.ChildWellBeingSiblings.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">5. Child(ren)'s Relationship with Peers</td>
+        <td>
+          <input type="radio" name="E5" value="0" class="radio"
+            [(ngModel)]="model.ChildWellBeingPeers.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="E5" value="1" class="radio"
+            [(ngModel)]="model.ChildWellBeingPeers.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="E5" value="2" class="radio"
+            [(ngModel)]="model.ChildWellBeingPeers.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="E5" value="3" class="radio"
+            [(ngModel)]="model.ChildWellBeingPeers.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="E5" value="4" class="radio"
+            [(ngModel)]="model.ChildWellBeingPeers.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="E5" value="5" class="radio"
+            [(ngModel)]="model.ChildWellBeingPeers.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="E5" value="6" class="radio"
+            [(ngModel)]="model.ChildWellBeingPeers.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="E5" value="7" class="radio"
+            [(ngModel)]="model.ChildWellBeingPeers.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">6. Cooperation/Motivation to Maintain the Family</td>
+        <td>
+          <input type="radio" name="E6" value="0" class="radio"
+            [(ngModel)]="model.ChildWellBeingMaintainFamily.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="E6" value="1" class="radio"
+            [(ngModel)]="model.ChildWellBeingMaintainFamily.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="E6" value="2" class="radio"
+            [(ngModel)]="model.ChildWellBeingMaintainFamily.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="E6" value="3" class="radio"
+            [(ngModel)]="model.ChildWellBeingMaintainFamily.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="E6" value="4" class="radio"
+            [(ngModel)]="model.ChildWellBeingMaintainFamily.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="E6" value="5" class="radio"
+            [(ngModel)]="model.ChildWellBeingMaintainFamily.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="E6" value="6" class="radio"
+            [(ngModel)]="model.ChildWellBeingMaintainFamily.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="E6" value="7" class="radio"
+            [(ngModel)]="model.ChildWellBeingMaintainFamily.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">7. Overall Child Well-Being</td>
+        <td>
+          <input type="radio" name="E7" value="0" class="radio"
+            [(ngModel)]="model.ChildWellBeingOverall.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="E7" value="1" class="radio"
+            [(ngModel)]="model.ChildWellBeingOverall.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="E7" value="2" class="radio"
+            [(ngModel)]="model.ChildWellBeingOverall.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="E7" value="3" class="radio"
+            [(ngModel)]="model.ChildWellBeingOverall.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="E7" value="4" class="radio"
+            [(ngModel)]="model.ChildWellBeingOverall.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="E7" value="5" class="radio"
+            [(ngModel)]="model.ChildWellBeingOverall.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="E7" value="6" class="radio"
+            [(ngModel)]="model.ChildWellBeingOverall.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="E7" value="7" class="radio"
+            [(ngModel)]="model.ChildWellBeingOverall.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+    </table>
+    <p class="bold">Comments:</p>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput [disabled]="model.disableValidate === true" class="textarea" autosize
+          [(ngModel)]="model.ChildWell.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.ChildWell.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <h2></h2>
+    <table>
+      <tr>
+        <th></th>
+        <th>Not Applic.</th>
+        <th>Clear Strength</th>
+        <th>Mild Strength</th>
+        <th>Baseline Adequate</th>
+        <th>Mild Problem</th>
+        <th>Moderate Problem</th>
+        <th>Serious Problem</th>
+        <th>Unknown</th>
+      </tr>
+      <tr>
+        <td class="bold">1. Social relationships</td>
+        <td>
+          <input type="radio" name="F1" value="0" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeSocial.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="F1" value="1" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeSocial.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="F1" value="2" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeSocial.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="F1" value="3" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeSocial.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="F1" value="4" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeSocial.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="F1" value="5" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeSocial.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="F1" value="6" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeSocial.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="F1" value="7" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeSocial.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">2. Relationships with Child Care, Schools, and Extracurricular Services</td>
+        <td>
+          <input type="radio" name="F2" value="0" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeExtracurricular.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="F2" value="1" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeExtracurricular.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="F2" value="2" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeExtracurricular.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="F2" value="3" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeExtracurricular.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="F2" value="4" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeExtracurricular.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="F2" value="5" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeExtracurricular.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="F2" value="6" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeExtracurricular.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="F2" value="7" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeExtracurricular.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">3. Connection to Neighborhood, Cultural/Ethnic Community</td>
+        <td>
+          <input type="radio" name="F3" value="0" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeNeighborhood.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="F3" value="1" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeNeighborhood.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="F3" value="2" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeNeighborhood.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="F3" value="3" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeNeighborhood.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="F3" value="4" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeNeighborhood.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="F3" value="5" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeNeighborhood.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="F3" value="6" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeNeighborhood.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="F3" value="7" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeNeighborhood.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">4. Connection to Spiritual/Religious Community</td>
+        <td>
+          <input type="radio" name="F4" value="0" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeSpirtual.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="F4" value="1" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeSpirtual.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="F4" value="2" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeSpirtual.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="F4" value="3" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeSpirtual.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="F4" value="4" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeSpirtual.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="F4" value="5" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeSpirtual.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="F4" value="6" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeSpirtual.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="F4" value="7" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeSpirtual.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">5. Parent(s)/Caregiver(s)'s Initiative and Acceptance of Available Help/Support</td>
+        <td>
+          <input type="radio" name="F5" value="0" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeHelp.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="F5" value="1" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeHelp.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="F5" value="2" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeHelp.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="F5" value="3" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeHelp.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="F5" value="4" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeHelp.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="F5" value="5" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeHelp.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="F5" value="6" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeHelp.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="F5" value="7" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeHelp.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">6. Overall Child Well-Being6. Cooperation/Motivation to Maintain the Family</td>
+        <td>
+          <input type="radio" name="F6" value="0" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeOverall.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="F6" value="1" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeOverall.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="F6" value="2" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeOverall.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="F6" value="3" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeOverall.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="F6" value="4" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeOverall.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="F6" value="5" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeOverall.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="F6" value="6" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeOverall.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="F6" value="7" class="radio"
+            [(ngModel)]="model.SocialCommunityLifeOverall.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+    </table>
+    <p class="bold">Comments:</p>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput [disabled]="model.disableValidate === true" class="textarea" autosize
+          [(ngModel)]="model.SocialCommunityLifeComment.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.SocialCommunityLifeComment.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <h2>G. Self-Suffciency</h2>
+    <table>
+      <tr>
+        <th></th>
+        <th>Not Applic.</th>
+        <th>Clear Strength</th>
+        <th>Mild Strength</th>
+        <th>Baseline Adequate</th>
+        <th>Mild Problem</th>
+        <th>Moderate Problem</th>
+        <th>Serious Problem</th>
+        <th>Unknown</th>
+      </tr>
+      <tr>
+        <td class="bold">1. Caregiver Employment</td>
+        <td>
+          <input type="radio" name="G1" value="0" class="radio"
+            [(ngModel)]="model.SelfSuffciencyEmployment.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="G1" value="1" class="radio"
+            [(ngModel)]="model.SelfSuffciencyEmployment.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="G1" value="2" class="radio"
+            [(ngModel)]="model.SelfSuffciencyEmployment.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="G1" value="3" class="radio"
+            [(ngModel)]="model.SelfSuffciencyEmployment.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="G1" value="4" class="radio"
+            [(ngModel)]="model.SelfSuffciencyEmployment.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="G1" value="5" class="radio"
+            [(ngModel)]="model.SelfSuffciencyEmployment.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="G1" value="6" class="radio"
+            [(ngModel)]="model.SelfSuffciencyEmployment.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="G1" value="7" class="radio"
+            [(ngModel)]="model.SelfSuffciencyEmployment.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">2. Family Income</td>
+        <td>
+          <input type="radio" name="G2" value="0" class="radio"
+            [(ngModel)]="model.SelfSuffciencyIncome.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="G2" value="1" class="radio"
+            [(ngModel)]="model.SelfSuffciencyIncome.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="G2" value="2" class="radio"
+            [(ngModel)]="model.SelfSuffciencyIncome.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="G2" value="3" class="radio"
+            [(ngModel)]="model.SelfSuffciencyIncome.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="G2" value="4" class="radio"
+            [(ngModel)]="model.SelfSuffciencyIncome.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="G2" value="5" class="radio"
+            [(ngModel)]="model.SelfSuffciencyIncome.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="G2" value="6" class="radio"
+            [(ngModel)]="model.SelfSuffciencyIncome.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="G2" value="7" class="radio"
+            [(ngModel)]="model.SelfSuffciencyIncome.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <!-- for mac comment it -->
+      <div class="html2pdf__page-break"></div>
+      <tr>
+        <td class="bold">3. Financial Management</td>
+        <td>
+          <input type="radio" name="G3" value="0" class="radio"
+            [(ngModel)]="model.SelfSuffciencyManagement.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="G3" value="1" class="radio"
+            [(ngModel)]="model.SelfSuffciencyManagement.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="G3" value="2" class="radio"
+            [(ngModel)]="model.SelfSuffciencyManagement.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="G3" value="3" class="radio"
+            [(ngModel)]="model.SelfSuffciencyManagement.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="G3" value="4" class="radio"
+            [(ngModel)]="model.SelfSuffciencyManagement.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="G3" value="5" class="radio"
+            [(ngModel)]="model.SelfSuffciencyManagement.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="G3" value="6" class="radio"
+            [(ngModel)]="model.SelfSuffciencyManagement.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="G3" value="7" class="radio"
+            [(ngModel)]="model.SelfSuffciencyManagement.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">4. Food and Nutrition</td>
+        <td>
+          <input type="radio" name="G4" value="0" class="radio" [(ngModel)]="model.SelfSuffciencyFood.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="G4" value="1" class="radio" [(ngModel)]="model.SelfSuffciencyFood.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="G4" value="2" class="radio" [(ngModel)]="model.SelfSuffciencyFood.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="G4" value="3" class="radio" [(ngModel)]="model.SelfSuffciencyFood.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="G4" value="4" class="radio" [(ngModel)]="model.SelfSuffciencyFood.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="G4" value="5" class="radio" [(ngModel)]="model.SelfSuffciencyFood.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="G4" value="6" class="radio" [(ngModel)]="model.SelfSuffciencyFood.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="G4" value="7" class="radio" [(ngModel)]="model.SelfSuffciencyFood.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">5. Transportation</td>
+        <td>
+          <input type="radio" name="G5" value="0" class="radio"
+            [(ngModel)]="model.SelfSuffciencyTransportation.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="G5" value="1" class="radio"
+            [(ngModel)]="model.SelfSuffciencyTransportation.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="G5" value="2" class="radio"
+            [(ngModel)]="model.SelfSuffciencyTransportation.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="G5" value="3" class="radio"
+            [(ngModel)]="model.SelfSuffciencyTransportation.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="G5" value="4" class="radio"
+            [(ngModel)]="model.SelfSuffciencyTransportation.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="G5" value="5" class="radio"
+            [(ngModel)]="model.SelfSuffciencyTransportation.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="G5" value="6" class="radio"
+            [(ngModel)]="model.SelfSuffciencyTransportation.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="G5" value="7" class="radio"
+            [(ngModel)]="model.SelfSuffciencyTransportation.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">6. Overall Child Well-Being</td>
+        <td>
+          <input type="radio" name="G6" value="0" class="radio"
+            [(ngModel)]="model.SelfSuffciencyOverall.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="G6" value="1" class="radio"
+            [(ngModel)]="model.SelfSuffciencyOverall.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="G6" value="2" class="radio"
+            [(ngModel)]="model.SelfSuffciencyOverall.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="G6" value="3" class="radio"
+            [(ngModel)]="model.SelfSuffciencyOverall.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="G6" value="4" class="radio"
+            [(ngModel)]="model.SelfSuffciencyOverall.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="G6" value="5" class="radio"
+            [(ngModel)]="model.SelfSuffciencyOverall.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="G6" value="6" class="radio"
+            [(ngModel)]="model.SelfSuffciencyOverall.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="G6" value="7" class="radio"
+            [(ngModel)]="model.SelfSuffciencyOverall.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+    </table>
+    <p class="bold">Comments:</p>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput [disabled]="model.disableValidate === true" class="textarea" autosize
+          [(ngModel)]="model.Self.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Self.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <h2>H. Family Health</h2>
+    <table>
+      <tr>
+        <th></th>
+        <th>Not Applic.</th>
+        <th>Clear Strength</th>
+        <th>Mild Strength</th>
+        <th>Baseline Adequate</th>
+        <th>Mild Problem</th>
+        <th>Moderate Problem</th>
+        <th>Serious Problem</th>
+        <th>Unknown</th>
+      </tr>
+      <tr>
+        <td class="bold">1. Parent(s)/Caregiver(s)'s Physical Health</td>
+        <td>
+          <input type="radio" name="H1" value="0" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsHealth.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="H1" value="1" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsHealth.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="H1" value="2" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsHealth.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="H1" value="3" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsHealth.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="H1" value="4" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsHealth.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="H1" value="5" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsHealth.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="H1" value="6" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsHealth.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="H1" value="7" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsHealth.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">2. Parent(s)/Caregiver(s)'s Disability</td>
+        <td>
+          <input type="radio" name="H2" value="0" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsDisabilaty.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="H2" value="1" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsDisabilaty.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="H2" value="2" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsDisabilaty.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="H2" value="3" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsDisabilaty.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="H2" value="4" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsDisabilaty.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="H2" value="5" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsDisabilaty.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="H2" value="6" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsDisabilaty.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="H2" value="7" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsDisabilaty.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">3. Parents(s)/Caregiver(s)'s Mental Health</td>
+        <td>
+          <input type="radio" name="H3" value="0" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsMentalHealth.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="H3" value="1" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsMentalHealth.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="H3" value="2" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsMentalHealth.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="H3" value="3" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsMentalHealth.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="H3" value="4" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsMentalHealth.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="H3" value="5" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsMentalHealth.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="H3" value="6" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsMentalHealth.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="H3" value="7" class="radio"
+            [(ngModel)]="model.FamilyHealthParentsMentalHealth.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">4. Child(ren)'s Physical Health</td>
+        <td>
+          <input type="radio" name="H4" value="0" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensHealth.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="H4" value="1" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensHealth.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="H4" value="2" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensHealth.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="H4" value="3" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensHealth.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="H4" value="4" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensHealth.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="H4" value="5" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensHealth.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="H4" value="6" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensHealth.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="H4" value="7" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensHealth.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">5. Child(ren)'s Disability</td>
+        <td>
+          <input type="radio" name="H5" value="0" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensDisabilty.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="H5" value="1" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensDisabilty.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="H5" value="2" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensDisabilty.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="H5" value="3" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensDisabilty.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="H5" value="4" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensDisabilty.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="H5" value="5" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensDisabilty.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="H5" value="6" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensDisabilty.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="H5" value="7" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensDisabilty.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">6. Child(ren)'s Mental Health</td>
+        <td>
+          <input type="radio" name="H6" value="0" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensMentalHealth.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="H6" value="1" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensMentalHealth.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="H6" value="2" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensMentalHealth.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="H6" value="3" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensMentalHealth.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="H6" value="4" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensMentalHealth.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="H6" value="5" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensMentalHealth.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="H6" value="6" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensMentalHealth.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="H6" value="7" class="radio"
+            [(ngModel)]="model.FamilyHealthChildrensMentalHealth.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">7. Family Access to Health/Mental Health Care</td>
+        <td>
+          <input type="radio" name="H7" value="0" class="radio"
+            [(ngModel)]="model.FamilyHealthAccessToMentalHealth.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="H7" value="1" class="radio"
+            [(ngModel)]="model.FamilyHealthAccessToMentalHealth.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="H7" value="2" class="radio"
+            [(ngModel)]="model.FamilyHealthAccessToMentalHealth.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="H7" value="3" class="radio"
+            [(ngModel)]="model.FamilyHealthAccessToMentalHealth.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="H7" value="4" class="radio"
+            [(ngModel)]="model.FamilyHealthAccessToMentalHealth.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="H7" value="5" class="radio"
+            [(ngModel)]="model.FamilyHealthAccessToMentalHealth.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="H7" value="6" class="radio"
+            [(ngModel)]="model.FamilyHealthAccessToMentalHealth.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="H7" value="7" class="radio"
+            [(ngModel)]="model.FamilyHealthAccessToMentalHealth.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <!-- for mac comment it -->
+      <div class="html2pdf__page-break"></div>
+      <tr>
+        <td class="bold">8. Overall Family Health</td>
+        <td>
+          <input type="radio" name="H8" value="0" class="radio"
+            [(ngModel)]="model.FamilyHealthOverall.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="H8" value="1" class="radio"
+            [(ngModel)]="model.FamilyHealthOverall.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="H8" value="2" class="radio"
+            [(ngModel)]="model.FamilyHealthOverall.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="H8" value="3" class="radio"
+            [(ngModel)]="model.FamilyHealthOverall.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="H8" value="4" class="radio"
+            [(ngModel)]="model.FamilyHealthOverall.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="H8" value="5" class="radio"
+            [(ngModel)]="model.FamilyHealthOverall.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="H8" value="6" class="radio"
+            [(ngModel)]="model.FamilyHealthOverall.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="H8" value="7" class="radio"
+            [(ngModel)]="model.FamilyHealthOverall.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+    </table>
+    <p class="bold">Comments:</p>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput [disabled]="model.disableValidate === true" class="textarea" autosize
+          [(ngModel)]="model.FamilyHealthComment.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.FamilyHealthComment.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <h2>I. Caregiver/Child Ambivalence</h2>
+    <table>
+      <tr>
+        <th></th>
+        <th>Not Applic.</th>
+        <th>Clear Strength</th>
+        <th>Mild Strength</th>
+        <th>Baseline Adequate</th>
+        <th>Mild Problem</th>
+        <th>Moderate Problem</th>
+        <th>Serious Problem</th>
+        <th>Unknown</th>
+      </tr>
+      <tr>
+        <td class="bold">1. Parent/Caregiver Ambivalence Toward Child</td>
+        <td>
+          <input type="radio" name="I1" value="0" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceParentAmbivalenceChild.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="I1" value="1" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceParentAmbivalenceChild.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="I1" value="2" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceParentAmbivalenceChild.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="I1" value="3" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceParentAmbivalenceChild.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="I1" value="4" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceParentAmbivalenceChild.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="I1" value="5" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceParentAmbivalenceChild.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="I1" value="6" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceParentAmbivalenceChild.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="I1" value="7" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceParentAmbivalenceChild.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">2. Child Ambivalence Towards Parent/Caregiver</td>
+        <td>
+          <input type="radio" name="I2" value="0" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceChildAmbvialenceParent.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="I2" value="1" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceChildAmbvialenceParent.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="I2" value="2" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceChildAmbvialenceParent.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="I2" value="3" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceChildAmbvialenceParent.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="I2" value="4" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceChildAmbvialenceParent.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="I2" value="5" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceChildAmbvialenceParent.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="I2" value="6" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceChildAmbvialenceParent.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="I2" value="7" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceChildAmbvialenceParent.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">3. Ambivalence Exhibited By Substitute Care Provider</td>
+        <td>
+          <input type="radio" name="I3" value="0" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceSubCareProvider.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="I3" value="1" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceSubCareProvider.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="I3" value="2" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceSubCareProvider.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="I3" value="3" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceSubCareProvider.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="I3" value="4" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceSubCareProvider.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="I3" value="5" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceSubCareProvider.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="I3" value="6" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceSubCareProvider.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="I3" value="7" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceSubCareProvider.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">4. Disrupted Attachment</td>
+        <td>
+          <input type="radio" name="I4" value="0" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceDisruptedAttachment.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="I4" value="1" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceDisruptedAttachment.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="I4" value="2" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceDisruptedAttachment.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="I4" value="3" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceDisruptedAttachment.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="I4" value="4" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceDisruptedAttachment.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="I4" value="5" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceDisruptedAttachment.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="I4" value="6" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceDisruptedAttachment.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="I4" value="7" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceDisruptedAttachment.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">5. Pre-Reunification Home Visitations</td>
+        <td>
+          <input type="radio" name="I5" value="0" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalencePreUnificationVisits.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="I5" value="1" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalencePreUnificationVisits.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="I5" value="2" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalencePreUnificationVisits.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="I5" value="3" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalencePreUnificationVisits.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="I5" value="4" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalencePreUnificationVisits.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="I5" value="5" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalencePreUnificationVisits.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="I5" value="6" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalencePreUnificationVisits.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="I5" value="7" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalencePreUnificationVisits.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">6. Overall Caregiver/Child Ambivalence</td>
+        <td>
+          <input type="radio" name="I6" value="0" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceOverall.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="I6" value="1" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceOverall.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="I6" value="2" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceOverall.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="I6" value="3" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceOverall.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="I6" value="4" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceOverall.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="I6" value="5" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceOverall.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="I6" value="6" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceOverall.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="I6" value="7" class="radio"
+            [(ngModel)]="model.CaregiverChildAmbivalenceOverall.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+    </table>
+    <p class="bold">Comments:</p>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput [disabled]="model.disableValidate === true" class="textarea" autosize
+          [(ngModel)]="model.CaregiverChildAmbivalenceComment.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.CaregiverChildAmbivalenceComment.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <h2>J. Readiness for Reunification</h2>
+    <table>
+      <tr>
+        <th></th>
+        <th>Not Applic.</th>
+        <th>Clear Strength</th>
+        <th>Mild Strength</th>
+        <th>Baseline Adequate</th>
+        <th>Mild Problem</th>
+        <th>Moderate Problem</th>
+        <th>Serious Problem</th>
+        <th>Unknown</th>
+      </tr>
+      <tr>
+        <td class="bold">1. Resolution of Significant CPS Risk Factors</td>
+        <td>
+          <input type="radio" name="J1" value="0" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationCPS.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="J1" value="1" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationCPS.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="J1" value="2" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationCPS.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="J1" value="3" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationCPS.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="J1" value="4" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationCPS.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="J1" value="5" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationCPS.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="J1" value="6" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationCPS.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="J1" value="7" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationCPS.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">2. Completion of Case Service Plans</td>
+        <td>
+          <input type="radio" name="J2" value="0" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationCompletion.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="J2" value="1" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationCompletion.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="J2" value="2" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationCompletion.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="J2" value="3" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationCompletion.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="J2" value="4" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationCompletion.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="J2" value="5" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationCompletion.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="J2" value="6" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationCompletion.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="J2" value="7" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationCompletion.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">3. Resolution of Legal Issues</td>
+        <td>
+          <input type="radio" name="J3" value="0" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationLegal.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="J3" value="1" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationLegal.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="J3" value="2" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationLegal.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="J3" value="3" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationLegal.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="J3" value="4" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationLegal.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="J3" value="5" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationLegal.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="J3" value="6" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationLegal.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="J3" value="7" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationLegal.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">4. Parent/Caregiver Understanding of Child Treatment Needs</td>
+        <td>
+          <input type="radio" name="J4" value="0" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationTreatmentNeeds.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="J4" value="1" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationTreatmentNeeds.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="J4" value="2" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationTreatmentNeeds.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="J4" value="3" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationTreatmentNeeds.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="J4" value="4" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationTreatmentNeeds.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="J4" value="5" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationTreatmentNeeds.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="J4" value="6" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationTreatmentNeeds.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="J4" value="7" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationTreatmentNeeds.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">5. Established Back-Up Supports and/or Service Plans</td>
+        <td>
+          <input type="radio" name="J5" value="0" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationBackup.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="J5" value="1" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationBackup.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="J5" value="2" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationBackup.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="J5" value="3" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationBackup.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="J5" value="4" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationBackup.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="J5" value="5" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationBackup.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="J5" value="6" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationBackup.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="J5" value="7" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationBackup.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="bold">6. Overall Readiness for Reunification</td>
+        <td>
+          <input type="radio" name="J6" value="0" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationOverall.fieldOptionIndex">
+          <p>N/A</p>
+        </td>
+        <td>
+          <input type="radio" name="J6" value="1" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationOverall.fieldOptionIndex">
+          <p>+2</p>
+        </td>
+        <td>
+          <input type="radio" name="J6" value="2" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationOverall.fieldOptionIndex">
+          <p>+1</p>
+        </td>
+        <td>
+          <input type="radio" name="J6" value="3" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationOverall.fieldOptionIndex">
+          <p>0</p>
+        </td>
+        <td>
+          <input type="radio" name="J6" value="4" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationOverall.fieldOptionIndex">
+          <p>-1</p>
+        </td>
+        <td>
+          <input type="radio" name="J6" value="5" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationOverall.fieldOptionIndex">
+          <p>-2</p>
+        </td>
+        <td>
+          <input type="radio" name="J6" value="6" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationOverall.fieldOptionIndex">
+          <p>-3</p>
+        </td>
+        <td>
+          <input type="radio" name="J6" value="7" class="radio"
+            [(ngModel)]="model.ReadinessforReunificationOverall.fieldOptionIndex">
+          <p>UK</p>
+        </td>
+      </tr>
+    </table>
+    <p class="bold">Comments:</p>
+    <div class="text-section">
+      <mat-form-field *ngIf="!isFinalize">
+        <textarea matInput [disabled]="model.disableValidate === true" class="textarea" autosize
+          [(ngModel)]="model.TextField2.value"></textarea>
+      </mat-form-field>
+      <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.TextField2.value}}</span>
+    </div>
+    <hr *ngIf="isFinalize">
+    <div class="signature">
+      <div>
+        <span class="pad-right">Signature</span>
+        <mat-form-field *ngIf="!isFinalize">
+          <input matInput [(ngModel)]="model.Signature.value" readonly>
+        </mat-form-field>
+        <span *ngIf="isFinalize" class="pad-right">{{model.Signature.value}}</span>
+      </div>
+      <div>
+        <span class="pad-right">Title</span>
+        <mat-form-field *ngIf="!isFinalize">
+          <input matInput [(ngModel)]="model.title.value">
+        </mat-form-field>
+        <span *ngIf="isFinalize" class="pad-right">{{model.title.value}}</span>
+      </div>
+      <div>
+        <span class="pad-right">Date</span>
+        <mat-form-field floatLabel="never" *ngIf="!isFinalize">
+          <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose a date" class="date"
+            [(ngModel)]="model.date.value" value="{{date}}">
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <span *ngIf="isFinalize" class="pad-right">{{getFormatedDate(model.date.value)}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<form-footer (resetAction)='resetForm()' (calculateAction)='calculateForm()' (saveAction)='saveForm()'
+  (finalizeAction)='finalize()'>
+</form-footer>

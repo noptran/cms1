@@ -1,0 +1,1283 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+    <div class="container-foreground">
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-2">
+              <div class="card-header-row">
+                <div class="opencard-menu-container rfcOpencard">
+                  <div class="dropdown border-none">
+                    <span class="fa fa-th opencard-menu" data-toggle="dropdown" pTooltip="OpenCards"></span>
+                    <div class="dropdown-menu opencard-box">
+                      <div class="card-container">
+                        <div class="opencard" pTooltip="Click here to open" (click)=navigateTo(item.title)
+                          *ngFor="let item of subrfcOpencards">
+                          <img src={{item.icon}} alt="{{tip}}">
+                          <div class="opencard-info">
+                            <span class="title">{{item.title}}</span>
+                          </div>
+                        </div>
+                      </div>
+      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-10" style="text-align: right;">
+              <span class="quick-nav-btn" (click)="onQuickMenuNav('/reintegration/referral/opencard/case-activity/view')">Case
+                activity</span>
+              <span class="quick-nav-btn"
+                (click)="onQuickMenuNav('/reintegration/referral/opencard/assessments/view')">Assessments</span>
+              <span class="quick-nav-btn" (click)="onQuickMenuNav('/reintegration/referral/opencard/court-order/view')">Court
+                order</span>
+              <span class="quick-nav-btn" (click)="onQuickMenuNav('/reintegration/referral/opencard/case-team/view')">Case
+                team</span>
+              <span class="quick-nav-btn"
+                (click)="onQuickMenuNav('/reintegration/referral/opencard/monthly-reports/view')">Monthly reports</span>
+              <span class="quick-nav-btn"
+                (click)="onQuickMenuNav('/reintegration/referral/opencard/placement/view')">Placements</span>
+              <span class="quick-nav-btn" (click)="onQuickMenuNav('/reports/provider/view')">Providers</span>
+              <span class="quick-nav-btn"
+                (click)="onQuickMenuNav('/reintegration/referral/opencard/school/dashboard')">School</span>
+            </div>
+          </div>
+        <form class="sf-form form-height" [formGroup]="subrfcForm">
+          <nav class="nav-fill">
+            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link" *ngFor="let main of mainTabs;let i = index" [class.active]="sIndex  === i"
+                (click)="setIndex(i,$event)" data-toggle="tab" href="{{main.href}}" role="tab">{{main.label}}</a>
+            </div>
+          </nav>
+          <div class="tab-content padding-15 nav-content" id="nav-tabContent">
+            <div class="tab-pane margin-left-45  active in inner-scroll" id="nav-general" role="tabpanel"
+              aria-labelledby="nav-general-tab">
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Date Of Notification</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar name="dateInput" [showIcon]="true" showTime="true" hourFormat="12" [yearNavigator]="true"
+                      [monthNavigator]="true" yearRange="2000:2030" formControlName="receivedDateTime"
+                      [(ngModel)]="ri.receivedDateTime"></p-calendar>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Referral Date</span> <span class="mandatory">*</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar name="referralData" [showIcon]="true" showTime="true" hourFormat="12" [yearNavigator]="true"
+                      [monthNavigator]="true" yearRange="2000:2030" formControlName="referralDate"
+                      [(ngModel)]="ri.referralDate"></p-calendar>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Time Child Retrieved</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-calendar name="dateInput" [showIcon]="true" showTime="true" hourFormat="12" [yearNavigator]="true"
+                      [monthNavigator]="true" yearRange="2000:2030" formControlName="dateTimeRetrieved"
+                      [(ngModel)]="ri.dateTimeRetrieved"></p-calendar>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Facts
+                      <span class="mandatory">*</span>
+                    </span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input type="text" pInputText name="inputText" maxlength="10" size="27" formControlName="facts"
+                      [(ngModel)]="ri.facts" />
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Court Case#</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input type="text" pInputText name="inputText" maxlength="10" size="27" formControlName="courtCaseNo"
+                      [(ngModel)]="ri.courtCaseNo" />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>County
+                      <span class="mandatory">*</span>
+                    </span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <!-- <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'county')"
+                      name="countyID" formControlName="countyID" [(ngModel)]="ri.countyID" [dropdown]="true"
+                      field="countyName" size="23"></p-autoComplete> -->
+    
+                    <p-autoComplete [(ngModel)]="ri.countyID" field="countyName" [forceSelection]="true"
+                      emptyMessage="No results found!" placeholder="Type here to search" [suggestions]="results"
+                      name="countyID" (completeMethod)="getCounty($event)" [dropdown]="true" formControlName="countyID">
+                    </p-autoComplete>
+    
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+    
+    
+    
+                  <!-- <div class="row" style="margin-right: -9px !important;margin-left: 0px !important;">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <span>DCF Social Worker
+                        <span class="mandatory">*</span>
+                      </span>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 sf-form-ui">
+                      <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                        [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'dcfSocial')"
+                        name="srsStaffID" formControlName="srsStaffID" [(ngModel)]="ri.srsStaffID" [dropdown]="true"
+                        field="fullName" size="23"></p-autoComplete>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                      <button type="button" class="sf-positive-btn pull-left btn-sm"><i class="fa fa-search"
+                          aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div> -->
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>DCF Social Worker
+                      <span class="mandatory">*</span>
+                    </span>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-1">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'dcfSocial')"
+                      name="srsStaffID" formControlName="srsStaffID" [(ngModel)]="ri.srsStaffID" [dropdown]="true"
+                      field="fullName" size="23"></p-autoComplete>
+                  </div>
+                  <div class="col-lg-1 col-md-1 col-sm-1" style="position: relative;
+                  right: -125px;
+                  top: 10px;cursor: pointer;">
+                    <span class="fa fa-external-link" (click)="onClickDCF('dcfSocialWorker')"
+                      title="Create DCF Staff"></span>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>DCF Liaison</span> <span class="mandatory">*</span>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'dcfLiaison')"
+                      name="srsLiasonID" formControlName="srsLiasonID" [(ngModel)]="ri.srsLiasonID" [dropdown]="true"
+                      field="fullName" size="23"></p-autoComplete>
+                  </div>
+                  <div class="col-lg-1 col-md-1 col-sm-1" style="position: relative;
+                  right: -125px;
+                  top: 10px;cursor: pointer;">
+                    <span class="fa fa-external-link" (click)="onClickDCF('dcfLiaison')" title="Create DCF Staff"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+    
+                  <!-- <div class="row" style="margin-right: -9px !important;margin-left: 0px !important;"> -->
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>SFCS Worker
+                      <span class="mandatory">*</span>
+                    </span>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'sfcsWorker')"
+                      name="staffID" formControlName="staffID" [(ngModel)]="ri.staffID" [dropdown]="true" field="fullName"
+                      size="23"></p-autoComplete>
+                  </div>
+                  <div class="col-lg-1 col-md-1 col-sm-1" style="position: relative;
+                    right: -125px;
+                    top: 10px;cursor: pointer;">
+                    <span class="fa fa-external-link" (click)="onClickStaff()" title="Create Staff"></span>
+                  </div>
+                  <!-- <div class="col-lg-2 col-md-2 col-sm-2">
+                      <button type="button" class="sf-positive-btn pull-left btn-sm"><i class="fa fa-search"
+                          aria-hidden="true"></i>
+                      </button>
+                    </div> -->
+                  <!-- </div> -->
+    
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Case Manager Type</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input type="text" pInputText name="caseManagerType" value="Case Manager" readonly>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Does ICWA Apply?</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox binary="true" name="icwaapply" formControlName="icwaapply" [(ngModel)]="ri.icwaapply">
+                    </p-checkbox>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Tribe Has Been Contacted</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox binary="true" name="tribeNotified" formControlName="tribeNotified"
+                      [(ngModel)]="ri.tribeNotified"></p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Name Of Tribe</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'tribe')"
+                      name="tribeID" formControlName="tribeID" [(ngModel)]="ri.tribeID" [dropdown]="true" field="tribe"
+                      size="23"></p-autoComplete>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Removal Parent
+                      <span class="mandatory">*</span>
+                    </span>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2">
+                    <p-autoComplete class="family-member-dropdown" emptyMessage="No results found!"
+                      placeholder="Type here to search" [forceSelection]="true" [suggestions]="metaData"
+                      (completeMethod)="getMetaData($event,'removal_parent')" name="familyMemberID"
+                      formControlName="familyMemberID" [(ngModel)]="ri.familyMemberID" [dropdown]="true" field="name"
+                      size="23"></p-autoComplete>
+                  </div>
+    
+                  <div class="col-lg-1 col-md-1 col-sm-1" style="position: relative;
+                  right: -125px;
+                  top: 10px;cursor: pointer;">
+                    <span class="fa fa-external-link" (click)="onClickFamilyMember('removal parent')"
+                      title="Create Family Member"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Relationship</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'relationship')"
+                      name="fmRelationShipID" formControlName="fmRelationShipID" [(ngModel)]="ri.fmRelationShipID"
+                      [dropdown]="true" field="personType" size="23"></p-autoComplete>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Mother Name</span>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2">
+                    <p-autoComplete class="family-member-dropdown" emptyMessage="No results found!"
+                      placeholder="Type here to search" [forceSelection]="true" [suggestions]="metaData"
+                      (completeMethod)="getMetaData($event,'mother_name')" name="motherName_FamilyMemberID"
+                      formControlName="motherName_FamilyMemberID" [(ngModel)]="ri.motherName_FamilyMemberID"
+                      [dropdown]="true" field="name" size="23"></p-autoComplete>
+                  </div>
+    
+                  <div class="col-lg-1 col-md-1 col-sm-1" style="position: relative;
+                  right: -125px;
+                  top: 10px;cursor: pointer;">
+                    <span class="fa fa-external-link" (click)="onClickFamilyMember('mother')"
+                      title="Create Family Member"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Mother Incarcerated</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox binary="true" name="isMotherIncarcerated" formControlName="isMotherIncarcerated"
+                      [(ngModel)]="ri.isMotherIncarcerated"></p-checkbox>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Mother Deceased Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input type="text" pInputText name="motherDeceasedDate" value="NA" readonly>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Father Name</span>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2">
+                    <p-autoComplete class="family-member-dropdown" emptyMessage="No results found!"
+                      placeholder="Type here to search" [forceSelection]="true" [suggestions]="metaData"
+                      (completeMethod)="getMetaData($event,'father_name')" name="fatherName_FamilyMemberID"
+                      formControlName="fatherName_FamilyMemberID" [(ngModel)]="ri.fatherName_FamilyMemberID"
+                      [dropdown]="true" field="name" size="23"></p-autoComplete>
+                  </div>
+    
+                  <div class="col-lg-1 col-md-1 col-sm-1" style="position: relative;
+                  right: -125px;
+                  top: 10px;cursor: pointer;">
+                    <span class="fa fa-external-link" (click)="onClickFamilyMember('father')"
+                      title="Create Family Member"></span>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Father Incarcerated</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox binary="true" name="isFatherIncarcerated" formControlName="isFatherIncarcerated"
+                      [(ngModel)]="ri.isFatherIncarcerated"></p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Father Deceased Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input type="text" pInputText name="fatherDecesasedDate" value="NA" readonly>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>KEES Client Id</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">{{kees}}</div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>KAECSES</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">{{(kaecses !== 'null') ? kaecses : '' }}</div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Edit Client</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span class="document-link" routerLink="/reports/client/details">{{clientName}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Was mother married at time of child's birth?
+                      <span class="mandatory">*</span>
+                    </span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-radioButton label="Yes" name="groupname" formControlName="motherMarried_YesNoPending"
+                      [(ngModel)]="ri.motherMarried_YesNoPending"></p-radioButton>
+                    <p-radioButton name="groupname" value="2" label="No" name="no"
+                      formControlName="motherMarried_YesNoPending" [(ngModel)]="ri.motherMarried_YesNoPending">
+                    </p-radioButton>
+                    <p-radioButton name="groupname" value="3" label="N/A" name="n/a"
+                      formControlName="motherMarried_YesNoPending" [(ngModel)]="ri.motherMarried_YesNoPending">
+                    </p-radioButton>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Current Location Of Child</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input type="text" pInputText name="inputText" size="27" formControlName="pickupLocation"
+                      [(ngModel)]="ri.pickupLocation" />
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Name</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input type="text" maxlength="50" pInputText name="inputText" size="27"
+                      formControlName="pickupLocationName" [(ngModel)]="ri.pickupLocationName" />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Phone</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-inputMask mask="(999) 999-9999" [(ngModel)]="ri.pickupLocationPhone" name="homePh"
+                      formControlName="pickupLocationPhone"></p-inputMask>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Relationship</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'relationship')"
+                      [dropdown]="true" field="personType" size="23" name="pickupLocationPersonTypeID"
+                      formControlName="pickupLocationPersonTypeID" [(ngModel)]="ri.pickupLocationPersonTypeID">
+                    </p-autoComplete>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Change Of Venue</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox binary="true" name="isChangeOfVenue" formControlName="isChangeOfVenue"
+                      [(ngModel)]="ri.isChangeOfVenue"></p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Was Family Preservation Case</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox binary="true" name="isFormerFamilyPresCase" formControlName="isFormerFamilyPresCase"
+                      [(ngModel)]="ri.isFormerFamilyPresCase"></p-checkbox>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Title IV-E Eligible</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox binary="true" name="isTitleIVEEligible" formControlName="isTitleIVEEligible"
+                      [(ngModel)]="ri.isTitleIVEEligible"></p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>JJA Referral</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox binary="true" name="isJJAReferral" formControlName="isJJAReferral"
+                      [(ngModel)]="ri.isJJAReferral"></p-checkbox>
+                  </div>
+                </div>
+    
+              </div>
+            </div>
+            <div class="tab-pane margin-left-45 inner-scroll" id="nav-specific" role="tabpanel"
+              aria-labelledby="nav-specific-tab">
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Primary Reason
+                      <span class="mandatory">*</span>
+                    </span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData"
+                      (completeMethod)="getMetaData($event,'primary_reason')" name="primary_ReasonForRemovalID"
+                      formControlName="primary_ReasonForRemovalID" [(ngModel)]="ri.primary_ReasonForRemovalID"
+                      [dropdown]="true" field="reasonForRemoval" size="23"></p-autoComplete>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Secondary Reason</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData"
+                      (completeMethod)="getMetaData($event,'secondary_reason')" name="secondary_ReasonForRemovalID"
+                      formControlName="secondary_ReasonForRemovalID" [(ngModel)]="ri.secondary_ReasonForRemovalID"
+                      [dropdown]="true" field="reasonForRemoval" size="23"></p-autoComplete>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 two-column-checkbox-container" style="width: 86%;">
+                <div>
+                  <span>Abuse</span>
+                </div>
+                <div style="display:flex;flex-direction:column;width: 37%;">
+                  <p-checkbox name="groupname" binary="true" label="Physical" formControlName="physicalAbuse"
+                    [(ngModel)]="ri.physicalAbuse"></p-checkbox>
+                  <p-checkbox name="groupname" binary="true" label="Emotional" formControlName="emotionalAbuse"
+                    [(ngModel)]="ri.emotionalAbuse">
+                  </p-checkbox>
+                  <p-checkbox name="groupname" binary="true" label="Sexual" formControlName="sexualAbuse"
+                    [(ngModel)]="ri.sexualAbuse"></p-checkbox>
+                </div>
+                <div>
+                  <span>Neglect </span>
+                </div>
+                <div style="display:flex;flex-direction:column">
+                  <p-checkbox name="groupname" binary="true" label="Physical Neglect" formControlName="physicalNeglect"
+                    [(ngModel)]="ri.physicalNeglect"></p-checkbox>
+                  <p-checkbox name="groupname" binary="true" label="Medical Neglect" formControlName="neglect"
+                    [(ngModel)]="ri.neglect"></p-checkbox>
+                  <p-checkbox name="groupname" binary="true" label="Lack of Supervision" formControlName="lackSupervision"
+                    [(ngModel)]="ri.lackSupervision"></p-checkbox>
+                  <p-checkbox name="groupname" binary="true" label="Abandonment" formControlName="abandonment"
+                    [(ngModel)]="ri.abandonment"></p-checkbox>
+                </div>
+              </div>
+              <div class="margin-top-20 two-column-checkbox-container" style="width:45%">
+                <div>
+                  <span>CINC/NAN </span>
+                </div>
+                <div style="display:flex;flex-direction:column">
+                  <p-checkbox name="childAlcoholAbuse" binary="true" label="Child's Alcohol Abuse"
+                    formControlName="childAlcoholAbuse" [(ngModel)]="ri.childAlcoholAbuse"></p-checkbox>
+                  <p-checkbox name="childBehaviorProblem" binary="true" label="Child's Behavior Problem"
+                    formControlName="childBehaviorProblem" [(ngModel)]="ri.childBehaviorProblem"></p-checkbox>
+                  <p-checkbox name="groupname" binary="true" label="Child's Disability" formControlName="childDisability"
+                    [(ngModel)]="ri.childDisability"></p-checkbox>
+                  <p-checkbox name="groupname" binary="true" label="Child's Drug Abuse" formControlName="childDrugAbuse"
+                    [(ngModel)]="ri.childDrugAbuse"></p-checkbox>
+                  <p-checkbox name="groupname" binary="true" label="Death of Parent"
+                    formControlName="deathParentRelinquishment" [(ngModel)]="ri.deathParentRelinquishment"></p-checkbox>
+                  <p-checkbox name="groupname" binary="true" label="Inadequate Housing" formControlName="inadequateHousing"
+                    [(ngModel)]="ri.inadequateHousing"></p-checkbox>
+                  <p-checkbox name="groupname" binary="true" label="Parent's Alcohol Abuse"
+                    formControlName="parentAlcoholAbuse" [(ngModel)]="ri.parentAlcoholAbuse"></p-checkbox>
+                  <p-checkbox name="groupname" binary="true" label="Parent's Drug Abuse" formControlName="parentDrugAbuse"
+                    [(ngModel)]="ri.parentDrugAbuse"></p-checkbox>
+                  <p-checkbox name="groupname" binary="true" label="Parent's Incarceration"
+                    formControlName="parentIncarceration" [(ngModel)]="ri.parentIncarceration"></p-checkbox>
+                  <p-checkbox name="groupname" binary="true" label="Parent's Meth Use" formControlName="parentMethUse"
+                    [(ngModel)]="ri.parentMethUse"></p-checkbox>
+                  <p-checkbox name="groupname" binary="true" label="Parent's Illness/Disability or Inability to Cope"
+                    formControlName="parentIllnessDisabilityInability" [(ngModel)]="ri.parentIllnessDisabilityInability">
+                  </p-checkbox>
+                  <p-checkbox name="groupname" binary="true" label="Relinquishment By Parent"
+                    formControlName="parentRelinquishment" [(ngModel)]="ri.parentRelinquishment"></p-checkbox>
+                  <p-checkbox name="groupname" binary="true" label="Runaway" formControlName="runaway"
+                    [(ngModel)]="ri.runaway"></p-checkbox>
+                  <p-checkbox name="groupname" binary="true" label="Truancy" formControlName="truancy"
+                    [(ngModel)]="ri.truancy"></p-checkbox>
+                </div>
+                <!-- <div>
+                  <span>Old Removal reasons</span>
+                </div>
+                <div style="display:flex;flex-direction:column">
+                  <p-checkbox binary="true" label="Abuse"></p-checkbox>
+                  <p-checkbox binary="true" label="Neglect"></p-checkbox>
+                  <p-checkbox binary="true" label="CINC/NAN"></p-checkbox>
+                  <p-checkbox binary="true" label="Other"></p-checkbox>
+                  <p-checkbox binary="true" label="Death of parent or Relinquishment"></p-checkbox>
+    
+                </div> -->
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Briefly describe why the child is referred for out of home placement</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea name="textarea" pInputTextArea style="width:100%;height:100%"
+                      formControlName="otherReasonForPlacement" [(ngModel)]="ri.otherReasonForPlacement"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Additional information (risk factors identified, status of investigation, follow-up, etc)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea name="textarea" pInputTextArea style="width:100%;height:100%"
+                      formControlName="additionalInformationRemoval"
+                      [(ngModel)]="ri.additionalInformationRemoval"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <p-checkbox binary="true"
+                      label="Team meeting  - Is it appropriate for this child to attend the initial team meeting"
+                      name="attendTeamMeetingOk" value="1" formControlName="attendTeamMeetingOk"
+                      [(ngModel)]="ri.attendTeamMeetingOk"></p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Reason</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea name="textarea" pInputTextArea style="width:100%;height:100%" name="reason"
+                      formControlName="attendTeamMeetingReason" [(ngModel)]="ri.attendTeamMeetingReason"></textarea>
+                  </div>
+                </div>
+              </div>
+    
+            </div>
+            <div class="tab-pane margin-left-45 inner-scroll" id="nav-sibiling" role="tabpanel"
+              aria-labelledby="nav-sibiling-tab">
+              <div class="margin-top-20 row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Siblings names and locations. Also, rec for placement together and/or visitation with referred
+                      child. If
+                      not recommending placement together and/or visitation, specify why</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea name="textarea" pInputTextArea style="width:100%;height:100%" name="siblingPlacementFactors"
+                      formControlName="siblingPlacementFactors" [(ngModel)]="ri.siblingPlacementFactors"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane margin-left-45 inner-scroll" id="nav-important" role="tabpanel"
+              aria-labelledby="nav-important-tab">
+              <div class="margin-top-20 row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Important connections to be maintained for the child (Include, name,type of connection, and
+                      contact information)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea name="textarea" pInputTextArea style="width:100%;height:100%" name="specificCourtRecommend"
+                      formControlName="specificCourtRecommend" [(ngModel)]="ri.specificCourtRecommend"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane margin-left-45 inner-scroll" id="nav-school" role="tabpanel"
+              aria-labelledby="nav-school-tab">
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Current School
+                      <span class="mandatory">*</span>
+                    </span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData"
+                      (completeMethod)="getMetaData($event,'current_school')" name="schoolID" [(ngModel)]="ri.schoolID"
+                      formControlName="schoolID" [dropdown]="true" field="schoolName" size="23">
+                      <ng-template let-schoolID pTemplate="item">
+                        <table>
+                          <tr>
+                            <td><b>Name</b></td>
+                            <td>:</td>
+                            <td>{{schoolID?.schoolName}}</td>
+                          </tr>
+                          <tr>
+                            <td><b>USD</b></td>
+                            <td>:</td>
+                            <td>{{schoolID?.usd}}</td>
+                          </tr>
+                          <tr>
+                            <td><b>Address</b></td>
+                            <td>:</td>
+                            <td>{{schoolID?.address}}</td>
+                          </tr>
+                          <tr>
+                            <td><b>City</b></td>
+                            <td>:</td>
+                            <td>{{schoolID?.cityID?.city}}</td>
+                          </tr>
+                          <tr>
+                            <td><b>State</b></td>
+                            <td>:</td>
+                            <td>{{schoolID?.stateID?.state}}</td>
+                          </tr>
+                        </table>
+                      </ng-template>
+                    </p-autoComplete>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Current Grade
+                      <span class="mandatory">*</span>
+                    </span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input type="text" name="currentGrade" maxlength="11" pInputText name="currentGrade"
+                      formControlName="currentGrade" [(ngModel)]="ri.currentGrade" />
+                  </div>
+                </div>
+              </div>
+              <span>
+                <b>Current Education needs: <span class="mandatory">*</span></b>
+              </span>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Regular Public </span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox name="regularPublic" binary="true" formControlName="regPubSchool"
+                      [(ngModel)]="ri.regPubSchool"></p-checkbox>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Special Education
+    
+                    </span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-checkbox name="regularPublic" binary="true" (onChange)="showSplEduType($event)"
+                      formControlName="specialED" [(ngModel)]="ri.specialED">
+                    </p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Special Education Type
+                      <span class="mandatory" *ngIf="marked">*</span>
+                    </span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input type="text" name="educationType" pInputText formControlName="specialEDType"
+                      [(ngModel)]="ri.specialEDType" />
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Unknown
+                    </span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-inputSwitch formControlName="specialEDTypeUnknown" name="inputtoggle"
+                      [(ngModel)]="ri.specialEDTypeUnknown"></p-inputSwitch>
+                  </div>
+                </div>
+              </div>
+              <span>
+                <b>Special needs:</b>
+              </span>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Medication</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'medication')"
+                      [dropdown]="true" name="medication" formControlName="medication" [(ngModel)]="ri.medication"
+                      field="yesNoPending" size="23"></p-autoComplete>
+    
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Pregnant</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'pregnant')"
+                      [dropdown]="true" name="pregnant" formControlName="pregnant" [(ngModel)]="ri.pregnant"
+                      field="yesNoPending" size="23"></p-autoComplete>
+    
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Drugs/Alcohol</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData"
+                      (completeMethod)="getMetaData($event,'durgs_alcohol')" [dropdown]="true" name="drugsAlcohol"
+                      formControlName="drugsAlcohol" [(ngModel)]="ri.drugsAlcohol" field="yesNoPending" size="23">
+                    </p-autoComplete>
+    
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Sexual Offender</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData"
+                      (completeMethod)="getMetaData($event,'sexual_offender')" [dropdown]="true" name="sexualOffender"
+                      formControlName="sexualOffender" [(ngModel)]="ri.sexualOffender" field="yesNoPending" size="23">
+                    </p-autoComplete>
+    
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Sexually Abused</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData"
+                      (completeMethod)="getMetaData($event,'sexually_abused')" [dropdown]="true" name="sexualAbused"
+                      formControlName="sexualAbused" [(ngModel)]="ri.sexualAbused" field="yesNoPending" size="23">
+                    </p-autoComplete>
+    
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Physical Aggression</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData"
+                      (completeMethod)="getMetaData($event,'physical_aggression')" [dropdown]="true"
+                      name="physicalAggression" formControlName="physicalAggression" [(ngModel)]="ri.physicalAggression"
+                      field="yesNoPending" size="23"></p-autoComplete>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Verbal Aggression</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData"
+                      (completeMethod)="getMetaData($event,'verbal_aggression')" [dropdown]="true" name="verbalAggression"
+                      formControlName="verbalAggression" [(ngModel)]="ri.verbalAggression" field="yesNoPending" size="23">
+                    </p-autoComplete>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Runner</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'runner')"
+                      [dropdown]="true" name="runner" formControlName="runner" [(ngModel)]="ri.runner" field="yesNoPending"
+                      size="23"></p-autoComplete>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Disability</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'disability')"
+                      [dropdown]="true" name="disability" formControlName="disability" [(ngModel)]="ri.disability"
+                      field="yesNoPending" size="23"></p-autoComplete>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Suicidal</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'suicidal')"
+                      [dropdown]="true" name="suicidal" formControlName="suicidal" [(ngModel)]="ri.suicidal"
+                      field="yesNoPending" size="23"></p-autoComplete>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Allergies</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'allergies')"
+                      [dropdown]="true" name="allergies" formControlName="allergies" [(ngModel)]="ri.allergies"
+                      field="yesNoPending" size="23"></p-autoComplete>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Fire Starter</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'fire_starter')"
+                      [dropdown]="true" name="fireStarter" formControlName="fireStarter" [(ngModel)]="ri.fireStarter"
+                      field="yesNoPending" size="23"></p-autoComplete>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Vandalism</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'vandalism')"
+                      [dropdown]="true" name="vandalism" formControlName="vandalism" [(ngModel)]="ri.vandalism"
+                      field="yesNoPending" size="23"></p-autoComplete>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Other</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'other')"
+                      [dropdown]="true" name="other" formControlName="other" [(ngModel)]="ri.other" field="yesNoPending"
+                      size="23"></p-autoComplete>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Handicap</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'handiCap')"
+                      [dropdown]="true" name="handiCap" formControlName="handiCap" [(ngModel)]="ri.handiCap"
+                      field="yesNoPending" size="23"></p-autoComplete>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Explanation</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea name="textarea" pInputTextArea style="width:100%;height:100%" formControlName="explanation"
+                      [(ngModel)]="ri.explanation"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Finalization Date(s) of prior finalized adoption(s)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea name="textarea" pInputTextArea style="width:100%;height:100%" maxlength="120"
+                      formControlName="priorAdoptions" [(ngModel)]="ri.priorAdoptions"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane margin-left-45 inner-scroll" id="nav-other" role="tabpanel"
+              aria-labelledby="nav-other-tab">
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Guardian Ad Litem</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'guardian')"
+                      [dropdown]="true" name="galid" formControlName="galid" [(ngModel)]="ri.galid" field="fullName"
+                      size="23"></p-autoComplete>
+    
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Court Service Officer</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'cso')"
+                      [dropdown]="true" name="csvid" formControlName="csvid" [(ngModel)]="ri.csvid" field="fullName"
+                      size="23"></p-autoComplete>
+    
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>CASA</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'casa')"
+                      [dropdown]="true" name="casaOfficerID" formControlName="casaOfficerID" [(ngModel)]="ri.casaOfficerID"
+                      field="fullName" size="23"></p-autoComplete>
+    
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>CRB Coordinator</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData"
+                      (completeMethod)="getMetaData($event,'crbCoordinator')" [dropdown]="true" name="crbcoordinatorID"
+                      formControlName="crbcoordinatorID" [(ngModel)]="ri.crbcoordinatorID" field="fullName" size="23">
+                    </p-autoComplete>
+    
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Judge</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'judge')"
+                      [dropdown]="true" name="judgeID" formControlName="judgeID" [(ngModel)]="ri.judgeID" field="fullName"
+                      size="23"></p-autoComplete>
+    
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Family Support Worker</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData"
+                      (completeMethod)="getMetaData($event,'family_support_worker')" [dropdown]="true" name="fswID"
+                      formControlName="fswID" [(ngModel)]="ri.fswID" field="fullName" size="23"></p-autoComplete>
+    
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>FP Case Manager</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input type="text" pInputText name="fpCaseManager" readonly>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Other</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData"
+                      (completeMethod)="getMetaData($event,'community_member')" [dropdown]="true" name="communityMemberID"
+                      formControlName="communityMemberID" [(ngModel)]="ri.communityMemberID" field="fullName" size="23">
+                    </p-autoComplete>
+    
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Person Type</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'person_type')"
+                      [dropdown]="true" name="cmPersonTypeID" formControlName="cmPersonTypeID"
+                      [(ngModel)]="ri.cmPersonTypeID" field="personType" size="23"></p-autoComplete>
+    
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 two-column-checkbox-container">
+                <div>
+                  <span>Required Attachments</span>
+                </div>
+                <div style="display:flex;flex-direction:column;width: 75%;">
+                  <p-checkbox name="groupname" binary="true" label="Court Document/Verification of custody"
+                    formControlName="courtDocs" [(ngModel)]="ri.courtDocs"></p-checkbox>
+                  <p-checkbox name="groupname" binary="true" label="Medical Consent" formControlName="medicalConsent"
+                    [(ngModel)]="ri.medicalConsent"></p-checkbox>
+                  <p-checkbox name="groupname" binary="true" label="Medical Card" formControlName="medicalCard"
+                    [(ngModel)]="ri.medicalCard"></p-checkbox>
+                  <p-checkbox name="groupname" binary="true" label="Release of Information" formControlName="releaseOfInfo"
+                    [(ngModel)]="ri.releaseOfInfo"></p-checkbox>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Additional Info</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea name="textarea" pInputTextArea style="width:100%;height:100%" formControlName="additionalInfo"
+                      [(ngModel)]="ri.additionalInfo"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">Referral Closure Date</div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p class="ui-inputtext">{{closureDate}}</p>
+                    <!-- <input type="text" name="closureDate" [(ngModel)]="closureDate" disabled="true" readonly="true"> -->
+                    <!-- <p-calendar [disabled]="true" name="closureDate" [(ngModel)]="closureDate" [showIcon]="true" showTime="true" hourFormat="12" [yearNavigator]="true" [monthNavigator]="true"
+                      yearRange="2000:2030"></p-calendar> -->
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Referral Withdraw Date</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <input type="text" name="referralWithdrawDate" disabled="true" readonly="true">
+                    <!-- <p-calendar [readonly]="true" [showIcon]="true" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                      yearRange="2000:2030"></p-calendar> -->
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <span>Case Payor</span>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <p-autoComplete emptyMessage="No results found!" placeholder="Type here to search"
+                      [forceSelection]="true" [suggestions]="metaData" (completeMethod)="getMetaData($event,'case_payor')"
+                      name="payorID" formControlName="payorID" [(ngModel)]="ri.payorID" [dropdown]="true" field="payorName"
+                      size="23"></p-autoComplete>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Closure Reason</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <!-- <textarea [readonly]="isReadOnlyClient" name="textarea" pInputTextArea style="width:100%;height:100%"></textarea> -->
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Withdraw Reason</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <!-- <textarea [readonly]="isReadOnlyClient" name="textarea" pInputTextArea style="width:100%;height:100%"></textarea> -->
+                  </div>
+                </div>
+              </div>
+              <div class="margin-top-20 row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <span>Notes</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <textarea name="textarea" pInputTextArea style="width:100%;height:100%" name="notes"
+                      formControlName="notes" [(ngModel)]="ri.notes"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <app-form-footer [isFormLog]="isFormLog" [formLogInfo]="formLogInfo" [attachmentControll]="isAttachmentRequired" [isAttachmentDisabled]="false"
+      (attachDoc)="navigateUpload()" (save)="addForm(ri)" [editControll]="edit" (edit)="editForm()"
+      [discardTo]="discardTo"></app-form-footer>
+            <app-quick-menu [module]="quickMenu"></app-quick-menu>
+    </div>
+</div>
+<!-- (onWizardClose)="wizardCloseEvent($event)" -->
+<person-master-wizards (getSelectedOption)="getPersonmasterWizardSelection($event)"></person-master-wizards>
+<p-dialog [(visible)]="isDCFComponent" header="DCF Staff" [contentStyle]="{'width':'100vw'}" [responsive]="true"
+  [maximizable]="true">
+  <app-dcf-form [isComponent]="true" (isFomrOpen)="dcfFormStatus($event)"></app-dcf-form>
+</p-dialog>
+
+<p-dialog [(visible)]="isFamilyMemberComponent" header="Family Member" [contentStyle]="{'width':'100vw'}"
+  [responsive]="true" [maximizable]="true">
+  <!-- *ngIf="isFamilyMemberComponent" -->
+  <app-famil-member-form [isComponent]="true" (isFomrOpen)="familyMemberFormStatus($event)"></app-famil-member-form>
+</p-dialog>
+
+<p-dialog [(visible)]="isStaffComponent" header="Staff" [contentStyle]="{'width':'100vw'}" [responsive]="true"
+  [maximizable]="true">
+  <app-staff-form *ngIf="isStaffComponent" [isComponent]="true" (isFomrOpen)="staffFormStatus($event)"></app-staff-form>
+</p-dialog>

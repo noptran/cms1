@@ -1,0 +1,195 @@
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+
+<div class="container-background">
+  <div class="container-foreground">
+    <div class="card-header-row" *ngIf="isEdit">
+      <div class="opencard-menu-container rfcOpencard">
+        <div class="dropdown border-none">
+          <span class="fa fa-th opencard-menu" data-toggle="dropdown" pTooltip="OpenCards"></span>
+          <div class="dropdown-menu opencard-box">
+            <div class="card-container">
+              <div class="opencard" pTooltip="Click here to open" [routerLink]="item.routerLink"
+                *ngFor="let item of jjfcOpenCards">
+                <div class="opencard-info">
+                  <span class="title">{{item.title}}</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="jjfcrefrralform" class="sf-form">
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane margin-left-45 active in" id="nav-sec1" role="tabpanel" aria-labelledby="nav-general-tab">
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Date of notification</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dateOfNotification" size="23" formControlName="dateOfNotification"
+                [(ngModel)]="jjfc.dateOfNotification" [showIcon]="true" showTime="true" hourFormat="24"
+                [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>CSO Notified</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="csoNotified" size="23" [(ngModel)]="jjfc.csoNotified" formControlName="cso_notified"
+                [showIcon]="true" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030"></p-calendar>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>CSO Worker</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="cso_worker" [(ngModel)]="jjfc.csoStaffID" [suggestions]="metaData"
+                (completeMethod)="getAndFilterCSOWorker($event)" [dropdown]="true" [forceSelection]="true"
+                field="staffName"></p-autoComplete>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Judicial District</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="judicial_district" [(ngModel)]="jjfc.judicialDistrictID"
+                [suggestions]="metaData" (completeMethod)="getAndFilterJudicialDistrict($event)" [dropdown]="true"
+                [forceSelection]="true" field="judicialDistrict"></p-autoComplete>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Placement needed</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="placementeNeeded" size="23" [(ngModel)]="jjfc.placementNeededDate"
+                formControlName="placement_needed" [showIcon]="true" showTime="true" hourFormat="24"
+                [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Permanency goal</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="permanency_goal" [(ngModel)]="jjfc.permanencyGoalID"
+                [suggestions]="metaData" (completeMethod)="getAndFilterPermanencyGoal($event)" [dropdown]="true"
+                [forceSelection]="true" field="permanencyGoal"></p-autoComplete>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Accept/Deny Placement</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="ad_placement" [(ngModel)]="jjfc.referralAcceptedID"
+                [suggestions]="metaData" (completeMethod)="getAndFilterAcceptOrDeclientReason($event)" [dropdown]="true"
+                [forceSelection]="true" field="referralAccepted" (onSelect)="onReferralAcceptOrDenyValidation($event)">
+              </p-autoComplete>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Reason for Denial</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="reason_denial" [(ngModel)]="jjfc.reasonForDeclineID"
+                [suggestions]="metaData" (completeMethod)="getAndFilterReasonForDenial($event)" [dropdown]="true"
+                [forceSelection]="true" field="reasonForDecline" (onSelect)="onDenileReasonValidation($event)">
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Denial Explanation</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <textarea pInputTextarea style=" width: auto; height: 100%;" formControlName="denial_explanation"
+                name="inputTextarea" [(ngModel)]="jjfc.reasonForDecline" rows="2" cols="28"></textarea>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Referral date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="referralDate" [(ngModel)]="jjfc.beginDate" formControlName="referral_date"
+                [showIcon]="true" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030">
+              </p-calendar>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Referral discharge date</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-calendar name="dischargeDate" [(ngModel)]="jjfc.endDate" formControlName="referral_discharge_date"
+                [showIcon]="true" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+                yearRange="2000:2030" (onSelect)="onReferralDischargeDateValidation($event)"></p-calendar>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Case payor</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="case_payor" [(ngModel)]="jjfc.payorID" [suggestions]="metaData"
+                (completeMethod)="getMetaData('payor',$event)" [dropdown]="true" [forceSelection]="true"
+                field="payorName" size="20">
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Reason for discharge</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <textarea pInputTextarea style=" width: auto;height: 100%;" formControlName="reason_for_discharge"
+                name="inputTextarea" [(ngModel)]="jjfc.reasonForDischarge" rows="2" cols="28"></textarea>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Notes</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <textarea pInputTextarea style=" width: auto;height: 100%;" formControlName="notes" name="inputTextarea"
+                [(ngModel)]="jjfc.notes" rows="2" cols="28"></textarea>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>SFM Office</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="sfcs_office" [(ngModel)]="jjfc.sfaOfficeID" [suggestions]="metaData"
+                (completeMethod)="getAndFilterSFMOffice($event)" [dropdown]="true" [forceSelection]="true" field="Name"
+                size="23">
+              </p-autoComplete>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>SFCS Worker</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="sfcs_worker" [(ngModel)]="jjfc.sfcsWorkerID" [suggestions]="metaData"
+                (completeMethod)="getAndFilterSFMStaff($event)" [dropdown]="true" [forceSelection]="true"
+                field="StaffName" size="23">
+              </p-autoComplete>
+            </div>
+          </div>
+          <div class="margin-top-20 row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Home county</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete formControlName="home_county" [(ngModel)]="jjfc.countyID" [suggestions]="metaData"
+                (completeMethod)="getMetaData('homeCounty',$event)" [dropdown]="true" [forceSelection]="true"
+                field="countyName" size="23">
+              </p-autoComplete>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer (save)="formActions()" [editControll]="isEdit" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo">
+    </app-form-footer>
+  </div>
+</div>

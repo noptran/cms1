@@ -1,0 +1,72 @@
+<!-- <div style="margin-top:60px"> -->
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<!-- <div class="container-fluid"> -->
+<app-form-header [title]="title" [status]="status" [breadcrumbs]="breadcrumbs" [formstatus]="formStatus"
+  [formNavigation]="formNavigation"></app-form-header>
+
+<div class="container-background">
+  <div class="container-foreground">
+    <form [formGroup]="clientStrengthForm" class="sf-form" autocomplete="off">
+
+      <div class="sf-form-size margin-left-45">
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Strength</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete [(ngModel)]="strength.strengthID" [suggestions]="metadata" formControlName="StrengthID"
+                emptyMessage="No results found!" placeholder="Type here to search" [forceSelection]="true"
+                (completeMethod)="getMetadata($event,'strength')" field="strength" [dropdown]="true"></p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Information Source</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-autoComplete [(ngModel)]="strength.strengthInformationSourceID" [suggestions]="metadata"
+                formControlName="strengthInformationSourceID" (completeMethod)="getMetadata($event,'source')" field="strengthInformationSource"
+                [dropdown]="true"></p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <span>Current</span>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <p-inputSwitch name="strength" [(ngModel)]="strength.current" formControlName="current"></p-inputSwitch>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-3 col-md-3 col-md-3">
+              <span>Explanation</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <textarea name="notes" pInputTextarea style=" width: 100%;     height: 100%;" [(ngModel)]="strength.explanation"
+                cols="60" rows="5" formControlName="explanation"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <app-form-footer [attachmentControll]="isAttachmentRequired" [isAttachmentDisabled]="false"
+        (attachDoc)="navigateTo()" (save)="saveForm(strength)" (reset)="resetForm()" (discard)="discardForm()" (edit)="editForm()"
+          [editControll]="editControll" [discardTo]="discardTo" [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+      </footer>
+    </form>
+    <app-quick-menu [module]="quickMenu"></app-quick-menu>
+  </div>
+</div>
+<!-- </div> -->
+<!-- </div> -->

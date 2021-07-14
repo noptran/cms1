@@ -1,0 +1,114 @@
+<hr style="margin: 0px !important;">
+<h5 class="head_acces">Add Other Services to Batch</h5>
+<hr style="margin: 0px !important;">
+<div class="container-background">
+  <div class="container-foreground">
+    <div id="loading-overlay">
+      <p class="loader-text">
+        <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+      </p>
+    </div>
+    <div style="padding:5px;" class="client-form">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">Add Other Services to Batch</div>
+        <div class="panel-body" style="padding:10px;">
+          <div class="pull-right">
+            <app-pagesize *ngIf="allServices.length>0" [totalCount]="provide_totalCount" [initial]="provide_initial"
+              [end]="provide_end" (keyup)="provide_pagesizeNav($event)" (click)="provide_pagesize($event)">
+            </app-pagesize>
+          </div>
+          <div class="table-responsive" style="height: 450px;overflow-y: scroll;">
+
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Claim Status <i class="fa fa-sort" (click)="sortingAddBatch('ClaimStatusValue',true)"
+                      aria-hidden="true"></i></th>
+                  <th>Add to Batch <i class="fa fa-sort" (click)="sortingAddBatch('Add to Batch',true)"
+                      aria-hidden="true"></i></th>
+                  <th>Client <i class="fa fa-sort" (click)="sortingAddBatch('Client',true)" aria-hidden="true"></i></th>
+                  <th>Begin Date <i class="fa fa-sort" (click)="sortingAddBatch('BeginDate',true)"
+                      aria-hidden="true"></i></th>
+                  <th>End Date <i class="fa fa-sort" (click)="sortingAddBatch('EndDate',true)" aria-hidden="true"></i>
+                  </th>
+                  <th>Units <i class="fa fa-sort" (click)="sortingAddBatch('Units',true)" aria-hidden="true"></i></th>
+                  <th>Total Payor Rate <i class="fa fa-sort" (click)="sortingAddBatch('TotalPayorRate',true)"
+                      aria-hidden="true"></i></th>
+                  <th>Vender ID <i class="fa fa-sort" (click)="sortingAddBatch('VenderID',true)" aria-hidden="true"></i>
+                  </th>
+                  <th>Who To Pay <i class="fa fa-sort" (click)="sortingAddBatch('WhoToPay',true)"
+                      aria-hidden="true"></i></th>
+                  <th>Service Address <i class="fa fa-sort" (click)="sortingAddBatch('ServiceAddress',true)"
+                      aria-hidden="true"></i></th>
+                  <th>Procode <i class="fa fa-sort" (click)="sortingAddBatch('Procode',true)" aria-hidden="true"></i>
+                  </th>
+                  <th>GLKey <i class="fa fa-sort" (click)="sortingAddBatch('GLKey',true)" aria-hidden="true"></i></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let provide_data of allServices let i1 = index">
+                  <td>{{provide_data.ClaimStatusValue}}</td>
+                  <td>
+                    <!-- <p-checkbox name="groupname[i1]" [ngModelOptions]="{standalone: true}"
+                      value="{{provide_data.AddtoBatch}}" [(ngModel)]="provide_data.AddtoBatch"
+                      (onChange)="getClaimIds(i1,provide_data,$event)" [binary]="true"></p-checkbox> -->
+                    <input type="checkbox" name="groupname" [checked]="provide_data.AddtoBatch"
+                      (change)="getClaimIds(i1,provide_data,$event)" />
+                  </td>
+                  <td>{{provide_data.Client}}</td>
+                  <td>{{provide_data.BeginDate}}</td>
+                  <td>{{provide_data.EndDate}}</td>
+                  <td>{{provide_data.Units}}</td>
+                  <td>{{provide_data.TotalPayorRate}}</td>
+                  <td>{{provide_data.VenderID}}</td>
+                  <td>{{provide_data.WhoToPay}}</td>
+                  <td>{{provide_data.ServiceAddress}}</td>
+                  <td>{{provide_data.Procode}}</td>
+                  <td>{{provide_data.GLKey}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-3">
+              <button class="sf-positive-btn" (click)="checkAll_batch()">Check All</button>
+              <button class="sf-negative-btn" (click)="unCheckAll()">UnCheck All</button>
+            </div>
+            <div class="col-md-7">
+              <div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <span>Batch Name</span>&nbsp;
+                    <div>
+                      <p-autoComplete [dropdown]="true" name="gradeID" emptyMessage="No results found!"
+                        [suggestions]="metaData" (completeMethod)="fillterBatchName($event)" [forceSelection]="true"
+                        placeholder="Type here to search" (onSelect)="openSaveDialogBox($event)" field="ClaimBatchName"
+                        [(ngModel)]="batchName" size="23">
+                      </p-autoComplete>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <span>Expected Payment Date</span>
+                    <div>
+                      <p-calendar name="dateInput" showTime="true" hourFormat="24" [yearNavigator]="true"
+                        [monthNavigator]="true" [(ngModel)]="paymentDueDate" yearRange="2000:2030" [showIcon]="true">
+                      </p-calendar>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <button class="sf-positive-btn" (click)="saveBatch()">Save</button>
+              <!-- <button class="sf-negative-btn" (click)="gotoDashboard()">Cancel</button> -->
+            </div>
+          </div>
+          <hr>
+          <p class="text-center">Number of Records Selected {{claimIDS.length}} of {{provide_totalCount}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

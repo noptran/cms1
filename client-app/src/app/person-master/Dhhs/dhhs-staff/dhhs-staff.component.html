@@ -1,0 +1,259 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+
+<div class="container-background">
+  <div class="container-foreground">
+    <div *ngIf="editBtnCntrl" class="row">
+      <div class="col-lg-2 col-md-2 col-sm-2">
+        <div class="card-header-row">
+          <div class="opencard-menu-container rfcOpencard">
+            <div class="dropdown border-none">
+              <span class="fa fa-th opencard-menu" data-toggle="dropdown" pTooltip="OpenCards"></span>
+              <div class="dropdown-menu opencard-box">
+                <div class="card-container">
+                  <div class="opencard" pTooltip="Click here to open" routerLink="/reports/dhhsStaff/details/cases">
+                    <div class="opencard-info">
+                      <span class="title">Cases</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="opencard-container">
+      <div (click)="isCaseOpen = true"><span>Cases</span></div>
+      <div (click)="isCaseOpen = true"><span>DHHS Office</span></div>
+      <div><span>Counties</span></div>
+    </div> -->
+    <form class="margin-top-20 sf-form" [formGroup]="dhhsForm">
+      <div class="sf-default-form scroll-height">
+        <nav class="nav-fill">
+          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link" *ngFor="let main of mainTabs;let i = index" [class.active]="sIndex  === i"
+              (click)="setIndex(i,$event)" data-toggle="tab" href="{{main.href}}" role="tab">{{main.label}}</a>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane margin-left-45 active in" id="nav-1" role="tabpanel" aria-labelledby="nav-general-tab">
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">First Name
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <input type="text" name="firstName" formControlName="firstName" [(ngModel)]="dhhs.firstName"
+                    maxlength="25" pInputText />
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Last Name
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <input type="text" name="lastName" formControlName="lastName" [(ngModel)]="dhhs.lastName"
+                    maxlength="25" pInputText />
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Acronym
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-inputSwitch name="acronym" formControlName="acronym" [(ngModel)]="dhhs.acronym"></p-inputSwitch>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">MI
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <input type="text" name="mi" formControlName="mi" [(ngModel)]="dhhs.mi" maxlength="2" pInputText />
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Con.ST</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <input type="text" name="contractState" formControlName="contractState" value="NE" readonly="true"
+                    pInputText />
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Gender</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete formControlName="genderID" [(ngModel)]="dhhs.genderID" [suggestions]="metaData"
+                    class="low-option-autos" field="gender" [dropdown]="true" [forceSelection]="true"
+                    (completeMethod)="getMetaData($event,'gender')"></p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Ethnicity</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete formControlName="ethnicityID" [(ngModel)]="dhhs.ethnicityID" [suggestions]="metaData"
+                    field="ethnicity" [dropdown]="true" [forceSelection]="true"
+                    (completeMethod)="getMetaData($event,'ethnicity')"></p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Tribe</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete formControlName="tribeID" [(ngModel)]="dhhs.tribeID" [suggestions]="metaData"
+                    field="tribe" [dropdown]="true" [forceSelection]="true"
+                    (completeMethod)="getMetaData($event,'tribe')"></p-autoComplete>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Email Address
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <input type="email" name="email" formControlName="email" [(ngModel)]="dhhs.email" class="input"
+                    maxlength="75" pInputText />
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Home Phone</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <p-inputMask mask="(999) 999-9999" formControlName="homePh" [(ngModel)]="dhhs.homePh" class="input">
+                  </p-inputMask>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Cell Phone</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <p-inputMask mask="(999) 999-9999" formControlName="cellPh" [(ngModel)]="dhhs.cellPh" class="input">
+                  </p-inputMask>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane margin-left-45 " id="nav-2" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Pager</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <p-inputMask mask="(999) 999-9999" formControlName="pager" [(ngModel)]="dhhs.pager" class="input">
+                  </p-inputMask>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Fax</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <p-inputMask mask="(999) 999-9999" formControlName="fax" [(ngModel)]="dhhs.fax" class="input">
+                  </p-inputMask>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Work Phone
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <p-inputMask mask="(999) 999-9999" formControlName="workPh" [(ngModel)]="dhhs.workPh" class="input">
+                  </p-inputMask>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">Ext
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForm">
+                  <p-spinner [formatInput]="false" [maxlength]="5" formControlName="ext" [(ngModel)]="dhhs.ext"
+                    name="ext" [min]="0"></p-spinner>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <span class="sf-labels">DHHS Office
+                    <span class="mandatory"> *</span>
+                  </span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 subForms">
+                  <p-autoComplete formControlName="dhhsofficeID" [(ngModel)]="dhhs.dhhsofficeID"
+                    [suggestions]="metaData" field="officeName" [dropdown]="true" [forceSelection]="true"
+                    (completeMethod)="getMetaData($event,'dhhsOffice')"></p-autoComplete>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-1 col-md-1 col-sm-1">
+                  <span class="sf-labels">
+                    Notes
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row margin-top-20">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-lg-11 col-md-11 col-sm-11">
+                  <textarea class="sf-width-100" name="notes" formControlName="notes" [(ngModel)]="dhhs.notes"
+                    rows="5"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer (save)="save(dhhs)" (reset)="resetForm()" (discard)="discardForm()" (edit)="edit()"
+      (back)="formBack()" [editControll]="editBtnCntrl" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+  </div>
+</div>
+
+<p-dialog [(visible)]="isCaseOpen" header="Cases" [responsive]="true" [contentStyle]="{'min-width':'66rem'}" [minY]="70"
+  [maximizable]="true" [baseZIndex]="10000">
+  <action-list-view [listViewData]="caseList" [columns]="caseHeaders"></action-list-view>
+</p-dialog>
+
+<p-dialog [(visible)]="isOfficeOpen" header="Office List" [responsive]="true" [contentStyle]="{'min-width':'66rem'}"
+  [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+  <action-list-view [listViewData]="dhhsOfficeList" [columns]="dhhsOfficeHeaders"></action-list-view>
+</p-dialog>

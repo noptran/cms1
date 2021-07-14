@@ -1,0 +1,152 @@
+<app-form-header [title]="title" [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <form [formGroup]="pnDiagnosisForm" class="sf-form">
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Client <span class="mandatory">*</span> </span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete name="client" [(ngModel)]="progressNoteDiagnosis.clientID" formControlName="clientID"
+              [suggestions]="metaData" placeholder="Type here to search" field="clientName"
+              (completeMethod)="getDiagnosisMetaData($event,'client')" [dropdown]="true">
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Begin Date</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" [(ngModel)]="progressNoteDiagnosis.beginDate" formControlName="beginDate"
+              [showIcon]="true" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>End Date</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" [(ngModel)]="progressNoteDiagnosis.endDate" formControlName="endDate"
+              [showIcon]="true" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+              yearRange="2000:2030"></p-calendar>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Principal</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox name="principal" formControlName="principal" binary="true"
+              [(ngModel)]="progressNoteDiagnosis.isPrimary"></p-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20 left">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Classification</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete name="classificationID" [(ngModel)]="progressNoteDiagnosis.classificationID"
+              formControlName="classificationID" [suggestions]="metaData" field="classification"
+              (completeMethod)="getDiagnosisMetaData($event,'classification')" [dropdown]="true">
+            </p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20 left">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Diagnosis Code <span class="mandatory">*</span> </span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="progressNoteDiagnosis.isCode === 'code'">
+            <p-autoComplete name="diagnosisCodeID" [(ngModel)]="progressNoteDiagnosis.diagnosisCodeID"
+              formControlName="diagnosisCodeID" placeholder="Type here to search" [suggestions]="metaData"
+              field="diagnosisCodeDescription" (completeMethod)="getDiagnosisMetaData($event,'diagnosisCode')"
+              [dropdown]="true" (onSelect)="getSpecifiers($event)">
+            </p-autoComplete>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3" *ngIf="progressNoteDiagnosis.isCode === 'description'">
+            <p-autoComplete name="diagnosisCodeID" [(ngModel)]="progressNoteDiagnosis.diagnosisCodeID"
+              formControlName="diagnosisCodeID" placeholder="Type here to search" [suggestions]="metaData"
+              field="description" (completeMethod)="getDiagnosisMetaData($event,'diagnosisCode')" [dropdown]="true"
+              (onSelect)="getSpecifiers($event)">
+            </p-autoComplete>
+          </div></div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <p-radioButton class="right" name="isCode" value="code" label="Code" formControlName="isCode"
+                [(ngModel)]="progressNoteDiagnosis.isCode"></p-radioButton>
+              <p-radioButton name="obsA" value="description" label="Description" formControlName="isCode"
+                [(ngModel)]="progressNoteDiagnosis.isCode"></p-radioButton>
+            </div>
+          </div>
+        
+      </div>
+
+
+
+
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"> <span>Specifiers</span>
+            <span hidden *ngFor="let city of seleceSpec" style="margin-right:10px">{{city}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20 case-border-diago">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12" *ngFor="let data of updatedVal; let i = index">
+            <!-- <textarea pInputTextarea formControlName="specifiers" name="inputTextarea" [(ngModel)]="property" rows="2" cols="28"></textarea> -->
+            <b>{{data.specifier}}</b>
+            <br>
+            <p-checkbox *ngFor="let item of data.severity; let i1 = index" value="{{item.severityID}}"
+              label="{{item.severity}}" [ngModelOptions]="{standalone: true}"
+              [(ngModel)]="seleceSpec[item.severityID+item.specifierID+i1+i+item.randomKey]"
+              (onChange)="getSeverityStatus($event, item, i1,i)" binary="true"></p-checkbox>
+
+
+
+            <!-- <div *ngFor="let item of mentalStatusAffectList; let i = index">
+              <p-checkbox binary="true" value="{{updatedMentalStatusAffectList[i]}}" label="{{item.MentalStatus}}"
+                [(ngModel)]="updatedMentalStatusAffectList[i]" [ngModelOptions]="{standalone: true}"
+                (onChange)="getMentalStatus($event, item, 'Affect', i)" [disabled]="isEdit">
+              </p-checkbox>
+            </div> -->
+
+
+
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"> <span>Clarification</span> <span class="mandatory">*</span>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea pInputTextarea formControlName="clarification" name="inputTextarea"
+              [(ngModel)]="progressNoteDiagnosis.clarification" style=" width: 100%;     height: 100%;"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer [isFormLog]="isFormLog" [formLogInfo]="formLogInfo" [attachmentControll]="isAttachmentRequired" [isAttachmentDisabled]="false"
+      (attachDoc)="navigateTo()" (save)="addData(progressNoteDiagnosis)" (edit)="editForm()"
+      [editControll]="isEdit" [discardTo]="discardTo" [currentNodeValue]="req" ></app-form-footer>
+    <app-quick-menu [module]="quickMenu"></app-quick-menu>
+  </div>
+</div>

@@ -1,0 +1,190 @@
+<hr style="margin: 0px !important;">
+<h5 class="head_acces">Client Grade Submission</h5>
+<hr style="margin: 0px !important;">
+<div class="container-background">
+  <div class="container-foreground">
+    <div id="loading-overlay">
+      <p class="loader-text">
+        <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+      </p>
+    </div>
+    <div class="sf-form client-form">
+      <div style="padding:5px;">
+
+        <div class="row">
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+                <div><span>Fiscal Year</span></div>
+                <p-dropdown [options]="allFIScalYear" [(ngModel)]="selectedFISyear"
+                  [style]="{'width':'100%','border': '1px solid #737374'}" (onChange)="getFiscalYear($event)"
+                  placeholder="Select a Fiscal Year" optionLabel="fiscalYear" [showClear]="true"></p-dropdown>
+              </div>
+              <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+                <div><span>Quarter</span></div>
+                <p-dropdown [options]="allQuarterList" [(ngModel)]="selectedQuarter" (onChange)="getQuarterYear($event)"
+                  [style]="{'width':'100%','border': '1px solid #737374'}" placeholder="Select a Quarter"
+                  optionLabel="fiscalQuarter" [showClear]="true"></p-dropdown>
+              </div>
+              <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+                <p-checkbox name="groupname" value="val2" [binary]="true" label="Recreate Submission"
+                  [(ngModel)]="selectedRecreteSubmission">
+                </p-checkbox>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 datePick">
+                <div><span>Begin Date</span></div>
+                <p-calendar name="dateInput" [(ngModel)]="beginDate" [showIcon]="true" [style]="{'width':'90%'}"
+                  [maxDate]="date" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+                  placeholder="Begin Date" [disabled]="beginDate_disable" tooltipPosition="top">
+                </p-calendar>
+              </div>
+              <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 datePick">
+                <div><span>End Date</span> </div>
+                <p-calendar name="dateInput" [disabled]="endDate_disable" [showIcon]="true" [(ngModel)]="endDate"
+                  [maxDate]="date" [style]="{'width':'90%'}" [yearNavigator]="true" [monthNavigator]="true"
+                  yearRange="2000:2030" placeholder="End Date" tooltipPosition="top"
+                  (ngModelChange)="dropRegion(endDate)">
+                </p-calendar>
+              </div>
+              <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 datePick">
+                <div><span>Submit Date</span> </div>
+                <p-calendar name="submitDate" [disabled]="submitDate_disable" [showIcon]="true" [(ngModel)]="submitDate"
+                  [maxDate]="date" [yearNavigator]="true" [style]="{'width':'90%'}" [monthNavigator]="true"
+                  yearRange="2000:2030" placeholder="Submit Date" tooltipPosition="top"
+                  (ngModelChange)="dropRegion(endDate)">
+                </p-calendar>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-8">
+                <div>
+                  <div><span>Submission</span></div>
+                  <p-dropdown [options]="allClientGradeSubmissionList" (onChange)="getsubmission($event)"
+                    [disabled]="!selectedRecreteSubmission" [(ngModel)]="selectsubmission"
+                    [style]="{'width':'100%','border': '1px solid #737374'}" optionLabel="display" [showClear]="true">
+                  </p-dropdown>
+
+                </div>
+              </div>
+            </div>
+            <div class="row" style="border: 1px solid #c1c1c1;
+    padding: 9px;
+    margin-top: 9px;
+    background: #eeeeee;
+    width: 80%;">
+              <div class="col-md-12">
+                <button class="sf-positive-btn" style="margin-left: 0px;" (click)="clientGradeProcess(initial,end)">
+                  Process
+                </button>
+                <button class="sf-negative-btn" [disabled]="!selectedRecreteSubmission" style="width: 104.1px;"
+                  (click)="clientGradeReloede(clientGradeInitial,clientGradeEnd)">
+                  Reload
+                </button>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+
+        <hr>
+
+      </div>
+      <div style="padding:5px;">
+        <nav class="nav-fill">
+          <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link" *ngFor="let main of mainTabs;let i = index" [class.active]="sIndex  === i"
+              (click)="setIndex(i,$event)" data-toggle="tab" href="{{ main.href }}" role="tab">{{main.label}}</a>
+          </div>
+        </nav>
+        <div class="tab-content padding-15" id="nav-tabContent">
+          <div class="tab-pane  active in" id="nav-sec1" role="tabpanel" aria-labelledby="nav-fis-tab">
+            <div class="batch-scroll" style="height: 40vh;overflow-y: scroll;">
+              <div class="sf-table-header sf-black">
+                <app-pagesize *ngIf="totalClientGradeCount>0" [totalCount]="totalClientGradeCount"
+                  [initial]="clientGradeInitial" [end]="clientGradeEnd" (keyup)="ClientGradePagesizeNav($event)"
+                  (click)="ClientGradePagesize($event)"></app-pagesize>
+              </div>
+
+              <br>
+              <ag-grid-angular style="width: 500px; height: 500px;" class="ag-theme-balham" [rowData]="clientGradeList"
+                [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [enableSorting]="true" [rowDragManaged]="true"
+                [suppressDragLeaveHidesColumns]="true" enableColResize="true" #agGrid style="width: 100%;height: 68vh;"
+                animateRows="true" rowSelection="multiple" (cellClicked)='onRowSelected($event)'>
+              </ag-grid-angular>
+            </div>
+          </div>
+          <div class="tab-pane" id="nav-sec2" role="tabpanel" aria-labelledby="nav-fis-tab">
+            <div class="batch-scroll" style="height: 40vh;overflow-y: scroll;">
+              <div class="sf-table-header sf-black">
+                <app-pagesize *ngIf="totalCount>0" [totalCount]="totalCount" [initial]="initial" [end]="end" (keyup)="pagesizeNav($event)"
+                  (click)="pagesize($event)"></app-pagesize>
+              </div>
+              <br>
+              <ag-grid-angular style="width: 500px; height: 500px;" class="ag-theme-balham"
+                [rowData]="clientGradeErrorList" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef"
+                [enableSorting]="true" [rowDragManaged]="true" [suppressDragLeaveHidesColumns]="true"
+                enableColResize="true" #agGrid style="width: 100%;height: 68vh;" animateRows="true"
+                rowSelection="multiple" (cellClicked)='onRowSelected($event)'>
+              </ag-grid-angular>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="row" style="margin-left:0px; ">
+        <div class="col-md-3">
+          <div><span>Reports</span></div>
+          <input type="text" pInputText name="inputText" [disabled]="true" />
+        </div>
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-3">
+          <div *ngIf='sIndex===1'>
+            <div>Total Rows</div>
+            <input type="text" [disabled]="true" [(ngModel)]="errorCount" pInputText name="inputText1" />
+          </div>
+          <div *ngIf='sIndex===0'>
+            <div>Total Rows</div>
+            <input type="text" [disabled]="true" [(ngModel)]="gradeCount" pInputText name="inputText1" />
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-3">
+          <button class="sf-positive-btn" [disabled]="true">
+            Run Report
+          </button>
+        </div>
+        <div class="col-md-7">
+          <button class="sf-negative-btn" [disabled]="crtEnable" style="width: 21%;" (click)="createTextFile()">
+            Create TXT file Only
+          </button>
+          <button class="sf-negative-btn" [disabled]="crtPostEnable" style="width: 21%;" (click)="createPostTextFile()">
+            Post/Create TXT file
+          </button>
+        </div>
+        <div class="col-md-2">
+          <button class="sf-positive-btn" (click)="clientGradeErrorReport()" *ngIf='sIndex===1'>
+            Export
+          </button>
+          <button class="sf-positive-btn" *ngIf='sIndex===0' (click)="clientGradeReport()">
+            Export
+          </button>
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,629 @@
+<div *ngIf="!isProfileInfoLoaded">
+  <p class="text-center">{{ infoText }}</p>
+</div>
+<div class="main-container">
+  <div *ngIf="isProfileInfoLoaded" class="width-90">
+    <!--Client-->
+    <!--Primary Information-->
+    <div class="primary-info">
+      <span class="sub-title"
+        ><b>Client Name:</b> {{ staticProfileData?.LastName }},
+        {{ staticProfileData?.FirstName }}</span
+      >
+      <!-- <span class="sub-title"> <b>Gender:</b> {{ staticProfileData.genderID?.gender }} </span> -->
+      <span class="sub-title">
+        <b>Kaecses:</b> {{ staticProfileData?.KAECSES }}
+      </span>
+      <span class="sub-title">
+        <b>DOB:</b> {{ stringDateFormater(staticProfileData?.DOB) }}
+      </span>
+      <span class="sub-title">
+        <b>Gender:</b>
+        {{ staticProfileData?.Gender }}
+      </span>
+    </div>
+    <!--Additional Information-->
+    <!--Community Member-->
+    <!--Court Service Officer-->
+    <!--CRB Coordinator-->
+    <!--CSO Staff-->
+    <!--Customer Care Person-->
+    <!--DCF Staff-->
+    <!--DHHS Staff-->
+    <!--DHS Staff-->
+    <!--Family Member-->
+    <!--Guradian Ad Litem-->
+    <!--Judge-->
+    <!--Other Agency Staff-->
+    <!--Provider Memeber-->
+    <!--Staff-->
+    <!--CASA Officer-->
+  </div>
+  <div class="component-btn-container" *ngIf="isProfileInfoLoaded">
+    <button (click)="onShowMoreClick()" [disabled]="componentBtnDisable">
+      {{ componentBtnLabel }}
+    </button>
+    <button (click)="onClickDashboard()">
+      <span>Client Dashboard</span>
+    </button>
+  </div>
+</div>
+
+<!--More details-->
+<p-dialog
+  header="More details"
+  [(visible)]="isMoreDetails"
+  [contentStyle]="{ width: '80vw', height: '50vh' }"
+>
+  <!--Client-->
+  <div class="more-info">
+    <div class="profile-pic-container">
+      <img
+        class="profile-picture-image"
+        src="{{ profilePicPath }}"
+        alt="profile"
+      />
+    </div>
+    <div class="profile-info-container">
+      <table>
+        <tr>
+          <td><span>Last Name</span></td>
+          <td>{{ showMoreProfileData?.clientProfile[0]?.LastName }}</td>
+          <td><span>First Name</span></td>
+          <td>{{ showMoreProfileData?.clientProfile[0]?.FirstName }}</td>
+          <td><span>Social Sec No</span></td>
+          <td>
+            <span *ngIf="isSSNMask">XXX-XX-XXXX</span>
+            <span *ngIf="!isSSNMask">{{
+              showMoreProfileData?.clientProfile[0]?.SSN
+            }}</span>
+            <span *ngIf="isSSNMask" (click)="onClickSSNMaskIcon()"
+              ><i
+                class="fa fa-eye"
+                style="font-size: 16px; margin-left: 10px"
+                aria-hidden="true"
+              ></i
+            ></span>
+            <span *ngIf="!isSSNMask" style="margin-left: 10px"
+              ><i class="fa fa-clock-o"></i
+            ></span>
+          </td>
+        </tr>
+        <tr>
+          <td><span>KAECSE</span></td>
+          <td>{{ showMoreProfileData?.clientProfile[0]?.KAECSES }}</td>
+          <td><span>M</span></td>
+          <td>{{ showMoreProfileData?.clientProfile[0]?.MI }}</td>
+          <td><span>SR</span></td>
+          <td>{{ showMoreProfileData?.clientProfile[0]?.Suffix }}</td>
+        </tr>
+        <tr>
+          <td><span>DA</span></td>
+          <td
+            [innerHTML]="
+              booleanValueCheck(
+                showMoreProfileData?.clientProfile[0]?.Dually_Adjudicated
+              )
+            "
+          ></td>
+          <td><span>CH</span></td>
+          <td>{{ showMoreProfileData?.clientProfile[0]?.IsCaseHead }}</td>
+          <td><span>Gender</span></td>
+          <td>{{ showMoreProfileData?.clientProfile[0]?.Gender }}</td>
+        </tr>
+        <tr>
+          <td><span>FACTS</span></td>
+          <td>{{ showMoreProfileData?.clientProfile[0]?.FACTS }}</td>
+          <td><span>Age</span></td>
+          <td>{{ showMoreProfileData?.clientProfile[0]?.Age }}</td>
+          <td><span>DOB</span></td>
+          <td>{{ showMoreProfileData?.clientProfile[0]?.DOB }}</td>
+        </tr>
+        <tr>
+          <td><span>Region</span></td>
+          <td>{{ showMoreProfileData?.clientProfile[0]?.DCFRegion }}</td>
+          <td><span>KanCare MCO</span></td>
+          <td>{{ showMoreProfileData?.clientProfile[0]?.ProviderName }}</td>
+          <td><span>MCO Care Coordinator</span></td>
+          <td>
+            {{ showMoreProfileData?.clientProfile[0]?.MCOCareCoordinator }}
+          </td>
+        </tr>
+        <tr>
+          <td><span>Case Manager</span></td>
+          <td>{{ showMoreProfileData?.clientCaseManager[0]?.CaseManager }}</td>
+          <td><span>Case Worker</span></td>
+          <td></td>
+          <td><span>Home County</span></td>
+          <td>
+            {{ showMoreProfileData?.clientCounty[0]?.HomeCounty }} /
+            {{ showMoreProfileData?.clientCounty[0]?.PlacementCounty }}
+          </td>
+        </tr>
+        <tr>
+          <td><span>Case/Fin Mgmt Office</span></td>
+          <td>
+            {{
+              showMoreProfileData?.clientCaseManagerOffice[0]?.CaseManagerOffice
+            }}
+            / {{ showMoreProfileData?.clientSFAOffice[0]?.SFAOffice }}
+          </td>
+          <td *ngIf="isFamilySupport"><span>Family Support Worker</span></td>
+          <td *ngIf="isProviderTherapist"><span>Provider Therapist</span></td>
+          <td *ngIf="isFosterCare"><span>Foster Care Worker</span></td>
+          <td *ngIf="isKinship"><span>Kinship Worker</span></td>
+          <td *ngIf="isResourceWorker"><span>Resource Worker</span></td>
+          <td *ngIf="isFamilySupport">
+            {{
+              showMoreProfileData?.clientFamilySupportWorker[0]
+                ?.FamilySupportWorker
+            }}
+          </td>
+          <td *ngIf="isProviderTherapist">
+            {{ showMoreProfileData?.clientTherapist[0]?.Therapist }}
+          </td>
+          <td *ngIf="isFosterCare">
+            {{ showMoreProfileData?.clientFCHCaseWorker[0]?.FCHCaseWorker }}
+          </td>
+          <td *ngIf="isKinship">
+            {{ showMoreProfileData?.kinshipInfo?.PersonName }}
+          </td>
+          <td *ngIf="isResourceWorker">
+            {{ showMoreProfileData?.clientFCHCaseWorker[0]?.FCHCaseWorker }}
+          </td>
+          <td *ngIf="isFamilySupport"><span>Therapist</span></td>
+          <td *ngIf="isFamilySupport">
+            {{ showMoreProfileData?.clientTherapist[0]?.Therapist }}
+          </td>
+          <td
+            *ngIf="
+              isProviderTherapist ||
+              isFosterCare ||
+              isKinship ||
+              isResourceWorker
+            "
+          >
+            <span>FCH Office</span>
+          </td>
+          <td
+            *ngIf="
+              isProviderTherapist ||
+              isFosterCare ||
+              isKinship ||
+              isResourceWorker
+            "
+          >
+            {{ showMoreProfileData?.clientFCHOffice[0]?.FCHOffice }}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="isOpenSSNConfirmationDialogBox"
+  header="SSN Number"
+  [responsive]="true"
+  showEffect="fade"
+  [modal]="true"
+  [width]="800"
+  [minWidth]="800"
+  [minY]="80"
+  [baseZIndex]="10000"
+  [maximizable]="false"
+  [closable]="true"
+>
+  <p class="text-center" style="font-size: 14px">
+    This has a confidential information, are you sure you want to proceed?
+  </p>
+  <div class="text-center">
+    <button class="sf-positive-btn" (click)="checkSSNAccessRights()">
+      <span>Yes</span>
+    </button>
+    <button
+      class="sf-negative-btn"
+      (click)="this.isOpenSSNConfirmationDialogBox = false"
+    >
+      <span>No</span>
+    </button>
+  </div>
+</p-dialog>
+<div class="client-dashboards">
+  <p-dialog
+    [(visible)]="isClientDashboard"
+    header="Client Dashboard"
+    [style]="{ width: '100vw' }"
+    [maximizable]="true"
+    [responsive]="true"
+    [minY]="70"
+  >
+    <p-accordion [multiple]="true">
+      <p-accordionTab
+        header="Basic Client Information"
+        [selected]="isTabCollapsed"
+      >
+        <table class="table-width-100">
+          <tr>
+            <td class="dashboard-label">Client Name</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.clientInfo?.ClientName }}</strong>
+            </td>
+            <td class="dashboard-label">Home County</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.clientInfo?.HomeCounty }}</strong>
+            </td>
+            <td class="dashboard-label">KAECSES</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.clientInfo?.KAECSES }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Gender</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.clientInfo?.Gender }}</strong>
+            </td>
+            <td class="dashboard-label">DOB</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.clientInfo?.DOB }}</strong>
+            </td>
+            <td class="dashboard-label">FACTS</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.clientInfo?.FACTS }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Age</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.clientInfo?.Age }}</strong>
+            </td>
+            <td class="dashboard-label">Region</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.clientInfo?.DCFRegion }}</strong>
+            </td>
+            <td class="dashboard-label">Court Case Number</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.clientInfo?.CourtCaseNo }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">CM Office</td>
+            <td class="dashboard-data">
+              <strong>{{
+                clientDashboard?.clientInfo?.CaseManagementOffice
+              }}</strong>
+            </td>
+            <td class="dashboard-label">Kan Care MCO</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.clientInfo?.KanCareMCO }}</strong>
+            </td>
+            <td class="dashboard-label">SSN</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.clientInfo?.SSN }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Financial Mgt. Office</td>
+            <td class="dashboard-data">
+              <strong>{{
+                clientDashboard?.clientInfo?.FinancialMgtOffice
+              }}</strong>
+            </td>
+            <td class="dashboard-label">Case Plan Goal</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.clientInfo?.CassePlanGoal }}</strong>
+            </td>
+          </tr>
+        </table>
+      </p-accordionTab>
+      <p-accordionTab
+        header="Attending School Information"
+        [selected]="isTabCollapsed"
+      >
+        <table class="table-width-100">
+          <tr>
+            <td class="dashboard-label">School Name</td>
+            <td class="dashboard-data">
+              <strong>{{
+                clientDashboard?.attendingSchoolInfo?.SchoolName
+              }}</strong>
+            </td>
+            <td class="dashboard-label">School Address</td>
+            <td class="dashboard-data">
+              <strong
+                >{{ clientDashboard?.attendingSchoolInfo?.Address }},
+                {{ clientDashboard?.attendingSchoolInfo?.State }},
+                {{ clientDashboard?.attendingSchoolInfo?.Zipcode }}</strong
+              >
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">School Grade</td>
+            <td class="dashboard-data">
+              <strong>{{
+                clientDashboard?.attendingSchoolInfo?.ClientGrade
+              }}</strong>
+            </td>
+            <td class="dashboard-label">School Phone</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.attendingSchoolInfo?.Phone }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">IEP</td>
+            <td></td>
+            <td class="dashboard-label">School Person person</td>
+            <td class="dashboard-data">
+              <strong>{{
+                clientDashboard?.attendingSchoolInfo?.SchoolContactPerson
+              }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">School District</td>
+            <td class="dashboard-data">
+              <strong>{{
+                clientDashboard?.attendingSchoolInfo?.SchoolDistrict
+              }}</strong>
+            </td>
+            <td class="dashboard-label">ESSA Point of Contact</td>
+            <td class="dashboard-data">
+              <strong>{{
+                clientDashboard?.attendingSchoolInfo?.ESSAPointOfContactName
+              }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Client Grade</td>
+            <td class="dashboard-data">
+              <strong>{{
+                clientDashboard?.attendingSchoolInfo?.ClientGrade
+              }}</strong>
+            </td>
+            <td class="dashboard-label">ESSA Point of Contact Email</td>
+            <td class="dashboard-data">
+              <strong>{{
+                clientDashboard?.attendingSchoolInfo?.ESSAPointOfContactEmail
+              }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td class="dashboard-label">ESSA Point of Contact Phone#</td>
+            <td class="dashboard-data">
+              <strong>{{
+                clientDashboard?.attendingSchoolInfo?.ESSAPointOfContactPhone
+              }}</strong>
+            </td>
+          </tr>
+        </table>
+      </p-accordionTab>
+      <p-accordionTab
+        header="The Active Placement Information"
+        [selected]="isTabCollapsed"
+      >
+        <table class="table-width-100">
+          <tr>
+            <td class="dashboard-label">Provider Name</td>
+            <td class="dashboard-data">
+              <strong>{{
+                clientDashboard?.placementInfo?.ProviderName
+              }}</strong>
+            </td>
+            <td class="dashboard-label">Start Date of Active Placement</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.placementInfo?.BeginDate }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Provider Type</td>
+            <td class="dashboard-data">
+              <strong>{{
+                clientDashboard?.placementInfo?.ProviderType
+              }}</strong>
+            </td>
+            <td class="dashboard-label">Open Living arrangment</td>
+            <td class="dashboard-data">
+              <strong>{{
+                clientDashboard?.placementInfo?.LivingArrangement
+              }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Provider Address</td>
+            <td class="dashboard-data">
+              <strong
+                >{{ clientDashboard?.placementInfo?.Address1 }},
+                {{ clientDashboard?.placementInfo?.City }},
+                {{ clientDashboard?.placementInfo?.State }},
+                {{ clientDashboard?.placementInfo?.Zipcode }}</strong
+              >
+            </td>
+            <td class="dashboard-label">Level of Care</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.placementInfo?.levelOfCare }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Provider Phone</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.placementInfo?.Phone }}</strong>
+            </td>
+            <td class="dashboard-label">Level of Care Start Date</td>
+            <td class="dashboard-data">
+              <strong>{{
+                clientDashboard?.placementInfo?.levelOfCareDate
+              }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Email</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.placementInfo?.Email }}</strong>
+            </td>
+            <td class="dashboard-label">Level of Care Description</td>
+            <td class="dashboard-data">
+              <strong>{{
+                clientDashboard?.placementInfo?.levelOfCareDesc
+              }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Sponsor</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.placementInfo?.SponsorName }}</strong>
+            </td>
+          </tr>
+        </table>
+      </p-accordionTab>
+      <p-accordionTab
+        header="The client's current SFM case team"
+        [selected]="isTabCollapsed"
+      >
+        <table class="table-width-100">
+          <tr>
+            <td class="dashboard-label">Case Manager</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.caseManager.PersonName }}</strong>
+            </td>
+            <td class="dashboard-label">Kinship Worker</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.kinshipWorker.PersonName }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Family Support Worker</td>
+            <td class="dashboard-data">
+              <strong>{{
+                clientDashboard?.familySupportWorker.PersonName
+              }}</strong>
+            </td>
+            <td class="dashboard-label">Kinship Supervisor</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.kinshipWorker.PersonName }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Supervisor</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.supervisor.PersonName }}</strong>
+            </td>
+            <td class="dashboard-label">Foster Care Worker</td>
+            <td class="dashboard-data">
+              <strong>{{
+                clientDashboard?.fosterCareWorker.PersonName
+              }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Director</td>
+            <td class="dashboard-data">
+              <strong> {{ clientDashboard?.director.PersonName }}</strong>
+            </td>
+            <td class="dashboard-label">Foster Care Supervisor</td>
+            <td class="dashboard-data">
+              <strong>{{
+                clientDashboard?.fosterCareSupervisor.PersonName
+              }}</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Compliance Tech</td>
+            <td></td>
+            <td class="dashboard-label">(provider specific)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Indepenent Living Worker</td>
+            <td class="dashboard-data">
+              <strong>{{ clientDashboard?.caseManager.PhoneNo }}</strong>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="dashboard-label">Parent support Worker?</td>
+            <td></td>
+          </tr>
+        </table>
+      </p-accordionTab>
+      <p-accordionTab
+        header="The client's sibling information"
+        [selected]="isTabCollapsed"
+      >
+        <div
+          *ngFor="let sibs of clientDashboard?.clientSibs; let i = index"
+          class="dashboard-sibs-container"
+        >
+          <!-- <span>SIBLING {{ i + 1 }}</span>
+          <table class="table-width-100">
+            <tr>
+              <td class="dashboard-label">Name</td>
+              <td class="dashboard-data"><strong>{{ sibs.clientName }}</strong></td>
+              <td class="dashboard-label">Placement Name</td>
+              <td class="dashboard-data"><strong>{{ sibs.PlacementName }}</strong></td>
+            </tr>
+            <tr>
+              <td class="dashboard-label">Age</td>
+              <td class="dashboard-data"><strong>{{ sibs.Age }}</strong></td>
+              <td class="dashboard-label">
+                Placement Start Date
+              </td>
+              <td class="dashboard-data">
+                <strong>{{ sibs.beginDate | date: "MM/dd/yyyy" }}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td class="dashboard-label">Gender</td>
+              <td class="dashboard-data"><strong>{{ sibs.gender }}</strong></td>
+            </tr>
+          </table> -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-md-6">
+                  <div class="dashboard-label margin-10px">Name</div>
+                  <div class="dashboard-label margin-10px">Age</div>
+                  <div class="dashboard-label margin-10px">Gender</div>
+                </div>
+                <div class="col-md-6">
+                  <div class="dashboard-data margin-10px">
+                    <strong>{{ sibs.clientName }}</strong>
+                  </div>
+                  <div class="dashboard-data margin-10px">
+                    <strong>{{ sibs.Age }}</strong>
+                  </div>
+                  <div class="dashboard-data margin-10px">
+                    <strong>{{ sibs.gender }}</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="col-md-6">
+                  <div class="dashboard-label margin-10px">Placement Name</div>
+                  <div class="dashboard-label margin-10px">
+                    Placement Start Date
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="dashboard-data margin-10px">
+                    <strong>{{ sibs.PlacementName }}</strong>
+                  </div>
+                  <div class="dashboard-data margin-10px">
+                    <strong>{{ sibs.beginDate | date: "MM/dd/yyyy" }}</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-accordionTab>
+      <p-accordionTab
+        header="Common navigation buttons"
+        [selected]="isTabCollapsed"
+      ></p-accordionTab>
+    </p-accordion>
+  </p-dialog>
+</div>

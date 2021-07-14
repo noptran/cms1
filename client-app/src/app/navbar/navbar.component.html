@@ -1,0 +1,56 @@
+<div
+  style="
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-right: 10px;
+  "
+>
+  <div>
+    <div
+      [ngClass]="sidenavBarMessage == 'true' ? 'name-open' : 'name-close'"
+      (click)="navigateTo()"
+    >
+      {{ currentPage }}
+    </div>
+  </div>
+  <div *ngIf="infoLabel">
+    <span class="info-label">This is Training/Testing System</span>
+  </div>
+  <div>
+    <span class="icon-container">
+      <img src="/assets/icons/search icon.svg" alt="search" />
+    </span>
+    <span class="icon-container" (click)="backToHome()">
+      <img src="/assets/icons/home header icon.svg" alt="home" />
+    </span>
+    <span class="icon-container">
+      <img src="/assets/icons/Notification icon.svg" alt="Notification" />
+    </span>
+    <span class="icon-container" (click)="goToUserManul()">
+      <img src="/assets/icons/user_manul.png" style="width: 20px" alt="help" />
+    </span>
+    <a href="{{supportLink}}" title="Support" target="_blank">
+      Support
+    </a>
+    <span class="dropdown">
+      <img
+        class="user-avatar"
+        src="/assets/default-user.png"
+        data-toggle="dropdown"
+      />
+      <div class="dropdown-menu">
+        <div class="sf-labels sf-click-cursor sf-profile-menu-item">
+          {{ userName }}
+        </div>
+        <div
+          class="sf-labels sf-click-cursor sf-profile-menu-item"
+          (click)="logOut()"
+        >
+          Logout
+        </div>
+      </div>
+    </span>
+    <span class="version">1.11.23.7</span>
+  </div>
+</div>

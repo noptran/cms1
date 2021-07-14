@@ -1,0 +1,113 @@
+<app-form-header [title]="title" [status]="status" [breadcrumbs]="breadcrumbs" [formstatus]="formStatus" [formNavigation]=""
+  [subtitle]="subtitle"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground">
+    <div *ngIf="isCisDataStored" class="versioning-table">
+
+
+      <table class="space-down table-hover">
+        <tr>
+          <th class="table-td">
+            Version
+          </th>
+          <th class="table-td">
+            Completed By
+          </th>
+          <th class="table-td">
+            Last Modified
+          </th>
+          <th class="table-td">
+
+          </th>
+        </tr>
+        
+        <tr *ngFor="let cisArrayData of formCisArrayValue; let i = index">
+          <td class="table-td" >
+            <!-- {{cisArrayData.version}} -->
+            {{generateVersion(cisArrayData.version)}}
+          
+          </td>
+          <td class="table-td">
+            <!-- {{cisArrayData.staffID.firstName+" "+cisArrayData.staffID.lastName}} -->
+          </td>
+          <td class="table-td">
+       
+            {{cisArrayData.createdDate |date: dateFormat }}
+          </td>
+          <td class="table-td">
+            <span class="document-link" (click)="cisVersionBasedView(cisArrayData.version)">View</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <p-dialog header="ASQ 2" [(visible)]="isAsqTwoNode" [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="10000" (onHide)="getCisJson()">
+    <app-asq-2-mo *ngIf="isAsqTwoNode" (asqTwoOut)="getFormData($event)" (cancelOut)="discardCourtAppearance()"></app-asq-2-mo>
+  </p-dialog>
+
+  <p-dialog header="ASQ 6" [(visible)]="isAsqSixNode" [modal]="true" [responsive]="true" [minY]="70" (onHide)="getCisJson()"
+    [baseZIndex]="10000">
+    <app-asq-6-mo *ngIf="isAsqSixNode" (asqSixOut)="getFormData($event)" (cancelOut)="discardCourtAppearance()"></app-asq-6-mo>
+  </p-dialog>
+
+  <p-dialog header="ASQ 12" [(visible)]="isAsqTwelveNode" [modal]="true" [responsive]="true" [minY]="70" (onHide)="getCisJson()"
+    [baseZIndex]="10000">
+    <app-asq-12-mo *ngIf="isAsqTwelveNode" (asqTwelveOut)="getFormData($event)" (cancelOut)="discardCourtAppearance()"></app-asq-12-mo>
+  </p-dialog>
+
+  <p-dialog header="ASQ 18" [(visible)]="isAsqEighteenNode" [modal]="true" [responsive]="true" [minY]="70" (onHide)="getCisJson()"
+    [baseZIndex]="10000">
+    <app-asq-18-mo *ngIf="isAsqEighteenNode" (asqEighteenOut)="getFormData($event)" (cancelOut)="discardCourtAppearance()"></app-asq-18-mo>
+  </p-dialog>
+
+  <p-dialog header="ASQ 24" [(visible)]="isAsqTwentyFourNode" [modal]="true" [responsive]="true" [minY]="70" (onHide)="getCisJson()"
+    [baseZIndex]="10000">
+    <app-asq-24-mo *ngIf="isAsqTwentyFourNode" (asqTwentyFourOut)="getFormData($event)" (cancelOut)="discardCourtAppearance()"></app-asq-24-mo>
+  </p-dialog>
+
+  <p-dialog header="ASQ 30" [(visible)]="isAsqThirtyNode" [modal]="true" [responsive]="true" [minY]="70" (onHide)="getCisJson()"
+    [baseZIndex]="10000">
+    <app-asq-30-mo *ngIf="isAsqThirtyNode" (asqThirtyOut)="getFormData($event)" (cancelOut)="discardCourtAppearance()"></app-asq-30-mo>
+  </p-dialog>
+
+  <p-dialog header="ASQ 36" [(visible)]="isAsqThirtySixNode" [modal]="true" [responsive]="true" [minY]="70" (onHide)="getCisJson()"
+    [baseZIndex]="10000">
+    <app-asq-36-mo *ngIf="isAsqThirtySixNode" (asqThirtySixOut)="getFormData($event)" (cancelOut)="discardCourtAppearance()"></app-asq-36-mo>
+  </p-dialog>
+
+  <p-dialog header="ASQ 48" [(visible)]="isAsqFourtEightNode" [modal]="true" [responsive]="true" [minY]="70" (onHide)="getCisJson()"
+    [baseZIndex]="10000">
+    <app-asq-48-mo *ngIf="isAsqFourtEightNode" (asqFourtEightOut)="getFormData($event)" (cancelOut)="discardCourtAppearance()"></app-asq-48-mo>
+  </p-dialog>
+
+  <p-dialog header="ASQ 60" [(visible)]="isAsqSixtyNode" [modal]="true" [responsive]="true" [minY]="70" (onHide)="getCisJson()"
+    [baseZIndex]="10000">
+    <app-asq-60-mo *ngIf="isAsqSixtyNode" (asqSixtyOut)="getFormData($event)" (cancelOut)="discardCourtAppearance()"></app-asq-60-mo>
+  </p-dialog>
+  <p-dialog header="CAFAS" [(visible)]="isCafasNode" [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="10000" (onHide)="getCisJson()">
+    <app-cafas *ngIf="isCafasNode" (cafasOut)="getFormData($event)" (cafasOut)="getFormData($event)" (cancelOut)="discardCourtAppearance()"></app-cafas>
+  </p-dialog>
+  <p-dialog header="PSI" [(visible)]="isPsiNode" [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="10000" (onHide)="getCisJson()">
+    <app-psi *ngIf="isPsiNode" (cafasOut)="getFormData($event)" (cafasOut)="getFormData($event)" (cancelOut)="discardCourtAppearance()"></app-psi>
+  </p-dialog>
+  <p-dialog header="CROPS" [(visible)]="isCropsNode" [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="10000" (onHide)="getCisJson()">
+    <app-crops *ngIf="isCropsNode" (cropsOut)="getFormData($event)" (cropsOut)="getFormData($event)" (cancelOut)="discardCourtAppearance()"></app-crops>
+  </p-dialog>
+  <p-dialog header="CSDC" [(visible)]="isCsdcNode" [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="10000" (onHide)="getCisJson()">
+    <app-csdc *ngIf="isCsdcNode" (cropsOut)="getFormData($event)" (cropsOut)="getFormData($event)" (cancelOut)="discardCourtAppearance()"></app-csdc>
+  </p-dialog>
+  <p-dialog header="PECFAS" [(visible)]="isPecfasNode" [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="10000"
+    (onHide)="getCisJson()">
+    <app-pecfas *ngIf="isPecfasNode" (cropsOut)="getFormData($event)" (cropsOut)="getFormData($event)" (cancelOut)="discardCourtAppearance()"></app-pecfas>
+  </p-dialog>
+  <p-dialog header="NCFAS" [(visible)]="isNcfasNode" [modal]="true" [responsive]="true" [minY]="70" [baseZIndex]="10000"
+  (onHide)="getCisJson()">
+  <app-ncfas *ngIf="isNcfasNode" (cropsOut)="getFormData($event)" (cropsOut)="getFormData($event)" (cancelOut)="discardCourtAppearance()"></app-ncfas>
+</p-dialog>
+</div>

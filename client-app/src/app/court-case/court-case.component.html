@@ -1,0 +1,88 @@
+<app-form-header [title]="title" [status]="status" [breadcrumbs]="breadcrumbs" [formstatus]="formStatus"
+  [formNavigation]="formNavigation" [subtitle]="subtitle"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-background">
+  <div class="container-foreground ">
+    <form *ngIf="showForm" class="margin-top-20 sf-form" [formGroup]="orgForm" (ngSubmit)="addPost(orgForm.value)"
+      id="you" autocomplete="off">
+      <div class="margin-top-20 margin-left-45">
+        <div class="row margin-top-20 margin-bottom-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span class="sf-labels">Begin Date</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <!-- <input type="date" name="beginDate" formControlName="beginDate" > -->
+              <p-calendar [(ngModel)]="courtCase.beginDate" [monthNavigator]="true" [yearNavigator]="true"
+                formControlName="beginDate" yearRange="1900:2030" [showIcon]="true"></p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span class="sf-labels">End Date</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <!-- <input type="date" name="endDate" formControlName="endDate" > -->
+              <p-calendar [(ngModel)]="courtCase.endDate" [monthNavigator]="true" [yearNavigator]="true"
+                formControlName="endDate" yearRange="1900:2030" [showIcon]="true"></p-calendar>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span class="sf-labels">Court Case Number</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 form">
+              <input type="text" pInputText formControlName="courtCaseNo" name="court_case_no" maxlength="10"
+                [(ngModel)]="courtCase.courtCaseNo">
+              <!-- <p-spinner [formatInput]="false" [maxlength]="10" formControlName="courtCaseNo" [(ngModel)]="courtCase.courtCaseNo" [min]="0"></p-spinner> -->
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span class="sf-labels">Case Type</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 form">
+              <p-autoComplete formControlName="caseTypeID" [suggestions]="results" field="caseType" [dropdown]="true"
+                placeholder="Type here to search" (completeMethod)="getMetadata($event,'caseType')"
+                [(ngModel)]="courtCase.caseTypeID"></p-autoComplete>
+            </div>
+          </div>
+        </div>
+        <div class="row margin-top-20">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span class="sf-labels">Referral </span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 form">
+              <p-autoComplete (onSelect)="onReferralSelection($event)" formControlName="referralID" [suggestions]="results" field="display" [dropdown]="true"
+                placeholder="Type here to search" (completeMethod)="getMetadata($event,'referral')"
+                [(ngModel)]="courtCase.referralID"></p-autoComplete>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <span class="sf-labels">County</span> <span class="mandatory">*</span>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 form">
+              <p-autoComplete formControlName="countyID" [suggestions]="results" field="countyName" [dropdown]="true"
+                placeholder="Type here to search" (completeMethod)="getCounties($event)" name="county"
+                [(ngModel)]="courtCase.countyID"></p-autoComplete>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer [isFormLog]="isFormLog" [formLogInfo]="formLogInfo" [attachmentControll]="isAttachmentRequired" [isAttachmentDisabled]="false"
+      (attachDoc)="navigateTo()" (save)="addPost(courtCase)" (edit)="editForm()" [editControll]="isEditForm"
+      [discardTo]="discardTo" [currentNodeValue]="req"></app-form-footer>
+    <app-quick-menu [module]="quickMenu"></app-quick-menu>
+  </div>
+</div>

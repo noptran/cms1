@@ -1,0 +1,108 @@
+<app-form-header [breadcrumbs]="breadcrumbs"></app-form-header>
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div class="container-backgorund">
+  <div class="container-foreground">
+    <form class="sf-form form-container" [formGroup]="providerTraining">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Provider Member</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="providerMemberID" [disabled]="isEditView"
+              formControlName="providerMemberID" [(ngModel)]="training.providerMemberID"
+              (completeMethod)="providerMember()" [suggestions]="allProMemberIds" [forceSelection]="true"
+              placeholder="Type here to search" field="fullName" emptyMessage="No records found!" size="23">
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Training Type</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="trainingType" [disabled]="isEditView"
+              formControlName="trainingTypeID" [(ngModel)]="training.trainingTypeID"
+              (completeMethod)="getMetaData($event, 'trainingType')" [suggestions]="metaData" [forceSelection]="true"
+              placeholder="Type here to search" field="trainingType" size="23"></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Training Category</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="trainingCategory" [disabled]="isEditView"
+              formControlName="trainingCategoryID" [(ngModel)]="training.trainingCategoryID"
+              (completeMethod)="getMetaData($event, 'trainingCategory')" [suggestions]="metaData"
+              [forceSelection]="true" placeholder="Type here to search" field="trainingCategory" size="23">
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>DCF Training Category</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="gradeID" [disabled]="isEditView"
+              formControlName="srstrainingCategoryID" [(ngModel)]="training.srstrainingCategoryID"
+              (completeMethod)="getMetaData($event, 'dcfTrainingCategory')" [suggestions]="metaData"
+              [forceSelection]="true" placeholder="Type here to search" field="srstrainingCategory" size="23">
+            </p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>License<span class="mandatory"> *</span></span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+
+            <p-autoComplete [dropdown]="true" name="gradeID" formControlName="providerLicenseID"
+              [(ngModel)]="training.providerLicenseID" (completeMethod)="filteredContactTypes($event)"
+              [suggestions]="licesnceLists" [forceSelection]="true" placeholder="Type here to search" field="licenseNo"
+              size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Units</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-spinner name="numericInput" formControlName="units" [disabled]="isEditView" [(ngModel)]="training.units"
+              [step]="0.25"></p-spinner>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Training Sponsor</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete [dropdown]="true" name="gradeID" [disabled]="isEditView" formControlName="trainingSponserID"
+              [(ngModel)]="training.trainingSponserID" (completeMethod)="getMetaData($event, 'sponsorName')"
+              [suggestions]="metaData" [forceSelection]="true" placeholder="Type here to search" field="sponsorName"
+              size="23"></p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-calendar name="dateInput" showTime="true" hourFormat="12" [disabled]="isEditView" [yearNavigator]="true"
+              formControlName="endDate" [(ngModel)]="training.endDate" [monthNavigator]="true" yearRange="2000:2030"
+              [showIcon]="true"></p-calendar>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <textarea pInputTextarea name="inputTextarea" [readOnly]="isEditView" formControlName="notes"
+              [(ngModel)]="training.notes" style="width:100%;height:100%"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-form-footer [discardTo]="discardTo" (save)="save(training)" (edit)="editForm()" [editControll]="isEdit"
+      [currentNodeValue]="req" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+  </div>
+</div>

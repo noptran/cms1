@@ -1,0 +1,433 @@
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px" />
+  </p>
+</div>
+<app-form-header [title]="title" [status]="status" [breadcrumbs]="breadcrumbs" [formstatus]="" [formNavigation]="">
+</app-form-header>
+<div class="sf-form">
+  <div class="foreground table-td">
+
+    <!-- <div class="focusguard" id="focusguard-1" tabindex="1"></div>
+    <input id="firstInput" type="text" tabindex="2" />
+    <input type="text" tabindex="3" />
+    <input type="text" tabindex="4" />
+    <input type="text" tabindex="5" />
+    <input type="text" tabindex="6" />
+    <input id="lastInput" type="text" tabindex="7" />
+  
+    <div class="focusguard" id="focusguard-2" tabindex="8"></div> -->
+
+
+
+
+    <div class="row">
+      <div class="col-md-2">
+
+        <label>Received Date:</label>
+        <p-calendar [showButtonBar]="true" id="firstInput" (onSelect)="getClientsOnReceivedDate($event)"
+          [(ngModel)]="receivedDate" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true"
+          yearRange="2000:2030">
+        </p-calendar>
+      </div>
+      <div class="col-md-2">
+        <label>Who to pay</label>
+        <p-dropdown [options]="whoToPay" id="firstInput" [(ngModel)]="payType" optionLabel="name">
+        </p-dropdown>
+      </div>
+      <div class="col-md-2">
+        <div *ngIf="payType.code === '0'">
+          <label>Payee<span class="mandatory"> *</span></label>
+          <p-autoComplete [(ngModel)]="payee" [suggestions]="results" [dropdown]="true" [forceSelection]="true"
+            field="payee" (completeMethod)="getPayee($event)" (onSelect)="getPayeeId($event)">
+          </p-autoComplete>
+        </div>
+        <div *ngIf="payType.code === '1'">
+          <label>Provider<span class="mandatory"> *</span></label>
+          <p-autoComplete [(ngModel)]="provider" [suggestions]="results" [dropdown]="true" [forceSelection]="true"
+            field="provider" (completeMethod)="getProvider($event)" (onSelect)="getProviderId($event)"></p-autoComplete>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <label>Client<span class="mandatory"> *</span></label>
+        <p-autoComplete [(ngModel)]="clientName" [dropdown]="true" [forceSelection]="true"
+          [suggestions]="filteredClient" field="ClientName" [readonly]="isReadOnlyClient"
+          (completeMethod)="filterClient($event)" (onSelect)="getClient($event)"
+          placeholder="please type client name to search">
+          <ng-template let-office pTemplate="item">
+            <div class="ui-helper-clearfix">
+              <table class="table table-bordered table-striped" style="height: 0px">
+                <tr>
+                  <th>Client ID</th>
+                  <th>Client Name</th>
+                  <th>DOB</th>
+                  <th>Kaecses</th>
+                  <th>SSN</th>
+                </tr>
+                <tr>
+                  <td>{{ office?.ClientID }}</td>
+                  <td>{{ office?.ClientName }}</td>
+                  <td>{{ office?.DOB }}</td>
+                  <td>{{ office?.Kaecses }}</td>
+                  <td>{{ office?.SSN }}</td>
+                </tr>
+              </table>
+            </div>
+          </ng-template>
+        </p-autoComplete>
+        <div *ngIf="isNoclients">
+          <p>No Data Found</p>
+        </div>
+
+      </div>
+      <div class="col-md-2">
+        <label>Payment Type:<span class="mandatory"> *</span></label>
+        <p-autoComplete [(ngModel)]="payment" [suggestions]="results" [dropdown]="true" [forceSelection]="true"
+          [disabled]="isReadOnly" field="paymentType" (completeMethod)="getPaymentType($event)"
+          (onSelect)="getPayment($event)"></p-autoComplete>
+      </div>
+      <div class="col-md-2">
+        <br>
+        <button class="sf-positive-btn" pTooltip="Enter your username" tooltipPosition="top"
+          (click)="add_claim('newClaim')" (keydown)="onMenuKeydown($event,'newClaim')">Add
+          Claim</button>
+
+      </div>
+    </div>
+    <hr>
+
+
+
+
+    <div *ngIf="updatedRowData.length>0" class="table-responsive table-form tableFixHead"
+      style="height: 60vh; overflow-y: scroll">
+      <div class="pull-right">
+        <div style="padding: 7px !important"></div>
+      </div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Payment Type</th>
+            <th>Client</th>
+            <th>Referral</th>
+            <th>Authorization ID</th>
+            <th>Begin Date</th>
+            <th>End Date</th>
+            <th>Procode</th>
+            <th>Units</th>
+            <th>Rate</th>
+            <th>Extension</th>
+            <th>Notes</th>
+            <th>Payment notes</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let provide_data of updatedRowData; let i1 = index">
+            <td>
+              <div style="
+              color: red;
+              font-weight: 600;
+              line-height: 13px;
+          "> {{provide_data.errMsg_select_payment_type}}</div>
+              <div [ngStyle]="{'border':provide_data.is_errMsg_payment_type === true ? '1px solid red' : '' }">
+                <p-autoComplete [(ngModel)]="provide_data.PaymentType" name="paymentType[i1]" [suggestions]="results"
+                  [dropdown]="true" [forceSelection]="true" [disabled]="isProvider" field="paymentType"
+                  (completeMethod)="getPaymentType($event)" (onSelect)="getPaymentInfo($event)">
+                </p-autoComplete>
+              </div>
+            </td>
+            <td>
+              <div style="
+                color: red;
+                font-weight: 600;
+                line-height: 13px;
+            "> {{provide_data.errMsg_selectClient}}</div>
+              <div [ngStyle]="{'border':provide_data.is_errMsgClient === true ? '1px solid red' : '' }">
+                <p-autoComplete [(ngModel)]="provide_data.Client" name="clientName[i1]" [dropdown]="true"
+                  [forceSelection]="true" [suggestions]="filteredClient" placeholder="please type client name to search"
+                  field="ClientName" (completeMethod)="filterClient($event)" (onSelect)="getClient($event)">
+                </p-autoComplete>
+              </div>
+            </td>
+            <td>
+
+              <div style="line-height: 13px;
+            color: red;
+            font-weight: 600;
+        "> {{provide_data.errMsg_selectReferral}}</div>
+              <div [ngStyle]="{'border':provide_data.referralValidEmptyError === true ? '1px solid red' : '' }">
+                <p-autoComplete [(ngModel)]="provide_data.referralID" name="referral[i1]"
+                  [suggestions]="referralresults" [dropdown]="true" [forceSelection]="true" field="display"
+                  (completeMethod)="getReferralForClient($event)" (onSelect)="getReferralId($event)">
+                </p-autoComplete>
+              </div>
+            </td>
+
+            <td>
+
+              <!-- {{ provide_data.authorizationID }} -->
+
+
+              <p-autoComplete [(ngModel)]="provide_data.authorizationID" name="authorizationID[i1]"
+                [suggestions]="authLists" [dropdown]="true" [forceSelection]="true" field="Desc"
+                (completeMethod)="getAuthorizationId($event)" (onSelect)="generateAuthorization($event)"
+                emptyMessage="No records found!"></p-autoComplete>
+
+            </td>
+            <td>
+              <!-- {{ provide_data.beginDate }} -->
+              <div style="
+              color: red;
+              font-weight: 600;
+              line-height: 13px;
+          "> {{provide_data.errMsg_beginDate_null}}</div>
+              <div [ngStyle]="{'border':provide_data.beginDateError === true ? '1px solid red' : '' }">
+
+                <p-calendar [(ngModel)]="provide_data.beginDate" (keydown)="getProcodes(provide_data.beginDate)"
+                  (onSelect)="getProcodes(provide_data.beginDate)" name="beginDate[i1]" [showIcon]="false"
+                  [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
+                </p-calendar>
+              </div>
+
+            </td>
+            <td>
+              <!-- {{ provide_data.endDate }} -->
+              <div style="
+              color: red;
+              font-weight: 600;
+              line-height: 13px;
+          "> {{provide_data.errMsg_endDate_null}}</div>
+              <div [ngStyle]="{'border':provide_data.endDateError === true ? '1px solid red' : '' }">
+                <p-calendar [(ngModel)]="provide_data.endDate" (keydown)="begindateEnddateValidation(i1,provide_data)"
+                  name="endDate[i1]" [showIcon]="false" (onSelect)="begindateEnddateValidation(i1,provide_data)"
+                  [monthNavigator]="true" [yearNavigator]="true" yearRange="1900:2030">
+                </p-calendar>
+              </div>
+            </td>
+            <td>
+              <!-- {{ provide_data.procode }} -->
+              <div style="
+              color: red;
+              font-weight: 600;
+              line-height: 13px;
+          "> {{provide_data.errMsg_select_procode}}</div>
+              <div [ngStyle]="{'border':provide_data.is_errMsgprocode === true ? '1px solid red' : '' }">
+                <p-autoComplete [(ngModel)]="provide_data.procodeID" name="procode[i1]" [suggestions]="proLista"
+                  [dropdown]="true" [forceSelection]="true" field="ProcodeName"
+                  (completeMethod)="getProcodeSearch($event)" (onSelect)="getProcodeInfo($event)"></p-autoComplete>
+              </div>
+            </td>
+
+            <td>
+              <!-- {{ provide_data.units }} -->
+              <div style="
+              color: red;
+              font-weight: 600;
+              line-height: 13px;
+          "> {{provide_data.errMsg_select_units}}</div>
+              <div [ngStyle]="{'border':provide_data.is_errMsg_units === true ? '1px solid red' : '' }"
+                class="sm-textBox">
+                <p-spinner [(ngModel)]="provide_data.units" name="units[i1]" size="30" [min]="0.0" [step]="0.01"
+                  pTooltip="Enter float value (eg:19.67)" tooltipEvent="focus"
+                  (onChange)="generateExtension(provide_data,i1)">
+                </p-spinner>
+              </div>
+            </td>
+            <td>
+              <!-- {{ provide_data.rate }} -->
+              <div style="
+              color: red;
+              font-weight: 600;
+              line-height: 13px;
+          "> {{provide_data.errMsg_select_rate}}</div>
+              <div [ngStyle]="{'border':provide_data.is_errMsg_rate === true ? '1px solid red' : '' }"
+                class="sm-textBox">
+                <input [(ngModel)]="provide_data.rate" (ngModelChange)="getRate(provide_data,i1)" name="rate[i1]"
+                  maxlength="75" pInputText size="27" />
+
+              </div>
+
+            </td>
+            <td class="sm-textBox">
+              <!-- {{ provide_data.extension }} -->
+              <input [(ngModel)]="provide_data.extension" name="extension[i1]" pInputText size="20" readonly />
+            </td>
+            <td class="sm-textBox">
+              <!-- {{ provide_data.notes }} -->
+              <textarea [(ngModel)]="provide_data.notes" name="notes[i1]" pInputTextArea style="width: 165px;
+                height: 25px;
+                line-height: 19px;border: 1px solid #c3c3c3;"></textarea>
+
+            </td>
+            <td>
+              <!-- {{ provide_data.paymentNotes }} -->
+              <textarea [(ngModel)]="provide_data.paymentNotes" name="paymentNotes[i1]" pInputTextArea style="    width: 165px;
+                height: 25px;
+                line-height: 19px;border: 1px solid #c3c3c3;"></textarea>
+
+            </td>
+            <td>
+              <button (click)="multipleAdd(provide_data,i1)" *ngIf="provide_data.isLastIndex" style="border: 1px solid #c3c3c3c3;
+              padding: 6px;
+              background: #ffff;"><i class="fa fa-plus" pTooltip="Add" aria-hidden="true"  style="
+                color: #026502;
+                margin-right: 10px;
+                font-size: 17px;
+              " ></i></button>
+             
+             <button (click)="deleteRow(i1)" style="    border: 1px solid #c3c3c3c3;
+             padding: 6px;
+             background: #ffff;"><i class="fa fa-trash" pTooltip="Enter your username" tooltipPosition="top" pTooltip="Delete" style="color: #ff0000; font-size: 17px" aria-hidden="true"
+              ></i></button> 
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row" style="padding: 5px">
+      <div class="col-md-1"></div>
+      <div class="col-md-3">
+        <b><b>Total Rows</b>: {{ updatedRowData.length }}</b>
+      </div>
+      <div class="col-md-3">
+        <div class="float-right">
+          <p><b>Total</b>: {{ totalExtension }}</p>
+        </div>
+      </div>
+      <div class="col-md-3 float-right">
+        <button type="button" pButton (click)="deleteAllShowBox()" label="Delete All"></button>
+      </div>
+    </div>
+
+    <!-- <ag-grid-angular class="data-grid ag-theme-balham" (rowSelected)="onRowSelected($event)" [rowData]="updatedRowData"
+        [columnDefs]="columnDefs" rowSelection="multiple" [rowDragManaged]="true" [gridOptions]="gridOptions"
+        [suppressDragLeaveHidesColumns]="true" animateRows="true" enableColResize="true" style="height: 300px;">
+    </ag-grid-angular> -->
+
+
+    <p-dialog header="Report view" [(visible)]="displayClaim" [responsive]="true" showEffect="fade" [modal]="true"
+      [width]="1200" [minWidth]="400" [minY]="160" [baseZIndex]="10000" [maximizable]="true">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped" style="height: 0px" *ngIf="displayClaim === true">
+          <!-- <table class="reportTable" *ngIf="displayClaim === true"> -->
+          <tr>
+            <th class="table-td" style="min-width: 183px !important;">Provider/payee Name</th>
+            <th class="table-td" style="min-width: 130px !important;">Last Name</th>
+            <th class="table-td" style="min-width: 130px !important;">First Name</th>
+            <th class="table-td">Kaecses</th>
+            <th class="table-td">Begin date</th>
+            <th class="table-td">End date</th>
+            <th class="table-td">Procode</th>
+            <th class="table-td">Rate</th>
+            <th class="table-td">Units</th>
+            <th class="table-td">Extension</th>
+            <th class="table-td" style="min-width: 183px !important;">GL Key</th>
+            <th class="table-td">Claim ID</th>
+            <th class="table-td" style="min-width: 183px !important;">Payment Type</th>
+            <th class="table-td" style="min-width: 130px !important;">Payment notes</th>
+            <th class="table-td">Notes</th>
+            <th class="table-td" style="min-width: 130px !important;">claim Batch ID</th>
+            <th class="table-td" style="min-width: 130px !important;">claim XLSID</th>
+            <th class="table-td" style="min-width: 130px !important;">Received Date</th>
+            <th class="table-td" style="min-width: 130px !important;">Address</th>
+            <th class="table-td">City</th>
+            <th class="table-td">State</th>
+            <th class="table-td">Zipcode</th>
+          </tr>
+          <tr *ngFor="let arr of claimRowData">
+            <td class="table-td">{{ arr.ProviderPayeeName }}</td>
+            <!-- <td *ngIf="payType === '0'" class="table-td">{{arr.payeeID.payeeName}}</td> -->
+            <td class="table-td">{{ arr.LastName }}</td>
+            <td class="table-td">{{ arr.FirstName }}</td>
+            <td class="table-td">{{ arr.Kaecses }}</td>
+            <td class="table-td">{{ arr.BeginDate }}</td>
+            <td class="table-td">{{ arr.EndDate }}</td>
+            <td class="table-td">{{ arr.Procode }}</td>
+            <td class="table-td">
+              <span class="pull-right">{{ arr.Rate }}</span>
+            </td>
+            <td class="table-td">
+              <span class="pull-right">{{ arr.Units }}</span>
+            </td>
+            <td class="table-td">
+              <span class="pull-right">{{ arr.Extension }}</span>
+            </td>
+            <td class="table-td">{{ arr.GLKey }}</td>
+            <td class="table-td">
+              <span class="pull-right">{{ arr.ClaimID }}</span>
+            </td>
+            <td class="table-td">{{ arr.PaymentType }}</td>
+            <td class="table-td">{{ arr.PaymentNotes }}</td>
+            <td class="table-td">{{ arr.Notes }}</td>
+            <td class="table-td">
+              <span class="pull-right">{{ arr.ClaimBatchID }}</span>
+            </td>
+            <td class="table-td">{{ arr.ClaimXLSID }}</td>
+            <td class="table-td">{{ arr.ReceivedDate }}</td>
+            <td class="table-td">{{ arr.Address }}</td>
+            <td class="table-td">{{ arr.City }}</td>
+            <td class="table-td">{{ arr.State }}</td>
+            <td class="table-td">{{ arr.Zipcode }}</td>
+          </tr>
+        </table>
+      </div>
+      <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+          <button type="button" pButton label="Export" (click)="export_claim(claimRowData[0].ClaimBatchID)"></button>
+        </div>
+      </p-footer>
+    </p-dialog>
+
+    <app-form-footer [isDisabled]="isDisabled" [isSave]="isSubmit" [isReport]="isReport" [isSubmit]="isSubmit"
+      [isRestart]="isRestart" (submit)="add_claim('submitClaim')" (save)="add_claim('saveClaim')"
+      (validate)="validateClaim(updatedRowData)" (report)="reportClaim()" [discardTo]="discardTo"
+      (restart)="restartClaim()" [isFormLog]="isFormLog" [formLogInfo]="formLogInfo"></app-form-footer>
+
+    <p-dialog header="Drafts" [(visible)]="isDraftIsThere" [responsive]="true" showEffect="fade" [modal]="true"
+      [width]="800" [minWidth]="200" [minY]="80" [maximizable]="false">
+      <p>You have draft claims. Do you want to view them?</p>
+      <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+          <button type="button" pButton (click)="showDraftList()" label="Yes"></button>
+          <button type="button" pButton (click)="cancelDraftthere()" label="No"></button>
+        </div>
+      </p-footer>
+    </p-dialog>
+
+    <p-dialog header="Import Claims" [(visible)]="isDraftList" [responsive]="true" showEffect="fade" [modal]="true"
+      [width]="800" [minWidth]="200" [minY]="80" [maximizable]="false">
+      <table class="table table-bordered">
+        <tbody>
+          <tr *ngFor="let item of allDrafts" (click)="showRespectiveClaim(item)">
+            <td>{{ item.FileName }}</td>
+            <td>{{ item.EnteredDate }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+          <button type="button" pButton (click)="cancelDraftList()" label="Exit"></button>
+        </div>
+      </p-footer>
+    </p-dialog>
+
+    <p-dialog header="Claims Delete All" [(visible)]="isDraftIsDeleteThere" [responsive]="true" showEffect="fade"
+      [modal]="true" [width]="800" [minWidth]="200" [minY]="80" [maximizable]="false">
+      <p>Are you sure want to delete all the records?</p>
+      <br />
+      <p><b>The deleted records cannot be retrieved</b></p>
+      <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+          <button type="button" (click)="DeleteAllClaims()" style="width: 12%; margin-right: 10px"
+            class="btn btn-danger">
+            Yes
+          </button>
+          <!-- <button type="button" pButton (click)="DeleteAllClaims()" label="Yes"></button> -->
+          <button type="button" (click)="cancelDeleteBox()" style="width: 12%; border: 1px solid red"
+            class="btn btn-default">
+            No
+          </button>
+        </div>
+      </p-footer>
+    </p-dialog>

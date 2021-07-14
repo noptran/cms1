@@ -1,0 +1,1238 @@
+<div id="loading-overlay">
+  <p class="loader-text">
+    <img src="/assets/loader/loader_new.gif" alt="loder" width="150px">
+  </p>
+</div>
+<div id="kansas-pdf-css">
+  <div id="form-print-content" class="sf-form">
+    <div class="flex-container header">
+      <div class="heading">
+        KANSAS SIGNIFICANT
+        <br>UNUSUAL INCIDENT
+        <br>REPORT
+      </div>
+      <div class="logo">
+        <img src="assets/logo color.svg" alt="">
+      </div>
+      <div class="case-info">
+        <div>
+          <span class="text-bold">Incident Report # (RM Only)</span>
+          <input [(ngModel)]="incident.reportID" class="remove-borders" type="text" pInputText size="20"
+            [disabled]="true" />
+        </div>
+        <div>
+          <span class="text-bold">Client Last Name:</span>
+          <input [(ngModel)]="clientLastName" class="remove-borders" type="text" pInputText size="20"
+            [disabled]="true" />
+        </div>
+        <div>
+          <span class="text-bold">Client First Name</span>
+          <input [(ngModel)]="clientFirstName" class="remove-borders" type="text" pInputText size="20"
+            [disabled]="true" />
+        </div>
+        <div>
+          <span class="text-bold">ID Number</span>
+          <input [(ngModel)]="idNumber" class="remove-borders" type="text" pInputText size="20" [disabled]="true" />
+        </div>
+        <div>
+          <span class="text-bold">Date of Birth</span>
+
+          <input [(ngModel)]="dob" class="remove-borders" type="text" pInputText size="20" [disabled]="true" />
+        </div>
+        <div>
+          <span class="text-bold">Court Case #</span>
+          <input [(ngModel)]="courtCase" class="remove-borders" type="text" pInputText size="20" [disabled]="true" />
+        </div>
+        <div>
+          <span class="text-bold">In DCF Custody?</span>
+          <span>Yes</span>
+          <span>
+            <p-checkbox binary="true" [disabled]="true">
+            </p-checkbox>
+          </span>
+          <span>No</span>
+          <span>
+            <p-checkbox binary="true" [disabled]="true">
+            </p-checkbox>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="border-black">
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+
+            <span class="text-bold">Incident Date/Time</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+
+            <input [(ngModel)]="incidentDate" class="remove-borders" type="text" pInputText size="20"
+              [disabled]="true" />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Discovery Date/Time:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input class="remove-borders" type="text" pInputText size="20" [(ngModel)]="discoveryDate"
+              [disabled]="true" />
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Name of Placement/Resource Home:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input [(ngModel)]="incident.providerID" class="remove-borders" type="text" pInputText size="20"
+              [disabled]="true" />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">SFM Case Management Office/Referral Source:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input [(ngModel)]="incident.payorID" class="remove-borders" type="text" pInputText size="20"
+              [disabled]="true" />
+
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Location of Incident (community/office):</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input class="remove-borders" [(ngModel)]="locationIncident" type="text" pInputText size="20"
+              [disabled]="true" />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span class="text-bold">Saint Francis Case Management Office/Referral Source:</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+
+            <input class="remove-borders" type="text" pInputText size="20" [disabled]="true" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="border-black">
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span class="text-bold">SIGNIFICANT INCIDENT (check all that apply)
+              <i>This written report is provided to the Court and DCF</i>
+            </span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+
+          </div>
+        </div>
+
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="significantDataCheckBoxValues.isArrested" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Arrested for a juvenile offense </span>
+
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <!-- <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="significantDataCheckBoxValues.isAllegedAbuse" binary="true">
+            </p-checkbox>
+          </div> -->
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Alleged abuse or neglect: </span>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="significantDataCheckBoxValues.isUseDrugs" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Use of illegal drugs (Family Pres Only)
+            </span>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="significantDataCheckBoxValues.isPastDisclosure" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Past Disclosure (Prior to Saint Francis Services/Care) </span>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="significantDataCheckBoxValues.isRunaway" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+
+            <span>Runaway or missing from placement
+              <u class="color-blue">(send to DCF.AWOLyouth@ks.gov)</u>
+
+            </span>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="significantDataCheckBoxValues.isCurrentDisclosure" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Current Disclosure ( During Saint Francis Services/Care) </span>
+            <div class="current-disclosure-container">
+              <div>
+                <p-checkbox label="Care Provider*" [(ngModel)]="significantDataCheckBoxValues.isCareProvider"
+                  binary="true" [disabled]="true">
+                </p-checkbox>
+              </div>
+              <div>
+                <p-checkbox label="Staff*" [(ngModel)]="significantDataCheckBoxValues.isStaff" binary="true"
+                  [disabled]="true">
+                </p-checkbox>
+              </div>
+              <div>
+                <p-checkbox label="Parent" [(ngModel)]="significantDataCheckBoxValues.isParent" binary="true"
+                  [disabled]="true">
+                </p-checkbox>
+              </div>
+              <div>
+                <p-checkbox label="Other" [(ngModel)]="significantDataCheckBoxValues.isOther" binary="true"
+                  [disabled]="true">
+                </p-checkbox>
+              </div>
+              <div>
+                <p-checkbox label="Unknown" [(ngModel)]="significantDataCheckBoxValues.isUnknown" binary="true"
+                  [disabled]="true">
+                </p-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="unusualDataCheckBoxValues.isLawEnforcement" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Law enforcement contacted
+            </span>
+            <span>
+              <p-autoComplete (completeMethod)="suggestionTrigger($event)" [suggestions]="lawEnforcementDropdown"
+                [dropdown]="true" [(ngModel)]="lawEnforcement" [forceSelection]="true" placeholder="Type here to search"
+                field="unusualIncidentTypeOption" size="23" [disabled]="true">
+              </p-autoComplete>
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div *ngIf="!isDisableUnusualSection" class="border-black">
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span class="text-bold">UNUSUAL INCIDENT (check all that apply)
+              <i>Internal Saint Francis Use Only</i>
+            </span>
+          </div>
+
+        </div>
+
+
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="unusualDataCheckBoxValues.isSexualContact" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Any sexual contact between youth </span>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="unusualDataCheckBoxValues.isPrivacyConfident" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Breach of privacy or confidentiality
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="unusualDataCheckBoxValues.isAggressiveAssault" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Aggressive or assaulting behavior </span>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="unusualDataCheckBoxValues.isIncidentSerious" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Incidents in which staff safety was seriously compromised
+
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="unusualDataCheckBoxValues.isRestraint" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Restraint </span>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="unusualDataCheckBoxValues.isSafetyEnvironment" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Safety of the environment
+
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="unusualDataCheckBoxValues.isSeclusion" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Seclusion </span>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="unusualDataCheckBoxValues.isUnprofessionalConduct" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Unprofessional conduct by staff or contract staff
+
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="unusualDataCheckBoxValues.isPrnInjection" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>PRN Injection </span>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="unusualDataCheckBoxValues.isAllegedVictime" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Alleged victim of human trafficking
+
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="unusualDataCheckBoxValues.isScreenedAcute" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Screened for acute care</span>
+            <span>
+              <p-autoComplete (completeMethod)="suggestionTrigger($event)" [suggestions]="acuteCareDropdown"
+                [dropdown]="true" [(ngModel)]="screenedAcute" [forceSelection]="true" placeholder="Type here to search"
+                field="unusualIncidentTypeOption" size="23" [disabled]="true">
+              </p-autoComplete>
+            </span>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="unusualDataCheckBoxValues.isMedicationPharmacy" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Medication/Pharmacy error/concern:</span>
+            <span>
+
+              <p-autoComplete (completeMethod)="suggestionTrigger($event)" [suggestions]="medicationConcernDropdown"
+                [dropdown]="true" [(ngModel)]="medicationConcern" [forceSelection]="true"
+                placeholder="Type here to search" field="unusualIncidentTypeOption" size="23" [disabled]="true">
+              </p-autoComplete>
+
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="border-black">
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <span class="text-bold">SAINT FRANCIS RESIDENTIAL ONLY
+            </span>
+          </div>
+
+        </div>
+
+
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="unusualDataCheckBoxValues.isMinorInjury" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Minor injury of client</span>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="unusualDataCheckBoxValues.isSeriousIllness" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Serious physical illness
+
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="unusualDataCheckBoxValues.isUnanticipateMedical" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Unanticipated medical attention that requires treatment beyond first aid</span>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox [(ngModel)]="significantDataCheckBoxValues.isUseDrugs" binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Use of illegal drugs
+
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="margin-top-20 row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox binary="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Suicide Attempt</span>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-1 col-md-1 col-sm-1">
+            <p-checkbox binary="true" [disabled]="true">
+            </p-checkbox>
+          </div>
+          <div class="col-lg-10 col-md-10 col-sm-10">
+            <span>Off Bounds and out of Staff Sight
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="border-black">
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <p class="text-bold">DESCRIBE INCIDENT:(include location)</p>
+
+            <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(incident.incidentDescription)}} cols="150"
+              [(ngModel)]="incident.incidentDescription" style="width: 100%;height: auto;" [disabled]="true"></textarea>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="margin-top-20 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <span class="text-bold">Extent of Client Injury:</span>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <p-checkbox binary="true" name="clientInjury_none" [(ngModel)]="clientInjury_none" [disabled]="true">
+          </p-checkbox>
+          <span>None</span>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <p-checkbox binary="true" name="clientInjury_low" [(ngModel)]="clientInjury_low" [disabled]="true">
+          </p-checkbox>
+          <span>Low</span>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <p-checkbox binary="true" name="clientInjury_moderate" [(ngModel)]="clientInjury_moderate" [disabled]="true">
+          </p-checkbox>
+          <span>Moderate</span>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <p-checkbox binary="true" name="clientInjury_severe" [(ngModel)]="clientInjury_severe" [disabled]="true">
+          </p-checkbox>
+          <span>Severe</span>
+        </div>
+      </div>
+
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+          <span class="text-bold">Staff Injury:</span>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <p-checkbox binary="true" name="staffInjury_none" [(ngModel)]="staffInjury_none" [disabled]="true">
+          </p-checkbox>
+          <span>None</span>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <p-checkbox binary="true" name="staffInjury_low" [(ngModel)]="staffInjury_low" [disabled]="true">
+          </p-checkbox>
+          <span>Low</span>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <p-checkbox name="staffInjury_moderate" [(ngModel)]="staffInjury_moderate" binary="true" [disabled]="true">
+          </p-checkbox>
+          <span>Moderate</span>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+          <p-checkbox name="staffInjury_severe" [(ngModel)]="staffInjury_severe" binary="true" [disabled]="true">
+          </p-checkbox>
+          <span>Severe</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <span class="text-bold">All adults present or responsible for the client during the incident:</span>
+        </div>
+
+      </div>
+    </div>
+    <div *ngIf="unusualIncidentInfo.PersonInvolvedList.length!=0" class="margin-top-20 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <table class="list-table" border="1" cellpadding="10">
+            <tr>
+
+              <th class="table-td">Person Sub Type</th>
+              <th class="table-td">Name</th>
+            </tr>
+            <tr *ngFor="let person of unusualIncidentInfo.PersonInvolvedList; let i = index;"
+              (click)="getListDetails(person,'person',i)">
+
+              <td class="table-td">{{person?.personAssignmentTypeID?.personAssignmentType}}</td>
+              <td class="table-td">{{person?.personName?.staffFullName}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span class="text-bold">FP ONLY: Children living in the home:</span>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <table class="list-table" border="1" cellpadding="10">
+            <tr>
+              <th class="table-td">Last Name</th>
+              <th class="table-td">First Name</th>
+              <th class="table-td">Kaecses</th>
+              <th class="table-td">Facts</th>
+              <th class="table-td">DOB</th>
+              <th class="table-td">Person Type ID</th>
+            </tr>
+            <tr *ngFor="let item of unusualIncidentInfo.incident.unusualIncidentChildrenLivingInTheHomeID">
+              <td> {{item?.lastName}}
+              </td>
+              <td> {{item?.firstName}}
+              </td>
+              <td> {{item?.kaecses}}
+              </td>
+              <td> {{item?.facts}}
+              </td>
+              <td> {{item?.dob| date:"MM/dd/yyyy"}}
+              </td>
+              <td> {{item?.personTypeID}} </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span class="text-bold">Person Reporting (print):</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input [(ngModel)]="personReporting" class="remove-borders" type="text" pInputText size="20"
+            [disabled]="true" />
+        </div>
+      </div>
+    </div>
+
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span class="text-bold">Date Completed:</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input class="remove-borders" type="text" name="completedDate" [(ngModel)]="incident.completedDate" pInputText
+            size="20" [disabled]="true" />
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span class="text-bold">Saint Francis in-house report anonymity</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-checkbox binary="true" [disabled]="true">
+          </p-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="border-black">
+      <div class="margin-top-20 row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-11 col-md-11 col-sm-11">
+            <span class="text-bold">Fax or email to Risk Management or enter report into CMS. Original placed in
+              client’s file. If report is anonymous,
+              mail original to: Risk Management 509 E. Elm, Salina, KS
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="margin-top-20 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <span>
+            <span class="text-center">
+              <b>FOR SAINT FRANCIS USE</b>
+            </span>
+          </span>
+        </div>
+        <div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="sfcs-office-table">
+        <table class="sfcs-table" border="1" cellpadding="10">
+          <tr>
+            <th class="table-td">Contact (If Applicable)</th>
+            <th class="table-td">Contact Name</th>
+            <th class="table-td">Date</th>
+            <th class="table-td">Time</th>
+            <th class="table-td">Fax/Verbal/Email</th>
+            <th class="table-td">By whom?</th>
+
+          </tr>
+          <tr>
+            <td class="table-td">Parent/Guardian</td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[0].contactName}}
+
+            </td>
+            <td class="table-td">
+              <p-calendar [(ngModel)]="unusualIncidentInfo.sfcsUseOnly[0].sentDate" hourFormat="24"
+                [inputStyle]="{'width':'170px'}" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+                [disabled]="true">
+              </p-calendar>
+            </td>
+            <td class="table-td">
+
+              {{unusualIncidentInfo.sfcsUseOnly[0].sentDate?'00:00:00':''}}
+            </td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[0].byEmail?' Email':''}}
+              {{unusualIncidentInfo.sfcsUseOnly[0].byFax?' Fax':''}}
+              {{unusualIncidentInfo.sfcsUseOnly[0].byVerbal?' Verbal':''}}
+
+            </td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[0].staffFullName}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">Administration</td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[1].contactName}}
+
+            </td>
+            <td class="table-td">
+              <p-calendar [(ngModel)]="unusualIncidentInfo.sfcsUseOnly[1].sentDate" hourFormat="24"
+                [inputStyle]="{'width':'170px'}" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+                [disabled]="true">
+              </p-calendar>
+            </td>
+            <td class="table-td">
+
+              {{unusualIncidentInfo.sfcsUseOnly[1].sentDate?'00:00:00':''}}
+            </td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[1].byEmail?' Email':''}}
+              {{unusualIncidentInfo.sfcsUseOnly[1].byFax?' Fax':''}}
+              {{unusualIncidentInfo.sfcsUseOnly[1].byVerbal?' Verbal':''}}
+
+            </td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[1].staffFullName}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">DCF (Written) </td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[2].contactName}}
+
+            </td>
+            <td class="table-td">
+              <p-calendar [(ngModel)]="unusualIncidentInfo.sfcsUseOnly[2].sentDate" hourFormat="24"
+                [inputStyle]="{'width':'170px'}" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+                [disabled]="true">
+              </p-calendar>
+            </td>
+            <td class="table-td">
+
+              {{unusualIncidentInfo.sfcsUseOnly[2].sentDate?'00:00:00':''}}
+            </td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[2].byEmail?' Email':''}}
+              {{unusualIncidentInfo.sfcsUseOnly[2].byFax?' Fax':''}}
+              {{unusualIncidentInfo.sfcsUseOnly[2].byVerbal?' Verbal':''}}
+
+            </td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[2].staffFullName}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">State Protection Reporting Center</td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[4].contactName}}
+
+            </td>
+            <td class="table-td">
+              <p-calendar [(ngModel)]="unusualIncidentInfo.sfcsUseOnly[4].sentDate" hourFormat="24"
+                [inputStyle]="{'width':'170px'}" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+                [disabled]="true">
+              </p-calendar>
+            </td>
+            <td class="table-td">
+
+              {{unusualIncidentInfo.sfcsUseOnly[4].sentDate?'00:00:00':''}}
+            </td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[4].byEmail?' Email':''}}
+              {{unusualIncidentInfo.sfcsUseOnly[4].byFax?' Fax':''}}
+              {{unusualIncidentInfo.sfcsUseOnly[4].byVerbal?' Verbal':''}}
+
+            </td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[4].staffFullName}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">Risk Management (Written) 24 hour</td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[5].contactName}}
+
+            </td>
+            <td class="table-td">
+              <p-calendar [(ngModel)]="unusualIncidentInfo.sfcsUseOnly[5].sentDate" hourFormat="24"
+                [inputStyle]="{'width':'170px'}" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+                [disabled]="true">
+              </p-calendar>
+            </td>
+            <td class="table-td">
+
+              {{unusualIncidentInfo.sfcsUseOnly[5].sentDate?'00:00:00':''}}
+            </td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[5].byEmail?' Email':''}}
+              {{unusualIncidentInfo.sfcsUseOnly[5].byFax?' Fax':''}}
+              {{unusualIncidentInfo.sfcsUseOnly[5].byVerbal?' Verbal':''}}
+
+            </td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[5].staffFullName}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">Foster Care/Kinship Worker</td>
+            <td class="table-td">
+
+
+            </td>
+            <td class="table-td">
+              <p-calendar hourFormat="24" [inputStyle]="{'width':'170px'}" [yearNavigator]="true"
+                [monthNavigator]="true" yearRange="2000:2030" [disabled]="true">
+              </p-calendar>
+            </td>
+            <td class="table-td">
+
+            </td>
+            <td class="table-td">
+
+            </td>
+            <td class="table-td">
+
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">DCF Licensing (RE/FCH) 24 Hour</td>
+            <td class="table-td">
+
+            </td>
+            <td class="table-td">
+              <p-calendar hourFormat="24" [inputStyle]="{'width':'170px'}" [yearNavigator]="true"
+                [monthNavigator]="true" yearRange="2000:2030" [disabled]="true">
+              </p-calendar>
+            </td>
+            <td class="table-td">
+
+            </td>
+            <td class="table-td">
+
+            </td>
+            <td class="table-td">
+
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">Police/Sheriff</td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[10].contactName}}
+
+            </td>
+            <td class="table-td">
+              <p-calendar [(ngModel)]="unusualIncidentInfo.sfcsUseOnly[10].sentDate" hourFormat="24"
+                [inputStyle]="{'width':'170px'}" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+                [disabled]="true">
+              </p-calendar>
+            </td>
+            <td class="table-td">
+
+              {{unusualIncidentInfo.sfcsUseOnly[10].sentDate?'00:00:00':''}}
+            </td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[10].byEmail?' Email':''}}
+              {{unusualIncidentInfo.sfcsUseOnly[10].byFax?' Fax':''}}
+              {{unusualIncidentInfo.sfcsUseOnly[10].byVerbal?' Verbal':''}}
+
+            </td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[10].staffFullName}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">Court</td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[11].contactName}}
+
+            </td>
+            <td class="table-td">
+              <p-calendar [(ngModel)]="unusualIncidentInfo.sfcsUseOnly[11].sentDate" hourFormat="24"
+                [inputStyle]="{'width':'170px'}" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+                [disabled]="true">
+              </p-calendar>
+            </td>
+            <td class="table-td">
+
+              {{unusualIncidentInfo.sfcsUseOnly[11].sentDate?'00:00:00':''}}
+            </td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[11].byEmail?' Email':''}}
+              {{unusualIncidentInfo.sfcsUseOnly[11].byFax?' Fax':''}}
+              {{unusualIncidentInfo.sfcsUseOnly[11].byVerbal?' Verbal':''}}
+
+            </td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[11].staffFullName}}
+            </td>
+          </tr>
+          <tr>
+            <td class="table-td">Guardian ad litem </td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[12].contactName}}
+
+            </td>
+            <td class="table-td">
+              <p-calendar [(ngModel)]="unusualIncidentInfo.sfcsUseOnly[12].sentDate" hourFormat="24"
+                [inputStyle]="{'width':'170px'}" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"
+                [disabled]="true">
+              </p-calendar>
+            </td>
+            <td class="table-td">
+
+              {{unusualIncidentInfo.sfcsUseOnly[12].sentDate?'00:00:00':''}}
+            </td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[12].byEmail?' Email':''}}
+              {{unusualIncidentInfo.sfcsUseOnly[12].byFax?' Fax':''}}
+              {{unusualIncidentInfo.sfcsUseOnly[12].byVerbal?' Verbal':''}}
+
+            </td>
+            <td class="table-td">
+              {{unusualIncidentInfo.sfcsUseOnly[12].staffFullName}}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="margin-top-20 row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span class="text-bold">Follow-up Needed?</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 checkbox">
+
+          <p-radioButton value='true' [(ngModel)]="incident.followUpNeeded" label="Yes" [disabled]="true">
+          </p-radioButton>
+          <p-radioButton value='false' [(ngModel)]="incident.followUpNeeded" label="No" [disabled]="true">
+          </p-radioButton>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span class="text-bold">Follow-up Completed By</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+
+          <input [(ngModel)]="incident.followUpCompletedDate" class="remove-borders" type="text" pInputText size="20"
+            [disabled]="true" />
+        </div>
+      </div>
+    </div>
+
+    <div class="margin-top-20 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <span class="text-bold">Recommandation</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+
+          <textarea pInputTextarea autoResize="autoResize" rows={{rowMethod(incident.recommendations)}} cols="150"
+            [(ngModel)]="incident.recommendations" style="width: 100%;height: auto;" [disabled]="true"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="margin-top-20 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div>
+          <p class="text-bold text-center">STEPS OF ACTION</p>
+        </div>
+        <div>
+          <p>
+            When you observe or are part of a Significant Unusual Incident, proceed through the following steps:
+          </p>
+          <p>
+            1. Take immediate action as needed (i.e. safety, emergency procedures, first aid)
+          </p>
+
+          <p>
+            2. Decide if emergent assistance from anyone is needed
+
+          </p>
+          <p>
+            3. Contact Appropriate People (Parents, Administration, Police, Fire Department, Director of Clinical,
+            On-Call Staff, Nurse)
+          </p>
+          <p>
+            4. Complete the Significant Unusual Incident report in CMS within 24 hours
+
+          </p>
+          <p>
+            5. If not entered into CMS, send Significant Unusual Incident Form to Saint Francis Risk Management by fax
+            to 785-825-0685,
+            email zzRiskManagement@saintfrancisministries.org, or mail directly to Saint Francis Risk Management at
+            509
+            E
+            Elm, Salina, KS 67401
+
+          </p>
+          <p>
+            6. Notify administration if not already informed
+          </p>
+          <p>
+            7. Allegations of abuse and neglect must be reported immediately
+          </p>
+          <p>
+            8. Follow instructions below per Program
+          </p>
+
+
+        </div>
+      </div>
+    </div>
+    <div class="margin-top-20 row text-center">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <span class="text-bold text-center">INSTRUCTIONS FOR SENDING SIGNIFICANT UNUSUAL INCIDENT REPORT
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="margin-top-20 margin-left-1rem row">
+      <div class="col-lg-12 col-md-12 col-sm-12 border-black-only">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <p>
+            <i class="fa fa-circle padding-1rem"></i>Saint Francis Risk Management 785-825-0685 or
+            zzRiskManagement@saintfrancisministries.org, within 24 hours
+          </p>
+          <p>
+            <i class="fa fa-circle padding-1rem"></i>Court- Significant Incidents (top box)</p>
+          <p>
+            <i class="fa fa-circle padding-1rem"></i>Kansas Protection Reporting Center (KPRC), verbal only for
+            allegations of abuse/neglect 1-800-922-5330 or
+            https://prcform.dcf.ks.gov/kipslive/
+          </p>
+          <p>
+            <i class="fa fa-circle padding-1rem"></i>DCF Wichita Region: DCF.WICIntake@ks.gov </p>
+          <p>
+            <i class="fa fa-circle padding-1rem"></i>DCF West Region: WERFC@dcf.ks.gov and Jennette.parker@ks.gov</p>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="margin-top-20 row text-center">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <span class="text-bold text-center">The DCF Form - Critical Incident Form PPS 0550 should be used for these
+            Incidents:
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="margin-top-20 margin-left-1rem row">
+      <div class="col-lg-12 col-md-12 col-sm-12 border-black-only">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <p>
+            <i class="fa fa-circle padding-1rem"></i>Media – Incident which may draw public or legislative concern
+          </p>
+          <p>
+            <i class="fa fa-circle padding-1rem"></i>Child in the Custody of the Secretary with sever injuries </p>
+          <p>
+            <i class="fa fa-circle padding-1rem"></i>Child Death
+          </p>
+          <p>
+            <i class="fa fa-circle padding-1rem"></i>Foster Parent with criminal proceedings related to abuse or
+            neglect
+          </p>
+          <p>
+            <i class="fa fa-circle padding-1rem"></i>Child Near Death</p>
+          <p>
+            <i class="fa fa-circle padding-1rem"></i>Any Child in the Custody of the Secretary who spent the night in
+            a
+            CSCMP Office
+          </p>
+          <p>
+            <i class="fa fa-circle padding-1rem"></i>Child in the Custody of the Secretary who attempted Suicide</p>
+          <p>
+            <i class="fa fa-circle padding-1rem"></i>Death of a parent/caregiver involving a child with any open
+            service
+            case or investigation</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="margin-top-20 row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div>
+          <p class="text-bold text-center">MISSING/RUNAWAY CHILDREN </p>
+        </div>
+        <div>
+
+          <p>
+            1. Report immediately, and in no case later than 2 hours, after receiving information on missing or
+            abducted
+            children or
+            youth, to law enforcement authorities (for law enforcement to enter into the National Crime Information
+            Center-NCIC
+            database of the Federal Bureau of Investigation)
+          </p>
+
+          <p>
+            2. Within 2 hours, notify DCF.AWOLyouth@ks.gov and include all information available about the child and
+            the
+            circumstances.
+
+          </p>
+          <p>
+            3. Immediately, and in no case later than 24 hours after receiving information on the missing or abducted
+            child report to
+            the National Center for Missing and Exploited Children, by entering information online or calling
+            1-800-THE-LOST.
+          </p>
+          <p>
+            4. Within 24 hours, provide the law enforcement agency, Special Response Team in PPS Administration at
+            DCF.AWOLyouth@ks.gov
+            and NCMEC with the following information (as available):
+
+          </p>
+          <p class="margin-left-1rem">
+            a. a current photo/physical description of the child, to include a description of the clothing worn at the
+            time the child
+            was last seen, hair and eye color, height, weight, complexion, eyeglasses or contact lenses, braces, body
+            piercings,
+            tattoos and/or other unique physical characteristics;
+          </p>
+          <p class="margin-left-1rem">
+            b. contact information of the child; including information about cell phone numbers, email addresses,
+            social
+            networking contacts,
+            aliases and nicknames;
+          </p>
+          <p class="margin-left-1rem">
+            c. suggested location, people, or direction where the child could be located, including parents and
+            relatives;
+          </p>
+          <p class="margin-left-1rem">
+            d. medical/physical/emotional/mental health condition/diagnosis/disabilities and medication information
+            that
+            may impact the
+            child’s decision making process and health, including any past suicidal attempts and/or any other
+            endangerments
+            or risks, such as gang activity, online enticement, commercial/sexual exploitation;
+          </p>
+          <p class="margin-left-1rem">
+            e. possessions the child may have with them.
+
+          </p>
+          <p>
+            5. contact the child's parent(s)/primary caregiver(s), if parental rights are still intact and whereabouts
+            are known, to
+            make them aware of the child missing from placement, elicit their assistance in locating the child,
+            provide
+            frequent
+            updates on search efforts, and consult regarding whether to issue a press release;
+
+          </p>
+          <p>
+            6. notify the court of the child's missing status;
+          </p>
+          <p>
+            7. contact the child's school to make them aware of the child's missing status and ask for their
+            assistance
+            in locating the
+            child;
+          </p>
+          <p>
+            8. contact friends, other relatives of the child and others who may have information (teachers,
+            counselors,
+            coaches, CASA,
+            etc.), through all available means including social media, to obtain information from them and also gain
+            their
+            assistance in locating the child; if assistance is needed in locating the child’s relatives, contact DCF
+            to
+            request
+            a search of all systems;
+          </p>
+
+          <p>9. provide emotional support to the parents/primary caregivers, siblings, and placement provider in
+            dealing
+            with
+            the child's missing status;</p>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<button class="sf-primary-btn" style="float: right;" (click)="printForm()">Print</button>

@@ -1,0 +1,1074 @@
+<div id="pdf-content">
+  <div class="heading">
+    <h3>ASQ-SE-2</h3>
+    <h3>Ages & Stages Questionnaires – 24 Month Questionnaire</h3>
+    <p>21 months 0 days through 26 months 30 days</p>
+  </div>
+  <div class="date-section">
+    <div>
+      <span>Date ASQ-SE-2 Completed:</span>
+      <mat-form-field floatLabel="never">
+        <input matInput [matDatepicker]="picker" (click)="picker.open()" placeholder="Choose a date" class="date"
+          [(ngModel)]="model.CompletionDate.value" value="{{date}}">
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div>
+      <span>Entered By:</span>
+      <mat-form-field>
+        <input matInput [(ngModel)]="model.StaffName.value" value={{staffName}} readonly></mat-form-field>
+    </div>
+  </div>
+  <h4 class="baby-info">Baby's Information</h4>
+  <div class="clientInfo">
+    <div class="client-section">
+      <div class="client">
+        <p>Name:</p>
+        <client-search [ClientName]='displayClientName()' (setClientAction)="setClient($event)"></client-search>
+      </div>
+      <div class="client">
+        <div class="client-div">
+          <span>Date of birth:</span>
+          <mat-form-field>
+            <input matInput [(ngModel)]="model.DateOfBirth.value" class="input-xs" readonly></mat-form-field>
+        </div>
+        <div class="client-div">
+          <span>If born premature, # of weeks early:</span>
+          <mat-form-field>
+            <input matInput class="input-xxs" [(ngModel)]="model.NumericField1.value"></mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span>ID #:</span>
+      <mat-form-field>
+        <input matInput [(ngModel)]="model.clientId" readonly></mat-form-field>
+      <span>Gender:</span>
+      <input class="rad" type="radio" value="0" name="Gender" [(ngModel)]="model.Gender.fieldOptionIndex"
+        disabled>Female
+      <input class="rad" type="radio" value="1" name="Gender" [(ngModel)]="model.Gender.fieldOptionIndex" disabled>Male
+    </div>
+  </div>
+  <div class="space-padding">
+    <mat-checkbox (change)="disableValidationProcess()" [(ngModel)]="model.disableValidate"> Unable to Assess
+    </mat-checkbox>
+  </div>
+  <div class="text-section space-padding" *ngIf="model.disableValidate">
+    <p>Remarks:</p>
+    <mat-form-field *ngIf="!isFinalize">
+      <textarea [(ngModel)]="model.remarks.value" class="textarea" autosize matInput></textarea>
+    </mat-form-field>
+    <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.remarks.value}}</span>
+  </div>
+
+  <div [ngClass]="model.disableValidate?'disableValidation':'non-disableValidation'">
+    <div>
+      <h4>Person Completing Questionnaire</h4>
+      <div class="baby-status">
+        <div class="text-section">
+          <p>Respondent:</p>
+          <mat-form-field *ngIf="!isFinalize">
+            <textarea [disabled]="model.disableValidate === true" [(ngModel)]="model.CaregiverName.value"
+              class="textarea" autosize matInput></textarea>
+          </mat-form-field>
+          <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.CaregiverName.value}}</span>
+        </div>
+
+        <div class="relationship-baby">
+          <p>Relationship to Baby:</p>
+          <div class="visitTypeInput margin-top-1rem">
+            <input type="radio" value="0" name="Relationship"
+              [(ngModel)]="model.Relationship.fieldOptionIndex">Bio-parent
+            <input type="radio" value="1" name="Relationship" [(ngModel)]="model.Relationship.fieldOptionIndex">Guardian
+            <input type="radio" value="2" name="Relationship" [(ngModel)]="model.Relationship.fieldOptionIndex">Teacher
+            <input type="radio" value="3" name="Relationship" [(ngModel)]="model.Relationship.fieldOptionIndex">Grand
+            Parent
+            <input type="radio" value="4" name="Relationship"
+              [(ngModel)]="model.Relationship.fieldOptionIndex">Step-parent
+            <input type="radio" value="5" name="Relationship" [(ngModel)]="model.Relationship.fieldOptionIndex">Other
+            Relative
+            <input type="radio" value="6" name="Relationship" [(ngModel)]="model.Relationship.fieldOptionIndex">Foster
+            Parent
+            <input type="radio" value="7" name="Relationship" [(ngModel)]="model.Relationship.fieldOptionIndex">Child
+            Care
+            Provider
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <p>
+        <span class="bold">24 Month Questionnaire:</span>21 months 0 days through 26 months 30 days</p>
+      <hr>
+      <p>Questions about behaviors babies may have are listed on the following pages. Please read each question
+        carefully and
+        check the box
+        <span class="bold">[√]</span> that best describes your baby's behavior. Also, check the circle
+        <span class="bold">[√]</span> if the behavior is a concern.</p>
+      <h4>Important Point to Remember:</h4>
+      <p> Answer questions based on what you know about your baby's behavior. </p>
+      <p> Answer questions based on your baby's usual behavior, not behavior when your baby is sick, very tired, or
+        hungry. </p>
+      <p> Caregivers who know the baby well and sped more than 15-20 hours per week with the baby should complete
+        <span class="bold">ASQ-SE-2</span>
+      </p>
+    </div>
+
+    <div class="asq-tab">
+      <table>
+        <tr>
+          <th>Statement</th>
+          <th>Often or Always</th>
+          <th>Sometimes</th>
+          <th>Rarely or Never</th>
+          <th>Check if this is a concern</th>
+          <th>Assessment score</th>
+        </tr>
+        <tr>
+          <td>1. Does your child look at you when you talk to him?
+          </td>
+          <td>
+            <input type="radio" name="Question1" value="0" class="radio" [(ngModel)]="model.Question1.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <input type="radio" name="Question1" value="1" class="radio" [(ngModel)]="model.Question1.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question1" value="2" class="radio" [(ngModel)]="model.Question1.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question1Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question1Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>2. Does your child seem too friendly with strangers?
+          </td>
+          <td>
+            <input type="radio" name="Question2" value="2" class="radio" [(ngModel)]="model.Question2.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <input type="radio" name="Question2" value="1" class="radio" [(ngModel)]="model.Question2.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question2" value="0" class="radio" [(ngModel)]="model.Question2.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question2Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question2Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>3. Does your child laugh or smile when you play with her?</td>
+          <td>
+            <input type="radio" name="Question3" value="0" class="radio" [(ngModel)]="model.Question3.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <input type="radio" name="Question3" value="1" class="radio" [(ngModel)]="model.Question3.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question3" value="2" class="radio" [(ngModel)]="model.Question3.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question3Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question3Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>4. Is your child's body relaxed?</td>
+          <td>
+            <input type="radio" name="Question4" value="0" class="radio" [(ngModel)]="model.Question4.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <input type="radio" name="Question4" value="1" class="radio" [(ngModel)]="model.Question4.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question4" value="2" class="radio" [(ngModel)]="model.Question4.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question4Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question4Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>5. When you leave, does your child stay upset and cry for more than an hour?</td>
+          <td>
+            <input type="radio" name="Question5" value="2" class="radio" [(ngModel)]="model.Question5.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <input type="radio" name="Question5" value="1" class="radio" [(ngModel)]="model.Question5.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question5" value="0" class="radio" [(ngModel)]="model.Question5.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question5Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question5Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>6. Does your child greet or say hello to familiar adults?
+          </td>
+          <td>
+            <input type="radio" name="Question6" value="0" class="radio" [(ngModel)]="model.Question6.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <input type="radio" name="Question6" value="1" class="radio" [(ngModel)]="model.Question6.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question6" value="2" class="radio" [(ngModel)]="model.Question6.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question6Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question6Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>7. Does your child like to be hugged or cuddled?
+          </td>
+          <td>
+            <input type="radio" name="Question7" value="0" class="radio" [(ngModel)]="model.Question7.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <input type="radio" name="Question7" value="1" class="radio" [(ngModel)]="model.Question7.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question7" value="2" class="radio" [(ngModel)]="model.Question7.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question7Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question7Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>8. When upset, can your child calm down within 15 minutes?
+          </td>
+          <td>
+            <input type="radio" name="Question8" value="0" class="radio" [(ngModel)]="model.Question8.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <input type="radio" name="Question8" value="1" class="radio" [(ngModel)]="model.Question8.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question8" value="2" class="radio" [(ngModel)]="model.Question8.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question8Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question8Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>9. Does your child stiffen or arch his back when picked up?</td>
+          <td>
+            <input type="radio" name="Question9" value="2" class="radio" [(ngModel)]="model.Question9.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <input type="radio" name="Question9" value="1" class="radio" [(ngModel)]="model.Question9.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question9" value="0" class="radio" [(ngModel)]="model.Question9.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question9Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question9Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>10. Is your child interested in things around her, such as people, toys, and foods?</td>
+          <td>
+            <input type="radio" name="Question10" value="0" class="radio"
+              [(ngModel)]="model.Question10.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <input type="radio" name="Question10" value="1" class="radio"
+              [(ngModel)]="model.Question10.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question10" value="2" class="radio"
+              [(ngModel)]="model.Question10.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question10Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question10Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>11. Does your child cry, scream, or have tantrums for long periods of time?</td>
+          <td>
+            <input type="radio" name="Question11" value="2" class="radio"
+              [(ngModel)]="model.Question11.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <input type="radio" name="Question11" value="1" class="radio"
+              [(ngModel)]="model.Question11.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question11" value="0" class="radio"
+              [(ngModel)]="model.Question11.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question11Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question11Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>12. Do you and your child enjoy mealtimes together?
+          </td>
+          <td>
+            <input type="radio" name="Question12" value="0" class="radio"
+              [(ngModel)]="model.Question12.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <input type="radio" name="Question12" value="1" class="radio"
+              [(ngModel)]="model.Question12.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question12" value="2" class="radio"
+              [(ngModel)]="model.Question12.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question12Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question12Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>13. Does your child have any eating problems, such as gagging, vomiting, or
+            <div class="tab-width">
+              <mat-form-field *ngIf="!isFinalize">
+                <textarea autosize matInput [(ngModel)]="model.Question13Or.value"></textarea>
+              </mat-form-field>
+              <div style="white-space: pre-wrap;margin: 10px;" *ngIf="isFinalize">{{model.Question13Or.value}}</div>
+            </div>
+
+            ?
+            <br> (Please describe.)
+            <br>
+            <div class="tab-width">
+              <mat-form-field *ngIf="!isFinalize">
+                <textarea autosize matInput [(ngModel)]="model.Question13Description.value"></textarea>
+              </mat-form-field>
+              <div style="white-space: pre-wrap;margin: 10px;" *ngIf="isFinalize">{{model.Question13Description.value}}
+              </div>
+            </div>
+
+          </td>
+          <td>
+            <input type="radio" name="Question13" value="2" class="radio"
+              [(ngModel)]="model.Question13.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <input type="radio" name="Question13" value="1" class="radio"
+              [(ngModel)]="model.Question13.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question13" value="0" class="radio"
+              [(ngModel)]="model.Question13.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question13Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question13Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>14. Does your child sleep at least 10 hours in a 24- hour period?
+          </td>
+          <td>
+            <input type="radio" name="Question14" value="0" class="radio"
+              [(ngModel)]="model.Question14.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <input type="radio" name="Question14" value="1" class="radio"
+              [(ngModel)]="model.Question14.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question14" value="2" class="radio"
+              [(ngModel)]="model.Question14.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question14Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question14Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>15. When you point at something, does your child look in the direction you are pointing?
+          </td>
+          <td>
+            <input type="radio" name="Question15" value="0" class="radio"
+              [(ngModel)]="model.Question15.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <input type="radio" name="Question15" value="1" class="radio"
+              [(ngModel)]="model.Question15.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question15" value="2" class="radio"
+              [(ngModel)]="model.Question15.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question15Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question15Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>16. Does your child have trouble falling asleep at nap time or at night?
+          </td>
+          <td>
+            <input type="radio" name="Question16" value="2" class="radio"
+              [(ngModel)]="model.Question16.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <input type="radio" name="Question16" value="1" class="radio"
+              [(ngModel)]="model.Question16.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question16" value="0" class="radio"
+              [(ngModel)]="model.Question16.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question16Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question16Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>17. Does your child get constipated or have diarrhea?
+          </td>
+          <td>
+            <input type="radio" name="Question17" value="2" class="radio"
+              [(ngModel)]="model.Question17.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <input type="radio" name="Question17" value="1" class="radio"
+              [(ngModel)]="model.Question17.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question17" value="0" class="radio"
+              [(ngModel)]="model.Question17.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question17Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question17Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>18. Does your child follow simple directions? For example, does she sit down when asked?
+          </td>
+          <td>
+            <input type="radio" name="Question18" value="0" class="radio"
+              [(ngModel)]="model.Question18.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <input type="radio" name="Question18" value="1" class="radio"
+              [(ngModel)]="model.Question18.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question18" value="2" class="radio"
+              [(ngModel)]="model.Question18.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question18Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question18Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>19. Does your child let you know how he is feeling with words or gestures? For example, does he let you
+            know when
+            he is hungry, hurt, or tired?
+          </td>
+          <td>
+            <input type="radio" name="Question19" value="0" class="radio"
+              [(ngModel)]="model.Question19.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <input type="radio" name="Question19" value="1" class="radio"
+              [(ngModel)]="model.Question19.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question19" value="2" class="radio"
+              [(ngModel)]="model.Question19.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question19Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question19Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>20. Does your child check to make sure you are near when exploring new places, such as a park or a
+            friend's home?
+          </td>
+          <td>
+            <input type="radio" name="Question20" value="0" class="radio"
+              [(ngModel)]="model.Question20.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <input type="radio" name="Question20" value="1" class="radio"
+              [(ngModel)]="model.Question20.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question20" value="2" class="radio"
+              [(ngModel)]="model.Question20.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question20Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question20Sum.value">
+          </td>
+        </tr>
+        <!-- for windows comment it -->
+        <!-- <div class="html2pdf__page-break"></div>  -->
+        <tr>
+          <td>21. Does your child do things over and over and get upset when you try to stop her? For example, does she
+            rock,
+            flap her hands, spin, or
+            <div class="tab-width">
+              <mat-form-field *ngIf="!isFinalize">
+                <textarea autosize matInput [(ngModel)]="model.Question21Or.value"></textarea>
+              </mat-form-field>
+              <div style="white-space: pre-wrap;margin: 10px;" *ngIf="isFinalize">{{model.Question21Or.value}}</div>
+            </div>
+
+            ?
+            <br> (Please describe.)
+            <br>
+            <div class="tab-width">
+              <mat-form-field *ngIf="!isFinalize">
+                <textarea autosize matInput [(ngModel)]="model.Question21Description.value"></textarea>
+              </mat-form-field>
+              <div style="white-space: pre-wrap;margin: 10px;" *ngIf="isFinalize">{{model.Question21Description.value}}
+              </div>
+            </div>
+
+          </td>
+          <td>
+            <input type="radio" name="Question21" value="2" class="radio"
+              [(ngModel)]="model.Question21.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <input type="radio" name="Question21" value="1" class="radio"
+              [(ngModel)]="model.Question21.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question21" value="0" class="radio"
+              [(ngModel)]="model.Question21.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question21Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question21Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>22. Does your child like to hear stories or sing songs?
+          </td>
+          <td>
+            <input type="radio" name="Question22" value="0" class="radio"
+              [(ngModel)]="model.Question22.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <input type="radio" name="Question22" value="1" class="radio"
+              [(ngModel)]="model.Question22.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question22" value="2" class="radio"
+              [(ngModel)]="model.Question22.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question22Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question22Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>23. Does your child hurt himself on purpose?
+          </td>
+          <td>
+            <input type="radio" name="Question23" value="2" class="radio"
+              [(ngModel)]="model.Question23.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <input type="radio" name="Question23" value="1" class="radio"
+              [(ngModel)]="model.Question23.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question23" value="0" class="radio"
+              [(ngModel)]="model.Question23.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question23Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question23Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>24. Does your child like to be around other children? For example, does she move close to or look at other
+            children?
+          </td>
+          <td>
+            <input type="radio" name="Question24" value="0" class="radio"
+              [(ngModel)]="model.Question24.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <input type="radio" name="Question24" value="1" class="radio"
+              [(ngModel)]="model.Question24.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question24" value="2" class="radio"
+              [(ngModel)]="model.Question24.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question24Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question24Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>25. Does your child try to hurt other children, adults, or animals? For example, by kicking or biting?
+          </td>
+          <td>
+            <input type="radio" name="Question25" value="2" class="radio"
+              [(ngModel)]="model.Question25.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <input type="radio" name="Question25" value="1" class="radio"
+              [(ngModel)]="model.Question25.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question25" value="0" class="radio"
+              [(ngModel)]="model.Question25.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question25Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question25Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>26. Does your child try to show you things by pointing at them and looking back at you?
+          </td>
+          <td>
+            <input type="radio" name="Question26" value="0" class="radio"
+              [(ngModel)]="model.Question26.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <input type="radio" name="Question26" value="1" class="radio"
+              [(ngModel)]="model.Question26.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question26" value="2" class="radio"
+              [(ngModel)]="model.Question26.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question26Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question26Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>27. Does your child play with objects by pretending? For example, does your child pretend to talk on the
+            phone,
+            feed a doll, or fly a toy airplane?
+          </td>
+          <td>
+            <input type="radio" name="Question27" value="0" class="radio"
+              [(ngModel)]="model.Question27.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <input type="radio" name="Question27" value="1" class="radio"
+              [(ngModel)]="model.Question27.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question27" value="2" class="radio"
+              [(ngModel)]="model.Question27.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question27Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question27Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>28. Does your child wake three or more times during the night?
+          </td>
+          <td>
+            <input type="radio" name="Question28" value="2" class="radio"
+              [(ngModel)]="model.Question28.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <input type="radio" name="Question28" value="1" class="radio"
+              [(ngModel)]="model.Question28.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question28" value="0" class="radio"
+              [(ngModel)]="model.Question28.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question28Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question28Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>29. Does your child respond to his name when you call him? For example, does he turn his head and look at
+            you?
+          </td>
+          <td>
+            <input type="radio" name="Question29" value="0" class="radio"
+              [(ngModel)]="model.Question29.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <input type="radio" name="Question29" value="1" class="radio"
+              [(ngModel)]="model.Question29.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question29" value="2" class="radio"
+              [(ngModel)]="model.Question29.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question29Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question29Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>30. Is your child too worried or fearful? If "sometimes" or "often or always,"
+            <br> please explain:
+            <br>
+            <div class="tab-width">
+              <mat-form-field *ngIf="!isFinalize">
+                <textarea autosize matInput [(ngModel)]="model.Question30Description.value"></textarea>
+              </mat-form-field>
+              <div style="white-space: pre-wrap;margin: 10px;" *ngIf="isFinalize">{{model.Question30Description.value}}
+              </div>
+            </div>
+
+          </td>
+          <td>
+            <input type="radio" name="Question30" value="2" class="radio"
+              [(ngModel)]="model.Question30.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <input type="radio" name="Question30" value="1" class="radio"
+              [(ngModel)]="model.Question30.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question30" value="0" class="radio"
+              [(ngModel)]="model.Question30.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question30Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question30Sum.value">
+          </td>
+        </tr>
+        <tr>
+          <td>31. Has anyone shared concerns about your child's behaviors? If "sometimes" or "often or always",
+            <br> please explain:
+            <br>
+            <div class="tab-width">
+              <mat-form-field *ngIf="!isFinalize">
+                <textarea autosize matInput [(ngModel)]="model.Question31Description.value"></textarea>
+              </mat-form-field>
+              <div style="white-space: pre-wrap;margin: 10px;" *ngIf="isFinalize">{{model.Question31Description.value}}
+              </div>
+            </div>
+
+          </td>
+          <td>
+            <input type="radio" name="Question31" value="2" class="radio"
+              [(ngModel)]="model.Question31.fieldOptionIndex">
+            <p>x</p>
+          </td>
+          <td>
+            <input type="radio" name="Question31" value="1" class="radio"
+              [(ngModel)]="model.Question31.fieldOptionIndex">
+            <p>v</p>
+          </td>
+          <td>
+            <input type="radio" name="Question31" value="0" class="radio"
+              [(ngModel)]="model.Question31.fieldOptionIndex">
+            <p>z</p>
+          </td>
+          <td>
+            <mat-checkbox [(ngModel)]="model.Question31Concern.fieldOptionIndex"></mat-checkbox>
+          </td>
+          <td>
+            <input class="input-xxs" [(ngModel)]="model.Question31Sum.value">
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <p>
+      <span class="bold">OVERALL</span> Use the space below for additional comments.</p>
+    <div class="text-section">
+      <div>
+        <div class="comment-section">
+          <p>32. Do you have concerns about your baby's eating or sleeping behaviors? If yes please explain:</p>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="ConcernsSleep" [(ngModel)]="model.ConcernsSleep.fieldOptionIndex">Yes
+            <input type="radio" value="1" name="ConcernsSleep" [(ngModel)]="model.ConcernsSleep.fieldOptionIndex">No
+          </div>
+        </div>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput [disabled]="model.disableValidate === true" class="textarea" autosize matInput
+            [(ngModel)]="model.Question32Description.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Question32Description.value}}</span>
+      </div>
+
+      <div>
+        <div class="comment-section">
+          <p>33. Does anything about your baby worry you? If yes, please explain.</p>
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Worry" [(ngModel)]="model.Worry.fieldOptionIndex">Yes
+            <input type="radio" value="1" name="Worry" [(ngModel)]="model.Worry.fieldOptionIndex">No
+          </div>
+        </div>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput [disabled]="model.disableValidate === true" class="textarea" autosize matInput
+            [(ngModel)]="model.Question33Description.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Question33Description.value}}</span>
+      </div>
+
+      <div>
+        <div class="comment-section">
+          <p>34. What do you enjoy about your baby?</p>
+
+          <div class="visitTypeInput">
+            <input type="radio" value="0" name="Enjoy" [(ngModel)]="model.Enjoy.fieldOptionIndex">Yes
+            <input type="radio" value="1" name="Enjoy" [(ngModel)]="model.Enjoy.fieldOptionIndex">No
+          </div>
+        </div>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput [disabled]="model.disableValidate === true" class="textarea" autosize matInput
+            [(ngModel)]="model.Question34Description.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.Question34Description.value}}</span>
+      </div>
+
+    </div>
+    <div class="scoring-chart">
+      <div>
+        <h4>1. ASQ: SE-2 Scoring Chart:</h4>
+        <ul>
+          <li> Score items (Z=0, V=5, X=10, Concern=5)</li>
+          <li>Total the score</li>
+          <li>Record the baby's total score next to the cutoff.</li>
+        </ul>
+      </div>
+      <div class="cutoff-table">
+        <table>
+          <tr>
+            <th>Cutoff</th>
+            <th>Total score</th>
+          </tr>
+          <tr>
+            <td>65</td>
+            <td>
+              <mat-form-field>
+                <input matInput [(ngModel)]="model.TotalScore.value"></mat-form-field>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <p>Review the approximate location of the baby's total score on the scoring graphic: Then, check off the</p>
+    <div>
+      <p>
+        <span class="bold">2. ASQ: SE-2 Score Interpretation: </span> Review the approximate location of the baby's
+        total
+        score on the scoring graphic: Then, check off the area for the score results below.</p>
+      <img class="bar" src="assets/images/bar.png">
+      <div class="bar-numbers">
+        <p class="bar-low-number">50</p>
+        <p class="monitor-number">65</p>
+        <p class="refer-number">75+</p>
+      </div>
+      <div class="visitTypeInput">
+        <div class="margin-top"><input type="radio" value="0" name="babyTotalScore"
+            [(ngModel)]="model.babyTotalScore.fieldOptionIndex">The baby's
+          total score is in the
+          <img class="fill-icon" src="assets/icons/empty.svg"> area. It is below the cutoff. Social-emotional
+          development
+          appears to be on schedule.</div>
+        <div class="margin-top"><input type="radio" value="1" name="babyTotalScore"
+            [(ngModel)]="model.babyTotalScore.fieldOptionIndex">The baby's
+          total score is in the
+          <img class="fill-icon" src="assets/icons/grey filled.svg"> area. It is close to the cutoff. Review behaviors
+          of
+          concern and monitor.</div>
+        <div class="margin-top"><input type="radio" value="2" name="babyTotalScore"
+            [(ngModel)]="model.babyTotalScore.fieldOptionIndex">The baby's
+          total score is in the
+          <img class="fill-icon" src="assets/icons/filled.svg"> area. It is above the cutoff. Further assessment with a
+          professional
+          may be needed.</div>
+      </div>
+    </div>
+    <div class="text-section">
+      <div>
+        <p>
+          <span class="bold">3. Overall Responses and Concerns:</span> Record responses and transfer parent/caregiver
+          comments.
+          YES responses require follow-up.
+        </p>
+        <div class="overall-response">
+          <span>1-31. Any concerns marked on scored items?</span>
+          <div class="visitTypeInput margin-top-2rem">
+            <input type="radio" value="0" name="Concerns1_16" [(ngModel)]="model.Concerns1_16.fieldOptionIndex">Yes
+            <input type="radio" value="1" name="Concerns1_16" [(ngModel)]="model.Concerns1_16.fieldOptionIndex">No
+          </div>
+        </div>
+        <p> Comments:</p>
+        <mat-form-field *ngIf="!isFinalize">
+          <textarea matInput [disabled]="model.disableValidate === true" autosize
+            [(ngModel)]="model.ConcernsComments.value"></textarea>
+        </mat-form-field>
+        <span style="white-space: pre-wrap;" *ngIf="isFinalize">{{model.ConcernsComments.value}}</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+<form-footer (resetAction)='resetForm()' (calculateAction)='calculateForm()' (saveAction)='saveForm()'
+  (finalizeAction)='finalize()' [disableCalculate]="'false'">
+</form-footer>

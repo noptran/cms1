@@ -1,0 +1,168 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="mentalHealthForm" class="sf-form">
+    <div class="center space-down">
+      <img src="assets/logo color.svg" alt="">
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Date of Request:</div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="reMentalHealth.DateOfRequest" formControlName="DateOfRequest" name="DateOfRequest" [inputStyle]="{'width':'170px'}"
+          showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Request To:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reMentalHealth.RequestTo" formControlName="RequestTo" name="RequestTo" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+
+    <!--  -->
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Therapist:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reMentalHealth.TherapistField" formControlName="TherapistField" name="TherapistField" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <!--  -->
+    <div class="flex-container space-right space-down">
+      <div class="space-right">CMHC:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reMentalHealth.CMHCField" formControlName="CMHCField" name="CMHCField" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <!--  -->
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Address:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reMentalHealth.AddressField" formControlName="AddressField" name="AddressField" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <!--  -->
+    <!-- <p>Therapist</p>
+    <p>CMHC</p>
+    <p>Address</p> -->
+    <div class="flex-container space-right space-down">
+      <div class="space-right">RE: Youth’s Name (DOB: )</div>
+      <div class="space-right">
+        <input [(ngModel)]="reMentalHealth.Dob" formControlName="Dob" name="Dob" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Next Court Date:</div>
+      <div class="space-right">
+        <p-calendar [(ngModel)]="reMentalHealth.NextCourtDate" formControlName="NextCourtDate" name="NextCourtDate" [inputStyle]="{'width':'170px'}"
+          showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Dear (Therapist):</div>
+      <div class="space-right">
+        <input [(ngModel)]="reMentalHealth.Therapist" formControlName="Therapist" name="Therapist" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <p>
+      Saint Francis Community Services has a Provider Service Agreement (PSA) with you for mental health services for the above
+      named client(s). In our effort to monitor the progress of treatment and coordinate ongoing services, we are requesting
+      a copy of the following:
+    </p>
+    <div class="flex-container">
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reMentalHealth.IsTreatment" formControlName="IsTreatment" name="IsTreatment" class="space-right"></p-checkbox>Treatment/Diagnosis Plan
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reMentalHealth.IsProgressNote" formControlName="IsProgressNote" name="IsProgressNote"
+          class="space-right"></p-checkbox>Progress Note (Date Range)
+        <span>
+          <u>Click here to enter text</u>
+        </span>
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reMentalHealth.IsIntakeSummary" formControlName="IsIntakeSummary" name="IsIntakeSummary"
+          class="space-right"></p-checkbox> Intake Summary
+      </div>
+      <div class="space-right">
+        <p-checkbox binary="true" [(ngModel)]="reMentalHealth.IsPsychologicalEvaluation" formControlName="IsPsychologicalEvaluation"
+          name="IsPsychologicalEvaluation" class="space-right"></p-checkbox>Psychological Evaluation
+      </div>
+    </div>
+    <p class="bold">OR</p>
+    <div class="space-right">
+      <p-checkbox binary="true" [(ngModel)]="reMentalHealth.IsProgressReportForCourt" formControlName="IsProgressReportForCourt"
+        name="IsProgressReportForCourt" class="space-right"></p-checkbox> Progress Report for Court (Court date
+      <span class="bold">MUST</span>
+      be listed above and be within 3 to 6 weeks from this request) *Mental Health Staff have 7 days to complete the report.
+    </div>
+    <p>These reports are necessary to assist with permanency planning, fulfilling court requests, and to keep SFCS Professionals
+      informed of current prognosis and treatment progress.</p>
+    <p>Please submit these reports by mail, fax or email to my attention at the following address:</p>
+    <p>Saint Francis Community Services</p>
+    <!--  -->
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Attn:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reMentalHealth.AttnField" formControlName="AttnField" name="AttnField" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <!--  -->
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Address of office:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reMentalHealth.officeAddressField" formControlName="officeAddressField" name="officeAddressField" type="text"
+          pInputText size="20" />
+      </div>
+    </div>
+    <!--  -->
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Phone Number:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reMentalHealth.phoneField" formControlName="phoneField" name="phoneField" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <!--  -->
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Fax:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reMentalHealth.FaxField" formControlName="FaxField" name="FaxField" type="text" pInputText size="20"
+        />
+      </div>
+    </div>
+    <!--  -->
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Email:</div>
+      <div class="space-right">
+        <input [(ngModel)]="reMentalHealth.EmailField" formControlName="EmailField" name="EmailField" type="text" pInputText
+          size="20" />
+      </div>
+    </div>
+    <!--  -->
+    <!-- <p>Attn:</p>
+    <p>Address of office</p>
+    <p>Phone Number</p>
+    <p>Fax</p>
+    <p>Email</p> -->
+    <p>I appreciate your attention to this request and thank you in advance for your input in the manner mentioned above. Our
+      team looks forward to an ongoing collaborative relationship to meet the needs of children and families. </p>
+    <p>Respectfully, </p>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Name </div>
+      <div class="space-right">
+        <input [(ngModel)]="reMentalHealth.Name" formControlName="Name" name="Name" type="text" pInputText size="20" />
+      </div>
+    </div>
+    <div class="flex-container space-right space-down">
+      <div class="space-right">Title</div>
+      <div class="space-right">
+        <input [(ngModel)]="reMentalHealth.Title" formControlName="Title" name="Title" type="text" pInputText size="20" />
+      </div>
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,reMentalHealth)"  (edit)="editForm()" [editControll]="editControll" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>

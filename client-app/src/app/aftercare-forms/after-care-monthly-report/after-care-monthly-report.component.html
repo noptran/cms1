@@ -1,0 +1,99 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="afterCareMonthlyReportForm" class="sf-form">
+    <div class="text-align-center">
+      <h3 class="text-bold">Aftercare Monthly Report</h3>
+      <h3>(For All Aftercare Cases)</h3>
+    </div>
+    <div>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td colspan="2">
+              The purpose of this form is to communicate progress to DCF. For cases where the family is being served during the aftercare
+              period, the PPS 3071 shall be completed on a monthly basis, sent to DCF by the 15th of the following month,
+              and meetings with the family shall occur per the aftercare agreement or case plan.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Parent Name:
+               <input [(ngModel)]="reAfterCareMonthlyReport.ParentName" formControlName="ParentName" name="ParentName"  type="text" pInputText size="20" />
+            </td>
+            <td>
+              FACTS Case #
+               <input [(ngModel)]="reAfterCareMonthlyReport.FactsCase" formControlName="FactsCase" name="FactsCase"  type="text" pInputText size="20" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Child Name:
+               <input [(ngModel)]="reAfterCareMonthlyReport.ChildName1" formControlName="ChildName1" name="ChildName1"  type="text" pInputText size="20" />
+            </td>
+            <td>
+              DOB:
+              <p-calendar [(ngModel)]="reAfterCareMonthlyReport.Dob1" formControlName="Dob1" name="Dob1"  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Child Name:
+               <input [(ngModel)]="reAfterCareMonthlyReport.ChildName2" formControlName="ChildName2" name="ChildName2"  type="text" pInputText size="20" />
+            </td>
+            <td>
+              DOB:
+              <p-calendar [(ngModel)]="reAfterCareMonthlyReport.Dob2" formControlName="Dob2" name="Dob2"  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Child Name:
+               <input [(ngModel)]="reAfterCareMonthlyReport.ChildName3" formControlName="ChildName3" name="ChildName3"  type="text" pInputText size="20" />
+            </td>
+            <td>
+              DOB:
+              <p-calendar [(ngModel)]="reAfterCareMonthlyReport.Dob3" formControlName="Dob3" name="Dob3"  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Aftercare Contact Agreement Date:
+              <p-calendar [(ngModel)]="reAfterCareMonthlyReport.AgreementDate" formControlName="AgreementDate" name="AgreementDate"  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </td>
+            <td>
+              Date of Monthly Report
+              <p-calendar [(ngModel)]="reAfterCareMonthlyReport.MonthlyReportDate" formControlName="MonthlyReportDate" name="MonthlyReportDate"  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <div>
+                For Reintegration: Note progress on objectives and tasks listed in the aftercare plan/case plan, provide feedback on Criteria
+                for Success, and explain any new developments/issues in the family (a Case Management Provider’s report that
+                includes this information can be attached).
+              </div>
+              <textarea [(ngModel)]="reAfterCareMonthlyReport.ReintegrationNotes" formControlName="ReintegrationNotes" name="ReintegrationNotes"  pInputTextarea autoResize="autoResize" rows="4" cols="150" style="width: 100%;height: auto;"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              For Adoption/Permanent Custodianship: Note how contact with the family are consistent with the aftercare plan
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <span>Signature of person completing this review:</span>
+              <span>
+                 <input [(ngModel)]="reAfterCareMonthlyReport.Signature" formControlName="Signature" name="Signature"  type="text" pInputText size="20" />
+              </span>
+              <span>Date:</span>
+              <span>
+                <p-calendar [(ngModel)]="reAfterCareMonthlyReport.Date" formControlName="Date" name="Date"  class="date-picker" showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+</div>
+<app-form-footer (save)="saveForm($event,reAfterCareMonthlyReport)" (edit)="editForm()"(print)="printForm()" [isPrint]="isPrint"></app-form-footer>

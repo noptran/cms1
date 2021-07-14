@@ -1,0 +1,528 @@
+<p-dialog
+  [(visible)]="isPopWindow"
+  header="SFM Office"
+  [contentStyle]="{ 'min-width': '106rem' }"
+  [modal]="true"
+  [responsive]="true"
+  [baseZIndex]="999"
+  [closable]="true"
+  [autoZIndex]="true"
+  [maximizable]="true"
+>
+  <p-toast position="center"></p-toast>
+  <div *ngIf="!isLoading">
+    <!-- <div class="opencards">
+      <button (click)="isTransportation = true">Transportation</button>
+      <button (click)="isCases = true">Cases</button>
+      <button (click)="isStaff = true">Staff</button>
+    </div> -->
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <div class="card-header-row">
+        <div class="opencard-menu-container rfcOpencard">
+          <div class="dropdown border-none">
+            <span
+              class="fa fa-th opencard-menu"
+              data-toggle="dropdown"
+              pTooltip="OpenCards"
+            ></span>
+            <div class="dropdown-menu opencard-box">
+              <div class="card-container">
+                <div
+                  class="opencard"
+                  pTooltip="Click here to open"
+                  (click)="isTransportation = true"
+                >
+                  <!-- <img src={{item.icon}} alt="{{tip}}"> -->
+                  <div class="opencard-info">
+                    <span class="title">Transportation</span>
+                  </div>
+                </div>
+
+                <div
+                  class="opencard"
+                  pTooltip="Click here to open"
+                  (click)="isCases = true"
+                >
+                  <div class="opencard-info">
+                    <span class="title">Cases</span>
+                  </div>
+                </div>
+
+                <div
+                  class="opencard"
+                  pTooltip="Click here to open"
+                  (click)="isStaff = true"
+                >
+                  <div class="opencard-info">
+                    <span class="title">Staff</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form class="sf-form" [formGroup]="sfmOfficeForm">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Office Name</span><span class="mandatory">*</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              type="text"
+              name="officeName"
+              [(ngModel)]="office.officeName"
+              formControlName="officeName"
+              pInputText
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Phone</span><span class="mandatory">*</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-inputMask
+              mask="(999) 999-9999"
+              [(ngModel)]="office.phone"
+              formControlName="phone"
+              name="homePh"
+            >
+            </p-inputMask>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Toll Free Number</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-inputMask
+              mask="(999) 999-9999"
+              [(ngModel)]="office.tollFreeNumber"
+              formControlName="tollFreeNumber"
+              name="tollFreeNumber"
+            >
+            </p-inputMask>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Fax</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-inputMask
+              mask="(999) 999-9999"
+              [(ngModel)]="office.fax"
+              formControlName="fax"
+              name="fax"
+            >
+            </p-inputMask>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Facility ID</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              type="text"
+              name="facilityID"
+              [(ngModel)]="office.facilityID"
+              formControlName="facilityId"
+              pInputText
+            />
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Is FCH Office</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox
+              binary="true"
+              name="isFCHOffice"
+              [(ngModel)]="office.isFCHOffice"
+              formControlName="isFCHOffice"
+            >
+            </p-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Main Office</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-checkbox
+              binary="true"
+              name="mainOffice"
+              [(ngModel)]="office.isMainOffice"
+              formControlName="mainOffice"
+            >
+            </p-checkbox>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Adress</span><span class="mandatory">*</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <input
+              type="text"
+              name="address"
+              [(ngModel)]="office.address"
+              formControlName="address"
+              pInputText
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>State</span><span class="mandatory">*</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete
+              name="state"
+              [(ngModel)]="office.stateID"
+              formControlName="state"
+              [dropdown]="true"
+              (completeMethod)="filterState($event)"
+              [suggestions]="state"
+              field="abbreviation"
+            >
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>City</span><span class="mandatory">*</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete
+              name="city"
+              [(ngModel)]="office.cityID"
+              formControlName="city"
+              [dropdown]="true"
+              (completeMethod)="filterCity($event)"
+              [suggestions]="city"
+              field="city"
+            >
+            </p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Zip</span><span class="mandatory">*</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete
+              name="zip"
+              [(ngModel)]="office.zipcodeID"
+              formControlName="zip"
+              [dropdown]="true"
+              (completeMethod)="filterZipcode($event)"
+              [suggestions]="zipcode"
+              field="zipcode"
+              [disabled]="isZipcodeDisable"
+            >
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>DCF Area Office</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete
+              name="dcfAreaOffice"
+              [(ngModel)]="office.sRSAreaOfficeID"
+              [dropdown]="true"
+              (completeMethod)="filterDCFAreaOffice($event)"
+              [suggestions]="dcfAreaOffice"
+              field="dISPLN"
+              formControlName="dcfAreaOffice"
+            >
+            </p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Care center staff</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete
+              name="careCenterStaff"
+              [(ngModel)]="office.careCenter_StaffID"
+              formControlName="careCenterStaff"
+              [dropdown]="true"
+              (completeMethod)="filterCareCenterStaff($event)"
+              [suggestions]="careCenterStaff"
+              field="staffName"
+            >
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Office Compliance Tech Staff</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete
+              name="officeComplianceTechStaff"
+              [(ngModel)]="office.cT_StaffID"
+              formControlName="officeComplianceTechStaff"
+              [dropdown]="true"
+              (completeMethod)="filterOfficeComplianceTech($event)"
+              [suggestions]="complianceTechStaff"
+              field="StaffName"
+            ></p-autoComplete>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-top-20">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <span>Catchment Area</span>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <p-autoComplete
+              name="catchmentArea"
+              [(ngModel)]="office.catchmentAreaID"
+              formControlName="catchmentArea"
+              [dropdown]="true"
+              [suggestions]="catchmentArea"
+              (completeMethod)="filterCatchmentArea($event)"
+              field="catchDesc"
+            >
+            </p-autoComplete>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-3"><span>Notes</span></div>
+          <div class="col-lg-3 col-md-3 col-sm-3">
+            <textarea
+              name="notes"
+              formControlName="notes"
+              [(ngModel)]="office.notes"
+              style="width: 100%"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div *ngIf="office.sfaofficeID" class="glkey-container">
+      <div class="gl-key-add">
+        <button
+          class="sf-positive-btn"
+          (click)="openGLKeyWindow()"
+          title="Add GL Key"
+        >
+          Add
+        </button>
+      </div>
+      <table style="width: 100%">
+        <th *ngFor="let glHead of GLKeysDataHeader">
+          <span>{{ glHead.label }}</span>
+        </th>
+        <tr *ngFor="let columnGL of GLKeyList">
+          <td>{{ columnGL.glKeyType }}</td>
+          <td>{{ columnGL.glKey }}</td>
+          <td>{{ columnGL.beginDate }}</td>
+          <td>{{ columnGL.endDate }}</td>
+          <td>{{ columnGL.notes }}</td>
+          <td>
+            <span
+              class="fa fa-edit"
+              (click)="onClickGLKeyEdit(columnGL)"
+            ></span>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <app-form-footer
+      (save)="formAction()"
+      (discard)="discard()"
+      [editControll]="isEdit"
+      (edit)="onClickEditForm()"
+      [currentNodeValue]="sfmOfficeReq"
+      (deleted)="onSFMOfficeDelete($event)"
+    >
+    </app-form-footer>
+  </div>
+  <div *ngIf="isLoading">
+    <h2 class="text-center">Please wait...</h2>
+  </div>
+</p-dialog>
+<p-dialog
+  [(visible)]="isListViewWindow"
+  header="SFM Office List"
+  [contentStyle]="{ 'min-width': '25rem' }"
+  [modal]="true"
+  [responsive]="true"
+  [baseZIndex]="1000"
+  [closable]="true"
+  [autoZIndex]="true"
+  [maximizable]="true"
+>
+  <div class="button-box-flex">
+    <button class="sf-positive-btn" (click)="onClickListAddBtn()">
+      <span>Add</span>
+    </button>
+  </div>
+  <div class="search-box">
+    <input
+      type="text"
+      name="sfmOfficeSearch"
+      [(ngModel)]="listViewSearhString"
+      placeholder="Type here to search..."
+    />
+    <button (click)="onListSearch()" title="Search keyword is case senstive">
+      Search
+    </button>
+    <button (click)="onListSearchClear()" title="Clear current search">
+      Clear
+    </button>
+  </div>
+  <table>
+    <th *ngFor="let head of dataListHeaders">
+      <span>{{ head.label }}</span>
+    </th>
+    <tr *ngFor="let column of dataList">
+      <td>{{ column.officeName }}</td>
+      <td class="edit-column">
+        <span
+          (click)="onEditClick(column)"
+          class="fa fa-edit"
+          title="Edit"
+        ></span>
+      </td>
+    </tr>
+  </table>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="isGLKeyFormWindow"
+  header="GLKey"
+  [contentStyle]="{ 'min-width': '106rem' }"
+  [modal]="true"
+  [responsive]="true"
+  [baseZIndex]="1000"
+  [closable]="true"
+  [autoZIndex]="true"
+  [maximizable]="true"
+>
+  <p-toast position="center"></p-toast>
+  <form class="sf-form" [formGroup]="glKeyForm">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>GLKey Type</span><span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-autoComplete
+            name="glKeyType"
+            [(ngModel)]="gl.glKeyTypeID"
+            [dropdown]="true"
+            formControlName="glKeyTypeID"
+            (completeMethod)="filterGLKeyTypes($event)"
+            [suggestions]="glKeyTypes"
+            field="glKeyType"
+          ></p-autoComplete>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>GlKey</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <input
+            type="text"
+            name="glkey"
+            [(ngModel)]="gl.glKey"
+            pInputText
+            formControlName="glKey"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <span>Begin Date</span><span class="mandatory">*</span>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-calendar
+            name="beginDate"
+            [(ngModel)]="gl.beginDate"
+            formControlName="beginDate"
+            [showIcon]="true"
+          >
+          </p-calendar>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-3"><span>End Date</span></div>
+        <div class="col-lg-3 col-md-3 col-sm-3">
+          <p-calendar
+            name="endDate"
+            [(ngModel)]="gl.endDate"
+            formControlName="endDate"
+            [showIcon]="true"
+          >
+          </p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12"><span>Notes</span></div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <textarea
+            name="notes"
+            style="width: 100%"
+            [(ngModel)]="gl.notes"
+            formControlName="notes"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+  </form>
+  <app-form-footer
+    (save)="glKeyFormAction()"
+    (discard)="onClickCancelGLKeyForm()"
+    [editControll]="isGLKeyEdit"
+    (edit)="onClickGLKeyEditForm()"
+    [currentNodeValue]="sfmGLKeyReq"
+    [isPopUp]="isPopUp"
+    (deleted)="onGLKeyDeleted($event)"
+  >
+  </app-form-footer>
+</p-dialog>
+<app-staff-card
+  (jumpToTree)="onJumpToTree($event)"
+  [card]="'TRANSPORTATION (SFM OFFICE)'"
+  (closeModel)="closeModelComp($event, 'SFM_OFFICE')"
+  *ngIf="isTransportation"
+></app-staff-card>
+<app-staff-card
+  (jumpToTree)="onJumpToTree($event)"
+  [card]="'CASES'"
+  (closeModel)="closeModelComp($event, 'SFM_OFFICE_CASES')"
+  *ngIf="isCases"
+></app-staff-card>
+<app-staff-card
+  (jumpToTree)="onJumpToTree($event)"
+  [card]="'STAFF'"
+  (closeModel)="closeModelComp($event, 'SFM_OFFICE_STAFF')"
+  *ngIf="isStaff"
+></app-staff-card>

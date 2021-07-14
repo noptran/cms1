@@ -1,0 +1,79 @@
+<!-- 
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Donation For Search</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <input type="text" [(ngModel)]="value" class="form-control" placeholder="Search.." (ngModelChange)="searchdata(value)" name="search">
+        <p *ngIf="data">
+            {{value1}}</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="c('Close click')">Close</button>
+    </div>
+</ng-template>
+
+
+<img class="nav-icons" src="../../assets/home_page/search icon.svg" (click)="openWindowCustomClass(content)" data-toggle="tooltip"
+    data-placement="bottom" title="Global search"> -->
+    <div class="serch">
+            <input type="text" class="glob_search_box search-box" [(ngModel)]="value" placeholder="Search.." (ngModelChange)="searchdata(value)" name="search">
+           <div class="search_pan"*ngIf="data">
+           <div class="row"(click)="sendDonarListParam('name',value1)">
+  
+            <div class="col-md-8">
+  <label>Search For Donar ID</label>
+            </div>
+            <div class="col-md-4">
+              <p>{{value1}}</p>
+              </div>
+           </div>
+           <div class="row"(click)="sendDonarListParam('f_name',value1)">
+  
+              <div class="col-md-8">
+    <label>Search For First Name</label>
+              </div>
+              <div class="col-md-4">
+                <p>{{value1}}</p>
+                </div>
+             </div>
+            </div> </div>
+            <style>
+                    .serch
+                {
+                    /* top:6px; */
+                /* width: 80%; */
+                /* z-index: 100; */
+                position: absolute; 
+                position: absolute;
+                margin-right: 300px;
+    margin-top: 9px;
+    margin-left: 636px;
+                }
+                .glob_search_box {
+                    width: 100%;
+                    box-sizing: border-box;
+                    border: 1px solid #bdbec0;
+                    /* border-radius: 4px; */
+                    font-size: 14px;
+                    background-color: white;
+                    background-image: url('../../assets/home_page/search icon.svg');
+                    background-position: 5px 5px;
+                    background-repeat: no-repeat;
+                    padding: 7px 36px 0px 35px;
+                  
+                }
+                
+               .search_pan{
+                  text-align: left !important;
+                  border: 1px solid #abc5e5;
+                    padding: 10px;
+                    background-color: white;
+                    box-shadow: 0px 5px 5px grey;
+                    word-wrap: break-word;
+                }
+                </style>

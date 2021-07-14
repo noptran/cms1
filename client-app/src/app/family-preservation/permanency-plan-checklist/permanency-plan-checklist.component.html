@@ -1,0 +1,328 @@
+<div id="pdf-content">
+  <form id="form-content" [formGroup]="permanencyPlanChecklistForm" class="sf-form">
+      <div class="flex-container header">
+          <div>
+    
+          </div>
+          <div class="logo">
+            <img src="assets/logo color.svg" alt="">
+          </div>
+          <div>
+    
+          </div>
+        </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">Child’s Name:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpPermanencyPlanChecklist.childName" formControlName="childName" name="childName"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">FACTS Client ID #:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpPermanencyPlanChecklist.factsClientId" formControlName="factsClientId" name="factsClientId"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">Case Management Provider:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpPermanencyPlanChecklist.caseManagement" formControlName="caseManagement" name="caseManagement"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div class="space-right">Case Manager:</div>
+        <div>
+          <input [(ngModel)]="fpPermanencyPlanChecklist.caseManager" formControlName="caseManager" name="caseManager"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">DCF Region:</div>
+        <div class="space-right">
+          <input [(ngModel)]="fpPermanencyPlanChecklist.dcfRegion" formControlName="dcfRegion" name="dcfRegion"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container">
+        <div class="space-right">DCF CPS Specialist</div>
+        <div>
+          <input [(ngModel)]="fpPermanencyPlanChecklist.dcfCps" formControlName="dcfCps" name="dcfCps"  type="text" pInputText size="20" />
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">Case Plan Date:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpPermanencyPlanChecklist.casePlanDate" formControlName="casePlanDate" name="casePlanDate"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">Date DCF Received Case Plan:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpPermanencyPlanChecklist.dateDcf" formControlName="dateDcf" name="dateDcf"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">Date DCF Returned Case Plan:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpPermanencyPlanChecklist.dateDcfReturned" formControlName="dateDcfReturned" name="dateDcfReturned"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <p>
+      This checklist shall be utilized by the assigned DCF CPS Specialist responsible for review and approval of
+      Permanency plans for custody children/youth served by a Child Welfare Case Management Provider. The review and
+      approval is required for all custody case plans, including those in which the DCF CPS Specialist participated in
+      the case planning conference.
+    </p>
+    <div class="space-down">
+      <table>
+        <tr>
+          <th class="table-td">Yes</th>
+          <th class="table-td">No</th>
+          <th class="table-td">N/A</th>
+          <th class="table-td">Review Items</th>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isChildPermanencyYes" formControlName="isChildPermanencyYes" name="isChildPermanencyYes" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isChildPermanencyNo" formControlName="isChildPermanencyNo" name="isChildPermanencyNo" ></p-checkbox>
+          </td>
+          <td class="table-td"> </td>
+          <td class="table-td">1. Child’s permanency goal is identified on PPS 3051 and DCF approves of the goal</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isChildProtectionYes" formControlName="isChildProtectionYes" name="isChildProtectionYes" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isChildProtectionNo" formControlName="isChildProtectionNo" name="isChildProtectionNo" ></p-checkbox>
+          </td>
+          <td class="table-td"> </td>
+          <td class="table-td">2. The Child Protection Objective is addressed by at least one objective.</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isSafetyConcernsYes" formControlName="isSafetyConcernsYes" name="isSafetyConcernsYes" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isSafetyConcernsNo" formControlName="isSafetyConcernsNo" name="isSafetyConcernsNo" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isSafetyConcernsNa" formControlName="isSafetyConcernsNa" name="isSafetyConcernsNa" ></p-checkbox>
+          </td>
+          <td class="table-td">3. The safety concerns are addressed by at least one activity.</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isRiskConcernsYes" formControlName="isRiskConcernsYes" name="isRiskConcernsYes" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isRiskConcernsNo" formControlName="isRiskConcernsNo" name="isRiskConcernsNo" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isRiskConcernsNa" formControlName="isRiskConcernsNa" name="isRiskConcernsNa" ></p-checkbox>
+          </td>
+          <td class="table-td">4. The risk concerns are addressed by at least one activity.</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isChildYouthYes" formControlName="isChildYouthYes" name="isChildYouthYes" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isChildYouthNo" formControlName="isChildYouthNo" name="isChildYouthNo" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isChildYouthNa" formControlName="isChildYouthNa" name="isChildYouthNa" ></p-checkbox>
+          </td>
+          <td class="table-td">5. Child/youth (for those children old enough to have task assigned) and parent(s) have
+            at least one task
+            assigned on PPS 3051 which will assist in meeting at least one case plan objective(s)</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isProgressTowardYes" formControlName="isProgressTowardYes" name="isProgressTowardYes" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isProgressTowardNo" formControlName="isProgressTowardNo" name="isProgressTowardNo" ></p-checkbox>
+          </td>
+          <td class="table-td"> </td>
+          <td class="table-td">6. Progress toward achieving permanency goal and activities is clearly documented on the
+            PPS 3051. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isExplanationYes" formControlName="isExplanationYes" name="isExplanationYes" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isExplanationNo" formControlName="isExplanationNo" name="isExplanationNo" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isExplanationNa" formControlName="isExplanationNa" name="isExplanationNa" ></p-checkbox>
+          </td>
+          <td class="table-td">7. Explanation shall be provided for any no answers in Section 5 of the PPS 3051.</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isServicesToAddressYes" formControlName="isServicesToAddressYes" name="isServicesToAddressYes" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isServicesToAddressNo" formControlName="isServicesToAddressNo" name="isServicesToAddressNo" ></p-checkbox>
+          </td>
+          <td class="table-td"> </td>
+          <td class="table-td">8. Services to address the child/youth’s education/physical/dental/mental health needs
+            are identified on
+            the PPS 3051. </td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isChildInOohYes" formControlName="isChildInOohYes" name="isChildInOohYes" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isChildInOohNo" formControlName="isChildInOohNo" name="isChildInOohNo" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isChildInOohNa" formControlName="isChildInOohNa" name="isChildInOohNa" ></p-checkbox>
+          </td>
+          <td class="table-td">9. For child in OOH, PPS 3053 and PPS 3054 are completed accurately for Parent/Child
+            interactions,
+            sibling visitation, worker/parent and worker child contacts.</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isChildNotInOohYes" formControlName="isChildNotInOohYes" name="isChildNotInOohYes" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isChildNotInOohNo" formControlName="isChildNotInOohNo" name="isChildNotInOohNo" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isChildNotInOohNa" formControlName="isChildNotInOohNa" name="isChildNotInOohNa" ></p-checkbox>
+          </td>
+          <td class="table-td">10. For child not in OOH, PPS 3054 is completed accurately for worker/parent and
+            worker/child contacts.</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isChildrenAge15Yes" formControlName="isChildrenAge15Yes" name="isChildrenAge15Yes" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isChildrenAge15No" formControlName="isChildrenAge15No" name="isChildrenAge15No" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isChildrenAge15Na" formControlName="isChildrenAge15Na" name="isChildrenAge15Na" ></p-checkbox>
+          </td>
+          <td class="table-td">11. For children age 15 and older in an OOH placement, there are Independent Living
+            Services checked on
+            the PPS 3057 and at least one task is identified.</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isYouthAge16Yes" formControlName="isYouthAge16Yes" name="isYouthAge16Yes" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isYouthAge16No" formControlName="isYouthAge16No" name="isYouthAge16No" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isYouthAge16Na" formControlName="isYouthAge16Na" name="isYouthAge16Na" ></p-checkbox>
+          </td>
+          <td class="table-td">12. Was a transition plan completed for youth age 16 and older with a case plan goal of
+            APPLA?</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isYouthAge17Yes" formControlName="isYouthAge17Yes" name="isYouthAge17Yes" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isYouthAge17No" formControlName="isYouthAge17No" name="isYouthAge17No" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isYouthAge17Na" formControlName="isYouthAge17Na" name="isYouthAge17Na" ></p-checkbox>
+          </td>
+          <td class="table-td">13. Was a transition plan completed for all youth in an OOH placement age 17 and older?</td>
+        </tr>
+        <tr>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isIncludesPrintedYes" formControlName="isIncludesPrintedYes" name="isIncludesPrintedYes" ></p-checkbox>
+          </td>
+          <td class="table-td">
+            <p-checkbox binary="true" [(ngModel)]="fpPermanencyPlanChecklist.isIncludesPrintedNo" formControlName="isIncludesPrintedNo" name="isIncludesPrintedNo" ></p-checkbox>
+          </td>
+          <td class="table-td"> </td>
+          <td class="table-td">14. The PPS 3051 includes the printed name, signature, and participation code of all
+            case planning
+            participants</td>
+        </tr>
+      </table>
+    </div>
+    <p class="bold">
+      If the answer to any of these review items is “no”, the case plan shall not be approved. Only approved case plans
+      shall be submitted to the Court.
+    </p>
+    <p>
+      The Child Welfare Case Management Provider shall provide the completed case plan documents (PPS 3051, 3052, 3053,
+      3054 and invitation letters) to DCF within 3 business days of the case planning conference. The assigned DCF CPS
+      Specialist shall review the case plan and, if all review items are scored “yes”, return the approved case plan to
+      the Child Welfare Case Management Provider within 3 business days of receipt of the case plan.
+    </p>
+    <p>
+      If the DCF CPS Specialist is unable to approve the case plan due to the required information not being included
+      in the case planning documents, the case plan shall be returned to the Child Welfare Case Management Provider
+      along with the unsigned PPS 3058 which shall reflect the information that is missing. Child Welfare Case
+      Management Provider is responsible to take the steps needed to make the needed corrections and provide the
+      corrected case plan to DCF for review within 3 business days. DCF staff shall review the revised case plan and
+      return the approved case plan to the Child Welfare Case Management Provider within 3 business days of receipt of
+      the revised case plan.
+    </p>
+    <div class="space-down">
+      <div class="border-line table-td">
+        <p>Comments: </p>
+        <textarea [(ngModel)]="fpPermanencyPlanChecklist.comments" formControlName="comments" name="comments" pInputTextarea autoResize="autoResize" rows="3" cols="150" style="width: 100%;height: auto;"></textarea>
+      </div>
+    </div>
+    <div class="flex-container space-down">
+      <div class="flex-container space-right">
+        <div class="space-right">Approved by DCF CPS Specialist: </div>
+        <div class="space-right">
+          <input [(ngModel)]="fpPermanencyPlanChecklist.dcfCpsSpecialist" formControlName="dcfCpsSpecialist" name="dcfCpsSpecialist"  type="text" pInputText size="20" />
+        </div>
+      </div>
+      <div class="flex-container space-right">
+        <div class="space-right">Date of approval:</div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="fpPermanencyPlanChecklist.dateOfApproval" formControlName="dateOfApproval" name="dateOfApproval"  [inputStyle]="{'width':'170px'}" showTime="true" hourFormat="24" [yearNavigator]="true"
+            [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="flex-container space-right space-down margin-top-2rem">
+      <div class="space-right space-down">
+        <div class="space-right">
+          <b>Printed Date:</b>
+        </div>
+        <div class="space-right">
+          <p-calendar [(ngModel)]="printedDate" formControlName="printedDate" name="printedDate" class="date-picker" [inputStyle]="{'width':'170px'}"
+            showTime="true" hourFormat="24" [yearNavigator]="true" [monthNavigator]="true" yearRange="2000:2030"></p-calendar>
+        </div>
+      </div>
+      <div class="space-right space-down margin-left-66rem">
+        <div class="space-right">
+          <b>Printed By:</b>
+        </div>
+        <div class="space-right">
+          <input readonly [(ngModel)]="printedBy" formControlName="printedBy" name="printedBy" type="text" pInputText size="20" />
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-form-footer (discard)="discardForm()" (save)="saveForm($event,fpPermanencyPlanChecklist)" [editControll]="editControll" (edit)="editForm()" (print)="printForm()" [isPrint]="isPrint"></app-form-footer>
